@@ -1,0 +1,30 @@
+﻿<!---_BreadCrumb--->
+
+@using App.Front.Models
+@using App.Aplication
+@{
+    List<BreadCrumb> breadCrumbs = Model is List<BreadCrumb> ? Model : ViewBag.BreadCrumb as List<BreadCrumb>;
+
+    <section id="page-title">
+        <div class="container clearfix">
+            <ol class="breadcrumb col-md-12 col-sm-12">
+                <li><a href="@Url.Action("Index", "Home", new {area = ""})"><i class="icon_home"></i>@T("TrangChu")</a></li>
+                @if (breadCrumbs.IsAny())
+                {
+                    foreach (var item in breadCrumbs)
+                    {
+                        if (!item.Current)
+                        {
+                            <li >  <a href='@item.Url'>@item.Title</a></li>
+                        }
+                        else
+                        {
+                            <li class="active"><a href='@item.Url'>@item.Title</a></li>
+                        }
+                    }
+                }
+            </ol>
+        </div>
+    </section>    
+}
+<!---/_BreadCrumb--->

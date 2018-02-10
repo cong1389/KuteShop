@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "Themes/Basic/Content/theme.css",
+    "inputFile": "Themes/Basic/Content/theme.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/_social.css",
+    "inputFile": "Themes/Basic/Content/_social.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/_checkout.css",
+    "inputFile": "Themes/Basic/Content/_checkout.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/shared/_buttons.css",
+    "inputFile": "Themes/Basic/Content/shared/_buttons.scss"
+  }
+]

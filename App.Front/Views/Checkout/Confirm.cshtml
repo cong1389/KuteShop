@@ -1,0 +1,56 @@
+﻿<!----Confirm-->
+
+@using App.Aplication
+@model App.Front.Models.Checkout.CheckoutConfirmModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li class="active">Hoá đơn</li>
+
+        </ol>
+    </div>
+</section>
+@if (Model != null)
+{
+    using (Html.BeginForm(null, null, FormMethod.Post, new { id = "confirm-order-form" }))
+    {
+        <div class="content billingaddress">
+            <div class="wrap">
+                <div class="sidebar">
+                    <div id="divCart" class="scroller"></div>
+                </div>
+                <div class="main">                   
+                    <div class="main-content">
+                        @{
+                            Html.RenderAction("OrderSummary", "ShoppingCart", new { area = "" });
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                                }
+                            }
+                          
+@section stylesheets
+{
+}
+
+@section jquerys{
+    <script src="~/assets/global/jquery.validate.js"></script>
+
+    <script>
+        jQuery(function () {
+
+            jQuery.post('@Url.Action("CartByCustomer", "Checkout")')
+                     .done(function (data) {
+                         jQuery("#divCart").html(data.list);
+                     });
+        })
+
+    </script>
+}
+<!----/Confirm-->

@@ -1,0 +1,235 @@
+﻿<!----BillingAddress-->
+@model App.Front.Models.Checkout.CheckoutBillingAddressModel
+
+<section id="page-title">
+    <div class="container clearfix">
+        <ol class="breadcrumb col-md-6 col-sm-6">
+            <li><a href="/">Trang chủ</a></li>
+
+            <li class="active">Thông tin giao hàng</li>
+
+        </ol>
+    </div>
+</section>
+
+@if (Model != null)
+{
+    @Html.HiddenFor(model => model.NewAddress.Id)
+
+    <div class="content billingaddress">
+        <div class="wrap">
+            <div class="sidebar">
+                <div id="divCart" class="scroller"></div>
+            </div>
+            <div class="main">
+
+                <div class="main-content">
+                    <div class="step">
+                        <div class="step-sections " step="1">
+                            <div class="section">
+                                <div class="section-header">
+                                    <h2 class="section-title">2. Địa chỉ giao hàng</h2>
+                                </div>
+                                <div class="section-content section-customer-information ">                                   
+                                    <p class="section-content-text">
+                                        Chọn địa chỉ giao hàng có sẵn bên dưới
+                                    </p>
+
+                                    @foreach (var item in Model.ExistingAddresses)
+                                    {
+                                        <div class="account-detail user_box">
+                                            <div class="content-box-row">
+                                                <div class="fieldset">
+                                                    <div class="field">
+                                                        <div class="field-input-wrapper">
+                                                            <strong> @item.FirstName</strong>
+                                                            @if (item.Id == Model.CustomerInfoModel.ShippingAddress_Id)
+                                                            {
+                                                                <div class="default">Mặc định</div>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="field field-active">
+                                                        <div class="field-input-wrapper">
+                                                            <strong>Địa chỉ:</strong> @item.Address1
+                                                        </div>
+                                                    </div>
+                                                    <div class="field field-active">
+                                                        <div class="field-input-wrapper">
+                                                            <strong>Số điện thoại:</strong> @item.PhoneNumber
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-blue" onclick="setLocation('@Url.Action("SelectShippingAddress", new { addressId = item.Id })')">
+                                                    Giao đến địa chỉ này
+                                                    <i class="btn-spinner icon icon-button-spinner"></i>
+                                                </button>
+                                                <button class="btn btn-default" onclick="setLocation('@Url.Action("AddressDelete", new { addressId = item.Id })')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="section-content">
+                                    <div class="fieldset">
+
+                                        <input name="utf8" type="hidden" value="✓">
+                                        <div class="content-box mt0 hidden">
+                                            <div class="radio-wrapper content-box-row">
+                                                <label class="radio-label">
+                                                    <div class="radio-input">
+                                                        <input type="radio" id="customer_pick_at_location_false" name="customer_pick_at_location" class="input-radio" value="false" checked="">
+                                                    </div>
+                                                    <span class="radio-label-primary">Giao tận nơi</span>
+                                                </label>
+                                            </div>
+                                            <div id="form_update_location_customer_shipping" class="radio-wrapper content-box-row content-box-row-padding content-box-row-secondary " for="customer_pick_at_location_false">
+                                                <input name="utf8" type="hidden" value="✓">
+                                                <div class="field field-half  ">
+                                                    <div class="field-input-wrapper field-input-wrapper-select">
+                                                        <label class="field-label" for="customer_shipping_province">Tỉnh / thành</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field field-half  ">
+                                                    <div class="field-input-wrapper field-input-wrapper-select">
+                                                        <label class="field-label" for="customer_shipping_district">Quận / huyện</label>
+                                                        <select class="field-input" id="customer_shipping_district" name="customer_shipping_district">
+                                                            <option data-code="null" value="null" selected="">Chọn quận / huyện</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="radio-wrapper content-box-row">
+                                                <label class="radio-label">
+                                                    <div class="radio-input">
+                                                        <input type="radio" id="customer_pick_at_location_true" name="customer_pick_at_location" class="input-radio" value="true">
+                                                    </div>
+                                                    <span class="radio-label-primary">Nhận tại cửa hàng</span>
+                                                </label>
+                                            </div>
+
+                                            <div id="form_update_location_customer_pick_at_location" class="radio-wrapper content-box-row content-box-row-secondary hidden" for="customer_pick_at_location_true">
+                                                <div class="blank-slate">Hiện tại chưa có bất kỳ thông tin cửa hàng nào</div>
+                                            </div>
+
+                                        </div>
+                                        @*
+                                            </form>*@
+
+                                    </div>
+                                </div>
+                                <div id="change_pick_location_or_shipping">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-footer">
+                            <a class="step-footer-previous-link" href="@Url.Action("cart","ShoppingCart")">
+                                <svg class="previous-link-icon icon-chevron icon" xmlns="http://www.w3.org/2000/svg" width="6.7" height="11.3" viewBox="0 0 6.7 11.3">
+                                    <path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"></path>
+                                </svg>
+                                Giỏ hàng
+                            </a>
+                            <div class="create-address"><a href="#" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;" class="add-new-address">Thêm địa chỉ</a></div>
+                        </div>
+                    </div>
+
+                    <!----Create new billingAddress-->
+
+
+                    <div id="add_address" class="from-create-address" style="display:none;">
+
+                        @using (Html.BeginForm("BillingAddress", "Checkout", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
+                        {
+                            <div class="step">
+                                <div class="step-sections">
+                                    <div class="section">
+                                        <div class="section-content section-customer-information ">
+                                            <div class="fieldset">
+                                                <div class="field">
+                                                    <div class="field-input-wrapper">
+                                                        <label class="field-label" for="billing_address_full_name">Họ và tên</label>
+                                                        @Html.TextBoxFor(model => model.NewAddress.FirstName, new { @class = "field-input", @size = "30", @placeholder = "Họ và tên" })
+                                                        @Html.ValidationMessageFor(model => model.NewAddress.FirstName, "", new { @class = "help-block" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <div class="field-input-wrapper">
+                                                        <label class="field-label" for="checkout_user_email">Email</label>
+                                                        @Html.TextBoxFor(model => model.NewAddress.Email, new { @class = "field-input", @size = "30", @placeholder = "Email", @autocapitalize = "off", @spellcheck = "false", @type = "email" })
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="field">
+                                                    <div class="field-input-wrapper">
+                                                        <label class="field-label" for="billing_address_phone">Số điện thoại</label>
+                                                        @Html.TextBoxFor(model => model.NewAddress.PhoneNumber, new { @class = "field-input", @size = "11", @placeholder = "Số điện thoại" })
+                                                        @Html.ValidationMessageFor(model => model.NewAddress.PhoneNumber, "", new { @class = "help-block" })
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="field field-active">
+                                                    <div class="field-input-wrapper">
+                                                        <label class="field-label" for="billing_address_address1">Địa chỉ</label>
+                                                        @Html.TextBoxFor(model => model.NewAddress.Address1, new { @class = "field-input", @size = "30", @placeholder = "Địa chỉ" })
+                                                        @Html.ValidationMessageFor(model => model.NewAddress.Address1, "", new { @class = "help-block" })
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-footer">
+                                    <input type="submit" id="saveAddress" name="saveAddress" class="hidden" />
+                                    <button class="btn btn-blue" onclick="$('#saveAddress').trigger('click');return false;">
+                                        Lưu
+                                        <i class="btn-spinner icon icon-button-spinner"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <!----/Create new billingAddress-->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section stylesheets
+{
+
+}
+
+@section jquerys{
+    <script src="~/assets/global/jquery.validate.js"></script>
+}
+
+<style>
+    #wrapper {
+        background: none !important;
+    }
+</style>
+
+
+<script>
+    jQuery(function () {
+
+        jQuery.post('@Url.Action("CartByCustomer", "Checkout")')
+           .done(function (data) {
+               jQuery("#divCart").html(data.list);
+           });
+    })
+
+</script>
+
+<!----/BillingAddress-->
