@@ -93,8 +93,6 @@ namespace App.Admin.Controllers
                 ExtentionUtils.Log(string.Concat("Language.Create: ", ex.Message));
                 return View(model);
             }
-
-            return action;
         }
 
         public ActionResult Edit(int Id)

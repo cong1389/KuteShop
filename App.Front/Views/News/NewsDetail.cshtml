@@ -1,6 +1,4 @@
 ﻿<!--NewsDetail---->
-@using App.Domain.Entities.Data
-@using App.Domain.Entities.Menu
 @model App.Domain.Entities.Data.News
 
 @if (Model != null)
@@ -26,7 +24,7 @@
                         </a>
                     </div>
                     <div class="post post-8758 type-post status-publish format-standard has-post-thumbnail hentry category-cloud-computing category-it-news category-networking">
-                        @Html.Raw(@Model.Description)
+                        @Html.Raw(Model.Description)
                     </div>
                 </article>
 

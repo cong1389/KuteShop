@@ -1,18 +1,46 @@
 ﻿<!--GetSlideShow -->
-
 @using App.Aplication
 @model IEnumerable<App.Domain.Entities.Slide.SlideShow>
 @if (Model.IsAny())
 {
+    <div id="home-slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 slider-left"></div>
+                <div class="col-sm-9 header-top-right">
+                    <div class="homeslider">
+                        <ul id="contenhomeslider">
+                            <li>
+                                <a href="2.html">
+                                    <img src="/assets/255/1000074255/1000138323/banner_silder_28e0e.jpg?v=8" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="3.html">
+                                    <img src="/assets/255/1000074255/1000138323/banner_silder_38e0e.jpg?v=8" alt="" />
+                                </a>
+                            </li>
+                            <li>
+                                <a href="collections/all.html">
+                                    <img src="/assets/255/1000074255/1000138323/banner_silder_48e0e.jpg?v=8" alt="" />
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <section id="slider" class="nopadding clearfix">
-        @foreach (var item in Model)
-        {
-            <a href="@item.WebsiteLink" target="@item.Target" title="@item.Title">
-                <img src="@Url.Content("~/"+item.ImgPath)" alt="@item.Title">
-            </a>
-        }
-    </section>
+
+    @*<section id="slider" class="nopadding clearfix">
+            @foreach (var item in Model)
+            {
+                <a href="@item.WebsiteLink" target="@item.Target" title="@item.Title">
+                    <img src="@Url.Content("~/"+item.ImgPath)" alt="@item.Title">
+                </a>
+            }
+        </section>*@
 }
 
 <!--/GetSlideShow -->

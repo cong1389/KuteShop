@@ -1,3 +1,7 @@
+using System.Linq;
+using System.Reflection;
+using System.Web.Compilation;
+using System.Web.Mvc;
 using App.Framework.FluentValidation;
 using App.Framework.Ioc;
 using App.Framework.Mappings;
@@ -6,23 +10,15 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using FluentValidation.Mvc;
-using System.Linq;
-using System.Reflection;
-using System.Web.Compilation;
-using System.Web.Mvc;
 
 public class Bootstrapper
 {
-    public Bootstrapper()
-    {
-    }
-
     public static void Run()
     {
         SetAutofacContainer();
 
         AutoMapperConfiguration.Configure();
-        FluentValidationModelValidatorProvider.Configure((FluentValidationModelValidatorProvider provider) => provider.ValidatorFactory = new FluentValidationConfig());
+        FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
     }
 
     private static void SetAutofacContainer()
@@ -31,7 +27,7 @@ public class Bootstrapper
         Assembly[] array = (
             from Assembly p in BuildManager.GetReferencedAssemblies()
             where p.ManifestModule.Name.StartsWith("App.")
-            select p).ToArray<Assembly>();
+            select p).ToArray();
 
         containerBuilder.RegisterControllers(array);
         containerBuilder.RegisterAssemblyModules(array);

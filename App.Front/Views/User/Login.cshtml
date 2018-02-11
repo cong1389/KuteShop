@@ -16,13 +16,13 @@
 
                         <div class="form-group">
                             @Html.LabelFor(mode => mode.UserName)<span class="required require_symbol">*</span>
-                            @Html.TextBoxFor(mode => mode.UserName, new { @required = true, @class = "input-sm form-control" })
+                            @Html.TextBoxFor(mode => mode.UserName, new { required = true, @class = "input-sm form-control" })
                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "required require_symbol" })
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(mode => mode.Password)<span class="required require_symbol">*</span>
-                            @Html.PasswordFor(mode => mode.Password, new { @required = true, @class = "input-sm form-control" })
+                            @Html.PasswordFor(mode => mode.Password, new { required = true, @class = "input-sm form-control" })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "required require_symbol" })
                         </div>
 

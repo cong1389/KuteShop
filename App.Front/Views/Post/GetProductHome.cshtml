@@ -1,86 +1,713 @@
 ﻿<!----GetProductHome-->
-@using App.Domain.Common
-@using App.Domain.Entities.Data
 @using App.Aplication
-@using App.Domain.Entities.Menu;
+@using App.Domain.Entities.Menu
 @model IEnumerable<App.Domain.Entities.Data.Post>
 
 @if (Model.IsAny())
 {
-    foreach (App.Domain.Entities.Menu.MenuLink menuLink in (IEnumerable<MenuLink>)ViewBag.MenuLinkHome)
+    foreach (MenuLink menuLink in (IEnumerable<MenuLink>)ViewBag.MenuLinkHome)
     {
-
-        <div class='index_col_wrap nobottommargin section nobg' id='divHomeProduct'>
-            <div class='block_title'>
-                <h3>
-                    <a href='@Url.Action("GetContent", "Menu", new {menu = menuLink.SeoUrl, area = ""})'>
-                        @menuLink.MenuName
-                    </a>
-                </h3>
-            </div>
-
-            <div class='row'>
-
-                <div class='col-xs-12 index_col_products'>
-                    <div class='row'>
-                        @foreach (var product in Model.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId)))
-                        {
-                            <div class="product_single col-xs-6 col-md-3">
-                                <div class="product clearfix">
-                                    <div class="product-image">
-                                        <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="@product.Title">
-                                            <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)" alt="@product.Title" title="@product.Title">
-                                        </a>
-
-                                        <div class='product_overlay hidden-sm hidden-xs style_2'>
-                                            <div class='quick_action clearfix'>
-                                                <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Thêm vào giỏ" data-toggle="tooltip" class="product_quick_add">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                </a>
-
-                                                <a href="#@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Xem nhanh" data-toggle="tooltip" class="fancybox-fast-view"
-                                                   product_url="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})"><i class="fa fa-eye"></i></a>
-                                            </div>
+        <div class="category-featured fashion">
+            <nav class="navbar nav-menu show-brand">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-brand">
+                        <a href="index.html">
+                            <img alt="fashion" src="/assets/255/1000074255/1000138323/icon-fashion8e0e.png?v=8" />Thời trang
+                        </a>
+                    </div>
+                    <span class="toggle-menu"></span>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab-4">Nhóm khuyến mãi</a></li>
+                            <li><a data-toggle="tab" href="#tab-5">Sản phẩm mới</a></li>
+                            <li><a data-toggle="tab" href="#tab-6">Sản phẩm nỗi bật</a></li>
+                            <li><a data-toggle="tab" href="#tab-7">Bán chạy</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+                <div id="elevator-1" class="floor-elevator">
+                    <a href="#" class="btn-elevator up disabled fa fa-angle-up"></a>
+                    <a href="#elevator-2" class="btn-elevator down fa fa-angle-down"></a>
+                </div>
+            </nav>
+            <div class="product-featured clearfix">
+                <div class="row">
+                    <div class="col-sm-2 sub-category-wapper">
+                        <ul class="sub-category-list">
+                            <li><a href="collections/all.html">Áo sơ mi</a></li>
+                            <li><a href="collections/all.html">Áo khoác</a></li>
+                            <li><a href="collections/all.html">Áo thun</a></li>
+                            <li><a href="collections/all.html">Quần tây công sở</a></li>
+                            <li><a href="collections/all.html">Quần jean</a></li>
+                            <li><a href="collections/all.html">Đầm, váy nữ</a></li>
+                            <li><a href="collections/all.html">Chân váy</a></li>
+                            <li><a href="collections/all.html">Quần kaki nam</a></li>
+                            <li><a href="collections/all.html">Áo vest, blazer nam</a></li>
+                            <li><a href="collections/all.html">Quần shorts nam</a></li>
+                            <li><a href="collections/all.html">Đồ lót, đồ ngủ</a></li>
+                            <li><a href="collections/all.html">Quần thời trang</a></li>
+                            <li><a href="collections/all.html">Quần legging</a></li>
+                            <li><a href="collections/all.html">Trang phục cưới</a></li>
+                            <li><a href="collections/all.html">Đồ bơi</a></li>
+                            <li><a href="collections/all.html">Phụ kiện</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-10 col-right-tab">
+                        <div class="product-featured-tab-content">
+                            <div class="tab-container">
+                                <div class="tab-panel active" id="tab-4">
+                                    <div class="box-left">
+                                        <div class="banner-img">
+                                            <a href="tt1.html">
+                                                <img src="/assets/255/1000074255/1000138323/banner-product18e0e.jpg?v=8" alt="Banner Product">
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="product-desc">
-                                        <div class="product-title">
-                                            <h4><a href="products/qcr-38.html">@product.Title</a></h4>
-                                            <!-- <span></span> -->
-                                        </div>
-                                        <div class="product-price">
-                                            <ins>
-                                                @if (product.Price.HasValue && product.Discount.HasValue)
-                                                {
-                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
-                                                }
-                                                else if (product.Price.HasValue && !product.Discount.HasValue)
-                                                {
-                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price))
-                                                }
-                                                else
-                                                {
-                                                    @Html.Raw("LienHeDatHang.Lable")
-                                                }
-                                            </ins>
-
-                                            @if (product.Discount.HasValue)
-                                            {
-                                                <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
-                                                <span class="product-discount">@Html.Raw(product.Discount.ToString() + "%")</span>
-                                            }
+                                    <div class="box-right">
+                                        <ul class="product-list row">
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-duoi-ca-d0248.html">Đầm body cá tình với nhiều màu sắc hiện đại, trẻ trung</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">400,000₫</span>
+                                                        <span class="price old-price">620,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-duoi-ca-d0248.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p35_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-duoi-ca-d0248.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-duoi-ca-d0248"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823256">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">Đầm maxi dự tiệc hoa hồng - NH028</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p49_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-maxi-du-tiec-hoa-hong-nh028.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-maxi-du-tiec-hoa-hong-nh028"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823282">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-lap-the-tay-dai.html">Đầm body lập thể tay dài</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">310,000₫</span>
+                                                        <span class="price old-price">560,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-lap-the-tay-dai.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p50_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-lap-the-tay-dai.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">Đầm mặc nhà tay lỡ NITIMO 2001</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">280,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p51_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-tay-lo-nitimo-2001.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-tay-lo-nitimo-2001"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823294">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">Đầm mặc nhà phối nơ xinh xắn Twins</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p52_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-phoi-no-xinh-xan-twins"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823299">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-dao-pho-hoa-tiet-style-a1">Đầm dạo phố họa tiết style - A1</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">220,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-dao-pho-hoa-tiet-style-a1">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p53_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823303">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-panel" id="tab-5">
+                                    <div class="box-left">
+                                        <div class="banner-img">
+                                            <a href="tt2.html">
+                                                <img src="/assets/255/1000074255/1000138323/banner-product28e0e.jpg?v=8" alt="Banner Product">
+                                            </a>
                                         </div>
                                     </div>
-
+                                    <div class="box-right">
+                                        <ul class="product-list row">
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-dao-pho-hoa-tiet-style-a1">Đầm dạo phố họa tiết style - A1</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">220,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-dao-pho-hoa-tiet-style-a1">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p53_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823303">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">Đầm mặc nhà phối nơ xinh xắn Twins</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p52_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-phoi-no-xinh-xan-twins"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823299">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">Đầm mặc nhà tay lỡ NITIMO 2001</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">280,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p51_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-tay-lo-nitimo-2001.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-tay-lo-nitimo-2001"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823294">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-lap-the-tay-dai.html">Đầm body lập thể tay dài</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">310,000₫</span>
+                                                        <span class="price old-price">560,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-lap-the-tay-dai.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p50_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-lap-the-tay-dai.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">Đầm maxi dự tiệc hoa hồng - NH028</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p49_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-maxi-du-tiec-hoa-hong-nh028.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-maxi-du-tiec-hoa-hong-nh028"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823282">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-duoi-ca-d0248.html">Đầm body cá tình với nhiều màu sắc hiện đại, trẻ trung</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">400,000₫</span>
+                                                        <span class="price old-price">620,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-duoi-ca-d0248.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p35_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-duoi-ca-d0248.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-duoi-ca-d0248"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823256">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-panel" id="tab-6">
+                                    <div class="box-left">
+                                        <div class="banner-img">
+                                            <a href="tt3.html">
+                                                <img src="/assets/255/1000074255/1000138323/banner-product38e0e.jpg?v=8" alt="Banner Product">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="box-right">
+                                        <ul class="product-list row">
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-duoi-ca-d0248.html">Đầm body cá tình với nhiều màu sắc hiện đại, trẻ trung</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">400,000₫</span>
+                                                        <span class="price old-price">620,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-duoi-ca-d0248.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p35_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-duoi-ca-d0248.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-duoi-ca-d0248"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823256">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-lap-the-tay-dai.html">Đầm body lập thể tay dài</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">310,000₫</span>
+                                                        <span class="price old-price">560,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-lap-the-tay-dai.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p50_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-lap-the-tay-dai.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-dao-pho-hoa-tiet-style-a1">Đầm dạo phố họa tiết style - A1</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">220,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-dao-pho-hoa-tiet-style-a1">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p53_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823303">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">Đầm mặc nhà phối nơ xinh xắn Twins</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p52_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-phoi-no-xinh-xan-twins"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823299">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">Đầm mặc nhà tay lỡ NITIMO 2001</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">280,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p51_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-tay-lo-nitimo-2001.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-tay-lo-nitimo-2001"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823294">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">Đầm maxi dự tiệc hoa hồng - NH028</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p49_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-maxi-du-tiec-hoa-hong-nh028.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-maxi-du-tiec-hoa-hong-nh028"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823282">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-panel" id="tab-7">
+                                    <div class="box-left">
+                                        <div class="banner-img">
+                                            <a href="tt4.html">
+                                                <img src="/assets/255/1000074255/1000138323/banner-product48e0e.jpg?v=8" alt="Banner Product">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="box-right">
+                                        <ul class="product-list row">
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-dao-pho-hoa-tiet-style-a1">Đầm dạo phố họa tiết style - A1</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">220,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-dao-pho-hoa-tiet-style-a1">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p53_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-dao-pho-hoa-tiet-style-a1"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823303">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">Đầm mặc nhà phối nơ xinh xắn Twins</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p52_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-phoi-no-xinh-xan-twins.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-phoi-no-xinh-xan-twins"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823299">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">Đầm mặc nhà tay lỡ NITIMO 2001</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">280,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-mac-nha-tay-lo-nitimo-2001.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p51_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-mac-nha-tay-lo-nitimo-2001.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-mac-nha-tay-lo-nitimo-2001"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823294">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-lap-the-tay-dai.html">Đầm body lập thể tay dài</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">310,000₫</span>
+                                                        <span class="price old-price">560,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-lap-the-tay-dai.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p50_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-lap-the-tay-dai.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">Đầm maxi dự tiệc hoa hồng - NH028</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">190,000₫</span>
+                                                        <span class="price old-price">240,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-maxi-du-tiec-hoa-hong-nh028.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p49_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-maxi-du-tiec-hoa-hong-nh028.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-maxi-du-tiec-hoa-hong-nh028"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823282">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="col-sm-4">
+                                                <div class="right-block">
+                                                    <h5 class="product-name"><a href="products/dam-body-duoi-ca-d0248.html">Đầm body cá tình với nhiều màu sắc hiện đại, trẻ trung</a></h5>
+                                                    <div class="content_price">
+                                                        <span class="price product-price">400,000₫</span>
+                                                        <span class="price old-price">620,000₫</span>
+                                                    </div>
+                                                </div>
+                                                <div class="left-block">
+                                                    <a href="products/dam-body-duoi-ca-d0248.html">
+                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p35_medium.jpg" />
+                                                    </a>
+                                                    <div class="quick-view">
+                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                        <a title="Xem chi tiết" class="compare" href="products/dam-body-duoi-ca-d0248.html"></a>
+                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-duoi-ca-d0248"></a>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823256">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        }
-
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class='clear'></div>
+
+        @*<div class='index_col_wrap nobottommargin section nobg' id='divHomeProduct'>
+                <div class='block_title'>
+                    <h3>
+                        <a href='@Url.Action("GetContent", "Menu", new {menu = menuLink.SeoUrl, area = ""})'>
+                            @menuLink.MenuName
+                        </a>
+                    </h3>
+                </div>
+
+                <div class='row'>
+
+                    <div class='col-xs-12 index_col_products'>
+                        <div class='row'>
+                            @foreach (var product in Model.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId)))
+                            {
+                                <div class="product_single col-xs-6 col-md-3">
+                                    <div class="product clearfix">
+                                        <div class="product-image">
+                                            <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="@product.Title">
+                                                <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)" alt="@product.Title" title="@product.Title">
+                                            </a>
+
+                                            <div class='product_overlay hidden-sm hidden-xs style_2'>
+                                                <div class='quick_action clearfix'>
+                                                    <a href="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Thêm vào giỏ" data-toggle="tooltip" class="product_quick_add">
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+
+                                                    <a href="#@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})" title="Xem nhanh" data-toggle="tooltip" class="fancybox-fast-view"
+                                                       product_url="@Url.Action("PostDetail","Post", new {seoUrl =product.SeoUrl,area=""})"><i class="fa fa-eye"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            <div class="product-title">
+                                                <h4><a href="products/qcr-38.html">@product.Title</a></h4>
+                                            </div>
+                                            <div class="product-price">
+                                                <ins>
+                                                    @if (product.Price.HasValue && product.Discount.HasValue)
+                                                    {
+                                                        @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
+                                                    }
+                                                    else if (product.Price.HasValue && !product.Discount.HasValue)
+                                                    {
+                                                        @Html.Raw(string.Format("{0:##,### VND}", product.Price))
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw("LienHeDatHang.Lable")
+                                                    }
+                                                </ins>
+
+                                                @if (product.Discount.HasValue)
+                                                {
+                                                    <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
+                                                    <span class="product-discount">@Html.Raw(product.Discount + "%")</span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='clear'></div>*@
     }
 }
 else

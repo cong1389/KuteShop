@@ -1,23 +1,17 @@
-using App.Core.Common;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web.Mvc;
+using App.Aplication;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
 using App.SeoSitemap;
 using App.SeoSitemap.Enum;
 using App.SeoSitemap.Images;
 using App.Service.Menu;
 using App.Service.News;
 using App.Service.Post;
-using App.Aplication;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -33,30 +27,30 @@ namespace App.Front.Controllers
 
 		public SiteMapController(IMenuLinkService menuLinkService, IPostService postService, INewsService newsService, ISitemapProvider sitemapProvider)
 		{
-			this._menuLinkService = menuLinkService;
-			this._postService = postService;
-			this._newsService = newsService;
-			this._sitemapProvider = sitemapProvider;
+			_menuLinkService = menuLinkService;
+			_postService = postService;
+			_newsService = newsService;
+			_sitemapProvider = sitemapProvider;
 		}
 
 		public ActionResult Index()
 		{
 			List<SitemapNode> sitemapNodes = new List<SitemapNode>();
-			IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.Status == 1, true);
-			if (menuLinks.IsAny<MenuLink>())
+			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
+			if (menuLinks.IsAny())
 			{
 				foreach (MenuLink menuLink in menuLinks)
 				{
 					sitemapNodes.Add(new SitemapNode("Normal")
 					{
-						Url = base.Url.Action("GetContent", "Menu", new { menu = menuLink.SeoUrl }, base.Request.Url.Scheme),
-						ChangeFrequency = new ChangeFrequency?(ChangeFrequency.Daily),
-						Priority = new decimal?(new decimal(8, 0, 0, false, 1)),
+						Url = Url.Action("GetContent", "Menu", new { menu = menuLink.SeoUrl }, Request.Url.Scheme),
+						ChangeFrequency = ChangeFrequency.Daily,
+						Priority = new decimal(8, 0, 0, false, 1),
 						LastModificationDate = (menuLink.UpdatedDate.HasValue ? menuLink.UpdatedDate.Value.ToString("yyyy-MM-dd") : string.Empty)
 					});
 				}
 			}
-			return this._sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
+			return _sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
 		}
 
 		public ActionResult SiteMapImage()
@@ -64,10 +58,10 @@ namespace App.Front.Controllers
 			List<SitemapImage> sitemapImages = new List<SitemapImage>();
 			string item = ConfigurationManager.AppSettings["SiteName"];
 			IOrderedEnumerable<Post> posts = 
-				from x in this._postService.FindBy((Post x) => x.Status == 1, true)
+				from x in _postService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
-			if (posts.IsAny<Post>())
+			if (posts.IsAny())
 			{
 				foreach (Post post in posts)
 				{
@@ -76,7 +70,7 @@ namespace App.Front.Controllers
 						Caption = post.Title,
 						Title = post.Title
 					});
-					if (!post.GalleryImages.IsAny<GalleryImage>())
+					if (!post.GalleryImages.IsAny())
 					{
 						continue;
 					}
@@ -91,10 +85,10 @@ namespace App.Front.Controllers
 				}
 			}
 			IOrderedEnumerable<News> news = 
-				from x in this._newsService.FindBy((News x) => x.Status == 1, true)
+				from x in _newsService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
-			if (news.IsAny<News>())
+			if (news.IsAny())
 			{
 				foreach (News news1 in news)
 				{
@@ -109,7 +103,7 @@ namespace App.Front.Controllers
 					});
 				}
 			}
-			return this._sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>()
+			return _sitemapProvider.CreateSitemap(new SitemapModel(new List<SitemapNode>
 			{
 				new SitemapNode(string.Empty)
 				{
@@ -129,19 +123,19 @@ namespace App.Front.Controllers
 			sitemapNodes.Add(new SitemapNode(string.Empty)
 			{
 				Url = item,
-				ChangeFrequency = new ChangeFrequency?(ChangeFrequency.Always),
-				Priority = new decimal?(1)
+				ChangeFrequency = ChangeFrequency.Always,
+				Priority = 1
 			});
-			IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.Status == 1, true);
-			if (menuLinks.IsAny<MenuLink>())
+			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
+			if (menuLinks.IsAny())
 			{
 				foreach (MenuLink menuLink in menuLinks)
 				{
 					SitemapNode sitemapNode = new SitemapNode(string.Empty)
 					{
-						Url = base.Url.Action("GetContent", "Menu", new { menu = menuLink.SeoUrl }, base.Request.Url.Scheme),
-						ChangeFrequency = new ChangeFrequency?(ChangeFrequency.Daily),
-						Priority = new decimal?(new decimal(8, 0, 0, false, 1))
+						Url = Url.Action("GetContent", "Menu", new { menu = menuLink.SeoUrl }, Request.Url.Scheme),
+						ChangeFrequency = ChangeFrequency.Daily,
+						Priority = new decimal(8, 0, 0, false, 1)
 					};
 					if (menuLink.UpdatedDate.HasValue)
 					{
@@ -157,18 +151,18 @@ namespace App.Front.Controllers
 				}
 			}
 			IOrderedEnumerable<Post> posts = 
-				from x in this._postService.FindBy((Post x) => x.Status == 1, true)
+				from x in _postService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
-			if (posts.IsAny<Post>())
+			if (posts.IsAny())
 			{
 				foreach (Post post in posts)
 				{
 					SitemapNode sitemapNode1 = new SitemapNode(string.Empty)
 					{
-						Url = base.Url.Action("PostDetail", "Post", new { seoUrl = post.SeoUrl }, base.Request.Url.Scheme),
-						ChangeFrequency = new ChangeFrequency?(ChangeFrequency.Daily),
-						Priority = new decimal?(new decimal(5, 0, 0, false, 1))
+						Url = Url.Action("PostDetail", "Post", new { seoUrl = post.SeoUrl }, Request.Url.Scheme),
+						ChangeFrequency = ChangeFrequency.Daily,
+						Priority = new decimal(5, 0, 0, false, 1)
 					};
 					if (post.UpdatedDate.HasValue)
 					{
@@ -184,18 +178,18 @@ namespace App.Front.Controllers
 				}
 			}
 			IOrderedEnumerable<News> news = 
-				from x in this._newsService.FindBy((News x) => x.Status == 1, true)
+				from x in _newsService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
-			if (news.IsAny<News>())
+			if (news.IsAny())
 			{
 				foreach (News news1 in news)
 				{
 					SitemapNode sitemapNode2 = new SitemapNode(string.Empty)
 					{
-						Url = base.Url.Action("NewsDetail", "News", new { seoUrl = news1.SeoUrl }, base.Request.Url.Scheme),
-						ChangeFrequency = new ChangeFrequency?(ChangeFrequency.Daily),
-						Priority = new decimal?(new decimal(5, 0, 0, false, 1))
+						Url = Url.Action("NewsDetail", "News", new { seoUrl = news1.SeoUrl }, Request.Url.Scheme),
+						ChangeFrequency = ChangeFrequency.Daily,
+						Priority = new decimal(5, 0, 0, false, 1)
 					};
 					if (news1.UpdatedDate.HasValue)
 					{
@@ -210,7 +204,7 @@ namespace App.Front.Controllers
 					sitemapNodes.Add(sitemapNode2);
 				}
 			}
-			return this._sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
+			return _sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
 		}
 	}
 }

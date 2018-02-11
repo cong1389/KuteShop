@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Menu;
@@ -5,8 +7,6 @@ using App.Front.Models;
 using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.Menu;
-using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -17,16 +17,16 @@ namespace App.Front.Controllers
 
         public ContactController(IContactInfoService contactInfoService, IMenuLinkService menuLinkService)
         {
-            this._contactInfoService = contactInfoService;
-            this._menuLinkService = menuLinkService;
+            _contactInfoService = contactInfoService;
+            _menuLinkService = menuLinkService;
         }
 
         [ChildActionOnly]
         public ActionResult ContactUs(int id, string title)
         {
-            MenuLink menuLink = this._menuLinkService.GetById(Id: id);
+            MenuLink menuLink = _menuLinkService.GetById(Id: id);
 
-            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Type == 1 && x.Status == 1, true);
+            ContactInformation contactInformation = _contactInfoService.Get(x => x.Type == 1 && x.Status == 1, true);
 
             if (contactInformation == null)
                 return HttpNotFound();
@@ -37,20 +37,20 @@ namespace App.Front.Controllers
             if (menuLink != null)
             {
 
-                breadCrumbs.Add(new BreadCrumb()
+                breadCrumbs.Add(new BreadCrumb
                 {
                     Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
                     Current = false,
-                    Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+                    Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                 });               
-                ((dynamic)base.ViewBag).MenuId = menuLink.Id;
+                ViewBag.MenuId = menuLink.Id;
             }
-            ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
+            ViewBag.BreadCrumb = breadCrumbs;
 
-            ((dynamic)base.ViewBag).Title = title;
-            ((dynamic)base.ViewBag).Contact = contactInformationLocalize;          
+            ViewBag.Title = title;
+            ViewBag.Contact = contactInformationLocalize;          
 
-            return base.PartialView(menuLink);
+            return PartialView(menuLink);
         }
     }
 }

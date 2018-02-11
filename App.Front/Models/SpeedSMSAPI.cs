@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Net;
 
@@ -22,14 +21,14 @@ namespace App.Front.Models
 
 		public SpeedSMSAPI(string token)
 		{
-			this.accessToken = token;
+			accessToken = token;
 		}
 
 		public string getUserInfo()
 		{
 			string str = "http://api.speedsms.vn/index.php/user/info";
-			NetworkCredential networkCredential = new NetworkCredential(this.accessToken, ":x");
-			return (new StreamReader((new WebClient()
+			NetworkCredential networkCredential = new NetworkCredential(accessToken, ":x");
+			return (new StreamReader((new WebClient
 			{
 				Credentials = networkCredential
 			}).OpenRead(str))).ReadToEnd();
@@ -58,13 +57,13 @@ namespace App.Front.Models
 			{
 				return "";
 			}
-			NetworkCredential networkCredential = new NetworkCredential(this.accessToken, ":x");
-			WebClient webClient = new WebClient()
+			NetworkCredential networkCredential = new NetworkCredential(accessToken, ":x");
+			WebClient webClient = new WebClient
 			{
 				Credentials = networkCredential
 			};
 			webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-			return webClient.UploadString(str, string.Concat(new object[] { "{\"to\":[\"", phone, "\"], \"content\": \"", content, "\", \"type\":", type, ", \"brandname\": \"", brandname, "\"}" }));
+			return webClient.UploadString(str, string.Concat("{\"to\":[\"", phone, "\"], \"content\": \"", content, "\", \"type\":", type, ", \"brandname\": \"", brandname, "\"}"));
 		}
 	}
 }

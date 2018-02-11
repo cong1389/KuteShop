@@ -1,7 +1,8 @@
-using App.Front.Models;
-using App.Service.Attribute;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using App.Domain.Entities.Attribute;
+using App.Front.Models;
+using App.Service.Attribute;
 
 namespace App.Front.Controllers
 {
@@ -11,7 +12,7 @@ namespace App.Front.Controllers
 
         public SearchBoxController(IAttributeService attributeService)
         {
-            this._attributeService = attributeService;
+            _attributeService = attributeService;
         }
 
         public ActionResult SearchMenu()
@@ -30,21 +31,21 @@ namespace App.Front.Controllers
 
         public ActionResult GetAttributeSearchBox(List<int> attributes = null)
         {
-            ((dynamic)base.ViewBag).Attributes = attributes;
+            ViewBag.Attributes = attributes;
 
-            IEnumerable<App.Domain.Entities.Attribute.Attribute> ieAttributes = this._attributeService.FindBy((App.Domain.Entities.Attribute.Attribute x) => x.Status == 1, false);
+            IEnumerable<Attribute> ieAttributes = _attributeService.FindBy(x => x.Status == 1, false);
 
-            return base.PartialView(ieAttributes);
+            return PartialView(ieAttributes);
         }
 
         public ActionResult SearchBoxSideBar(int? productOld, int? productNew, List<int> attributes = null, List<double> prices = null, List<int> proids = null)
         {
-            ((dynamic)base.ViewBag).Attributes = attributes;
-            ((dynamic)base.ViewBag).ProAttrs = proids;
-            ((dynamic)base.ViewBag).Prices = prices;
-            ((dynamic)base.ViewBag).ProductOld = productOld;
-            ((dynamic)base.ViewBag).ProductNew = productNew;
-            return base.PartialView();
+            ViewBag.Attributes = attributes;
+            ViewBag.ProAttrs = proids;
+            ViewBag.Prices = prices;
+            ViewBag.ProductOld = productOld;
+            ViewBag.ProductNew = productNew;
+            return PartialView();
         }
     }
 }

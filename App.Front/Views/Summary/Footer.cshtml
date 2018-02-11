@@ -2,15 +2,158 @@
 @model App.Domain.Entities.GlobalSetting.ContactInformation
 @if (Model != null)
 {
-    <footer id="footer" class='dark'>
+    <footer id="footer">
+        <div class="container">
+            <!-- introduce-box -->
+            <div id="introduce-box" class="row">
+                <div class="col-md-3">
+                    <div id="address-box">
+                        <a href="#">
+                            <img src="/assets/255/1000074255/1000138323/logo28e0e.png?v=8" alt="logo" />
+                        </a>
+                        <div id="address-list">
+                            <div class="tit-name">Địa chỉ:</div>
+                            <div class="tit-contain">56 Vân côi, Phường 7, Quận Tân Bình, Tp. Hồ Chí Minh</div>
+                            <div class="tit-name">Điện thoại:</div>
+                            <div class="tit-contain">1900.636.099</div>
+                            <div class="tit-name">Email:</div>
+                            <div class="tit-contain">hi@haravan.com</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="introduce-title">Về chúng tôi</div>
+                            <ul id="introduce-company" class="introduce-list">
+                                <li><a href="collections/all.html">Tất cả sản phẩm</a></li>
+                                <li><a href="collections/index.html">Thể thao</a></li>
+                                <li><a href="collections/index.html">Điện thoại & Ipad</a></li>
+                                <li><a href="collections/index.html">Mỹ phẩm</a></li>
+                                <li><a href="collections/index.html">Thời trang</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="introduce-title">Hổ trợ</div>
+                            <ul id="introduce-Account" class="introduce-list">
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="collections/all.html">Sản phẩm</a></li>
+                                <li><a href="blogs/all">Tin tức</a></li>
+                                <li><a href="pages/about-us">Giới thiệu</a></li>
+                                <li><a href="pages/lien-he.html">Liên hệ</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="introduce-title">Hướng dẫn</div>
+                            <ul id="introduce-support" class="introduce-list">
+                                <li><a href="collections/all.html">Tất cả sản phẩm</a></li>
+                                <li><a href="collections/index.html">Thể thao</a></li>
+                                <li><a href="collections/index.html">Điện thoại & Ipad</a></li>
+                                <li><a href="collections/index.html">Mỹ phẩm</a></li>
+                                <li><a href="collections/index.html">Thời trang</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="contact-box">
+                        <div class="introduce-title">Đăng ký nhận tin</div>
+                        <form accept-charset='UTF-8' action='https://kute-shop.myharavan.com/account/contact' class='contact-form' method='post'>
+                            <input name='form_type' type='hidden' value='customer'>
+                            <input name='utf8' type='hidden' value='✓'>
+                            <div class="input-group" id="mail-box">
+                                <input type="hidden" id="contact_tags" name="contact[tags]" value="khách hàng tiềm năng, bản tin" />
+                                <input name="contact[email]" type="email" placeholder="Đăng ký email" required="required" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">Gửi</button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </form>
+                        <div class="introduce-title">Liên kết</div>
+                        <div class="social-link">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            <a href="#"><i class="fa fa-vk"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#introduce-box -->
+            <!-- #trademark-box -->
+            <div id="trademark-box" class="row">
+                <div class="col-sm-12">
+                    <ul id="trademark-list">
+                        <li id="payment-methods">Phương thức thanh toán</li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_18e0e.jpg?v=8" alt="Phương thức thanh toán 1">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_28e0e.jpg?v=8" alt="Phương thức thanh toán 2">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_38e0e.jpg?v=8" alt="Phương thức thanh toán 3">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_48e0e.jpg?v=8" alt="Phương thức thanh toán 4">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_58e0e.jpg?v=8" alt="Phương thức thanh toán 5">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_68e0e.jpg?v=8" alt="Phương thức thanh toán 6">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_78e0e.jpg?v=8" alt="Phương thức thanh toán 7">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_88e0e.jpg?v=8" alt="Phương thức thanh toán 8">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_98e0e.jpg?v=8" alt="Phương thức thanh toán 9">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <img src="/assets/255/1000074255/1000138323/trademark_108e0e.jpg?v=8" alt="Phương thức thanh toán 10">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /#trademark-box -->
+            <p class="cpr text-center">
+                Copyright &copy; 2016 kute-shop. <a target='_blank' href='https://www.haravan.com/'>Powered by Haravan</a>.
+            </p>
+        </div>
+    </footer>
+
+    @*<footer id="footer" class='dark'>
 
         <div class="container">
             <!-- Footer Widgets
             ============================================= -->
             <div class="style_1 prefooter_wrap footer-widgets-wrap clearfix">
                 <div class='row'>
-                    @*//@Html.Action("GetLogoFooter", "Summary", new { area =""})*@
-
 
                     <div id="divFooterLogo" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
                     <div id="divFooterAddress" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
@@ -31,7 +174,7 @@
         </div>
 
 
-    </footer>
+    </footer>*@
                                     }
 
 <script>

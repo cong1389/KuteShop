@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.Front.Models
 {
 	public class BreadCrumb
@@ -21,10 +18,6 @@ namespace App.Front.Models
 		{
 			get;
 			set;
-		}
-
-		public BreadCrumb()
-		{
 		}
 	}
 }

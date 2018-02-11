@@ -1,4 +1,5 @@
 ﻿<!---_OrderSummary-->
+@using App.FakeEntity.Common
 @model  App.Front.Models.ShoppingCart.ShoppingCartModel
 
 <div class="step">
@@ -70,7 +71,7 @@
     </p>
 </div>
 
-@helper RenderAddress(App.FakeEntity.Common.AddressViewModel address)
+@helper RenderAddress(AddressViewModel address)
 {
     <div class="field">
         <div class="field-input-wrapper">

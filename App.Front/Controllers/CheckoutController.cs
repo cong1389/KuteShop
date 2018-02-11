@@ -1,7 +1,15 @@
-﻿using App.Aplication.Filters;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using App.Aplication;
+using App.Aplication.Extensions;
+using App.Aplication.Filters;
+using App.Aplication.MVCHelper;
 using App.Core.Extensions;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
+using App.Domain.Orders;
 using App.FakeEntity.Common;
 using App.Front.Models.Checkout;
 using App.Front.Models.ShoppingCart;
@@ -13,15 +21,7 @@ using App.Service.Orders;
 using App.Service.PaymentMethodes;
 using App.Service.Post;
 using App.Service.ShippingMethodes;
-using App.Aplication;
-using App.Aplication.MVCHelper;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication.Extensions;
-using App.Domain.Orders;
 
 namespace App.Front.Controllers
 {
@@ -217,7 +217,7 @@ namespace App.Front.Controllers
             if (payment.Any())
             {
                 model.PaymentMethods = (from x in payment
-                                        select new CheckoutPaymentMethodModel.PaymentMethodModel()
+                                        select new CheckoutPaymentMethodModel.PaymentMethodModel
                                         {
                                             Id = x.Id,
                                             PaymentMethodSystemName = x.PaymentMethodSystemName,
@@ -312,7 +312,7 @@ namespace App.Front.Controllers
             if (shipping.Any())
             {
                 model.ShippingMethods = (from x in shipping
-                                         select new CheckoutShippingMethodModel.ShippingMethodModel()
+                                         select new CheckoutShippingMethodModel.ShippingMethodModel
                                          {
                                              Id = x.Id,
                                              Name = x.Name,

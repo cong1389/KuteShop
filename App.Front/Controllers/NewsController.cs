@@ -1,4 +1,11 @@
-﻿using App.Core.Utils;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web.Mvc;
+using App.Aplication;
+using App.Aplication.Extensions;
+using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
 using App.Framework.Ultis;
@@ -8,13 +15,6 @@ using App.Service.Language;
 using App.Service.Menu;
 using App.Service.News;
 using App.Service.Static;
-using App.Aplication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web.Mvc;
-using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -34,50 +34,50 @@ namespace App.Front.Controllers
             , IStaticContentService staticContentService
             , IWorkContext workContext)
         {
-            this._newsService = newsService;
-            this._menuLinkService = menuLinkService;
-            this._staticContentService = staticContentService;
-            this._workContext = workContext;
+            _newsService = newsService;
+            _menuLinkService = menuLinkService;
+            _staticContentService = staticContentService;
+            _workContext = workContext;
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult BreadCrumNews(string virtualId)
         {
-            ((dynamic)base.ViewBag).VirtualId = virtualId;
+            ViewBag.VirtualId = virtualId;
             List<MenuLink> lstMenuLink = new List<MenuLink>();
-            IEnumerable<MenuLink> menuLinks1 = this._menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1 && x.Status == 1, true);
-            if (menuLinks1.IsAny<MenuLink>())
+            IEnumerable<MenuLink> menuLinks1 = _menuLinkService.FindBy(x => x.TemplateType == 1 && x.Status == 1, true);
+            if (menuLinks1.IsAny())
             {
                 lstMenuLink.AddRange(menuLinks1);
-                ((dynamic)base.ViewBag).TitleNews = menuLinks1.ElementAt(0).MenuName;
+                ViewBag.TitleNews = menuLinks1.ElementAt(0).MenuName;
             }
-            return base.PartialView(lstMenuLink);
+            return PartialView(lstMenuLink);
         }
 
         public ActionResult GetCareerByCategory(string virtualCategoryId, int page, string title)
         {
-            SortBuilder sortBuilder = new SortBuilder()
+            SortBuilder sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = _pageSize,
                 TotalRecord = 0
             };
-            IEnumerable<News> news = this._newsService.FindAndSort((News x) => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
-            if (news.IsAny<News>())
+            IEnumerable<News> news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
+            if (news.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => base.Url.Action("GetContent", "Menu", new { page = i }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
-                ((dynamic)base.ViewBag).CountItem = pageInfo.TotalItems;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                ViewBag.PageInfo = pageInfo;
+                ViewBag.CountItem = pageInfo.TotalItems;
             }
-            ((dynamic)base.ViewBag).Title = title;
-            ((dynamic)base.ViewBag).virtualCategoryId = virtualCategoryId;
-            return base.PartialView(news);
+            ViewBag.Title = title;
+            ViewBag.virtualCategoryId = virtualCategoryId;
+            return PartialView(news);
         }
 
         [ChildActionOnly]
@@ -97,7 +97,7 @@ namespace App.Front.Controllers
 
             if (menuLinks.IsAny())
             {
-                ((dynamic)base.ViewBag).MenuLinkHome = menuLinks;
+                ViewBag.MenuLinkHome = menuLinks;
 
                 List<News> lstPost = new List<News>();
 
@@ -124,28 +124,28 @@ namespace App.Front.Controllers
 
         public ActionResult GetNewsByCategory(string virtualCategoryId, int? menuId, string title, int page, int? month, int? year)
         {
-            dynamic viewBag = base.ViewBag;
+            dynamic viewBag = ViewBag;
 
-            SortBuilder sortBuilder = new SortBuilder()
+            SortBuilder sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = _pageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<News> news = this._newsService.FindAndSort((News x) => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId)
+            IEnumerable<News> news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId)
             , sortBuilder, paging);
 
             if (news == null)
                 return HttpNotFound();
 
-            Expression<Func<StaticContent, bool>> status = (StaticContent x) => x.Status == 1;
-            viewBag.fixItems = _staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
+            Expression<Func<StaticContent, bool>> status = x => x.Status == 1;
+            viewBag.fixItems = _staticContentService.GetTop(3, status, x => x.ViewCount);
 
             if (month != null)            
                 news = news.Where(n => n.CreatedDate.Month == month);
@@ -160,40 +160,40 @@ namespace App.Front.Controllers
 
             if (news.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => base.Url.Action("GetContent", "Menu", new { page = i }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
-                ((dynamic)base.ViewBag).CountItem = pageInfo.TotalItems;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                ViewBag.PageInfo = pageInfo;
+                ViewBag.CountItem = pageInfo.TotalItems;
 
                 MenuLink menuLink = null;
                 List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-                string[] strArrays2 = virtualCategoryId.Split(new char[] { '/' });
-                for (int i1 = 0; i1 < (int)strArrays2.Length; i1++)
+                string[] strArrays2 = virtualCategoryId.Split('/');
+                for (int i1 = 0; i1 < strArrays2.Length; i1++)
                 {
                     string str = strArrays2[i1];
                     menuLink = _menuLinkService.GetByMenuName(str, title);
                     if (menuLink != null)
                     {
-                        breadCrumbs.Add(new BreadCrumb()
+                        breadCrumbs.Add(new BreadCrumb
                         {
                             Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
                             Current = false,
-                            Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+                            Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                         });
                     }
                 }
-                breadCrumbs.Add(new BreadCrumb()
+                breadCrumbs.Add(new BreadCrumb
                 {
                     Current = true,
                     Title = title
                 });
-                ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
+                ViewBag.BreadCrumb = breadCrumbs;
             }
 
-            ((dynamic)base.ViewBag).MenuId = menuId;
-            ((dynamic)base.ViewBag).VirtualId = virtualCategoryId;
-            ((dynamic)base.ViewBag).Title = title;
+            ViewBag.MenuId = menuId;
+            ViewBag.VirtualId = virtualCategoryId;
+            ViewBag.Title = title;
 
-            return base.PartialView(newsLocalized);
+            return PartialView(newsLocalized);
         }
 
         [ChildActionOnly]
@@ -201,37 +201,37 @@ namespace App.Front.Controllers
         public ActionResult GetRelativeNews(string virtualId, int newsId)
         {
             List<News> news = new List<News>();
-            IEnumerable<News> top = this._newsService.GetTop<int>(4, (News x) => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != newsId && !x.Video, (News x) => x.ViewCount);
+            IEnumerable<News> top = _newsService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != newsId && !x.Video, x => x.ViewCount);
             if (top.IsAny())
             {
                 news.AddRange(top);
             }
-            return base.PartialView(news);
+            return PartialView(news);
         }
 
         [ChildActionOnly]
         public ActionResult GetVideoSlide(string virtualCategoryId)
         {
             List<News> news = new List<News>();
-            IEnumerable<News> news1 = this._newsService.FindBy((News x) => x.Video && x.Status == 1, true);
-            if (news1.IsAny<News>())
+            IEnumerable<News> news1 = _newsService.FindBy(x => x.Video && x.Status == 1, true);
+            if (news1.IsAny())
             {
                 news.AddRange(news1);
             }
-            return base.PartialView(news);
+            return PartialView(news);
         }
 
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult NewsDetail(string seoUrl)
         {
-            dynamic viewBag = base.ViewBag;
+            dynamic viewBag = ViewBag;
 
-            IStaticContentService staticContentService = this._staticContentService;
-            Expression<Func<StaticContent, bool>> status = (StaticContent x) => x.Status == 1;
-            viewBag.fixItems = staticContentService.GetTop<int>(3, status, (StaticContent x) => x.ViewCount);
+            IStaticContentService staticContentService = _staticContentService;
+            Expression<Func<StaticContent, bool>> status = x => x.Status == 1;
+            viewBag.fixItems = staticContentService.GetTop(3, status, x => x.ViewCount);
 
             List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-            News news = _newsService.Get((News x) => x.SeoUrl.Equals(seoUrl), true);
+            News news = _newsService.Get(x => x.SeoUrl.Equals(seoUrl), true);
 
             if (news == null)
                 return HttpNotFound();
@@ -241,40 +241,40 @@ namespace App.Front.Controllers
             {
                 newsLocalized = news.ToModel();
 
-                ((dynamic)base.ViewBag).Title = newsLocalized.MetaTitle;
-                ((dynamic)base.ViewBag).KeyWords = newsLocalized.MetaKeywords;
-                ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("NewsDetail", "News", new { seoUrl = seoUrl, area = "" });
-                ((dynamic)base.ViewBag).Description = newsLocalized.MetaDescription;
-                ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
-                ((dynamic)base.ViewBag).MenuId = newsLocalized.MenuId;
+                ViewBag.Title = newsLocalized.MetaTitle;
+                ViewBag.KeyWords = newsLocalized.MetaKeywords;
+                ViewBag.SiteUrl = Url.Action("NewsDetail", "News", new {seoUrl, area = "" });
+                ViewBag.Description = newsLocalized.MetaDescription;
+                ViewBag.Image = Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
+                ViewBag.MenuId = newsLocalized.MenuId;
 
-                string[] strArrays = newsLocalized.VirtualCategoryId.Split(new char[] { '/' });
-                for (int i = 0; i < (int)strArrays.Length; i++)
+                string[] strArrays = newsLocalized.VirtualCategoryId.Split('/');
+                for (int i = 0; i < strArrays.Length; i++)
                 {
                     string str = strArrays[i];
-                    MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str), false);
+                    MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str), false);
 
                     //Lấy bannerId từ post để hiển thị banner trên post
                     if (i == 0)
-                        ((dynamic)base.ViewBag).BannerId = menuLink.Id;
+                        ViewBag.BannerId = menuLink.Id;
 
-                    breadCrumbs.Add(new BreadCrumb()
+                    breadCrumbs.Add(new BreadCrumb
                     {
                         Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),// menuLink.MenuName, menuLink.Id, languageId, "MenuLink", "MenuName"),
                         Current = false,
-                        Url = base.Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+                        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                     });
                 }
-                breadCrumbs.Add(new BreadCrumb()
+                breadCrumbs.Add(new BreadCrumb
                 {
                     Current = true,
                     Title = newsLocalized.Title
                 });
-                ((dynamic)base.ViewBag).BreadCrumb = breadCrumbs;
+                ViewBag.BreadCrumb = breadCrumbs;
             }
-            ((dynamic)base.ViewBag).SeoUrl = newsLocalized.MenuLink.SeoUrl;
+            ViewBag.SeoUrl = newsLocalized.MenuLink.SeoUrl;
 
-            return base.View(newsLocalized);
+            return View(newsLocalized);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace App.Front.Controllers
                     return g.First().ToModel();
                 }).ToList();
 
-            ((dynamic)base.ViewBag).NewsGroup = ieNewsGroup;
+            ViewBag.NewsGroup = ieNewsGroup;
 
             return PartialView(ieNewsGroup);
         }

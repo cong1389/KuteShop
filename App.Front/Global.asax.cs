@@ -1,22 +1,13 @@
-﻿using App.Framework.Theme;
-using App.Service.Customers;
-using App.Aplication;
-using Autofac.Engine;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
+﻿using System;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using System.Web.Security;
+using App.Aplication;
+using App.Framework.Theme;
 
 namespace App.Front
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

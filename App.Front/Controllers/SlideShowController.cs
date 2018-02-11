@@ -1,10 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Domain.Entities.Slide;
 using App.Front.Models;
 using App.Service.Slide;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -14,13 +14,13 @@ namespace App.Front.Controllers
 
         public SlideShowController(ISlideShowService slideShowService)
         {
-            this._slideShowService = slideShowService;          
+            _slideShowService = slideShowService;          
         }
 
         [PartialCache("Long")]
         public ActionResult GetSlideShow()
         {
-            IEnumerable<SlideShow> slideShows = this._slideShowService.FindBy((SlideShow x) => x.Status == 1, true);
+            IEnumerable<SlideShow> slideShows = _slideShowService.FindBy(x => x.Status == 1, true);
 
             if (slideShows == null)
                 return HttpNotFound();
@@ -30,7 +30,7 @@ namespace App.Front.Controllers
                 return x.ToModel();
             });                    
 
-            return base.PartialView(slideShows);
+            return PartialView(slideShows);
         }
     }
 }

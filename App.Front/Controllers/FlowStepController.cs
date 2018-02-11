@@ -1,10 +1,7 @@
-﻿using App.Domain.Entities.Data;
-using App.Service.Step;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using App.Domain.Entities.Data;
+using App.Service.Step;
 
 namespace App.Front.Controllers
 {
@@ -18,9 +15,9 @@ namespace App.Front.Controllers
 
         public ActionResult FlowStepHome()
         {
-            IEnumerable<FlowStep> flowSteps = this._flowStepService.FindBy((FlowStep x) => x.Status == 1, false);
+            IEnumerable<FlowStep> flowSteps = _flowStepService.FindBy(x => x.Status == 1, false);
 
-            return base.PartialView(flowSteps);
+            return PartialView(flowSteps);
         }
 
     }

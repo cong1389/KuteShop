@@ -1,7 +1,7 @@
-﻿using App.FakeEntity.Common;
+﻿using System.Collections.Generic;
+using App.FakeEntity.Common;
 using App.Front.Models.Customer;
 using App.Front.Models.ShoppingCart;
-using System.Collections.Generic;
 
 namespace App.Front.Models.Checkout
 {

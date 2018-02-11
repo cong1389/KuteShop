@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Web;
 
@@ -70,7 +69,7 @@ namespace WebCache.Static
 		{
 			get
 			{
-				return (long)0;
+				return 0;
 			}
 		}
 
@@ -82,48 +81,48 @@ namespace WebCache.Static
 
 		static StaticContentFilter()
 		{
-			StaticContentFilter.HREF_ATTRIBUTE = "href".ToCharArray();
-			StaticContentFilter.REL_ATTRIBUTE = "rel".ToCharArray();
-			StaticContentFilter.HTTP_PREFIX = "http://".ToCharArray();
-			StaticContentFilter.IMG_TAG = "img".ToCharArray();
-			StaticContentFilter.LINK_TAG = "link".ToCharArray();
-			StaticContentFilter.SCRIPT_TAG = "script".ToCharArray();
-			StaticContentFilter.SRC_ATTRIBUTE = "src".ToCharArray();
+			HREF_ATTRIBUTE = "href".ToCharArray();
+			REL_ATTRIBUTE = "rel".ToCharArray();
+			HTTP_PREFIX = "http://".ToCharArray();
+			IMG_TAG = "img".ToCharArray();
+			LINK_TAG = "link".ToCharArray();
+			SCRIPT_TAG = "script".ToCharArray();
+			SRC_ATTRIBUTE = "src".ToCharArray();
 		}
 
 		public StaticContentFilter(HttpResponse response, Func<string, string> getVersionOfFile, string imagePrefix, string javascriptPrefix, string cssPrefix, string baseUrl, string applicationPath, string currentRelativePath)
 		{
-			this._Encoding = response.Output.Encoding;
-			this._ResponseStream = response.Filter;
-			this._ImagePrefix = this._Encoding.GetBytes(imagePrefix);
-			this._JavascriptPrefix = this._Encoding.GetBytes(javascriptPrefix);
-			this._CssPrefix = this._Encoding.GetBytes(cssPrefix);
-			this._ApplicationPath = applicationPath.ToCharArray();
-			this._BaseUrl = this._Encoding.GetBytes(baseUrl);
-			this._CurrentFolder = this._Encoding.GetBytes(currentRelativePath);
-			this._getVersionOfFile = getVersionOfFile;
+			_Encoding = response.Output.Encoding;
+			_ResponseStream = response.Filter;
+			_ImagePrefix = _Encoding.GetBytes(imagePrefix);
+			_JavascriptPrefix = _Encoding.GetBytes(javascriptPrefix);
+			_CssPrefix = _Encoding.GetBytes(cssPrefix);
+			_ApplicationPath = applicationPath.ToCharArray();
+			_BaseUrl = _Encoding.GetBytes(baseUrl);
+			_CurrentFolder = _Encoding.GetBytes(currentRelativePath);
+			_getVersionOfFile = getVersionOfFile;
 		}
 
 		public override void Close()
 		{
-			this.FlushPendingBuffer();
-			this._ResponseStream.Close();
-			this._ResponseStream = null;
-			this._getVersionOfFile = null;
-			this._PendingBuffer = null;
+			FlushPendingBuffer();
+			_ResponseStream.Close();
+			_ResponseStream = null;
+			_getVersionOfFile = null;
+			_PendingBuffer = null;
 		}
 
 		private int FindAttributeValuePos(char[] attributeName, char[] content, int pos)
 		{
-			for (int i = pos; i < (int)content.Length - (int)attributeName.Length; i++)
+			for (int i = pos; i < content.Length - attributeName.Length; i++)
 			{
 				if (62 == content[i])
 				{
 					return -1;
 				}
-				if (this.HasMatch(content, i, attributeName))
+				if (HasMatch(content, i, attributeName))
 				{
-					pos = i + (int)attributeName.Length;
+					pos = i + attributeName.Length;
 					int num = pos;
 					pos = num + 1;
 					if (34 != content[num])
@@ -137,22 +136,22 @@ namespace WebCache.Static
 
 		public override void Flush()
 		{
-			this.FlushPendingBuffer();
-			this._ResponseStream.Flush();
+			FlushPendingBuffer();
+			_ResponseStream.Flush();
 		}
 
 		private void FlushPendingBuffer()
 		{
-			if (this._PendingBuffer != null)
+			if (_PendingBuffer != null)
 			{
-				this.WriteOutput(this._PendingBuffer, 0, (int)this._PendingBuffer.Length);
-				this._PendingBuffer = null;
+				WriteOutput(_PendingBuffer, 0, _PendingBuffer.Length);
+				_PendingBuffer = null;
 			}
 		}
 
 		private bool HasMatch(char[] content, int pos, char[] match)
 		{
-			for (int i = 0; i < (int)match.Length; i++)
+			for (int i = 0; i < match.Length; i++)
 			{
 				if (content[pos + i] != match[i] && content[pos + i] != match[i])
 				{
@@ -164,7 +163,7 @@ namespace WebCache.Static
 
 		private bool HasTagEnd(char[] content, int pos)
 		{
-			while (pos < (int)content.Length)
+			while (pos < content.Length)
 			{
 				if (62 == content[pos])
 				{
@@ -177,62 +176,62 @@ namespace WebCache.Static
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			return this._ResponseStream.Read(buffer, offset, count);
+			return _ResponseStream.Read(buffer, offset, count);
 		}
 
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			return this._ResponseStream.Seek(offset, origin);
+			return _ResponseStream.Seek(offset, origin);
 		}
 
 		public override void SetLength(long length)
 		{
-			this._ResponseStream.SetLength(length);
+			_ResponseStream.SetLength(length);
 		}
 
 		public override void Write(byte[] buffer, int offset, int count)
 		{
 			char[] chrArray;
-			char[] chars = this._Encoding.GetChars(buffer, offset, count);
-			if (this._PendingBuffer == null)
+			char[] chars = _Encoding.GetChars(buffer, offset, count);
+			if (_PendingBuffer == null)
 			{
 				chrArray = chars;
 			}
 			else
 			{
-				chrArray = new char[(int)chars.Length + (int)this._PendingBuffer.Length];
-				Array.Copy(this._PendingBuffer, 0, chrArray, 0, (int)this._PendingBuffer.Length);
-				Array.Copy(chars, 0, chrArray, (int)this._PendingBuffer.Length, (int)chars.Length);
-				this._PendingBuffer = null;
+				chrArray = new char[chars.Length + _PendingBuffer.Length];
+				Array.Copy(_PendingBuffer, 0, chrArray, 0, _PendingBuffer.Length);
+				Array.Copy(chars, 0, chrArray, _PendingBuffer.Length, chars.Length);
+				_PendingBuffer = null;
 			}
 			int num = 0;
-			for (int i = 0; i < (int)chrArray.Length; i++)
+			for (int i = 0; i < chrArray.Length; i++)
 			{
 				if (60 == chrArray[i])
 				{
 					i++;
-					if (!this.HasTagEnd(chrArray, i))
+					if (!HasTagEnd(chrArray, i))
 					{
-						this._PendingBuffer = new char[(int)chrArray.Length - i];
-						Array.Copy(chrArray, i, this._PendingBuffer, 0, (int)chrArray.Length - i);
-						this.WriteOutput(chrArray, num, i - num);
+						_PendingBuffer = new char[chrArray.Length - i];
+						Array.Copy(chrArray, i, _PendingBuffer, 0, chrArray.Length - i);
+						WriteOutput(chrArray, num, i - num);
 						return;
 					}
 					if (47 != chrArray[i])
 					{
-						if (this.HasMatch(chrArray, i, StaticContentFilter.IMG_TAG))
+						if (HasMatch(chrArray, i, IMG_TAG))
 						{
-							num = this.WritePrefixIf(StaticContentFilter.SRC_ATTRIBUTE, chrArray, i, num, this._ImagePrefix);
+							num = WritePrefixIf(SRC_ATTRIBUTE, chrArray, i, num, _ImagePrefix);
 						}
-						else if (this.HasMatch(chrArray, i, StaticContentFilter.SCRIPT_TAG))
+						else if (HasMatch(chrArray, i, SCRIPT_TAG))
 						{
-							num = this.WritePrefixIf(StaticContentFilter.SRC_ATTRIBUTE, chrArray, i, num, this._JavascriptPrefix);
-							num = this.WritePathWithVersion(chrArray, num);
+							num = WritePrefixIf(SRC_ATTRIBUTE, chrArray, i, num, _JavascriptPrefix);
+							num = WritePathWithVersion(chrArray, num);
 						}
-						else if (this.HasMatch(chrArray, i, StaticContentFilter.LINK_TAG))
+						else if (HasMatch(chrArray, i, LINK_TAG))
 						{
-							num = this.WritePrefixIf(StaticContentFilter.HREF_ATTRIBUTE, chrArray, i, num, this._CssPrefix);
-							num = this.WritePathWithVersion(chrArray, num);
+							num = WritePrefixIf(HREF_ATTRIBUTE, chrArray, i, num, _CssPrefix);
+							num = WritePathWithVersion(chrArray, num);
 						}
 						if (num > i)
 						{
@@ -241,12 +240,12 @@ namespace WebCache.Static
 					}
 				}
 			}
-			this.WriteOutput(chrArray, num, (int)chrArray.Length - num);
+			WriteOutput(chrArray, num, chrArray.Length - num);
 		}
 
 		private void WriteBytes(byte[] bytes, int pos, int length)
 		{
-			this._ResponseStream.Write(bytes, 0, (int)bytes.Length);
+			_ResponseStream.Write(bytes, 0, bytes.Length);
 		}
 
 		private void WriteOutput(char[] content, int pos, int length)
@@ -255,13 +254,13 @@ namespace WebCache.Static
 			{
 				return;
 			}
-			byte[] bytes = this._Encoding.GetBytes(content, pos, length);
-			this.WriteBytes(bytes, 0, (int)bytes.Length);
+			byte[] bytes = _Encoding.GetBytes(content, pos, length);
+			WriteBytes(bytes, 0, bytes.Length);
 		}
 
 		private int WritePathWithVersion(char[] content, int lastPosWritten)
 		{
-			if (!this.HasMatch(content, lastPosWritten, StaticContentFilter.HTTP_PREFIX))
+			if (!HasMatch(content, lastPosWritten, HTTP_PREFIX))
 			{
 				int num = lastPosWritten + 1;
 				while (34 != content[num])
@@ -269,37 +268,37 @@ namespace WebCache.Static
 					num++;
 				}
 				string str = new string(content, lastPosWritten, num - lastPosWritten);
-				this.WriteOutput(content, lastPosWritten, num - lastPosWritten);
+				WriteOutput(content, lastPosWritten, num - lastPosWritten);
 				lastPosWritten = num;
-				char[] charArray = this._getVersionOfFile(str).ToCharArray();
-				this.WriteOutput(charArray, 0, (int)charArray.Length);
+				char[] charArray = _getVersionOfFile(str).ToCharArray();
+				WriteOutput(charArray, 0, charArray.Length);
 			}
 			return lastPosWritten;
 		}
 
 		private int WritePrefixIf(char[] attributeName, char[] content, int pos, int lastWritePos, byte[] prefix)
 		{
-			int length = this.FindAttributeValuePos(attributeName, content, pos);
+			int length = FindAttributeValuePos(attributeName, content, pos);
 			if (length <= 0)
 			{
 				return lastWritePos;
 			}
-			if (this.HasMatch(content, length, StaticContentFilter.HTTP_PREFIX))
+			if (HasMatch(content, length, HTTP_PREFIX))
 			{
 				return lastWritePos;
 			}
-			this.WriteOutput(content, lastWritePos, length - lastWritePos);
+			WriteOutput(content, lastWritePos, length - lastWritePos);
 			if (prefix.Length != 0)
 			{
-				this.WriteBytes(prefix, 0, (int)prefix.Length);
+				WriteBytes(prefix, 0, prefix.Length);
 			}
-			if (this.HasMatch(content, length, this._ApplicationPath))
+			if (HasMatch(content, length, _ApplicationPath))
 			{
-				length = length + (int)this._ApplicationPath.Length;
+				length = length + _ApplicationPath.Length;
 			}
-			else if (this._CurrentFolder.Length != 0)
+			else if (_CurrentFolder.Length != 0)
 			{
-				this.WriteBytes(this._CurrentFolder, 0, (int)this._CurrentFolder.Length);
+				WriteBytes(_CurrentFolder, 0, _CurrentFolder.Length);
 			}
 			if (47 == content[length])
 			{

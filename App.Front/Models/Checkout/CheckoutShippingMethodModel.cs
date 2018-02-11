@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace App.Front.Models.Checkout
 {
-    public partial class CheckoutShippingMethodModel 
+    public class CheckoutShippingMethodModel 
     {
         public CheckoutShippingMethodModel()
         {
@@ -19,7 +16,7 @@ namespace App.Front.Models.Checkout
 
         #region Nested classes
 
-        public partial class ShippingMethodModel
+        public class ShippingMethodModel
         {
             public int Id { get; set; }
             public int ShippingMethodId { get; set; }

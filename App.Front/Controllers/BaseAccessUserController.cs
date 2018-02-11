@@ -1,14 +1,12 @@
-using App.Domain.Entities.Identity;
-using App.Aplication;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Aplication;
+using App.Domain.Entities.Identity;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 namespace App.Front.Controllers
 {
@@ -22,7 +20,7 @@ namespace App.Front.Controllers
 		{
 			get
 			{
-				return base.HttpContext.GetOwinContext().Authentication;
+				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
 
@@ -45,9 +43,9 @@ namespace App.Front.Controllers
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && this._userManager != null)
+			if (disposing && _userManager != null)
 			{
-				this._userManager.Dispose();
+				_userManager.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -62,8 +60,8 @@ namespace App.Front.Controllers
 		protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
 		{
 			return (
-				from auth in this.AuthenticationManager.GetAuthenticationTypes()
-				where userLogins.All((UserLoginInfo ul) => auth.AuthenticationType != ul.LoginProvider)
+				from auth in AuthenticationManager.GetAuthenticationTypes()
+				where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
 				select auth).ToList();
 		}
 	}

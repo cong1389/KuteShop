@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace App.Front.Models.Customer
+﻿namespace App.Front.Models.Customer
 {
     public class CustomerInfoModel
     {

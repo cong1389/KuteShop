@@ -1,6 +1,4 @@
 using System;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -8,11 +6,7 @@ namespace App.Front.Models
 {
 	public class FrontAuthorize : AuthorizeAttribute
 	{
-		public FrontAuthorize()
-		{
-		}
-
-		public override void OnAuthorization(AuthorizationContext filterContext)
+	    public override void OnAuthorization(AuthorizationContext filterContext)
 		{
 			if (filterContext == null)
 			{

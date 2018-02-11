@@ -1,4 +1,10 @@
-﻿using App.Aplication.Filters;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using App.Aplication;
+using App.Aplication.Filters;
+using App.Aplication.MVCHelper;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.FakeEntity.Common;
@@ -9,14 +15,7 @@ using App.Service.GenericAttribute;
 using App.Service.Orders;
 using App.Service.PaymentMethodes;
 using App.Service.Post;
-using App.Aplication.MVCHelper;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using App.Aplication;
 
 namespace App.Front.Controllers
 {

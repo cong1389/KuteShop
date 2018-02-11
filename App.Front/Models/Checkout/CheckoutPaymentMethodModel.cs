@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace App.Front.Models.Checkout
 {
-    public partial class CheckoutPaymentMethodModel 
+    public class CheckoutPaymentMethodModel 
     {
         public CheckoutPaymentMethodModel()
         {
@@ -22,7 +19,7 @@ namespace App.Front.Models.Checkout
 
         #region Nested classes
 
-        public partial class PaymentMethodModel 
+        public class PaymentMethodModel 
         {
             public int Id { get; set; }
             public string PaymentMethodSystemName { get; set; }

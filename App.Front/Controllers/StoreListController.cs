@@ -1,18 +1,13 @@
-using App.Core.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using App.Aplication;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Location;
-using App.Domain.Interfaces.Services;
 using App.Front.Models;
 using App.Service.ContactInformation;
 using App.Service.Locations;
-using App.Aplication;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -24,23 +19,23 @@ namespace App.Front.Controllers
 
 		public StoreListController(IProvinceService provinceService, IContactInfoService contactInfoService)
 		{
-			this._provinceService = provinceService;
-			this._contactInfoService = contactInfoService;
+			_provinceService = provinceService;
+			_contactInfoService = contactInfoService;
 		}
 
 		public ActionResult GetStoreListByProvince(int Id)
 		{
-			if (!base.Request.IsAjaxRequest())
+			if (!Request.IsAjaxRequest())
 			{
-				return base.Json(new { success = false });
+				return Json(new { success = false });
 			}
-			IEnumerable<ContactInformation> ContactInformations = this._contactInfoService.FindBy((ContactInformation x) => x.Status == 1 && x.ProvinceId == (int?)Id, true);
+			IEnumerable<ContactInformation> ContactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)Id, true);
 			List<StoreList> storeLists = new List<StoreList>();
-			if (ContactInformations.IsAny<ContactInformation>())
+			if (ContactInformations.IsAny())
 			{
 				storeLists.AddRange(
 					from item in ContactInformations
-					select new StoreList()
+					select new StoreList
 					{
 						Address = item.Address,
 						Lat = item.Lat,
@@ -49,21 +44,21 @@ namespace App.Front.Controllers
 						Title = item.Title
 					});
 			}
-			return base.Json(new { data = storeLists, success = true });
+			return Json(new { data = storeLists, success = true });
 		}
 
 		public ActionResult Index(int Id)
 		{
-			Province province = this._provinceService.GetTop<int>(1, (Province x) => x.Status == 1, (Province x) => x.OrderDisplay).FirstOrDefault<Province>();
-			IEnumerable<Province> top = this._provinceService.GetTop<int>(2147483647, (Province x) => x.Status == 1, (Province x) => x.OrderDisplay);
-			((dynamic)base.ViewBag).Provinces = top;
-			IEnumerable<ContactInformation> ContactInformations = this._contactInfoService.FindBy((ContactInformation x) => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
+			Province province = _provinceService.GetTop(1, x => x.Status == 1, x => x.OrderDisplay).FirstOrDefault();
+			IEnumerable<Province> top = _provinceService.GetTop(2147483647, x => x.Status == 1, x => x.OrderDisplay);
+			ViewBag.Provinces = top;
+			IEnumerable<ContactInformation> ContactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
 			List<StoreList> storeLists = new List<StoreList>();
-			if (ContactInformations.IsAny<ContactInformation>())
+			if (ContactInformations.IsAny())
 			{
 				storeLists.AddRange(
 					from item in ContactInformations
-					select new StoreList()
+					select new StoreList
 					{
 						Address = item.Address,
 						Lat = item.Lat,
@@ -72,9 +67,9 @@ namespace App.Front.Controllers
 						Title = item.Title,
 						NumberOfStore = item.NumberOfStore
 					});
-				((dynamic)base.ViewBag).Data = JsonConvert.SerializeObject(storeLists);
+				ViewBag.Data = JsonConvert.SerializeObject(storeLists);
 			}
-			return base.PartialView(ContactInformations);
+			return PartialView(ContactInformations);
 		}
 	}
 }

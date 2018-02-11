@@ -1,7 +1,4 @@
-﻿@using App.Domain.Common
-@using App.Domain.Entities.Menu
-@using App.Aplication
-<div class="content-left">
+﻿<div class="content-left">
     @Html.Action("GetPostByCategory", "Post", new { virtualCategoryId = ViewBag.VirtualId, page = ViewBag.PageNumber, title = ViewBag.Title, area = "" })
 </div>
 <div class="content-right">

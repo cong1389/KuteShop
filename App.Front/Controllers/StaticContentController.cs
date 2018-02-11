@@ -1,8 +1,8 @@
-﻿using App.Aplication.Extensions;
+﻿using System.Web.Mvc;
+using App.Aplication.Extensions;
 using App.Domain.Entities.Data;
 using App.Service.Menu;
 using App.Service.Static;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -15,8 +15,8 @@ namespace App.Front.Controllers
             , IMenuLinkService menuLinkService
             )
         {
-            this._staticContentService = staticContentService;
-            this._menuLinkService = menuLinkService;
+            _staticContentService = staticContentService;
+            _menuLinkService = menuLinkService;
         }
 
         // GET: StaticContent
@@ -28,40 +28,40 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetSlogan(int MenuId)
         {
-            StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
 
-            return base.PartialView(staticContentLocalized);
+            return PartialView(staticContentLocalized);
         }
 
         [ChildActionOnly]
         public ActionResult PostDetailPolices(int MenuId)
         {
-            StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
 
-            return base.PartialView(staticContentLocalized);
+            return PartialView(staticContentLocalized);
         }
 
         [ChildActionOnly]
         public ActionResult GetHomeIntro(int MenuId)
         {
-            StaticContent staticContent = _staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
 
             StaticContent staticContentLocalized = staticContent.ToModel();
 
-            return base.PartialView(staticContentLocalized);
+            return PartialView(staticContentLocalized);
         }
 
         [ChildActionOnly]
@@ -69,7 +69,7 @@ namespace App.Front.Controllers
         {
             //int languageId = _workContext.WorkingLanguage.Id;
 
-            StaticContent staticContent = this._staticContentService.Get((StaticContent x) => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
@@ -93,7 +93,7 @@ namespace App.Front.Controllers
             //    MetaDescription = staticContent.GetLocalizedByLocaleKey(staticContent.MetaDescription, staticContent.Id, languageId, "StaticContent", "MetaDescription")
             //};            
 
-            return base.PartialView(staticContentLocalized);
+            return PartialView(staticContentLocalized);
         }
 
         //protected override void OnActionExecuted(ActionExecutedContext filterContext)

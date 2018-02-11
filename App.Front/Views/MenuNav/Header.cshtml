@@ -1,26 +1,79 @@
 ﻿<!---Header--->
-@using App.Domain.Common
-@using App.Front.Models
-@using App.Aplication
-@using App.Domain.Entities.Menu
-@using Resources
-@using App.FakeEntity.Menu
-@model IEnumerable<MenuNavViewModel>
+@model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
 
 @if (Model != null)
 {
-    @Html.Action("GetTopMenuMobile", "MenuNav", new { area = "" })
+    <div id="header" class="header">
+        <!-- MAIN HEADER -->
+        <div class="container main-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 logo">
+                    @Html.Action("GetLogo", "Summary", new { area = "" })
 
-    <header id="header" class='style_1'>
-        <div id="header-wrap" class=''>
-            <div class="container clearfix">
-                @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
 
-                @Html.Action("GetLogo", "Summary", new { area = "" })
-
+                </div>
+                <div class="col-xs-7 col-sm-7 header-search-box">
+                    @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
+                   
+                </div>
+                <div class="col-xs-5 col-sm-2 group-button-header new-login">
+                    <!--<a title="Compare" href="#" class="btn-compare">compare</a>-->
+                    <a title="Đăng nhập" href="account/login.html" class="btn-heart">wishlist</a>
+                    <div class="btn-cart" id="cart-block">
+                        <a title="My cart" href="cart.html">Cart</a>
+                        <span class="notify notify-right">0</span>
+                        <div class="cart-block">
+                            <div class="cart-empty">
+                                Giỏ hàng của bạn vẫn chưa có sản phẩm nào.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
-}
+        <!-- END MANIN HEADER -->
+        <div id="nav-top-menu" class="nav-top-menu">
+            <div class="container">
+                <div class="row">
+                    @Html.Action("GetMenuVerticalMega", "MenuNav", new { area = "" })
+                    @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
+                </div>
+                <!-- userinfo on top-->
+                <div id="form-search-opntop">
+                </div>
+                <!-- userinfo on top-->
+                <div id="user-info-opntop">
+                    <div id="user-info-top" class="user-info pull-right">
+                        <div class="dropdown">
+                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>My Account</span></a>
+                            <ul class="dropdown-menu mega_dropdown header-login" role="menu">
+                                <li><i class="fa fa-sign-in"></i><a href="account/login.html" id="customer_login_link">Đăng nhập</a></li>
+                                <li><i class="fa fa-user"></i><a href="account/register.html" id="customer_register_link">Đăng kí</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- CART ICON ON MMENU -->
+                <div id="shopping-cart-box-ontop">
+                    <i class="fa fa-shopping-cart"></i>
+                    <div class="shopping-cart-box-ontop-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*@Html.Action("GetTopMenuMobile", "MenuNav", new { area = "" })
+
+        <header id="header" class='style_1'>
+            <div id="header-wrap" class=''>
+                <div class="container clearfix">
+                    @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
+
+                    @Html.Action("GetLogo", "Summary", new { area = "" })
+
+                </div>
+            </div>
+        </header>*@
+                        }
 
 <!---/Header--->

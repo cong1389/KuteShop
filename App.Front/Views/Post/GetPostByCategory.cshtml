@@ -1,8 +1,5 @@
 ﻿<!---GetPostByCategory-->
-@using App.Domain.Common
-@using App.Domain.Entities.Data
 @using App.Aplication
-@using App.Domain.Entities.Menu;
 @model IEnumerable<App.Domain.Entities.Data.Post>
 
 @Html.Partial("_BreadCrumb")
@@ -114,7 +111,7 @@
                                                     @if (product.Discount.HasValue)
                                                     {
                                                         <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
-                                                        <span class="product-discount">@Html.Raw(product.Discount.ToString() + "%")</span>
+                                                        <span class="product-discount">@Html.Raw(product.Discount + "%")</span>
                                                     }
 
                                                 </div>

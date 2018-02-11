@@ -1,10 +1,7 @@
-﻿using App.Domain.Entities.Data;
+﻿using System.Collections.Generic;
+using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.FakeEntity.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace App.Front.Models.ShoppingCart
 {
@@ -24,12 +21,12 @@ namespace App.Front.Models.ShoppingCart
         public OrderReviewDataModel OrderReviewData { get; set; }
     }
 
-    public partial class OrderReviewDataModel 
+    public class OrderReviewDataModel 
     {
         public OrderReviewDataModel()
         {
-            this.BillingAddress = new AddressViewModel();
-            this.ShippingAddress = new AddressViewModel();
+            BillingAddress = new AddressViewModel();
+            ShippingAddress = new AddressViewModel();
         }
         public bool Display { get; set; }        
 

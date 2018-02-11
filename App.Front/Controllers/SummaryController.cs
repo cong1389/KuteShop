@@ -1,3 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using App.Aplication.Extensions;
+using App.Aplication.MVCHelper;
 using App.Core.Caching;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Location;
@@ -10,13 +17,6 @@ using App.Service.Locations;
 using App.Service.Menu;
 using App.Service.SeoSetting;
 using App.Service.SystemApp;
-using App.Aplication.MVCHelper;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using App.Aplication.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -46,13 +46,13 @@ namespace App.Front.Controllers
             , IWorkContext workContext
             , ICacheManager cacheManager)
         {
-            this._menuLinkService = menuLinkService;
-            this._provinceService = provinceService;
-            this._districtService = districtService;
-            this._systemSettingService = systemSettingService;
-            this._contactInfoService = contactInfoService;
-            this._settingSeoGlobal = settingSeoGlobal;
-            this._workContext = workContext;
+            _menuLinkService = menuLinkService;
+            _provinceService = provinceService;
+            _districtService = districtService;
+            _systemSettingService = systemSettingService;
+            _contactInfoService = contactInfoService;
+            _settingSeoGlobal = settingSeoGlobal;
+            _workContext = workContext;
             _cacheManager = cacheManager;
         }
 
@@ -62,7 +62,7 @@ namespace App.Front.Controllers
             return (
                 from x in source
                 orderby x.OrderDisplay descending
-                select x).Where<MenuNavViewModel>((MenuNavViewModel x) =>
+                select x).Where(x =>
                 {
                     int? nullable1 = x.ParentId;
                     int? nullable = parentId;
@@ -71,8 +71,8 @@ namespace App.Front.Controllers
                         return false;
                     }
                     return nullable1.HasValue == nullable.HasValue;
-                }).Select<MenuNavViewModel, MenuNavViewModel>((MenuNavViewModel x) => new MenuNavViewModel()
-                {
+                }).Select(x => new MenuNavViewModel
+            {
                     MenuId = x.MenuId,
                     ParentId = x.ParentId,
                     MenuName = x.MenuName,
@@ -81,18 +81,18 @@ namespace App.Front.Controllers
                     ImageUrl = x.ImageUrl,
                     CurrentVirtualId = x.CurrentVirtualId,
                     VirtualId = x.VirtualId,
-                    ChildNavMenu = this.CreateMenuNav(new int?(x.MenuId), source)
-                }).ToList<MenuNavViewModel>();
+                    ChildNavMenu = CreateMenuNav(x.MenuId, source)
+                }).ToList();
         }
 
         [PartialCache("Long")]
         public ActionResult GetAddressInfo()
         {
-            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Status == 1 && x.Type == 1, true);
+            ContactInformation contactInformation = _contactInfoService.Get(x => x.Status == 1 && x.Type == 1, true);
 
             var contactInformationLocalize = contactInformation.ToModel();
 
-            return base.PartialView(contactInformationLocalize);
+            return PartialView(contactInformationLocalize);
         }
 
         [ChildActionOnly]
@@ -100,12 +100,12 @@ namespace App.Front.Controllers
         public ActionResult GetCategorySearchBox()
         {
             List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.Status == 1 && x.TemplateType == 2, true);
-            if (menuLinks.Any<MenuLink>())
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType == 2, true);
+            if (menuLinks.Any())
             {
                 IEnumerable<MenuNavViewModel> menuNav =
                     from x in menuLinks
-                    select new MenuNavViewModel()
+                    select new MenuNavViewModel
                     {
                         MenuId = x.Id,
                         ParentId = x.ParentId,
@@ -116,73 +116,73 @@ namespace App.Front.Controllers
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId
                     };
-                menuNavs = this.CreateMenuNav(null, menuNav);
+                menuNavs = CreateMenuNav(null, menuNav);
             }
-            return base.PartialView(menuNavs);
+            return PartialView(menuNavs);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult GetContactHeader()
         {
-            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
 
             var systemSettingLocalized = systemSetting.ToModel();
 
-            return base.PartialView(systemSettingLocalized);
+            return PartialView(systemSettingLocalized);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult GetContactOrder()
         {
-            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Status == 1 && x.Type == 1, true);
+            ContactInformation contactInformation = _contactInfoService.Get(x => x.Status == 1 && x.Type == 1, true);
 
             var contactInformationLocalized = contactInformation.ToModel();
 
-            return base.PartialView(contactInformationLocalized);
+            return PartialView(contactInformationLocalized);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ContentResult GetContentFooter()
         {
-            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, true);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
 
             var systemSettingLocalized = systemSetting.ToModel();
 
             if (systemSetting == null)
             {
-                return base.Content(string.Empty);
+                return Content(string.Empty);
             }
 
-            return base.Content(systemSetting.FooterContent);
+            return Content(systemSetting.FooterContent);
         }
 
         [HttpPost]
         public JsonResult GetDistrictByProvinceId(int provinceId)
         {
-            if (!base.Request.IsAjaxRequest())
+            if (!Request.IsAjaxRequest())
             {
                 return null;
             }
 
             var byProvinceId =
-                from x in this._districtService.GetByProvinceId(provinceId)
-                select new { Id = x.Id, Name = x.Name };
+                from x in _districtService.GetByProvinceId(provinceId)
+                select new {x.Id, x.Name };
 
-            return base.Json(byProvinceId);
+            return Json(byProvinceId);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult Footer()
         {
-            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Status == 1 && x.Type == 1, true);
+            ContactInformation contactInformation = _contactInfoService.Get(x => x.Status == 1 && x.Type == 1, true);
 
             var contactInformationLocalize = contactInformation.ToModel();
 
-            return base.PartialView(contactInformationLocalize);
+            return PartialView(contactInformationLocalize);
         }
 
         public ActionResult GetLogo()
@@ -191,7 +191,7 @@ namespace App.Front.Controllers
 
             var systemSettingLocalized = systemSetting.ToModel();
 
-            return base.PartialView(systemSettingLocalized);
+            return PartialView(systemSettingLocalized);
         }
 
         [ChildActionOnly]
@@ -200,12 +200,12 @@ namespace App.Front.Controllers
         {
             SettingSeoGlobal settingSeoGlobal = GetSettingSeoData();
 
-            return base.PartialView(settingSeoGlobal);
+            return PartialView(settingSeoGlobal);
         }
 
         public ActionResult GetMeta()
         {
-            SystemSetting systemSetting = _systemSettingService.Get((SystemSetting x) => x.Status == 1, true);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
 
             if (systemSetting == null)
                 return HttpNotFound();
@@ -217,24 +217,24 @@ namespace App.Front.Controllers
 
             if (controller.Equals("Home") && action.Equals("Index"))
             {
-                ((dynamic)base.ViewBag).Title = systemSettingLocalized.Title;
-                ((dynamic)base.ViewBag).KeyWords = systemSettingLocalized.MetaKeywords;
-                ((dynamic)base.ViewBag).SiteUrl = base.Url.Action("Index", "Home", new { area = "" });
-                ((dynamic)base.ViewBag).Description = systemSettingLocalized.Description;
-                ((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", systemSettingLocalized.LogoImage));
+                ViewBag.Title = systemSettingLocalized.Title;
+                ViewBag.KeyWords = systemSettingLocalized.MetaKeywords;
+                ViewBag.SiteUrl = Url.Action("Index", "Home", new { area = "" });
+                ViewBag.Description = systemSettingLocalized.Description;
+                ViewBag.Image = Url.Content(string.Concat("~/", systemSettingLocalized.LogoImage));
             }
 
-            ((dynamic)base.ViewBag).Favicon = base.Url.Content(string.Concat("~/", systemSettingLocalized.FaviconImage));
+            ViewBag.Favicon = Url.Content(string.Concat("~/", systemSettingLocalized.FaviconImage));
 
-            return base.PartialView(systemSettingLocalized);
+            return PartialView(systemSettingLocalized);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult GetProvinceSearchBox()
         {
-            IEnumerable<Province> provinces = this._provinceService.FindBy((Province x) => x.Status == 1, false);
-            return base.PartialView(provinces);
+            IEnumerable<Province> provinces = _provinceService.FindBy(x => x.Status == 1, false);
+            return PartialView(provinces);
         }
 
         [ChildActionOnly]
@@ -242,13 +242,13 @@ namespace App.Front.Controllers
         public ActionResult ScriptSippet()
         {
             SettingSeoGlobal settingSeoGlobal = GetSettingSeoData();
-            return base.PartialView(settingSeoGlobal);
+            return PartialView(settingSeoGlobal);
         }
 
         [PartialCache("Long")]
         public JsonResult GetPostAddress()
         {
-            ContactInformation contactInformation = this._contactInfoService.Get((ContactInformation x) => x.Status == 1 && x.Type == 1, true);
+            ContactInformation contactInformation = _contactInfoService.Get(x => x.Status == 1 && x.Type == 1, true);
 
             var contactInformationLocalize = contactInformation.ToModel();
 
@@ -261,7 +261,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public JsonResult GetFooterAddress()
         {
-            IEnumerable<ContactInformation> contactInformation = _contactInfoService.FindBy((ContactInformation x) => x.Status == 1, true);
+            IEnumerable<ContactInformation> contactInformation = _contactInfoService.FindBy(x => x.Status == 1, true);
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
 
@@ -274,7 +274,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public JsonResult GetFooterLogo()
         {
-            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
 
             var systemSettingLocalize = systemSetting.ToModel();
 
@@ -287,7 +287,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public JsonResult GetSystemSetting()
         {
-            SystemSetting systemSetting = this._systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
 
             var systemSettingLocalize = systemSetting.ToModel();
 
@@ -333,7 +333,7 @@ namespace App.Front.Controllers
             SystemSetting systemSetting = _cacheManager.Get<SystemSetting>(key);
             if (systemSetting == null)
             {
-                systemSetting = _systemSettingService.Get((SystemSetting x) => x.Status == 1, false);
+                systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
                 _cacheManager.Put(key, systemSetting);
             }
 
@@ -353,7 +353,7 @@ namespace App.Front.Controllers
             SettingSeoGlobal settingSeoGlobal = _cacheManager.Get<SettingSeoGlobal>(key);
             if (settingSeoGlobal == null)
             {
-                settingSeoGlobal = this._settingSeoGlobal.Get((SettingSeoGlobal x) => x.Status == 1, false);
+                settingSeoGlobal = _settingSeoGlobal.Get(x => x.Status == 1, false);
                 _cacheManager.Put(key, settingSeoGlobal);
             }
 

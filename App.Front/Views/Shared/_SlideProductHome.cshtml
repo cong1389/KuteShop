@@ -33,7 +33,7 @@
                         @if (item.Discount.HasValue)
                         {
                             <span class="product-discount">
-                                @Html.Raw(item.Discount.ToString() + "%")
+                                @Html.Raw(item.Discount + "%")
                             </span>
                         }
                     </p>

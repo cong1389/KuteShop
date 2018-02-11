@@ -1,13 +1,10 @@
-﻿using App.Aplication.Extensions;
+﻿using System;
+using System.Web.Mvc;
+using App.Aplication.Extensions;
 using App.Domain.Orders;
 using App.FakeEntity.Orders;
 using App.Service.Common;
 using App.Service.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -86,8 +83,8 @@ namespace App.Front.Controllers
             {
                 return order == null || order.CustomerId != _services.WorkContext.CurrentCustomer.Id;
             }
-            else
-                return order == null;
+
+            return order == null;
         }
 
     }

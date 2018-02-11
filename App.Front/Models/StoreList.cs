@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.Front.Models
 {
 	public class StoreList
@@ -39,10 +36,6 @@ namespace App.Front.Models
 		{
 			get;
 			set;
-		}
-
-		public StoreList()
-		{
 		}
 	}
 }

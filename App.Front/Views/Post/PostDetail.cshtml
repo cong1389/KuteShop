@@ -1,7 +1,7 @@
 ﻿<!---PostDetail--->
-@using App.Domain.Common
 @using App.Aplication
-@using ShoppingCartItem = App.Domain.Entities.Orders.ShoppingCartItem
+@using App.Domain.Common
+@using App.Domain.Entities.Data
 @model App.Domain.Entities.Data.Post
 
 @if (Model != null)
@@ -293,7 +293,7 @@
     </section>
 
 }
-@helper RenderPrice(ICollection<App.Domain.Entities.Data.GalleryImage> galleryImages)
+@helper RenderPrice(ICollection<GalleryImage> galleryImages)
 {
 if (Model.GalleryImages.IsAny())
 {

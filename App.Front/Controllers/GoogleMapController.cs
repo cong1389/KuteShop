@@ -1,11 +1,6 @@
-using App.Core.Common;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Services;
-using App.Service.ContactInformation;
-using System;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using App.Domain.Entities.GlobalSetting;
+using App.Service.ContactInformation;
 
 namespace App.Front.Controllers
 {
@@ -15,13 +10,13 @@ namespace App.Front.Controllers
 
 		public GoogleMapController(IContactInfoService contactInfoService)
 		{
-			this._contactInfoService = contactInfoService;
+			_contactInfoService = contactInfoService;
 		}
 
 		public ActionResult ShowGoogleMap(int Id)
 		{
-			ContactInformation ContactInformation = this._contactInfoService.Get((ContactInformation x) => x.Id == Id, false);
-			return base.View(ContactInformation);
+			ContactInformation ContactInformation = _contactInfoService.Get(x => x.Id == Id, false);
+			return View(ContactInformation);
 		}
 	}
 }

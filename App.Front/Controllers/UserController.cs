@@ -1,20 +1,12 @@
-using App.Domain.Entities.Identity;
-using App.FakeEntity;
-using App.FakeEntity.User;
-using App.Front.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.CSharp.RuntimeBinder;
-using Microsoft.Owin.Security;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Domain.Entities.Identity;
+using App.FakeEntity.User;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 namespace App.Front.Controllers
 {
@@ -26,59 +18,59 @@ namespace App.Front.Controllers
 
 		public ActionResult ChangePassword()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> ChangePassword(FakeEntity.User.ChangePasswordViewModel model)
+		public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
 		{
 			ActionResult action;
-			bool flag = this.HasPassword();
-			((dynamic)this.ViewBag).HasLocalPassword = flag;
-			((dynamic)this.ViewBag).ReturnUrl = this.Url.Action("Index", "Home");
+			bool flag = HasPassword();
+			ViewBag.HasLocalPassword = flag;
+			ViewBag.ReturnUrl = Url.Action("Index", "Home");
 			if (!flag)
 			{
-				System.Web.Mvc.ModelState item = this.ModelState["OldPassword"];
+				ModelState item = ModelState["OldPassword"];
 				if (item != null)
 				{
 					item.Errors.Clear();
 				}
-				if (this.ModelState.IsValid)
+				if (ModelState.IsValid)
 				{
-					IdentityResult identityResult = await this._userManager.AddPasswordAsync(this.GetGuid(this.User.Identity.GetUserId()), model.NewPassword);
+					IdentityResult identityResult = await _userManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
 					IdentityResult identityResult1 = identityResult;
 					if (!identityResult1.Succeeded)
 					{
-						this.AddErrors(identityResult1);
+						AddErrors(identityResult1);
 					}
 					else
 					{
-						action = this.RedirectToAction("PostManagement", "Account", new { area = "" });
+						action = RedirectToAction("PostManagement", "Account", new { area = "" });
 						return action;
 					}
 				}
 			}
-			else if (this.ModelState.IsValid)
+			else if (ModelState.IsValid)
 			{
-				IdentityResult identityResult2 = await this._userManager.ChangePasswordAsync(this.GetGuid(this.User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+				IdentityResult identityResult2 = await _userManager.ChangePasswordAsync(GetGuid(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
 				if (!identityResult2.Succeeded)
 				{
-					((dynamic)this.ViewBag).Error = "Mật khẩu cũ không chính xác.";
+					ViewBag.Error = "Mật khẩu cũ không chính xác.";
 				}
 				else
 				{
-					action = this.RedirectToAction("PostManagement", "Account", new { area = "" });
+					action = RedirectToAction("PostManagement", "Account", new { area = "" });
 					return action;
 				}
 			}
-			action = this.View();
+			action = View();
 			return action;
 		}
 
 		protected bool HasPassword()
 		{
-			IdentityUser identityUser = this._userManager.FindById<IdentityUser, Guid>(base.GetGuid(base.User.Identity.GetUserId()));
+			IdentityUser identityUser = _userManager.FindById(GetGuid(User.Identity.GetUserId()));
 			if (identityUser == null)
 			{
 				return false;
@@ -88,44 +80,42 @@ namespace App.Front.Controllers
 
 		public ActionResult Login()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Login(FakeEntity.User.LoginViewModel login, string ReturnUrl)
+		public async Task<ActionResult> Login(LoginViewModel login, string ReturnUrl)
 		{
 			ActionResult action;
-			if (this.ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
 				IdentityUser identityUser = await _userManager.FindAsync(login.UserName, login.Password);
 				IdentityUser identityUser1 = identityUser;
 				if (identityUser1 == null)
 				{
-					this.ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác.");
+					ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác.");
 				}
 				else
 				{
-					await this.SignInAsync(identityUser1, login.Remember);
-					if (!this.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
+					await SignInAsync(identityUser1, login.Remember);
+					if (!Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
 					{
-						action = this.RedirectToAction("Index", "Home");
+						action = RedirectToAction("Index", "Home");
 						return action;
 					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-						return action;
-					}
+
+				    action = Redirect(ReturnUrl);
+				    return action;
 				}
 			}
-			action = this.View();
+			action = View();
 			return action;
 		}
 
 		public ActionResult Registration()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
@@ -134,9 +124,9 @@ namespace App.Front.Controllers
 		{
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    IdentityUser identityUser = new IdentityUser()
+                    IdentityUser identityUser = new IdentityUser
                     {
                         UserName = model.UserName,
                         Address = model.Address,
@@ -181,14 +171,14 @@ namespace App.Front.Controllers
 
 		private async Task SignInAsync(IdentityUser user, bool isPersistent)
 		{
-			this.AuthenticationManager.SignOut(new string[] { "ExternalCookie" });
-			ClaimsIdentity claimsIdentity = await this._userManager.CreateIdentityAsync(user, "ApplicationCookie");
-			IAuthenticationManager authenticationManager = this.AuthenticationManager;
-			AuthenticationProperties authenticationProperty = new AuthenticationProperties()
+			AuthenticationManager.SignOut("ExternalCookie");
+			ClaimsIdentity claimsIdentity = await _userManager.CreateIdentityAsync(user, "ApplicationCookie");
+			IAuthenticationManager authenticationManager = AuthenticationManager;
+			AuthenticationProperties authenticationProperty = new AuthenticationProperties
 			{
 				IsPersistent = isPersistent
 			};
-			authenticationManager.SignIn(authenticationProperty, new ClaimsIdentity[] { claimsIdentity });
+			authenticationManager.SignIn(authenticationProperty, claimsIdentity);
 		}
 	}
 }

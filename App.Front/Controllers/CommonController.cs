@@ -1,15 +1,11 @@
-﻿using App.Front.Models;
+﻿using System.Web.Mvc;
+using App.Front.Models;
 using App.Service.Common;
 using App.Service.Language;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
-    public  partial class CommonController : FrontBaseController
+    public class CommonController : FrontBaseController
     {
         private readonly ICommonServices _services;
 

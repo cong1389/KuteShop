@@ -153,7 +153,7 @@
                                                 <div class="field">
                                                     <div class="field-input-wrapper">
                                                         <label class="field-label" for="billing_address_full_name">Họ và tên</label>
-                                                        @Html.TextBoxFor(model => model.NewAddress.FirstName, new { @class = "field-input", @size = "30", @placeholder = "Họ và tên" })
+                                                        @Html.TextBoxFor(model => model.NewAddress.FirstName, new { @class = "field-input", size = "30", placeholder = "Họ và tên" })
                                                         @Html.ValidationMessageFor(model => model.NewAddress.FirstName, "", new { @class = "help-block" })
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@
                                                 <div class="field">
                                                     <div class="field-input-wrapper">
                                                         <label class="field-label" for="checkout_user_email">Email</label>
-                                                        @Html.TextBoxFor(model => model.NewAddress.Email, new { @class = "field-input", @size = "30", @placeholder = "Email", @autocapitalize = "off", @spellcheck = "false", @type = "email" })
+                                                        @Html.TextBoxFor(model => model.NewAddress.Email, new { @class = "field-input", size = "30", placeholder = "Email", autocapitalize = "off", spellcheck = "false", type = "email" })
                                                     </div>
 
                                                 </div>
@@ -169,7 +169,7 @@
                                                 <div class="field">
                                                     <div class="field-input-wrapper">
                                                         <label class="field-label" for="billing_address_phone">Số điện thoại</label>
-                                                        @Html.TextBoxFor(model => model.NewAddress.PhoneNumber, new { @class = "field-input", @size = "11", @placeholder = "Số điện thoại" })
+                                                        @Html.TextBoxFor(model => model.NewAddress.PhoneNumber, new { @class = "field-input", size = "11", placeholder = "Số điện thoại" })
                                                         @Html.ValidationMessageFor(model => model.NewAddress.PhoneNumber, "", new { @class = "help-block" })
                                                     </div>
 
@@ -178,7 +178,7 @@
                                                 <div class="field field-active">
                                                     <div class="field-input-wrapper">
                                                         <label class="field-label" for="billing_address_address1">Địa chỉ</label>
-                                                        @Html.TextBoxFor(model => model.NewAddress.Address1, new { @class = "field-input", @size = "30", @placeholder = "Địa chỉ" })
+                                                        @Html.TextBoxFor(model => model.NewAddress.Address1, new { @class = "field-input", size = "30", placeholder = "Địa chỉ" })
                                                         @Html.ValidationMessageFor(model => model.NewAddress.Address1, "", new { @class = "help-block" })
                                                     </div>
                                                 </div>

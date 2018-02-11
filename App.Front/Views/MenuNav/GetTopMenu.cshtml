@@ -1,111 +1,138 @@
 ﻿<!----GetTopMenu ---->
-@using App.Domain.Common
-@using App.Front.Models
-@using App.Aplication
-@using App.Domain.Entities.Menu
-@using Resources
 @using App.FakeEntity.Menu
-@model IEnumerable<MenuNavViewModel>
+@model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
 
 @if (Model != null)
 {
-    <div class='header_icon fright hidden-xs hidden-sm'>
-        <div class='header_login'>
-            <a href="#" title="" class="awemenu-icon">
-                <i class="glyphicon glyphicon-user"></i>
-            </a>
-            <ul class='header_login_content unstyled'>
+    <div id="main-menu-new" class="col-sm-12 col-md-9 main-menu">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#new-menu" aria-expanded="false" aria-controls="navbar">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="#">MENU</a>
+                </div>
+                <div id="new-menu" class="navbar-collapse collapse">
+                    <ul class="t-menu nav">
 
-                @{
-                    if (HttpContext.Current.User.Identity.IsAuthenticated)
-                    {
-                        <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'><strong>@HttpContext.Current.User.Identity.Name </strong></a></li>
-                        <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'>Thông tin tài khoản</a></li>
-                        <li><a href='@Url.Action("LogOff","Account", new { area =""})'>Đăng xuất</a></li>
-                    }
-                    else
-                    {
-                        <li><a href='@Url.Action("Login", "User", new { area = "" })'>Đăng nhập</a></li>
-                        <li><a href='@Url.Action("Registration", "User", new { area = "" })'>Đăng ký</a></li>
-                    }
-                }
+                        @{
+                            int i = 0;
+                            foreach (MenuNavViewModel item in Model)
+                            {
+                                string clasActive = i == 0 ? "active" : "";
+                                <li class="@clasActive">
+                                    <a class=" current" href="@(item.OtherLink = item.OtherLink != null ? item.OtherLink : Url.Action("GetContent", "Menu", new { menu = item.SeoUrl, area = "" }) )" title="@item.MenuName" target="_self">
+                                        @item.MenuName
+                                    </a>
+                                </li>
+                                i++;
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-            </ul>
+    @*<div class='header_icon fright hidden-xs hidden-sm'>
+            <div class='header_login'>
+                <a href="#" title="" class="awemenu-icon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </a>
+                <ul class='header_login_content unstyled'>
+
+                    @{
+                        if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'><strong>@HttpContext.Current.User.Identity.Name </strong></a></li>
+                            <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'>Thông tin tài khoản</a></li>
+                            <li><a href='@Url.Action("LogOff","Account", new { area =""})'>Đăng xuất</a></li>
+                        }
+                        else
+                        {
+                            <li><a href='@Url.Action("Login", "User", new { area = "" })'>Đăng nhập</a></li>
+                            <li><a href='@Url.Action("Registration", "User", new { area = "" })'>Đăng ký</a></li>
+                        }
+                    }
+
+                </ul>
+
+            </div>
+
+            <div id="top-cart" class='top-cart-block'></div>
+
+            @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
 
         </div>
 
-        <div id="top-cart" class='top-cart-block'></div>
-
-        @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
-
-    </div>
-
-    <div class='primary_menu_wrap fright hidden-sm hidden-xs'>
-        <nav id="primary-menu" class='hidden-xs hidden-sm'>
-            <ul>
-                @foreach (MenuNavViewModel item in Model)
-                {
-                <!-- normal sub menu -->
-                    <li class=''>
-                        <a class='menu' href="@(item.OtherLink = item.OtherLink !=null? item.OtherLink : Url.Action("GetContent", "Menu", new {menu = item.SeoUrl , area = ""}) )" title="@item.MenuName">
-                            <div>
-                                <div class='menu_icon'></div>
-                                @item.MenuName
-                            </div>
-                        </a>
-                        <i class='fa fa-caret-down'></i>
-                        <ul>
-                            <div class='submenu_group'>
-                                <div class='submenu_col'>
-                                    @foreach (var lv1 in item.ChildNavMenu)
-                                    {
-                                        <li class=''>
-                                            <a class='sub-menu' href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})" title="@lv1.MenuName">
-                                                <div> @lv1.MenuName</div>
-                                            </a>
-                                        </li>
-                                    }
+        <div class='primary_menu_wrap fright hidden-sm hidden-xs'>
+            <nav id="primary-menu" class='hidden-xs hidden-sm'>
+                <ul>
+                    @foreach (MenuNavViewModel item in Model)
+                    {
+                    <!-- normal sub menu -->
+                        <li class=''>
+                            <a class='menu' href="@(item.OtherLink = item.OtherLink !=null? item.OtherLink : Url.Action("GetContent", "Menu", new {menu = item.SeoUrl , area = ""}) )" title="@item.MenuName">
+                                <div>
+                                    <div class='menu_icon'></div>
+                                    @item.MenuName
                                 </div>
-                            </div>
-                        </ul>
-                    </li>
-                      <!-- end normal sub menu -->
-                }
-            </ul>
-        </nav>
+                            </a>
+                            <i class='fa fa-caret-down'></i>
+                            <ul>
+                                <div class='submenu_group'>
+                                    <div class='submenu_col'>
+                                        @foreach (var lv1 in item.ChildNavMenu)
+                                        {
+                                            <li class=''>
+                                                <a class='sub-menu' href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})" title="@lv1.MenuName">
+                                                    <div> @lv1.MenuName</div>
+                                                </a>
+                                            </li>
+                                        }
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
+                          <!-- end normal sub menu -->
+                    }
+                </ul>
+            </nav>
 
-        <!-- #primary-menu end -->
-    </div>
-            }
+            <!-- #primary-menu end -->
+        </div>*@
+                            }
 
-<script>
+                            @*<script>
 
-    function ViewPopupCart() {
-        jQuery.post('/shoppingcart/GetPopupCart')
-      .done(function (data) {
-          jQuery("#top-cart").html(data.list);
-      });
-    }
+                                    function ViewPopupCart() {
+                                        jQuery.post('/shoppingcart/GetPopupCart')
+                                      .done(function (data) {
+                                          jQuery("#top-cart").html(data.list);
+                                      });
+                                    }
 
-    function RemoveCartItem(id) {
-        var param = {
-            type: 'POST',
-            url: '@Url.Action("DeleteProduct", "ShoppingCart")',
-            data: { 'id': id },
-            dataType: 'json',
-            success: function (response) {
-                ViewPopupCart();
-            },
-            error: function (XMLHttpRequest, textStatus) {
-                alert(textStatus);
-            }
-        }
-        jQuery.ajax(param);
-    }
+                                    function RemoveCartItem(id) {
+                                        var param = {
+                                            type: 'POST',
+                                            url: '@Url.Action("DeleteProduct", "ShoppingCart")',
+                                            data: { 'id': id },
+                                            dataType: 'json',
+                                            success: function (response) {
+                                                ViewPopupCart();
+                                            },
+                                            error: function (XMLHttpRequest, textStatus) {
+                                                alert(textStatus);
+                                            }
+                                        }
+                                        jQuery.ajax(param);
+                                    }
 
-    jQuery(document).ready(function () {
-        ViewPopupCart();
-    });
+                                    jQuery(document).ready(function () {
+                                        ViewPopupCart();
+                                    });
 
-</script>
-<!----/GetTopMenu ---->
+                                </script>*@
+
+                            <!----/GetTopMenu ---->

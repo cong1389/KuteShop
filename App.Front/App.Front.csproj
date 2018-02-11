@@ -286,86 +286,6 @@
     <Compile Include="WebCache.Static\StaticContentFilter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\global\api.jquery.js" />
-    <Content Include="assets\global\box-style15ac.css_v=1483418901649.css" />
-    <Content Include="assets\global\customer_area.js" />
-    <Content Include="assets\global\design\plugins\bootstrap\3.3.6\css\bootstrap.min.css" />
-    <Content Include="assets\global\design\plugins\bootstrap\3.3.6\js\bootstrap.min.js" />
-    <Content Include="assets\global\design\plugins\fancybox\jquery.fancybox.js" />
-    <Content Include="assets\global\design\plugins\font-awesome\4.5.0\css\font-awesome.min.css" />
-    <Content Include="assets\global\design\plugins\jquery\jquery-2.1.4.min.js" />
-    <Content Include="assets\global\design\theme-default\jquery.touchSwipe.min.js" />
-    <Content Include="assets\global\haravan_common.js" />
-    <Content Include="assets\global\jquery.validate.js" />
-    <Content Include="assets\global\noDefaultImage6_grande.gif" />
-    <Content Include="assets\global\noDefaultImage6_icon.gif" />
-    <Content Include="assets\global\noDefaultImage6_large.gif" />
-    <Content Include="assets\global\option_selection.js" />
-    <Content Include="assets\lib\big-title-bg677f.png" />
-    <Content Include="assets\lib\blank.gif" />
-    <Content Include="assets\lib\blog_icon_topbar677f.png" />
-    <Content Include="assets\lib\close.png" />
-    <Content Include="assets\lib\custom_style.scss677f.css" />
-    <Content Include="assets\lib\dotted.png" />
-    <Content Include="assets\lib\fancybox_loading%402x.gif" />
-    <Content Include="assets\lib\fancybox_loading.gif" />
-    <Content Include="assets\lib\fancybox_overlay.png" />
-    <Content Include="assets\lib\fancybox_sprite%402x.png" />
-    <Content Include="assets\lib\fancybox_sprite.png" />
-    <Content Include="assets\lib\favicon677f.png" />
-    <Content Include="assets\lib\functions677f.js" />
-    <Content Include="assets\lib\grid.png" />
-    <Content Include="assets\lib\iconalt.svg" />
-    <Content Include="assets\lib\index_banner_1677f.jpg" />
-    <Content Include="assets\lib\index_banner_2677f.jpg" />
-    <Content Include="assets\lib\index_banner_3677f.jpg" />
-    <Content Include="assets\lib\insert-left677f.png" />
-    <Content Include="assets\lib\insert-right677f.png" />
-    <Content Include="assets\lib\jquery.fancybox.pack677f.js" />
-    <Content Include="assets\lib\jquery.fancybox677f.css" />
-    <Content Include="assets\lib\loader.gif" />
-    <Content Include="assets\lib\logo1c9a.png" />
-    <Content Include="assets\lib\logo677f.png" />
-    <Content Include="assets\lib\menu-divider.png" />
-    <Content Include="assets\lib\nhay-den677f.png" />
-    <Content Include="assets\lib\nhay-kep677f.png" />
-    <Content Include="assets\lib\parallax-bg.jpg" />
-    <Content Include="assets\lib\pattern.png" />
-    <Content Include="assets\lib\pattern2.png" />
-    <Content Include="assets\lib\payment_img677f.png" />
-    <Content Include="assets\lib\pd_policies677f.png" />
-    <Content Include="assets\lib\pd_policies_1677f.png" />
-    <Content Include="assets\lib\pd_policies_2677f.png" />
-    <Content Include="assets\lib\pd_policies_3677f.png" />
-    <Content Include="assets\lib\pd_policies_4677f.png" />
-    <Content Include="assets\lib\pd_scroll_buynow677f.png" />
-    <Content Include="assets\lib\pd_scroll_cart677f.png" />
-    <Content Include="assets\lib\pd_scroll_fb677f.png" />
-    <Content Include="assets\lib\pd_scroll_hotline677f.png" />
-    <Content Include="assets\lib\plugins.min677f.js" />
-    <Content Include="assets\lib\plugins.scss677f.css" />
-    <Content Include="assets\lib\policies_icon_1677f.png" />
-    <Content Include="assets\lib\policies_icon_2677f.png" />
-    <Content Include="assets\lib\policies_icon_3677f.png" />
-    <Content Include="assets\lib\policies_icon_4677f.png" />
-    <Content Include="assets\lib\preloader-dark_2x.gif" />
-    <Content Include="assets\lib\preloader.gif" />
-    <Content Include="assets\lib\preloader_2x.gif" />
-    <Content Include="assets\lib\product_scroll_img677f.png" />
-    <Content Include="assets\lib\quote-icon677f.png" />
-    <Content Include="assets\lib\responsive677f.css" />
-    <Content Include="assets\lib\script677f.js" />
-    <Content Include="assets\lib\sidebar_banner677f.jpg" />
-    <Content Include="assets\lib\slideshow_1677f.jpg" />
-    <Content Include="assets\lib\style677f.css" />
-    <Content Include="assets\lib\submenu.png" />
-    <Content Include="assets\lib\widget-comment-dark_2x.png" />
-    <Content Include="assets\lib\widget-comment.png" />
-    <Content Include="assets\lib\widget-comment_2x.png" />
-    <Content Include="assets\lib\widget-link.png" />
-    <Content Include="assets\lib\widget-link677f.png" />
-    <Content Include="assets\lib\widget-link_2x.png" />
-    <Content Include="assets\lib\widget_link_dark_2x677f.png" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap.css" />
@@ -391,8 +311,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\lib\sfu-avantgardeitcbybt-book677f.otf" />
-    <Content Include="assets\lib\slick.ttf" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\css3-animate-it.js" />
@@ -481,6 +399,7 @@
     <Content Include="Themes\Basic\Content\shared\_buttons.scss" />
     <Content Include="Themes\Basic\Content\_variables.scss" />
     <Content Include="Views\Checkout\Complete.cshtml" />
+    <Content Include="Views\MenuNav\GetMenuVerticalMega.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -493,6 +412,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

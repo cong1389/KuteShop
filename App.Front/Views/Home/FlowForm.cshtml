@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nội dung sửa chữa</label>
                             <div class="col-sm-9">
-                                @Html.TextAreaFor(model => model.Note, new {@class = "form-control", @rows = 5})
+                                @Html.TextAreaFor(model => model.Note, new {@class = "form-control", rows = 5})
                                 @Html.ValidationMessageFor(model => model.Note, "", new {@class = "help-block"})
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Tình trạng</label>
                             <div class="col-sm-9">
-                                @Html.TextAreaFor(model => model.PhoneStatus, new {@class = "form-control", @rows = 8})
+                                @Html.TextAreaFor(model => model.PhoneStatus, new {@class = "form-control", rows = 8})
                                 @Html.ValidationMessageFor(model => model.PhoneStatus, "", new {@class = "help-block"})
                             </div>
                         </div>

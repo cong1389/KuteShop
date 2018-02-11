@@ -1,13 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using App.Core.Localization;
 using App.Front.Models;
 using App.Service.Common;
 using App.Service.Language;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Web;
-using System.Web.Mvc;
-
 
 namespace App.Front.Controllers
 {
@@ -50,7 +47,7 @@ namespace App.Front.Controllers
 
         public FrontBaseController()
 		{
-            this.T = NullLocalizer.Instance;
+            T = NullLocalizer.Instance;
         }
 
         public Localizer T
