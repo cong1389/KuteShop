@@ -1,12 +1,9 @@
 using App.Core.Common;
-using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Location;
 using App.Domain.Entities.Other;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.GlobalSetting
 {
@@ -81,7 +78,7 @@ namespace App.Domain.Entities.GlobalSetting
         }
 
         [ForeignKey("ProvinceId")]
-        public virtual App.Domain.Entities.Location.Province Province
+        public virtual Province Province
         {
             get;
             set;

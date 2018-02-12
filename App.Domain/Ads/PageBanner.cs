@@ -1,8 +1,6 @@
 using App.Core.Common;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Ads
 {

@@ -1,6 +1,6 @@
-﻿using App.Core.Extensions;
+﻿using System.Text;
+using App.Core.Extensions;
 using App.Domain.Common;
-using System.Text;
 
 namespace App.Service.Addresses
 {
@@ -8,19 +8,17 @@ namespace App.Service.Addresses
     {
 		public static string GetFullName(this Address address)
         {
-            if (address != null)
+            if (address == null) return null;
+
+            var sb = new StringBuilder(address.FirstName);
+
+            sb.AppendFormat("{0} ", address.LastName);
+
+            if (address.Company.HasValue())
             {
-                var sb = new StringBuilder(address.FirstName);
-
-                sb.AppendFormat("{0} ", address.LastName);
-
-                if (address.Company.HasValue())
-                {
-                    sb.AppendFormat("({0}) ", address.Company);
-                }
-                return sb.ToString().Trim();
+                sb.AppendFormat("({0}) ", address.Company);
             }
-            return null;
+            return sb.ToString().Trim();
         }
     }
 }

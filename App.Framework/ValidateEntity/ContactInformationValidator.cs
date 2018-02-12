@@ -1,7 +1,6 @@
+using System.Text.RegularExpressions;
 using App.FakeEntity.ContactInformation;
 using FluentValidation;
-using System;
-using System.Text.RegularExpressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -9,11 +8,11 @@ namespace App.Framework.ValidateEntity
 	{
 		public ContactInformationValidator()
 		{
-            RuleFor((ContactInformationViewModel x) => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
-            RuleFor((ContactInformationViewModel x) => x.Address).NotEmpty().WithMessage("Vui lòng nhập địa chỉ.");
-            RuleFor((ContactInformationViewModel x) => x.Email).Must(new Func<string, bool>(IsValidEmail)).WithMessage("Email không đúng định dạng");
-            RuleFor((ContactInformationViewModel x) => x.OrderDisplay).NotEmpty().WithMessage("Vui lòng nhập vị trí hiển thị.");
-            RuleFor((ContactInformationViewModel x) => x.OrderDisplay).GreaterThanOrEqualTo(0).WithMessage("Vị trí hiển thị phải là số và lớn hơn 0.");
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+            RuleFor(x => x.Address).NotEmpty().WithMessage("Vui lòng nhập địa chỉ.");
+            RuleFor(x => x.Email).Must(IsValidEmail).WithMessage("Email không đúng định dạng");
+            RuleFor(x => x.OrderDisplay).NotEmpty().WithMessage("Vui lòng nhập vị trí hiển thị.");
+            RuleFor(x => x.OrderDisplay).GreaterThanOrEqualTo(0).WithMessage("Vị trí hiển thị phải là số và lớn hơn 0.");
 		}
 
 		public static bool IsValidEmail(string email)

@@ -1,30 +1,25 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Ads;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Ads;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.Ads
 {
-	public class PageBannerService : BaseService<PageBanner>, IPageBannerService, IBaseService<PageBanner>, IService
+	public class PageBannerService : BaseService<PageBanner>, IPageBannerService
 	{
-        private const string CACHE_PAGEBANNER_KEY = "db.PageBanner.{0}";
+        private const string CachePagebannerKey = "db.PageBanner.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IPageBannerRepository _pageBannerRepository;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public PageBannerService(IUnitOfWork unitOfWork, IPageBannerRepository pageBannerRepository
+	    public PageBannerService(IUnitOfWork unitOfWork, IPageBannerRepository pageBannerRepository
             , ICacheManager cacheManager) : base(unitOfWork, pageBannerRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._pageBannerRepository = pageBannerRepository;
+		    _pageBannerRepository = pageBannerRepository;
             _cacheManager = cacheManager;
         }
 
@@ -35,7 +30,7 @@ namespace App.Service.Ads
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_PAGEBANNER_KEY, "GetById");
+                sbKey.AppendFormat(CachePagebannerKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -56,7 +51,7 @@ namespace App.Service.Ads
 
 		public IEnumerable<PageBanner> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
-			return this._pageBannerRepository.PagedSearchList(sortbuBuilder, page);
+			return _pageBannerRepository.PagedSearchList(sortbuBuilder, page);
 		}
 	}
 }

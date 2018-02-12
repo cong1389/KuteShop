@@ -1,11 +1,9 @@
-using App.FakeEntity.Step;
-using FluentValidation;
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
+using App.FakeEntity.Step;
+using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
@@ -13,8 +11,8 @@ namespace App.Framework.ValidateEntity
 	{
 		public FlowStepValidator()
 		{
-			base.RuleFor<string>((FlowStepViewModel x) => x.Title).NotEmpty<FlowStepViewModel, string>().WithMessage<FlowStepViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<HttpPostedFileBase>((FlowStepViewModel x) => x.Image).Must<FlowStepViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(FlowStepValidator.IsValidFileType)).WithMessage<FlowStepViewModel, HttpPostedFileBase>("Hình ảnh không đúng định dạng");
+			RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Hình ảnh không đúng định dạng");
 		}
 
 		public static bool IsValidFileType(HttpPostedFileBase file)
@@ -26,10 +24,10 @@ namespace App.Framework.ValidateEntity
 			}
 			else
 			{
-				ImageFormat[] jpeg = new ImageFormat[] { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
+				ImageFormat[] jpeg = { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
 				using (Image image = Image.FromStream(file.InputStream))
 				{
-					if (!jpeg.Contains<ImageFormat>(image.RawFormat))
+					if (!jpeg.Contains(image.RawFormat))
 					{
 						flag = false;
 						return flag;

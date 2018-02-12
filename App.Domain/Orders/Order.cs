@@ -3,15 +3,11 @@ using App.Domain.Common;
 using Domain.Entities.Customers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Domain.Orders
 {
-    public class Order : AuditableEntity<int>
+    public sealed class Order : AuditableEntity<int>
     {
         public string OrderNumber
         {
@@ -30,7 +26,7 @@ namespace App.Domain.Orders
             get; set;
         }
         [DataMember]
-        public virtual Customer Customer { get; set; }
+        public Customer Customer { get; set; }
 
         [DataMember]
         public int BillingAddressId { get; set; }
@@ -42,10 +38,10 @@ namespace App.Domain.Orders
         public int? ShippingAddressId { get; set; }
 
         [DataMember]
-        public virtual Address BillingAddress { get; set; }
+        public Address BillingAddress { get; set; }
 
         [DataMember]
-        public virtual Address ShippingAddress { get; set; }
+        public Address ShippingAddress { get; set; }
 
         public int OrderStatusId
         {
@@ -299,42 +295,24 @@ namespace App.Domain.Orders
         [DataMember]
         public OrderStatus OrderStatus
         {
-            get
-            {
-                return (OrderStatus)OrderStatusId;
-            }
-            set
-            {
-                OrderStatusId = (int)value;
-            }
+            get => (OrderStatus)OrderStatusId;
+            set => OrderStatusId = (int)value;
         }
 
         [DataMember]
         public PaymentStatus PaymentStatus
         {
-            get
-            {
-                return (PaymentStatus)this.PaymentStatusId;
-            }
-            set
-            {
-                this.PaymentStatusId = (int)value;
-            }
+            get => (PaymentStatus)PaymentStatusId;
+            set => PaymentStatusId = (int)value;
         }
 
         public ShippingStatus ShippingStatus
         {
-            get
-            {
-                return (ShippingStatus)this.ShippingStatusId;
-            }
-            set
-            {
-                this.ShippingStatusId = (int)value;
-            }
+            get => (ShippingStatus)ShippingStatusId;
+            set => ShippingStatusId = (int)value;
         }
 
-        public virtual ICollection<OrderItem> OrderItems
+        public ICollection<OrderItem> OrderItems
         {
             get; set;
         }

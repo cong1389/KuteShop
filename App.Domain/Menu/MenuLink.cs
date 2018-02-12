@@ -1,18 +1,14 @@
 ﻿using App.Core.Common;
 using App.Domain.Entities.Ads;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.Language;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Menu
 {
-	public class MenuLink : AuditableEntity<int>
+	public sealed class MenuLink : AuditableEntity<int>
 	{
-		public virtual ICollection<Banner> Banners
+		public ICollection<Banner> Banners
 		{
 			get;
 			set;
@@ -103,7 +99,7 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-		public virtual ICollection<App.Domain.Entities.Data.News> News
+		public ICollection<News> News
 		{
 			get;
 			set;
@@ -121,7 +117,7 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-		public virtual MenuLink ParentMenu
+		public MenuLink ParentMenu
 		{
 			get;
 			set;
@@ -133,7 +129,7 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-		public virtual ICollection<Post> Posts
+		public ICollection<Post> Posts
 		{
 			get;
 			set;
@@ -153,7 +149,7 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-		public virtual ICollection<StaticContent> StaticContents
+		public ICollection<StaticContent> StaticContents
 		{
 			get;
 			set;
@@ -191,7 +187,7 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
         
-        public virtual ICollection<GenericControl.GenericControl> GenericControls
+        public ICollection<GenericControl.GenericControl> GenericControls
         {
             get; set;
         }

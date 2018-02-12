@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
-using System.Collections.Generic;
 
 namespace App.Service.Step
 {
-	public interface IFlowStepService : IBaseService<FlowStep>, IService
+	public interface IFlowStepService : IBaseService<FlowStep>
 	{
 		IEnumerable<FlowStep> PagedList(SortingPagingBuilder sortBuider, Paging page);
 

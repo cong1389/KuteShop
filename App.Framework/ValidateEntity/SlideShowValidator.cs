@@ -1,10 +1,8 @@
-using App.FakeEntity.Slide;
-using FluentValidation;
-using System;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
+using App.FakeEntity.Slide;
+using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
@@ -12,9 +10,9 @@ namespace App.Framework.ValidateEntity
 	{
 		public SlideShowValidator()
 		{
-			base.RuleFor<string>((SlideShowViewModel x) => x.Title).NotEmpty<SlideShowViewModel, string>().WithMessage<SlideShowViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<int>((SlideShowViewModel x) => x.OrderDisplay).NotEmpty<SlideShowViewModel, int>().WithMessage<SlideShowViewModel, int>("Vui lòng nhập xắp xếp vị trí.");
-			base.RuleFor<HttpPostedFileBase>((SlideShowViewModel x) => x.Image).Must<SlideShowViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(SlideShowValidator.IsValidFileType)).WithMessage<SlideShowViewModel, HttpPostedFileBase>("Tệp tin không đúng định dạng.");
+			RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.OrderDisplay).NotEmpty().WithMessage("Vui lòng nhập xắp xếp vị trí.");
+			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Tệp tin không đúng định dạng.");
 		}
 
 		public static bool IsValidFileType(HttpPostedFileBase file)
@@ -26,7 +24,7 @@ namespace App.Framework.ValidateEntity
 			}
 			else
 			{
-				flag = ((new string[] { ".jpg", ".png", ".gif", ".jpeg", ".mp4" }).Contains<string>(Path.GetExtension(file.FileName)) ? true : false);
+				flag = ((new[] { ".jpg", ".png", ".gif", ".jpeg", ".mp4" }).Contains(Path.GetExtension(file.FileName)) ? true : false);
 			}
 			return flag;
 		}

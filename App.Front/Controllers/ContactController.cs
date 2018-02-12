@@ -24,7 +24,7 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult ContactUs(int id, string title)
         {
-            MenuLink menuLink = _menuLinkService.GetById(Id: id);
+            MenuLink menuLink = _menuLinkService.GetById(id: id);
 
             ContactInformation contactInformation = _contactInfoService.Get(x => x.Type == 1 && x.Status == 1, true);
 

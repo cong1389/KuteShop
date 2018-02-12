@@ -1,7 +1,5 @@
 using App.FakeEntity.Ads;
 using FluentValidation;
-using System;
-using System.Linq.Expressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -9,8 +7,8 @@ namespace App.Framework.ValidateEntity
 	{
 		public PageBannerValidator()
 		{
-			base.RuleFor<string>((PageBannerViewModel x) => x.PageName).NotEmpty<PageBannerViewModel, string>().WithMessage<PageBannerViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<int>((PageBannerViewModel x) => x.OrderDisplay).NotEmpty<PageBannerViewModel, int>().WithMessage<PageBannerViewModel, int>("Vui lòng nhập vị trí hiển thị.");
+			RuleFor(x => x.PageName).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.OrderDisplay).NotEmpty().WithMessage("Vui lòng nhập vị trí hiển thị.");
 		}
 	}
 }

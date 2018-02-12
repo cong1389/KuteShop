@@ -98,15 +98,15 @@ namespace App.Admin.Controllers
 		}
 
 		[RequiredPermisson(Roles="CreateEditAttribute")]
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			AttributeViewModel attributeViewModel = Mapper.Map<App.Domain.Entities.Attribute.Attribute, AttributeViewModel>(this._attributeService.GetById(Id));
+			AttributeViewModel attributeViewModel = Mapper.Map<App.Domain.Entities.Attribute.Attribute, AttributeViewModel>(this._attributeService.GetById(id));
 			return base.View(attributeViewModel);
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditAttribute")]
-		public ActionResult Edit(AttributeViewModel attributeView, string ReturnUrl)
+		public ActionResult Edit(AttributeViewModel attributeView, string returnUrl)
 		{
 			ActionResult action;
 			try
@@ -121,13 +121,13 @@ namespace App.Admin.Controllers
 					App.Domain.Entities.Attribute.Attribute attribute = Mapper.Map<AttributeViewModel, App.Domain.Entities.Attribute.Attribute>(attributeView);
 					this._attributeService.Update(attribute);
 					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Attribute)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
+					if (!base.Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
 					{
 						action = base.RedirectToAction("Index");
 					}
 					else
 					{
-						action = this.Redirect(ReturnUrl);
+						action = this.Redirect(returnUrl);
 					}
 				}
 			}

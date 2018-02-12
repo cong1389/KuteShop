@@ -1,29 +1,24 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Post;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.Post
 {
-    public class PostGalleryService : BaseService<PostGallery>, IPostGalleryService, IBaseService<PostGallery>, IService
+    public class PostGalleryService : BaseService<PostGallery>, IPostGalleryService
     {
-        private const string CACHE_POSTGALLERY_KEY = "db.PostGallery.{0}";
+        private const string CachePostgalleryKey = "db.PostGallery.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IPostGalleryRepository _galleryRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-
         public PostGalleryService(IUnitOfWork unitOfWork, IPostGalleryRepository galleryRepository
             , ICacheManager cacheManager) : base(unitOfWork, galleryRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._galleryRepository = galleryRepository;
+            _galleryRepository = galleryRepository;
             _cacheManager = cacheManager;
         }
 
@@ -34,7 +29,7 @@ namespace App.Service.Post
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_POSTGALLERY_KEY, "GetById");
+                sbKey.AppendFormat(CachePostgalleryKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -60,24 +55,22 @@ namespace App.Service.Post
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_POSTGALLERY_KEY, "GetByPostId");
+                sbKey.AppendFormat(CachePostgalleryKey, "GetByPostId");
                 sbKey.Append(postId);
 
                 string key = sbKey.ToString();
                 postGallery = _cacheManager.GetCollection<PostGallery>(key);
                 if (postGallery == null)
                 {
-                    postGallery = _galleryRepository.FindBy((PostGallery x) => x.PostId == postId);
+                    postGallery = _galleryRepository.FindBy(x => x.PostId == postId);
                     _cacheManager.Put(key, postGallery);
                 }
             }
             else
             {
-                postGallery = _galleryRepository.FindBy((PostGallery x) => x.PostId == postId);
+                postGallery = _galleryRepository.FindBy(x => x.PostId == postId);
             }
-
-            //IEnumerable<PostGallery> postGallery = this._galleryRepository.FindBy((PostGallery x) => x.PostId == postId);
-
+            
             return postGallery;
         }
     }

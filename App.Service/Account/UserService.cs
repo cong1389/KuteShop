@@ -1,29 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using App.Core.Utils;
 using App.Domain.Entities.Account;
-using App.Domain.Interfaces.Repository;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Account;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace App.Service.Account
 {
-	public class UserService : BaseAsyncService<User>, IUserService, IBaseAsyncService<User>, IService
+	public class UserService : BaseAsyncService<User>, IUserService
 	{
-		private readonly IUnitOfWorkAsync _unitOfWork;
-
-		private readonly IUserRepository _userRepository;
+	    private readonly IUserRepository _userRepository;
 
 		public UserService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository) : base(userRepository, unitOfWork)
 		{
-			this._unitOfWork = unitOfWork;
-			this._userRepository = userRepository;
+		    _userRepository = userRepository;
 		}
 
 		public void BatchCreate(IEnumerable<User> entity)
@@ -48,7 +41,7 @@ namespace App.Service.Account
 
 		public async Task<IEnumerable<User>> FindAndSort(Expression<Func<User, bool>> whereClause, SortBuilder sortBuilder, Paging page)
 		{
-			return await this._userRepository.FindAndSort(whereClause, sortBuilder, page);
+			return await _userRepository.FindAndSort(whereClause, sortBuilder, page);
 		}
 
 		public IEnumerable<User> FindBy(Expression<Func<User, bool>> predicate, bool @readonly = false)
@@ -83,7 +76,7 @@ namespace App.Service.Account
 
 		public async Task<IEnumerable<User>> PagedList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			return await this._userRepository.PagedSearchList(sortBuider, page);
+			return await _userRepository.PagedSearchList(sortBuider, page);
 		}
 
 		public void Update(User entity)

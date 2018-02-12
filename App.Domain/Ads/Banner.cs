@@ -1,9 +1,7 @@
 using App.Core.Common;
-using App.Domain.Entities.Menu;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Ads
 {
@@ -42,7 +40,7 @@ namespace App.Domain.Entities.Ads
 		}
 
 		[ForeignKey("MenuId")]
-		public virtual App.Domain.Entities.Menu.MenuLink MenuLink
+		public virtual Menu.MenuLink MenuLink
 		{
 			get;
 			set;
@@ -55,7 +53,7 @@ namespace App.Domain.Entities.Ads
 		}
 
 		[ForeignKey("PageId")]
-		public virtual App.Domain.Entities.Ads.PageBanner PageBanner
+		public virtual PageBanner PageBanner
 		{
 			get;
 			set;

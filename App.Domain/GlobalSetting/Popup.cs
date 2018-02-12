@@ -2,7 +2,6 @@ using App.Core.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.GlobalSetting
 {

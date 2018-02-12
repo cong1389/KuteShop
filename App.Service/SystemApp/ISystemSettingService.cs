@@ -1,12 +1,11 @@
-﻿using App.Core.Utils;
+﻿using System.Collections.Generic;
+using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.SystemApp
 {
-    public interface ISystemSettingService : IBaseService<SystemSetting>, IService
+    public interface ISystemSettingService : IBaseService<SystemSetting>
     {
         SystemSetting GetById(int id, bool isCache = true);
 

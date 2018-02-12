@@ -1,12 +1,11 @@
-using App.Core.Common;
 using System;
-using System.Runtime.CompilerServices;
+using App.Core.Common;
 
 namespace App.Domain.Entities.Account
 {
 	public class Claim : Entity<int>
 	{
-		private App.Domain.Entities.Account.User _user;
+		private User _user;
 
 		public virtual string ClaimType
 		{
@@ -20,20 +19,13 @@ namespace App.Domain.Entities.Account
 			set;
 		}
 
-		public virtual App.Domain.Entities.Account.User User
+		public virtual User User
 		{
-			get
+			get => _user;
+		    set
 			{
-				return this._user;
-			}
-			set
-			{
-				if (value == null)
-				{
-					throw new ArgumentNullException("value");
-				}
-				this._user = value;
-				this.UserId = value.Id;
+                _user = value ?? throw new ArgumentNullException("value");
+				UserId = value.Id;
 			}
 		}
 
@@ -41,10 +33,6 @@ namespace App.Domain.Entities.Account
 		{
 			get;
 			set;
-		}
-
-		public Claim()
-		{
 		}
 	}
 }

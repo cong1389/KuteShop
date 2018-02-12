@@ -84,9 +84,38 @@ namespace App.Framework.Mappings
             .ForMember((LocalizedProperty x) => (object)x.LocaleValue, map
             => map.MapFrom<string>((LocalizedPropertyViewModel vm) => vm.LocaleValue));
 
-            CreateMap<ServerMailSettingViewModel, ServerMailSetting>().ForMember((ServerMailSetting x) => x.FromAddress, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.FromAddress)).ForMember((ServerMailSetting x) => (object)x.Id, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Id)).ForMember((ServerMailSetting x) => x.SmtpClient, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SmtpClient)).ForMember((ServerMailSetting x) => (object)x.Status, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status)).ForMember((ServerMailSetting x) => x.UserID, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.UserId)).ForMember((ServerMailSetting x) => x.Password, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.Password)).ForMember((ServerMailSetting x) => x.SMTPPort, map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SMTPPort)).ForMember((ServerMailSetting x) => (object)x.EnableSSL, map => map.MapFrom<bool>((ServerMailSettingViewModel vm) => vm.EnableSSL)).ForMember((ServerMailSetting x) => (object)x.Status, map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status));
+            CreateMap<ServerMailSettingViewModel, ServerMailSetting>()
+                .ForMember((ServerMailSetting x) => x.FromAddress,
+                    map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.FromAddress))
+                .ForMember((ServerMailSetting x) => (object) x.Id,
+                    map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Id))
+                .ForMember((ServerMailSetting x) => x.SmtpClient,
+                    map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SmtpClient))
+                .ForMember((ServerMailSetting x) => (object) x.Status,
+                    map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status))
+                .ForMember((ServerMailSetting x) => x.UserID,
+                    map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.UserId))
+                .ForMember((ServerMailSetting x) => x.Password,
+                    map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.Password))
+                .ForMember((ServerMailSetting x) => x.SMTPPort,
+                    map => map.MapFrom<string>((ServerMailSettingViewModel vm) => vm.SMTPPort))
+                .ForMember((ServerMailSetting x) => (object) x.EnableSSL,
+                    map => map.MapFrom<bool>((ServerMailSettingViewModel vm) => vm.EnableSSL)).ForMember(
+                    (ServerMailSetting x) => (object) x.Status,
+                    map => map.MapFrom<int>((ServerMailSettingViewModel vm) => vm.Status));
 
-            CreateMap<LandingPageViewModel, LandingPage>().ForMember((LandingPage x) => x.FullName, map => map.MapFrom<string>((LandingPageViewModel vm) => vm.FullName)).ForMember((LandingPage x) => (object)x.ShopId, map => map.MapFrom<int>((LandingPageViewModel vm) => vm.ShopId)).ForMember((LandingPage x) => x.DateOfBith, map => map.MapFrom<string>((LandingPageViewModel vm) => vm.DateOfBith)).ForMember((LandingPage x) => (object)x.Status, map => map.MapFrom<int>((LandingPageViewModel vm) => vm.Status)).ForMember((LandingPage x) => x.PhoneNumber, map => map.MapFrom<string>((LandingPageViewModel vm) => vm.PhoneNumber)).ForMember((LandingPage x) => x.Email, map => map.MapFrom<string>((LandingPageViewModel vm) => vm.Email));
+            CreateMap<LandingPageViewModel, LandingPage>()
+                .ForMember((LandingPage x) => x.FullName,
+                    map => map.MapFrom<string>((LandingPageViewModel vm) => vm.FullName))
+                .ForMember((LandingPage x) => (object) x.ShopId,
+                    map => map.MapFrom<int>((LandingPageViewModel vm) => vm.ShopId))
+                .ForMember((LandingPage x) => x.DateOfBith,
+                    map => map.MapFrom<string>((LandingPageViewModel vm) => vm.DateOfBith))
+                .ForMember((LandingPage x) => (object) x.Status,
+                    map => map.MapFrom<int>((LandingPageViewModel vm) => vm.Status))
+                .ForMember((LandingPage x) => x.PhoneNumber,
+                    map => map.MapFrom<string>((LandingPageViewModel vm) => vm.PhoneNumber)).ForMember(
+                    (LandingPage x) => x.Email, map => map.MapFrom<string>((LandingPageViewModel vm) => vm.Email));
 
             CreateMap<ContactInformationViewModel, ContactInformation>()
                 .ForMember((ContactInformation x) => (object)x.Id, map => map.MapFrom<int>((ContactInformationViewModel vm) => vm.Id))

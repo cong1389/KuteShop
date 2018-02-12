@@ -1,8 +1,6 @@
+using System.Text.RegularExpressions;
 using App.FakeEntity.Other;
 using FluentValidation;
-using System;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -10,11 +8,11 @@ namespace App.Framework.ValidateEntity
 	{
 		public LandingPageValidator()
 		{
-			base.RuleFor<string>((LandingPageViewModel x) => x.FullName).NotEmpty<LandingPageViewModel, string>().WithMessage<LandingPageViewModel, string>("Vui lòng nhập họ tên.");
-			base.RuleFor<string>((LandingPageViewModel x) => x.PhoneNumber).NotEmpty<LandingPageViewModel, string>().WithMessage<LandingPageViewModel, string>("Vui lòng nhập số điện thoại.");
-			base.RuleFor<string>((LandingPageViewModel x) => x.Email).Must<LandingPageViewModel, string>(new Func<string, bool>(LandingPageValidator.IsValidEmail)).WithMessage<LandingPageViewModel, string>("Email không đúng định dạng");
-			base.RuleFor<string>((LandingPageViewModel x) => x.DateOfBith).NotEmpty<LandingPageViewModel, string>().WithMessage<LandingPageViewModel, string>("Vui lòng nhập ngày sinh.");
-			base.RuleFor<int>((LandingPageViewModel x) => x.ShopId).NotEmpty<LandingPageViewModel, int>().WithMessage<LandingPageViewModel, int>("Vui lòng chọn cửa hàng.");
+			RuleFor(x => x.FullName).NotEmpty().WithMessage("Vui lòng nhập họ tên.");
+			RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Vui lòng nhập số điện thoại.");
+			RuleFor(x => x.Email).Must(IsValidEmail).WithMessage("Email không đúng định dạng");
+			RuleFor(x => x.DateOfBith).NotEmpty().WithMessage("Vui lòng nhập ngày sinh.");
+			RuleFor(x => x.ShopId).NotEmpty().WithMessage("Vui lòng chọn cửa hàng.");
 		}
 
 		public static bool IsValidEmail(string email)

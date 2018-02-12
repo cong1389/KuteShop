@@ -1,20 +1,17 @@
-﻿using App.Core.Caching;
-using App.Core.Common;
-using App.Core.Extensions;
-using App.Service.Common;
-using App.Service.GenericAttribute;
-using App.Service.LocalizedProperty;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Web.Mvc;
+using App.Core.Caching;
+using App.Service.Common;
+using App.Service.LocalizedProperty;
 
 namespace App.Service.Language
 {
     public static class LocalizationExtentions
     {
-        private const string CACHE_LOCALIZA_KEY = "db.Localization.{0}";
+        private const string CacheLocalizaKey = "db.Localization.{0}";
        
         public static string GetLocalized<T>(this T entity, Expression<Func<T, string>> keySelector, int entityId)
         {
@@ -52,17 +49,13 @@ namespace App.Service.Language
             var member = keySelector.Body as MemberExpression;
             if (member == null)
             {
-                throw new ArgumentException(string.Format(
-                    "Expression '{0}' refers to a method, not a property.",
-                    keySelector));
+                throw new ArgumentException($"Expression '{keySelector}' refers to a method, not a property.");
             }
 
             var propInfo = member.Member as PropertyInfo;
             if (propInfo == null)
             {
-                throw new ArgumentException(string.Format(
-                       "Expression '{0}' refers to a field, not a property.",
-                       keySelector));
+                throw new ArgumentException($"Expression '{keySelector}' refers to a field, not a property.");
             }
             string result = null;
 
@@ -72,11 +65,11 @@ namespace App.Service.Language
 
             if (languageId > 0)
             {
-                var _cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
-                var _localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
+                DependencyResolver.Current.GetService<ICacheManager>();
+                var localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
 
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_LOCALIZA_KEY, "GetLocalized");
+                sbKey.AppendFormat(CacheLocalizaKey, "GetLocalized");
                 Guid guid = entity.GetType().GUID;
                 sbKey.AppendFormat("-{0}", guid);
                 sbKey.AppendFormat("-{0}", entityId);
@@ -84,10 +77,10 @@ namespace App.Service.Language
                 sbKey.AppendFormat("-{0}", localeKeyGroup);
                 sbKey.AppendFormat("-{0}", localeKey);
                 
-                App.Domain.Entities.Language.LocalizedProperty localizedProperty = _localizedPropertyService.GetByKey(languageId
+                Domain.Entities.Language.LocalizedProperty localizedProperty = localizedPropertyService.GetByKey(languageId
                     , entityId, localeKeyGroup, localeKey);
 
-                result = localizedProperty != null ? localizedProperty.LocaleValue : null;
+                result = localizedProperty?.LocaleValue;
             }
 
             return result;
@@ -109,11 +102,11 @@ namespace App.Service.Language
             string result = null;
             if (languageId > 0)
             {
-                var _cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
-                var _localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
+                var cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
+                var localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
 
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_LOCALIZA_KEY, "GetLocalizedByLocaleKey");
+                sbKey.AppendFormat(CacheLocalizaKey, "GetLocalizedByLocaleKey");
                 Guid guid = entity.GetType().GUID;
                 sbKey.AppendFormat("-{0}", guid);
                 sbKey.AppendFormat("-{0}", entityId);
@@ -122,17 +115,14 @@ namespace App.Service.Language
                 sbKey.AppendFormat("-{0}", localeKey);
 
                 string key = sbKey.ToString();
-                Domain.Entities.Language.LocalizedProperty localizedProperty = _cacheManager.Get<Domain.Entities.Language.LocalizedProperty>(key);
+                var localizedProperty = cacheManager.Get<Domain.Entities.Language.LocalizedProperty>(key);
                 if (localizedProperty == null)
                 {
-                    localizedProperty = _localizedPropertyService.GetByKey(languageId
+                    localizedProperty = localizedPropertyService.GetByKey(languageId
                     , entityId, localeKeyGroup, localeKey);
-                    _cacheManager.Put(key, localizedProperty);
+                    cacheManager.Put(key, localizedProperty);
                 }                
               
-                //App.Domain.Entities.Language.LocalizedProperty localizedProperty = _localizedPropertyService.GetLocalizedPropertByKey(languageId
-                //    , entityId, localeKeyGroup, localeKey);
-
                 result = localizedProperty != null ? localizedProperty.LocaleValue : fallBackValue;
             }
 

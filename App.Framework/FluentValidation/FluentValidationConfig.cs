@@ -75,10 +75,9 @@ namespace App.Framework.FluentValidation
 
 		public override IValidator CreateInstance(Type validatorType)
 		{
-			IValidator validator;
-			IValidator validator1;
-			validator1 = (!_validators.TryGetValue(validatorType, out validator) ? validator : validator);
-			return validator1;
+		    var validator1 = (!_validators.TryGetValue(validatorType, out var validator) ? null : validator);
+
+		    return validator1;
 		}
 	}
 }

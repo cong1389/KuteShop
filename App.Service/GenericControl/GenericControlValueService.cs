@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
@@ -5,27 +7,20 @@ using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.GenericControl;
 using App.Infra.Data.UOW.Interfaces;
-using App.Service.GenericControl;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.GenericControl
 {
-    public class GenericControlValueService : BaseService<GenericControlValue>, IGenericControlValueService, IBaseService<GenericControlValue>, IService
+    public class GenericControlValueService : BaseService<GenericControlValue>, IGenericControlValueService
     {
-        private const string CACHE_GENERICONTROLVALUE_KEY = "db.GenericControlValue.{0}";
+        private const string CacheGenericontrolvalueKey = "db.GenericControlValue.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IGenericControlValueRepository _attributeValueRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-
         public GenericControlValueService(IUnitOfWork unitOfWork, IGenericControlValueRepository attributeValueRepository
             , ICacheManager cacheManager) : base(unitOfWork, attributeValueRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._attributeValueRepository = attributeValueRepository;
+            _attributeValueRepository = attributeValueRepository;
             _cacheManager = cacheManager;
         }
 
@@ -36,7 +31,7 @@ namespace App.Service.GenericControl
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_GENERICONTROLVALUE_KEY, "GetById");
+                sbKey.AppendFormat(CacheGenericontrolvalueKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -58,14 +53,14 @@ namespace App.Service.GenericControl
         public IEnumerable<GenericControlValue> GetByEntityId(int entityId)
         {
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_GENERICONTROLVALUE_KEY, "GetByEntityId");
+            sbKey.AppendFormat(CacheGenericontrolvalueKey, "GetByEntityId");
             sbKey.AppendFormat("-{0}", entityId);
 
             string key = sbKey.ToString();
             IEnumerable<GenericControlValue> genericControlValues = _cacheManager.GetCollection<GenericControlValue>(key);
             if (genericControlValues == null)
             {
-                genericControlValues = _attributeValueRepository.FindBy((GenericControlValue x) => x.EntityId == entityId);
+                genericControlValues = _attributeValueRepository.FindBy(x => x.EntityId == entityId);
                 _cacheManager.Put(key, genericControlValues);
             }
 
@@ -74,7 +69,7 @@ namespace App.Service.GenericControl
 
         public IEnumerable<GenericControlValue> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._attributeValueRepository.PagedSearchList(sortbuBuilder, page);
+            return _attributeValueRepository.PagedSearchList(sortbuBuilder, page);
         }
     }
 }

@@ -1,12 +1,10 @@
-using App.Domain.Entities.Data;
+using System.Collections.Generic;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.GenericControl
 {
-    public interface IGenericControlValueItemService : IBaseService<GenericControlValueItem>, IService
+    public interface IGenericControlValueItemService : IBaseService<GenericControlValueItem>
 	{
 		GenericControlValueItem GetById(int id, bool isCache = true);
 

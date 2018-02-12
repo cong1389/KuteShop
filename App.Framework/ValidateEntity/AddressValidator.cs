@@ -7,9 +7,9 @@ namespace App.Framework.ValidateEntity
 	{
 		public AddressValidator()
 		{
-			base.RuleFor<string>((AddressViewModel x) => x.FirstName).NotEmpty<AddressViewModel, string>().WithMessage<AddressViewModel, string>("Vui lòng nhập họ tên.");
-			base.RuleFor<string>((AddressViewModel x) => x.Address1).NotEmpty<AddressViewModel, string>().WithMessage<AddressViewModel, string>("Vui lòng nhập địa chỉ.");
-            base.RuleFor<string>((AddressViewModel x) => x.PhoneNumber).NotEmpty<AddressViewModel, string>().WithMessage<AddressViewModel, string>("Vui lòng nhập số điện thoại.");
+			RuleFor(x => x.FirstName).NotEmpty().WithMessage("Vui lòng nhập họ tên.");
+			RuleFor(x => x.Address1).NotEmpty().WithMessage("Vui lòng nhập địa chỉ.");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Vui lòng nhập số điện thoại.");
         }
 	}
 }

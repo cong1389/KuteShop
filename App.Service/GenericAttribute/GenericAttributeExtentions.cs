@@ -1,11 +1,5 @@
-﻿using App.Core.Common;
+﻿using System.Web.Mvc;
 using Domain.Entities.Customers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace App.Service.GenericAttribute
 {
@@ -17,11 +11,7 @@ namespace App.Service.GenericAttribute
                 genericAttributeService = DependencyResolver.Current.GetService<IGenericAttributeService>();
 
             var prop = genericAttributeService.GetByKey(entity.Id, keyGroup, key);
-            if (prop!= null)
-            {
-                return prop.Value;
-            }
-            return null;
+            return prop?.Value;
         }
     }
 }

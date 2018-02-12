@@ -1,8 +1,5 @@
-﻿using App.FakeEntity.Repairs;
-using App.FakeEntity.Post;
+﻿using App.FakeEntity.Post;
 using FluentValidation;
-using System;
-using System.Linq.Expressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -10,7 +7,7 @@ namespace App.Framework.ValidateEntity
     {
         public PostGalleryValidator()
         {
-            base.RuleFor<string>((PostGalleryViewModel x) => x.Title).NotEmpty<PostGalleryViewModel, string>().WithMessage<PostGalleryViewModel, string>("Vui lòng nhập Tên.");            
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập Tên.");            
         }
     }
 }

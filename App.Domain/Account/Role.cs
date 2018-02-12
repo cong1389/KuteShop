@@ -1,8 +1,7 @@
-using App.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using App.Core.Common;
 
 namespace App.Domain.Entities.Account
 {
@@ -28,24 +27,17 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				ICollection<User> users = this._users;
-				if (users == null)
-				{
-					List<User> users1 = new List<User>();
-					ICollection<User> users2 = users1;
-					this._users = users1;
-					users = users2;
-				}
-				return users;
-			}
-			set
-			{
-				this._users = value;
-			}
-		}
+				var users = _users;
 
-		public Role()
-		{
+			    if (users != null) return users;
+
+			    List<User> users1 = new List<User>();
+			    ICollection<User> users2 = users1;
+			    _users = users1;
+			    users = users2;
+			    return users;
+			}
+			set => _users = value;
 		}
 	}
 }

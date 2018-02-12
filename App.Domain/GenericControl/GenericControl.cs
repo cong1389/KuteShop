@@ -1,11 +1,6 @@
 using App.Core.Common;
-using App.Domain.Entities.Data;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Menu;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.GenericControl
 {

@@ -1,24 +1,23 @@
-using App.Core.Common;
-using App.Core.Utils;
-using App.Domain.Entities.Language;
-using App.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using App.Core.Common;
+using App.Core.Utils;
+using App.Domain.Interfaces.Services;
 
 namespace App.Service.LocalizedProperty
 {
-    public interface ILocalizedPropertyService : IBaseService<App.Domain.Entities.Language.LocalizedProperty>, IService
+    public interface ILocalizedPropertyService : IBaseService<Domain.Entities.Language.LocalizedProperty>
     {
-        void CreateLocalizedProperty(App.Domain.Entities.Language.LocalizedProperty LocalizedProperty);
+        void CreateLocalizedProperty(Domain.Entities.Language.LocalizedProperty localizedProperty);
 
-        App.Domain.Entities.Language.LocalizedProperty GetById(int id, bool isCache = true);
+        Domain.Entities.Language.LocalizedProperty GetById(int id, bool isCache = true);
 
-        IEnumerable<App.Domain.Entities.Language.LocalizedProperty> GetByEntityId(int entityId, bool isCache = true);
+        IEnumerable<Domain.Entities.Language.LocalizedProperty> GetByEntityId(int entityId, bool isCache = true);
 
-        App.Domain.Entities.Language.LocalizedProperty GetByKey(int languageId,int entityId, string localeKeyGroup, string localeKey, bool isCache = true);
+        Domain.Entities.Language.LocalizedProperty GetByKey(int languageId,int entityId, string localeKeyGroup, string localeKey, bool isCache = true);
 
-        IEnumerable<App.Domain.Entities.Language.LocalizedProperty> PagedList(SortingPagingBuilder sortBuider, Paging page);
+        IEnumerable<Domain.Entities.Language.LocalizedProperty> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
         int SaveLocalizedProperty();
 

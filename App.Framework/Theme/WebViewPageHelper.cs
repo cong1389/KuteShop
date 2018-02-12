@@ -7,7 +7,6 @@ namespace App.Framework.Theme
     public class WebViewPageHelper
     {
         private bool _initialized;
-        private ControllerContext _controllerContext;
 
         public WebViewPageHelper()
         {
@@ -18,11 +17,10 @@ namespace App.Framework.Theme
 
         public void Initialize(ViewContext viewContext)
         {
-            if (!_initialized)
-            {
-                _controllerContext = viewContext.GetMasterControllerContext();
-                _initialized = true;
-            }
+            if (_initialized) return;
+
+            viewContext.GetMasterControllerContext();
+            _initialized = true;
         }
     }
 }

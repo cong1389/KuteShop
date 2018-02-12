@@ -8,15 +8,13 @@ namespace App.Front.Controllers
 {
     public class StaticContentController : FrontBaseController
     {
-        private IStaticContentService _staticContentService;
-        private readonly IMenuLinkService _menuLinkService;
+        private readonly IStaticContentService _staticContentService;
 
         public StaticContentController(IStaticContentService staticContentService            
             , IMenuLinkService menuLinkService
             )
         {
             _staticContentService = staticContentService;
-            _menuLinkService = menuLinkService;
         }
 
         // GET: StaticContent

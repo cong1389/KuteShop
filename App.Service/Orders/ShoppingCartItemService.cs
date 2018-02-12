@@ -1,4 +1,9 @@
-﻿using App.Core.Caching;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Orders;
 using App.Domain.Interfaces.Services;
@@ -6,21 +11,15 @@ using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Orders;
 using App.Infra.Data.UOW.Interfaces;
 using App.Service.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace App.Service.Orders
 {
-    public class ShoppingCartItemService : BaseService<ShoppingCartItem>, IShoppingCartItemService, IBaseService<ShoppingCartItem>, IService
+    public class ShoppingCartItemService : BaseService<ShoppingCartItem>, IShoppingCartItemService
     {
-        private const string CACHE_SHOPPINGCARTITEM_KEY = "db.ShoppingCartItem.{0}";
+        private const string CacheShoppingcartitemKey = "db.ShoppingCartItem.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IShoppingCartItemRepository _shoppingCartItemRepository;
-
-        private readonly IUnitOfWork _unitOfWork;
 
         private readonly IWorkContext _workContext;
 
@@ -32,8 +31,7 @@ namespace App.Service.Orders
             , ICacheManager cacheManager)
             : base(unitOfWork, shoppingCartItemRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._shoppingCartItemRepository = shoppingCartItemRepository;
+            _shoppingCartItemRepository = shoppingCartItemRepository;
             _workContext = workContext;
             _orderTotalCalculationService = orderTotalCalculationService;
             _cacheManager = cacheManager;
@@ -57,19 +55,19 @@ namespace App.Service.Orders
                 };
 
                 //Customer chua co trong ShoppingCartItem
-                if (ieShoppingCart == null || ieShoppingCart.Count() == 0)
+                if (ieShoppingCart == null || !ieShoppingCart.Any())
                 {
                     objNew.Quantity = ctx.Quantity <= 0 ? 1 : ctx.Quantity;
                     objNew.CustomerEnteredPrice = ctx.Price;
 
                     //Create cart
-                    this.Create(objNew);
+                    Create(objNew);
                 }
                 //Customer da co trong ShoppingCartItem
                 else
                 {
                     //Kiem tra PostId cua customer nay co trong ShoppingCartItem chua
-                    ShoppingCartItem objOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id).FirstOrDefault();
+                    ShoppingCartItem objOld = ieShoppingCart.FirstOrDefault(x => x.PostId == ctx.Post.Id);
 
                     // int quantityOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id && x.CustomerId == customer.Id).FirstOrDefault().Quantity;
                     if (objOld != null)
@@ -79,7 +77,7 @@ namespace App.Service.Orders
                         objOld.CustomerEnteredPrice = ctx.Price;
 
                         //objOld.Quantity = objOld.Quantity + ctx.Quantity;
-                        this.Update(objOld);
+                        Update(objOld);
                     }
                     //Cutomer, postId da co trong ShoppingCartItem
                     else
@@ -88,13 +86,13 @@ namespace App.Service.Orders
                         objNew.CustomerEnteredPrice = ctx.Price;
 
                         //Create cart
-                        this.Create(objNew);
+                        Create(objNew);
                     }
                 }
             }
-            catch 
+            catch
             {
-                
+                // ignored
             }
         }
 
@@ -104,7 +102,7 @@ namespace App.Service.Orders
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetById");
+                sbKey.AppendFormat(CacheShoppingcartitemKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -120,18 +118,6 @@ namespace App.Service.Orders
                 shoppingCartItem = _shoppingCartItemRepository.GetById(id);
             }
 
-            //StringBuilder sbKey = new StringBuilder();
-            //sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetById");
-            //sbKey.Append(id);
-
-            //string key = sbKey.ToString();
-            //ShoppingCartItem shoppingCartItem = _cacheManager.Get<ShoppingCartItem>(key);
-            //if (shoppingCartItem == null)
-            //{
-            //    shoppingCartItem = _shoppingCartItemRepository.GetById(id);
-            //    _cacheManager.Put(key, shoppingCartItem);
-            //}
-
             return shoppingCartItem;
         }
 
@@ -141,47 +127,33 @@ namespace App.Service.Orders
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetByPostId");
+                sbKey.AppendFormat(CacheShoppingcartitemKey, "GetByPostId");
                 sbKey.Append(postId);
 
                 string key = sbKey.ToString();
                 shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
                 if (shoppingCartItem == null)
                 {
-                    shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
+                    shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId, false);
                     _cacheManager.Put(key, shoppingCartItem);
                 }
             }
             else
             {
-                shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
+                shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId, false);
             }
 
-            //StringBuilder sbKey = new StringBuilder();
-            //sbKey.AppendFormat(CACHE_SHOPPINGCARTITEM_KEY, "GetByPostId");
-
-            //sbKey.AppendFormat("-{0}", postId);
-
-            //string key = sbKey.ToString();
-            //IEnumerable<ShoppingCartItem> shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
-            //if (shoppingCartItem == null)
-            //{
-            //    shoppingCartItem = _shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
-            //    _cacheManager.Put(key, shoppingCartItem);
-            //}
-
-            //IEnumerable<ShoppingCartItem> posts = this._shoppingCartItemRepository.FindBy((ShoppingCartItem x) => x.PostId == postId, false);
             return shoppingCartItem;
         }
 
         public IEnumerable<ShoppingCartItem> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._shoppingCartItemRepository.PagedSearchList(sortbuBuilder, page);
+            return _shoppingCartItemRepository.PagedSearchList(sortbuBuilder, page);
         }
 
         public string GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart)
         {
-            return _orderTotalCalculationService.GetCurrentCartSubTotal(cart).ToString();
+            return _orderTotalCalculationService.GetCurrentCartSubTotal(cart).ToString(CultureInfo.InvariantCulture);
         }
 
         public virtual void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true,
@@ -190,7 +162,7 @@ namespace App.Service.Orders
             if (shoppingCartItem == null)
                 throw new ArgumentNullException("shoppingCartItem");
 
-            this.Delete(shoppingCartItem);
+            Delete(shoppingCartItem);
         }
     }
 }

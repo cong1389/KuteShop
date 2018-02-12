@@ -1,11 +1,9 @@
-using App.FakeEntity.Menu;
-using FluentValidation;
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
+using App.FakeEntity.Menu;
+using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
@@ -13,11 +11,11 @@ namespace App.Framework.ValidateEntity
 	{
 		public MenuLinkValidator()
 		{
-			base.RuleFor<string>((MenuLinkViewModel x) => x.MenuName).NotEmpty<MenuLinkViewModel, string>().WithMessage<MenuLinkViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<string>((MenuLinkViewModel x) => x.MetaKeywords).NotEmpty<MenuLinkViewModel, string>().WithMessage<MenuLinkViewModel, string>("Vui lòng nhập từ khoá.");
-			base.RuleFor<HttpPostedFileBase>((MenuLinkViewModel x) => x.Image).Must<MenuLinkViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(MenuLinkValidator.IsValidFileType)).WithMessage<MenuLinkViewModel, HttpPostedFileBase>("Ảnh không đúng định dạng.");
-			base.RuleFor<HttpPostedFileBase>((MenuLinkViewModel x) => x.ImageIcon1).Must<MenuLinkViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(MenuLinkValidator.IsValidFileType)).WithMessage<MenuLinkViewModel, HttpPostedFileBase>("Icon1 không đúng định dạng.");
-			base.RuleFor<HttpPostedFileBase>((MenuLinkViewModel x) => x.ImageIcon2).Must<MenuLinkViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(MenuLinkValidator.IsValidFileType)).WithMessage<MenuLinkViewModel, HttpPostedFileBase>("Icon2 không đúng định dạng.");
+			RuleFor(x => x.MenuName).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.MetaKeywords).NotEmpty().WithMessage("Vui lòng nhập từ khoá.");
+			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Ảnh không đúng định dạng.");
+			RuleFor(x => x.ImageIcon1).Must(IsValidFileType).WithMessage("Icon1 không đúng định dạng.");
+			RuleFor(x => x.ImageIcon2).Must(IsValidFileType).WithMessage("Icon2 không đúng định dạng.");
 		}
 
 		public static bool IsValidFileType(HttpPostedFileBase file)
@@ -29,10 +27,10 @@ namespace App.Framework.ValidateEntity
 			}
 			else
 			{
-				ImageFormat[] jpeg = new ImageFormat[] { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
+				ImageFormat[] jpeg = { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
 				using (Image image = Image.FromStream(file.InputStream))
 				{
-					if (!jpeg.Contains<ImageFormat>(image.RawFormat))
+					if (!jpeg.Contains(image.RawFormat))
 					{
 						flag = false;
 						return flag;

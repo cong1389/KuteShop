@@ -1,15 +1,13 @@
 using App.Core.Common;
 using App.Domain.Entities.GlobalSetting;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Other
 {
 	public class LandingPage : AuditableEntity<int>
 	{
 		[ForeignKey("ShopId")]
-		public virtual App.Domain.Entities.GlobalSetting.ContactInformation ContactInformation
+		public virtual ContactInformation ContactInformation
 		{
 			get;
 			set;

@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.MailSetting
 {
-	public interface IMailSettingService : IBaseService<ServerMailSetting>, IService
+	public interface IMailSettingService : IBaseService<ServerMailSetting>
 	{
-		ServerMailSetting GetById(int Id);
+		ServerMailSetting GetById(int id);
 
 		IEnumerable<ServerMailSetting> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

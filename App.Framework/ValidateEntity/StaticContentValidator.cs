@@ -1,11 +1,9 @@
-using App.FakeEntity.Static;
-using FluentValidation;
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
+using App.FakeEntity.Static;
+using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
@@ -13,9 +11,9 @@ namespace App.Framework.ValidateEntity
 	{
 		public StaticContentValidator()
 		{
-			base.RuleFor<string>((StaticContentViewModel x) => x.Title).NotEmpty<StaticContentViewModel, string>().WithMessage<StaticContentViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<int>((StaticContentViewModel x) => x.MenuId).NotEmpty<StaticContentViewModel, int>().WithMessage<StaticContentViewModel, int>("Vui lòng chọn danh mục.");
-			base.RuleFor<HttpPostedFileBase>((StaticContentViewModel x) => x.Image).Must<StaticContentViewModel, HttpPostedFileBase>(new Func<HttpPostedFileBase, bool>(StaticContentValidator.IsValidFileType)).WithMessage<StaticContentViewModel, HttpPostedFileBase>("Hình ảnh không đúng định dạng");
+			RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.MenuId).NotEmpty().WithMessage("Vui lòng chọn danh mục.");
+			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Hình ảnh không đúng định dạng");
 		}
 
 		public static bool IsValidFileType(HttpPostedFileBase file)
@@ -27,10 +25,10 @@ namespace App.Framework.ValidateEntity
 			}
 			else
 			{
-				ImageFormat[] jpeg = new ImageFormat[] { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
+				ImageFormat[] jpeg = { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff };
 				using (Image image = Image.FromStream(file.InputStream))
 				{
-					if (!jpeg.Contains<ImageFormat>(image.RawFormat))
+					if (!jpeg.Contains(image.RawFormat))
 					{
 						flag = false;
 						return flag;

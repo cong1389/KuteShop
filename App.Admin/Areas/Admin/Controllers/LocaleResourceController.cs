@@ -58,16 +58,16 @@ namespace App.Admin.Controllers
             return base.View(resources);
         }
 
-        public ActionResult Resource(int languageId)
-        {
-            return View();
-        }
+        //public ActionResult Resource(int languageId)
+        //{
+        //    return View();
+        //}
 
-        public ActionResult Create(LocaleStringResourceViewModel model)
-        {
-            var res = _services.Localization.GetByName(model.LanguageId, model.ResourceName);
-            return View();
-        }
+        //public ActionResult Create(LocaleStringResourceViewModel model)
+        //{
+        //    var res = _services.Localization.GetByName(model.LanguageId, model.ResourceName);
+        //    return View();
+        //}
 
         public ActionResult Edit(LocaleStringResourceViewModel model)
         {

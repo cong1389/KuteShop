@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Attribute;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.Attribute
 {
-    public interface IAttributeValueService : IBaseService<AttributeValue>, IService
+    public interface IAttributeValueService : IBaseService<AttributeValue>
     {
-        AttributeValue GetById(int Id, bool isCache = true);
+        AttributeValue GetById(int id, bool isCache = true);
 
         IEnumerable<AttributeValue> PagedList(SortingPagingBuilder sortBuider, Paging page);
     }

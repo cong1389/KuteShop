@@ -1,13 +1,12 @@
+using System.Collections.Generic;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.Gallery
 {
-    public interface IGalleryService : IBaseService<GalleryImage>, IService
+    public interface IGalleryService : IBaseService<GalleryImage>
     {
-        GalleryImage GetById(int Id, bool isCache = true);
+        GalleryImage GetById(int id, bool isCache = true);
 
         IEnumerable<GalleryImage> GetByOption(int? attributeValueId = null
            , int? postId = null

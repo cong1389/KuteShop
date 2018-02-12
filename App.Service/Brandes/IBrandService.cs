@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Brandes;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.Brandes
 {
-	public interface IBrandService : IBaseService<Brand>, IService
+	public interface IBrandService : IBaseService<Brand>
 	{
-		Brand GetById(int Id);
+		Brand GetById(int id);
 
 		IEnumerable<Brand> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

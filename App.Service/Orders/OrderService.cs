@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Interfaces.Services;
@@ -5,24 +7,19 @@ using App.Domain.Orders;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Orderes;
 using App.Infra.Data.UOW.Interfaces;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.Orders
 {
-    public class OrderService : BaseService<Order>, IOrderService, IBaseService<Order>, IService
+    public class OrderService : BaseService<Order>, IOrderService
 	{
-        private const string CACHE_ORDER_KEY = "db.Order.{0}";
+        private const string CacheOrderKey = "db.Order.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IOrderRepository _orderRepository;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public OrderService(IUnitOfWork unitOfWork, IOrderRepository orderRepository, ICacheManager cacheManager) : base(unitOfWork, orderRepository)
+	    public OrderService(IUnitOfWork unitOfWork, IOrderRepository orderRepository, ICacheManager cacheManager) : base(unitOfWork, orderRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._orderRepository = orderRepository;
+		    _orderRepository = orderRepository;
             _cacheManager = cacheManager;
 
         }
@@ -33,7 +30,7 @@ namespace App.Service.Orders
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_ORDER_KEY, "GetById");
+                sbKey.AppendFormat(CacheOrderKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -58,7 +55,7 @@ namespace App.Service.Orders
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_ORDER_KEY, "GetByCustomerId");
+                sbKey.AppendFormat(CacheOrderKey, "GetByCustomerId");
                 sbKey.AppendFormat("-{0}", customerId);
 
                 string key = sbKey.ToString();
@@ -79,7 +76,7 @@ namespace App.Service.Orders
 
         public IEnumerable<Order> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
-			return this._orderRepository.PagedSearchList(sortbuBuilder, page);
+			return _orderRepository.PagedSearchList(sortbuBuilder, page);
 		}
 	}
 }

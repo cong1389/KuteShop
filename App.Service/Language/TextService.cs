@@ -1,10 +1,5 @@
 ﻿using App.Core.Localization;
 using App.Service.LocaleStringResource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Service.Language
 {
@@ -35,7 +30,10 @@ namespace App.Service.Language
 
                 return new LocalizedString(string.Format(value, args), key, args);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return new LocalizedString(key);
         }

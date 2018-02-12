@@ -1,28 +1,24 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Common;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Addresses;
 using App.Infra.Data.UOW.Interfaces;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.Addresses
 {
-    public class AddressService : BaseService<Address>, IAddressService, IBaseService<Address>, IService
+    public class AddressService : BaseService<Address>, IAddressService
     {
-        private const string CACHE_ADDRESS_KEY = "db.Address.{0}";
+        private const string CacheAddressKey = "db.Address.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IAddressRepository _addressRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-
         public AddressService(IUnitOfWork unitOfWork, IAddressRepository addressRepository, ICacheManager cacheManager) : base(unitOfWork, addressRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._addressRepository = addressRepository;
+            _addressRepository = addressRepository;
             _cacheManager = cacheManager;
         }
 
@@ -33,7 +29,7 @@ namespace App.Service.Addresses
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_ADDRESS_KEY, "GetById");
+                sbKey.AppendFormat(CacheAddressKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -55,7 +51,7 @@ namespace App.Service.Addresses
 
         public IEnumerable<Address> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._addressRepository.PagedSearchList(sortbuBuilder, page);
+            return _addressRepository.PagedSearchList(sortbuBuilder, page);
         }
     }
 }

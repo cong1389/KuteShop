@@ -1,7 +1,5 @@
 using App.FakeEntity.Brandes;
 using FluentValidation;
-using System;
-using System.Linq.Expressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -9,8 +7,8 @@ namespace App.Framework.ValidateEntity
 	{
 		public BrandValidator()
 		{
-			base.RuleFor<string>((BrandViewModel x) => x.Name).NotEmpty<BrandViewModel, string>().WithMessage<BrandViewModel, string>("Vui lòng nhập tiêu đề.");
-			base.RuleFor<int>((BrandViewModel x) => x.OrderDisplay).NotEmpty<BrandViewModel, int>().WithMessage<BrandViewModel, int>("Vui lòng nhập vị trí hiển thị.");
+			RuleFor(x => x.Name).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
+			RuleFor(x => x.OrderDisplay).NotEmpty().WithMessage("Vui lòng nhập vị trí hiển thị.");
 		}
 	}
 }

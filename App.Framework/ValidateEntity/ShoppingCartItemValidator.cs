@@ -1,9 +1,5 @@
-using App.FakeEntity.Location;
 using App.FakeEntity.Orders;
-using App.FakeEntity.Repairs;
 using FluentValidation;
-using System;
-using System.Linq.Expressions;
 
 namespace App.Framework.ValidateEntity
 {
@@ -11,7 +7,7 @@ namespace App.Framework.ValidateEntity
     {
         public ShoppingCartItemValidator()
         {
-            base.RuleFor<int?>((ShoppingCartItemViewModel x) => x.Quantity).NotEmpty<ShoppingCartItemViewModel, int?>().WithMessage<ShoppingCartItemViewModel, int?>("Vui lòng nhập số lượng.");
+            RuleFor<int?>(x => x.Quantity).NotEmpty().WithMessage("Vui lòng nhập số lượng.");
         }
     }
 }

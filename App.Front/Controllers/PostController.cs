@@ -28,8 +28,6 @@ namespace App.Front.Controllers
 {
     public class PostController : FrontBaseController
     {
-        private readonly ICacheManager _cacheManager;
-
         private readonly IPostService _postService;
 
         private readonly IMenuLinkService _menuLinkService;
@@ -52,7 +50,6 @@ namespace App.Front.Controllers
             _galleryService = galleryService;
             _workContext = workContext;
             _genericControlService = genericControlService;
-            _cacheManager = cacheManager;
         }
 
         [PartialCache("Medium")]
@@ -64,7 +61,7 @@ namespace App.Front.Controllers
         [PartialCache("Medium")]
         public ActionResult GetAccesssoriesHome(int page, string id)
         {
-            Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
+            var expression = PredicateBuilder.True<Post>();
             expression = expression.And(x => x.Status == 1);
             expression = expression.And(x => x.VirtualCategoryId.Contains(id));
             expression = expression.And(x => x.ProductHot);
@@ -102,9 +99,8 @@ namespace App.Front.Controllers
 
         public ActionResult GetGallery(int postId, int typeId)
         {
-            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(attributeValueId: typeId, postId: postId);
+            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(typeId, postId: postId);
 
-            //IEnumerable<GalleryImage> galleryImages = _galleryService.FindBy((GalleryImage x) => x.AttributeValueId == typeId && x.PostId == postId, false);
             if (!galleryImages.IsAny())
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
@@ -116,7 +112,6 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetNewProductRelative(double? price, int productId)
         {
-            double? nullable;
             double? nullable1;
             double? nullable2;
             double? nullable3 = price;
@@ -127,8 +122,7 @@ namespace App.Front.Controllers
             }
             else
             {
-                nullable = null;
-                nullable1 = nullable;
+                nullable1 = null;
             }
             double? nullable4 = nullable1;
             nullable3 = price;
@@ -139,8 +133,7 @@ namespace App.Front.Controllers
             }
             else
             {
-                nullable = null;
-                nullable2 = nullable;
+                nullable2 = null;
             }
             double? nullable5 = nullable2;
             List<Post> posts = new List<Post>();
@@ -160,21 +153,18 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetNewProductRelative2(string virtualId, int productId)
         {
-            int languageId = _workContext.WorkingLanguage.Id;
-
             List<Post> lstPost = new List<Post>();
             IEnumerable<Post> iePost = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != productId, x => x.UpdatedDate);
 
             if (iePost == null)
                 return HttpNotFound();
 
-            IEnumerable<Post> postLocalized = null;
             if (iePost.IsAny())
             {
-                postLocalized = iePost.Select(x =>
+                var postLocalized = iePost.Select(x =>
                 {
                     return x.ToModel();
-                });               
+                });
 
                 lstPost.AddRange(postLocalized);
             }
@@ -282,7 +272,7 @@ namespace App.Front.Controllers
                 ViewBag.MenuCategoryFilter = menuCategoryFilter;
 
                 //Lấy bannerId từ post để hiển thị banner trên post
-                ViewBag.BannerId = menuCategoryFilter.Where(x => x.VirtualId == virtualCategoryId).FirstOrDefault().Id;
+                ViewBag.BannerId = menuCategoryFilter.FirstOrDefault(x => x.VirtualId == virtualCategoryId).Id;
 
                 string[] strArrays2 = virtualCategoryId.Split('/');
                 for (int i1 = 0; i1 < strArrays2.Length; i1++)
@@ -388,7 +378,7 @@ namespace App.Front.Controllers
         public ActionResult GetPriceProduct(int productId, int attributeId)
         {
             GalleryImage galleryImage = _galleryService.Get(x => x.PostId == productId && x.AttributeValueId == attributeId, false);
-            if (galleryImage == null || !galleryImage.Price.HasValue)
+            if (galleryImage?.Price == null)
             {
                 return Json("Liên hệ");
             }
@@ -454,10 +444,7 @@ namespace App.Front.Controllers
             IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
 
             //Convert to localized
-            menuLinks = menuLinks.Select(x =>
-            {
-                return x.ToModel();
-            });
+            menuLinks = menuLinks.Select(x => x.ToModel());
 
             if (menuLinks.IsAny())
             {
@@ -468,7 +455,7 @@ namespace App.Front.Controllers
 
                 foreach (var item in menuLinks)
                 {
-                    iePost = _postService.GetByOption(virtualCategoryId: item.CurrentVirtualId, isDisplayHomePage: true);
+                    iePost = _postService.GetByOption(item.CurrentVirtualId, true);
 
                     if (iePost.IsAny())
                     {
@@ -532,19 +519,14 @@ namespace App.Front.Controllers
                 viewCount.ViewCount = viewCount.ViewCount + 1;
                 _postService.Update(post);
 
-                string[] strArrays = post.VirtualCategoryId.Split('/');
-                for (int i = 0; i < strArrays.Length; i++)
-                {
-                    string str = strArrays[i];
-                    MenuLink menuLink = _menuLinkService.GetByCurrentVirtualId(str);
-                    //MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str), false);
-                    breadCrumbs.Add(new BreadCrumb
+                var strArrays = post.VirtualCategoryId.Split('/');
+                breadCrumbs.AddRange(strArrays.Select(str => _menuLinkService.GetByCurrentVirtualId(str))
+                    .Select(menuLink => new BreadCrumb
                     {
-                        Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id), //menuLink.GetLocalizedByLocaleKey(menuLink.MenuName, menuLink.Id, languageId, "MenuLink", "MenuName"),
+                        Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id),
                         Current = false,
-                        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
-                    });
-                }
+                        Url = Url.Action("GetContent", "Menu", new {area = "", menu = menuLink.SeoUrl})
+                    }));
                 breadCrumbs.Add(new BreadCrumb
                 {
                     Current = true,
@@ -645,20 +627,23 @@ namespace App.Front.Controllers
             MenuLink menuLink = _menuLinkService.GetById(menuId);
             if (menuLink != null)
             {
-                IEnumerable<GenericControl> ieGC = menuLink.GenericControls;
-                if (ieGC.IsAny())
+                IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
+                if (ieGc.IsAny())
                 {
-                    foreach (GenericControl item in ieGC)
+                    foreach (GenericControl item in ieGc)
                     {
-                        IEnumerable<GenericControlValue> gCVDefault = item.GenericControlValues.Where(m => m.Status == 1);
+                        IEnumerable<GenericControlValue> gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
 
-                        foreach (var gcValue in gCVDefault)
+                        foreach (var gcValue in gCvDefault)
                         {
-                            ControlValueItemResponse objValueResponse = new ControlValueItemResponse();
+                            var objValueResponse =
+                                new ControlValueItemResponse
+                                {
+                                    GenericControlValueId = gcValue.Id,
+                                    Name = gcValue.ValueName,
+                                    ValueName = gcValue.GetValueItem(entityId)
+                                };
 
-                            objValueResponse.GenericControlValueId = gcValue.Id;
-                            objValueResponse.Name = gcValue.ValueName;
-                            objValueResponse.ValueName = gcValue.GetValueItem(entityId);
 
                             lstValueResponse.Add(objValueResponse);
                         }
@@ -669,7 +654,7 @@ namespace App.Front.Controllers
             JsonResult jsonResult = Json(
                  new
                  {
-                     success = lstValueResponse.Count() > 0,
+                     success = lstValueResponse.Any(),
                      list = this.RenderRazorViewToString("_PostDetail.Attribute", lstValueResponse)
                  },
                  JsonRequestBehavior.AllowGet);

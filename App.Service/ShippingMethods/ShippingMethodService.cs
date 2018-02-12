@@ -1,33 +1,29 @@
+using System.Collections.Generic;
 using App.Core.Utils;
-using App.Domain.Interfaces.Services;
 using App.Domain.Shippings;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.ShippingMethods;
 using App.Infra.Data.UOW.Interfaces;
-using System.Collections.Generic;
 
 namespace App.Service.ShippingMethodes
 {
-    public class ShippingMethodService : BaseService<ShippingMethod>, IShippingMethodService, IBaseService<ShippingMethod>, IService
+    public class ShippingMethodService : BaseService<ShippingMethod>, IShippingMethodService
 	{
-		private readonly IShippingMethodRepository _ShippingMethodRepository;
+		private readonly IShippingMethodRepository _shippingMethodRepository;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public ShippingMethodService(IUnitOfWork unitOfWork, IShippingMethodRepository ShippingMethodRepository) : base(unitOfWork, ShippingMethodRepository)
+	    public ShippingMethodService(IUnitOfWork unitOfWork, IShippingMethodRepository shippingMethodRepository) : base(unitOfWork, shippingMethodRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._ShippingMethodRepository = ShippingMethodRepository;
+		    _shippingMethodRepository = shippingMethodRepository;
 		}
 
-		public ShippingMethod GetById(int Id)
+		public ShippingMethod GetById(int id)
 		{
-			return this._ShippingMethodRepository.GetById(Id);
+			return _shippingMethodRepository.GetById(id);
 		}
 
 		public IEnumerable<ShippingMethod> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
-			return this._ShippingMethodRepository.PagedSearchList(sortbuBuilder, page);
+			return _shippingMethodRepository.PagedSearchList(sortbuBuilder, page);
 		}
 	}
 }

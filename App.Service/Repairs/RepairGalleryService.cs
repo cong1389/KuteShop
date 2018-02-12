@@ -15,8 +15,8 @@ namespace App.Service.Repairs
 
 		public RepairGalleryService(IUnitOfWork unitOfWork, IRepairGalleryRepository galleryRepository) : base(unitOfWork, galleryRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._galleryRepository = galleryRepository;
+			_unitOfWork = unitOfWork;
+			_galleryRepository = galleryRepository;
 		}
 	}
 }

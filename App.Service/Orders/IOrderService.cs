@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Interfaces.Services;
 using App.Domain.Orders;
-using System.Collections.Generic;
 
 namespace App.Service.Orders
 {
-    public interface IOrderService : IBaseService<Order>, IService
+    public interface IOrderService : IBaseService<Order>
 	{
 		Order GetById(int id, bool isCache = true);
 

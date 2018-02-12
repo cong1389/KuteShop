@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
@@ -55,14 +53,6 @@ namespace App.Front.Controllers
 			Guid guid = new Guid();
 			Guid.TryParse(value, out guid);
 			return guid;
-		}
-
-		protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
-		{
-			return (
-				from auth in AuthenticationManager.GetAuthenticationTypes()
-				where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
-				select auth).ToList();
 		}
 	}
 }

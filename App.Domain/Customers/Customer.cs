@@ -92,8 +92,8 @@ namespace Domain.Entities.Customers
         private ICollection<ShoppingCartItem> _shoppingCartItems;
         public virtual ICollection<ShoppingCartItem> ShoppingCartItems
         {
-            get { return _shoppingCartItems ?? (_shoppingCartItems = new HashSet<ShoppingCartItem>()); }
-            protected set { _shoppingCartItems = value; }
+            get => _shoppingCartItems ?? (_shoppingCartItems = new HashSet<ShoppingCartItem>());
+            protected set => _shoppingCartItems = value;
         }
 
         //public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -101,8 +101,8 @@ namespace Domain.Entities.Customers
         private ICollection<Address> _addresses;
         public virtual ICollection<Address> Addresses
         {
-            get { return _addresses ?? (_addresses = new HashSet<Address>()); }
-            protected set { _addresses = value; }
+            get => _addresses ?? (_addresses = new HashSet<Address>());
+            protected set => _addresses = value;
         }
         [DataMember]
         public virtual Address BillingAddress { get; set; }
@@ -129,21 +129,21 @@ namespace Domain.Entities.Customers
         [DataMember]
         public virtual ICollection<Order> Orders
         {
-            get { return _orders ?? (_orders = new HashSet<Order>()); }
-            set { _orders = value; }
+            get => _orders ?? (_orders = new HashSet<Order>());
+            set => _orders = value;
         }
 
         #region Addresses
 
         public virtual void RemoveAddress(Address address)
         {
-            if (this.Addresses.Contains(address))
-            {
-                if (this.BillingAddress == address) this.BillingAddress = null;
-                if (this.ShippingAddress == address) this.ShippingAddress = null;
+            if (!Addresses.Contains(address)) return;
 
-                this.Addresses.Remove(address);
-            }
+            if (BillingAddress == address) BillingAddress = null;
+
+            if (ShippingAddress == address) ShippingAddress = null;
+
+            Addresses.Remove(address);
         }
 
         #endregion

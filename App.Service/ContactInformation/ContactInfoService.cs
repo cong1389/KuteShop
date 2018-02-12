@@ -1,19 +1,16 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.ContactInformation;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Service.ContactInformation
 {
-    public class ContactInfoService : BaseService<Domain.Entities.GlobalSetting.ContactInformation>, IContactInfoService, IBaseService<Domain.Entities.GlobalSetting.ContactInformation>, IService
+    public class ContactInfoService : BaseService<Domain.Entities.GlobalSetting.ContactInformation>, IContactInfoService
     {
-        private const string CACHE_CONTACTINFO_KEY = "db.ContactInfo.{0}";
+        private const string CacheContactinfoKey = "db.ContactInfo.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IContactInfoRepository _contactInfoRepository;
@@ -23,8 +20,8 @@ namespace App.Service.ContactInformation
         public ContactInfoService(IUnitOfWork unitOfWork, IContactInfoRepository contactInfoRepository
             , ICacheManager cacheManager) : base(unitOfWork, contactInfoRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._contactInfoRepository = contactInfoRepository;
+            _unitOfWork = unitOfWork;
+            _contactInfoRepository = contactInfoRepository;
             _cacheManager = cacheManager;
         }
 
@@ -35,7 +32,7 @@ namespace App.Service.ContactInformation
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_CONTACTINFO_KEY, "GetById");
+                sbKey.AppendFormat(CacheContactinfoKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -57,12 +54,12 @@ namespace App.Service.ContactInformation
 
         public IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._contactInfoRepository.PagedSearchList(sortbuBuilder, page);
+            return _contactInfoRepository.PagedSearchList(sortbuBuilder, page);
         }
 
         public int Save()
         {
-            return this._unitOfWork.Commit();
+            return _unitOfWork.Commit();
         }
     }
 }

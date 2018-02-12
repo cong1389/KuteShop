@@ -1,7 +1,6 @@
-using App.Core.Common;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using App.Core.Common;
 
 namespace App.Domain.Entities.Account
 {
@@ -29,20 +28,17 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				ICollection<Claim> claims = this._claims;
-				if (claims == null)
-				{
-					List<Claim> claims1 = new List<Claim>();
-					ICollection<Claim> claims2 = claims1;
-					this._claims = claims1;
-					claims = claims2;
-				}
-				return claims;
+				ICollection<Claim> claims = _claims;
+
+			    if (claims != null) return claims;
+
+			    List<Claim> claims1 = new List<Claim>();
+			    ICollection<Claim> claims2 = claims1;
+			    _claims = claims1;
+			    claims = claims2;
+			    return claims;
 			}
-			set
-			{
-				this._claims = value;
-			}
+			set => _claims = value;
 		}
 
 		public DateTime Created
@@ -55,9 +51,9 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				string str = (string.IsNullOrEmpty(this.Address) ? string.Empty : this.Address);
-				string str1 = (string.IsNullOrEmpty(this.City) ? string.Empty : this.City);
-				return string.Format("{0} {1} {2}", str, str1, (string.IsNullOrEmpty(this.State) ? string.Empty : this.State));
+				string str = string.IsNullOrEmpty(Address) ? string.Empty : Address;
+				string str1 = string.IsNullOrEmpty(City) ? string.Empty : City;
+				return $"{str} {str1} {(string.IsNullOrEmpty(State) ? string.Empty : State)}";
 			}
 		}
 
@@ -65,9 +61,9 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				string str = (string.IsNullOrEmpty(this.FirstName) ? string.Empty : this.FirstName);
-				string str1 = (string.IsNullOrEmpty(this.MiddleName) ? string.Empty : this.MiddleName);
-				return string.Format("{0} {1} {2}", (string.IsNullOrEmpty(this.LastName) ? string.Empty : this.LastName), str1, str);
+				string str = string.IsNullOrEmpty(FirstName) ? string.Empty : FirstName;
+				string str1 = string.IsNullOrEmpty(MiddleName) ? string.Empty : MiddleName;
+				return $"{(string.IsNullOrEmpty(LastName) ? string.Empty : LastName)} {str1} {str}";
 			}
 		}
 
@@ -111,20 +107,17 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				ICollection<ExternalLogin> externalLogins = this._externalLogins;
+				ICollection<ExternalLogin> externalLogins = _externalLogins;
 				if (externalLogins == null)
 				{
 					List<ExternalLogin> externalLogins1 = new List<ExternalLogin>();
 					ICollection<ExternalLogin> externalLogins2 = externalLogins1;
-					this._externalLogins = externalLogins1;
+					_externalLogins = externalLogins1;
 					externalLogins = externalLogins2;
 				}
 				return externalLogins;
 			}
-			set
-			{
-				this._externalLogins = value;
-			}
+			set => _externalLogins = value;
 		}
 
 		public string MiddleName
@@ -149,20 +142,17 @@ namespace App.Domain.Entities.Account
 		{
 			get
 			{
-				ICollection<Role> roles = this._roles;
+				ICollection<Role> roles = _roles;
 				if (roles == null)
 				{
 					List<Role> roles1 = new List<Role>();
 					ICollection<Role> roles2 = roles1;
-					this._roles = roles1;
+					_roles = roles1;
 					roles = roles2;
 				}
 				return roles;
 			}
-			set
-			{
-				this._roles = value;
-			}
+			set => _roles = value;
 		}
 
 		public virtual string SecurityStamp
@@ -181,10 +171,6 @@ namespace App.Domain.Entities.Account
 		{
 			get;
 			set;
-		}
-
-		public User()
-		{
 		}
 	}
 }

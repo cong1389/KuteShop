@@ -1,33 +1,25 @@
+using System.Collections.Generic;
+using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Repository;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Static;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace App.Service.Static
 {
-	public class StaticContentService : BaseService<StaticContent>, IStaticContentService, IBaseService<StaticContent>, IService
+	public class StaticContentService : BaseService<StaticContent>, IStaticContentService
 	{
-        private const string CACHE_STATICCONTENT_KEY = "db.StaticContent.{0}";
+        private const string CacheStaticcontentKey = "db.StaticContent.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IStaticContentRepository _staticContentRepository;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public StaticContentService(IUnitOfWork unitOfWork, IStaticContentRepository staticContentRepository, ICacheManager cacheManager) : base(unitOfWork, staticContentRepository)
+	    public StaticContentService(IUnitOfWork unitOfWork, IStaticContentRepository staticContentRepository, ICacheManager cacheManager) : base(unitOfWork, staticContentRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._staticContentRepository = staticContentRepository;
+		    _staticContentRepository = staticContentRepository;
             _cacheManager = cacheManager;
 
         }
@@ -35,7 +27,7 @@ namespace App.Service.Static
 		public StaticContent GetById(int id, bool isCache = true)
 		{
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_STATICCONTENT_KEY, "GetById");
+            sbKey.AppendFormat(CacheStaticcontentKey, "GetById");
             sbKey.Append(id);
 
             string key = sbKey.ToString();
@@ -60,7 +52,7 @@ namespace App.Service.Static
 		public IEnumerable<StaticContent> GetBySeoUrl(string seoUrl, bool isCache = true)
 		{
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_STATICCONTENT_KEY, "GetBySeoUrl");
+            sbKey.AppendFormat(CacheStaticcontentKey, "GetBySeoUrl");
 
             if (seoUrl.HasValue())
             {
@@ -74,27 +66,26 @@ namespace App.Service.Static
                 staticContents = _cacheManager.GetCollection<StaticContent>(key);
                 if (staticContents == null)
                 {
-                    staticContents = _staticContentRepository.FindBy((StaticContent x) => x.SeoUrl.Equals(seoUrl), false);
+                    staticContents = _staticContentRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
                     _cacheManager.Put(key, staticContents);
                 }
             }
             else
             {
-                staticContents = _staticContentRepository.FindBy((StaticContent x) => x.SeoUrl.Equals(seoUrl), false);
+                staticContents = _staticContentRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
             }           
-
-            //IEnumerable<StaticContent> staticContents = this._staticContentRepository.FindBy((StaticContent x) => x.SeoUrl.Equals(seoUrl), false);
+            
 			return staticContents;
 		}
 
 		public IEnumerable<StaticContent> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
-			return this._staticContentRepository.PagedSearchList(sortbuBuilder, page);
+			return _staticContentRepository.PagedSearchList(sortbuBuilder, page);
 		}
 
 		public IEnumerable<StaticContent> PagedListByMenu(SortingPagingBuilder sortBuider, Paging page)
 		{
-			return this._staticContentRepository.PagedSearchListByMenu(sortBuider, page);
+			return _staticContentRepository.PagedSearchListByMenu(sortBuider, page);
 		}
 	}
 }

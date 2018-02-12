@@ -1,13 +1,13 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Interfaces.Services;
 using App.Domain.Shippings;
-using System.Collections.Generic;
 
 namespace App.Service.ShippingMethodes
 {
-    public interface IShippingMethodService : IBaseService<ShippingMethod>, IService
+    public interface IShippingMethodService : IBaseService<ShippingMethod>
 	{
-		ShippingMethod GetById(int Id);
+		ShippingMethod GetById(int id);
 
 		IEnumerable<ShippingMethod> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

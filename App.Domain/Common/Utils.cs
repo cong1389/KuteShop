@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Common
 {
@@ -10,10 +9,11 @@ namespace App.Domain.Common
 	{
         public static IEnumerable<FieldInfo> GetConstants(this Type type)
         {
-            IEnumerable<FieldInfo> fields =
-                from fi in (IEnumerable<FieldInfo>)type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy)
-                where (!fi.IsLiteral ? false : !fi.IsInitOnly)
+            var fields =
+                from fi in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy)
+                where fi.IsLiteral && !fi.IsInitOnly
                 select fi;
+
             return fields;
         }
 
@@ -22,8 +22,7 @@ namespace App.Domain.Common
         {
             IEnumerable<T> constants =
                 from fi in type.GetConstants()
-
-                select(T)(fi.GetRawConstantValue() as T);
+                select fi.GetRawConstantValue() as T;
             return constants;
         }
     }

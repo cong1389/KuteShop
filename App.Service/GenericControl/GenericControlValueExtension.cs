@@ -1,7 +1,7 @@
-﻿using App.Domain.Entities.GenericControl;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App.Domain.Entities.GenericControl;
 
 namespace App.Service.GenericControl
 {
@@ -11,14 +11,9 @@ namespace App.Service.GenericControl
         {
             var itemService = DependencyResolver.Current.GetService<IGenericControlValueItemService>();
 
-            IEnumerable<GenericControlValueItem> valueItem = itemService.GetByOption(genericControlValueId: genericControlValue.Id, entity: entityId,isCache:false);
+            IEnumerable<GenericControlValueItem> valueItem = itemService.GetByOption(genericControlValue.Id, entityId,isCache:false);
 
-            if (valueItem.Any())
-            {
-              return  valueItem.FirstOrDefault().Value;
-            }
-
-            return null;
+            return valueItem.Any() ? valueItem.FirstOrDefault().Value : null;
         }
     }
 }

@@ -1,18 +1,16 @@
-using App.Core.Utils;
-using App.Domain.Entities.Language;
-using App.Domain.Interfaces.Services;
-using System;
 using System.Collections.Generic;
+using App.Core.Utils;
+using App.Domain.Interfaces.Services;
 
 namespace App.Service.Language
 {
-	public interface ILanguageService : IBaseService<App.Domain.Entities.Language.Language>, IService
+	public interface ILanguageService : IBaseService<Domain.Entities.Language.Language>
 	{
-		void CreateLanguage(App.Domain.Entities.Language.Language language);
+		void CreateLanguage(Domain.Entities.Language.Language language);
 
-		App.Domain.Entities.Language.Language GetById(int id, bool isCache = true);
+		Domain.Entities.Language.Language GetById(int id, bool isCache = true);
 
-		IEnumerable<App.Domain.Entities.Language.Language> PagedList(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<Domain.Entities.Language.Language> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
 		int SaveLanguage();
 	}

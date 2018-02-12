@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace App.Domain.Common
+﻿namespace App.Domain.Common
 {
     public enum RepairStatus
     {

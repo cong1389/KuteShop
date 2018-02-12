@@ -38,7 +38,7 @@ namespace App.Domain.Entities.Data
         }
 
         [ForeignKey("PostId")]
-        public virtual App.Domain.Entities.Data.Post Post
+        public virtual Post Post
         {
             get;
             set;

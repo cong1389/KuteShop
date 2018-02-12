@@ -1,33 +1,28 @@
-using App.Core.Caching;
-using App.Core.Utils;
-using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Services;
-using App.Infra.Data.Common;
-using App.Infra.Data.Repository.Gallery;
-using App.Infra.Data.UOW.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using App.Core.Caching;
+using App.Core.Utils;
+using App.Domain.Entities.Data;
+using App.Infra.Data.Common;
+using App.Infra.Data.Repository.Gallery;
+using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Gallery
 {
-    public class GalleryService : BaseService<GalleryImage>, IGalleryService, IBaseService<GalleryImage>, IService
+    public class GalleryService : BaseService<GalleryImage>, IGalleryService
     {
-        private const string CACHE_GALLERY_KEY = "db.Gallery.{0}";
+        private const string CacheGalleryKey = "db.Gallery.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IGalleryRepository _galleryRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-
         public GalleryService(IUnitOfWork unitOfWork, IGalleryRepository galleryRepository
             , ICacheManager cacheManager) : base(unitOfWork, galleryRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._galleryRepository = galleryRepository;
+            _galleryRepository = galleryRepository;
             _cacheManager = cacheManager;
-
         }
 
         public GalleryImage GetById(int id, bool isCache = true)
@@ -37,7 +32,7 @@ namespace App.Service.Gallery
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_GALLERY_KEY, "GetById");
+                sbKey.AppendFormat(CacheGalleryKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -63,22 +58,22 @@ namespace App.Service.Gallery
         {
             IEnumerable<GalleryImage> galleryImages;
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_GALLERY_KEY, "GetByOption");
+            sbKey.AppendFormat(CacheGalleryKey, "GetByOption");
 
             Expression<Func<GalleryImage, bool>> expression = PredicateBuilder.True<GalleryImage>();
             sbKey.AppendFormat("-{0}", status);
-            expression = expression.And((GalleryImage x) => x.Status == status);
+            expression = expression.And(x => x.Status == status);
 
             if (attributeValueId != null)
             {
                 sbKey.AppendFormat("-{0}", attributeValueId);
-                expression = expression.And((GalleryImage x) => x.AttributeValueId == attributeValueId);
+                expression = expression.And(x => x.AttributeValueId == attributeValueId);
             }
 
             if (postId != null)
             {
                 sbKey.AppendFormat("-{0}", postId);
-                expression = expression.And((GalleryImage x) => x.PostId == postId);
+                expression = expression.And(x => x.PostId == postId);
             }
 
             if (isCache)
@@ -87,13 +82,13 @@ namespace App.Service.Gallery
                 galleryImages = _cacheManager.GetCollection<GalleryImage>(key);
                 if (galleryImages == null)
                 {
-                    galleryImages = FindBy(expression, false);
+                    galleryImages = FindBy(expression);
                     _cacheManager.Put(key, galleryImages);
                 }
             }
             else
             {
-                galleryImages = FindBy(expression, false);
+                galleryImages = FindBy(expression);
             }
 
 

@@ -1,10 +1,6 @@
-﻿using App.Domain.Entities.Menu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using App.Domain.Entities.Menu;
+using App.Service.GenericControl;
 
 namespace App.Service.Menu
 {
@@ -18,9 +14,9 @@ namespace App.Service.Menu
                 if (id == 0)
                     result = false;
 
-                App.Service.GenericControl.IGenericControlService _genericControlService = DependencyResolver.Current.GetService<App.Service.GenericControl.IGenericControlService>();
+                IGenericControlService genericControlService = DependencyResolver.Current.GetService<IGenericControlService>();
 
-                App.Domain.Entities.GenericControl.GenericControl genericControl = _genericControlService.GetById(id);
+                Domain.Entities.GenericControl.GenericControl genericControl = genericControlService.GetById(id);
                 if (genericControl == null)
                     return false;
 

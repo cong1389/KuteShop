@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Service.Orders
 {
@@ -10,7 +7,7 @@ namespace App.Service.Orders
     /// Represents a payment info holder
     /// </summary>
     [Serializable]
-    public partial class ProcessPaymentRequest
+    public class ProcessPaymentRequest
     {
         public ProcessPaymentRequest()
         {
@@ -155,7 +152,7 @@ namespace App.Service.Orders
 
 
     [Serializable]
-    public partial class CustomPaymentRequestValue
+    public class CustomPaymentRequestValue
     {
         /// <summary>
         /// The value of the custom property

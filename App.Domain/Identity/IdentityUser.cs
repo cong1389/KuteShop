@@ -1,6 +1,5 @@
 using Microsoft.AspNet.Identity;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Identity
 {
@@ -38,26 +37,20 @@ namespace App.Domain.Entities.Identity
 
 		public Guid Id
 		{
-			get
-			{
-				return JustDecompileGenerated_get_Id();
-			}
-			set
-			{
-				JustDecompileGenerated_set_Id(value);
-			}
+			get => JustDecompileGenerated_get_Id();
+		    set => JustDecompileGenerated_set_Id(value);
 		}
 
-		private Guid JustDecompileGenerated_Id_k__BackingField;
+		private Guid _justDecompileGeneratedIdKBackingField;
 
 		public Guid JustDecompileGenerated_get_Id()
 		{
-			return this.JustDecompileGenerated_Id_k__BackingField;
+			return _justDecompileGeneratedIdKBackingField;
 		}
 
 		public void JustDecompileGenerated_set_Id(Guid value)
 		{
-			this.JustDecompileGenerated_Id_k__BackingField = value;
+			_justDecompileGeneratedIdKBackingField = value;
 		}
 
 		public bool IsLockedOut
@@ -116,23 +109,24 @@ namespace App.Domain.Entities.Identity
 
 		public IdentityUser()
 		{
-			this.Id = Guid.NewGuid();
+			Id = Guid.NewGuid();
 		}
 
-		public IdentityUser(string userName, string email, string firstName, string lastName, string middleName, string phone, string addess, string city, string state, bool superAdmin, bool isLockedOut, DateTime createdDate) : this()
+		public IdentityUser(string userName, string email, string firstName, string lastName, string middleName, string phone,
+		    string addess, string city, string state, bool superAdmin, bool isLockedOut, DateTime createdDate) : this()
 		{
-			this.UserName = userName;
-			this.Email = email;
-			this.FirstName = firstName;
-			this.LastName = lastName;
-			this.MiddleName = middleName;
-			this.Phone = phone;
-			this.Address = addess;
-			this.City = city;
-			this.State = state;
-			this.IsSuperAdmin = superAdmin;
-			this.Created = createdDate;
-			this.IsLockedOut = isLockedOut;
+			UserName = userName;
+			Email = email;
+			FirstName = firstName;
+			LastName = lastName;
+			MiddleName = middleName;
+			Phone = phone;
+			Address = addess;
+			City = city;
+			State = state;
+			IsSuperAdmin = superAdmin;
+			Created = createdDate;
+			IsLockedOut = isLockedOut;
 		}
 	}
 }

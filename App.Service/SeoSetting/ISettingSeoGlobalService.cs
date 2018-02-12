@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.SeoSetting
 {
-	public interface ISettingSeoGlobalService : IBaseService<SettingSeoGlobal>, IService
+	public interface ISettingSeoGlobalService : IBaseService<SettingSeoGlobal>
 	{
-		SettingSeoGlobal GetById(int Id);
+		SettingSeoGlobal GetById(int id);
 
 		IEnumerable<SettingSeoGlobal> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

@@ -23,12 +23,11 @@ namespace App.Front.Controllers
             IEnumerable<SlideShow> slideShows = _slideShowService.FindBy(x => x.Status == 1, true);
 
             if (slideShows == null)
-                return HttpNotFound();
-
-            slideShows = slideShows.Select(x =>
             {
-                return x.ToModel();
-            });                    
+                return HttpNotFound();
+            }
+
+            slideShows = slideShows.Select(x => x.ToModel());                    
 
             return PartialView(slideShows);
         }

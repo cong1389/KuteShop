@@ -1,12 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using App.Core.Utils;
 using App.Domain.Entities.Orders;
 using App.Domain.Interfaces.Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace App.Service.Orders
 {
-    public interface IShoppingCartItemService : IBaseService<ShoppingCartItem>, IService
+    public interface IShoppingCartItemService : IBaseService<ShoppingCartItem>
     {
         void AddToCart(AddToCartContext ctx);
 

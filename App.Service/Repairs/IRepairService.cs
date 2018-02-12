@@ -1,12 +1,11 @@
-using App.Core.Utils;
-using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Services;
 using System.Collections.Generic;
+using App.Core.Utils;
+using App.Domain.Interfaces.Services;
 
 namespace App.Service.Repairs
 {
-    public interface IRepairService : IBaseService<App.Domain.Entities.Data.Repair>, IService
+    public interface IRepairService : IBaseService<Domain.Entities.Data.Repair>, IService
     {
-        IEnumerable<App.Domain.Entities.Data.Repair> PagedList(SortingPagingBuilder sortBuider, Paging page);
+        IEnumerable<Domain.Entities.Data.Repair> PagedList(SortingPagingBuilder sortBuider, Paging page);
     }
 }

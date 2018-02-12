@@ -1,19 +1,19 @@
-﻿using App.Service.Customers;
+﻿using System;
+using System.Net;
+using System.Web;
+using App.Aplication.Extensions;
+using App.Core.Extensions;
+using App.Domain.Common;
+using App.Domain.Entities.Identity;
+using App.Service.Customers;
 using App.Service.GenericAttribute;
 using App.Service.Language;
 using Domain.Entities.Customers;
-using System;
-using System.Web;
-using System.Net;
-using App.Core.Extensions;
 using Microsoft.AspNet.Identity;
-using App.Domain.Entities.Identity;
-using App.Aplication.Extensions;
-using App.Domain.Common;
 
 namespace App.Service.Common
 {
-    public partial class WebWorkContext : IWorkContext
+    public class WebWorkContext : IWorkContext
     {
         //private HttpContextBase _httpContextBase = new HttpContextWrapper(HttpContext.Current);
 
@@ -25,11 +25,11 @@ namespace App.Service.Common
 
         private readonly ICustomerService _customerService;
 
-        private App.Domain.Entities.Language.Language _cachedLanguage;
+        private Domain.Entities.Language.Language _cachedLanguage;
 
         private Customer _cachedCustomer;
 
-        protected readonly UserManager<IdentityUser, Guid> _userManager;
+        protected readonly UserManager<IdentityUser, Guid> UserManager;
 
         public WebWorkContext(IGenericAttributeService genericAttributeService, ILanguageService languageService, ICustomerService customerService
             , UserManager<IdentityUser, Guid> userManager
@@ -39,10 +39,10 @@ namespace App.Service.Common
             _languageService = languageService;
             _customerService = customerService;
             _httpContextBase = new HttpContextWrapper(HttpContext.Current);
-            _userManager = userManager;
+            UserManager = userManager;
         }
 
-        public App.Domain.Entities.Language.Language WorkingLanguage
+        public Domain.Entities.Language.Language WorkingLanguage
         {
             get
             {
@@ -53,7 +53,7 @@ namespace App.Service.Common
 
                 if (attribute == null)
                 {
-                    SetCustomerLanguage(languageId: 1, storeId: 1);
+                    SetCustomerLanguage(1, 1);
                     attribute = _genericAttributeService.GetByKey(CurrentCustomer.Id, "Customer", "LanguageId");
                 }
 
@@ -63,7 +63,7 @@ namespace App.Service.Common
             }
             set
             {
-                var languageId = value != null ? value.Id : 1;
+                var languageId = value?.Id ?? 1;
                 SetCustomerLanguage(languageId, 1);
                 _cachedLanguage = null;
             }
@@ -72,7 +72,7 @@ namespace App.Service.Common
 
         private void SetCustomerLanguage(int languageId, int storeId)
         {
-            App.Domain.Entities.Data.GenericAttribute objAttribute = new App.Domain.Entities.Data.GenericAttribute
+            Domain.Entities.Data.GenericAttribute objAttribute = new Domain.Entities.Data.GenericAttribute
             {
                 EntityId = CurrentCustomer.Id,
                 KeyGroup = "Customer",
@@ -114,7 +114,7 @@ namespace App.Service.Common
                     Customer customerExsist = _customerService.GetByGuid(Guid.Parse(userId), isCache: false);
                     if (customerExsist == null || !customerExsist.Active)
                     {
-                        IdentityUser objUser = _userManager.FindById(Guid.Parse(userId));
+                        IdentityUser objUser = UserManager.FindById(Guid.Parse(userId));
                         customerExsist = objUser.ToModel();
                         customerExsist.CustomerGuid = Guid.Parse(userId);                       
                         customerExsist.Active = true;
@@ -175,13 +175,13 @@ namespace App.Service.Common
             }
 
             //Load customer đã có 
-            customer = _customerService.GetByGuid(customerGuid, isCache: false);
+            customer = _customerService.GetByGuid(customerGuid, false);
 
             if (customer == null || customer.Deleted || !customer.Active)
             {
                 var objCustomer = new Customer
                 {
-                    CustomerGuid = customerGuid == null ? Guid.NewGuid() : customerGuid,
+                    CustomerGuid = customerGuid,
                     Active = true,
                     CreatedOnUtc = DateTime.UtcNow,
                     LastLoginDateUtc = DateTime.UtcNow,
@@ -192,7 +192,7 @@ namespace App.Service.Common
                 _customerService.Create(objCustomer);
 
                 //Get lai customer
-                customer = _customerService.GetByGuid(customerGuid, isCache: false);
+                customer = _customerService.GetByGuid(customerGuid, false);
             }
 
             return customer;

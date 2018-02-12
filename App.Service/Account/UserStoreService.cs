@@ -1,20 +1,19 @@
-using App.Core.Common;
-using App.Domain.Entities.Account;
-using App.Domain.Entities.Identity;
-using App.Domain.Interfaces.Repository;
-using App.Infra.Data.Repository.Account;
-using App.Infra.Data.UOW.Interfaces;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using App.Domain.Entities.Account;
+using App.Domain.Entities.Identity;
+using App.Infra.Data.Repository.Account;
+using App.Infra.Data.UOW.Interfaces;
+using Microsoft.AspNet.Identity;
+using Claim = System.Security.Claims.Claim;
 
 namespace App.Service.Account
 {
-    public class UserStoreService : IUserLoginStore<IdentityUser, Guid>, IUserStore<IdentityUser, Guid>, IDisposable, IUserClaimStore<IdentityUser, Guid>, IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>, IUserSecurityStampStore<IdentityUser, Guid>
+    public class UserStoreService : IUserLoginStore<IdentityUser, Guid>, IUserClaimStore<IdentityUser, Guid>,
+        IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>,
+        IUserSecurityStampStore<IdentityUser, Guid>
     {
         private readonly IExternalLoginRepository _externalLoginRepository;
 
@@ -26,13 +25,13 @@ namespace App.Service.Account
 
         public UserStoreService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository, IExternalLoginRepository externalLoginRepository, IRoleRepository roleRepository)
         {
-            this._unitOfWork = unitOfWork;
-            this._userRepository = userRepository;
-            this._externalLoginRepository = externalLoginRepository;
-            this._roleRepository = roleRepository;
+            _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
+            _externalLoginRepository = externalLoginRepository;
+            _roleRepository = roleRepository;
         }
 
-        public Task AddClaimAsync(IdentityUser user, System.Security.Claims.Claim claim)
+        public Task AddClaimAsync(IdentityUser user, Claim claim)
         {
             if (user == null)
             {
@@ -42,20 +41,20 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("claim");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Domain.Entities.Account.Claim claim1 = new Domain.Entities.Account.Claim()
+            Domain.Entities.Account.Claim claim1 = new Domain.Entities.Account.Claim
             {
                 ClaimType = claim.Type,
                 ClaimValue = claim.Value,
                 User = user1
             };
             user1.Claims.Add(claim1);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task AddLoginAsync(IdentityUser user, UserLoginInfo login)
@@ -68,20 +67,20 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("login");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            ExternalLogin externalLogin = new ExternalLogin()
+            ExternalLogin externalLogin = new ExternalLogin
             {
                 LoginProvider = login.LoginProvider,
                 ProviderKey = login.ProviderKey,
                 User = user1
             };
             user1.Logins.Add(externalLogin);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task AddToRoleAsync(IdentityUser user, string roleName)
@@ -94,33 +93,33 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: roleName.");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Role role = this._roleRepository.FindByName(roleName);
+            Role role = _roleRepository.FindByName(roleName);
             if (role == null)
             {
                 throw new ArgumentException("roleName does not correspond to a Role entity.", "roleName");
             }
             user1.Roles.Add(role);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task CreateAsync(IdentityUser user)
         {
-            User user1 = this.GetUser(user);
-            this._userRepository.Add(user1);
-            return this._unitOfWork.CommitAsync();
+            User user1 = GetUser(user);
+            _userRepository.Add(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task DeleteAsync(IdentityUser user)
         {
-            User user1 = this.GetUser(user);
-            this._userRepository.Delete(user1);
-            return this._unitOfWork.CommitAsync();
+            User user1 = GetUser(user);
+            _userRepository.Delete(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public void Dispose()
@@ -134,36 +133,36 @@ namespace App.Service.Account
                 throw new ArgumentNullException("login");
             }
             IdentityUser identityUser = null;
-            ExternalLogin byProviderAndKey = this._externalLoginRepository.GetByProviderAndKey(login.LoginProvider, login.ProviderKey);
+            ExternalLogin byProviderAndKey = _externalLoginRepository.GetByProviderAndKey(login.LoginProvider, login.ProviderKey);
             if (byProviderAndKey != null)
             {
-                identityUser = this.GetIdentityUser(byProviderAndKey.User);
+                identityUser = GetIdentityUser(byProviderAndKey.User);
             }
-            return Task.FromResult<IdentityUser>(identityUser);
+            return Task.FromResult(identityUser);
         }
 
         public Task<IdentityUser> FindByIdAsync(Guid userId)
         {
-            User user = this._userRepository.FindById(userId, false);
-            return Task.FromResult<IdentityUser>(this.GetIdentityUser(user));
+            User user = _userRepository.FindById(userId, false);
+            return Task.FromResult(GetIdentityUser(user));
         }
 
         public Task<IdentityUser> FindByNameAsync(string userName)
         {
-            User user = this._userRepository.FindByUserName(userName);
-            return Task.FromResult<IdentityUser>(this.GetIdentityUser(user));
+            User user = _userRepository.FindByUserName(userName);
+            return Task.FromResult(GetIdentityUser(user));
         }
 
-        public Task<IList<System.Security.Claims.Claim>> GetClaimsAsync(IdentityUser user)
+        public Task<IList<Claim>> GetClaimsAsync(IdentityUser user)
         {
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<IList<System.Security.Claims.Claim>> task = Task.FromResult<IList<System.Security.Claims.Claim>>((
+            Task<IList<Claim>> task = Task.FromResult<IList<Claim>>((
                 from x in user1.Claims
-                select new System.Security.Claims.Claim(x.ClaimType, x.ClaimValue)).ToList<System.Security.Claims.Claim>());
+                select new Claim(x.ClaimType, x.ClaimValue)).ToList());
             return task;
         }
 
@@ -173,7 +172,7 @@ namespace App.Service.Account
             if (user != null)
             {
                 IdentityUser identityUser1 = new IdentityUser();
-                this.PopulateIdentityUser(identityUser1, user);
+                PopulateIdentityUser(identityUser1, user);
                 identityUser = identityUser1;
             }
             else
@@ -189,20 +188,20 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("user");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
             Task<IList<UserLoginInfo>> task = Task.FromResult<IList<UserLoginInfo>>((
                 from x in user1.Logins
-                select new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList<UserLoginInfo>());
+                select new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList());
             return task;
         }
 
         public Task<string> GetPasswordHashAsync(IdentityUser user)
         {
-            return Task.FromResult<string>(user.PasswordHash);
+            return Task.FromResult(user.PasswordHash);
         }
 
         public Task<IList<string>> GetRolesAsync(IdentityUser user)
@@ -211,32 +210,32 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("user");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
             Task<IList<string>> task = Task.FromResult<IList<string>>((
                 from x in user1.Roles
-                select x.Name).ToList<string>());
+                select x.Name).ToList());
             return task;
         }
 
         public Task<string> GetSecurityStampAsync(IdentityUser user)
         {
-            return Task.FromResult<string>(user.SecurityStamp);
+            return Task.FromResult(user.SecurityStamp);
         }
 
         private User GetUser(IdentityUser identityUser)
         {
             User user = new User();
-            this.PopulateUser(user, identityUser);
+            PopulateUser(user, identityUser);
             return user;
         }
 
         public Task<bool> HasPasswordAsync(IdentityUser user)
         {
-            Task<bool> task = Task.FromResult<bool>(!string.IsNullOrWhiteSpace(user.PasswordHash));
+            Task<bool> task = Task.FromResult(!string.IsNullOrWhiteSpace(user.PasswordHash));
             return task;
         }
 
@@ -250,12 +249,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<bool> task = Task.FromResult<bool>(user1.Roles.Any<Role>((Role x) => x.Name == roleName));
+            Task<bool> task = Task.FromResult(user1.Roles.Any(x => x.Name == roleName));
             return task;
         }
 
@@ -297,7 +296,7 @@ namespace App.Service.Account
             user.Created = identityUser.Created;
         }
 
-        public Task RemoveClaimAsync(IdentityUser user, System.Security.Claims.Claim claim)
+        public Task RemoveClaimAsync(IdentityUser user, Claim claim)
         {
             if (user == null)
             {
@@ -307,15 +306,15 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("claim");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Domain.Entities.Account.Claim claim1 = user1.Claims.FirstOrDefault<Domain.Entities.Account.Claim>((Domain.Entities.Account.Claim x) => (x.ClaimType != claim.Type ? false : x.ClaimValue == claim.Value));
+            var claim1 = user1.Claims.FirstOrDefault(x => (x.ClaimType == claim.Type && x.ClaimValue == claim.Value));
             user1.Claims.Remove(claim1);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task RemoveFromRoleAsync(IdentityUser user, string roleName)
@@ -328,15 +327,15 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Role role = user1.Roles.FirstOrDefault<Role>((Role x) => x.Name == roleName);
+            Role role = user1.Roles.FirstOrDefault(x => x.Name == roleName);
             user1.Roles.Remove(role);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task RemoveLoginAsync(IdentityUser user, UserLoginInfo login)
@@ -349,27 +348,27 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("login");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            ExternalLogin externalLogin = user1.Logins.FirstOrDefault<ExternalLogin>((ExternalLogin x) => (x.LoginProvider != login.LoginProvider ? false : x.ProviderKey == login.ProviderKey));
+            var externalLogin = user1.Logins.FirstOrDefault(x => (x.LoginProvider == login.LoginProvider && x.ProviderKey == login.ProviderKey));
             user1.Logins.Remove(externalLogin);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
 
         public Task SetPasswordHashAsync(IdentityUser user, string passwordHash)
         {
             user.PasswordHash = passwordHash;
-            return Task.FromResult<int>(0);
+            return Task.FromResult(0);
         }
 
         public Task SetSecurityStampAsync(IdentityUser user, string stamp)
         {
             user.SecurityStamp = stamp;
-            return Task.FromResult<int>(0);
+            return Task.FromResult(0);
         }
 
         public Task UpdateAsync(IdentityUser user)
@@ -378,14 +377,14 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("user");
             }
-            User user1 = this._userRepository.FindById(user.Id, false);
+            User user1 = _userRepository.FindById(user.Id, false);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            this.PopulateUser(user1, user);
-            this._userRepository.Update(user1);
-            return this._unitOfWork.CommitAsync();
+            PopulateUser(user1, user);
+            _userRepository.Update(user1);
+            return _unitOfWork.CommitAsync();
         }
     }
 }

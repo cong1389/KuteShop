@@ -1,19 +1,20 @@
-﻿using App.Domain.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using App.Aplication;
+using App.Domain.Common;
 using App.Domain.Orders;
 using App.Service.Customers;
 using App.Service.GenericAttribute;
 using App.Service.Post;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace App.Service.Orders
 {
     public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IOrderService _orderService;
-        public readonly IShoppingCartItemService _shoppingCartItemService;
-        public readonly ICustomerService _customerService;
+        public readonly IShoppingCartItemService ShoppingCartItemService;
+        public readonly ICustomerService CustomerService;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IPriceCalculationService _priceCalculationService;
 
@@ -24,8 +25,8 @@ namespace App.Service.Orders
             , IPriceCalculationService priceCalculationService)
         {
             _orderService = orderService;
-            _shoppingCartItemService = shoppingCartItemService;
-            _customerService = customerService;
+            ShoppingCartItemService = shoppingCartItemService;
+            CustomerService = customerService;
             _genericAttributeService = genericAttributeService;
             _priceCalculationService = priceCalculationService;
         }
@@ -45,23 +46,25 @@ namespace App.Service.Orders
 
             try
             {
-                var customer = _customerService.GetById(processPaymentRequest.CustomerId, isCache: false);
+                var customer = CustomerService.GetById(processPaymentRequest.CustomerId, false);
                 var cart = customer.GetCartItems();
 
                 //Order total 
                 decimal? orderTotal = null;
-                string subTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart);
-                if (subTotal != null)
-                    orderTotal = decimal.Parse(subTotal);
+                if (cart != null)
+                {
+                    var subTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart);
+                    if (subTotal != null)
+                        orderTotal = decimal.Parse(subTotal);
+                }
 
                 //BillingAddress  
-                Address billingAddress = null;// customer.Addresses;
-                billingAddress = customer.BillingAddress;
+                var billingAddress = customer.BillingAddress;
 
                 //Shiping method
-                string shippingMethod = customer.GetAttribute("Customer", App.Aplication.Contains.SelectedShippingOption, _genericAttributeService);
+                string shippingMethod = customer.GetAttribute("Customer", Contains.SelectedShippingOption, _genericAttributeService);
 
-                var order = new Order()
+                var order = new Order
                 {
                     StoreId = processPaymentRequest.StoreId,
                     OrderGuid = processPaymentRequest.OrderGuid,
@@ -107,7 +110,7 @@ namespace App.Service.Orders
                     decimal scSubTotal = _priceCalculationService.GetSubTotal(sc, true);
                     decimal scSubTotalInclTax = scSubTotal;
 
-                    var orderItem = new OrderItem()
+                    var orderItem = new OrderItem
                     {
                         OrderItemGuid = Guid.NewGuid(),
                         Order = order,
@@ -124,15 +127,15 @@ namespace App.Service.Orders
                 if (result.Success)
                 {
                     //Delete
-                    cart.ToList().ForEach(cr => _shoppingCartItemService.DeleteShoppingCartItem(cr, false));
+                    cart.ToList().ForEach(cr => ShoppingCartItemService.DeleteShoppingCartItem(cr, false));
 
-                    _customerService.ResetCheckoutData(customer: customer, storeId: 1, clearCouponCodes: false, clearCheckoutAttributes: true, clearRewardPoints: true, clearShippingMethod: true, clearPaymentMethod: true);
+                    CustomerService.ResetCheckoutData(customer, 1, false, true, true, true, true);
 
                 }
             }
             catch
             {
-                
+                // ignored
             }
 
             return result;

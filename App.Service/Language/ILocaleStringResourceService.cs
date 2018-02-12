@@ -1,27 +1,23 @@
-using App.Core.Common;
-using App.Core.Utils;
-using App.Domain.Entities.Language;
-using App.Domain.Interfaces.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+using App.Core.Utils;
+using App.Domain.Interfaces.Services;
 
 namespace App.Service.LocaleStringResource
 {
-    public interface ILocaleStringResourceService : IBaseService<App.Domain.Entities.Language.LocaleStringResource>, IService
+    public interface ILocaleStringResourceService : IBaseService<Domain.Entities.Language.LocaleStringResource>
     {
-        void CreateLocaleStringResource(App.Domain.Entities.Language.LocaleStringResource LocaleStringResource);
+        void CreateLocaleStringResource(Domain.Entities.Language.LocaleStringResource localeStringResource);
 
-        App.Domain.Entities.Language.LocaleStringResource GetByName(int languageId, string resourceName, bool isCache = true);
+        Domain.Entities.Language.LocaleStringResource GetByName(int languageId, string resourceName, bool isCache = true);
 
-        IEnumerable<App.Domain.Entities.Language.LocaleStringResource> PagedList(SortingPagingBuilder sortBuider, Paging page);
+        IEnumerable<Domain.Entities.Language.LocaleStringResource> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
         int SaveLocaleStringResource();
 
-        App.Domain.Entities.Language.LocaleStringResource GetById(int id, bool isCache = true);
+        Domain.Entities.Language.LocaleStringResource GetById(int id, bool isCache = true);
 
-        IEnumerable<App.Domain.Entities.Language.LocaleStringResource> GetByLanguageId(int languageId, bool isCache = true);
+        IEnumerable<Domain.Entities.Language.LocaleStringResource> GetByLanguageId(int languageId, bool isCache = true);
 
         IQueryable<Domain.Entities.Language.LocaleStringResource> GetAll(int languageId);
 

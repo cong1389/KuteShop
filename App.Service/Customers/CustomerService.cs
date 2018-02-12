@@ -1,34 +1,25 @@
-using App.Core.Caching;
-using App.Core.Utils;
-using App.Domain.Interfaces.Services;
-using App.Infra.Data.Common;
-using App.Infra.Data.Repository.Customers;
-using App.Infra.Data.UOW.Interfaces;
-using App.Service.GenericAttribute;
-using Domain.Entities.Customers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Core.Caching;
+using App.Core.Utils;
+using App.Infra.Data.Common;
+using App.Infra.Data.Repository.Customers;
+using App.Infra.Data.UOW.Interfaces;
+using Domain.Entities.Customers;
 
 namespace App.Service.Customers
 {
-    public class CustomerService : BaseService<Customer>, ICustomerService, IBaseService<Customer>, IService
+    public class CustomerService : BaseService<Customer>, ICustomerService
     {
-        private const string CACHE_CUSTOMER_KEY = "db.Customer.{0}";
+        private const string CacheCustomerKey = "db.Customer.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly ICustomerRepository _customerRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IGenericAttributeService _genericAttributeService;
-
-        public CustomerService(IUnitOfWork unitOfWork, ICustomerRepository customerRepository
-            , IGenericAttributeService genericAttributeService
-            , ICacheManager cacheManager) : base(unitOfWork, customerRepository)
+        public CustomerService(IUnitOfWork unitOfWork, ICustomerRepository customerRepository, ICacheManager cacheManager) : base(unitOfWork, customerRepository)
         {
-            _unitOfWork = unitOfWork;
             _customerRepository = customerRepository;
-            _genericAttributeService = genericAttributeService;
             _cacheManager = cacheManager;
         }
 
@@ -38,7 +29,7 @@ namespace App.Service.Customers
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetById");
+                sbKey.AppendFormat(CacheCustomerKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -63,33 +54,21 @@ namespace App.Service.Customers
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetByGuid");
+                sbKey.AppendFormat(CacheCustomerKey, "GetByGuid");
                 sbKey.Append(guid);
 
                 string key = sbKey.ToString();
                 customer = _cacheManager.Get<Customer>(key);
                 if (customer == null)
                 {
-                    customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
+                    customer = _customerRepository.Get(x => x.CustomerGuid == guid);
                     _cacheManager.Put(key, customer);
                 }
             }
             else
             {
-                customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
+                customer = _customerRepository.Get(x => x.CustomerGuid == guid);
             }
-
-            //StringBuilder sbKey = new StringBuilder();
-            //sbKey.AppendFormat(CACHE_CUSTOMER_KEY, "GetByGuid");
-            //sbKey.Append(guid);
-
-            //string key = sbKey.ToString();
-            //Customer customer = _cacheManager.Get<Customer>(key);
-            //if (customer == null)
-            //{
-            //    customer = _customerRepository.Get((Customer x) => x.CustomerGuid == guid, false);
-            //    _cacheManager.Put(key, customer);
-            //}
 
             return customer;
         }
@@ -104,12 +83,12 @@ namespace App.Service.Customers
                 LastActivityDateUtc = DateTime.UtcNow
             };
 
-            return customer = _customerRepository.Add(customer);
+            return _customerRepository.Add(customer);
         }
 
         public IEnumerable<Customer> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._customerRepository.PagedSearchList(sortbuBuilder, page);
+            return _customerRepository.PagedSearchList(sortbuBuilder, page);
         }
 
 

@@ -1,9 +1,7 @@
 using App.Core.Common;
 using App.Domain.Entities.Data;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Attribute
 {
@@ -12,7 +10,7 @@ namespace App.Domain.Entities.Attribute
 		private ICollection<Post> _posts;
 
 		[ForeignKey("AttributeId")]
-		public virtual App.Domain.Entities.Attribute.Attribute Attribute
+		public virtual Attribute Attribute
 		{
 			get;
 			set;
@@ -52,20 +50,17 @@ namespace App.Domain.Entities.Attribute
 		{
 			get
 			{
-				ICollection<Post> posts = this._posts;
+				ICollection<Post> posts = _posts;
 				if (posts == null)
 				{
 					List<Post> posts1 = new List<Post>();
 					ICollection<Post> posts2 = posts1;
-					this._posts = posts1;
+					_posts = posts1;
 					posts = posts2;
 				}
 				return posts;
 			}
-			set
-			{
-				this._posts = value;
-			}
+			set => _posts = value;
 		}
 
 		public int Status

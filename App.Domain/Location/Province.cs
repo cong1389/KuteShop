@@ -1,8 +1,6 @@
 using App.Core.Common;
 using App.Domain.Entities.GlobalSetting;
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Location
 {

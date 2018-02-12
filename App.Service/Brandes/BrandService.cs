@@ -1,34 +1,29 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Brandes;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Brandes;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.Brandes
 {
-	public class BrandService : BaseService<Brand>, IBrandService, IBaseService<Brand>, IService
+	public class BrandService : BaseService<Brand>, IBrandService
 	{
-		private readonly IBrandRepository _BrandRepository;
+		private readonly IBrandRepository _brandRepository;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public BrandService(IUnitOfWork unitOfWork, IBrandRepository BrandRepository) : base(unitOfWork, BrandRepository)
+	    public BrandService(IUnitOfWork unitOfWork, IBrandRepository brandRepository) : base(unitOfWork, brandRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._BrandRepository = BrandRepository;
+		    _brandRepository = brandRepository;
 		}
 
-		public Brand GetById(int Id)
+		public Brand GetById(int id)
 		{
-			return this._BrandRepository.GetById(Id);
+			return _brandRepository.GetById(id);
 		}
 
 		public IEnumerable<Brand> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
-			return this._BrandRepository.PagedSearchList(sortbuBuilder, page);
+			return _brandRepository.PagedSearchList(sortbuBuilder, page);
 		}
 	}
 }

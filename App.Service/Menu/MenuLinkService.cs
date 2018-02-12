@@ -1,27 +1,21 @@
-﻿using App.Core.Caching;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
+using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utils;
 using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Repository;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Menu;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace App.Service.Menu
 {
-    public class MenuLinkService : BaseService<MenuLink>, IMenuLinkService, IBaseService<MenuLink>, IService
+    public class MenuLinkService : BaseService<MenuLink>, IMenuLinkService
     {
-        private const string CACHE_MENU_KEY = "db.MenuLink.{0}";
-        private const string CACHE_MENU_KEY_1 = "db.MenuLink.{0}-{1}";
-        private const string CACHE_MENU_KEY_2 = "db.MenuLink.{0}-{1}-{2}";
-        private const string CACHE_MENU_KEY_3 = "db.MenuLink.{0}-{1}-{2}-{3}";
-        private const string CACHE_MENU_KEY_Option = "db.MenuLink.";
+        private const string CacheMenuKey = "db.MenuLink.{0}";
+        private const string CacheMenuKey2 = "db.MenuLink.{0}-{1}-{2}";
         private readonly ICacheManager _cacheManager;
         private readonly IMenuLinkRepository _menuLinkRepository;
 
@@ -41,7 +35,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetById");
+                sbKey.AppendFormat(CacheMenuKey, "GetById");
                 sbKey.Append(id);
 
                 string key = sbKey.ToString();
@@ -66,7 +60,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetListSeoUrl");
+                sbKey.AppendFormat(CacheMenuKey, "GetListSeoUrl");
 
                 if (seoUrl.HasValue())
                 {
@@ -77,17 +71,16 @@ namespace App.Service.Menu
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
                 {
-                    menuLinks = _menuLinkRepository.FindBy((MenuLink x) => x.SeoUrl.Equals(seoUrl), false);
+                    menuLinks = _menuLinkRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
                     _cacheManager.Put(key, menuLinks);
                 }
             }
             else
             {
-                menuLinks = this._menuLinkRepository.FindBy((MenuLink x) => x.SeoUrl.Equals(seoUrl), false);
+                menuLinks = _menuLinkRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
 
             }
-
-            //IEnumerable<MenuLink> menuLinks = this._menuLinkRepository.FindBy((MenuLink x) => x.SeoUrl.Equals(seoUrl), false);
+            
             return menuLinks;
         }
 
@@ -97,7 +90,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetBySeoUrl");
+                sbKey.AppendFormat(CacheMenuKey, "GetBySeoUrl");
 
                 if (seoUrl.HasValue())
                 {
@@ -108,13 +101,13 @@ namespace App.Service.Menu
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
-                    menuLink = _menuLinkRepository.Get((MenuLink x) => x.SeoUrl.Equals(seoUrl), @readonly);
+                    menuLink = _menuLinkRepository.Get(x => x.SeoUrl.Equals(seoUrl), @readonly);
                     _cacheManager.Put(key, menuLink);
                 }
             }
             else
             {
-                menuLink = _menuLinkRepository.Get((MenuLink x) => x.SeoUrl.Equals(seoUrl), @readonly);
+                menuLink = _menuLinkRepository.Get(x => x.SeoUrl.Equals(seoUrl), @readonly);
             }
 
             return menuLink;
@@ -126,7 +119,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetByParentId");
+                sbKey.AppendFormat(CacheMenuKey, "GetByParentId");
                 sbKey.AppendFormat("-{0}", parentId);
 
                 if (currentVirtualId.HasValue())
@@ -136,13 +129,13 @@ namespace App.Service.Menu
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
-                    menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(currentVirtualId) && x.ParentId != parentId, false);
+                    menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(currentVirtualId) && x.ParentId != parentId);
                     _cacheManager.Put(key, menuLink);
                 }
             }
             else
             {
-                menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(currentVirtualId) && x.ParentId != parentId, false);
+                menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(currentVirtualId) && x.ParentId != parentId);
             }
 
             return menuLink;
@@ -154,7 +147,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetByCurrentVirtualId");
+                sbKey.AppendFormat(CacheMenuKey, "GetByCurrentVirtualId");
 
                 if (currentVirtualId.HasValue())
                     sbKey.AppendFormat("-{0}", currentVirtualId);
@@ -163,13 +156,13 @@ namespace App.Service.Menu
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
-                    menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(currentVirtualId), false);
+                    menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(currentVirtualId));
                     _cacheManager.Put(key, menuLink);
                 }
             }
             else
             {
-                menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(currentVirtualId), false);
+                menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(currentVirtualId));
             }
 
 
@@ -182,7 +175,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CACHE_MENU_KEY, "GetByMenuName");
+                sbKey.AppendFormat(CacheMenuKey, "GetByMenuName");
 
                 if (virtualCategoryId.HasValue())
                     sbKey.AppendFormat("-{0}", virtualCategoryId);
@@ -194,13 +187,13 @@ namespace App.Service.Menu
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
-                    menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(virtualCategoryId) && !x.MenuName.Equals(menuName), false);
+                    menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(virtualCategoryId) && !x.MenuName.Equals(menuName));
                     _cacheManager.Put(key, menuLink);
                 }
             }
             else
             {
-                menuLink = _menuLinkRepository.Get((MenuLink x) => x.CurrentVirtualId.Equals(virtualCategoryId) && !x.MenuName.Equals(menuName), false);
+                menuLink = _menuLinkRepository.Get(x => x.CurrentVirtualId.Equals(virtualCategoryId) && !x.MenuName.Equals(menuName));
             }
 
             return menuLink;
@@ -208,12 +201,12 @@ namespace App.Service.Menu
 
         public IEnumerable<MenuLink> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
-            return this._menuLinkRepository.PagedSearchList(sortbuBuilder, page);
+            return _menuLinkRepository.PagedSearchList(sortbuBuilder, page);
         }
 
         public int Save()
         {
-            return this._unitOfWork.Commit();
+            return _unitOfWork.Commit();
         }
 
         public IEnumerable<MenuLink> GetByTemplateType(int templateType, bool @readonly = false, bool isCache = true)
@@ -221,18 +214,18 @@ namespace App.Service.Menu
             IEnumerable<MenuLink> menuLinks;
             if (isCache)
             {
-                string key = string.Format(CACHE_MENU_KEY_2, "GetByTemplateType", templateType, @readonly);
+                string key = string.Format(CacheMenuKey2, "GetByTemplateType", templateType, @readonly);
 
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
                 {
-                    menuLinks = _menuLinkRepository.FindBy((MenuLink x) => x.TemplateType == templateType, @readonly);
-                    _cacheManager.Put(CACHE_MENU_KEY_2, menuLinks);
+                    menuLinks = _menuLinkRepository.FindBy(x => x.TemplateType == templateType, @readonly);
+                    _cacheManager.Put(CacheMenuKey2, menuLinks);
                 }
             }
             else
             {
-                menuLinks = _menuLinkRepository.FindBy((MenuLink x) => x.TemplateType == templateType, @readonly);
+                menuLinks = _menuLinkRepository.FindBy(x => x.TemplateType == templateType, @readonly);
             }
 
             return menuLinks;
@@ -254,69 +247,69 @@ namespace App.Service.Menu
         {
 
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_MENU_KEY, "GetByOption");
+            sbKey.AppendFormat(CacheMenuKey, "GetByOption");
 
             Expression<Func<MenuLink, bool>> expression = PredicateBuilder.True<MenuLink>();
             sbKey.AppendFormat("-{0}", status);
-            expression = expression.And((MenuLink x) => x.Status == status);
+            expression = expression.And(x => x.Status == status);
 
-            if (!position.IsNullOrEmpty())
+            if (position != null && !position.IsNullOrEmpty())
             {
                 int i = 0;
                 foreach (int pos in position)
                 {
                     sbKey.AppendFormat("-{0}", pos);
-                    expression = i == 0 ? expression.And((MenuLink x) => x.Position == pos) : expression.Or((MenuLink x) => x.Position == pos);
+                    expression = i == 0 ? expression.And(x => x.Position == pos) : expression.Or(x => x.Position == pos);
                     i++;
                 }
             }
 
-            if (!template.IsNullOrEmpty())
+            if (template != null && !template.IsNullOrEmpty())
             {
                 int i = 0;
                 foreach (int temp in template)
                 {
                     sbKey.AppendFormat("-{0}", temp);
-                    expression = i == 0 ? expression.And((MenuLink x) => x.TemplateType == temp) : expression.Or((MenuLink x) => x.TemplateType == temp);
+                    expression = i == 0 ? expression.And(x => x.TemplateType == temp) : expression.Or(x => x.TemplateType == temp);
                     i++;
                 }
             }
 
-            if (!parentId.IsNullOrEmpty())
+            if (parentId != null && !parentId.IsNullOrEmpty())
             {
                 int i = 0;
                 foreach (int par in parentId)
                 {
                     sbKey.AppendFormat("-{0}", parentId);
-                    expression = i == 0 ? expression.And((MenuLink x) => x.ParentId == par) : expression.Or((MenuLink x) => x.ParentId == par);
+                    expression = i == 0 ? expression.And(x => x.ParentId == par) : expression.Or(x => x.ParentId == par);
                     i++;
                 }
             }
 
-            if (virtualId.HasValue())
+            if (virtualId != null && virtualId.HasValue())
             {
                 sbKey.AppendFormat("-{0}", virtualId);
-                expression = expression.And((MenuLink x) => x.VirtualId.Contains(virtualId));
+                expression = expression.And(x => x.VirtualId.Contains(virtualId));
             }
 
-            if (seoUrl.HasValue())
+            if (seoUrl != null && seoUrl.HasValue())
             {
                 sbKey.AppendFormat("-{0}", seoUrl);
-                expression = expression.And((MenuLink x) => x.SeoUrl.Equals(seoUrl));
+                expression = expression.And(x => x.SeoUrl.Equals(seoUrl));
             }
 
             if (isDisplayHomePage != null)
             {
                 //isDisplayHomePage
                 sbKey.AppendFormat("-{0}", isDisplayHomePage);
-                expression = expression.And((MenuLink x) => x.DisplayOnHomePage == isDisplayHomePage);
+                expression = expression.And(x => x.DisplayOnHomePage == isDisplayHomePage);
             }
 
             if (isDisplaySearch != null)
             {
                 //isDisplaySearch
                 sbKey.AppendFormat("-{0}", isDisplaySearch);
-                expression = expression.And((MenuLink x) => x.DisplayOnSearch == isDisplaySearch);
+                expression = expression.And(x => x.DisplayOnSearch == isDisplaySearch);
             }
 
             IEnumerable<MenuLink> menuLinks;
@@ -327,13 +320,13 @@ namespace App.Service.Menu
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
                 {
-                    menuLinks = FindBy(expression, false);
+                    menuLinks = FindBy(expression);
                     _cacheManager.Put(key, menuLinks);
                 }
             }
             else
             {
-                menuLinks = FindBy(expression, false);
+                menuLinks = FindBy(expression);
             }            
 
             return menuLinks;

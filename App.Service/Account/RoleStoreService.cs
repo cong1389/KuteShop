@@ -1,18 +1,15 @@
-using App.Core.Common;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using App.Domain.Entities.Account;
 using App.Domain.Entities.Identity;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Repository.Account;
 using App.Infra.Data.UOW.Interfaces;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace App.Service.Account
 {
-	public class RoleStoreService : IRoleStore<IdentityRole, Guid>, IDisposable, IQueryableRoleStore<IdentityRole, Guid>
+	public class RoleStoreService : IQueryableRoleStore<IdentityRole, Guid>
 	{
 		private readonly IRoleRepository _roleRepository;
 
@@ -22,17 +19,17 @@ namespace App.Service.Account
 		{
 			get
 			{
-				IQueryable<IdentityRole> identityRoles = (
-					from x in this._roleRepository.GetAll()
-					select this.GetIdentityRole(x)).AsQueryable<IdentityRole>();
+				var identityRoles = (
+					from x in _roleRepository.GetAll()
+					select GetIdentityRole(x)).AsQueryable();
 				return identityRoles;
 			}
 		}
 
 		public RoleStoreService(IUnitOfWorkAsync unitOfWork, IRoleRepository roleRepository)
 		{
-			this._unitOfWork = unitOfWork;
-			this._roleRepository = roleRepository;
+			_unitOfWork = unitOfWork;
+			_roleRepository = roleRepository;
 		}
 
 		public Task CreateAsync(IdentityRole role)
@@ -41,9 +38,9 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = this.getRole(role);
-			this._roleRepository.Add(role1);
-			return this._unitOfWork.CommitAsync();
+			Role role1 = GetRole(role);
+			_roleRepository.Add(role1);
+			return _unitOfWork.CommitAsync();
 		}
 
 		public Task DeleteAsync(IdentityRole role)
@@ -52,9 +49,9 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = this.getRole(role);
-			this._roleRepository.Delete(role1);
-			return this._unitOfWork.CommitAsync();
+			Role role1 = GetRole(role);
+			_roleRepository.Delete(role1);
+			return _unitOfWork.CommitAsync();
 		}
 
 		public void Dispose()
@@ -63,14 +60,14 @@ namespace App.Service.Account
 
 		public Task<IdentityRole> FindByIdAsync(Guid roleId)
 		{
-			Role role = this._roleRepository.FindById(roleId, false);
-			return Task.FromResult<IdentityRole>(this.GetIdentityRole(role));
+			Role role = _roleRepository.FindById(roleId, false);
+			return Task.FromResult(GetIdentityRole(role));
 		}
 
 		public Task<IdentityRole> FindByNameAsync(string roleName)
 		{
-			Role role = this._roleRepository.FindByName(roleName);
-			return Task.FromResult<IdentityRole>(this.GetIdentityRole(role));
+			Role role = _roleRepository.FindByName(roleName);
+			return Task.FromResult(GetIdentityRole(role));
 		}
 
 		private IdentityRole GetIdentityRole(Role role)
@@ -78,7 +75,7 @@ namespace App.Service.Account
 			IdentityRole identityRole;
 			if (role != null)
 			{
-				identityRole = new IdentityRole()
+				identityRole = new IdentityRole
 				{
 					Id = role.Id,
 					Name = role.Name,
@@ -92,12 +89,12 @@ namespace App.Service.Account
 			return identityRole;
 		}
 
-		private Role getRole(IdentityRole identityRole)
+		private Role GetRole(IdentityRole identityRole)
 		{
 			Role role;
 			if (identityRole != null)
 			{
-				role = new Role()
+				role = new Role
 				{
 					Id = identityRole.Id,
 					Name = identityRole.Name,
@@ -117,9 +114,9 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = this.getRole(role);
-			this._roleRepository.Update(role1);
-			return this._unitOfWork.CommitAsync();
+			Role role1 = GetRole(role);
+			_roleRepository.Update(role1);
+			return _unitOfWork.CommitAsync();
 		}
 	}
 }

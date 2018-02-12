@@ -1,8 +1,6 @@
 using App.Core.Common;
 using App.Domain.Entities.Menu;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Data
 {
@@ -51,7 +49,7 @@ namespace App.Domain.Entities.Data
 		}
 
 		[ForeignKey("MenuId")]
-		public virtual App.Domain.Entities.Menu.MenuLink MenuLink
+		public virtual MenuLink MenuLink
 		{
 			get;
 			set;

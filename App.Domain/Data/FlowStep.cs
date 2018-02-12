@@ -1,6 +1,4 @@
 using App.Core.Common;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace App.Domain.Entities.Data
 {

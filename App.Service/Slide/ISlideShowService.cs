@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Slide;
 using App.Domain.Interfaces.Services;
-using System.Collections.Generic;
 
 namespace App.Service.Slide
 {
-    public interface ISlideShowService : IBaseService<SlideShow>, IService
+    public interface ISlideShowService : IBaseService<SlideShow>
     {
         IEnumerable<SlideShow> PagedList(SortingPagingBuilder sortBuider, Paging page);
     }

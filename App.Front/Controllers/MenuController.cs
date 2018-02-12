@@ -9,9 +9,7 @@ using App.Aplication.MVCHelper;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
 using App.Front.Models;
-using App.Service.Common;
 using App.Service.Language;
-using App.Service.Locations;
 using App.Service.Menu;
 using App.Service.Static;
 using Newtonsoft.Json;
@@ -22,34 +20,22 @@ namespace App.Front.Controllers
     {
         private readonly IMenuLinkService _menuLinkService;
 
-        private readonly IProvinceService _provinceService;
-
-        private readonly IDistrictService _isDistrictService;
-
-        private IStaticContentService _staticContentService;
-
-        private readonly IWorkContext _workContext;
+        private readonly IStaticContentService _staticContentService;
 
         public MenuController(
             IMenuLinkService menuLinkService
-            , IProvinceService provinceService
-            , IDistrictService isDistrictService
             , IStaticContentService staticContentService
-            , IWorkContext workContext)
+            )
         {
             _menuLinkService = menuLinkService;
-            _provinceService = provinceService;
-            _isDistrictService = isDistrictService;
             _staticContentService = staticContentService;
-            _workContext = workContext;
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult GetAccesssories()
         {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(position: new List<int> { 8 }, isDisplayHomePage: true);
-            //IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.TemplateType == 8 && x.DisplayOnHomePage && x.Status == 1, true);
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 8 }, isDisplayHomePage: true);
 
             return PartialView(menuLinks);
         }
@@ -59,30 +45,30 @@ namespace App.Front.Controllers
         {
             dynamic viewBag = ViewBag;
 
-            MenuLink menuLink = _menuLinkService.GetBySeoUrl(seoUrl: menu, @readonly: false);
+            MenuLink menuLink = _menuLinkService.GetBySeoUrl(menu);
 
-            if (menuLink != null)
+            if (menuLink == null) return View();
+
+            var menuLinkLocalized = menuLink.ToModel();
+
+            ViewBag.Title = menuLinkLocalized.MetaTitle ?? menuLinkLocalized.MenuName;
+            ViewBag.MetaKeyWords = menuLinkLocalized.MetaKeywords;
+            ViewBag.SiteUrl = Url.Action("GetContent", "Menu", new { menu, page, area = "" });
+            ViewBag.Description = menuLinkLocalized.MetaDescription;
+            ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
+
+            //((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle;
+            //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;D:\Project\MVC\AoThun\AoThun_ANT\App.Front\App.Front\Views\Post\GetProductTimeLine.cshtml
+            //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
+            //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
+            //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
+
+            if (menuLinkLocalized.TemplateType == 1)
             {
-                var menuLinkLocalized = menuLink.ToModel();
-
-                ViewBag.Title = menuLinkLocalized.MetaTitle ?? menuLinkLocalized.MenuName;
-                ViewBag.MetaKeyWords = menuLinkLocalized.MetaKeywords;
-                ViewBag.SiteUrl = Url.Action("GetContent", "Menu", new {menu, page, area = "" });
-                ViewBag.Description = menuLinkLocalized.MetaDescription;
-                ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
-
-                //((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle;
-                //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;D:\Project\MVC\AoThun\AoThun_ANT\App.Front\App.Front\Views\Post\GetProductTimeLine.cshtml
-                //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
-                //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
-                //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
-
-                if (menuLinkLocalized.TemplateType == 1)
-                {
-                    viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int> { 1 });
-                    //IMenuLinkService menuLinkService = this._menuLinkService;
-                    //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
-                }
+                viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int> { 1 });
+                //IMenuLinkService menuLinkService = this._menuLinkService;
+                //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
+            }
 
 
             ViewBag.ParentId = menuLink.ParentId;
@@ -95,12 +81,11 @@ namespace App.Front.Controllers
             ViewBag.ProductOld = Request["productold"];
             ViewBag.ProductNew = Request["productnew"];
 
-                ViewBag.TemplateType = menuLink.TemplateType;
-                ViewBag.MenuId = menuLink.Id;
-                ViewBag.ImgePath = menuLink.ImageUrl;
-                ViewBag.PageNumber = page;
-                ViewBag.VirtualId = menuLink.VirtualId;
-            }
+            ViewBag.TemplateType = menuLink.TemplateType;
+            ViewBag.MenuId = menuLink.Id;
+            ViewBag.ImgePath = menuLink.ImageUrl;
+            ViewBag.PageNumber = page;
+            ViewBag.VirtualId = menuLink.VirtualId;
 
             return View();
         }
@@ -109,12 +94,11 @@ namespace App.Front.Controllers
         public ActionResult GetFixItemContent(int id)
         {
             MenuLink menuLink = _menuLinkService.GetById(id);
-            //MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.Id == Id, false);
+
             ViewBag.ImgUrl = menuLink.ImageUrl;
             ViewBag.TitleFix = menuLink.MenuName;
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
-            //IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.ParentId == (int?)id && x.Status == 1 && x.DisplayOnHomePage, false);
+            var menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -126,8 +110,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetLeftFixItem(int id)
         {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
-            //IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy((MenuLink x) => x.ParentId == (int?)Id && x.Status == 1 && x.DisplayOnHomePage, false);
+            var menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -140,14 +123,13 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetProductTab()
         {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(template: new List<int> { 2 }, isDisplayHomePage: true);
-            //IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.TemplateType == 2 && x.DisplayOnHomePage && x.Status == 1, true);
+            var menuLinks = _menuLinkService.GetByOption(template: new List<int> { 2 }, isDisplayHomePage: true);
 
             return PartialView(menuLinks);
         }
 
         [ChildActionOnly]
-        public ActionResult GetStaticContent(int MenuId, string virtualId, string title)
+        public ActionResult GetStaticContent(int menuId, string virtualId, string title)
         {
             List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
             string[] strArrays = virtualId.Split('/');
@@ -155,8 +137,7 @@ namespace App.Front.Controllers
             for (int i = 0; i < strArrays.Length; i++)
             {
                 string str = strArrays[i];
-                MenuLink menuLink = _menuLinkService.GetByParentId(parentId: MenuId, currentVirtualId: str);
-                //MenuLink menuLink = this._menuLinkService.Get((MenuLink x) => x.CurrentVirtualId.Equals(str) && x.ParentId != MenuId, false);
+                MenuLink menuLink = _menuLinkService.GetByParentId(menuId, str);
 
                 if (menuLink != null)
                 {
@@ -175,7 +156,8 @@ namespace App.Front.Controllers
                 Title = title
             });
             ViewBag.BreadCrumb = breadCrumbs;
-            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == MenuId, true);
+
+            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == menuId, true);
             if (staticContent != null)
             {
                 staticContent = staticContent.ToModel();
@@ -190,7 +172,7 @@ namespace App.Front.Controllers
                 ViewBag.Title = staticContent.Title;
             }
 
-            ViewBag.MenuId = MenuId;
+            ViewBag.MenuId = menuId;
 
             return PartialView(staticContent);
         }
@@ -254,18 +236,18 @@ namespace App.Front.Controllers
 
             if (strArrays.Length >= 3)
             {
-                str = string.Format("{0}/{1}", strArrays[0], strArrays[1]);
+                str = $"{strArrays[0]}/{strArrays[1]}";
             }
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == 6, false);
+            var menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == 6);
+
             return PartialView(menuLinks);
         }
 
         public ActionResult Search(SeachConditions conditions)
         {
             string str = JsonConvert.SerializeObject(conditions);
-            HttpCookie cookie = new HttpCookie("system_search", str);
-            cookie.Expires = DateTime.Now.AddDays(1.0);
+            HttpCookie cookie = new HttpCookie("system_search", str) { Expires = DateTime.Now.AddDays(1.0) };
             Response.Cookies.Add(cookie);
 
             MenuLink byId = new MenuLink();
@@ -276,7 +258,7 @@ namespace App.Front.Controllers
                 byId = menuLinks.FirstOrDefault();
             }
 
-            return RedirectToAction("SearchResult", "Post", new { catUrl = byId.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" });
+            return RedirectToAction("SearchResult", "Post", new { catUrl = byId?.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" });
         }
     }
 }

@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Interfaces.Services;
 using Domain.Entities.Customers;
-using System;
-using System.Collections.Generic;
 
 namespace App.Service.Customers
 {
-    public interface ICustomerService : IBaseService<Customer>, IService
+    public interface ICustomerService : IBaseService<Customer>
     {
         Customer GetById(int id, bool isCache = true);
 
