@@ -60,13 +60,13 @@ namespace App.Admin.Controllers
 
         public ActionResult Resource(int languageId)
         {
-            return base.View();
+            return View();
         }
 
         public ActionResult Create(LocaleStringResourceViewModel model)
         {
             var res = _services.Localization.GetByName(model.LanguageId, model.ResourceName);
-            return base.View();
+            return View();
         }
 
         public ActionResult Edit(LocaleStringResourceViewModel model)

@@ -1,11 +1,20 @@
 ﻿
-@*@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
-@{Html.RenderAction("GetSlogan", "StaticContent", new { MenuId = 16, area = "" }); }
-@{Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" }); }
+<div class="content-page">
+    <div class="container">
+        @{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}
+    </div>
+</div>
+@{
+    Html.RenderAction("GetHomeNews", "News", new { area = "" });
+}
 
-@{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}
-@{Html.RenderPartial("Socials/_Social.FB_Link");}
-@{Html.RenderPartial("Socials/_Social.GooglePlus_Link");}
-@{Html.RenderPartial("Socials/_Social.Twitter _Link");}
-@{Html.RenderPartial("Socials/_Social.Pinterest_Link");}
-@{Html.RenderPartial("Socials/_Social.Youtube_Link");}*@
+@*@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
+    @{Html.RenderAction("GetSlogan", "StaticContent", new { MenuId = 16, area = "" }); }
+    @{Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" }); }
+
+    @{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}
+    @{Html.RenderPartial("Socials/_Social.FB_Link");}
+    @{Html.RenderPartial("Socials/_Social.GooglePlus_Link");}
+    @{Html.RenderPartial("Socials/_Social.Twitter _Link");}
+    @{Html.RenderPartial("Socials/_Social.Pinterest_Link");}
+    @{Html.RenderPartial("Socials/_Social.Youtube_Link");}*@

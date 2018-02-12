@@ -26,8 +26,6 @@ namespace App.Front.Controllers
 
         private IStaticContentService _staticContentService;
 
-        private readonly IWorkContext _workContext;
-
         public NewsController(
             INewsService newsService
             , IMenuLinkService menuLinkService
@@ -37,7 +35,6 @@ namespace App.Front.Controllers
             _newsService = newsService;
             _menuLinkService = menuLinkService;
             _staticContentService = staticContentService;
-            _workContext = workContext;
         }
 
         [ChildActionOnly]
@@ -82,7 +79,7 @@ namespace App.Front.Controllers
 
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult GetNewsHome(int? Id)
+        public ActionResult GetHomeNews()
         {
             IEnumerable<News> iePost = null;
 
@@ -103,7 +100,7 @@ namespace App.Front.Controllers
 
                 foreach (var item in menuLinks)
                 {
-                    iePost = _newsService.GetByOption(virtualCategoryId: item.CurrentVirtualId, isDisplayHomePage: true);
+                    iePost = _newsService.GetByOption(item.CurrentVirtualId, true);
 
                     if (iePost.IsAny())
                     {
