@@ -39,8 +39,6 @@ namespace App.Front.Controllers
 
         private readonly IMenuLinkService _menuLinkService;
 
-        private readonly IProvinceService _provinceService;
-
         private readonly IGalleryService _galleryService;
 
         private readonly IImagePlugin _imagePlugin;
@@ -49,14 +47,14 @@ namespace App.Front.Controllers
         private readonly IWorkContext _workContext;
 
         public AccountController(UserManager<IdentityUser, Guid> userManager
-            , IPostService postService, IGalleryService galleryService, IProvinceService provinceService, IMenuLinkService menuLinkService
+            , IPostService postService, IGalleryService galleryService, IProvinceService provinceService,
+            IMenuLinkService menuLinkService
             , IDistrictService districtService, IImagePlugin imagePlugin
             , IOrderService orderService
             , IWorkContext workContext) : base(userManager)
         {
             _postService = postService;
             _galleryService = galleryService;
-            _provinceService = provinceService;
             _menuLinkService = menuLinkService;
             _districtService = districtService;
             _imagePlugin = imagePlugin;

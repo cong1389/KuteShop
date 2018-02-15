@@ -33,7 +33,7 @@ namespace App.Front.Controllers.Custom
                                                     }
                                                     return nullable1.HasValue == nullable.HasValue;
                                                 }).Select(x => new MenuNavViewModel
-            {
+                                                {
                                                     MenuId = x.MenuId,
                                                     ParentId = x.ParentId,
                                                     MenuName = x.MenuName,
@@ -88,7 +88,7 @@ namespace App.Front.Controllers.Custom
             List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
 
             IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(position: new List<int> { 2 });
-          
+
             if (menuLinks.Any())
             {
                 IEnumerable<MenuNavViewModel> menuNav =
@@ -172,7 +172,7 @@ namespace App.Front.Controllers.Custom
         {
             virtualId = (virtualId != null && virtualId.Count(i => i.Equals('/')) > 0) ? virtualId.Split('/')[0] : virtualId;
             IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(virtualId: virtualId);
-            
+
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
 
@@ -238,29 +238,34 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult GetMenuVerticalMega()
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(position: new List<int> { 5 });
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 5 });
 
-            if (menuLinks.Any())
+            if (!menuLinks.Any())
             {
-                IEnumerable<MenuNavViewModel> menuNav =
-                    from x in menuLinks
-                    select new MenuNavViewModel
-                    {
-                        MenuId = x.Id,
-                        ParentId = x.ParentId,
-                        MenuName = x.MenuName,
-                        SeoUrl = x.SeoUrl,
-                        OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageUrl,
-                        CurrentVirtualId = x.CurrentVirtualId,
-                        VirtualId = x.VirtualId,
-                        TemplateType = x.TemplateType,
-                        IconNav = x.Icon1,
-                        IconBar = x.Icon2
-                    };
-                menuNavs = CreateMenuNav(null, menuNav);
+                return HttpNotFound();
             }
+
+            MenuNavViewModel meuMenuNavViewModel = new MenuNavViewModel();
+            IEnumerable<MenuNavViewModel> menuNav = menuLinks.Select(x => x.ToModel(meuMenuNavViewModel));
+
+            //IEnumerable<MenuNavViewModel> menuNav =
+            //    from x in menuLinks
+            //    select new MenuNavViewModel
+            //    {
+            //        MenuId = x.Id,
+            //        ParentId = x.ParentId,
+            //        MenuName = x.MenuName,
+            //        SeoUrl = x.SeoUrl,
+            //        OrderDisplay = x.OrderDisplay,
+            //        ImageUrl = x.ImageUrl,
+            //        CurrentVirtualId = x.CurrentVirtualId,
+            //        VirtualId = x.VirtualId,
+            //        TemplateType = x.TemplateType,
+            //        IconNav = x.Icon1,
+            //        IconBar = x.Icon2
+            //    };
+
+            List<MenuNavViewModel> menuNavs = CreateMenuNav(null, menuNav);
             return PartialView(menuNavs);
         }
 

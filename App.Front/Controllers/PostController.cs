@@ -14,6 +14,7 @@ using App.Domain.Entities.Data;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.GenericControl;
+using App.FakeEntity.Menu;
 using App.Framework.Ultis;
 using App.Front.Models;
 using App.Service.Common;
@@ -34,8 +35,6 @@ namespace App.Front.Controllers
 
         private readonly IGalleryService _galleryService;
 
-        private readonly IWorkContext _workContext;
-
         private readonly IGenericControlService _genericControlService;
         public PostController(
             IPostService postService
@@ -48,7 +47,6 @@ namespace App.Front.Controllers
             _postService = postService;
             _menuLinkService = menuLinkService;
             _galleryService = galleryService;
-            _workContext = workContext;
             _genericControlService = genericControlService;
         }
 
@@ -161,10 +159,7 @@ namespace App.Front.Controllers
 
             if (iePost.IsAny())
             {
-                var postLocalized = iePost.Select(x =>
-                {
-                    return x.ToModel();
-                });
+                var postLocalized = iePost.Select(x => x.ToModel());
 
                 lstPost.AddRange(postLocalized);
             }
@@ -225,7 +220,7 @@ namespace App.Front.Controllers
                     select double.Parse(s)).ToList();
                 double item = nums[0];
                 double num = nums[1];
-                expression = expression.And(x => x.Price >= (double?)item && x.Price <= (double?)num);
+                expression = expression.And(x => x.Price >= (item as double?) && x.Price <= (num as double?));
                 ViewBag.Prices = nums;
             }
             if (!string.IsNullOrEmpty(proattrs))
@@ -261,7 +256,9 @@ namespace App.Front.Controllers
             IEnumerable<Post> posts = _postService.GetBySort(expression, sortBuilder, paging);
 
             if (posts == null)
+            {
                 return HttpNotFound();
+            }
 
             //Get menu category filter
             IEnumerable<MenuLink> menuCategoryFilter = _menuLinkService.GetByOption(virtualId: virtualCategoryId);
@@ -306,10 +303,7 @@ namespace App.Front.Controllers
 
             if (posts.IsAny())
             {
-                postLocalized = posts.Select(x =>
-                {
-                    return x.ToModel();
-                });
+                postLocalized = posts.Select(x => x.ToModel());
 
                 Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
@@ -438,41 +432,37 @@ namespace App.Front.Controllers
         [PartialCache("Medium")]
         public ActionResult GetProductHome()
         {
-            IEnumerable<Post> iePost = null;
-
             //Get danh sách menu có DisplayOnHomePage ==true
             IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
+
+            if (!menuLinks.Any())
+            {
+                return HttpNotFound();
+            }
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
 
-            if (menuLinks.IsAny())
+            MenuNavViewModel meuMenuNavViewModel = new MenuNavViewModel();
+            ViewBag.MenuLinkHome = menuLinks.Select(x => x.ToModel(meuMenuNavViewModel));
+
+            List<Post> lstPost = new List<Post>();
+            IEnumerable<Post> iePost = null;
+            foreach (var item in menuLinks)
             {
-                ViewBag.MenuLinkHome = menuLinks;
+                iePost = _postService.GetByOption(item.CurrentVirtualId, true);
 
-
-                List<Post> lstPost = new List<Post>();
-
-                foreach (var item in menuLinks)
+                if (iePost.IsAny())
                 {
-                    iePost = _postService.GetByOption(item.CurrentVirtualId, true);
+                    iePost = iePost.Select(x => x.ToModel());
 
-                    if (iePost.IsAny())
-                    {
-                        iePost = iePost.Select(x =>
-                        {
-                            return x.ToModel();
-                        });
-
-                        lstPost.AddRange(iePost);
-                    }
+                    lstPost.AddRange(iePost);
                 }
-
-                iePost = from x in lstPost orderby x.OrderDisplay descending select x;
             }
 
-            return PartialView(iePost);
+            iePost = from x in lstPost orderby x.OrderDisplay descending select x;
 
+            return PartialView(iePost);
         }
 
         //Get product SearchHome

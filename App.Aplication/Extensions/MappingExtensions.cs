@@ -65,9 +65,9 @@ namespace App.Aplication.Extensions
                 ImageSmallSize = entity.ImageSmallSize,
                 CreatedDate = entity.CreatedDate,
                 MenuLink = entity.MenuLink,
-                OrderDisplay= entity.OrderDisplay,
-                OtherLink= entity.OtherLink,
-                SpecialDisplay= entity.SpecialDisplay,
+                OrderDisplay = entity.OrderDisplay,
+                OtherLink = entity.OtherLink,
+                SpecialDisplay = entity.SpecialDisplay,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 ShortDesc = entity.GetLocalized(x => x.ShortDesc, entity.Id),
@@ -106,10 +106,10 @@ namespace App.Aplication.Extensions
                 PostType = entity.PostType,
                 OldOrNew = entity.OldOrNew,
                 MenuLink = entity.MenuLink,
-                CreatedDate=entity.CreatedDate,
-                UpdatedDate=entity.UpdatedDate,
-                UpdatedBy=entity.UpdatedBy,
-                CreatedBy=entity.CreatedBy,
+                CreatedDate = entity.CreatedDate,
+                UpdatedDate = entity.UpdatedDate,
+                UpdatedBy = entity.UpdatedBy,
+                CreatedBy = entity.CreatedBy,
 
                 PostGallerys = entity.PostGallerys,
                 GalleryImages = entity.GalleryImages,
@@ -159,6 +159,29 @@ namespace App.Aplication.Extensions
                 DisplayOnHomePage = entity.DisplayOnHomePage,
                 DisplayOnMenu = entity.DisplayOnMenu,
                 DisplayOnSearch = entity.DisplayOnSearch,
+            };
+
+            return model;
+        }
+
+        public static MenuNavViewModel ToModel(this MenuLink entity, MenuNavViewModel destination)
+        {
+            if (entity == null)
+                return null;
+
+            var model = new MenuNavViewModel
+            {
+                MenuId = entity.Id,
+                ParentId = entity.ParentId,
+                MenuName = entity.MenuName,
+                SeoUrl = entity.SeoUrl,
+                OrderDisplay = entity.OrderDisplay,
+                ImageUrl = entity.ImageUrl,
+                CurrentVirtualId = entity.CurrentVirtualId,
+                VirtualId = entity.VirtualId,
+                TemplateType = entity.TemplateType,
+                IconNav = entity.Icon1,
+                IconBar = entity.Icon2
             };
 
             return model;
@@ -252,23 +275,23 @@ namespace App.Aplication.Extensions
             return destination;
         }
 
-        public static void PrepareModel(this Address model, Address address)
+        public static void PrepareModel(this Address model, Address destination)
         {
-            model.Id = address.Id;
-            model.Salutation = address.Salutation;
-            model.Title = address.Title;
-            model.FirstName = address.FirstName;
-            model.LastName = address.LastName;
-            model.Email = address.Email;
-            model.Company = address.Company;
-            model.CountryId = address.CountryId;
-            model.StateProvinceId = address.StateProvinceId;
-            model.City = address.City;
-            model.Address1 = address.Address1;
-            model.Address2 = address.Address2;
-            model.ZipPostalCode = address.ZipPostalCode;
-            model.PhoneNumber = address.PhoneNumber;
-            model.FaxNumber = address.FaxNumber;
+            model.Id = destination.Id;
+            model.Salutation = destination.Salutation;
+            model.Title = destination.Title;
+            model.FirstName = destination.FirstName;
+            model.LastName = destination.LastName;
+            model.Email = destination.Email;
+            model.Company = destination.Company;
+            model.CountryId = destination.CountryId;
+            model.StateProvinceId = destination.StateProvinceId;
+            model.City = destination.City;
+            model.Address1 = destination.Address1;
+            model.Address2 = destination.Address2;
+            model.ZipPostalCode = destination.ZipPostalCode;
+            model.PhoneNumber = destination.PhoneNumber;
+            model.FaxNumber = destination.FaxNumber;
         }
 
         public static PaymentMethodViewModel ToModel(this PaymentMethod model, PaymentMethodViewModel destination)
@@ -478,7 +501,7 @@ namespace App.Aplication.Extensions
         {
             if (entity == null)
                 return null;
-           
+
             var model = new Customer
             {
                 Username = entity.UserName,

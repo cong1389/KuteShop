@@ -1,19 +1,20 @@
 ﻿<!----GetProductHome-->
 @using App.Aplication
 @using App.Domain.Entities.Menu
+@using App.FakeEntity.Menu
 @model IEnumerable<App.Domain.Entities.Data.Post>
 
 @if (Model.IsAny())
 {
-    foreach (MenuLink menuLink in (IEnumerable<MenuLink>)ViewBag.MenuLinkHome)
+    foreach (MenuNavViewModel menuLink in (IEnumerable<MenuNavViewModel>)ViewBag.MenuLinkHome)
     {
         <div class="category-featured jewelry">
             <nav class="navbar nav-menu show-brand">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-brand">
-                        <a href="ts.html">
-                            <img alt="fashion" src="/assets/255/1000074255/1000138323/icon-jewelry8e0e.png?v=8" />Trang sức
+                        <a href="@Url.Action("GetContent", "Menu", new {menu = menuLink.SeoUrl, area = ""})">
+                            <img alt="@menuLink.MenuName" src="@Url.Content("~/"+menuLink.IconNav)" /> @menuLink.MenuName
                         </a>
                     </div>
                     <span class="toggle-menu"></span>
@@ -38,19 +39,14 @@
                 <div class="row">
                     <div class="col-sm-2 sub-category-wapper">
                         <ul class="sub-category-list">
-                            <li><a href="collections/all.html">Trang sức cưới</a></li>
-                            <li><a href="collections/all.html">Trang sức vàng</a></li>
-                            <li><a href="collections/all.html">Trang sức kim cương</a></li>
-                            <li><a href="collections/all.html">Nhẫn đính hôn</a></li>
-                            <li><a href="collections/all.html">Mặt đá quý</a></li>
-                            <li><a href="collections/all.html">Ngọc trai</a></li>
-                            <li><a href="collections/all.html">Trang sức CZ</a></li>
-                            <li><a href="collections/all.html">Trang sức Italy</a></li>
-                            <li><a href="collections/all.html">Trang sức Jemma</a></li>
-                            <li><a href="collections/all.html">Vòng tay</a></li>
-                            <li><a href="collections/all.html">Vòng cổ</a></li>
-                            <li><a href="collections/all.html">Bông tai</a></li>
-                            <li><a href="collections/all.html">Lắc tay, chân</a></li>
+                            @if (menuLink.ChildNavMenu != null && menuLink.ChildNavMenu.Any())
+                            {
+                                foreach (var product in Model.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId)))
+                                {
+                                    <li><a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">@product.Title</a></li>
+                                }
+                            }
+                           
                         </ul>
                     </div>
                     <div class="col-sm-10 col-right-tab">
