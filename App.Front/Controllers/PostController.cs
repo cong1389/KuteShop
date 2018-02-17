@@ -17,6 +17,7 @@ using App.FakeEntity.GenericControl;
 using App.FakeEntity.Menu;
 using App.Framework.Ultis;
 using App.Front.Models;
+using App.Front.Models.Posts;
 using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.GenericControl;
@@ -276,7 +277,7 @@ namespace App.Front.Controllers
                 {
                     string str = strArrays2[i1];
                     MenuLink menuLink = _menuLinkService.GetByMenuName(str, title);
-                    
+
                     if (menuLink != null)
                     {
                         //Lấy bannerId từ post để hiển thị banner trên post
@@ -433,7 +434,7 @@ namespace App.Front.Controllers
         public ActionResult GetProductHome()
         {
             //Get danh sách menu có DisplayOnHomePage ==true
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
 
             if (!menuLinks.Any())
             {
@@ -443,12 +444,11 @@ namespace App.Front.Controllers
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
 
-            MenuNavViewModel meuMenuNavViewModel = new MenuNavViewModel();
-            ViewBag.MenuLinkHome = menuLinks.Select(x => x.ToModel(meuMenuNavViewModel));
+            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
 
             List<Post> lstPost = new List<Post>();
             IEnumerable<Post> iePost = null;
-            foreach (var item in menuLinks)
+            foreach (var item in menuParent)
             {
                 iePost = _postService.GetByOption(item.CurrentVirtualId, true);
 
@@ -461,8 +461,14 @@ namespace App.Front.Controllers
             }
 
             iePost = from x in lstPost orderby x.OrderDisplay descending select x;
+            CategoryPostModel categoryPost = new CategoryPostModel()
+            {
+                NumberMenu = menuParent.Count(),
+                MenuLinks = menuParent,
+                Posts = iePost
+            };
 
-            return PartialView(iePost);
+            return PartialView(categoryPost);
         }
 
         //Get product SearchHome
@@ -515,7 +521,7 @@ namespace App.Front.Controllers
                     {
                         Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id),
                         Current = false,
-                        Url = Url.Action("GetContent", "Menu", new {area = "", menu = menuLink.SeoUrl})
+                        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
                     }));
                 breadCrumbs.Add(new BreadCrumb
                 {
@@ -525,7 +531,7 @@ namespace App.Front.Controllers
                 ViewBag.BreadCrumb = breadCrumbs;
                 ViewBag.Title = postLocalized.Title;
                 ViewBag.KeyWords = postLocalized.MetaKeywords;
-                ViewBag.SiteUrl = Url.Action("PostDetail", "Post", new {seoUrl, area = "" });
+                ViewBag.SiteUrl = Url.Action("PostDetail", "Post", new { seoUrl, area = "" });
                 ViewBag.Description = postLocalized.MetaTitle;
                 ViewBag.Image = Url.Content(string.Concat("~/", postLocalized.ImageMediumSize));
                 ViewBag.MenuId = postLocalized.MenuId;

@@ -42,11 +42,7 @@
     <!-- HEADER -->
     @{ Html.RenderAction("Header", "MenuNav", new { area = "" });}
     <!-- end header -->
-    <!-- Home slideder-->
-    @{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
-    <!-- END Home slideder-->
-
-    @{ Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" });}
+    
 
     @RenderBody()
 

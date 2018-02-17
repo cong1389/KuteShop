@@ -266,11 +266,13 @@ namespace App.Service.Menu
 
             if (template != null && !template.IsNullOrEmpty())
             {
-                int i = 0;
                 foreach (int temp in template)
                 {
                     sbKey.AppendFormat("-{0}", temp);
-                    expression = i == 0 ? expression.And(x => x.TemplateType == temp) : expression.Or(x => x.TemplateType == temp);
+                    int i = 0;
+                    expression = i == 0
+                        ? expression.And(x => x.TemplateType == temp)
+                        : expression.Or(x => x.TemplateType == temp);
                     i++;
                 }
             }

@@ -1,3 +1,4 @@
+using App.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -178,6 +179,13 @@ namespace App.Aplication
             }
 
             return url;
+        }
+
+        public static bool IsHomePage()
+        {
+            var routeData = HttpContext.Current.Request.RequestContext.RouteData;
+            return routeData.GetRequiredString("controller").IsCaseInsensitiveEqual("Home") &&
+                          routeData.GetRequiredString("action").IsCaseInsensitiveEqual("Index");
         }
 
         #region Url

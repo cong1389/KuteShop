@@ -4,142 +4,959 @@
 
 @Html.Partial("_BreadCrumb")
 
-<section id="content">
+<div id="collection">
 
-    <div class="container clearfix">
-        <!-- Content
-        ============================================= -->
-        <input type='hidden' id='collection_id' value='=0'>
+    <div class="columns-container">
+        <div class="container" id="columns">
+            <div class="breadcrumb clearfix">
+                <div class="col-md-12 ">
+                    <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
+                        <li><a href="../index.html" target="_self">Trang chủ</a></li>
 
-        <div class='row collection_wrapper'>
-            <!-- Sidebar
-            ============================================= -->
+                        <li><a href="../collections.html" target="_self">Danh mục</a></li>
 
-            <div class="nobottommargin sidebar right col-sm-4 col-md-3 col-xs-12">
-                @Html.Action("SearchBoxSideBar", "SearchBox", new
-           {
-               area = "",
-               productOld = ViewBag.ProductOld,
-               productNew = ViewBag.ProductNew,
-               attributes = ViewBag.Attributes,
-               prices = ViewBag.Prices,
-               proids = ViewBag.ProAttributes
-           })
+                        <li class="active"><span>Công nghệ mới</span></li>
+
+
+                    </ol>
+                </div>
             </div>
+            <!-- row -->
+            <div class="row">
+                <!-- Left colunm -->
+                <div class="column col-xs-12 col-sm-3" id="left_column">
+                    <!-- block Danh mục -->
+                    <div class="block left-module">
+                        <p class="title_block">Danh mục sản phẩm</p>
+                        <div class="block_content">
+                            <!-- layered -->
+                            <div class="layered layered-category">
+                                <div class="layered-content">
+                                    <ul class="tree-menu">
 
-            <!-- .sidebar end -->
-            <!-- Post Content
-            ============================================= -->
-            <div class="post_content col-sm-8 col-md-9 col-xs-12">
-                @if (Model.IsAny())
-                {
-                    <!-- Shop
-                    ============================================= -->
-                    <div id="shop" class="product-3 clearfix">
-                        <div class='sort-wrapper'>
-                            <div class="browse-tags row" style='margin-bottom:20px;line-height: 30px; overflow:hidden;'>
-                                <div class="col-sm-6 col-md-8 col-xs-12">
-                                    <p class="subtext nomargin">
 
-                                        Có <span class='require_symbol'>@Model.Count()</span> sản phẩm.
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="all.html" title="Tất cả sản phẩm" target="_self">
+                                                Tất cả sản phẩm
+                                            </a>
+                                        </li>
 
-                                    </p>
-                                </div>
-                                <div class='col-sm-6 col-xs-12 col-md-4 text-right'>
-                                    <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
-                                    <span class="pull-right col-sm-7 col-xs-8 norightpadding">
-                                        <select id='sortControl' class="sort-by form-control noboxshadow noradius input-sm">
-                                            <option sort_by="manual" value='manual'>Sản phẩm nổi bật</option>
-                                            <option sort_by="(price:product=asc)" value='price-ascending'>Giá: Tăng dần</option>
-                                            <option sort_by="(price:product=desc)" value='price-descending'>Giá: Giảm dần</option>
-                                            <option sort_by="(title:product=asc)" value='title-ascending'>Tên: A-Z</option>
-                                            <option sort_by="(title:product=desc)" value='title-descending'>Tên: Z-A</option>
-                                            <option sort_by="(updated_at:product=asc)" value='created-ascending'>Cũ nhất</option>
-                                            <option sort_by="(updated_at:product=desc)" value='created-descending'>Mới nhất</option>
-                                            <option sort_by="(sold_quantity:product=desc)" value='best-selling'>Bán chạy nhất</option>
-                                        </select>
-                                    </span>
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Thể thao" target="_self">
+                                                Thể thao
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Điện thoại & Ipad" target="_self">
+                                                Điện thoại & Ipad
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Mỹ phẩm" target="_self">
+                                                Mỹ phẩm
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Thời trang" target="_self">
+                                                Thời trang
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Mẹ và bé" target="_self">
+                                                Mẹ và bé
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Phụ kiện công nghệ" target="_self">
+                                                Phụ kiện công nghệ
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Laptop" target="_self">
+                                                Laptop
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Trang sức" target="_self">
+                                                Trang sức
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="">
+                                            <span></span>
+                                            <a class="" href="index.html" title="Sản phẩm khuyến mãi" target="_self">
+                                                Sản phẩm khuyến mãi
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
                                 </div>
                             </div>
+                            <!-- ./layered -->
                         </div>
-                        <div id='grid_pagination' class='row'>
+                    </div>
+                    <!-- ./block category  -->
+                    <!-- block filter -->
+                    <div class="block left-module">
+                        <p class="title_block">Bộ lọc sản phẩm</p>
+                        <div class="block_content">
+                            <!-- layered -->
+                            <div class="layered layered-filter-price">
+                                <!-- filter categgory
+                                <div class="layered_subtitle">CATEGORIES</div>
+                                <div class="layered-content">
+                                <ul class="check-box-list">
+                                <li>
+                                <input type="checkbox" id="c1" name="cc" />
+                                <label for="c1">
+                                <span class="button"></span>
+                                Tops<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c2" name="cc" />
+                                <label for="c2">
+                                <span class="button"></span>
+                                T-shirts<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c3" name="cc" />
+                                <label for="c3">
+                                <span class="button"></span>
+                                Dresses<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c4" name="cc" />
+                                <label for="c4">
+                                <span class="button"></span>
+                                Jackets and coats<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c5" name="cc" />
+                                <label for="c5">
+                                <span class="button"></span>
+                                Knitted<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c6" name="cc" />
+                                <label for="c6">
+                                <span class="button"></span>
+                                Pants<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c7" name="cc" />
+                                <label for="c7">
+                                <span class="button"></span>
+                                Bags & Shoes<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                <li>
+                                <input type="checkbox" id="c8" name="cc" />
+                                <label for="c8">
+                                <span class="button"></span>
+                                Best selling<span class="count">(10)</span>
+                                </label>
+                                </li>
+                                </ul>
+                                </div>
+                                <!-- ./filter categgory -->
+                                <!-- ./filter brand -->
 
-                            <div class='grid'>
+                                <div class="layered_subtitle">Thương hiệu</div>
+                                <div class="layered-content filter-brand">
+                                    <ul class="check-box-list">
 
-                                @foreach (var product in Model)
-                                {
-                                    <div class='col-md-3 col-sm-6 col-xs-6 product_single'>
-                                        <div class="product clearfix">
-                                            <div class="product-image">
-                                                <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" title="@product.Title">
-                                                    <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)"
-                                                         alt="@product.Title" title="@product.Title">
-                                                </a>
+                                        <li>
+                                            <input type="checkbox" id="brand1" name="cc" data-vendor="(vendor:product**Apple)" />
+                                            <label for="brand1">
+                                                <span class="button"></span>
+                                                Apple
+                                            </label>
+                                        </li>
 
-                                                <div class='product_overlay hidden-sm hidden-xs style_2 hidden'>
-                                                    <div class='quick_action clearfix'>
-                                                        <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" data-toggle="tooltip" title='Thêm vào giỏ' class="product_quick_add">
-                                                            <i class="fa fa-shopping-cart"></i>
-                                                        </a>
+                                        <li>
+                                            <input type="checkbox" id="brand2" name="cc" data-vendor="(vendor:product**Canon)" />
+                                            <label for="brand2">
+                                                <span class="button"></span>
+                                                Canon
+                                            </label>
+                                        </li>
 
-                                                        <a href="#product-pop-up" data-toggle="tooltip" title='Xem nhanh' class="fancybox-fast-view" product_url="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
-                                                            <i class="fa fa-eye"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                        <li>
+                                            <input type="checkbox" id="brand3" name="cc" data-vendor="(vendor:product**TXT)" />
+                                            <label for="brand3">
+                                                <span class="button"></span>
+                                                TXT
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand4" name="cc" data-vendor="(vendor:product**TST)" />
+                                            <label for="brand4">
+                                                <span class="button"></span>
+                                                TST
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand5" name="cc" data-vendor="(vendor:product**AVFS)" />
+                                            <label for="brand5">
+                                                <span class="button"></span>
+                                                AVFS
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand6" name="cc" data-vendor="(vendor:product**Samsung)" />
+                                            <label for="brand6">
+                                                <span class="button"></span>
+                                                Samsung
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand7" name="cc" data-vendor="(vendor:product**HP)" />
+                                            <label for="brand7">
+                                                <span class="button"></span>
+                                                HP
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand8" name="cc" data-vendor="(vendor:product**Lenovo)" />
+                                            <label for="brand8">
+                                                <span class="button"></span>
+                                                Lenovo
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand9" name="cc" data-vendor="(vendor:product**TNDT)" />
+                                            <label for="brand9">
+                                                <span class="button"></span>
+                                                TNDT
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="brand10" name="cc" data-vendor="(vendor:product**Bebe)" />
+                                            <label for="brand10">
+                                                <span class="button"></span>
+                                                Bebe
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <!-- ./filter brand -->
+                                <!-- filter price -->
+
+                                <div class="layered_subtitle">Giá</div>
+                                <div class="layered-content slider-range filter-price">
+                                    <!--<div data-label-reasult="Range:" data-min="0" data-max="500" data-unit="$" class="slider-range-price" data-value-min="50" data-value-max="350"></div>
+                                    <div class="amount-range-price">Range: $50 - $350</div> -->
+                                    <ul class="check-box-list">
+                                        <li>
+                                            <input type="checkbox" id="p1" name="cc" data-price="(price:product<=1000000)" />
+                                            <label for="p1">
+                                                <span class="button"></span>
+                                                Dưới 1,000,000₫
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="p2" name="cc" data-price="((price:product>1000000)&amp;&amp;(price:product<=5000000))" />
+                                            <label for="p2">
+                                                <span class="button"></span>
+                                                1,000,000₫ - 5,000,000₫
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="p3" name="cc" data-price="((price:product>5000000)&amp;&amp;(price:product<=10000000))" />
+                                            <label for="p3">
+                                                <span class="button"></span>
+                                                5,000,000₫ - 10,000,000₫
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="p4" name="cc" data-price="((price:product>10000000)&amp;&amp;(price:product<=50000000))" />
+                                            <label for="p4">
+                                                <span class="button"></span>
+                                                10,000,000₫ - 50,000,000₫
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" id="p5" name="cc" data-price="(price:product>=50000000)" />
+                                            <label for="p5">
+                                                <span class="button"></span>
+                                                Trên 50,000,000₫
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- ./filter price -->
+                                <!-- filter color -->
+
+                                <div class="layered_subtitle">Màu sắc</div>
+                                <div class="layered-content filter-color">
+                                    <ul class="check-box-list">
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color1" name="cc" data-color="(variant:product**Đỏ)" />
+                                            <label style="background-color: #ff0000" for="color1"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color2" name="cc" data-color="(variant:product**Vàng)" />
+                                            <label style="background-color: #ffff05" for="color2"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color3" name="cc" data-color="(variant:product**Cam)" />
+                                            <label style="background-color: #f5b505" for="color3"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color4" name="cc" data-color="(variant:product**Xanh dương)" />
+                                            <label style="background-color: #5100ff" for="color4"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color5" name="cc" data-color="(variant:product**Xanh lá)" />
+                                            <label style="background-color: #3cfa08" for="color5"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color6" name="cc" data-color="(variant:product**Nâu)" />
+                                            <label style="background-color: #753a3a" for="color6"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color7" name="cc" data-color="(variant:product**Xám)" />
+                                            <label style="background-color: #cccaca" for="color7"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color8" name="cc" data-color="(variant:product**Tím)" />
+                                            <label style="background-color: #b5129a" for="color8"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color9" name="cc" data-color="(variant:product**Hồng)" />
+                                            <label style="background-color: #db999b" for="color9"><span class="button"></span></label>
+                                        </li>
+
+
+
+
+
+
+
+                                        <li>
+                                            <input type="checkbox" id="color10" name="cc" data-color="(variant:product**Đen)" />
+                                            <label style="background-color: #000000" for="color10"><span class="button"></span></label>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+
+                                <!-- ./filter color -->
+                                <!-- ./filter size -->
+
+                                <div class="layered_subtitle">Kích thước</div>
+                                <div class="layered-content filter-size">
+
+                                    <ul class="check-box-list">
+
+                                        <li>
+                                            <input type="checkbox" id="size1" name="cc" data-size="(variant:product**S)" />
+                                            <label for="size1">
+                                                <span class="button"></span>S
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size2" name="cc" data-size="(variant:product**L)" />
+                                            <label for="size2">
+                                                <span class="button"></span>L
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size3" name="cc" data-size="(variant:product**M)" />
+                                            <label for="size3">
+                                                <span class="button"></span>M
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size4" name="cc" data-size="(variant:product**XL)" />
+                                            <label for="size4">
+                                                <span class="button"></span>XL
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size5" name="cc" data-size="(variant:product**35)" />
+                                            <label for="size5">
+                                                <span class="button"></span>35
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size6" name="cc" data-size="(variant:product**36)" />
+                                            <label for="size6">
+                                                <span class="button"></span>36
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size7" name="cc" data-size="(variant:product**37)" />
+                                            <label for="size7">
+                                                <span class="button"></span>37
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="size8" name="cc" data-size="(variant:product**38)" />
+                                            <label for="size8">
+                                                <span class="button"></span>38
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <!-- ./filter size -->
+
+                                <div class="layered_subtitle">Tag</div>
+                                <div class="layered-content filter-tag">
+
+                                    <ul class="check-box-list">
+
+                                        <li>
+                                            <input type="checkbox" id="tag1" name="cc" data-tag="(tag:product**Hot)" />
+                                            <label for="tag1">
+                                                <span class="button"></span>Hot
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="tag2" name="cc" data-tag="(tag:product**New)" />
+                                            <label for="tag2">
+                                                <span class="button"></span>New
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="tag3" name="cc" data-tag="(tag:product**Bán chạy)" />
+                                            <label for="tag3">
+                                                <span class="button"></span>Bán chạy
+                                            </label>
+                                        </li>
+
+                                        <li>
+                                            <input type="checkbox" id="tag4" name="cc" data-tag="(tag:product**Mua nhiều)" />
+                                            <label for="tag4">
+                                                <span class="button"></span>Mua nhiều
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <!-- ./layered -->
+                        </div>
+                    </div>
+                    <script>
+                        jQuery(document).ready(function () {
+
+                            jQuery('.check-box-list li > input').click(function () {
+                                $('.custom-loader').show();
+                                jQuery(this).parent().toggleClass('check');
+                                Stringfilter();
+                            })
+                            str = "";
+                            var Stringfilter = function () {
+                                var q = "", gia = "", vendor = "", color = "", tag = "", size = "", total_page = 0, cur_page = 1;
+                                var handle_coll = 'cong-nghe-moi';
+
+                                q = "filter=(collectionid:product=1000360297)";
+
+
+                                jQuery('.filter-price ul.check-box-list li.check').each(function () {
+                                    gia = gia + jQuery(this).find('input').data('price') + '||';
+                                })
+                                gia = gia.substring(0, gia.length - 2);
+                                if (gia != "") {
+                                    gia = '(' + gia + ')';
+                                    q += '&&' + gia;
+                                }
+
+                                jQuery('.filter-brand ul.check-box-list li.check').each(function () {
+                                    vendor = vendor + jQuery(this).find('input').data('vendor') + '||';
+                                })
+                                vendor = vendor.substring(0, vendor.length - 2);
+                                if (vendor != "") {
+                                    vendor = '(' + vendor + ')';
+                                    q += '&&' + vendor;
+                                }
+
+                                jQuery('.filter-color ul.check-box-list li.check').each(function () {
+                                    color = color + jQuery(this).find('input').data('color') + '||';
+                                    //size2 = size2 + jQuery(this).data('s') + '--';
+                                })
+                                color = color.substring(0, color.length - 2);
+                                if (color != "") {
+                                    color = '(' + color + ')';
+                                    q += '&&' + color;
+                                }
+
+                                jQuery('.filter-tag ul.check-box-list li.check').each(function () {
+                                    tag = tag + jQuery(this).find('input').data('tag') + '||';
+                                    //size2 = size2 + jQuery(this).data('s') + '--';
+                                })
+                                tag = tag.substring(0, tag.length - 2);
+                                if (tag != "") {
+                                    tag = '(' + tag + ')';
+                                    q += '&&' + tag;
+                                }
+
+                                jQuery('.filter-size ul.check-box-list li.check').each(function () {
+                                    size = size + jQuery(this).find('input').data('size') + '||';
+                                    //size2 = size2 + jQuery(this).data('s') + '--';
+                                })
+                                size = size.substring(0, size.length - 2);
+                                if (size != "") {
+                                    size = '(' + size + ')';
+                                    q += '&&' + size;
+                                }
+                                //strhistory = strhistory.substring(2,strhistory.length);
+                                //history.pushState(null, null, strhistory);
+                                //console.log(strhistory);
+                                str = q;
+                                console.log("/search?q=" + q + "&view=filter");
+                                jQuery.ajax({ // lấy tổng số trang của kết quả filter
+                                    url: "/search?q=" + q + "&view=page",
+                                    async: false,
+                                    success: function (data) {
+                                        total_page = parseInt(data);
+                                    }
+                                })
+                                //console.log(total_page);
+                                if (cur_page <= total_page) {
+                                    jQuery('.pagi').show();
+                                    jQuery.ajax({
+                                        url: "/search?q=" + q + "&view=filter",
+                                        success: function (data) {
+                                            jQuery(".product-list.filter").html(data);
+                                            $('.custom-loader').hide();
+                                        }
+                                    })
+                                    jQuery.ajax({  // đoạn code
+                                        url: "/search?q=" + q + "&view=paginate",
+                                        async: false,
+                                        success: function (data) {
+                                            //jQuery(".pagi-filter").html(data); // in phân trang
+                                            jQuery(".pagi").html(data); // in phân trang
+
+                                        }
+                                    })
+                                } else {
+                                    $('.custom-loader').hide();
+                                    jQuery(".product-list.filter").html("<div class='col-sm-12 text-center no-pro'>Không có sản phẩm phù hợp!</div>");
+                                    jQuery('.pagi').hide();
+                                }
+                                jQuery('.pagi').on("click", "a", function () { // bắt sự kiện click các nút phân trang
+                                    var link = jQuery(this).attr("data-link");
+                                    if (link == 'm') {
+                                        link = cur - 1;
+                                    }
+                                    if (link == 'p') {
+                                        link = cur + 1;
+                                    }
+                                    link = parseInt(link);
+                                    jQuery.ajax({
+                                        url: "/search?q=" + str + "&view=filter&page=" + link,
+                                        success: function (data) {
+                                            jQuery(".product-list.filter").html(data);
+                                            cur = link;
+                                        }
+                                    })
+                                    //console.log("/search?q="+str+"&view=paginate&page="+link);
+                                    jQuery.ajax({
+                                        url: "/search?q=" + str + "&view=paginate&page=" + link,
+                                        success: function (data) {
+                                            //jQuery(".pagi-filter").html(data); // in phân trang
+                                            jQuery(".pagi").html(data); // in phân trang
+                                        }
+                                    })
+                                })
+                            }
+                        })
+                    </script>
+                </div>
+                <!-- ./left colunm -->
+                <div class="center_column col-xs-12 col-sm-9 product-col" id="center_column">
+                    <!-- view-product-list-->
+                    <div id="view-product-list" class="view-product-list">
+                        <h2 class="page-heading">
+                            <span class="page-heading-title">Công nghệ mới</span>
+                        </h2>
+                        <ul class="display-product-option">
+                            <li class="view-as-grid selected">
+                                <span>grid</span>
+                            </li>
+                            <li class="view-as-list">
+                                <span>list</span>
+                            </li>
+                        </ul>
+                        <div class="browse-tags">
+                            <span>Sắp xếp theo:</span>
+                            <span class="custom-dropdown custom-dropdown--white">
+                                <select class="sort-by custom-dropdown__select custom-dropdown__select--white">
+                                    <option value="manual">Sản phẩm nổi bật</option>
+                                    <option value="price-ascending">Giá: Tăng dần</option>
+                                    <option value="price-descending">Giá: Giảm dần</option>
+                                    <option value="title-ascending">Tên: A-Z</option>
+                                    <option value="title-descending">Tên: Z-A</option>
+                                    <option value="created-ascending">Cũ nhất</option>
+                                    <option value="created-descending">Mới nhất</option>
+                                    <option value="best-selling">Bán chạy nhất</option>
+                                </select>
+                            </span>
+                        </div>
+                        <!-- PRODUCT LIST -->
+
+                        <ul class="row product-list grid filter">
+
+                            @foreach (var post in Model)
+                            {
+                                <li class="col-md-4 col-sm-6 col-xs-12">
+
+                                    <div class="product-container">
+                                        <div class="left-block">
+                                            <a href="@Url.Action("PostDetail", "Post", new { seoUrl = post.SeoUrl, area = "" })" title="@post.Title">
+                                                <img class="img-responsive" alt="product" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                            </a>
+                                            <div class="quick-view">
+                                                <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new { seoUrl = post.SeoUrl, area = "" })"></a>
+                                                <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/loa-vi-tinh-isound-sp235b"></a>
                                             </div>
-                                            <div class="product-desc">
-                                                <div class="product-title">
-                                                    <h4><a href="../products/day-nit-n69.html"> @product.Title</a></h4>                                                    
-                                                </div>
-                                                <div class="product-price">
-                                                    <ins>
-                                                        @if (product.Price.HasValue && product.Discount.HasValue)
-                                                        {
-                                                            @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
-                                                        }
-                                                        else if (product.Price.HasValue && !product.Discount.HasValue)
-                                                        {
-                                                            @Html.Raw(string.Format("{0:##,### VND}", product.Price))
-                                                        }
-                                                        else
-                                                        {
-                                                            @Html.Raw("LienHeDatHang.Lable")
-                                                        }
-                                                    </ins>
-
-                                                    @if (product.Discount.HasValue)
+                                            <div class="add-to-cart">
+                                                <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830381">Thêm vào giỏ</a>
+                                            </div>
+                                        </div>
+                                        <div class="right-block">
+                                            <h5 class="product-name">
+                                                <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a>
+                                            </h5>
+                                            <div class="content_price">
+                                                <span class="price product-price">
+                                                    @if (post.Price.HasValue && post.Discount.HasValue)
                                                     {
-                                                        <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
-                                                        <span class="product-discount">@Html.Raw(product.Discount + "%")</span>
+                                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
                                                     }
-
+                                                    else if (post.Price.HasValue && !post.Discount.HasValue)
+                                                    {
+                                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.Raw("LienHeDatHang.Lable")
+                                                    }
+                                                </span>
+                                                @if (post.Discount.HasValue)
+                                                {
+                                                    <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
+                                                    <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                                }
+                                            </div>
+                                            <div class="info-orther">
+                                                <p>Mã sản phẩm:@post.ProductCode </p>
+                                                <p class="availability">
+                                                    Trạng thái:
+                                                    @if (post.OutOfStock)
+                                                    {
+                                                        <span>Hết hàng</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Còn hàng</span>
+                                                    }
+                                                </p>
+                                                <div class="product-desc">
+                                                    @Html.Raw(post.TechInfo)
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-                                }
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="col-md-12 content_sortPagiBar pagi">
+                            <div id="pagination" class="clearfix">
+                                <ul class="pagination">
+
+                                    <li class="pagination_previous disabled">
+                                        <span><i class="fa fa-chevron-left"></i></span>
+                                    </li>
+
+                                    <li class="active"><span>1</span></li>
+
+
+
+
+                                    <li class="pagination_next disabled"><span><i class="fa fa-chevron-right"></i></span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- ./PRODUCT LIST -->
+                    </div>
+                </div>
+                <!-- ./ Center colunm -->
+            </div>
+            <!-- ./row-->
+        </div>
+    </div>
+
+    <!-- End no products -->
+</div>
+
+@*<section id="content">
+
+        <div class="container clearfix">
+            <!-- Content
+            ============================================= -->
+            <input type='hidden' id='collection_id' value='=0'>
+
+            <div class='row collection_wrapper'>
+                <!-- Sidebar
+                ============================================= -->
+
+                <div class="nobottommargin sidebar right col-sm-4 col-md-3 col-xs-12">
+                    @Html.Action("SearchBoxSideBar", "SearchBox", new
+               {
+                   area = "",
+                   productOld = ViewBag.ProductOld,
+                   productNew = ViewBag.ProductNew,
+                   attributes = ViewBag.Attributes,
+                   prices = ViewBag.Prices,
+                   proids = ViewBag.ProAttributes
+               })
+                </div>
+
+                <!-- .sidebar end -->
+                <!-- Post Content
+                ============================================= -->
+                <div class="post_content col-sm-8 col-md-9 col-xs-12">
+                    @if (Model.IsAny())
+                    {
+                        <!-- Shop
+                        ============================================= -->
+                        <div id="shop" class="product-3 clearfix">
+                            <div class='sort-wrapper'>
+                                <div class="browse-tags row" style='margin-bottom:20px;line-height: 30px; overflow:hidden;'>
+                                    <div class="col-sm-6 col-md-8 col-xs-12">
+                                        <p class="subtext nomargin">
+
+                                            Có <span class='require_symbol'>@Model.Count()</span> sản phẩm.
+
+                                        </p>
+                                    </div>
+                                    <div class='col-sm-6 col-xs-12 col-md-4 text-right'>
+                                        <span class='col-sm-5 col-xs-4 nopadding text-left'>Sắp xếp theo:</span>
+                                        <span class="pull-right col-sm-7 col-xs-8 norightpadding">
+                                            <select id='sortControl' class="sort-by form-control noboxshadow noradius input-sm">
+                                                <option sort_by="manual" value='manual'>Sản phẩm nổi bật</option>
+                                                <option sort_by="(price:product=asc)" value='price-ascending'>Giá: Tăng dần</option>
+                                                <option sort_by="(price:product=desc)" value='price-descending'>Giá: Giảm dần</option>
+                                                <option sort_by="(title:product=asc)" value='title-ascending'>Tên: A-Z</option>
+                                                <option sort_by="(title:product=desc)" value='title-descending'>Tên: Z-A</option>
+                                                <option sort_by="(updated_at:product=asc)" value='created-ascending'>Cũ nhất</option>
+                                                <option sort_by="(updated_at:product=desc)" value='created-descending'>Mới nhất</option>
+                                                <option sort_by="(sold_quantity:product=desc)" value='best-selling'>Bán chạy nhất</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='grid_pagination' class='row'>
+
+                                <div class='grid'>
+
+                                    @foreach (var product in Model)
+                                    {
+                                        <div class='col-md-3 col-sm-6 col-xs-6 product_single'>
+                                            <div class="product clearfix">
+                                                <div class="product-image">
+                                                    <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" title="@product.Title">
+                                                        <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)"
+                                                             alt="@product.Title" title="@product.Title">
+                                                    </a>
+
+                                                    <div class='product_overlay hidden-sm hidden-xs style_2 hidden'>
+                                                        <div class='quick_action clearfix'>
+                                                            <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })" data-toggle="tooltip" title='Thêm vào giỏ' class="product_quick_add">
+                                                                <i class="fa fa-shopping-cart"></i>
+                                                            </a>
+
+                                                            <a href="#product-pop-up" data-toggle="tooltip" title='Xem nhanh' class="fancybox-fast-view" product_url="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-desc">
+                                                    <div class="product-title">
+                                                        <h4><a href="../products/day-nit-n69.html"> @product.Title</a></h4>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <ins>
+                                                            @if (product.Price.HasValue && product.Discount.HasValue)
+                                                            {
+                                                                @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
+                                                            }
+                                                            else if (product.Price.HasValue && !product.Discount.HasValue)
+                                                            {
+                                                                @Html.Raw(string.Format("{0:##,### VND}", product.Price))
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.Raw("LienHeDatHang.Lable")
+                                                            }
+                                                        </ins>
+
+                                                        @if (product.Discount.HasValue)
+                                                        {
+                                                            <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
+                                                            <span class="product-discount">@Html.Raw(product.Discount + "%")</span>
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                                @{Html.RenderPartial("_PagedLinks");}
 
                             </div>
-                            @{Html.RenderPartial("_PagedLinks");}
+                        </div><!-- #shop end -->
+                                    }
+                                    else
+                                    {
+                                        <div class="collection_description">
+                                            <h2>
+                                                @Html.Raw("Không có dữ liệu");
+                                            </h2>
+                                        </div>
 
-                        </div>
-                    </div><!-- #shop end -->
-                                }
-                                else
-                                {
-                                    <div class="collection_description">
-                                        <h2>
-                                            @Html.Raw("Không có dữ liệu");
-                                        </h2>
-                                    </div>
-                                       
-                                }
+                                    }
+                </div>
             </div>
+            <div class='clear'></div>
         </div>
-        <div class='clear'></div>
-    </div>
-    <!-- #content end -->
-</section>
+        <!-- #content end -->
+    </section>*@
 <!---/GetPostByCategory-->

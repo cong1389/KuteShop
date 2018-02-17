@@ -265,7 +265,13 @@ namespace App.Front.Controllers
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Footer.Address", contactInformation) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(
+                    new
+                    {
+                        success = true,
+                        list = this.RenderRazorViewToString("_Footer.Address", contactInformationLocalize)
+                    }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
 

@@ -104,10 +104,7 @@ namespace App.Front.Controllers
 
                     if (iePost.IsAny())
                     {
-                        iePost = iePost.Select(x =>
-                        {
-                            return x.ToModel();
-                        });
+                        iePost = iePost.Select(x => x.ToModel());
 
                         lstPost.AddRange(iePost);
                     }

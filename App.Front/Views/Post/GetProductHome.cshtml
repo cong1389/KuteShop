@@ -1,53 +1,57 @@
 ﻿<!----GetProductHome-->
 @using App.Aplication
 @using App.Domain.Entities.Menu
-@using App.FakeEntity.Menu
-@model IEnumerable<App.Domain.Entities.Data.Post>
+@model App.Front.Models.Posts.CategoryPostModel
 
-@if (Model.IsAny())
+@if (Model != null)
 {
-    foreach (MenuNavViewModel menuLink in (IEnumerable<MenuNavViewModel>)ViewBag.MenuLinkHome)
+    int index = 0;
+    foreach (MenuLink menuLink in Model.MenuLinks)
     {
+        index++;
+        var postCurrent = Model.Posts.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId));
+        var postRight = postCurrent.Take(3);
+        var postFullBox = postCurrent.Skip(3).Take(5);
+
         <div class="category-featured jewelry">
             <nav class="navbar nav-menu show-brand">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-brand">
                         <a href="@Url.Action("GetContent", "Menu", new {menu = menuLink.SeoUrl, area = ""})">
-                            <img alt="@menuLink.MenuName" src="@Url.Content("~/"+menuLink.IconNav)" /> @menuLink.MenuName
+                            <img alt="@menuLink.MenuName" src="@Url.Content("~/" + menuLink.Icon1)" /> @menuLink.MenuName
                         </a>
                     </div>
                     <span class="toggle-menu"></span>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab-20">Sản phẩm mới</a></li>
-                            <li><a data-toggle="tab" href="#tab-21">Sản phẩm nỗi bật</a></li>
-                            <li><a data-toggle="tab" href="#tab-22">Sản phẩm bán chạy</a></li>
-                            <li><a data-toggle="tab" href="#tab-23">Trang sức hoàng cung</a></li>
+                            <li class="active">
+                                <a data-toggle="tab" href="#tab-20">Branch 1</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-21">Branch 1</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-22">Sản phẩm bán chạy</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-23">Trang sức hoàng cung</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
                 </div>
                 <!-- /.container-fluid -->
-                <div id="elevator-5" class="floor-elevator">
-                    <a href="#elevator-4" class="btn-elevator up fa fa-angle-up"></a>
-                    <a href="#" class="btn-elevator disabled down fa fa-angle-down"></a>
+                <div id="elevator-@index" class="floor-elevator">
+                    <a href="#elevator-@(index - 1)" class="btn-elevator up fa fa-angle-up @(index == 1 ? "disabled" : "")"></a>
+                    <a href="#elevator-@(index + 1)" class="btn-elevator down fa fa-angle-down @(index == Model.NumberMenu ? "disabled" : "")"></a>
                 </div>
             </nav>
             <div class="product-featured clearfix">
                 <div class="row">
                     <div class="col-sm-2 sub-category-wapper">
-                        <ul class="sub-category-list">
-                            @if (menuLink.ChildNavMenu != null && menuLink.ChildNavMenu.Any())
-                            {
-                                foreach (var product in Model.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId)))
-                                {
-                                    <li><a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">@product.Title</a></li>
-                                }
-                            }
-                           
-                        </ul>
+                        @Html.Action("MenuNavLeft", "MenuNav", new { virtualId = menuLink.VirtualId, area = "" })
                     </div>
                     <div class="col-sm-10 col-right-tab">
                         <div class="product-featured-tab-content">
@@ -69,180 +73,100 @@
                                     </div>
                                     <div class="box-right">
                                         <ul class="product-list row">
-                                            <li class="col-sm-4">
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/mat-day-20-0216p3001na611.html">Mặt dây hiện đại, sang trọng 20-0216P3001NA611</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">11,200,000₫</span>
-                                                        <span class="price old-price">14,000,000₫</span>
+                                            @foreach (var post in postRight)
+                                            {
+                                                <li class="col-sm-4">
+                                                    <div class="right-block">
+                                                        <h5 class="product-name">
+                                                            <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
+                                                                @post.Title
+                                                            </a>
+                                                        </h5>
+                                                        <div class="content_price">
+                                                            <span class="price product-price">
+                                                                @if (post.Price.HasValue && post.Discount.HasValue)
+                                                                {
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
+                                                                }
+                                                                else if (post.Price.HasValue && !post.Discount.HasValue)
+                                                                {
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.Raw("LienHeDatHang.Lable")
+                                                                }
+                                                            </span>
+                                                            @if (post.Discount.HasValue)
+                                                            {
+                                                                <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
+                                                                <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/mat-day-20-0216p3001na611.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p44_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/mat-day-20-0216p3001na611.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/mat-day-20-0216p3001na611"></a>
+                                                    <div class="left-block">
+                                                        <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                                            <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                                        </a>
+                                                        <div class="quick-view">
+                                                            <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                            <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
+                                                            <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/mat-day-20-0216p3001na611"></a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823198">Thêm vào giỏ</a>
+                                                        </div>
                                                     </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823198">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-sm-4">
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">55,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/nhan-nu-085-1014r7054vc1.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p82_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/nhan-nu-085-1014r7054vc1.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/nhan-nu-085-1014r7054vc1"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830453">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-sm-4">
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">33,000,000₫</span>
-                                                        <span class="price old-price">37,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/nhan-nu-1210r4455a2.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p83_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/nhan-nu-1210r4455a2.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/nhan-nu-1210r4455a2"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830455">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                     <div class="box-full clearfix">
                                         <ul class="product-list">
-                                            <li>
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">75,000,000₫</span>
+                                            @foreach (var post in postFullBox)
+                                            {
+                                                <li>
+                                                    <div class="right-block">
+                                                        <h5 class="product-name">
+                                                            <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a>
+                                                        </h5>
+                                                        <div class="content_price">
+                                                            <span class="price product-price">
+                                                                @if (post.Price.HasValue && post.Discount.HasValue)
+                                                                {
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
+                                                                }
+                                                                else if (post.Price.HasValue && !post.Discount.HasValue)
+                                                                {
+                                                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.Raw("LienHeDatHang.Lable")
+                                                                }
+                                                            </span>
+                                                            @if (post.Discount.HasValue)
+                                                            {
+                                                                <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
+                                                                <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/nhan-nu-1211r0018bm.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p84_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/nhan-nu-1211r0018bm.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/nhan-nu-1211r0018bm"></a>
+                                                    <div class="left-block">
+                                                        <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                                            <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                                        </a>
+                                                        <div class="quick-view">
+                                                            <a title="Add to my wishlist" class="heart" href="#"></a>
+                                                            <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
+                                                            <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/nhan-nu-1211r0018bm"></a>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830456">Thêm vào giỏ</a>
+                                                        </div>
                                                     </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830456">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">1,300,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/kieng-co-0109n7009pun1.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p85_8c6527bf-848a-4791-7357-2a4f85fbf221_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/kieng-co-0109n7009pun1.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/kieng-co-0109n7009pun1"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830461">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">33,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/nhan-nu-107r8044bm.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p86_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/nhan-nu-107r8044bm.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/nhan-nu-107r8044bm"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830458">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e6625na602.html">Hoa tai 20-0216E6625NA602</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">7,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/hoa-tai-20-0216e6625na602.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p87_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/hoa-tai-20-0216e6625na602.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/hoa-tai-20-0216e6625na602"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830494">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a></h5>
-                                                    <div class="content_price">
-                                                        <span class="price product-price">450,000,000₫</span>
-                                                    </div>
-                                                </div>
-                                                <div class="left-block">
-                                                    <a href="products/kieng-co-0912n0008bl1.html">
-                                                        <img class="img-responsive" alt="product" src="/assets/255/1000074255/1/2016/3-4/p33_medium.jpg" />
-                                                    </a>
-                                                    <div class="quick-view">
-                                                        <a title="Add to my wishlist" class="heart" href="#"></a>
-                                                        <a title="Xem chi tiết" class="compare" href="products/kieng-co-0912n0008bl1.html"></a>
-                                                        <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/kieng-co-0912n0008bl1"></a>
-                                                    </div>
-                                                    <div class="add-to-cart">
-                                                        <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005830492">Thêm vào giỏ</a>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -251,7 +175,9 @@
                                         <ul class="product-list">
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/mat-day-20-0216p3001na611.html">Mặt dây hiện đại, sang trọng 20-0216P3001NA611</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/mat-day-20-0216p3001na611.html">Mặt dây hiện đại, sang trọng 20-0216P3001NA611</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">11,200,000₫</span>
                                                         <span class="price old-price">14,000,000₫</span>
@@ -273,7 +199,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e6625na602.html">Hoa tai 20-0216E6625NA602</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/hoa-tai-20-0216e6625na602.html">Hoa tai 20-0216E6625NA602</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">7,000,000₫</span>
                                                     </div>
@@ -294,7 +222,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">32,000,000₫</span>
                                                     </div>
@@ -315,7 +245,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">450,000,000₫</span>
                                                     </div>
@@ -336,7 +268,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">30,030,000₫</span>
                                                     </div>
@@ -357,7 +291,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">1,300,000,000₫</span>
                                                     </div>
@@ -378,7 +314,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                     </div>
@@ -399,7 +337,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">75,000,000₫</span>
                                                     </div>
@@ -420,7 +360,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                         <span class="price old-price">37,000,000₫</span>
@@ -442,7 +384,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">55,000,000₫</span>
                                                     </div>
@@ -483,7 +427,9 @@
                                         <ul class="product-list row">
                                             <li class="col-sm-4">
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">1,300,000,000₫</span>
                                                     </div>
@@ -504,7 +450,9 @@
                                             </li>
                                             <li class="col-sm-4">
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">450,000,000₫</span>
                                                     </div>
@@ -525,7 +473,9 @@
                                             </li>
                                             <li class="col-sm-4">
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">75,000,000₫</span>
                                                     </div>
@@ -550,7 +500,9 @@
                                         <ul class="product-list">
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">55,000,000₫</span>
                                                     </div>
@@ -571,7 +523,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                         <span class="price old-price">37,000,000₫</span>
@@ -593,7 +547,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                     </div>
@@ -614,7 +570,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">32,000,000₫</span>
                                                     </div>
@@ -635,7 +593,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">30,030,000₫</span>
                                                     </div>
@@ -662,7 +622,9 @@
                                         <ul class="product-list">
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/mat-day-20-0216p3001na611.html">Mặt dây hiện đại, sang trọng 20-0216P3001NA611</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/mat-day-20-0216p3001na611.html">Mặt dây hiện đại, sang trọng 20-0216P3001NA611</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">11,200,000₫</span>
                                                         <span class="price old-price">14,000,000₫</span>
@@ -684,7 +646,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e6625na602.html">Hoa tai 20-0216E6625NA602</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/hoa-tai-20-0216e6625na602.html">Hoa tai 20-0216E6625NA602</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">7,000,000₫</span>
                                                     </div>
@@ -705,7 +669,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/hoa-tai-20-0216e2617na610.html">Hoa tai 20-0216E2617NA610</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">32,000,000₫</span>
                                                     </div>
@@ -726,7 +692,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0912n0008bl1.html">Kiềng cổ 0912N0008BL1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">450,000,000₫</span>
                                                     </div>
@@ -747,7 +715,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0614n0096tb1.html">Kiềng cổ 0614N0096TB1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">30,030,000₫</span>
                                                     </div>
@@ -768,7 +738,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/kieng-co-0109n7009pun1.html">Kiềng cổ 0109N7009PUN1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">1,300,000,000₫</span>
                                                     </div>
@@ -789,7 +761,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-107r8044bm.html">Nhẫn nữ 107R8044BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                     </div>
@@ -810,7 +784,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1211r0018bm.html">Nhẫn nữ 1211R0018BM</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">75,000,000₫</span>
                                                     </div>
@@ -831,7 +807,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-1210r4455a2.html">Nhẫn nữ 1210R4455A2</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">33,000,000₫</span>
                                                         <span class="price old-price">37,000,000₫</span>
@@ -853,7 +831,9 @@
                                             </li>
                                             <li>
                                                 <div class="right-block">
-                                                    <h5 class="product-name"><a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a></h5>
+                                                    <h5 class="product-name">
+                                                        <a href="products/nhan-nu-085-1014r7054vc1.html">Nhẫn nữ 085-1014R7054VC1</a>
+                                                    </h5>
                                                     <div class="content_price">
                                                         <span class="price product-price">55,000,000₫</span>
                                                     </div>
@@ -881,6 +861,7 @@
                 </div>
             </div>
         </div>
+
 
         @*<div class='index_col_wrap nobottommargin section nobg' id='divHomeProduct'>
                 <div class='block_title'>

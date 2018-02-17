@@ -276,6 +276,7 @@
     <Compile Include="Models\ImageSize.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PartialCacheAttribute.cs" />
+    <Compile Include="Models\Posts\CategoryPostModel.cs" />
     <Compile Include="Models\SeachConditions.cs" />
     <Compile Include="Models\SendMail.cs" />
     <Compile Include="Models\ShoppingCart\MiniShoppingCartModel.cs" />
@@ -400,6 +401,7 @@
     <Content Include="Themes\Basic\Content\_variables.scss" />
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\MenuNav\GetMenuVerticalMega.cshtml" />
+    <Content Include="Views\Post\_CategoryPostItem.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

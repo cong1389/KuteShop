@@ -1,4 +1,9 @@
-﻿
+﻿<!-- Home slideder-->
+@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
+<!-- END Home slideder-->
+
+@{ Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" });}
+
 <div class="content-page">
     <div class="container">
         @{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}

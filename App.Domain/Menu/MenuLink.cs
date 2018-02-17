@@ -1,4 +1,5 @@
-﻿using App.Core.Common;
+﻿using System.Collections;
+using App.Core.Common;
 using App.Domain.Entities.Ads;
 using App.Domain.Entities.Data;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Entities.Menu
 {
-	public sealed class MenuLink : AuditableEntity<int>
+	public sealed class MenuLink : AuditableEntity<int>, IEnumerable
 	{
 		public ICollection<Banner> Banners
 		{
@@ -212,5 +213,10 @@ namespace App.Domain.Entities.Menu
             GenericControls = new List<GenericControl.GenericControl>();
 
         }
+
+	    public IEnumerator GetEnumerator()
+	    {
+	        throw new System.NotImplementedException();
+	    }
 	}
 }

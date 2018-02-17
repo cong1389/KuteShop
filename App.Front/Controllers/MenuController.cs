@@ -31,15 +31,6 @@ namespace App.Front.Controllers
             _staticContentService = staticContentService;
         }
 
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetAccesssories()
-        {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 8 }, isDisplayHomePage: true);
-
-            return PartialView(menuLinks);
-        }
-
         [PartialCache("Short")]
         public ActionResult GetContent(string menu, int page)
         {

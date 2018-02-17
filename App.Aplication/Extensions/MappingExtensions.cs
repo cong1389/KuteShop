@@ -169,22 +169,19 @@ namespace App.Aplication.Extensions
             if (entity == null)
                 return null;
 
-            var model = new MenuNavViewModel
-            {
-                MenuId = entity.Id,
-                ParentId = entity.ParentId,
-                MenuName = entity.MenuName,
-                SeoUrl = entity.SeoUrl,
-                OrderDisplay = entity.OrderDisplay,
-                ImageUrl = entity.ImageUrl,
-                CurrentVirtualId = entity.CurrentVirtualId,
-                VirtualId = entity.VirtualId,
-                TemplateType = entity.TemplateType,
-                IconNav = entity.Icon1,
-                IconBar = entity.Icon2
-            };
+            destination.MenuId = entity.Id;
+            destination.ParentId = entity.ParentId;
+            destination.MenuName = entity.MenuName;
+            destination.SeoUrl = entity.SeoUrl;
+            destination.OrderDisplay = entity.OrderDisplay;
+            destination.ImageUrl = entity.ImageUrl;
+            destination.CurrentVirtualId = entity.CurrentVirtualId;
+            destination.VirtualId = entity.VirtualId;
+            destination.TemplateType = entity.TemplateType;
+            destination.IconNav = entity.Icon1;
+            destination.IconBar = entity.Icon2;
 
-            return model;
+            return destination;
         }
 
         public static ContactInformation ToModel(this ContactInformation entity)
