@@ -360,6 +360,12 @@
     <Content Include="Themes\Basic\Content\theme.min.css">
       <DependentUpon>theme.css</DependentUpon>
     </Content>
+    <Content Include="Themes\Basic\Content\_attributefilter.css">
+      <DependentUpon>_attributefilter.scss</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_attributefilter.min.css">
+      <DependentUpon>_attributefilter.css</DependentUpon>
+    </Content>
     <Content Include="Themes\Basic\Content\_checkout.css">
       <DependentUpon>_checkout.scss</DependentUpon>
     </Content>
@@ -401,7 +407,8 @@
     <Content Include="Themes\Basic\Content\_variables.scss" />
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\MenuNav\GetMenuVerticalMega.cshtml" />
-    <Content Include="Views\Post\_CategoryPostItem.cshtml" />
+    <Content Include="Themes\Basic\Content\_attributefilter.scss" />
+    <Content Include="Views\Post\GetPostDiscount.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -415,6 +422,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\" />
+    <Folder Include="Themes\Basic\Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -474,10 +482,8 @@
     <Content Include="Views\News\GetNewsByCategory.cshtml" />
     <Content Include="Views\News\GetRelativeNews.cshtml" />
     <Content Include="Views\News\NewsDetail.cshtml" />
-    <Content Include="Views\Post\FillterProduct.cshtml" />
     <Content Include="Views\Post\GetNewProductRelative.cshtml" />
     <Content Include="Views\Post\GetNewProductRelative2.cshtml" />
-    <Content Include="Views\Post\GetPostAccessory.cshtml" />
     <Content Include="Views\Post\GetPostByCategory.cshtml" />
     <Content Include="Views\Post\GetPostRelative.cshtml" />
     <Content Include="Views\Post\GetPostSameMenu.cshtml" />

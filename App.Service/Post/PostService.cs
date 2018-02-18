@@ -31,7 +31,7 @@ namespace App.Service.Post
             sbKey.Append(id);
 
             string key = sbKey.ToString();
-            Domain.Entities.Data.Post post = null;
+            Domain.Entities.Data.Post post;
             if (isCache)
             {
                 post = _cacheManager.Get<Domain.Entities.Data.Post>(key);
@@ -54,7 +54,7 @@ namespace App.Service.Post
             if (isCache)
             {
                 StringBuilder sbKey = new StringBuilder();
-                sbKey.AppendFormat(CachePostKey, "GetBySeoUrl");
+                sbKey.AppendFormat(CachePostKey, "GetListSeoUrl");
 
                 if (seoUrl.HasValue())
                 {
@@ -97,7 +97,7 @@ namespace App.Service.Post
 
             return post;
         }
-        
+
         public IEnumerable<Domain.Entities.Data.Post> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _postRepository.PagedSearchList(sortbuBuilder, page);
@@ -115,8 +115,9 @@ namespace App.Service.Post
 
         public IEnumerable<Domain.Entities.Data.Post> GetByOption(string virtualCategoryId = null
             , bool? isDisplayHomePage = null
+            , bool? isDiscount = null
             , int status = 1
-            , bool isCache =true)
+            , bool isCache = true)
         {
             IEnumerable<Domain.Entities.Data.Post> posts;
             StringBuilder sbKey = new StringBuilder();
@@ -131,17 +132,23 @@ namespace App.Service.Post
                 sbKey.AppendFormat("-{0}", virtualCategoryId);
                 expression = expression.And(x => x.VirtualCategoryId.Contains(virtualCategoryId));
             }
+
             if (isDisplayHomePage != null)
             {
                 //isDisplayHomePage
                 sbKey.AppendFormat("-{0}", isDisplayHomePage);
                 expression = expression.And(x => x.ShowOnHomePage == isDisplayHomePage);
             }
-           
+
+            if (isDiscount != null)
+            {
+                //isDiscount
+                sbKey.AppendFormat("-{0}", isDiscount);
+                expression = expression.And(x => x.Discount.HasValue && x.Discount > 0);
+            }
+
             if (isCache)
             {
-               
-
                 string key = sbKey.ToString();
                 posts = _cacheManager.GetCollection<Domain.Entities.Data.Post>(key);
                 if (posts == null)
@@ -153,7 +160,7 @@ namespace App.Service.Post
             else
             {
                 posts = FindBy(expression);
-            }            
+            }
 
             return posts;
         }

@@ -1,214 +1,217 @@
 ﻿<!----SearchBoxSideBar-->
-
-<div class="sidebar-widgets-wrap">
-
-    <!-- begin: filters -->
-    <div class="panel-group filter_group filter_fixed">
-        <div class="panel panel-default noradius">
-            <div class="panel-heading">
-                <a data-toggle="collapse" href="#filter_group">
-                    <h4 class="panel-title">
-                        LỌC SẢN PHẨM<i class='fa fa-angle-down'></i>
-                    </h4>
-                </a>
+<div class="column col-xs-12 col-sm-3" id="left_column">
+    <!-- block Danh mục -->
+    <div class="block left-module">
+        <p class="title_block">Danh mục sản phẩm</p>
+        <div class="block_content">
+            <!-- layered -->
+            <div class="layered layered-category">
+                <div class="layered-content">
+                    @Html.Action("GetMenuLinkSideBar", "MenuNav", new { area = "", virtualId = ViewBag.VirtualId, proAttrs = ViewBag.ProAttrs })
+                </div>
             </div>
-            <div id="filter_group" class="panel-collapse collapse in">
-                <!-- BEGIN: Vendor filter -->
-                <div class="widget_links clearfix hidden">
-                    <a href='#filter_group_1' data-toggle='collapse'><h4>THƯƠNG HIỆU<i class='fa-angle-down fa'></i></h4></a>
-                    <ul id='filter_group_1' class='panel-collapse collapse in filter_list'>
+            <!-- ./layered -->
+        </div>
+    </div>
+    <!-- ./block category  -->
+    <!-- block filter -->
+    <div class="block left-module">
+        <p class="title_block">Bộ lọc sản phẩm</p>
+        <div class="block_content">
+            <!-- layered -->
+            <div class="layered layered-filter-price">
+                <!-- filter categgory
+                <div class="layered_subtitle">CATEGORIES</div>
+                <div class="layered-content">
+                    <ul class="check-box-list">
+                        <li>
+                            <input type="checkbox" id="c1" name="cc" />
+                            <label for="c1">
+                                <span class="button"></span>
+                                Tops<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c2" name="cc" />
+                            <label for="c2">
+                                <span class="button"></span>
+                                T-shirts<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c3" name="cc" />
+                            <label for="c3">
+                                <span class="button"></span>
+                                Dresses<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c4" name="cc" />
+                            <label for="c4">
+                                <span class="button"></span>
+                                Jackets and coats<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c5" name="cc" />
+                            <label for="c5">
+                                <span class="button"></span>
+                                Knitted<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c6" name="cc" />
+                            <label for="c6">
+                                <span class="button"></span>
+                                Pants<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c7" name="cc" />
+                            <label for="c7">
+                                <span class="button"></span>
+                                Bags & Shoes<span class="count">(10)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="c8" name="cc" />
+                            <label for="c8">
+                                <span class="button"></span>
+                                Best selling<span class="count">(10)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- ./filter categgory -->
+                <!-- ./filter brand -->
 
-                        <li class='col-xs-6 col-sm-12 col-md-6'>
-                            <label class='filter_checkbox'>
-                                <span>
-                                    <i class='fa-check fa hidden'></i>
-                                    <input class="vendor" type="checkbox" value="(vendor:product=Khác)">
-                                </span>
-                                Khác
+                <div class="layered_subtitle hidden">Thương hiệu</div>
+                <div class="layered-content filter-brand hidden">
+                    <ul class="check-box-list">
+
+                        <li>
+                            <input type="checkbox" id="brand1" name="cc" data-vendor="(vendor:product**Apple)" />
+                            <label for="brand1">
+                                <span class="button"></span>
+                                Apple
                             </label>
                         </li>
 
-                        <li class='col-xs-6 col-sm-12 col-md-6'>
-                            <label class='filter_checkbox'>
-                                <span>
-                                    <i class='fa-check fa hidden'></i>
-                                    <input class="vendor" type="checkbox" value="(vendor:product=CHỊ SA)">
-                                </span>
-                                CHỊ SA
+                        <li>
+                            <input type="checkbox" id="brand2" name="cc" data-vendor="(vendor:product**Canon)" />
+                            <label for="brand2">
+                                <span class="button"></span>
+                                Canon
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand3" name="cc" data-vendor="(vendor:product**TXT)" />
+                            <label for="brand3">
+                                <span class="button"></span>
+                                TXT
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand4" name="cc" data-vendor="(vendor:product**TST)" />
+                            <label for="brand4">
+                                <span class="button"></span>
+                                TST
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand5" name="cc" data-vendor="(vendor:product**AVFS)" />
+                            <label for="brand5">
+                                <span class="button"></span>
+                                AVFS
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand6" name="cc" data-vendor="(vendor:product**Samsung)" />
+                            <label for="brand6">
+                                <span class="button"></span>
+                                Samsung
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand7" name="cc" data-vendor="(vendor:product**HP)" />
+                            <label for="brand7">
+                                <span class="button"></span>
+                                HP
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand8" name="cc" data-vendor="(vendor:product**Lenovo)" />
+                            <label for="brand8">
+                                <span class="button"></span>
+                                Lenovo
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand9" name="cc" data-vendor="(vendor:product**TNDT)" />
+                            <label for="brand9">
+                                <span class="button"></span>
+                                TNDT
+                            </label>
+                        </li>
+
+                        <li>
+                            <input type="checkbox" id="brand10" name="cc" data-vendor="(vendor:product**Bebe)" />
+                            <label for="brand10">
+                                <span class="button"></span>
+                                Bebe
                             </label>
                         </li>
 
                     </ul>
                 </div>
 
+                <!-- ./filter brand -->
+                <!-- filter price -->
 
-                <!-- END: Vendor filter -->
-                <!-- BEGIN: Type filter -->
+                <div class="layered_subtitle">Giá</div>
+                <div class="range-block layered-content filter-color conten-attr" id="filter_group_4">
+                    <div class="text">
+                        <span>50.000</span>
+                        <span>50.000.000</span>
+                    </div>
+                    @{
+                        var fromPrice = 50000D;
+                        var toPrice = 50000000D;
 
-
-                <div class="widget_links clearfix hidden">
-                    <a href='#filter_group_2' data-toggle='collapse'><h4>LOẠI SẢN PHẨM<i class='fa-angle-down fa'></i></h4></a>
-                    <ul id='filter_group_2' class='panel-collapse collapse in filter_list'>
-
-                        <li class='col-xs-6 col-sm-12 col-md-6'>
-                            <label class='filter_checkbox'>
-                                <span>
-                                    <input class="product_type" type="checkbox" value="(product_type:product=Khác)">
-                                </span>
-                                Khác
-                            </label>
-                        </li>
-
-                    </ul>
-                </div>
-
-
-                <!-- END: Type filter -->
-                <!-- BEGIN: Color filter -->
-
-                @Html.Action("GetAttributeSearchBox", "SearchBox", new { area = "", ViewBag.Attributes })
-
-                <!-- END: Color filter -->
-                <!-- BEGIN: Price filter -->
-
-                <div class="widget_links clearfix">
-                    <a href='#filter_group_4' data-toggle='collapse'><h4>GIÁ<i class='fa-angle-down fa'></i></h4></a>
-                    <div class="range-block panel-collapse collapse in filter_list" id="filter_group_4">
-                        <div class="text">
-                            <span>300.000</span>
-                            <span>50.000.000</span>
-                        </div>
-                        @{
-                            var fromPrice = 300000D;
-                            var toPrice = 50000000D;
-
-                            var price = (List<double>)ViewBag.Prices;
-                            if (price != null && price.Count > 0)
-                            {
-                                fromPrice = price.FirstOrDefault();
-                                toPrice = price.LastOrDefault();
-                            }
+                        var price = (List<double>)ViewBag.Prices;
+                        if (price != null && price.Count > 0)
+                        {
+                            fromPrice = price.FirstOrDefault();
+                            toPrice = price.LastOrDefault();
                         }
-                        <input type="text" id="block-slider" value="" data-slider-tooltip="hide" data-slider-min="300000" data-slider-max="50000000" data-slider-step="1000000" data-slider-value="[@fromPrice,@toPrice]">
-                        <div class="show-range">
-                            <div class="s-control">
-                                <input id="from-price" type="number" class="form-control" value="@fromPrice" />
-                            </div>
-                            <span>–</span>
-                            <div class="s-control">
-                                <input id="to-price" type="number" class="form-control" value="@toPrice" />
-                            </div>
+                    }
+                    <input type="text" id="block-slider" value="" data-slider-tooltip="hide" data-slider-min="50000" data-slider-max="50000000" data-slider-step="1000000" data-slider-value="[@fromPrice,@toPrice]">
+                    <div class="show-range">
+                        <div class="s-control">
+                            <input id="from-price" type="number" class="form-control" value="@fromPrice" />
+                        </div>
+                        <span>–</span>
+                        <div class="s-control">
+                            <input id="to-price" type="number" class="form-control" value="@toPrice" />
                         </div>
                     </div>
-
                 </div>
+                <!-- ./filter price -->
+                @Html.Action("GetAttributeSearchBox", "SearchBox", new { area = "", ViewBag.Attributes })
+                
 
-                <!-- END: Price filter -->
-                <!-- BEGIN: Tag_Custom_1 filter -->
-
-                <div class="widget_links clearfix hidden">
-                    <a href='#filter_group_5' data-toggle='collapse'><h4>KÍCH THƯỚC<i class='fa-angle-down fa'></i></h4></a>
-                    <ul id='filter_group_5' class='panel-collapse collapse in filter_list'></ul>
-                </div>
-
-                <!-- END: Tag_Custom_1 filter -->
-                <!-- BEGIN: Tag_Custom_2 filter -->
-
-                <div class="widget_links clearfix hidden">
-                    <a href='#filter_group_6' data-toggle='collapse'><h4>Chất liệu<i class='fa-angle-down fa'></i></h4></a>
-                    <ul id='filter_group_6' class='panel-collapse collapse in filter_list'></ul>
-                </div>
-
-                <!-- END: Tag_Custom_2 filter -->
-                <!-- BEGIN: Tag_Custom_3 filter -->
-
-                <div class="widget_links clearfix hidden">
-                    <a href='#filter_group_7' data-toggle='collapse'><h4>Xuất xứ<i class='fa-angle-down fa'></i></h4></a>
-                    <ul id='filter_group_7' class='panel-collapse collapse in filter_list'></ul>
-                </div>
-
-                <!-- END: Tag_Custom_3 filter -->
             </div>
+            <!-- ./layered -->
         </div>
     </div>
-
-    <div class='hidden-xs hidden-sm'>
-        <div class="widget widget_links clearfix">
-            <div class='widget_title'>
-                <h4>DANH MỤC SẢN PHẨM</h4>
-            </div>
-            @Html.Action("GetMenuLinkSideBar", "MenuNav", new { area = "", Ids = ViewBag.ProAttrs })
-
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                $('.widget_links li i').click(function () {
-                    $(this).next().toggle();
-                })
-            })
-        </script>
-
-        <!-- end categories -->
-        <!-- sidebar collection 1 -->
-
-        <div class="widget clearfix">
-            <div class='widget_title'>
-                <h4><a href='so-mi-mazzola.html'>SẢN PHẨM CŨ/MỚI</a></h4>
-            </div>
-            <div class='widget_content'>
-                <ul class="list-unstyled">
-                    <li>
-                        @if (ViewBag.ProductOld != null)
-                        {
-                            <input id="productold" type="checkbox" name="productold" value="1" checked="checked">
-                        }
-                        else
-                        {
-                            <input id="productold" type="checkbox" name="productold" value="1">
-                        }
-                        <label for="productold" style="font-weight: normal">Sản phẩm cũ</label>
-                    </li>
-                    <li>
-                        @if (ViewBag.ProductNew != null)
-                        {
-                            <input id="productnew" type="checkbox" name="productnew" value="1" checked="checked">
-                        }
-                        else
-                        {
-                            <input id="productnew" type="checkbox" name="productnew" value="1">
-                        }
-                        <label for="productnew" style="font-weight: normal">Sản phẩm mới</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="widget clearfix sidebar_viewed_products_wrapper">
-            <div class='widget_title'>
-                <h4>SẢN PHẨM VỪA XEM</h4>
-            </div>
-            <div id='sidebar_viewed_products' class="widget-last-view widget_content">
-            </div>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                EGA.plugin.setViewedProducts({
-                    location_wrapper: '.sidebar_viewed_products_wrapper',
-                    template: '#sidebar_viewed_template',
-                    location: '#sidebar_viewed_products',
-                    limit: 3,
-                    img_url: 'compact'
-                })
-            })
-        </script>
-        <!-- end recent view -->
-        <!-- sidebar banner -->
-
-        <div class="widget clearfix">
-            <a href='http://mazzola.myharavan.com/blogs/news'><img src="../../hstatic.net/495/1000133495/1000194031/sidebar_banner677f.jpg?v=226" style='height:auto; width: 100%;' /></a>
-        </div>
-
-        <!-- end sidebar banner -->
-    </div>
+    
 </div>
 <input type="hidden" id="attribute" />
 <input type="hidden" id="proattribute" />

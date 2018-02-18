@@ -20,7 +20,8 @@ namespace App.Service.Post
 
         IEnumerable<Domain.Entities.Data.Post> GetBySort(Expression<Func<Domain.Entities.Data.Post, bool>> expression, SortBuilder sortBuilder, Paging paging);
 
-        IEnumerable<Domain.Entities.Data.Post> GetByOption(string virtualCategoryId = null, bool? isDisplayHomePage = null, int status = 1, bool isCache = true);
+        IEnumerable<Domain.Entities.Data.Post> GetByOption(string virtualCategoryId = null,
+            bool? isDisplayHomePage = null, bool? isDiscount = null, int status = 1, bool isCache = true);
 
     }
 }

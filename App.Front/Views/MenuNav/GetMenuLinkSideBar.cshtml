@@ -3,17 +3,20 @@
 @model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
 @if (Model.IsAny())
 {
-    foreach (var item in Model)
+    foreach (var lv1 in Model)
     {
-        <ul class='widget_content'>
-            <li>
-                <a href="@Url.Action("GetContent", "Menu", new {area = "", menu = item.SeoUrl})">@item.MenuName</a>
-                <i class='fa fa-angle-down'></i>
-                <ul class='sidebar_submenu'>
-                    @if (item.ChildNavMenu.IsAny())
-                    {
-                        var products = (List<int>)ViewBag.ProIds;
-                        foreach (var child in item.ChildNavMenu)
+        <ul class="tree-menu" >
+
+            <li class="">
+                <span></span>
+                <a class="" href="@Url.Action("GetContent", "Menu", new {area = "", menu = lv1.SeoUrl})" title="Thể thao" target="_self">
+                    @lv1.MenuName
+                </a>
+                @if (lv1.ChildNavMenu.IsAny())
+                {
+                    var products = (List<int>)ViewBag.ProIds;
+                    <ul class="tree-menu" style="display: block;">
+                        @foreach (var child in lv1.ChildNavMenu)
                         {
                             if (products != null)
                             {
@@ -37,8 +40,9 @@
                                 </li>
                             }
                         }
-                    }
-                </ul>
+
+                    </ul>
+                }
             </li>
         </ul>
     }

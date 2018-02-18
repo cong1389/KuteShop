@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using App.Core.Localization;
 using App.Front.Models;
-using App.Service.Common;
 using App.Service.Language;
 
 namespace App.Front.Controllers
@@ -11,13 +10,17 @@ namespace App.Front.Controllers
 	public  class FrontBaseController : Controller
 	{
         [PartialCache("Long")]
-        protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
+        protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService,
+            IList<TLocalizedPropertyViewModelLocal> locales)
+            where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
             AddLocales(languageService, locales, null);
         }
 
         [PartialCache("Long")]
-        protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales, Action<TLocalizedPropertyViewModelLocal, int> configure) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
+        protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService,
+            IList<TLocalizedPropertyViewModelLocal> locales, Action<TLocalizedPropertyViewModelLocal, int> configure)
+            where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
             foreach (var language in languageService.GetAll())
             {
@@ -31,7 +34,7 @@ namespace App.Front.Controllers
             }
         }
 
-        public int _pageSize
+	    protected int _pageSize
 		{
 			get
 			{
@@ -39,44 +42,15 @@ namespace App.Front.Controllers
 			}
 		}
 
-        public ICommonServices Services
-        {
-            get;
-            set;
-        }
-
-        public FrontBaseController()
+	    public FrontBaseController()
 		{
             T = NullLocalizer.Instance;
         }
 
-        public Localizer T
+	    protected Localizer T
         {
             get;
             set;
         }
-
-        //protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
-        //{
-        //    string cultureName = null;
-
-        //    // Attempt to read the culture cookie from Request
-        //    HttpCookie cultureCookie = Request.Cookies["_culture"];
-        //    if (cultureCookie != null)
-        //        cultureName = cultureCookie.Value;
-        //    else
-        //        cultureName = Request.UserLanguages != null && Request.UserLanguages.Length > 0 ? Request.UserLanguages[0] : null; // obtain it from HTTP header AcceptLanguages
-
-        //    // Validate culture name
-        //    cultureName = Helpers.CultureHelper.GetImplementedCulture(cultureName); // This is safe
-
-
-        //    // Modify current thread's cultures            
-        //    Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
-        //    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-
-        //    return base.BeginExecuteCore(callback, state);
-        //}
     }
 }

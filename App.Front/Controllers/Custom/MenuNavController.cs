@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App.Aplication;
 using App.Aplication.Extensions;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
@@ -271,35 +272,43 @@ namespace App.Front.Controllers.Custom
         }
 
         [ChildActionOnly]
-        public ActionResult GetMenuLinkSideBar(List<int> ids = null)
+        public ActionResult GetMenuLinkSideBar(string virtualId, List<int> proAttrs = null)
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            MenuLink menuLink = _menuLinkService.Get(x => x.Status == 1 && x.TemplateType == 2 && !x.ParentId.HasValue, false);
+            virtualId = virtualId != null && virtualId.Count(i => i.Equals('/')) > 0
+                ? virtualId.Split('/')[0]
+                : virtualId;
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(template: new List<int> { 2 }, virtualId: menuLink.VirtualId);
+            var menuLinks = _menuLinkService.GetByOption(virtualId: virtualId);
 
-            ViewBag.ProIds = ids;
-
-            if (menuLinks.Any())
+            if (!menuLinks.IsAny())
             {
-                IEnumerable<MenuNavViewModel> menuNav =
-                    from x in menuLinks
-                    select new MenuNavViewModel
-                    {
-                        MenuId = x.Id,
-                        ParentId = x.ParentId,
-                        MenuName = x.MenuName,
-                        SeoUrl = x.SeoUrl,
-                        OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageUrl,
-                        CurrentVirtualId = x.CurrentVirtualId,
-                        VirtualId = x.VirtualId,
-                        TemplateType = x.TemplateType,
-                        IconNav = x.Icon1,
-                        IconBar = x.Icon2
-                    };
-                menuNavs = CreateMenuNav(menuLink.Id, menuNav);
+                return HttpNotFound();
             }
+
+            //Convert to localized
+            menuLinks = menuLinks.Select(x => x.ToModel());
+
+            var menuNav =
+                from x in menuLinks
+                select new MenuNavViewModel
+                {
+                    MenuId = x.Id,
+                    ParentId = x.ParentId,
+                    MenuName = x.MenuName,
+                    SeoUrl = x.SeoUrl,
+                    OrderDisplay = x.OrderDisplay,
+                    ImageUrl = x.ImageUrl,
+                    CurrentVirtualId = x.CurrentVirtualId,
+                    VirtualId = x.VirtualId,
+                    TemplateType = x.TemplateType,
+                    IconNav = x.Icon1,
+                    IconBar = x.Icon2
+                };
+
+
+            IEnumerable<MenuNavViewModel> menuNavs = CreateMenuNav(null, menuNav);
+
+            ViewBag.ProIds = proAttrs;
 
             return PartialView(menuNavs);
         }

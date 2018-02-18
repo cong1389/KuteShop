@@ -1,273 +1,41 @@
 ﻿<!---GetHomeNews--->
+@using App.Aplication
 @model IEnumerable<App.Domain.Entities.Data.News>
-<div id="content-wrap">
-        <div class="container">
-            <!-- Baner bottom -->
-            <div class="row banner-bottom">
-                <div class="col-sm-6 item-left">
-                    <div class="banner-boder-zoom">
-                        <a href="1.html">
-                            <img alt="ads" class="img-responsive" src="/assets/255/1000074255/1000138323/banner-botom18e0e.jpg?v=8" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 item-right">
-                    <div class="banner-boder-zoom">
-                        <a href="2.html">
-                            <img alt="ads" class="img-responsive" src="/assets/255/1000074255/1000138323/banner-bottom28e0e.jpg?v=8" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- end banner bottom -->
-            <!-- blog list -->
-            <div class="blog-list">
-                <h2 class="page-heading">
-                    <span class="page-heading-title">Tin tức mới</span>
-                </h2>
-                <div class="blog-list-wapper">
-                    <ul class="owl-carousel" data-dots="false" data-loop="true" data-nav="true" data-margin="30" data-autoplaytimeout="1000" data-autoplayhoverpause="true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
-                        <li>
-                            <div class="post-thumb image-hover2">
-                                <a href="blogs/news/1000100969-phoi-quan-jeans-cap-cao-theo-phong-cach-thap-nien-1970.html">
-                                    <img src="/assets/255/1000074255/10/2016/3-4/blog3.jpg" alt="Phối quần jeans cạp cao theo phong cách thập niên 1970">
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <h5 class="post-title">
-                                    <a href="blogs/news/1000100969-phoi-quan-jeans-cap-cao-theo-phong-cach-thap-nien-1970.html">Phối quần jeans cạp cao theo phong cách thập niên 1970</a>
-                                </h5>
-                                <div class="post-meta">
-                                    <span class="date">04/03/2016</span>
-                                    <span class="comment">0<span> Bình luận</span></span>
-                                </div>
-                                <div class="readmore">
-                                    <a href="blogs/news/1000100969-phoi-quan-jeans-cap-cao-theo-phong-cach-thap-nien-1970.html">Xem thêm</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="post-thumb image-hover2">
-                                <a href="blogs/news/1000100966-20-bo-vay-dep-cua-cac-dien-vien-tung-doat-giai-oscar.html">
-                                    <img src="/assets/255/1000074255/10/2016/3-4/blog1.jpg" alt="20 bộ váy đẹp của các diễn viên từng đoạt giải Oscar">
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <h5 class="post-title">
-                                    <a href="blogs/news/1000100966-20-bo-vay-dep-cua-cac-dien-vien-tung-doat-giai-oscar.html">20 bộ váy đẹp của các diễn viên từng đoạt giải Oscar</a>
-                                </h5>
-                                <div class="post-meta">
-                                    <span class="date">04/03/2016</span>
-                                    <span class="comment">0<span> Bình luận</span></span>
-                                </div>
-                                <div class="readmore">
-                                    <a href="blogs/news/1000100966-20-bo-vay-dep-cua-cac-dien-vien-tung-doat-giai-oscar.html">Xem thêm</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="post-thumb image-hover2">
-                                <a href="blogs/news/1000100965-nhung-chiec-vong-co-tao-dang-cap-cho-sao-ngoai-tren-tham-do.html">
-                                    <img src="/assets/255/1000074255/10/2016/3-4/blog2.jpg" alt="Những chiếc vòng cổ tạo đẳng cấp cho sao ngoại trên thảm đỏ">
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <h5 class="post-title">
-                                    <a href="blogs/news/1000100965-nhung-chiec-vong-co-tao-dang-cap-cho-sao-ngoai-tren-tham-do.html">Những chiếc vòng cổ tạo đẳng cấp cho sao ngoại trên thảm đỏ</a>
-                                </h5>
-                                <div class="post-meta">
-                                    <span class="date">04/03/2016</span>
-                                    <span class="comment">0<span> Bình luận</span></span>
-                                </div>
-                                <div class="readmore">
-                                    <a href="blogs/news/1000100965-nhung-chiec-vong-co-tao-dang-cap-cho-sao-ngoai-tren-tham-do.html">Xem thêm</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="post-thumb image-hover2">
-                                <a href="blogs/news/1000100720-dien-vay-xe-cao-quyen-ru-nhu-miranda-kerr.html">
-                                    <img src="/assets/255/1000074255/10/2016/3-4/blog4.jpg" alt="Diện váy xẻ cao quyến rũ như Miranda Kerr">
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <h5 class="post-title">
-                                    <a href="blogs/news/1000100720-dien-vay-xe-cao-quyen-ru-nhu-miranda-kerr.html">Diện váy xẻ cao quyến rũ như Miranda Kerr</a>
-                                </h5>
-                                <div class="post-meta">
-                                    <span class="date">03/03/2016</span>
-                                    <span class="comment">0<span> Bình luận</span></span>
-                                </div>
-                                <div class="readmore">
-                                    <a href="blogs/news/1000100720-dien-vay-xe-cao-quyen-ru-nhu-miranda-kerr.html">Xem thêm</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- ./blog list -->
-            <!-- service 2 -->
-            <div class="services2">
-                <ul>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s18e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="1.html">Giá trị lớn</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Chúng tôi cung cấp giá cả cạnh tranh nhất trên từng sản phẩm, phù hợp với mọi túi tiền.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s28e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="3.html">Giao hàng</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Giao hàng tận nơi, sản phẩm sẽ có mặt tại nhà bạn từ 3 đến 5 ngày làm việc.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s38e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="5.html">Sản phẩm</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Sản phẩm chính hãng, bảo hành trên toàn quốc.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s48e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="2.html">Hổ trợ</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Hổ trợ 24/7.
-                                    <br> Phone: +83 93 939 399.<br> Emal: hi@haavan.com
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s58e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="4.html">Ứng dụng</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Cài đặc ứng dụng khi mua hàng sẽ được giảm giá đặc biệt từ 5 đến 10%.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-xs-12 col-sm-6 col-md-4 services2-item">
-                        <div class="service-wapper">
-                            <div class="row">
-                                <div class="col-sm-6 image">
-                                    <div class="icon">
-                                        <img src="/assets/255/1000074255/1000138323/icon-s68e0e.png?v=8" alt="service">
-                                    </div>
-                                    <h3 class="title"><a href="6.html">Thanh toán</a></h3>
-                                </div>
-                                <div class="col-sm-6 text">
-                                    Thanh toán khi nhận hàng.
-                                    <br> Phương thức thanh toán đa dạng
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- ./service 2 -->
-        </div>
-        <!-- /.container -->
-    </div>
 
-@*<div class="vc_row wpb_row vc_row-fluid vc_custom_1471198040046 wpb_section wpb_padding divNews">
-    <div class="container">
-        <div class="row">
-            <div class="wpb_column vc_column_container vc_col-sm-12">
-                <div class="vc_column-inner ">
-                    <div class="wpb_wrapper">
-                        <div class="st-heading style-1 text-left clearfix">
-                            <h3 class="box-title pull-left">
-                                <a id="hypLastBlogCateName" runat="server">
-                                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                   @T("ThongTinTruyenThong")
-                                </a>
-                            </h3>
+@if (Model.IsAny())
+{
+    <div class="blog-list">
+        <h2 class="page-heading">
+            <span class="page-heading-title">@T("ThongTinTruyenThong")</span>
+        </h2>
+        <div class="blog-list-wapper">
+            <ul class="owl-carousel" data-dots="false" data-loop="true" data-nav="true" data-margin="30" data-autoplaytimeout="1000" data-autoplayhoverpause="true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <div class="post-thumb image-hover2">
+                            <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
+                                <img src="@Url.Content("~/" + item.ImageMediumSize)" alt='@item.Title'>
+                            </a>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="st-blog">
-                            <div class="row">
-                                 @foreach (var item in Model)
-                                 {
-                                        <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <div class="blog-container">
-                                                <div class="post-thumb">
-                                                    <a  href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
-                                                        <img width="600" height="400" src="@Url.Content("~/" + item.ImageMediumSize)" alt='@item.Title' title='@item.Title' class="attachment-slicetheme-small size-slicetheme-small wp-post-image"
-                                                             sizes="(max-width: 600px) 100vw, 600px" />
-                                                    </a>
-                                                </div>
-                                                <div class="blog-inner">
-                                                    <h4 class="post-title">
-                                                          <a  href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
-                                                            @item.Title
-                                                        </a>
-                                                    </h4>
-                                                    <div class="post-meta">
-                                                        <span class="post-author">
-                                                            <em>by</em>
-                                                            @item.CreatedDate.ToString("dd/MM/yyyy")
-                                                        </span>
-
-
-                                                    </div>
-                                                    <div class="post-excerpt">
-                                                        <p>
-                                                             @item.ShortDesc
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                 }
+                        <div class="post-desc">
+                            <h5 class="post-title">
+                                <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
+                                    @item.Title
+                                </a>
+                            </h5>
+                            <div class="post-meta">
+                                <span class="date">@item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                            <div class="readmore">
+                                <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">Xem thêm</a>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-            </div>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
-</div>*@
-
+}
 
 <!---/GetHomeNews--->

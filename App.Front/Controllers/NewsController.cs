@@ -78,40 +78,38 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Long")]
         public ActionResult GetHomeNews()
         {
-            IEnumerable<News> iePost = null;
+            ////Get danh sách menu có DisplayOnHomePage ==true
+            //var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 1 });
 
-            //Get danh sách menu có DisplayOnHomePage ==true
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 1 });
+            //if (!menuLinks.IsAny())
+            //{
+            //    return HttpNotFound();
+            //}
 
-            //Convert to localized
-            menuLinks = menuLinks.Select(x =>
-            {
-                return x.ToModel();
-            });
+            ////Convert to localized
+            //menuLinks = menuLinks.Select(x => x.ToModel());
 
-            if (menuLinks.IsAny())
-            {
-                ViewBag.MenuLinkHome = menuLinks;
+            var iePost = _newsService.GetByOption(isDisplayHomePage:true);
+            var lstPost = iePost.ToList();
 
-                List<News> lstPost = new List<News>();
+            //foreach (var item in menuLinks)
+            //{
+            //    iePost = _newsService.GetByOption(item.CurrentVirtualId, true);
 
-                foreach (var item in menuLinks)
-                {
-                    iePost = _newsService.GetByOption(item.CurrentVirtualId, true);
+            //    if (iePost.IsAny())
+            //    {
+            //        iePost = iePost.Select(x => x.ToModel());
 
-                    if (iePost.IsAny())
-                    {
-                        iePost = iePost.Select(x => x.ToModel());
+            //        lstPost.AddRange(iePost);
+            //    }
+            //}
 
-                        lstPost.AddRange(iePost);
-                    }
-                }
+            iePost = from x in lstPost orderby x.OrderDisplay descending select x;
 
-                iePost = from x in lstPost orderby x.OrderDisplay descending select x;
-            }
+            //ViewBag.MenuLinkHome = menuLinks;
 
             return PartialView(iePost);
         }
@@ -204,7 +202,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetVideoSlide(string virtualCategoryId)
+        public ActionResult GetVideoSlide()
         {
             List<News> news = new List<News>();
             IEnumerable<News> news1 = _newsService.FindBy(x => x.Video && x.Status == 1, true);

@@ -1,14 +1,10 @@
-using App.Core.Caching;
-using App.Core.Common;
+using System.Collections.Generic;
+using System.Linq;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Post
 {
@@ -21,14 +17,14 @@ namespace App.Infra.Data.Repository.Post
 
         public PostGallery GetById(int id)
         {
-            PostGallery postGallery = this.FindBy((App.Domain.Entities.Data.PostGallery x) => x.Id == id, false).FirstOrDefault();
+            PostGallery postGallery = FindBy(x => x.Id == id, false).FirstOrDefault();
             
             return postGallery;
         }
 
-        protected override IOrderedQueryable<PostGallery> GetDefaultOrder(IQueryable<App.Domain.Entities.Data.PostGallery> query)
+        protected override IOrderedQueryable<PostGallery> GetDefaultOrder(IQueryable<PostGallery> query)
         {
-            IOrderedQueryable<App.Domain.Entities.Data.PostGallery> PostGallery =
+            IOrderedQueryable<PostGallery> PostGallery =
                 from p in query
                 orderby p.Id
                 select p;
@@ -37,7 +33,7 @@ namespace App.Infra.Data.Repository.Post
 
         public IEnumerable<PostGallery> PagedList(Paging page)
         {
-            return this.GetAllPagedList(page).ToList<App.Domain.Entities.Data.PostGallery>();
+            return GetAllPagedList(page).ToList();
         }
 
         //public IEnumerable<App.Domain.Entities.Data.PostGallery> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)

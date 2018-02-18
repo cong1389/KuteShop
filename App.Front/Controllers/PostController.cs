@@ -52,12 +52,6 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Medium")]
-        public ActionResult FillterProduct(string attribute = null)
-        {
-            return PartialView();
-        }
-
-        [PartialCache("Medium")]
         public ActionResult GetAccesssoriesHome(int page, string id)
         {
             var expression = PredicateBuilder.True<Post>();
@@ -167,22 +161,9 @@ namespace App.Front.Controllers
             return PartialView(lstPost);
         }
 
-        [ChildActionOnly]
-        public ActionResult GetPostAccessory(string virtualId)
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId)
-            , x => x.UpdatedDate);
-
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView("_SlideProductHome", posts);
-        }
-
-        [PartialCache("Short")]
-        public ActionResult GetPostByCategory(string virtualCategoryId, int page, string title, string attrs, string prices, string proattrs, string keywords
+        //[PartialCache("Short")]
+        public ActionResult GetPostByCategory(string virtualCategoryId, int page, string title, string attrs,
+            string prices, string proattrs, string keywords
             , int? productOld, int? productNew)
         {
             Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
@@ -221,7 +202,7 @@ namespace App.Front.Controllers
                     select double.Parse(s)).ToList();
                 double item = nums[0];
                 double num = nums[1];
-                expression = expression.And(x => x.Price >= (item as double?) && x.Price <= (num as double?));
+                expression = expression.And(x => x.Price >= item && x.Price <= num);
                 ViewBag.Prices = nums;
             }
             if (!string.IsNullOrEmpty(proattrs))
@@ -255,10 +236,18 @@ namespace App.Front.Controllers
             }
 
             IEnumerable<Post> posts = _postService.GetBySort(expression, sortBuilder, paging);
+            IEnumerable<Post> postLocalized = null;
 
-            if (posts == null)
+            if (posts.IsAny())
             {
-                return HttpNotFound();
+                postLocalized = posts.Select(x => x.ToModel());
+
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                    i => Url.Action("GetContent", "Menu", new { page = i }));
+
+                ViewBag.PageInfo = pageInfo;
+                ViewBag.CountItem = pageInfo.TotalItems;
+                ViewBag.MenuId = postLocalized.ElementAt(0).MenuId;
             }
 
             //Get menu category filter
@@ -298,19 +287,6 @@ namespace App.Front.Controllers
                     Title = title
                 });
                 ViewBag.BreadCrumb = lstBreadCrumb;
-            }
-
-            IEnumerable<Post> postLocalized = null;
-
-            if (posts.IsAny())
-            {
-                postLocalized = posts.Select(x => x.ToModel());
-
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
-                ViewBag.PageInfo = pageInfo;
-                ViewBag.CountItem = pageInfo.TotalItems;
-                ViewBag.MenuId = postLocalized.ElementAt(0).MenuId;
-
             }
 
             ViewBag.Title = title;
@@ -394,6 +370,15 @@ namespace App.Front.Controllers
         {
             IEnumerable<Post> top = _postService.GetTop(9999, x => x.Status == 1 && x.OldOrNew);
             return PartialView(top);
+        }
+
+        [ChildActionOnly]
+        [PartialCache("Short")]
+        public ActionResult GetPostDiscount()
+        {
+            IEnumerable<Post> iePost = _postService.GetByOption(isDiscount: true);
+
+            return PartialView(iePost);
         }
 
         [PartialCache("Medium")]

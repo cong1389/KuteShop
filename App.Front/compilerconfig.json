@@ -14,5 +14,9 @@
   {
     "outputFile": "Themes/Basic/Content/shared/_buttons.css",
     "inputFile": "Themes/Basic/Content/shared/_buttons.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/_attributefilter.css",
+    "inputFile": "Themes/Basic/Content/_attributefilter.scss"
   }
 ]
