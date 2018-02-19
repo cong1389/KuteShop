@@ -1,25 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Services;
 using App.FakeEntity.ServerMail;
 using App.Framework.Ultis;
 using App.Service.MailSetting;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
 	public class MailSettingController : BaseAdminController
     {
-        private const string CACHE_MAILSETTING_KEY = "db.MailSetting";
+        private const string CacheMailsettingKey = "db.MailSetting";
         private readonly ICacheManager _cacheManager;
 
         private readonly IMailSettingService _mailSettingService;
@@ -27,52 +25,50 @@ namespace App.Admin.Controllers
 		public MailSettingController(IMailSettingService mailSettingService
             , ICacheManager cacheManager)
 		{
-			this._mailSettingService = mailSettingService;
+			_mailSettingService = mailSettingService;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_MAILSETTING_KEY);
+            _cacheManager.RemoveByPattern(CacheMailsettingKey);
 
         }
 
         [RequiredPermisson(Roles="CreateEditMailSetting")]
 		public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditMailSetting")]
-		public ActionResult Create(ServerMailSettingViewModel serverMail, string ReturnUrl)
+		public ActionResult Create(ServerMailSettingViewModel serverMail, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(serverMail);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(serverMail);
 				}
-				else
-				{
-					ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
-					this._mailSettingService.Create(serverMailSetting);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.ServerMailSetting)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
+			    _mailSettingService.Create(serverMailSetting);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.ServerMailSetting)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
-				return base.View(serverMail);
+				return View(serverMail);
 			}
 			return action;
 		}
@@ -86,8 +82,8 @@ namespace App.Admin.Controllers
 				{
 					IEnumerable<ServerMailSetting> serverMailSettings = 
 						from id in ids
-						select this._mailSettingService.GetById(int.Parse(id));
-					this._mailSettingService.BatchDelete(serverMailSettings);
+						select _mailSettingService.GetById(int.Parse(id));
+					_mailSettingService.BatchDelete(serverMailSettings);
 				}
 			}
 			catch (Exception exception1)
@@ -95,48 +91,46 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("ServerMailSetting.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
 		[RequiredPermisson(Roles="CreateEditMailSetting")]
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			ServerMailSettingViewModel serverMailSettingViewModel = Mapper.Map<ServerMailSetting, ServerMailSettingViewModel>(this._mailSettingService.GetById(Id));
-			return base.View(serverMailSettingViewModel);
+			ServerMailSettingViewModel serverMailSettingViewModel = Mapper.Map<ServerMailSetting, ServerMailSettingViewModel>(_mailSettingService.GetById(id));
+			return View(serverMailSettingViewModel);
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditMailSetting")]
-		public ActionResult Edit(ServerMailSettingViewModel serverMail, string ReturnUrl)
+		public ActionResult Edit(ServerMailSettingViewModel serverMail, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(serverMail);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(serverMail);
 				}
-				else
-				{
-					ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
-					this._mailSettingService.Update(serverMailSetting);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.ServerMailSetting)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
+			    _mailSettingService.Update(serverMailSetting);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.ServerMailSetting)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
-				return base.View(serverMail);
+				return View(serverMail);
 			}
 			return action;
 		}
@@ -144,29 +138,29 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="ViewMailSetting")]
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "FromAddress",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<ServerMailSetting> serverMailSettings = this._mailSettingService.PagedList(sortingPagingBuilder, paging);
-			if (serverMailSettings != null && serverMailSettings.Any<ServerMailSetting>())
+			IEnumerable<ServerMailSetting> serverMailSettings = _mailSettingService.PagedList(sortingPagingBuilder, paging);
+			if (serverMailSettings != null && serverMailSettings.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(serverMailSettings);
+			return View(serverMailSettings);
 		}
 	}
 }

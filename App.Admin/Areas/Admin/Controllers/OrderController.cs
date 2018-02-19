@@ -1,4 +1,9 @@
-﻿using App.Admin.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using App.Admin.Helpers;
 using App.Aplication.Extensions;
 using App.Core.Utils;
 using App.Domain.Orders;
@@ -7,11 +12,6 @@ using App.Framework.Ultis;
 using App.Service.Orders;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
@@ -36,7 +36,7 @@ namespace App.Admin.Controllers
 
             PrepareOrderDetailsModel(model, order);
 
-            return base.View(model);
+            return View(model);
         }
 
         [NonAction]
@@ -68,37 +68,35 @@ namespace App.Admin.Controllers
 
         [HttpPost]
         [RequiredPermisson(Roles = "ViewOrder")]
-        public ActionResult Edit(OrderViewModel OrderView, string ReturnUrl)
+        public ActionResult Edit(OrderViewModel orderView, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return base.View(OrderView);
+                    ModelState.AddModelError("", MessageUI.ErrorMessage);
+                    return View(orderView);
+                }
+
+                Order map = Mapper.Map<OrderViewModel, Order>(orderView);
+
+                _orderService.Update(map);
+
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Order)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    Order map = Mapper.Map<OrderViewModel, Order>(OrderView);
-
-                    this._orderService.Update(map);
-
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Order)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception ex)
             {
                 ExtentionUtils.Log(string.Concat("Order.Edit: ", ex.Message));
-                return base.View(OrderView);
+                return View(orderView);
             }
             return action;
         }
@@ -121,29 +119,29 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("Order.Delete: ", ex.Message));
             }
-            return base.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Index(int page = 1, string keywords = "")
         {
-            ((dynamic)base.ViewBag).Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+            ViewBag.Keywords = keywords;
+            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
-                Sorts = new SortBuilder()
+                Sorts = new SortBuilder
                 {
                     ColumnName = "Id",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<Order> orders = this._orderService.PagedList(sortingPagingBuilder, paging);
+            IEnumerable<Order> orders = _orderService.PagedList(sortingPagingBuilder, paging);
 
             OrderViewModel orderViewModel = new OrderViewModel();
             IEnumerable<OrderViewModel> model = orders.Select(m =>
@@ -153,11 +151,11 @@ namespace App.Admin.Controllers
 
             if (model != null && model.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                ViewBag.PageInfo = pageInfo;
             }
 
-            return base.View(model);
+            return View(model);
         }
     }
 }

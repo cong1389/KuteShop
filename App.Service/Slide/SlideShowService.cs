@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Entities.Slide;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Slide;
 using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Slide
 {
-    public class SlideShowService : BaseService<SlideShow>, ISlideShowService, IService
+    public class SlideShowService : BaseService<SlideShow>, ISlideShowService
     {
         private readonly ISlideShowRepository _slideShowRepository;
 

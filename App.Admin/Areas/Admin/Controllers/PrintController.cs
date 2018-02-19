@@ -1,6 +1,6 @@
-﻿using App.Domain.Entities.Data;
+﻿using System.Web.Mvc;
+using App.Domain.Entities.Data;
 using App.Service.Repairs;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
@@ -10,19 +10,19 @@ namespace App.Admin.Controllers
 
         public PrintController(IRepairService orderService)
         {
-            this._orderService = orderService;
+            _orderService = orderService;
         }
 
         public ActionResult Bill(int id)
         {
-            Repair order = this._orderService.Get((Repair x) => x.Id == id, false);
-            return base.View(order);
+            Repair order = _orderService.Get(x => x.Id == id);
+            return View(order);
         }
 
         public ActionResult Warranty(int id)
         {
-            Repair order = this._orderService.Get((Repair x) => x.Id == id, false);
-            return base.View(order);
+            Repair order = _orderService.Get(x => x.Id == id);
+            return View(order);
         }
     }
 }

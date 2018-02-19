@@ -2,7 +2,19 @@
 @using App.Aplication
 @model App.Front.Models.ShoppingCart.MiniShoppingCartModel
 
-<a href="@Url.Action("Cart","ShoppingCart")" id="top-cart-trigger" class=''>
+<div class="btn-cart" id="cart-block">
+    <a title="My cart" href="../cart.html">Cart</a>
+    <span class="notify notify-right">@(Model.Items.Count())</span>
+    <div class="cart-block">
+
+        <div class="cart-empty">
+            Giỏ hàng của bạn vẫn chưa có sản phẩm nào.
+        </div>
+
+    </div>
+</div>
+
+@*<a href="@Url.Action("Cart","ShoppingCart")" id="top-cart-trigger" class=''>
     <i class='fa fa-shopping-cart'></i>
     <span class='top_cart_qty'>@(Model.Items.Count())</span>
 </a>
@@ -57,5 +69,5 @@
             <button onclick="window.location.href='@Url.Action("Cart","ShoppingCart")'" class="button button-small nomargin fright">Xem giỏ hàng</button>
         </div>
     }
-</div>
+</div>*@
 <!----/_Order.TopCart-->

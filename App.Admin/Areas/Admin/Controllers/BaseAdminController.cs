@@ -1,9 +1,9 @@
-using App.Service.Language;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
+using App.Service.Language;
 
 namespace App.Admin.Controllers
 {
@@ -16,7 +16,7 @@ namespace App.Admin.Controllers
 
         protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales, Action<TLocalizedPropertyViewModelLocal, int> configure) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
-            foreach (var language in languageService.FindBy((App.Domain.Entities.Language.Language x) => x.Status == 1))
+            foreach (var language in languageService.FindBy(x => x.Status == 1))
             {
                 var locale = Activator.CreateInstance<TLocalizedPropertyViewModelLocal>();
                 locale.LanguageId = language.Id;
@@ -28,7 +28,7 @@ namespace App.Admin.Controllers
             }
         }
 
-        public int _pageSize
+        public int PageSize
 		{
 			get
 			{
@@ -36,11 +36,7 @@ namespace App.Admin.Controllers
 			}
 		}
 
-		public BaseAdminController()
-		{
-		}
-
-		protected string RenderRazorViewToString(string viewName, object model)
+	    protected string RenderRazorViewToString(string viewName, object model)
 		{
 			string str=string.Empty;
             try

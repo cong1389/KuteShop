@@ -1,4 +1,10 @@
-﻿using App.Admin.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using App.Admin.Helpers;
+using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
@@ -7,80 +13,71 @@ using App.FakeEntity.GenericControl;
 using App.Framework.Ultis;
 using App.Service.GenericControl;
 using App.Service.Menu;
-using App.Aplication;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
     public class GenericControlValueController : BaseAdminController
     {
-        private const string CACHE_GENERICCONTROLVALUE_KEY = "db.GenericControlValue";
+        private const string CacheGenericcontrolvalueKey = "db.GenericControlValue";
         private readonly ICacheManager _cacheManager;
 
         private readonly IGenericControlValueService _genericControlValueService;
         private readonly IGenericControlService _genericControlService;
         private readonly IMenuLinkService _menuLinkService;
 
-        public GenericControlValueController(IGenericControlValueService GenericControlValueService
+        public GenericControlValueController(IGenericControlValueService genericControlValueService
             , IGenericControlService genericControlService
             , IMenuLinkService menuLinkService
             , ICacheManager cacheManager)
         {
-            this._genericControlValueService = GenericControlValueService;
-            this._genericControlService = genericControlService;
-            this._menuLinkService = menuLinkService;
+            _genericControlValueService = genericControlValueService;
+            _genericControlService = genericControlService;
+            _menuLinkService = menuLinkService;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_GENERICCONTROLVALUE_KEY);
+            _cacheManager.RemoveByPattern(CacheGenericcontrolvalueKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
         public ActionResult Create()
         {
-            return base.View();
+            return View();
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
-        public ActionResult Create(GenericControlValueViewModel model, string ReturnUrl)
+        public ActionResult Create(GenericControlValueViewModel model, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return base.View(model);
+                    ModelState.AddModelError("", MessageUI.ErrorMessage);
+                    return View(model);
+                }
+
+                GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
+                _genericControlValueService.Create(modelMap);
+
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Name)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
-                    this._genericControlValueService.Create(modelMap);
-
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Name)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Create: ", exception.Message));
-                return base.View(model);
+                return View(model);
             }
             return action;
         }
@@ -92,10 +89,10 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<GenericControlValue> GenericControlValues =
+                    IEnumerable<GenericControlValue> genericControlValues =
                         from id in ids
-                        select this._genericControlValueService.GetById(int.Parse(id));
-                    this._genericControlValueService.BatchDelete(GenericControlValues);
+                        select _genericControlValueService.GetById(int.Parse(id));
+                    _genericControlValueService.BatchDelete(genericControlValues);
                 }
             }
             catch (Exception exception1)
@@ -103,55 +100,53 @@ namespace App.Admin.Controllers
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Delete: ", exception.Message));
             }
-            return base.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            GenericControlValueViewModel genericControlValueViewModel = Mapper.Map<GenericControlValue, GenericControlValueViewModel>(this._genericControlValueService.GetById(Id));
+            GenericControlValueViewModel genericControlValueViewModel = Mapper.Map<GenericControlValue, GenericControlValueViewModel>(_genericControlValueService.GetById(id));
 
             //_genericControlValueService.GetById(Id)
 
 
-            return base.View(genericControlValueViewModel);
+            return View(genericControlValueViewModel);
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
-        public ActionResult Edit(GenericControlValueViewModel model, string ReturnUrl)
+        public ActionResult Edit(GenericControlValueViewModel model, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return base.View(model);
+                    ModelState.AddModelError("", MessageUI.ErrorMessage);
+                    return View(model);
+                }
+
+                GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
+
+                _genericControlValueService.Update(modelMap);
+
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Name)));
+
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
-
-                    _genericControlValueService.Update(modelMap);
-
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Name)));
-
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Edit: ", exception.Message));
-                return base.View(model);
+                return View(model);
             }
             return action;
         }
@@ -159,38 +154,38 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "ViewGenericControlValue")]
         public ActionResult Index(int page = 1, string keywords = "")
         {
-            ((dynamic)base.ViewBag).Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+            ViewBag.Keywords = keywords;
+            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
-                Sorts = new SortBuilder()
+                Sorts = new SortBuilder
                 {
                     ColumnName = "CreatedDate",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
-            List<GenericControlValue> list = this._genericControlValueService.PagedList(sortingPagingBuilder, paging).ToList<GenericControlValue>();
-            list.ForEach((GenericControlValue item) => item.GenericControl = this._genericControlService.GetById(item.GenericControlId));
-            if (list != null && list.Any<GenericControlValue>())
+            List<GenericControlValue> list = _genericControlValueService.PagedList(sortingPagingBuilder, paging).ToList();
+            list.ForEach(item => item.GenericControl = _genericControlService.GetById(item.GenericControlId));
+            if (list != null && list.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                ViewBag.PageInfo = pageInfo;
             }
-            return base.View(list);
+            return View(list);
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                IEnumerable<GenericControl> all = this._genericControlService.GetAll();
-                ((dynamic)base.ViewBag).GenericControls = all;
+                IEnumerable<GenericControl> all = _genericControlService.GetAll();
+                ViewBag.GenericControls = all;
             }
         }
 
@@ -202,16 +197,16 @@ namespace App.Admin.Controllers
             MenuLink menuLink = _menuLinkService.GetById(menuId);
             if (menuLink != null)
             {
-                IEnumerable<GenericControl> ieGC = menuLink.GenericControls;
-                if (ieGC.IsAny())
+                IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
+                if (ieGc.IsAny())
                 {
-                    foreach (GenericControl item in ieGC)
+                    foreach (GenericControl item in ieGc)
                     {
-                        IEnumerable<GenericControlValue> gCVDefault = item.GenericControlValues.Where(m => m.Status == 1);
+                        IEnumerable<GenericControlValue> gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
                         //if (gCVDefault.IsAny())
                         //    break;                       
 
-                        foreach (var gcValue in gCVDefault)
+                        foreach (var gcValue in gCvDefault)
                         {
                             ControlValueItemResponse objValueResponse = new ControlValueItemResponse();
 
@@ -229,7 +224,7 @@ namespace App.Admin.Controllers
                  new
                  {
                      success = lstValueResponse.Count() > 0,
-                     list = this.RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", lstValueResponse)
+                     list = RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", lstValueResponse)
                  },
                  JsonRequestBehavior.AllowGet);
 

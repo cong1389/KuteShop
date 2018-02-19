@@ -1,16 +1,12 @@
-using App.Core.Common;
-using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Services;
-using App.Service.News;
-using App.Service.Post;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Domain.Entities.Data;
+using App.Service.News;
+using App.Service.Post;
 
 namespace App.Admin.Controllers
 {
@@ -22,39 +18,39 @@ namespace App.Admin.Controllers
 
         public DashBoardController(IPostService postService, INewsService newsService)
         {
-            this._postService = postService;
-            this._newsService = newsService;
+            _postService = postService;
+            _newsService = newsService;
         }
 
         public async Task<JsonResult> GetNewRealtime()
         {
-            INewsService newsService = this._newsService;
+            INewsService newsService = _newsService;
 
-            Expression<Func<News, bool>> status = (News x) => x.Status >= 0;
+            Expression<Func<News, bool>> status = x => x.Status >= 0;
 
-            IEnumerable<News> top = newsService.GetTop(50, status, (News x) => x.CreatedDate);
-            IOrderedEnumerable<News> news = await Task.FromResult<IOrderedEnumerable<News>>(
+            IEnumerable<News> top = newsService.GetTop(50, status, x => x.CreatedDate);
+            IOrderedEnumerable<News> news = await Task.FromResult(
                 from x in top
                 orderby x.CreatedDate descending
                 select x);
 
             IOrderedEnumerable<News> news1 = news;
 
-            JsonResult jsonResult = this.Json(new { list = this.RenderRazorViewToString("_DashBoardNews", news) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult = Json(new { list = RenderRazorViewToString("_DashBoardNews", news) }, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         public async Task<JsonResult> GetPostRealtime()
         {
-            IPostService postService = this._postService;
-            Expression<Func<Post, bool>> status = (Post x) => x.Status >= 0;
-            IEnumerable<Post> top = postService.GetTop<DateTime>(50, status, (Post x) => x.CreatedDate);
-            IOrderedEnumerable<Post> posts = await Task.FromResult<IOrderedEnumerable<Post>>(
+            IPostService postService = _postService;
+            Expression<Func<Post, bool>> status = x => x.Status >= 0;
+            IEnumerable<Post> top = postService.GetTop(50, status, x => x.CreatedDate);
+            IOrderedEnumerable<Post> posts = await Task.FromResult(
                 from x in top
                 orderby x.CreatedDate descending
                 select x);
             IOrderedEnumerable<Post> posts1 = posts;
-            JsonResult jsonResult = this.Json(new { success = true, list = this.RenderRazorViewToString("_DashBoardPost", posts1) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult = Json(new { success = true, list = RenderRazorViewToString("_DashBoardPost", posts1) }, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

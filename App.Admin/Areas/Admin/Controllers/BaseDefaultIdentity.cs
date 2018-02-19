@@ -1,15 +1,11 @@
-using App.Domain.Entities.Identity;
-using App.Aplication;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
 using System.Web;
-using System.Web.Mvc;
+using App.Aplication;
+using App.Domain.Entities.Identity;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 namespace App.Admin.Controllers
 {
@@ -23,7 +19,7 @@ namespace App.Admin.Controllers
 		{
 			get
 			{
-				return base.HttpContext.GetOwinContext().Authentication;
+				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
 
@@ -33,22 +29,22 @@ namespace App.Admin.Controllers
 
 		protected BaseDefaultIdentity(UserManager<IdentityUser, Guid> userManager)
 		{
-			this.UserManager = userManager;
+			UserManager = userManager;
 		}
 
 		protected void AddErrors(IdentityResult result)
 		{
 			foreach (string error in result.Errors)
 			{
-				base.ModelState.AddModelError("", error);
+				ModelState.AddModelError("", error);
 			}
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && this.UserManager != null)
+			if (disposing && UserManager != null)
 			{
-				this.UserManager.Dispose();
+				UserManager.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -63,14 +59,14 @@ namespace App.Admin.Controllers
 		protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
 		{
 			return (
-				from auth in this.AuthenticationManager.GetAuthenticationTypes()
-				where userLogins.All<UserLoginInfo>((UserLoginInfo ul) => auth.AuthenticationType != ul.LoginProvider)
-				select auth).ToList<AuthenticationDescription>();
+				from auth in AuthenticationManager.GetAuthenticationTypes()
+				where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
+				select auth).ToList();
 		}
 
 		protected bool HasPassword()
 		{
-			IdentityUser identityUser = this.UserManager.FindById<IdentityUser, Guid>(this.GetGuid(base.User.Identity.GetUserId()));
+			IdentityUser identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
 			if (identityUser == null)
 			{
 				return false;

@@ -1,18 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Utils;
 using App.Domain.Entities.Brandes;
-using App.Domain.Interfaces.Services;
 using App.FakeEntity.Brandes;
 using App.Framework.Ultis;
 using App.Service.Brandes;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
@@ -22,47 +20,45 @@ namespace App.Admin.Controllers
 
 		public BrandController(IBrandService brandService)
 		{
-			this._brandService = brandService;
+			_brandService = brandService;
 		}
 
 		[RequiredPermisson(Roles="ViewBrand")]
 		public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="ViewBrand")]
-		public ActionResult Create(BrandViewModel Brand, string ReturnUrl)
+		public ActionResult Create(BrandViewModel brand, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(Brand);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(brand);
 				}
-				else
-				{
-					Brand Brand1 = Mapper.Map<BrandViewModel, Brand>(Brand);
-					this._brandService.Create(Brand1);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Brand)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    Brand brand1 = Mapper.Map<BrandViewModel, Brand>(brand);
+			    _brandService.Create(brand1);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Brand)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Brand.Create: ", exception.Message));
-				return base.View(Brand);
+				return View(brand);
 			}
 			return action;
 		}
@@ -74,10 +70,10 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<Brand> Brands = 
+					IEnumerable<Brand> brands = 
 						from id in ids
-						select this._brandService.GetById(int.Parse(id));
-					this._brandService.BatchDelete(Brands);
+						select _brandService.GetById(int.Parse(id));
+					_brandService.BatchDelete(brands);
 				}
 			}
 			catch (Exception exception1)
@@ -85,47 +81,45 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Brand.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
         		
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			BrandViewModel BrandViewModel = Mapper.Map<Brand, BrandViewModel>(this._brandService.GetById(Id));
-			return base.View(BrandViewModel);
+			BrandViewModel brandViewModel = Mapper.Map<Brand, BrandViewModel>(_brandService.GetById(id));
+			return View(brandViewModel);
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="ViewBrand")]
-		public ActionResult Edit(BrandViewModel BrandView, string ReturnUrl)
+		public ActionResult Edit(BrandViewModel brandView, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(BrandView);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(brandView);
 				}
-				else
-				{
-					Brand Brand = Mapper.Map<BrandViewModel, Brand>(BrandView);
-					this._brandService.Update(Brand);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Brand)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    Brand brand = Mapper.Map<BrandViewModel, Brand>(brandView);
+			    _brandService.Update(brand);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Brand)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
-				return base.View(BrandView);
+				return View(brandView);
 			}
 			return action;
 		}
@@ -133,29 +127,29 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="ViewBrand")]
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "Name",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Brand> Brands = this._brandService.PagedList(sortingPagingBuilder, paging);
-			if (Brands != null && Brands.Any<Brand>())
+			IEnumerable<Brand> brands = _brandService.PagedList(sortingPagingBuilder, paging);
+			if (brands != null && brands.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(Brands);
+			return View(brands);
 		}
 	}
 }

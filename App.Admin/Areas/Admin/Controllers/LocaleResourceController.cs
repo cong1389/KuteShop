@@ -1,4 +1,6 @@
-﻿using App.Admin.Controllers;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 using App.Core.Caching;
 using App.Domain.Entities.Language;
 using App.FakeEntity.Language;
@@ -6,19 +8,13 @@ using App.Service.Common;
 using App.Service.Language;
 using App.Service.LocaleStringResource;
 using AutoMapper;
-using Microsoft.AspNet.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
     public class LocaleResourceController : BaseAdminController
     {
-        private const string CACHE_LANGUAGE_KEY = "db.Language";
-        private const string CACHE_LOCALSTRINGRESOURCE_KEY = "db.LocaleStringResource";
+        private const string CacheLanguageKey = "db.Language";
+        private const string CacheLocalstringresourceKey = "db.LocaleStringResource";
         private readonly ICacheManager _cacheManager;
 
         private readonly ILanguageService _langService;
@@ -32,14 +28,14 @@ namespace App.Admin.Controllers
             , ILanguageService langService
              , ICacheManager cacheManager)
         {
-            this._langService = langService;
-            this._services = services;
-            this._localeStringResourceService = localeStringResourceService;
+            _langService = langService;
+            _services = services;
+            _localeStringResourceService = localeStringResourceService;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_LANGUAGE_KEY);
-            _cacheManager.RemoveByPattern(CACHE_LOCALSTRINGRESOURCE_KEY);
+            _cacheManager.RemoveByPattern(CacheLanguageKey);
+            _cacheManager.RemoveByPattern(CacheLocalstringresourceKey);
         }
 
         public ActionResult Index(int languageId, int page = 1, string keywords = "")
@@ -53,9 +49,9 @@ namespace App.Admin.Controllers
             ViewBag.keywords = keywords;
 
             IEnumerable<Language> all = _langService.GetAll();
-            ((dynamic)base.ViewBag).AllLanguage = all;
+            ViewBag.AllLanguage = all;
 
-            return base.View(resources);
+            return View(resources);
         }
 
         //public ActionResult Resource(int languageId)
@@ -91,7 +87,7 @@ namespace App.Admin.Controllers
             //var resources = _services.Localization.GetByLanguageId(1);
             //ViewBag.Localization = resources;
 
-            return base.Json(
+            return Json(
                 new
                 {
                     succes = true
@@ -104,7 +100,7 @@ namespace App.Admin.Controllers
             LocaleStringResource locale = _services.Localization.GetById(int.Parse(id));
             _services.Localization.Delete(locale);
 
-            return base.Json(
+            return Json(
                 new { success = true }
                 , JsonRequestBehavior.AllowGet);
         }
@@ -114,9 +110,9 @@ namespace App.Admin.Controllers
             LocaleStringResource model = new LocaleStringResource();
             model.LanguageId = int.Parse(languageId);
 
-            string newRow = this.RenderRazorViewToString("_NewRow", model);
+            string newRow = RenderRazorViewToString("_NewRow", model);
 
-            return base.Json(new { data = newRow, success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = newRow, success = true }, JsonRequestBehavior.AllowGet);
         }
 
     }

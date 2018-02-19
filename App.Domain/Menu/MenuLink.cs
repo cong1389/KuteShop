@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Entities.Menu
 {
-	public sealed class MenuLink : AuditableEntity<int>, IEnumerable
-	{
+    public class MenuLink : AuditableEntity<int>
+    {
 		public ICollection<Banner> Banners
 		{
 			get;
@@ -187,36 +187,15 @@ namespace App.Domain.Entities.Menu
 			get;
 			set;
 		}
-        
-        public ICollection<GenericControl.GenericControl> GenericControls
-        {
-            get; set;
-        }
 
-        // public ICollection<GenericControl.GenericControl> GenericControls { get; set; }
-
-        //public ICollection<GenericControl.GenericControl> _genericControls;
-        //public ICollection<GenericControl.GenericControl> GenericControls
-        //{
-        //    get
-        //    {
-        //        return _genericControls ?? (_genericControls = new HashSet<GenericControl.GenericControl>());
-        //    }
-        //    set
-        //    {
-        //        this._genericControls = value;
-        //    }
-        //}
+	    public virtual ICollection<GenericControl.GenericControl> GenericControls
+	    {
+	        get; set;
+	    }
 
         public MenuLink()
 		{
-            GenericControls = new List<GenericControl.GenericControl>();
-
+		    GenericControls = new List<GenericControl.GenericControl>();
         }
-
-	    public IEnumerator GetEnumerator()
-	    {
-	        throw new System.NotImplementedException();
-	    }
 	}
 }

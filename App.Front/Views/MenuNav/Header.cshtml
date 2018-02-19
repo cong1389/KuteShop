@@ -14,20 +14,13 @@
                 </div>
                 <div class="col-xs-7 col-sm-7 header-search-box">
                     @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
-                   
+
                 </div>
                 <div class="col-xs-5 col-sm-2 group-button-header new-login">
-                    <!--<a title="Compare" href="#" class="btn-compare">compare</a>-->
+
                     <a title="Đăng nhập" href="account/login.html" class="btn-heart">wishlist</a>
-                    <div class="btn-cart" id="cart-block">
-                        <a title="My cart" href="cart.html">Cart</a>
-                        <span class="notify notify-right">0</span>
-                        <div class="cart-block">
-                            <div class="cart-empty">
-                                Giỏ hàng của bạn vẫn chưa có sản phẩm nào.
-                            </div>
-                        </div>
-                    </div>
+                    <div id="top-cart"></div>
+
                 </div>
             </div>
         </div>
@@ -61,19 +54,19 @@
             </div>
         </div>
     </div>
+}
+<script>
 
-    @*@Html.Action("GetTopMenuMobile", "MenuNav", new { area = "" })
+    function ViewPopupCart() {
+        jQuery.post('/shoppingcart/GetPopupCart')
+            .done(function (data) {
+                jQuery("#top-cart").html(data.list);
+            });
+    }
 
-        <header id="header" class='style_1'>
-            <div id="header-wrap" class=''>
-                <div class="container clearfix">
-                    @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
+    jQuery(document).ready(function () {
+        ViewPopupCart();
+    });
 
-                    @Html.Action("GetLogo", "Summary", new { area = "" })
-
-                </div>
-            </div>
-        </header>*@
-                        }
-
+</script>
 <!---/Header--->

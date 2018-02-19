@@ -1,5 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Step;
@@ -7,19 +14,12 @@ using App.Framework.Ultis;
 using App.Service.Step;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using App.Core.Caching;
-using System.IO;
 
 namespace App.Admin.Controllers
 {
     public class FlowStepController : BaseAdminController
     {
-        private const string CACHE_FLOWSTEP_KEY = "db.FlowStep";
+        private const string CacheFlowstepKey = "db.FlowStep";
         private readonly ICacheManager _cacheManager;
 
         private readonly IFlowStepService _flowStepService;
@@ -29,70 +29,68 @@ namespace App.Admin.Controllers
 		public FlowStepController(IFlowStepService flowStepService, IImagePlugin imagePlugin
             , ICacheManager cacheManager)
 		{
-			this._flowStepService = flowStepService;
-			this._imagePlugin = imagePlugin;
+			_flowStepService = flowStepService;
+			_imagePlugin = imagePlugin;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_FLOWSTEP_KEY);
+            _cacheManager.RemoveByPattern(CacheFlowstepKey);
 
         }
 
         [RequiredPermisson(Roles="CreateEditFlowStep")]
 		public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditFlowStep")]
-		public ActionResult Create(FlowStepViewModel model, string ReturnUrl)
+		public ActionResult Create(FlowStepViewModel model, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(model);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(model);
 				}
-				else
-				{
-                    string titleNonAccent = model.Title.NonAccent();
-                    if (model.Image != null && model.Image.ContentLength > 0)
-					{
-                        string fileExtension = Path.GetExtension(model.Image.FileName);
-                        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-      //                  int? nullable = null;
-						//int? nullable1 = nullable;
-						//nullable = null;
 
-                        _imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
+			    string titleNonAccent = model.Title.NonAccent();
+			    if (model.Image != null && model.Image.ContentLength > 0)
+			    {
+			        string fileExtension = Path.GetExtension(model.Image.FileName);
+			        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+			        //                  int? nullable = null;
+			        //int? nullable1 = nullable;
+			        //nullable = null;
 
-                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
-					}
+			        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.FlowStepFolder}", fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize);
 
-					FlowStep flowStep = Mapper.Map<FlowStepViewModel, FlowStep>(model);
+			        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
+			    }
 
-					this._flowStepService.Create(flowStep);
+			    FlowStep flowStep = Mapper.Map<FlowStepViewModel, FlowStep>(model);
 
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.FlowStep)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+			    _flowStepService.Create(flowStep);
+
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.FlowStep)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Post.Create: ", exception.Message));
-				base.ModelState.AddModelError("", exception.Message);
-				return base.View(model);
+				ModelState.AddModelError("", exception.Message);
+				return View(model);
 			}
 			return action;
 		}
@@ -106,8 +104,8 @@ namespace App.Admin.Controllers
 				{
 					IEnumerable<FlowStep> flowSteps = 
 						from id in ids
-						select this._flowStepService.Get((FlowStep x) => x.Id == id, false);
-					this._flowStepService.BatchDelete(flowSteps);
+						select _flowStepService.Get(x => x.Id == id);
+					_flowStepService.BatchDelete(flowSteps);
 				}
 			}
 			catch (Exception exception1)
@@ -115,68 +113,66 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Post.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
 		[RequiredPermisson(Roles="CreateEditFlowStep")]
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			FlowStepViewModel flowStepViewModel = Mapper.Map<FlowStep, FlowStepViewModel>(this._flowStepService.Get((FlowStep x) => x.Id == Id, false));
-			return base.View(flowStepViewModel);
+			FlowStepViewModel flowStepViewModel = Mapper.Map<FlowStep, FlowStepViewModel>(_flowStepService.Get(x => x.Id == id));
+			return View(flowStepViewModel);
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditFlowStep")]
-		public ActionResult Edit(FlowStepViewModel model, string ReturnUrl)
+		public ActionResult Edit(FlowStepViewModel model, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(model);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(model);
 				}
-				else
-				{
-					FlowStep byId = this._flowStepService.Get((FlowStep x) => x.Id == model.Id, false);
 
-					string titleNonAccent = model.Title.NonAccent();
-					if (model.Image != null && model.Image.ContentLength > 0)
-					{
-                        string fileExtension = Path.GetExtension(model.Image.FileName);
+			    FlowStep byId = _flowStepService.Get(x => x.Id == model.Id);
+
+			    string titleNonAccent = model.Title.NonAccent();
+			    if (model.Image != null && model.Image.ContentLength > 0)
+			    {
+			        string fileExtension = Path.GetExtension(model.Image.FileName);
                         
-                        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-      //                  int? nullable = null;
-						//int? nullable1 = nullable;
-						//nullable = null;
+			        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+			        //                  int? nullable = null;
+			        //int? nullable1 = nullable;
+			        //nullable = null;
 
-						this._imagePlugin.CropAndResizeImage(model.Image, string.Format("{0}", Contains.FlowStepFolder), fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize, false);
+			        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.FlowStepFolder}", fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize);
 
-                        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
-					}
+			        model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
+			    }
 
-					FlowStep flowStep1 = Mapper.Map(model, byId);
+			    FlowStep flowStep1 = Mapper.Map(model, byId);
 
-                    _flowStepService.Update(flowStep1);
+			    _flowStepService.Update(flowStep1);
 
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.FlowStep)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.FlowStep)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.ModelState.AddModelError("", exception.Message);
+				ModelState.AddModelError("", exception.Message);
 				ExtentionUtils.Log(string.Concat("Post.Edit: ", exception.Message));
-				return base.View(model);
+				return View(model);
 			}
 			return action;
 		}
@@ -184,29 +180,29 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="ViewFlowStep")]
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "CreatedDate",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<FlowStep> flowSteps = this._flowStepService.PagedList(sortingPagingBuilder, paging);
-			if (flowSteps != null && flowSteps.Any<FlowStep>())
+			IEnumerable<FlowStep> flowSteps = _flowStepService.PagedList(sortingPagingBuilder, paging);
+			if (flowSteps != null && flowSteps.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(flowSteps);
+			return View(flowSteps);
 		}
 	}
 }

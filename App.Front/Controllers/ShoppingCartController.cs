@@ -143,7 +143,7 @@ namespace App.Front.Controllers
             if (cart == null)
                 throw new ArgumentNullException("cart");
 
-            if (cart.Count() == 0)
+            if (!cart.Any())
                 return;
         }
 

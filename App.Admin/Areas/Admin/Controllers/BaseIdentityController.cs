@@ -1,17 +1,17 @@
-using App.Domain.Entities.Identity;
-using App.Aplication;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using App.Aplication;
+using App.Domain.Entities.Identity;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 namespace App.Admin.Controllers
 {
     public abstract class BaseIdentityController : BaseAdminController
     {
-        protected readonly UserManager<IdentityUser, Guid> _userManager;
+        protected readonly UserManager<IdentityUser, Guid> UserManager;
 
         protected string XsrfKey = AccountUtils.XsrfKey;
 
@@ -19,7 +19,7 @@ namespace App.Admin.Controllers
         {
             get
             {
-                return base.HttpContext.GetOwinContext().Authentication;
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -29,22 +29,22 @@ namespace App.Admin.Controllers
 
         protected BaseIdentityController(UserManager<IdentityUser, Guid> userManager)
         {
-            this._userManager = userManager;
+            UserManager = userManager;
         }
 
         protected void AddErrors(IdentityResult result)
         {
             foreach (string error in result.Errors)
             {
-                base.ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error);
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this._userManager != null)
+            if (disposing && UserManager != null)
             {
-                this._userManager.Dispose();
+                UserManager.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -59,9 +59,9 @@ namespace App.Admin.Controllers
         protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
         {
             return (
-                from auth in this.AuthenticationManager.GetAuthenticationTypes()
-                where userLogins.All<UserLoginInfo>((UserLoginInfo ul) => auth.AuthenticationType != ul.LoginProvider)
-                select auth).ToList<AuthenticationDescription>();
+                from auth in AuthenticationManager.GetAuthenticationTypes()
+                where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
+                select auth).ToList();
         }
     }
 }

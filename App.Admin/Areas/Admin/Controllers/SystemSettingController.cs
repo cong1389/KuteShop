@@ -1,30 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
+using App.Aplication;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Services;
 using App.FakeEntity.System;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.SystemApp;
-using App.Aplication;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
-using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
     public class SystemSettingController : BaseAdminController
     {
-        private const string CACHE_SYSTEMSETTING_KEY = "db.SystemSetting";
+        private const string CacheSystemsettingKey = "db.SystemSetting";
         private readonly ICacheManager _cacheManager;
 
         private readonly ISystemSettingService _systemSettingService;
@@ -40,13 +37,13 @@ namespace App.Admin.Controllers
              , ICacheManager cacheManager
             )
         {
-            this._systemSettingService = systemSettingService;
-            this._languageService = languageService;
-            this._localizedPropertyService = localizedPropertyService;
+            _systemSettingService = systemSettingService;
+            _languageService = languageService;
+            _localizedPropertyService = localizedPropertyService;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_SYSTEMSETTING_KEY);
+            _cacheManager.RemoveByPattern(CacheSystemsettingKey);
 
         }
 
@@ -58,101 +55,99 @@ namespace App.Admin.Controllers
             //Add locales to model
             AddLocales(_languageService, model.Locales);
 
-            return base.View(model);
+            return View(model);
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
-        public ActionResult Create(SystemSettingViewModel model, string ReturnUrl)
+        public ActionResult Create(SystemSettingViewModel model, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
-                    base.ModelState.AddModelError("", messages);
-                    return base.View(model);
+                    ModelState.AddModelError("", messages);
+                    return View(model);
+                }
+
+                if (model.Status == 1)
+                {
+                    IEnumerable<SystemSetting> systemSettings = _systemSettingService.FindBy(x => x.Status == 1);
+                    if (systemSettings.IsAny())
+                    {
+                        foreach (SystemSetting systemSetting1 in systemSettings)
+                        {
+                            systemSetting1.Status = 0;
+                            _systemSettingService.Update(systemSetting1);
+                        }
+                    }
+                }
+
+                if (model.Favicon != null && model.Favicon.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(model.Favicon.FileName);
+                    string extension = Path.GetExtension(model.Favicon.FileName);
+                    fileName = string.Concat("favicon", extension);
+                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(str))
+                        System.IO.File.Delete(str);
+
+                    model.Favicon.SaveAs(str);
+                    model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
+                }
+
+                if (model.Logo != null && model.Logo.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(model.Logo.FileName);
+                    string extension = Path.GetExtension(model.Logo.FileName);
+                    fileName = string.Concat("logo", extension);
+                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(str))
+                        System.IO.File.Delete(str);
+
+                    model.Logo.SaveAs(str);
+                    model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
+                }
+
+                SystemSetting modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model);
+                _systemSettingService.Create(modelMap);
+
+                //Update Localized   
+                foreach (var localized in model.Locales)
+                {
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Title, localized.Title, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.FooterContent, localized.FooterContent, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaTitle, localized.MetaTitle, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaKeywords, localized.MetaKeywords, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.TimeWork, localized.TimeWork, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
+                }
+
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SystemSetting)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    if (model.Status == 1)
-                    {
-                        IEnumerable<SystemSetting> systemSettings = this._systemSettingService.FindBy((SystemSetting x) => x.Status == 1, false);
-                        if (systemSettings.IsAny<SystemSetting>())
-                        {
-                            foreach (SystemSetting systemSetting1 in systemSettings)
-                            {
-                                systemSetting1.Status = 0;
-                                this._systemSettingService.Update(systemSetting1);
-                            }
-                        }
-                    }
-
-                    if (model.Favicon != null && model.Favicon.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileName(model.Favicon.FileName);
-                        string extension = Path.GetExtension(model.Favicon.FileName);
-                        fileName = string.Concat("favicon", extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
-
-                        //Check and delete logo exists
-                        if (System.IO.File.Exists(str))
-                            System.IO.File.Delete(str);
-
-                        model.Favicon.SaveAs(str);
-                        model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
-                    }
-
-                    if (model.Logo != null && model.Logo.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileName(model.Logo.FileName);
-                        string extension = Path.GetExtension(model.Logo.FileName);
-                        fileName = string.Concat("logo", extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
-
-                        //Check and delete logo exists
-                        if (System.IO.File.Exists(str))
-                            System.IO.File.Delete(str);
-
-                        model.Logo.SaveAs(str);
-                        model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
-                    }
-
-                    SystemSetting modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model);
-                    this._systemSettingService.Create(modelMap);
-
-                    //Update Localized   
-                    foreach (var localized in model.Locales)
-                    {
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Title, localized.Title, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.FooterContent, localized.FooterContent, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaTitle, localized.MetaTitle, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaKeywords, localized.MetaKeywords, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.TimeWork, localized.TimeWork, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
-                    }
-
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SystemSetting)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("SystemSetting.Create: ", exception.Message));
-                base.ModelState.AddModelError("", exception.Message);
-                return base.View(model);
+                ModelState.AddModelError("", exception.Message);
+                return View(model);
             }
             return action;
         }
@@ -166,8 +161,8 @@ namespace App.Admin.Controllers
                 {
                     IEnumerable<SystemSetting> systemSettings =
                         from id in ids
-                        select this._systemSettingService.GetById(int.Parse(id));
-                    this._systemSettingService.BatchDelete(systemSettings);
+                        select _systemSettingService.GetById(int.Parse(id));
+                    _systemSettingService.BatchDelete(systemSettings);
                 }
             }
             catch (Exception exception1)
@@ -175,13 +170,13 @@ namespace App.Admin.Controllers
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("SystemSetting.Delete: ", exception.Message));
             }
-            return base.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            SystemSettingViewModel modelMap = Mapper.Map<SystemSetting, SystemSettingViewModel>(this._systemSettingService.GetById(Id));
+            SystemSettingViewModel modelMap = Mapper.Map<SystemSetting, SystemSettingViewModel>(_systemSettingService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -197,126 +192,124 @@ namespace App.Admin.Controllers
                 locale.Email = modelMap.Email;
                 locale.TimeWork = modelMap.TimeWork;
 
-                locale.Title = modelMap.GetLocalized(x => x.Title, Id, languageId, false, false);
-                locale.FooterContent = modelMap.GetLocalized(x => x.FooterContent, Id, languageId, false, false);
-                locale.Description = modelMap.GetLocalized(x => x.Description, Id, languageId, false, false);
-                locale.MetaTitle = modelMap.GetLocalized(x => x.MetaTitle, Id, languageId, false, false);
-                locale.MetaKeywords = modelMap.GetLocalized(x => x.MetaKeywords, Id, languageId, false, false);
-                locale.MetaDescription = modelMap.GetLocalized(x => x.MetaDescription, Id, languageId, false, false);
-                locale.Slogan = modelMap.GetLocalized(x => x.Slogan, Id, languageId, false, false);
+                locale.Title = modelMap.GetLocalized(x => x.Title, id, languageId, false, false);
+                locale.FooterContent = modelMap.GetLocalized(x => x.FooterContent, id, languageId, false, false);
+                locale.Description = modelMap.GetLocalized(x => x.Description, id, languageId, false, false);
+                locale.MetaTitle = modelMap.GetLocalized(x => x.MetaTitle, id, languageId, false, false);
+                locale.MetaKeywords = modelMap.GetLocalized(x => x.MetaKeywords, id, languageId, false, false);
+                locale.MetaDescription = modelMap.GetLocalized(x => x.MetaDescription, id, languageId, false, false);
+                locale.Slogan = modelMap.GetLocalized(x => x.Slogan, id, languageId, false, false);
             });
 
-            return base.View(modelMap);
+            return View(modelMap);
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
-        public ActionResult Edit(SystemSettingViewModel model, string ReturnUrl)
+        public ActionResult Edit(SystemSettingViewModel model, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                         .Select(v => v.ErrorMessage + " " + v.Exception));
-                    base.ModelState.AddModelError("", messages);
-                    return base.View(model);
+                    ModelState.AddModelError("", messages);
+                    return View(model);
+                }
+
+                SystemSetting byId = _systemSettingService.GetById(model.Id, isCache: false);
+                if (model.Status == 1 && model.Status != byId.Status)
+                {
+                    IEnumerable<SystemSetting> systemSettings = _systemSettingService.FindBy(x => x.Status == 1);
+                    if (systemSettings.IsAny())
+                    {
+                        foreach (SystemSetting systemSetting1 in systemSettings)
+                        {
+                            systemSetting1.Status = 0;
+                            _systemSettingService.Update(systemSetting1);
+                        }
+                    }
+                }
+
+                if (model.Favicon != null && model.Favicon.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(model.Favicon.FileName);
+                    string extension = Path.GetExtension(model.Favicon.FileName);
+                    fileName = string.Concat("favicon", extension);
+                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(str))
+                        System.IO.File.Delete(str);
+
+                    model.Favicon.SaveAs(str);
+                    model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
+                }
+
+                if (model.Logo != null && model.Logo.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(model.Logo.FileName);
+                    string extension = Path.GetExtension(model.Logo.FileName);
+                    fileName = string.Concat("logo", extension);
+                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(str))
+                        System.IO.File.Delete(str);
+
+                    model.Logo.SaveAs(str);
+                    model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
+                }
+
+                if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
+                {
+                    string fileName = Path.GetFileName(model.LogoFooter.FileName);
+                    string extension = Path.GetExtension(model.LogoFooter.FileName);
+                    fileName = string.Concat("logoFooter", extension);
+                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(str))
+                        System.IO.File.Delete(str);
+
+                    model.LogoFooter.SaveAs(str);
+                    model.LogoFooterImage = string.Concat(Contains.ImageFolder, fileName);
+                }
+
+                SystemSetting modelMap = Mapper.Map(model, byId);
+                _systemSettingService.Update(modelMap);
+
+                //Update Localized   
+                foreach (var localized in model.Locales)
+                {
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Title, localized.Title, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.FooterContent, localized.FooterContent, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaTitle, localized.MetaTitle, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaKeywords, localized.MetaKeywords, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.TimeWork, localized.TimeWork, localized.LanguageId);
+                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
+                }
+
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.SystemSetting)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    SystemSetting byId = this._systemSettingService.GetById(model.Id, isCache: false);
-                    if (model.Status == 1 && model.Status != byId.Status)
-                    {
-                        IEnumerable<SystemSetting> systemSettings = this._systemSettingService.FindBy((SystemSetting x) => x.Status == 1, false);
-                        if (systemSettings.IsAny<SystemSetting>())
-                        {
-                            foreach (SystemSetting systemSetting1 in systemSettings)
-                            {
-                                systemSetting1.Status = 0;
-                                this._systemSettingService.Update(systemSetting1);
-                            }
-                        }
-                    }
-
-                    if (model.Favicon != null && model.Favicon.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileName(model.Favicon.FileName);
-                        string extension = Path.GetExtension(model.Favicon.FileName);
-                        fileName = string.Concat("favicon", extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
-
-                        //Check and delete logo exists
-                        if (System.IO.File.Exists(str))
-                            System.IO.File.Delete(str);
-
-                        model.Favicon.SaveAs(str);
-                        model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
-                    }
-
-                    if (model.Logo != null && model.Logo.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileName(model.Logo.FileName);
-                        string extension = Path.GetExtension(model.Logo.FileName);
-                        fileName = string.Concat("logo", extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
-
-                        //Check and delete logo exists
-                        if (System.IO.File.Exists(str))
-                            System.IO.File.Delete(str);
-
-                        model.Logo.SaveAs(str);
-                        model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
-                    }
-
-                    if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileName(model.LogoFooter.FileName);
-                        string extension = Path.GetExtension(model.LogoFooter.FileName);
-                        fileName = string.Concat("logoFooter", extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
-
-                        //Check and delete logo exists
-                        if (System.IO.File.Exists(str))
-                            System.IO.File.Delete(str);
-
-                        model.LogoFooter.SaveAs(str);
-                        model.LogoFooterImage = string.Concat(Contains.ImageFolder, fileName);
-                    }
-
-                    SystemSetting modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model, byId);
-                    this._systemSettingService.Update(modelMap);
-
-                    //Update Localized   
-                    foreach (var localized in model.Locales)
-                    {
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Title, localized.Title, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.FooterContent, localized.FooterContent, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaTitle, localized.MetaTitle, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaKeywords, localized.MetaKeywords, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.TimeWork, localized.TimeWork, localized.LanguageId);
-                        _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
-                    }
-
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.SystemSetting)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
-                base.ModelState.AddModelError("", exception.Message);
+                ModelState.AddModelError("", exception.Message);
                 ExtentionUtils.Log(string.Concat("SystemSetting.Edit: ", exception.Message));
-                return base.View(model);
+                return View(model);
             }
             return action;
         }
@@ -324,29 +317,29 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "ViewSystemSetting")]
         public ActionResult Index(int page = 1, string keywords = "")
         {
-            ((dynamic)base.ViewBag).Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+            ViewBag.Keywords = keywords;
+            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
-                Sorts = new SortBuilder()
+                Sorts = new SortBuilder
                 {
                     ColumnName = "Title",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<SystemSetting> systemSettings = this._systemSettingService.PagedList(sortingPagingBuilder, paging);
-            if (systemSettings != null && systemSettings.Any<SystemSetting>())
+            IEnumerable<SystemSetting> systemSettings = _systemSettingService.PagedList(sortingPagingBuilder, paging);
+            if (systemSettings != null && systemSettings.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                ViewBag.PageInfo = pageInfo;
             }
-            return base.View(systemSettings);
+            return View(systemSettings);
         }
     }
 }

@@ -1,23 +1,22 @@
-﻿using App.Admin.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using App.Admin.Helpers;
 using App.Aplication;
+using App.Core.Caching;
 using App.Core.Utils;
-using App.Domain.Entities.Brandes;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Repairs;
 using App.Framework.Ultis;
 using App.Service.Attribute;
 using App.Service.Brandes;
 using App.Service.Menu;
-using App.Service.Repairs;
 using App.Service.Repair;
+using App.Service.Repairs;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using App.Core.Caching;
 
 namespace App.Admin.Controllers
 {
@@ -41,24 +40,24 @@ namespace App.Admin.Controllers
             , ICacheManager cacheManager)
             : base(cacheManager)
         {
-            this._repairService = repairService;
-            this._menuLinkService = menuLinkService;
-            this._galleryService = galleryService;
-            this._imagePlugin = imagePlugin;
-            this._brandService = brandService;
-            this._repairItemService = repairItemService;
+            _repairService = repairService;
+            _menuLinkService = menuLinkService;
+            _galleryService = galleryService;
+            _imagePlugin = imagePlugin;
+            _brandService = brandService;
+            _repairItemService = repairItemService;
         }
 
         [RequiredPermisson(Roles = "CreateEditRepair")]
         public ActionResult Create()
         {
             int id = 1;
-            Repair repair = this._repairService.GetTop<int>(1, (Repair x) => x.RepairCode != null, (Repair x) => x.Id).FirstOrDefault<Repair>();
+            Repair repair = _repairService.GetTop(1, x => x.RepairCode != null, x => x.Id).FirstOrDefault();
             if (repair != null)
             {
                 id = repair.Id;
             }
-            return base.View(new RepairViewModel()
+            return View(new RepairViewModel
             {
                 RepairCode = string.Concat("DH", id.ToString()),
                 CustomerCode = string.Concat("KH", id.ToString())
@@ -68,87 +67,87 @@ namespace App.Admin.Controllers
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditRepair")]
         [ValidateInput(false)]
-        public ActionResult Create([Bind] RepairViewModel repair, string ReturnUrl)
+        public ActionResult Create([Bind] RepairViewModel repair, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return base.View(repair);
+                    ModelState.AddModelError("", MessageUI.ErrorMessage);
+                    return View(repair);
                 }
-                else
+
+                HttpFileCollectionBase files = Request.Files;
+                List<RepairGallery> repairGalleries = new List<RepairGallery>();
+                if (files.Count > 0)
                 {
-                    HttpFileCollectionBase files = base.Request.Files;
-                    List<RepairGallery> repairGalleries = new List<RepairGallery>();
-                    if (files.Count > 0)
+                    int count = files.Count - 1;
+                    int num = 0;
+                    string[] allKeys = files.AllKeys;
+                    for (int i = 0; i < allKeys.Length; i++)
                     {
-                        int count = files.Count - 1;
-                        int num = 0;
-                        string[] allKeys = files.AllKeys;
-                        for (int i = 0; i < (int)allKeys.Length; i++)
+                        string str = allKeys[i];
+                        if (num <= count)
                         {
-                            string str = allKeys[i];
-                            if (num <= count)
+                            if (!str.Equals("Image"))
                             {
-                                if (!str.Equals("Image"))
+                                HttpPostedFileBase httpPostedFileBase = files[num];
+                                if (httpPostedFileBase.ContentLength > 0)
                                 {
-                                    HttpPostedFileBase httpPostedFileBase = files[num];
-                                    if (httpPostedFileBase.ContentLength > 0)
+                                    RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel
                                     {
-                                        RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel()
-                                        {
-                                            RepairId = repair.Id
-                                        };
-                                        string str1 = string.Format("{0}-{1}.jpg", repair.RepairCode, Guid.NewGuid());
-                                        this._imagePlugin.CropAndResizeImage(httpPostedFileBase, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize, false);
-                                        repairGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repair.RepairCode, str1);
-                                        repairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));
-                                    }
-                                    num++;
+                                        RepairId = repair.Id
+                                    };
+                                    string str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
+                                    _imagePlugin.CropAndResizeImage(httpPostedFileBase,
+                                        $"{Contains.ImageFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                    repairGalleryViewModel.ImagePath =
+                                        $"{Contains.ImageFolder}{repair.RepairCode}/{str1}";
+                                    repairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));
                                 }
-                                else
-                                {
-                                    num++;
-                                }
+                                num++;
+                            }
+                            else
+                            {
+                                num++;
                             }
                         }
                     }
-                    Repair repair1 = Mapper.Map<RepairViewModel, Repair>(repair);
-                    if (repairGalleries.IsAny<RepairGallery>())
-                    {
-                        repair1.RepairGalleries = repairGalleries;
-                    }
-                    List<RepairItem> repairItems = new List<RepairItem>();
-                    if (repair.RepairItems.IsAny<RepairItemViewModel>())
-                    {
-                        repairItems.AddRange(
-                            from item in repair.RepairItems
-                            select Mapper.Map<RepairItem>(item));
-                    }
-                    if (repairItems.IsAny<RepairItem>())
-                    {
-                        repair1.RepairItems = repairItems;
-                    }
-                    this._repairService.Create(repair1);
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Repair)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                }
+                Repair repair1 = Mapper.Map<RepairViewModel, Repair>(repair);
+                if (repairGalleries.IsAny())
+                {
+                    repair1.RepairGalleries = repairGalleries;
+                }
+                List<RepairItem> repairItems = new List<RepairItem>();
+                if (repair.RepairItems.IsAny())
+                {
+                    repairItems.AddRange(
+                        from item in repair.RepairItems
+                        select Mapper.Map<RepairItem>(item));
+                }
+                if (repairItems.IsAny())
+                {
+                    repair1.RepairItems = repairItems;
+                }
+                _repairService.Create(repair1);
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Repair)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
+                }
+                else
+                {
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("Repair.Create: ", exception.Message));
-                base.ModelState.AddModelError("", exception.Message);
-                return base.View(repair);
+                ModelState.AddModelError("", exception.Message);
+                return View(repair);
             }
             return action;
         }
@@ -163,15 +162,15 @@ namespace App.Admin.Controllers
                     List<Repair> repairs = new List<Repair>();
                     List<RepairGallery> repairGalleries = new List<RepairGallery>();
                     string[] strArrays = ids;
-                    for (int i = 0; i < (int)strArrays.Length; i++)
+                    for (int i = 0; i < strArrays.Length; i++)
                     {
                         int num = int.Parse(strArrays[i]);
-                        Repair repair = this._repairService.Get((Repair x) => x.Id == num, false);
-                        repairGalleries.AddRange(repair.RepairGalleries.ToList<RepairGallery>());
+                        Repair repair = _repairService.Get(x => x.Id == num);
+                        repairGalleries.AddRange(repair.RepairGalleries.ToList());
                         repairs.Add(repair);
                     }
-                    this._galleryService.BatchDelete(repairGalleries);
-                    this._repairService.BatchDelete(repairs);
+                    _galleryService.BatchDelete(repairGalleries);
+                    _repairService.BatchDelete(repairs);
                 }
             }
             catch (Exception exception1)
@@ -179,140 +178,140 @@ namespace App.Admin.Controllers
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("Repair.Delete: ", exception.Message));
             }
-            return base.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "CreateEditRepair")]
-        public ActionResult DeleteGallery(int RepairId, int galleryId)
+        public ActionResult DeleteGallery(int repairId, int galleryId)
         {
             ActionResult actionResult;
-            if (!base.Request.IsAjaxRequest())
+            if (!Request.IsAjaxRequest())
             {
-                return base.Json(new { success = false });
+                return Json(new { success = false });
             }
             try
             {
-                RepairGallery repairGallery = this._galleryService.Get((RepairGallery x) => x.RepairId == RepairId && x.Id == galleryId, false);
-                this._galleryService.Delete(repairGallery);
-                string str = base.Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
-                string str1 = base.Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
+                RepairGallery repairGallery = _galleryService.Get(x => x.RepairId == repairId && x.Id == galleryId);
+                _galleryService.Delete(repairGallery);
+                string str = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
+                string str1 = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
                 System.IO.File.Delete(str);
                 System.IO.File.Delete(str1);
-                actionResult = base.Json(new { success = true });
+                actionResult = Json(new { success = true });
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
-                actionResult = base.Json(new { success = false, messages = exception.Message });
+                actionResult = Json(new { success = false, messages = exception.Message });
             }
             return actionResult;
         }
 
         [RequiredPermisson(Roles = "CreateEditRepair")]
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            RepairViewModel repairViewModel = Mapper.Map<Repair, RepairViewModel>(this._repairService.Get((Repair x) => x.Id == Id, false));
-            return base.View(repairViewModel);
+            RepairViewModel repairViewModel = Mapper.Map<Repair, RepairViewModel>(_repairService.Get(x => x.Id == id));
+            return View(repairViewModel);
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditRepair")]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind] RepairViewModel repairView, string ReturnUrl)
+        public ActionResult Edit([Bind] RepairViewModel repairView, string returnUrl)
         {
             ActionResult action;
             try
             {
-                if (!base.ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return base.View(repairView);
+                    ModelState.AddModelError("", MessageUI.ErrorMessage);
+                    return View(repairView);
+                }
+
+                Repair repair = _repairService.Get(x => x.Id == repairView.Id);
+                HttpFileCollectionBase files = Request.Files;
+                List<RepairGallery> lstRepairGalleries = new List<RepairGallery>();
+                if (files.Count > 0)
+                {
+                    int count = files.Count - 1;
+                    int num = 0;
+                    string[] allKeys = files.AllKeys;
+                    for (int i = 0; i < allKeys.Length; i++)
+                    {
+                        string str = allKeys[i];
+                        if (num <= count)
+                        {
+                            if (!str.Equals("Image"))
+                            {
+                                HttpPostedFileBase item = files[num];
+                                if (item.ContentLength > 0)
+                                {
+                                    RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel
+                                    {
+                                        RepairId = repairView.Id
+                                    };
+                                    string str1 = $"{repairView.RepairCode}-{Guid.NewGuid()}.jpg";
+                                    _imagePlugin.CropAndResizeImage(item,
+                                        $"{Contains.ImageFolder}{repairView.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                    repairGalleryViewModel.ImagePath =
+                                        $"{Contains.ImageFolder}{repairView.RepairCode}/{str1}";
+                                    lstRepairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));
+                                }
+                                num++;
+                            }
+                            else
+                            {
+                                num++;
+                            }
+                        }
+                    }
+                }
+                if (lstRepairGalleries.IsAny())
+                {
+                    repair.RepairGalleries = lstRepairGalleries;
+                }
+                List<RepairItem> repairItems = new List<RepairItem>();
+                if (repairView.RepairItems.IsAny())
+                {
+                    foreach (RepairItemViewModel repairItem in repairView.RepairItems)
+                    {
+                        RepairItemViewModel repairItemViewModel = new RepairItemViewModel();
+                        if (repairItem.Id > 0)
+                        {
+                            repairItemViewModel.Id = repairItem.Id;
+                        }
+                        repairItemViewModel.RepairId = repairView.Id;
+                        repairItemViewModel.FixedFee = repairItem.FixedFee;
+                        repairItemViewModel.Category = repairItem.Category;
+                        repairItemViewModel.WarrantyFrom = repairItem.WarrantyFrom;
+                        repairItemViewModel.WarrantyTo = repairItem.WarrantyTo;
+                        repairItems.Add(Mapper.Map<RepairItem>(repairItemViewModel));
+                    }
+                }
+                if (repairItems.IsAny())
+                {
+                    repair.RepairItems = repairItems;
+                }
+                IEnumerable<RepairItem> repairItems1 = _repairItemService.FindBy(x => x.RepairId == repairView.Id);
+                _repairItemService.BatchDelete(repairItems1);
+                repair = Mapper.Map(repairView, repair);
+                _repairService.Update(repair);
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Repair)));
+                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+                {
+                    action = RedirectToAction("Index");
                 }
                 else
                 {
-                    Repair repair = this._repairService.Get((Repair x) => x.Id == repairView.Id, false);
-                    HttpFileCollectionBase files = base.Request.Files;
-                    List<RepairGallery> lstRepairGalleries = new List<RepairGallery>();
-                    if (files.Count > 0)
-                    {
-                        int count = files.Count - 1;
-                        int num = 0;
-                        string[] allKeys = files.AllKeys;
-                        for (int i = 0; i < (int)allKeys.Length; i++)
-                        {
-                            string str = allKeys[i];
-                            if (num <= count)
-                            {
-                                if (!str.Equals("Image"))
-                                {
-                                    HttpPostedFileBase item = files[num];
-                                    if (item.ContentLength > 0)
-                                    {
-                                        RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel()
-                                        {
-                                            RepairId = repairView.Id
-                                        };
-                                        string str1 = string.Format("{0}-{1}.jpg", repairView.RepairCode, Guid.NewGuid());
-                                        this._imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repairView.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize, false);
-                                        repairGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repairView.RepairCode, str1);
-                                        lstRepairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));
-                                    }
-                                    num++;
-                                }
-                                else
-                                {
-                                    num++;
-                                }
-                            }
-                        }
-                    }
-                    if (lstRepairGalleries.IsAny<RepairGallery>())
-                    {
-                        repair.RepairGalleries = lstRepairGalleries;
-                    }
-                    List<RepairItem> repairItems = new List<RepairItem>();
-                    if (repairView.RepairItems.IsAny<RepairItemViewModel>())
-                    {
-                        foreach (RepairItemViewModel repairItem in repairView.RepairItems)
-                        {
-                            RepairItemViewModel repairItemViewModel = new RepairItemViewModel();
-                            if (repairItem.Id > 0)
-                            {
-                                repairItemViewModel.Id = repairItem.Id;
-                            }
-                            repairItemViewModel.RepairId = repairView.Id;
-                            repairItemViewModel.FixedFee = repairItem.FixedFee;
-                            repairItemViewModel.Category = repairItem.Category;
-                            repairItemViewModel.WarrantyFrom = repairItem.WarrantyFrom;
-                            repairItemViewModel.WarrantyTo = repairItem.WarrantyTo;
-                            repairItems.Add(Mapper.Map<RepairItem>(repairItemViewModel));
-                        }
-                    }
-                    if (repairItems.IsAny<RepairItem>())
-                    {
-                        repair.RepairItems = repairItems;
-                    }
-                    IEnumerable<RepairItem> repairItems1 = this._repairItemService.FindBy((RepairItem x) => x.RepairId == repairView.Id, false);
-                    this._repairItemService.BatchDelete(repairItems1);
-                    repair = Mapper.Map<RepairViewModel, Repair>(repairView, repair);
-                    this._repairService.Update(repair);
-                    base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Repair)));
-                    if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-                    {
-                        action = base.RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                    }
+                    action = Redirect(returnUrl);
                 }
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
-                base.ModelState.AddModelError("", exception.Message);
+                ModelState.AddModelError("", exception.Message);
                 ExtentionUtils.Log(string.Concat("Repair.Edit: ", exception.Message));
-                return base.View(repairView);
+                return View(repairView);
             }
             return action;
         }
@@ -320,38 +319,38 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "ViewRepair")]
         public ActionResult Index(int page = 1, string keywords = "")
         {
-            ((dynamic)base.ViewBag).Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+            ViewBag.Keywords = keywords;
+            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
-                Sorts = new SortBuilder()
+                Sorts = new SortBuilder
                 {
                     ColumnName = "CreatedDate",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = base._pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<Repair> repairs = this._repairService.PagedList(sortingPagingBuilder, paging);
-            if (repairs != null && repairs.Any<Repair>())
+            IEnumerable<Repair> repairs = _repairService.PagedList(sortingPagingBuilder, paging);
+            if (repairs != null && repairs.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-                ((dynamic)base.ViewBag).PageInfo = pageInfo;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                ViewBag.PageInfo = pageInfo;
             }
-            return base.View(repairs);
+            return View(repairs);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (filterContext.RouteData.Values["action"].Equals("edit") || filterContext.RouteData.Values["action"].Equals("create"))
             {
-                dynamic viewBag = base.ViewBag;
-                IBrandService brandService = this._brandService;
-                viewBag.Brands = brandService.FindBy((Brand x) => x.Status == 1, false);
+                dynamic viewBag = ViewBag;
+                IBrandService brandService = _brandService;
+                viewBag.Brands = brandService.FindBy(x => x.Status == 1);
             }
         }
 
@@ -359,7 +358,7 @@ namespace App.Admin.Controllers
         {
             RepairViewModel repairViewModel = new RepairViewModel();
             repairViewModel.RepairItems.Add(new RepairItemViewModel());
-            return base.View(repairViewModel);
+            return View(repairViewModel);
         }
     }
 }

@@ -1,26 +1,23 @@
-using App.Core.Caching;
-using App.Core.Utils;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Services;
-using App.FakeEntity.SeoGlobal;
-using App.Framework.Ultis;
-using App.Service.SeoSetting;
-using App.Aplication;
-using AutoMapper;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Aplication;
+using App.Core.Caching;
+using App.Core.Utils;
+using App.Domain.Entities.GlobalSetting;
+using App.FakeEntity.SeoGlobal;
+using App.Framework.Ultis;
+using App.Service.SeoSetting;
+using AutoMapper;
+using Resources;
 
 namespace App.Admin.Controllers
 {
 	public class SeoSettingController : BaseAdminController
     {
-        private const string CACHE_SETTINGSEOGLOBAL_KEY = "db.SettingSeoGlobal.{0}";
+        private const string CacheSettingseoglobalKey = "db.SettingSeoGlobal.{0}";
         private readonly ICacheManager _cacheManager;
         private readonly ISettingSeoGlobalService _settingSeoGlobal;
 
@@ -35,55 +32,53 @@ namespace App.Admin.Controllers
 
         public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[ValidateInput(false)]
-		public ActionResult Create(SettingSeoGlobalViewModel seoSetting, string ReturnUrl)
+		public ActionResult Create(SettingSeoGlobalViewModel seoSetting, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(seoSetting);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(seoSetting);
 				}
-				else
-				{
-					if (seoSetting.Status == 1)
-					{
-						IEnumerable<SettingSeoGlobal> settingSeoGlobals = this._settingSeoGlobal.FindBy((SettingSeoGlobal x) => x.Status == 1, false);
-						if (settingSeoGlobals.IsAny<SettingSeoGlobal>())
-						{
-							foreach (SettingSeoGlobal settingSeoGlobal in settingSeoGlobals)
-							{
-								settingSeoGlobal.Status = 0;
-								this._settingSeoGlobal.Update(settingSeoGlobal);
-							}
-						}
-					}
-					SettingSeoGlobal settingSeoGlobal1 = Mapper.Map<SettingSeoGlobalViewModel, SettingSeoGlobal>(seoSetting);
-					this._settingSeoGlobal.Create(settingSeoGlobal1);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SettingSeoGlobal)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    if (seoSetting.Status == 1)
+			    {
+			        IEnumerable<SettingSeoGlobal> settingSeoGlobals = _settingSeoGlobal.FindBy(x => x.Status == 1);
+			        if (settingSeoGlobals.IsAny())
+			        {
+			            foreach (SettingSeoGlobal settingSeoGlobal in settingSeoGlobals)
+			            {
+			                settingSeoGlobal.Status = 0;
+			                _settingSeoGlobal.Update(settingSeoGlobal);
+			            }
+			        }
+			    }
+			    SettingSeoGlobal settingSeoGlobal1 = Mapper.Map<SettingSeoGlobalViewModel, SettingSeoGlobal>(seoSetting);
+			    _settingSeoGlobal.Create(settingSeoGlobal1);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SettingSeoGlobal)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("SeoGlobal.Create: ", exception.Message));
-				base.ModelState.AddModelError("", exception.Message);
-				return base.View(seoSetting);
+				ModelState.AddModelError("", exception.Message);
+				return View(seoSetting);
 			}
 			return action;
 		}
@@ -96,8 +91,8 @@ namespace App.Admin.Controllers
 				{
 					IEnumerable<SettingSeoGlobal> settingSeoGlobals = 
 						from id in ids
-						select this._settingSeoGlobal.GetById(int.Parse(id));
-					this._settingSeoGlobal.BatchDelete(settingSeoGlobals);
+						select _settingSeoGlobal.GetById(int.Parse(id));
+					_settingSeoGlobal.BatchDelete(settingSeoGlobals);
 				}
 			}
 			catch (Exception exception1)
@@ -105,91 +100,89 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("SeoGlobal.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			SettingSeoGlobalViewModel settingSeoGlobalViewModel = Mapper.Map<SettingSeoGlobal, SettingSeoGlobalViewModel>(this._settingSeoGlobal.GetById(Id));
-			return base.View(settingSeoGlobalViewModel);
+			SettingSeoGlobalViewModel settingSeoGlobalViewModel = Mapper.Map<SettingSeoGlobal, SettingSeoGlobalViewModel>(_settingSeoGlobal.GetById(id));
+			return View(settingSeoGlobalViewModel);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[ValidateInput(false)]
-		public ActionResult Edit(SettingSeoGlobalViewModel seoSetting, string ReturnUrl)
+		public ActionResult Edit(SettingSeoGlobalViewModel seoSetting, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(seoSetting);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(seoSetting);
 				}
-				else
-				{
-					SettingSeoGlobal byId = this._settingSeoGlobal.GetById(seoSetting.Id);
-					if (seoSetting.Status == 1 && seoSetting.Status != byId.Status)
-					{
-						IEnumerable<SettingSeoGlobal> settingSeoGlobals = this._settingSeoGlobal.FindBy((SettingSeoGlobal x) => x.Status == 1, false);
-						if (settingSeoGlobals.IsAny<SettingSeoGlobal>())
-						{
-							foreach (SettingSeoGlobal settingSeoGlobal in settingSeoGlobals)
-							{
-								settingSeoGlobal.Status = 0;
-								this._settingSeoGlobal.Update(settingSeoGlobal);
-							}
-						}
-					}
-					SettingSeoGlobal settingSeoGlobal1 = Mapper.Map<SettingSeoGlobalViewModel, SettingSeoGlobal>(seoSetting, byId);
-					this._settingSeoGlobal.Update(settingSeoGlobal1);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.SettingSeoGlobal)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    SettingSeoGlobal byId = _settingSeoGlobal.GetById(seoSetting.Id);
+			    if (seoSetting.Status == 1 && seoSetting.Status != byId.Status)
+			    {
+			        IEnumerable<SettingSeoGlobal> settingSeoGlobals = _settingSeoGlobal.FindBy(x => x.Status == 1);
+			        if (settingSeoGlobals.IsAny())
+			        {
+			            foreach (SettingSeoGlobal settingSeoGlobal in settingSeoGlobals)
+			            {
+			                settingSeoGlobal.Status = 0;
+			                _settingSeoGlobal.Update(settingSeoGlobal);
+			            }
+			        }
+			    }
+			    SettingSeoGlobal settingSeoGlobal1 = Mapper.Map(seoSetting, byId);
+			    _settingSeoGlobal.Update(settingSeoGlobal1);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.SettingSeoGlobal)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.ModelState.AddModelError("", exception.Message);
+				ModelState.AddModelError("", exception.Message);
 				ExtentionUtils.Log(string.Concat("SeoGlobal.Edit: ", exception.Message));
-				return base.View(seoSetting);
+				return View(seoSetting);
 			}
 			return action;
 		}
 
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "Id",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<SettingSeoGlobal> settingSeoGlobals = this._settingSeoGlobal.PagedList(sortingPagingBuilder, paging);
-			if (settingSeoGlobals != null && settingSeoGlobals.Any<SettingSeoGlobal>())
+			IEnumerable<SettingSeoGlobal> settingSeoGlobals = _settingSeoGlobal.PagedList(sortingPagingBuilder, paging);
+			if (settingSeoGlobals != null && settingSeoGlobals.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(settingSeoGlobals);
+			return View(settingSeoGlobals);
 		}
 	}
 }

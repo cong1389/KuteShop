@@ -1,5 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Utils;
+using App.Domain.Entities.Account;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
@@ -7,12 +14,6 @@ using App.Service.Account;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
@@ -34,22 +35,22 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditAccount")]
         public ActionResult Create()
         {
-            return base.View();
+            return View();
         }
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditAccount")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RegisterFormViewModel model, string ReturnUrl)
+        public async Task<ActionResult> Create(RegisterFormViewModel model, string returnUrl)
         {
             ActionResult action;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                action = this.View();
+                action = View();
             }
             else
             {
-                IdentityUser identityUser = new IdentityUser()
+                IdentityUser identityUser = new IdentityUser
                 {
                     UserName = model.UserName,
                     Address = model.Address,
@@ -65,33 +66,33 @@ namespace App.Admin.Controllers
                     Created = DateTime.UtcNow
                 };
                 IdentityUser identityUser1 = identityUser;
-                IdentityResult identityResult = await this._userManager.CreateAsync(identityUser1, model.Password);
+                IdentityResult identityResult = await UserManager.CreateAsync(identityUser1, model.Password);
                 IdentityResult identityResult1 = identityResult;
                 if (identityResult1.Succeeded)
                 {
                     if (!model.IsSuperAdmin)
                     {
-                        string item = this.Request["roles"];
+                        string item = Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            string[] strArrays = item.Split(new char[] { ',' });
-                            await this._userManager.AddToRolesAsync(identityUser1.Id, strArrays);
+                            string[] strArrays = item.Split(',');
+                            await UserManager.AddToRolesAsync(identityUser1.Id, strArrays);
                         }
                     }
-                    this.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Account)));
-                    if (!this.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
+                    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Account)));
+                    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                     {
-                        action = this.RedirectToAction("Index");
+                        action = RedirectToAction("Index");
                     }
                     else
                     {
-                        action = this.Redirect(ReturnUrl);
+                        action = Redirect(returnUrl);
                     }
                 }
                 else
                 {
-                    this.AddErrors(identityResult1);
-                    action = this.View(model);
+                    AddErrors(identityResult1);
+                    action = View(model);
                 }
             }
             return action;
@@ -99,66 +100,62 @@ namespace App.Admin.Controllers
 
         [HttpGet]
         [RequiredPermisson(Roles = "CreateEditAccount")]
-        public async Task<ActionResult> Edit(string Id)
+        public async Task<ActionResult> Edit(string id)
         {
-            Guid guid = this.GetGuid(Id);
-            IdentityUser identityUser = await _userManager.FindByIdAsync(guid);
-            return this.View(Mapper.Map<RegisterFormViewModel>(identityUser));
+            Guid guid = GetGuid(id);
+            IdentityUser identityUser = await UserManager.FindByIdAsync(guid);
+            return View(Mapper.Map<RegisterFormViewModel>(identityUser));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(RegisterFormViewModel model, string ReturnUrl)
+        public async Task<ActionResult> Edit(RegisterFormViewModel model, string returnUrl)
         {
             ActionResult action;
             try
             {
                 model.Created = null;
-                IdentityUser identityUser = _userManager.FindById(model.Id);
+                IdentityUser identityUser = UserManager.FindById(model.Id);
                 identityUser = Mapper.Map(model, identityUser);
-                IdentityResult identityResult = await this._userManager.UpdateAsync(identityUser);
+                IdentityResult identityResult = await UserManager.UpdateAsync(identityUser);
                 if (identityResult.Succeeded)
                 {
                     if (model.IsSuperAdmin)
                     {
-                        IList<string> roles = this._userManager.GetRoles(model.Id);
-                        this._userManager.RemoveFromRoles<IdentityUser, Guid>(model.Id, roles.ToArray<string>());
+                        IList<string> roles = UserManager.GetRoles(model.Id);
+                        UserManager.RemoveFromRoles(model.Id, roles.ToArray());
                     }
                     else
                     {
-                        string item = this.Request["roles"];
+                        string item = Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            IList<string> lstUserRole = this._userManager.GetRoles(model.Id);
-                            _userManager.RemoveFromRoles(model.Id, lstUserRole.ToArray());
-                            string[] strArrays = item.Split(new char[] { ',' });
-                            this._userManager.AddToRoles(model.Id, strArrays);
+                            IList<string> lstUserRole = UserManager.GetRoles(model.Id);
+                            UserManager.RemoveFromRoles(model.Id, lstUserRole.ToArray());
+                            string[] strArrays = item.Split(',');
+                            UserManager.AddToRoles(model.Id, strArrays);
                         }
                     }
                     Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Account)));
-                    if (!this.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
+                    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                     {
-                        action = this.RedirectToAction("Index");
+                        action = RedirectToAction("Index");
                         return action;
                     }
-                    else
-                    {
-                        action = this.Redirect(ReturnUrl);
-                        return action;
-                    }
-                }
-                else
-                {
-                    this.AddErrors(identityResult);
-                    action = this.View(model);
+
+                    action = Redirect(returnUrl);
                     return action;
                 }
+
+                AddErrors(identityResult);
+                action = View(model);
+                return action;
             }
             catch (Exception exception1)
             {
                 Exception exception = exception1;
                 ExtentionUtils.Log(string.Concat("Account.Update: ", exception.Message));
             }
-            action = this.View();
+            action = View();
             return action;
         }
 
@@ -172,15 +169,15 @@ namespace App.Admin.Controllers
                     foreach (string id in ids)
                     {
                         Guid userId = Guid.Parse(id);
-                        IdentityUser objUser = (from user in ids select _userManager.FindById(userId)).FirstOrDefault();
+                        IdentityUser objUser = (from user in ids select UserManager.FindById(userId)).FirstOrDefault();
                         
                         //Task<IList<UserLoginInfo>> loginInfo = _userLoginStore.GetLoginsAsync(objUser);
                         //_userLoginStore.RemoveLoginAsync(objUser, loginInfo);
 
-                        IList<string> lstUserRole = _userManager.GetRoles(userId);
-                        _userManager.RemoveFromRoles(userId, lstUserRole.ToArray());
-                        _userManager.Update(objUser);
-                        _userManager.Delete(objUser);
+                        IList<string> lstUserRole = UserManager.GetRoles(userId);
+                        UserManager.RemoveFromRoles(userId, lstUserRole.ToArray());
+                        UserManager.Update(objUser);
+                        UserManager.Delete(objUser);
                     }
                 }
             }
@@ -188,54 +185,54 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("Post.Delete: ", ex.Message));
             }
-            return base.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "ViewAccount")]
         public async Task<ActionResult> Index(int page = 1, string keywords = "")
         {
-            ((dynamic)this.ViewBag).Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+            ViewBag.Keywords = keywords;
+            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords
             };
-            SortBuilder sortBuilder = new SortBuilder()
+            SortBuilder sortBuilder = new SortBuilder
             {
                 ColumnName = "UserName",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
             sortingPagingBuilder.Sorts = sortBuilder;
             SortingPagingBuilder sortingPagingBuilder1 = sortingPagingBuilder;
-            Paging paging = new Paging()
+            Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = this._pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
             Paging paging1 = paging;
-            IEnumerable<App.Domain.Entities.Account.User> users = await this._userService.PagedList(sortingPagingBuilder1, paging1);
+            IEnumerable<User> users = await _userService.PagedList(sortingPagingBuilder1, paging1);
             if (users != null && users.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-                ((dynamic)this.ViewBag).PageInfo = pageInfo;
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                ViewBag.PageInfo = pageInfo;
             }
-            return this.View(users);
+            return View(users);
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (filterContext.RouteData.Values["action"].Equals("create"))
             {
-                List<IdentityRole> lstRoles = this._roleManager.Roles.ToList();
-                ((dynamic)base.ViewBag).Roles = lstRoles;
+                List<IdentityRole> lstRoles = _roleManager.Roles.ToList();
+                ViewBag.Roles = lstRoles;
             }
 
             else if (filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                List<IdentityRole> lstRoles = this._roleManager.Roles.ToList();
+                List<IdentityRole> lstRoles = _roleManager.Roles.ToList();
 
                 string userId = filterContext.RouteData.Values["id"].ToString();
-                IList<string> lstRolesByUser = this._userManager.GetRoles(Guid.Parse(userId));
+                IList<string> lstRolesByUser = UserManager.GetRoles(Guid.Parse(userId));
 
                 foreach (IdentityRole item in lstRoles)
                 {
@@ -249,7 +246,7 @@ namespace App.Admin.Controllers
                     }
                 }
 
-                 ((dynamic)base.ViewBag).Roles = lstRoles;
+                 ViewBag.Roles = lstRoles;
             }
         }
     }

@@ -1,21 +1,16 @@
-using App.Admin.Helpers;
-using App.Core.Caching;
-using App.Core.Common;
-using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
-using App.Service.Menu;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using App.Admin.Helpers;
+using App.Core.Caching;
+using App.Domain.Entities.Menu;
+using App.Service.Menu;
 
 namespace App.Admin.Controllers
 {
 	public class CategoryController : BaseAdminController
 	{
-        private const string CACHE_CATEGORY_KEY = "db.Category";
+        private const string CacheCategoryKey = "db.Category";
         private readonly ICacheManager _cacheManager;
 
         private readonly IMenuLinkService _menuLinkService;
@@ -23,16 +18,16 @@ namespace App.Admin.Controllers
 		public CategoryController(IMenuLinkService menuLinkService
              , ICacheManager cacheManager)
 		{
-			this._menuLinkService = menuLinkService;
+			_menuLinkService = menuLinkService;
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_CATEGORY_KEY);
+            _cacheManager.RemoveByPattern(CacheCategoryKey);
         }
 
         private List<MenuNav> CreateMenuNav(int? parentId, IEnumerable<MenuNav> source)
 		{
-			return source.Where<MenuNav>((MenuNav x) => {
+			return source.Where(x => {
 				int? nullable1 = x.ParentId;
 				int? nullable = parentId;
 				if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
@@ -40,55 +35,55 @@ namespace App.Admin.Controllers
 					return false;
 				}
 				return nullable1.HasValue == nullable.HasValue;
-			}).Select<MenuNav, MenuNav>((MenuNav x) => new MenuNav()
+			}).Select(x => new MenuNav
 			{
 				MenuId = x.MenuId,
 				ParentId = x.ParentId,
 				MenuName = x.MenuName,
-				ChildNavMenu = this.CreateMenuNav(new int?(x.MenuId), source)
-			}).ToList<MenuNav>();
+				ChildNavMenu = CreateMenuNav(x.MenuId, source)
+			}).ToList();
 		}
 
 		public ActionResult GetMenu(int? selected)
 		{
 			List<MenuNav> menuNavs = new List<MenuNav>();
-			IEnumerable<MenuLink> all = this._menuLinkService.GetAll();
-			if (all.Any<MenuLink>())
+			IEnumerable<MenuLink> all = _menuLinkService.GetAll();
+			if (all.Any())
 			{
 				IEnumerable<MenuNav> orderDisplay = 
 					from x in all
 					orderby x.OrderDisplay descending
-					select new MenuNav()
+					select new MenuNav
 					{
 						MenuId = x.Id,
 						ParentId = x.ParentId,
 						MenuName = x.MenuName
 					};
-				menuNavs = this.CreateMenuNav(null, orderDisplay);
+				menuNavs = CreateMenuNav(null, orderDisplay);
 			}
-			((dynamic)base.ViewBag).Selected = selected;
-			return base.PartialView(menuNavs.ToList<MenuNav>());
+			ViewBag.Selected = selected;
+			return PartialView(menuNavs.ToList());
 		}
 
 		public ActionResult GetMenuProduct(int? selected)
 		{
 			List<MenuNav> menuNavs = new List<MenuNav>();
-			IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.TemplateType == 2 || x.TemplateType == 8, true);
-			if (menuLinks.Any<MenuLink>())
+			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.TemplateType == 2 || x.TemplateType == 8, true);
+			if (menuLinks.Any())
 			{
 				IEnumerable<MenuNav> orderDisplay = 
 					from x in menuLinks
 					orderby x.OrderDisplay descending
-					select new MenuNav()
+					select new MenuNav
 					{
 						MenuId = x.Id,
 						ParentId = x.ParentId,
 						MenuName = x.MenuName
 					};
-				menuNavs = this.CreateMenuNav(null, orderDisplay);
+				menuNavs = CreateMenuNav(null, orderDisplay);
 			}
-			((dynamic)base.ViewBag).Selected = selected;
-			return base.PartialView(menuNavs.ToList<MenuNav>());
+			ViewBag.Selected = selected;
+			return PartialView(menuNavs.ToList());
 		}
 	}
 }

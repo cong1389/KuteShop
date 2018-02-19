@@ -1,16 +1,16 @@
-using App.Admin.Helpers;
-using App.Aplication.FileUtil;
-using App.Core.Utils;
-using App.Domain.Entities.Other;
-using App.Framework.Ultis;
-using App.Service.Other;
-using App.Aplication;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Admin.Helpers;
+using App.Aplication;
+using App.Aplication.FileUtil;
+using App.Core.Utils;
+using App.Domain.Entities.Other;
+using App.Framework.Ultis;
+using App.Service.Other;
+using Resources;
 
 namespace App.Admin.Controllers
 {
@@ -20,7 +20,7 @@ namespace App.Admin.Controllers
 
 		public LandingPageController(ILandingPageService landingPageService)
 		{
-			this._landingPageService = landingPageService;
+			_landingPageService = landingPageService;
 		}
 
 		[HttpPost]
@@ -31,23 +31,23 @@ namespace App.Admin.Controllers
 				if (ids.Length != 0)
 				{
 					string[] strArrays = ids;
-					for (int i = 0; i < (int)strArrays.Length; i++)
+					for (int i = 0; i < strArrays.Length; i++)
 					{
 						int num = int.Parse(strArrays[i]);
-						LandingPage landingPage = this._landingPageService.Get((LandingPage x) => x.Id == num, false);
+						LandingPage landingPage = _landingPageService.Get(x => x.Id == num);
 						landingPage.Status = 3;
-						this._landingPageService.Update(landingPage);
+						_landingPageService.Update(landingPage);
 					}
-					base.Response.Cookies.Add(new HttpCookie("system_message", MessageUI.UpdateSuccess));
+					Response.Cookies.Add(new HttpCookie("system_message", MessageUI.UpdateSuccess));
 				}
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
+				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
 				ExtentionUtils.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
 		public ActionResult Delete(string[] ids)
@@ -59,30 +59,30 @@ namespace App.Admin.Controllers
 					IEnumerable<LandingPage> list = 
 						from id in (
 							from id in ids
-							select int.Parse(id)).ToList<int>()
-						select this._landingPageService.Get((LandingPage x) => x.Id == id, false);
-					this._landingPageService.BatchDelete(list);
-					base.Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteSuccess));
+							select int.Parse(id)).ToList()
+						select _landingPageService.Get(x => x.Id == id);
+					_landingPageService.BatchDelete(list);
+					Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteSuccess));
 				}
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteFail));
+				Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteFail));
 				ExtentionUtils.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
 		public ActionResult Export()
 		{
-			IEnumerable<LandingPage> all = this._landingPageService.GetAll();
+			IEnumerable<LandingPage> all = _landingPageService.GetAll();
 			List<LandingPageExport> landingPageExports = new List<LandingPageExport>();
-			if (all.IsAny<LandingPage>())
+			if (all.IsAny())
 			{
 				foreach (LandingPage landingPage in all)
 				{
-					LandingPageExport landingPageExport = new LandingPageExport()
+					LandingPageExport landingPageExport = new LandingPageExport
 					{
 						FullName = landingPage.FullName,
 						DateOfBith = landingPage.DateOfBith,
@@ -94,36 +94,36 @@ namespace App.Admin.Controllers
 					landingPageExports.Add(landingPageExport);
 				}
 			}
-			ExcelUtil.ListToExcel<LandingPageExport>(landingPageExports);
+			ExcelUtil.ListToExcel(landingPageExports);
 			return new EmptyResult();
 		}
 
 		[RequiredPermisson(Roles="ViewLandingPage")]
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "CreatedDate",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<LandingPage> landingPages = this._landingPageService.PagedList(sortingPagingBuilder, paging);
-			if (landingPages != null && landingPages.Any<LandingPage>())
+			IEnumerable<LandingPage> landingPages = _landingPageService.PagedList(sortingPagingBuilder, paging);
+			if (landingPages != null && landingPages.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(landingPages);
+			return View(landingPages);
 		}
 
 		[HttpPost]
@@ -134,23 +134,23 @@ namespace App.Admin.Controllers
 				if (ids.Length != 0)
 				{
 					string[] strArrays = ids;
-					for (int i = 0; i < (int)strArrays.Length; i++)
+					for (int i = 0; i < strArrays.Length; i++)
 					{
 						int num = int.Parse(strArrays[i]);
-						LandingPage landingPage = this._landingPageService.Get((LandingPage x) => x.Id == num, false);
+						LandingPage landingPage = _landingPageService.Get(x => x.Id == num);
 						landingPage.Status = 2;
-						this._landingPageService.Update(landingPage);
+						_landingPageService.Update(landingPage);
 					}
-					base.Response.Cookies.Add(new HttpCookie("system_message", MessageUI.UpdateSuccess));
+					Response.Cookies.Add(new HttpCookie("system_message", MessageUI.UpdateSuccess));
 				}
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
+				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
 				ExtentionUtils.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 	}
 }

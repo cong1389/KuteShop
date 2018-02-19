@@ -1,30 +1,26 @@
-using App.Core.Utils;
-using App.Domain.Entities.Ads;
-using App.Domain.Entities.Menu;
-using App.Domain.Interfaces.Services;
-using App.FakeEntity.Ads;
-using App.Framework.Ultis;
-using App.Service.Ads;
-using App.Service.Menu;
-using App.Aplication;
-using AutoMapper;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using App.Aplication;
 using App.Core.Caching;
+using App.Core.Utils;
+using App.Domain.Entities.Ads;
+using App.Domain.Entities.Menu;
+using App.FakeEntity.Ads;
+using App.Framework.Ultis;
+using App.Service.Ads;
+using App.Service.Menu;
+using AutoMapper;
+using Resources;
 
 namespace App.Admin.Controllers
 {
 	public class BannerController : BaseAdminController
     {
-        private const string CACHE_BANNER_KEY = "db.Banner";
+        private const string CacheBannerKey = "db.Banner";
         private readonly ICacheManager _cacheManager;
 
         private readonly IMenuLinkService _menuLinkService;
@@ -44,59 +40,57 @@ namespace App.Admin.Controllers
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_BANNER_KEY);
+            _cacheManager.RemoveByPattern(CacheBannerKey);
         }
 
 		public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
-		public ActionResult Create(BannerViewModel bannerView, string ReturnUrl)
+		public ActionResult Create(BannerViewModel bannerView, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(bannerView);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(bannerView);
 				}
-				else
-				{
-					if (bannerView.Image != null && bannerView.Image.ContentLength > 0)
-					{
-                        //string fileName = "Test";
-                        //string extension = "Test";
-                        string fileName = Path.GetFileName(bannerView.Image.FileName);
-                        string extension = Path.GetExtension(bannerView.Image.FileName);
-                        //fileName = string.Concat(bannerView.FullName.NonAccent(), extension);
-                        string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
-						bannerView.Image.SaveAs(str);
-						bannerView.ImgPath = string.Concat(Contains.AdsFolder, fileName);
-					}
 
-					Banner banner = Mapper.Map<BannerViewModel, Banner>(bannerView);
-					this._bannerService.Create(banner);
+			    if (bannerView.Image != null && bannerView.Image.ContentLength > 0)
+			    {
+			        //string fileName = "Test";
+			        //string extension = "Test";
+			        string fileName = Path.GetFileName(bannerView.Image.FileName);
+			        string extension = Path.GetExtension(bannerView.Image.FileName);
+			        //fileName = string.Concat(bannerView.FullName.NonAccent(), extension);
+			        string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+			        bannerView.Image.SaveAs(str);
+			        bannerView.ImgPath = string.Concat(Contains.AdsFolder, fileName);
+			    }
 
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Banner)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+			    Banner banner = Mapper.Map<BannerViewModel, Banner>(bannerView);
+			    _bannerService.Create(banner);
+
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Banner)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Banner.Create: ", exception.Message));
-				base.ModelState.AddModelError("", exception.Message);
-				return base.View(bannerView);
+				ModelState.AddModelError("", exception.Message);
+				return View(bannerView);
 			}
 			return action;
 		}
@@ -109,8 +103,8 @@ namespace App.Admin.Controllers
 				{
 					IEnumerable<Banner> banners = 
 						from id in ids
-						select this._bannerService.GetById(int.Parse(id));
-					this._bannerService.BatchDelete(banners);
+						select _bannerService.GetById(int.Parse(id));
+					_bannerService.BatchDelete(banners);
 				}
 			}
 			catch (Exception exception1)
@@ -118,98 +112,96 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Banner.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
-		public ActionResult Edit(int Id)
+		public ActionResult Edit(int id)
 		{
-			BannerViewModel bannerViewModel = Mapper.Map<Banner, BannerViewModel>(this._bannerService.GetById(Id));
-			return base.View(bannerViewModel);
+			BannerViewModel bannerViewModel = Mapper.Map<Banner, BannerViewModel>(_bannerService.GetById(id));
+			return View(bannerViewModel);
 		}
 
 		[HttpPost]
-		public ActionResult Edit(BannerViewModel model, string ReturnUrl)
+		public ActionResult Edit(BannerViewModel model, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(model);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(model);
 				}
-				else
-				{
-					Banner byId = this._bannerService.GetById(model.Id);
-					if (model.Image != null && model.Image.ContentLength > 0)
-					{
-						string fileName = Path.GetFileName(model.Image.FileName);
-						string extension = Path.GetExtension(model.Image.FileName);
-						//fileName = string.Concat(bannerView.FullName.NonAccent(""), extension);
-						string str = Path.Combine(base.Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
-						model.Image.SaveAs(str);
-						model.ImgPath = string.Concat(Contains.AdsFolder, fileName);
-					}
 
-					Banner banner = Mapper.Map(model, byId);
-					this._bannerService.Update(banner);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Banner)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+			    Banner byId = _bannerService.GetById(model.Id);
+			    if (model.Image != null && model.Image.ContentLength > 0)
+			    {
+			        string fileName = Path.GetFileName(model.Image.FileName);
+			        string extension = Path.GetExtension(model.Image.FileName);
+			        //fileName = string.Concat(bannerView.FullName.NonAccent(""), extension);
+			        string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+			        model.Image.SaveAs(str);
+			        model.ImgPath = string.Concat(Contains.AdsFolder, fileName);
+			    }
+
+			    Banner banner = Mapper.Map(model, byId);
+			    _bannerService.Update(banner);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Banner)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
-				base.ModelState.AddModelError("", exception.Message);
+				ModelState.AddModelError("", exception.Message);
 				ExtentionUtils.Log(string.Concat("Banner.Edit: ", exception.Message));
-				return base.View(model);
+				return View(model);
 			}
 			return action;
 		}
 
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "Title",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Banner> banners = this._bannerService.PagedList(sortingPagingBuilder, paging);
-			if (banners != null && banners.Any<Banner>())
+			IEnumerable<Banner> banners = _bannerService.PagedList(sortingPagingBuilder, paging);
+			if (banners != null && banners.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(banners);
+			return View(banners);
 		}
 
 		protected override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 			if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
 			{
-				IEnumerable<MenuLink> menuLinks = this._menuLinkService.FindBy((MenuLink x) => x.Status == 1 && x.TemplateType != 5, true);
-				((dynamic)base.ViewBag).MenuList = menuLinks;
+				IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5, true);
+				ViewBag.MenuList = menuLinks;
 
-				IEnumerable<PageBanner> pageBanners = this._pageBannerService.FindBy((PageBanner x) => x.Status == 1, false);
-				((dynamic)base.ViewBag).PageBanners = pageBanners;
+				IEnumerable<PageBanner> pageBanners = _pageBannerService.FindBy(x => x.Status == 1);
+				ViewBag.PageBanners = pageBanners;
 			}
 		}
 	}

@@ -1,25 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
 using App.Core.Utils;
-using App.Domain.Entities.Attribute;
-using App.Domain.Interfaces.Services;
 using App.FakeEntity.Attribute;
 using App.Framework.Ultis;
 using App.Service.Attribute;
 using AutoMapper;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
+using Attribute = App.Domain.Entities.Attribute.Attribute;
 
 namespace App.Admin.Controllers
 {
 	public class AttributeController : BaseAdminController
     {
-        private const string CACHE_ATTRIBUTE_KEY = "db.Attribute";
+        private const string CacheAttributeKey = "db.Attribute";
         private readonly ICacheManager _cacheManager;
 
         private readonly IAttributeService _attributeService;
@@ -31,47 +29,45 @@ namespace App.Admin.Controllers
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CACHE_ATTRIBUTE_KEY);
+            _cacheManager.RemoveByPattern(CacheAttributeKey);
         }
 
 		[RequiredPermisson(Roles="CreateEditAttribute")]
 		public ActionResult Create()
 		{
-			return base.View();
+			return View();
 		}
 
 		[HttpPost]
 		[RequiredPermisson(Roles="CreateEditAttribute")]
-		public ActionResult Create(AttributeViewModel attributeView, string ReturnUrl)
+		public ActionResult Create(AttributeViewModel attributeView, string returnUrl)
 		{
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(attributeView);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(attributeView);
 				}
-				else
-				{
-					App.Domain.Entities.Attribute.Attribute attribute = Mapper.Map<AttributeViewModel, App.Domain.Entities.Attribute.Attribute>(attributeView);
-					this._attributeService.Create(attribute);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Attribute)));
-					if (!base.Url.IsLocalUrl(ReturnUrl) || ReturnUrl.Length <= 1 || !ReturnUrl.StartsWith("/") || ReturnUrl.StartsWith("//") || ReturnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(ReturnUrl);
-					}
-				}
+
+			    Attribute attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
+			    _attributeService.Create(attribute);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Attribute)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
-				return base.View(attributeView);
+				return View(attributeView);
 			}
 			return action;
 		}
@@ -83,10 +79,10 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<App.Domain.Entities.Attribute.Attribute> attributes = 
+					IEnumerable<Attribute> attributes = 
 						from id in ids
-						select this._attributeService.GetById(int.Parse(id));
-					this._attributeService.BatchDelete(attributes);
+						select _attributeService.GetById(int.Parse(id));
+					_attributeService.BatchDelete(attributes);
 				}
 			}
 			catch (Exception exception1)
@@ -94,14 +90,14 @@ namespace App.Admin.Controllers
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("ServerAttribute.Delete: ", exception.Message));
 			}
-			return base.RedirectToAction("Index");
+			return RedirectToAction("Index");
 		}
 
 		[RequiredPermisson(Roles="CreateEditAttribute")]
 		public ActionResult Edit(int id)
 		{
-			AttributeViewModel attributeViewModel = Mapper.Map<App.Domain.Entities.Attribute.Attribute, AttributeViewModel>(this._attributeService.GetById(id));
-			return base.View(attributeViewModel);
+			AttributeViewModel attributeViewModel = Mapper.Map<Attribute, AttributeViewModel>(_attributeService.GetById(id));
+			return View(attributeViewModel);
 		}
 
 		[HttpPost]
@@ -111,31 +107,29 @@ namespace App.Admin.Controllers
 			ActionResult action;
 			try
 			{
-				if (!base.ModelState.IsValid)
+				if (!ModelState.IsValid)
 				{
-					base.ModelState.AddModelError("", MessageUI.ErrorMessage);
-					return base.View(attributeView);
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(attributeView);
 				}
-				else
-				{
-					App.Domain.Entities.Attribute.Attribute attribute = Mapper.Map<AttributeViewModel, App.Domain.Entities.Attribute.Attribute>(attributeView);
-					this._attributeService.Update(attribute);
-					base.Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Attribute)));
-					if (!base.Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
-					{
-						action = base.RedirectToAction("Index");
-					}
-					else
-					{
-						action = this.Redirect(returnUrl);
-					}
-				}
+
+			    Attribute attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
+			    _attributeService.Update(attribute);
+			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Attribute)));
+			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+			    {
+			        action = RedirectToAction("Index");
+			    }
+			    else
+			    {
+			        action = Redirect(returnUrl);
+			    }
 			}
 			catch (Exception exception1)
 			{
 				Exception exception = exception1;
 				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
-				return base.View(attributeView);
+				return View(attributeView);
 			}
 			return action;
 		}
@@ -143,29 +137,29 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="ViewAttribute")]
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
-			((dynamic)base.ViewBag).Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder()
+			ViewBag.Keywords = keywords;
+			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
-				Sorts = new SortBuilder()
+				Sorts = new SortBuilder
 				{
 					ColumnName = "CreatedDate",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging()
+			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = base._pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<App.Domain.Entities.Attribute.Attribute> attributes = this._attributeService.PagedList(sortingPagingBuilder, paging);
-			if (attributes != null && attributes.Any<App.Domain.Entities.Attribute.Attribute>())
+			IEnumerable<Attribute> attributes = _attributeService.PagedList(sortingPagingBuilder, paging);
+			if (attributes != null && attributes.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, (int i) => this.Url.Action("Index", new { page = i, keywords = keywords }));
-				((dynamic)base.ViewBag).PageInfo = pageInfo;
+				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
 			}
-			return base.View(attributes);
+			return View(attributes);
 		}
 	}
 }

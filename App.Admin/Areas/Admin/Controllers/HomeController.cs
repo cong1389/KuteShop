@@ -1,19 +1,14 @@
-using App.Admin.Helpers;
-using System;
 using System.Web.Mvc;
+using App.Admin.Helpers;
 
 namespace App.Admin.Controllers
 {
 	[AuthorizeCustom]
 	public class HomeController : BaseAdminController
 	{
-		public HomeController()
+	    public ActionResult Index()
 		{
-		}
-
-		public ActionResult Index()
-		{
-			return base.View();
+			return View();
 		}
 	}
 }

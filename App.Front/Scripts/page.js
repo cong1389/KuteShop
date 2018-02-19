@@ -10,7 +10,6 @@
             $(this).parents(".item").toggleClass("active");
             $(this).attr('checked', 'checked');
             var value = this.value;
-
             $.post("/gallery-images.html",
                 { postId: $(this).attr("data-post"), typeId: value },
                 function (response) {
@@ -26,11 +25,11 @@
                 function (price) {
 
                     if (price === parseInt(price, 10)) {
-                      
+                       
                         var priceOriginalUnit = Haravan.formatMoney(price, EGA.options.money_format);
 
                         //Gía nguyên thủy
-                        $("#ProductDetailsForm .product-price #span-list-price").html(priceOriginalUnit);
+                        $("#ProductDetailsForm .product-price-group #span-list-price").html(priceOriginalUnit);
                         $("#detail-two .variant-price ins span ").html(priceOriginalUnit);
                         
                         //product-discount
@@ -40,12 +39,12 @@
                         var pricePromotionUnit = Haravan.formatMoney(priceAfterDicount, EGA.options.money_format);
 
                         $('#span-saving-price').html('(' + Haravan.formatMoney(priceDiscount, EGA.options.money_format) + ')');
-                        $("#ProductDetailsForm .product-price ins").html(pricePromotionUnit);
+                        $("#ProductDetailsForm .product-price-group .price").html(pricePromotionUnit);
 
                         $("#ProductDetailsForm #hddPrice").val(priceAfterDicount);
                     }
                     else {
-                        $("#ProductDetailsForm .product-price ins").html(price);
+                        $("#ProductDetailsForm .product-price-group .price").html(price);
                     }
 
                 });

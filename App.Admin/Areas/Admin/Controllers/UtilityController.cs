@@ -1,8 +1,8 @@
-using App.Admin.Helpers;
-using App.Aplication;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using App.Admin.Helpers;
+using App.Aplication;
 
 namespace App.Admin.Controllers
 {
@@ -12,7 +12,7 @@ namespace App.Admin.Controllers
 
         public UtilityController(IImagePlugin imagePlugin)
         {
-            this._imagePlugin = imagePlugin;
+            _imagePlugin = imagePlugin;
         }
 
         public ActionResult GoogleMap(string gLat, string gLag)
@@ -20,22 +20,22 @@ namespace App.Admin.Controllers
             ViewBag.GLat = gLat;
             ViewBag.GLag = gLag;
 
-            return base.View();
+            return View();
         }
 
         public ActionResult Upload()
         {
-            HttpPostedFileBase item = base.HttpContext.Request.Files["upload"];
-            string str = base.HttpContext.Request["CKEditorFuncNum"];
+            HttpPostedFileBase item = HttpContext.Request.Files["upload"];
+            string str = HttpContext.Request["CKEditorFuncNum"];
 
             Guid guid = Guid.NewGuid();
 
             string str1 = string.Concat(guid.ToString(), ".jpg");
 
-            this._imagePlugin.CropAndResizeImage(item, string.Format("{0}", Contains.PostFolder), str1, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize, false);
+            _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}", str1, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
 
-            string str2 = string.Concat(new string[] { "http://", base.HttpContext.Request.Url.Authority, "/", Contains.PostFolder, str1 });
-            base.HttpContext.Response.Write(string.Concat(new string[] { "<script>window.parent.CKEDITOR.tools.callFunction(", str, ", \"", str2, "\");</script>" }));
+            string str2 = string.Concat("http://", HttpContext.Request.Url.Authority, "/", Contains.PostFolder, str1);
+            HttpContext.Response.Write(string.Concat("<script>window.parent.CKEDITOR.tools.callFunction(", str, ", \"", str2, "\");</script>"));
 
             return new EmptyResult();
         }

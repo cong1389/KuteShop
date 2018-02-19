@@ -76,6 +76,7 @@
                                             @foreach (var post in postRight)
                                             {
                                                 <li class="col-sm-4">
+
                                                     <div class="right-block">
                                                         <h5 class="product-name">
                                                             <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
@@ -100,13 +101,13 @@
                                                             @if (post.Discount.HasValue)
                                                             {
                                                                 <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
-                                                                <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                                                <span class="product-discount">-@Html.Raw(post.Discount + "%")</span>
                                                             }
                                                         </div>
                                                     </div>
                                                     <div class="left-block">
                                                         <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
-                                                            <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                                            <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)"/>
                                                         </a>
                                                         <div class="quick-view">
                                                             <a title="Add to my wishlist" class="heart" href="#"></a>

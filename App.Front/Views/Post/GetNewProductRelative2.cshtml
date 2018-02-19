@@ -3,100 +3,56 @@
 @model IEnumerable<App.Domain.Entities.Data.Post>
 @if (Model.IsAny())
 {
-    <div class='col-xs-12 col_md_80 related_product_wrapper'>
-
-        <div class="" id='product-related-products'>
-            <div class='product_block_title'>
-                <h4 class='pd_related_title'>SẢN PHẨM THƯỜNG ĐƯỢC XEM CÙNG</h4>
-            </div>
-
-            <div id="" class="pd_related_product">
-
-                @foreach (var product in Model)
-                {
-                    <div class="slick-slide">
-                        <div class="img">
-                            <div class='product_single'>
-                                <div class="product clearfix">
-                                    <div class="product-image">
-                                        <a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
-                                            <img width='240' height='240' data-lazyload="@Url.Content("~/" + product.ImageMediumSize)" alt="@product.Title">
-                                        </a>
-
-                                        <div class='product_overlay hidden-sm hidden-xs style_2'>
-                                            <div class='quick_action clearfix'>
-
-                                                <a href="qcj-32.html" data-toggle="tooltip" title='Lựa chọn' class=""><i class="fa fa-shopping-cart"></i></a>
-
-                                                <a href="#product-pop-up" data-toggle="tooltip" title='Xem nhanh' class="fancybox-fast-view" product_url="/products/qcj-32"><i class="fa fa-eye"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-desc">
-                                        <div class="product-title">
-                                            <h4><a href="qcj-32.html">@product.Title</a></h4>                                            
-                                        </div>
-                                        <div class="product-price">
-                                            <ins>
-                                                @if (product.Price.HasValue && product.Discount.HasValue)
-                                                {
-                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price - product.Price * product.Discount / 100))
-                                                }
-                                                else if (product.Price.HasValue && !product.Discount.HasValue)
-                                                {
-                                                    @Html.Raw(string.Format("{0:##,### VND}", product.Price))
-                                                }
-                                                else
-                                                {
-                                                    @Html.Raw("LienHeDatHang.Lable")
-                                                }
-                                            </ins>
-
-                                            @if (product.Discount.HasValue)
-                                            {
-                                                <span class="price-regular">@Html.Raw(string.Format("{0:##,### VND}", product.Price)) </span>
-                                                <span class="product-discount">@Html.Raw(product.Discount + "%")</span>
-                                            }
-                                        </div>
-                                    </div>
-
-                                </div>
+    <div class="page-product-box">
+        <h3 class="heading">Có thể bạn quan tâm</h3>
+        <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav="true" data-margin="30" data-autoplayTimeout="1000" data-autoplayHoverPause="true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":3}}'>
+            @foreach (var post in Model)
+            {
+                <li>
+                    <div class="product-container">
+                        <div class="left-block">
+                            <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                            </a>
+                            <div class="quick-view">
+                                <a title="Add to my wishlist" class="heart" href="#"></a>
+                                <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
+                                <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                            </div>
+                            <div class="add-to-cart">
+                                <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                        <div class="right-block">
+                            <h5 class="product-name">
+                                <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a>
+                            </h5>
+                            <div class="content_price">
+                                <span class="price product-price">
+                                    @if (post.Price.HasValue && post.Discount.HasValue)
+                                    {
+                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
+                                    }
+                                    else if (post.Price.HasValue && !post.Discount.HasValue)
+                                    {
+                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("LienHeDatHang.Lable")
+                                    }
+                                </span>
+                                @if (post.Discount.HasValue)
+                                {
+                                    <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
+                                    <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                }
                             </div>
                         </div>
                     </div>
-
-                }
-            </div>
-
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('.pd_related_product').slick({
-                        slidesToShow: 4,
-                        prevArrow: '<button type="button" class="slick-prev small_nav"><i class="fa fa-chevron-circle-left"></i></button>',
-                        nextArrow: '<button type="button" class="slick-next small_nav"><i class="fa fa-chevron-circle-right"></i></button>',
-                        focusOnSelect: true,
-                        responsive: [
-                        {
-                            breakpoint: 991,
-                            settings: {
-                                arrows: false,
-                                slidesToShow: 3,
-                            }
-                        },
-                        {
-                            breakpoint: 479,
-                            settings: {
-                                arrows: false,
-                                slidesToShow: 2,
-                            }
-                        }
-
-                        ],
-                    });
-                });
-            </script>
-        </div>
+                </li>
+            }
+        </ul>
     </div>
-
 }
 <!---/GetNewProductRelative2--->
