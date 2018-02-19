@@ -54,8 +54,7 @@ namespace App.Service.Orders
                 if (cart != null)
                 {
                     var subTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart);
-                    if (subTotal != null)
-                        orderTotal = decimal.Parse(subTotal);
+                    orderTotal = subTotal;
                 }
 
                 //BillingAddress  

@@ -29,16 +29,14 @@ namespace App.Front.Controllers
 
         private readonly IGenericAttributeService _genericAttributeService;
 
-        private readonly IPaymentMethodService _paymentMethodService;
-
         public ShoppingCartController(IShoppingCartItemService shoppingCartItemService
-            , IPostService postService, IWorkContext workContext, IGenericAttributeService genericAttributeService, IPaymentMethodService paymentMethodService)
+            , IPostService postService, IWorkContext workContext, IGenericAttributeService genericAttributeService,
+            IPaymentMethodService paymentMethodService)
         {
             _shoppingCartItemService = shoppingCartItemService;
             _postService = postService;
             _workContext = workContext;
             _genericAttributeService = genericAttributeService;
-            _paymentMethodService = paymentMethodService;
         }
 
         [HttpPost]
@@ -58,18 +56,20 @@ namespace App.Front.Controllers
 
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) },
+                    JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
 
-        protected MiniShoppingCartModel PrepareMiniShoppingCartModel()
+        private MiniShoppingCartModel PrepareMiniShoppingCartModel()
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
             List<Post> lstPost = new List<Post>();
 
-            if (cart.Any())
+            if (cart.IsAny())
             {
                 ViewBag.CurrentOrderItem = cart.FirstOrDefault(x => x.CreatedDate >= DateTime.UtcNow.AddSeconds(-2));
 
@@ -79,15 +79,13 @@ namespace App.Front.Controllers
                     lstPost.Add(objPost);
                 }
             }
-            IEnumerable<Post> iePost = lstPost;
 
             var model = new MiniShoppingCartModel
             {
                 Items = lstPost,
-                ShoppingCarts = cart
+                ShoppingCarts = cart,
+                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
-
-            model.SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart);// lstShoppingCart.GetCurrentCartSubTotal();
 
             return model;
         }
@@ -97,7 +95,9 @@ namespace App.Front.Controllers
         {
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) },
+                    JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
@@ -122,9 +122,11 @@ namespace App.Front.Controllers
             if (lstShoppingCart.Any())
             {
                 ShoppingCartItem obj = lstShoppingCart.OrderByDescending(x => x.CreatedDate).First();
+
                 List<Post> lstPost = new List<Post>();
                 Post objPost = _postService.GetById(obj.PostId);
                 lstPost.Add(objPost);
+
                 model = new MiniShoppingCartModel
                 {
                     Items = lstPost,
@@ -132,7 +134,14 @@ namespace App.Front.Controllers
                 };
             }
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Order.Notification", model) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(
+                    new
+                    {
+                        success = true,
+                        list = this.RenderRazorViewToString("_Order.Notification", model)
+                    }, JsonRequestBehavior.AllowGet
+                    );
 
             return jsonResult;
         }
@@ -163,7 +172,6 @@ namespace App.Front.Controllers
                     lstPost.Add(objPost);
                 }
             }
-            IEnumerable<Post> iePost = lstPost;
 
             var model = new MiniShoppingCartModel
             {
@@ -176,6 +184,11 @@ namespace App.Front.Controllers
             PrepareShoppingCartModel(cart);
 
             return View(model);
+        }
+
+        public ActionResult CartItem(MiniShoppingCartModel model)
+        {
+            return PartialView("_Cart.CartItem", model);
         }
 
         /// <summary>
@@ -202,7 +215,9 @@ namespace App.Front.Controllers
 
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Cart.CartItem", model) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(new { success = true, list = this.RenderRazorViewToString("_Cart.CartItem", model) },
+                    JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
@@ -214,7 +229,7 @@ namespace App.Front.Controllers
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart != null && cart.Count() > 0)
+            if (cart.IsAny())
             {
                 return RedirectToAction("BillingAddress", "Checkout");
             }
@@ -233,7 +248,7 @@ namespace App.Front.Controllers
             return PartialView(model);
         }
 
-        protected void PrepareShoppingCartModel(ShoppingCartModel model, IOrderedEnumerable<ShoppingCartItem> cart)
+        private void PrepareShoppingCartModel(ShoppingCartModel model, IOrderedEnumerable<ShoppingCartItem> cart)
         {
             //billing info
             var billAddress = _workContext.CurrentCustomer.Addresses;
@@ -254,14 +269,15 @@ namespace App.Front.Controllers
                 model.OrderReviewData.ShippingAddress = mapShipping;
             }
 
+            //Shipping method
+            var selectedShippingMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedShippingOption
+                , _genericAttributeService);
+            model.OrderReviewData.ShippingMethod = selectedShippingMethodSystemName;
+
             //Payment method
             var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedPaymentMethod
                 , _genericAttributeService);
-
             model.OrderReviewData.PaymentMethod = selectedPaymentMethodSystemName;
-
-
         }
-
     }
 }

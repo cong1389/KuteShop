@@ -35,6 +35,18 @@
     filter: alpha(opacity=0);
 }
 
+//btn-gray
+//------------------------------------------------------------------------------
+.btn-gray {
+    color: #fff;
+    background-color: #555649;
+    border-color: #555649;
+
+    :hover, :focus {
+        color: #fff !important;
+        text-decoration: none;
+    }
+}
 //btn-loading
 //-------------------------------------------------------------------------
 .btn-loading {

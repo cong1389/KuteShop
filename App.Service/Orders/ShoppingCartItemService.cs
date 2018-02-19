@@ -151,9 +151,9 @@ namespace App.Service.Orders
             return _shoppingCartItemRepository.PagedSearchList(sortbuBuilder, page);
         }
 
-        public string GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart)
+        public decimal GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart)
         {
-            return _orderTotalCalculationService.GetCurrentCartSubTotal(cart).ToString(CultureInfo.InvariantCulture);
+            return _orderTotalCalculationService.GetCurrentCartSubTotal(cart);
         }
 
         public virtual void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true,

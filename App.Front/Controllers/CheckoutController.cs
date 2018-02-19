@@ -361,7 +361,7 @@ namespace App.Front.Controllers
             var cart = _workContext.CurrentCustomer.GetCartItems();
             List<Post> lstPost = new List<Post>();
 
-            if (cart.Any())
+            if (cart.IsAny())
             {
                 foreach (var item in cart)
                 {
@@ -389,7 +389,9 @@ namespace App.Front.Controllers
         {
             var miniCart = GetCartByCustomer();
 
-            JsonResult jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Checkout.Cart", miniCart) }, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult =
+                Json(new {success = true, list = this.RenderRazorViewToString("_Checkout.Cart", miniCart)},
+                    JsonRequestBehavior.AllowGet);
 
             return jsonResult;
 

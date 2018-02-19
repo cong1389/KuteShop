@@ -16,7 +16,7 @@ namespace App.Service.Orders
 
         IEnumerable<ShoppingCartItem> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
-        string GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart);
+        decimal GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart);
 
         void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true,
          bool ensureOnlyActiveCheckoutAttributes = false, bool deleteChildCartItems = true);

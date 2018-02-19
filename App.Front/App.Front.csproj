@@ -287,6 +287,7 @@
     <Compile Include="WebCache.Static\StaticContentFilter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\0\0\global\check_out.css" />
     <Content Include="assets\0\0\global\customer_area.js" />
     <Content Include="assets\0\0\global\design\css\seller82e0.css" />
     <Content Include="assets\0\0\global\design\imgs\5giay-fa.png" />
@@ -371,6 +372,7 @@
     <Content Include="assets\255\1000074255\1000138323\cate-readmore-arrow8e0e.png" />
     <Content Include="assets\255\1000074255\1000138323\checkbox8e0e.png" />
     <Content Include="assets\255\1000074255\1000138323\checked8e0e.png" />
+    <Content Include="assets\255\1000074255\1000138323\check_out.css" />
     <Content Include="assets\255\1000074255\1000138323\delete_icon8e0e.png" />
     <Content Include="assets\255\1000074255\1000138323\down8e0e.png" />
     <Content Include="assets\255\1000074255\1000138323\dropdown8e0e.png" />
@@ -766,6 +768,7 @@
       <DependentUpon>_social.min.css</DependentUpon>
     </Content>
     <Content Include="Themes\Basic\Content\_social.scss" />
+    <Content Include="Themes\Basic\Scripts\goweb.customer.js" />
     <Content Include="Themes\Basic\Scripts\goweb.common.js" />
     <Content Include="Themes\Basic\Scripts\goweb.plugins.min.js" />
     <Content Include="Views\Home\About.cshtml" />

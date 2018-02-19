@@ -10,7 +10,7 @@ namespace App.Front.Models.ShoppingCart
 
         public IEnumerable<ShoppingCartItem> ShoppingCarts { get; set; }
 
-        public string SubTotal { get; set; }
+        public decimal SubTotal { get; set; }
 
         public MiniShoppingCartModel()
         {
