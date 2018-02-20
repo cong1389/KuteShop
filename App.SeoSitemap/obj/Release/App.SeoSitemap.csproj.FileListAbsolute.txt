@@ -1,0 +1,130 @@
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\AutoMapper.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.SeoSitemap\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Utils.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\App.Domain.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\obj\Release\App.SeoSitemap.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Utils.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Domain.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Utils.dll.config
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\App.Domain.dll.config
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb

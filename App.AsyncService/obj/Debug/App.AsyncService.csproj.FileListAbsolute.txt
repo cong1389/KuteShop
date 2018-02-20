@@ -1,0 +1,115 @@
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2017\Trisedco\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.Core.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.Domain.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\Project\MVC\AoThun\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\Project\MVC\AoThun\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\Project\MVC\AoThun\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\Project\MVC\AoThun\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\Project\MVC\AoThun\App.AsyncService\obj\Debug\App.AsyncService.pdb
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.Core.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.Domain.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+C:\Data\Source\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+C:\Data\Source\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+C:\Data\Source\Source\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+C:\Data\Source\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+C:\Data\Source\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.Core.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.Domain.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+C:\Data\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+C:\Data\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+C:\Data\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+C:\Data\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+C:\Data\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.Core.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.Domain.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\Project\Practice\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\Project\Practice\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\Project\Practice\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\Project\Practice\AoThun\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.AsyncService.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.AsyncService.pdb
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.Core.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.Domain.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.Infra.Data.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\AutoMapper.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Debug\AutoMapper.xml
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Debug\App.AsyncService.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Debug\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Debug\App.AsyncService.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Debug\App.AsyncService.pdb

@@ -1,0 +1,145 @@
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.UI.resources
+D:\FreeLance\2016\Suachuathongminh\Source1\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\KuteShop\Source\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2017\KuteShop\Source\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.UI.resources
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2017\KuteShop\Source\Resources\obj\Debug\Resources.pdb
+D:\FreeLance\2017\Trisedco\Source\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2017\Trisedco\Source\Resources\bin\Debug\en-US\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\bin\Debug\vi-VN\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.labels.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.UI.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.labels.en-US.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.labels.vi-VN.resources
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\en-US\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\vi-VN\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.pdb
+D:\FreeLance\2017\Trisedco\Source\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\bin\Debug\en-US\Resources.resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\bin\Debug\vi-VN\Resources.resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.labels.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.UI.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.labels.en-US.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.labels.vi-VN.resources
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\en-US\Resources.resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\vi-VN\Resources.resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2017\AoThun\Source\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.pdb
+D:\Project\MVC\AoThun\Resources\bin\Debug\Resources.dll
+D:\Project\MVC\AoThun\Resources\bin\Debug\Resources.pdb
+D:\Project\MVC\AoThun\Resources\bin\Debug\en-US\Resources.resources.dll
+D:\Project\MVC\AoThun\Resources\bin\Debug\vi-VN\Resources.resources.dll
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.labels.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.MessageUI.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.FormUI.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.UI.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.labels.en-US.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.labels.vi-VN.resources
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\Project\MVC\AoThun\Resources\obj\Debug\en-US\Resources.resources.dll
+D:\Project\MVC\AoThun\Resources\obj\Debug\vi-VN\Resources.resources.dll
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.dll
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.pdb
+D:\Project\MVC\AoThun\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+C:\Data\Source\Source\Resources\bin\Debug\Resources.dll
+C:\Data\Source\Source\Resources\bin\Debug\Resources.pdb
+C:\Data\Source\Source\Resources\bin\Debug\en-US\Resources.resources.dll
+C:\Data\Source\Source\Resources\bin\Debug\vi-VN\Resources.resources.dll
+C:\Data\Source\Source\Resources\obj\Debug\Resources.labels.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.MessageUI.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.FormUI.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.UI.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.labels.en-US.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.labels.vi-VN.resources
+C:\Data\Source\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+C:\Data\Source\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+C:\Data\Source\Source\Resources\obj\Debug\en-US\Resources.resources.dll
+C:\Data\Source\Source\Resources\obj\Debug\vi-VN\Resources.resources.dll
+C:\Data\Source\Source\Resources\obj\Debug\Resources.dll
+C:\Data\Source\Source\Resources\obj\Debug\Resources.pdb
+C:\Data\AoThun\Source\Resources\bin\Debug\Resources.dll
+C:\Data\AoThun\Source\Resources\bin\Debug\Resources.pdb
+C:\Data\AoThun\Source\Resources\bin\Debug\en-US\Resources.resources.dll
+C:\Data\AoThun\Source\Resources\bin\Debug\vi-VN\Resources.resources.dll
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.labels.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.MessageUI.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.FormUI.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.labels.en-US.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.labels.vi-VN.resources
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+C:\Data\AoThun\Source\Resources\obj\Debug\en-US\Resources.resources.dll
+C:\Data\AoThun\Source\Resources\obj\Debug\vi-VN\Resources.resources.dll
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.dll
+C:\Data\AoThun\Source\Resources\obj\Debug\Resources.pdb
+D:\Project\Practice\AoThun\Source\Resources\bin\Debug\Resources.dll
+D:\Project\Practice\AoThun\Source\Resources\bin\Debug\Resources.pdb
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.dll
+D:\Project\Practice\AoThun\Source\Resources\obj\Debug\Resources.pdb
+D:\FreeLance\2017\AoThun\Source\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\Resources\bin\Debug\Resources.dll
+D:\FreeLance\2018\KuteShop\Source\Resources\bin\Debug\Resources.pdb
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.dll
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.pdb

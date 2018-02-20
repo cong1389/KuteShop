@@ -1,0 +1,298 @@
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.ImagePlugin.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\FluentValidation.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.dll.config
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.AsyncService.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.ImagePlugin.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\FluentValidation.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\Resources.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\EntityFramework.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.ImagePlugin.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Service.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\AutoMapper.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\bin\Release\FluentValidation.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.dll.config
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.AsyncService.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.ImagePlugin.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Utils.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\FluentValidation.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\Resources.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.ImagePlugin.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Service.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\bin\Release\FluentValidation.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Framework.dll.config
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Aplication.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.AsyncService.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.ImagePlugin.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Utils.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\FluentValidation.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\Resources.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Aplication.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.ImagePlugin.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Service.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\FluentValidation.xml
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\Resources.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\en-US\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\vi-VN\Resources.resources.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Framework\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Framework.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Aplication.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.AsyncService.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.ImagePlugin.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\FluentValidation.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Aplication.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Aplication.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Core.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Domain.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.ImagePlugin.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.ImagePlugin.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Autofac.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\AutoMapper.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\FluentValidation.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\obj\Release\App.Framework.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Utils.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\EntityFramework.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.FakeEntity.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Service.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Service.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\App.Utils.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\Resources.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\en-US\Resources.resources.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Framework\bin\Release\vi-VN\Resources.resources.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Framework.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Framework.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Framework.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Domain.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Service.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\Autofac.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\EPPlus.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\Resources.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Aplication.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Aplication.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Core.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Core.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Domain.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Service.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Service.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Utils.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Utils.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\Autofac.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\FluentValidation.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\EPPlus.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\Resources.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.Framework\obj\Release\App.Framework.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\App.Framework\obj\Release\App.Framework.dll
+D:\FreeLance\2017\AoThun\Source\App.Framework\obj\Release\App.Framework.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Framework.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Framework.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Framework.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Aplication.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Core.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Domain.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.Repository.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Service.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\Autofac.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\AutoMapper.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\System.Web.Mvc.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\Resources.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\Kaliko.ImageLibrary.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\EPPlus.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\EntityFramework.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.FakeEntity.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Aplication.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Aplication.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Core.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Core.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Domain.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Domain.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.Repository.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Infra.Data.RepositoryAsync.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Service.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Service.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Utils.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\App.Utils.dll.config
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\Autofac.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\AutoMapper.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\FluentValidation.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\System.Web.Mvc.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\Resources.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\EPPlus.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.pdb
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\HtmlAgilityPack.xml
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\en-US\Resources.resources.dll
+D:\Project\Practice\AoThun\Source\App.Framework\bin\Release\vi-VN\Resources.resources.dll
+D:\Project\Practice\AoThun\Source\App.Framework\obj\Release\App.Framework.csprojResolveAssemblyReference.cache
+D:\Project\Practice\AoThun\Source\App.Framework\obj\Release\App.Framework.csproj.CoreCompileInputs.cache
+D:\Project\Practice\AoThun\Source\App.Framework\obj\Release\App.Framework.dll
+D:\Project\Practice\AoThun\Source\App.Framework\obj\Release\App.Framework.pdb
+D:\FreeLance\2017\AoThun\Source\App.Framework\bin\Release\App.Aplication.dll

@@ -1,0 +1,69 @@
+D:\FreeLance\2016\Suachuathongminh\Source\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\bin\Release\AutoMapper.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Trisedco\Source\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Service.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Service.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Core\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\FreeLance\2017\Trisedco\Source\App.Core\obj\Release\App.Core.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\bin\Release\App.Core.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\obj\Release\App.Core.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Core\obj\Release\App.Core.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\App.Core.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2017\AoThun\Source\App.Core\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2017\AoThun\Source\App.Core\obj\Release\App.Core.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.Core\obj\Release\App.Core.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.Core\obj\Release\App.Core.pdb
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\App.Core.dll.config
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\App.Core.dll
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\App.Core.pdb
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.dll
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\System.Web.Mvc.dll
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.pdb
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\HtmlAgilityPack.xml
+D:\Project\Practice\AoThun\Source\App.Core\bin\Release\System.Web.Mvc.xml
+D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.csprojResolveAssemblyReference.cache
+D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.csproj.CoreCompileInputs.cache
+D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.dll
+D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.pdb

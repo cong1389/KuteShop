@@ -1,0 +1,108 @@
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Suachuathongminh\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\AutoMapper.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\AutoMapper.xml
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Suachuathongminh\Source1\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\AutoMapper.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\AutoMapper.xml
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\Trisedco\Source\App.Infra.Data.Repository\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Core.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Domain.dll.config
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csproj.CoreCompileInputs.cache
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2016\Kientrucboba\Source mvc\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.Repository.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Domain.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\EntityFramework.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.Razor.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.Razor.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.Deployment.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Core.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Core.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Domain.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Domain.dll.config
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\App.Infra.Data.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.Razor.xml
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.Razor.xml
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.xml
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\bin\Release\System.Web.WebPages.Deployment.xml
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.csproj.CoreCompileInputs.cache
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.dll
+D:\FreeLance\2017\AoThun\Source\App.Infra.Data.Repository\obj\Release\App.Infra.Data.Repository.pdb
