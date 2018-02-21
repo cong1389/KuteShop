@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace App.Infra.Data.Common
 {
-    public abstract class BaseService<T> : IBaseService<T>, IService
+    public abstract class BaseService<T> : IBaseService<T>
     where T : BaseEntity
     {
         private readonly IRepositoryBase<T> _repository;
@@ -18,8 +18,8 @@ namespace App.Infra.Data.Common
 
         protected BaseService(IUnitOfWork unitOfWork, IRepositoryBase<T> repository)
         {
-            this._unitOfWork = unitOfWork;
-            this._repository = repository;
+            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         public void BatchCreate(IEnumerable<T> entity)
@@ -28,8 +28,8 @@ namespace App.Infra.Data.Common
             {
                 throw new ArgumentNullException("entity");
             }
-            this._repository.BactchAdd(entity);
-            this._unitOfWork.Commit();
+            _repository.BactchAdd(entity);
+            _unitOfWork.Commit();
         }
 
         public void BatchDelete(IEnumerable<T> entity)
@@ -40,9 +40,9 @@ namespace App.Infra.Data.Common
             }
             foreach (T t in entity)
             {
-                this._repository.Delete(t);
+                _repository.Delete(t);
             }
-            this._unitOfWork.Commit();
+            _unitOfWork.Commit();
         }
 
         public virtual void Create(T entity)
@@ -51,8 +51,8 @@ namespace App.Infra.Data.Common
             {
                 throw new ArgumentNullException("entity");
             }
-            this._repository.Add(entity);
-            this._unitOfWork.Commit();
+            _repository.Add(entity);
+            _unitOfWork.Commit();
         }
 
         public virtual void Delete(T entity)
@@ -61,43 +61,43 @@ namespace App.Infra.Data.Common
             {
                 throw new ArgumentNullException("entity");
             }
-            this._repository.Delete(entity);
-            this._unitOfWork.Commit();
+            _repository.Delete(entity);
+            _unitOfWork.Commit();
         }
 
         public IEnumerable<T> FindAndSort(Expression<Func<T, bool>> whereClause, SortBuilder sortBuilder, Paging page)
         {
-            return this._repository.FindAndSort(whereClause, sortBuilder, page);
+            return _repository.FindAndSort(whereClause, sortBuilder, page);
         }
 
         public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate, bool @readonly = false)
         {
-            return this._repository.FindBy(predicate, @readonly);
+            return _repository.FindBy(predicate, @readonly);
         }
 
         public T Get(Expression<Func<T, bool>> whereClause, bool @readonly = false)
         {
-            return this._repository.Get(whereClause, @readonly);
+            return _repository.Get(whereClause, @readonly);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return this._repository.GetAll();
+            return _repository.GetAll();
         }
 
         public IEnumerable<T> GetTop(int take)
         {
-            return this._repository.GetTop(take);
+            return _repository.GetTop(take);
         }
 
         public IEnumerable<T> GetTop(int take, Expression<Func<T, bool>> whereClause)
         {
-            return this._repository.GetTopBy(take, whereClause);
+            return _repository.GetTopBy(take, whereClause);
         }
 
         public IEnumerable<T> GetTop<TKey>(int take, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause)
         {
-            return this._repository.GetTopBy<TKey>(take, whereClause, orderByClause);
+            return _repository.GetTopBy<TKey>(take, whereClause, orderByClause);
         }
 
         public virtual void Update(T entity)
@@ -106,8 +106,8 @@ namespace App.Infra.Data.Common
             {
                 throw new ArgumentNullException("entity");
             }
-            this._repository.Update(entity);
-            this._unitOfWork.Commit();
+            _repository.Update(entity);
+            _unitOfWork.Commit();
         }
     }
 }

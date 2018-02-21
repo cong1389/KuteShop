@@ -1,7 +1,5 @@
-using App.Infra.Data.Context;
 using App.Infra.Data.DbFactory;
 using App.Infra.Data.UOW.Interfaces;
-using System;
 
 namespace App.UnitOfWork.UOW
 {
@@ -9,18 +7,18 @@ namespace App.UnitOfWork.UOW
 	{
 		private readonly IDbFactory _dbFactory;
 
-		private App.Infra.Data.Context.AppContext _dbContext;
+		private Infra.Data.Context.AppContext _dbContext;
 
-		public App.Infra.Data.Context.AppContext DbContext
+		public Infra.Data.Context.AppContext DbContext
 		{
 			get
 			{
-				App.Infra.Data.Context.AppContext appContext = this._dbContext;
+				Infra.Data.Context.AppContext appContext = _dbContext;
 				if (appContext == null)
 				{
-					App.Infra.Data.Context.AppContext appContext1 = this._dbFactory.Init();
-					App.Infra.Data.Context.AppContext appContext2 = appContext1;
-					this._dbContext = appContext1;
+					Infra.Data.Context.AppContext appContext1 = _dbFactory.Init();
+					Infra.Data.Context.AppContext appContext2 = appContext1;
+					_dbContext = appContext1;
 					appContext = appContext2;
 				}
 				return appContext;
@@ -29,12 +27,12 @@ namespace App.UnitOfWork.UOW
 
 		public UnitOfWork(IDbFactory dbFactory)
 		{
-			this._dbFactory = dbFactory;
+			_dbFactory = dbFactory;
 		}
 
 		public int Commit()
 		{
-			return this.DbContext.Commit();
+			return DbContext.Commit();
 		}
 	}
 }

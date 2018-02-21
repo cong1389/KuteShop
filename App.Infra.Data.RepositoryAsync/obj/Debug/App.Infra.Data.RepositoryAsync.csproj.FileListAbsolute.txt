@@ -156,6 +156,8 @@ D:\Project\Practice\AoThun\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.I
 D:\Project\Practice\AoThun\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.csproj.CoreCompileInputs.cache
 D:\Project\Practice\AoThun\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.dll
 D:\Project\Practice\AoThun\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Infra.Data.RepositoryAsync.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Infra.Data.RepositoryAsync.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Domain.dll
@@ -171,7 +173,5 @@ D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\Syste
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Domain.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Domain.dll.config
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\bin\Debug\App.Infra.Data.pdb
-D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.csprojResolveAssemblyReference.cache
-D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.RepositoryAsync\obj\Debug\App.Infra.Data.RepositoryAsync.pdb

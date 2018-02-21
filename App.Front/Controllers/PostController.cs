@@ -151,7 +151,7 @@ namespace App.Front.Controllers
             Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = _pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
             if (page == 1)
@@ -503,7 +503,7 @@ namespace App.Front.Controllers
             Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = _pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
 

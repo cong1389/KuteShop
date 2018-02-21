@@ -14,7 +14,7 @@ namespace App.Service.Account
 	{
 	    private readonly IUserRepository _userRepository;
 
-		public UserService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository) : base(userRepository, unitOfWork)
+		public UserService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository) : base(userRepository)
 		{
 		    _userRepository = userRepository;
 		}

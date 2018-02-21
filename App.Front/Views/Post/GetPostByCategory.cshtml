@@ -161,7 +161,7 @@
     var collFilters = jQuery('.coll-filter');
     collFilters.change(function() {
         var newTags = [];
-        var newURL = '';
+        var newUrl = '';
         delete Haravan.queryParams.page;
         collFilters.each(function() {
             if (jQuery(this).val()) {
@@ -169,15 +169,15 @@
             }
         });
 
-        newURL = '/collections/' + 'all';
+        newUrl = '/collections/' + 'all';
         if (newTags.length) {
-            newURL += '/' + newTags.join('+');
+            newUrl += '/' + newTags.join('+');
         }
         var search = jQuery.param(Haravan.queryParams);
         if (search.length) {
-            newURL += '?' + search;
+            newUrl += '?' + search;
         }
-        location.href = newURL;
+        location.href = newUrl;
 
     });
     jQuery('.sort-by')

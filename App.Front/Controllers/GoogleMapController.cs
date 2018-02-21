@@ -13,10 +13,10 @@ namespace App.Front.Controllers
 			_contactInfoService = contactInfoService;
 		}
 
-		public ActionResult ShowGoogleMap(int Id)
+		public ActionResult ShowGoogleMap(int id)
 		{
-			ContactInformation ContactInformation = _contactInfoService.Get(x => x.Id == Id, false);
-			return View(ContactInformation);
+			ContactInformation contactInformation = _contactInfoService.Get(x => x.Id == id, false);
+			return View(contactInformation);
 		}
 	}
 }

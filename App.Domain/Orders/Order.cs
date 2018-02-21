@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 
 namespace App.Domain.Orders
 {
-    public sealed class Order : AuditableEntity<int>
+    public class Order : AuditableEntity<int>
     {
         public string OrderNumber
         {
@@ -26,7 +26,7 @@ namespace App.Domain.Orders
             get; set;
         }
         [DataMember]
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
         [DataMember]
         public int BillingAddressId { get; set; }
@@ -38,10 +38,10 @@ namespace App.Domain.Orders
         public int? ShippingAddressId { get; set; }
 
         [DataMember]
-        public Address BillingAddress { get; set; }
+        public virtual Address BillingAddress { get; set; }
 
         [DataMember]
-        public Address ShippingAddress { get; set; }
+        public virtual Address ShippingAddress { get; set; }
 
         public int OrderStatusId
         {
@@ -295,24 +295,42 @@ namespace App.Domain.Orders
         [DataMember]
         public OrderStatus OrderStatus
         {
-            get => (OrderStatus)OrderStatusId;
-            set => OrderStatusId = (int)value;
+            get
+            {
+                return (OrderStatus)OrderStatusId;
+            }
+            set
+            {
+                OrderStatusId = (int)value;
+            }
         }
 
         [DataMember]
         public PaymentStatus PaymentStatus
         {
-            get => (PaymentStatus)PaymentStatusId;
-            set => PaymentStatusId = (int)value;
+            get
+            {
+                return (PaymentStatus)PaymentStatusId;
+            }
+            set
+            {
+                PaymentStatusId = (int)value;
+            }
         }
 
         public ShippingStatus ShippingStatus
         {
-            get => (ShippingStatus)ShippingStatusId;
-            set => ShippingStatusId = (int)value;
+            get
+            {
+                return (ShippingStatus)ShippingStatusId;
+            }
+            set
+            {
+                ShippingStatusId = (int)value;
+            }
         }
 
-        public ICollection<OrderItem> OrderItems
+        public virtual ICollection<OrderItem> OrderItems
         {
             get; set;
         }

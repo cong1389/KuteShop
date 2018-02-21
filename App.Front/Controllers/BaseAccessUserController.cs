@@ -10,7 +10,7 @@ namespace App.Front.Controllers
 {
 	public class BaseAccessUserController : Controller
 	{
-		protected readonly UserManager<IdentityUser, Guid> _userManager;
+		protected readonly UserManager<IdentityUser, Guid> UserManager;
 
 		protected string XsrfKey = AccountUtils.XsrfKey;
 
@@ -28,7 +28,7 @@ namespace App.Front.Controllers
 
 		protected BaseAccessUserController(UserManager<IdentityUser, Guid> userManager)
 		{
-            _userManager = userManager;
+            UserManager = userManager;
 		}
 
 		protected void AddErrors(IdentityResult result)
@@ -41,9 +41,9 @@ namespace App.Front.Controllers
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && _userManager != null)
+			if (disposing && UserManager != null)
 			{
-				_userManager.Dispose();
+				UserManager.Dispose();
 			}
 			base.Dispose(disposing);
 		}

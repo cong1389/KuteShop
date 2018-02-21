@@ -91,19 +91,19 @@
                 $(':input[filtertype=search]:checked').each(function () {
                     this.checked = false;
                     var searchString = getStringFilter($(this));
-                    var url_final = '/' + searchString; //+'&view=grid_and_control';
+                    var urlFinal = '/' + searchString; //+'&view=grid_and_control';
                     //loadResultBy(url_final,$("#results"));
                 });
             });
 
             function getStringFilter(currentSelected) {
-                var vendor = "", product_type = "", price = "", color = '', tag_custom_1 = "", tag_custom_2 = "", tag_custom_3 = "";
-                var tag_prefix_1 = 'size',
-                        tag_prefix_2 = 'chatlieu',
-                        tag_prefix_3 = 'xuatxu';
+                var vendor = "", productType = "", price = "", color = '', tagCustom1 = "", tagCustom2 = "", tagCustom3 = "";
+                var tagPrefix1 = 'size',
+                        tagPrefix2 = 'chatlieu',
+                        tagPrefix3 = 'xuatxu';
                 //var searchString = "search?q=";
                 var searchString = '';
-                var search_hrv = "search?type=product&q=";
+                var searchHrv = "search?type=product&q=";
                 // if current page is search
                 if ($("#collection_id").val() == ">=0") {
                     searchString += $("#search_term").val() + "&";
@@ -128,28 +128,28 @@
                 // BEGIN: GET All checked filter string
                 // standard filter
                 vendor = getCheckedBy("vendor", vendor);
-                product_type = getCheckedBy("product_type", product_type);
+                productType = getCheckedBy("product_type", productType);
                 price = getCheckedBy("price", price);
                 // custom filer
 
                 color = getCheckedBy("mausac", color);
 
-                tag_custom_1 = (tag_prefix_1 != '') ? getCheckedBy(tag_prefix_1, tag_custom_1) : getCheckedBy('a', tag_custom_1);
-                tag_custom_2 = (tag_prefix_2 != '') ? getCheckedBy(tag_prefix_2, tag_custom_2) : getCheckedBy('a', tag_custom_2);
-                tag_custom_3 = (tag_prefix_3 != '') ? getCheckedBy(tag_prefix_3, tag_custom_3) : getCheckedBy('a', tag_custom_3);
+                tagCustom1 = (tagPrefix1 != '') ? getCheckedBy(tagPrefix1, tagCustom1) : getCheckedBy('a', tagCustom1);
+                tagCustom2 = (tagPrefix2 != '') ? getCheckedBy(tagPrefix2, tagCustom2) : getCheckedBy('a', tagCustom2);
+                tagCustom3 = (tagPrefix3 != '') ? getCheckedBy(tagPrefix3, tagCustom3) : getCheckedBy('a', tagCustom3);
                 // END: GET FILTER
 
                 //console.log(vendor);
                 //console.log(color);
                 // BEGIN: MERGE all filter string
                 collectionFilter = mergeFilterWith(vendor, collectionFilter);
-                collectionFilter = mergeFilterWith(product_type, collectionFilter);
+                collectionFilter = mergeFilterWith(productType, collectionFilter);
                 collectionFilter = mergeFilterWith(price, collectionFilter);
 
                 collectionFilter = mergeFilterWith(color, collectionFilter);
-                collectionFilter = mergeFilterWith(tag_custom_1, collectionFilter);
-                collectionFilter = mergeFilterWith(tag_custom_2, collectionFilter);
-                collectionFilter = mergeFilterWith(tag_custom_3, collectionFilter);
+                collectionFilter = mergeFilterWith(tagCustom1, collectionFilter);
+                collectionFilter = mergeFilterWith(tagCustom2, collectionFilter);
+                collectionFilter = mergeFilterWith(tagCustom3, collectionFilter);
 
                 searchString += collectionFilter;
                 searchString += ')';
@@ -171,8 +171,8 @@
                 else {
                     searchString += "&sortby=" + $("#sortControl option:selected").attr('sort_by');
                 }
-                search_hrv += searchString;
-                return search_hrv;
+                searchHrv += searchString;
+                return searchHrv;
             }
 
             function getCheckedBy(filterKey, filterOption) {
@@ -195,20 +195,20 @@
                 return currCollectionFilter;
             }
 
-            function mapData(data, position_load) {
-                var current_list = $(position_load),
-                        product_list = $(data).find(position_load);
-                current_list.replaceWith(product_list);
+            function mapData(data, positionLoad) {
+                var currentList = $(positionLoad),
+                        productList = $(data).find(positionLoad);
+                currentList.replaceWith(productList);
             }
-            function loadResultBy(url_building, position_load) {
+            function loadResultBy(urlBuilding, positionLoad) {
                 $.ajax({
-                    'url': url_building,
+                    'url': urlBuilding,
                     'type': 'POST',
                     'beforeSend': function () {
                         $('body').removeClass('loaded');
                     },
                     'success': function (data) {
-                        mapData(data, position_load);
+                        mapData(data, positionLoad);
                     },
                     'complete': function () {
                         EGA.init();
@@ -248,8 +248,8 @@
                 align_single_element();
             });
             var align_single_element = function () {
-                var num_pro = $('#shop .product').length;
-                if (num_pro % 2 == 1) {
+                var numPro = $('#shop .product').length;
+                if (numPro % 2 == 1) {
                     $('#shop .product').last().addClass('product-last');
                 }
             }

@@ -24,9 +24,9 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetSlogan(int MenuId)
+        public ActionResult GetSlogan(int menuId)
         {
-            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == menuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
@@ -37,9 +37,9 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult PostDetailPolices(int MenuId)
+        public ActionResult PostDetailPolices(int menuId)
         {
-            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == menuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
@@ -50,9 +50,9 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetHomeIntro(int MenuId)
+        public ActionResult GetHomeIntro(int menuId)
         {
-            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == menuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();
@@ -63,11 +63,11 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetHomeProduct(int MenuId)
+        public ActionResult GetHomeProduct(int menuId)
         {
             //int languageId = _workContext.WorkingLanguage.Id;
 
-            StaticContent staticContent = _staticContentService.Get(x => x.Id == MenuId, true);
+            StaticContent staticContent = _staticContentService.Get(x => x.Id == menuId, true);
 
             if (staticContent == null)
                 return HttpNotFound();

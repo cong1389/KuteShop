@@ -34,11 +34,11 @@ namespace App.Front.Controllers
 
         private readonly IPostService _postService;
 
-        public readonly IShoppingCartItemService _shoppingCartItemService;
+        public readonly IShoppingCartItemService ShoppingCartItemService;
 
-        public readonly IPaymentMethodService _paymentMethodService;
+        public readonly IPaymentMethodService PaymentMethodService;
 
-        public readonly IShippingMethodService _shippingMethodService;
+        public readonly IShippingMethodService ShippingMethodService;
 
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IOrderService _orderService;
@@ -56,10 +56,10 @@ namespace App.Front.Controllers
             _customerService = customerService;
             _addressService = addressService;
             _postService = postService;
-            _shoppingCartItemService = shoppingCartItemService;
-            _paymentMethodService = paymentMethodService;
+            ShoppingCartItemService = shoppingCartItemService;
+            PaymentMethodService = paymentMethodService;
             _genericAttributeService = genericAttributeService;
-            _shippingMethodService = shippingMethodService;
+            ShippingMethodService = shippingMethodService;
             _orderService = orderService;
             _orderProcessingService = orderProcessingService;
         }
@@ -100,7 +100,7 @@ namespace App.Front.Controllers
                 var customer = _workContext.CurrentCustomer;
                 if (customer != null)
                 {
-                    model.CustomerInfoModel.ShippingAddress_Id = customer.ShippingAddress.Id;
+                    model.CustomerInfoModel.ShippingAddressId = customer.ShippingAddress.Id;
                 }
             }
             catch
@@ -211,7 +211,7 @@ namespace App.Front.Controllers
         {
             var model = new CheckoutPaymentMethodModel();
 
-            var payment = _paymentMethodService.GetAll();
+            var payment = PaymentMethodService.GetAll();
 
             if (payment.Any())
             {
@@ -306,7 +306,7 @@ namespace App.Front.Controllers
         {
             var model = new CheckoutShippingMethodModel();
             //var customer = _workContext.CurrentCustomer;
-            var shipping = _shippingMethodService.GetAll();
+            var shipping = ShippingMethodService.GetAll();
 
             if (shipping.Any())
             {
@@ -372,7 +372,7 @@ namespace App.Front.Controllers
             {
                 Items = lstPost,
                 ShoppingCarts = cart,
-                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
+                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
             HttpContext.Session["OrderPaymentInfo"] = miniShopping;

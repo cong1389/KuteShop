@@ -238,6 +238,8 @@ D:\Project\Practice\AoThun\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.
 D:\Project\Practice\AoThun\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.csproj.CoreCompileInputs.cache
 D:\Project\Practice\AoThun\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.dll
 D:\Project\Practice\AoThun\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\App.Infra.Data.Repository.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\App.Infra.Data.Repository.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\App.Core.dll
@@ -255,7 +257,5 @@ D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\App.Infra.
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\System.Web.Mvc.xml
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\HtmlAgilityPack.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\bin\Debug\HtmlAgilityPack.xml
-D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.csprojResolveAssemblyReference.cache
-D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data.Repository\obj\Debug\App.Infra.Data.Repository.pdb

@@ -1,5 +1,4 @@
 using App.Core.Utils;
-using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.Domain.Interfaces.Repository;
 using System.Collections.Generic;

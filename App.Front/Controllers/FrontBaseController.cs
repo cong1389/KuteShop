@@ -34,7 +34,7 @@ namespace App.Front.Controllers
             }
         }
 
-	    protected int _pageSize
+	    protected int PageSize
 		{
 			get
 			{

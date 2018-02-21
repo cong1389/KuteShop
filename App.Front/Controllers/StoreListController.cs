@@ -23,18 +23,18 @@ namespace App.Front.Controllers
 			_contactInfoService = contactInfoService;
 		}
 
-		public ActionResult GetStoreListByProvince(int Id)
+		public ActionResult GetStoreListByProvince(int id)
 		{
 			if (!Request.IsAjaxRequest())
 			{
 				return Json(new { success = false });
 			}
-			IEnumerable<ContactInformation> ContactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)Id, true);
+			IEnumerable<ContactInformation> contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)id, true);
 			List<StoreList> storeLists = new List<StoreList>();
-			if (ContactInformations.IsAny())
+			if (contactInformations.IsAny())
 			{
 				storeLists.AddRange(
-					from item in ContactInformations
+					from item in contactInformations
 					select new StoreList
 					{
 						Address = item.Address,
@@ -47,17 +47,17 @@ namespace App.Front.Controllers
 			return Json(new { data = storeLists, success = true });
 		}
 
-		public ActionResult Index(int Id)
+		public ActionResult Index(int id)
 		{
 			Province province = _provinceService.GetTop(1, x => x.Status == 1, x => x.OrderDisplay).FirstOrDefault();
 			IEnumerable<Province> top = _provinceService.GetTop(2147483647, x => x.Status == 1, x => x.OrderDisplay);
 			ViewBag.Provinces = top;
-			IEnumerable<ContactInformation> ContactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
+			IEnumerable<ContactInformation> contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
 			List<StoreList> storeLists = new List<StoreList>();
-			if (ContactInformations.IsAny())
+			if (contactInformations.IsAny())
 			{
 				storeLists.AddRange(
-					from item in ContactInformations
+					from item in contactInformations
 					select new StoreList
 					{
 						Address = item.Address,
@@ -69,7 +69,7 @@ namespace App.Front.Controllers
 					});
 				ViewBag.Data = JsonConvert.SerializeObject(storeLists);
 			}
-			return PartialView(ContactInformations);
+			return PartialView(contactInformations);
 		}
 	}
 }

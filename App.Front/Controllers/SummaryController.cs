@@ -21,8 +21,8 @@ namespace App.Front.Controllers
 {
     public class SummaryController : FrontBaseController
     {
-        private const string CACHE_SETTINGSYSTEM_KEY = "db.SettingSystem.{0}";
-        private const string CACHE_SETTINGSEOGLOBAL_KEY = "db.SettingSeoGlobal.{0}";
+        private const string CacheSettingsystemKey = "db.SettingSystem.{0}";
+        private const string CacheSettingseoglobalKey = "db.SettingSeoGlobal.{0}";
         private readonly ICacheManager _cacheManager;
         private readonly IMenuLinkService _menuLinkService;
 
@@ -332,7 +332,7 @@ namespace App.Front.Controllers
         private SystemSetting GetSystemSettingData()
         {
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_SETTINGSYSTEM_KEY, "GetSystemSettingData");
+            sbKey.AppendFormat(CacheSettingsystemKey, "GetSystemSettingData");
 
             string key = sbKey.ToString();
             SystemSetting systemSetting = _cacheManager.Get<SystemSetting>(key);
@@ -352,7 +352,7 @@ namespace App.Front.Controllers
         private SettingSeoGlobal GetSettingSeoData()
         {
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CACHE_SETTINGSEOGLOBAL_KEY, "GetSettingSeoGlobal");
+            sbKey.AppendFormat(CacheSettingseoglobalKey, "GetSettingSeoGlobal");
 
             string key = sbKey.ToString();
             SettingSeoGlobal settingSeoGlobal = _cacheManager.Get<SettingSeoGlobal>(key);

@@ -1,7 +1,6 @@
 using App.Core.Utils;
 using App.Domain.Entities.Account;
 using App.Domain.Interfaces.Repository;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

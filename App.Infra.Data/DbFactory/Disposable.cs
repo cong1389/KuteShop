@@ -12,17 +12,17 @@ namespace App.Infra.Data.DbFactory
 
 		public void Dispose()
 		{
-			this.Dispose(true);
+			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
 		private void Dispose(bool disposing)
 		{
-			if (!this._isDisposed & disposing)
+			if (!_isDisposed & disposing)
 			{
-				this.DisposeCore();
+				DisposeCore();
 			}
-			this._isDisposed = true;
+			_isDisposed = true;
 		}
 
 		protected virtual void DisposeCore()
@@ -31,7 +31,7 @@ namespace App.Infra.Data.DbFactory
 
 		~Disposable()
 		{
-			this.Dispose(false);
+			Dispose(false);
 		}
 	}
 }

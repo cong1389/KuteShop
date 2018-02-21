@@ -34,7 +34,7 @@ namespace App.Infra.Data.Context
 {
     public class AppContext : DbContext
     {
-        public virtual IDbSet<App.Domain.Entities.Attribute.Attribute> Attributes
+        public virtual IDbSet<Domain.Entities.Attribute.Attribute> Attributes
         {
             get;
             set;
@@ -94,7 +94,7 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public virtual IDbSet<App.Domain.Entities.Data.News> News
+        public virtual IDbSet<News> News
         {
             get;
             set;
@@ -268,16 +268,16 @@ namespace App.Infra.Data.Context
 
         public AppContext() : base("AppConnect")
         {
-            base.Configuration.LazyLoadingEnabled = true;
-            base.Configuration.ProxyCreationEnabled = true;
-            base.Configuration.AutoDetectChangesEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.AutoDetectChangesEnabled = true;
         }
 
         public virtual int Commit()
         {
             IEnumerable<DbEntityEntry> dbEntityEntries =
-                from x in base.ChangeTracker.Entries()
-                where (!(x.Entity is IAuditableEntity) ? false : (x.State == EntityState.Added ? true : x.State == EntityState.Modified))
+                from x in ChangeTracker.Entries()
+                where x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified)
                 select x;
             foreach (DbEntityEntry dbEntityEntry in dbEntityEntries)
             {
@@ -288,8 +288,8 @@ namespace App.Infra.Data.Context
                     DateTime utcNow = DateTime.UtcNow;
                     if (dbEntityEntry.State != EntityState.Added)
                     {
-                        base.Entry<IAuditableEntity>(entity).Property<string>((IAuditableEntity x) => x.CreatedBy).IsModified = false;
-                        base.Entry<IAuditableEntity>(entity).Property<DateTime>((IAuditableEntity x) => x.CreatedDate).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedDate).IsModified = false;
                     }
                     else
                     {
@@ -300,14 +300,14 @@ namespace App.Infra.Data.Context
                     entity.UpdatedDate = new DateTime?(utcNow);
                 }
             }
-            return this.SaveChanges();
+            return SaveChanges();
         }
 
         public virtual Task<int> CommitAsync()
         {
             IEnumerable<DbEntityEntry> dbEntityEntries =
-                from x in base.ChangeTracker.Entries()
-                where (!(x.Entity is IAuditableEntity) ? false : (x.State == EntityState.Added ? true : x.State == EntityState.Modified))
+                from x in ChangeTracker.Entries()
+                where x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified)
                 select x;
             foreach (DbEntityEntry dbEntityEntry in dbEntityEntries)
             {
@@ -318,8 +318,8 @@ namespace App.Infra.Data.Context
                     DateTime utcNow = DateTime.UtcNow;
                     if (dbEntityEntry.State != EntityState.Added)
                     {
-                        base.Entry<IAuditableEntity>(entity).Property<string>((IAuditableEntity x) => x.CreatedBy).IsModified = false;
-                        base.Entry<IAuditableEntity>(entity).Property<DateTime>((IAuditableEntity x) => x.CreatedDate).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+                        Entry(entity).Property(x => x.CreatedDate).IsModified = false;
                     }
                     else
                     {
@@ -330,7 +330,7 @@ namespace App.Infra.Data.Context
                     entity.UpdatedDate = new DateTime?(utcNow);
                 }
             }
-            return this.SaveChangesAsync();
+            return SaveChangesAsync();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -338,46 +338,46 @@ namespace App.Infra.Data.Context
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            modelBuilder.Properties().Where((PropertyInfo x) => x.Name == string.Concat(x.ReflectedType.Name, "Id")).Configure((ConventionPrimitivePropertyConfiguration x) => x.IsKey().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity));
+            modelBuilder.Properties().Where(x => x.Name == string.Concat(x.ReflectedType.Name, "Id")).Configure(x => x.IsKey().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity));
 
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add<Role>(new RoleConfiguration());
-            modelBuilder.Configurations.Add<ExternalLogin>(new ExternalLoginConfiguration());
-            modelBuilder.Configurations.Add<Claim>(new ClaimConfiguration());
-            modelBuilder.Configurations.Add<MenuLink>(new MenuLinkConfiguration());
-            modelBuilder.Configurations.Add<Banner>(new BannerConfiguration());
-            modelBuilder.Configurations.Add<ContactInformation>(new ContactInformationConfiguration());
-            modelBuilder.Configurations.Add<LandingPage>(new LandingPageConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new ExternalLoginConfiguration());
+            modelBuilder.Configurations.Add(new ClaimConfiguration());
+            modelBuilder.Configurations.Add(new MenuLinkConfiguration());
+            modelBuilder.Configurations.Add(new BannerConfiguration());
+            modelBuilder.Configurations.Add(new ContactInformationConfiguration());
+            modelBuilder.Configurations.Add(new LandingPageConfiguration());
 
-            modelBuilder.Configurations.Add<Post>(new PostsConfiguration());
-            modelBuilder.Configurations.Add<PostGallery>(new PostsGalleryConfiguration());
+            modelBuilder.Configurations.Add(new PostsConfiguration());
+            modelBuilder.Configurations.Add(new PostsGalleryConfiguration());
 
-            modelBuilder.Configurations.Add<AttributeValue>(new AttribureValueConfiguration());
-            modelBuilder.Configurations.Add<App.Domain.Entities.Data.News>(new NewsConfiguration());
-            modelBuilder.Configurations.Add<GalleryImage>(new GalleryImageConfiguration());
-            modelBuilder.Configurations.Add<StaticContent>(new StaticContentConfiguration());
-            modelBuilder.Configurations.Add<FlowStep>(new FlowStepConfiguration());
-            modelBuilder.Configurations.Add<Brand>(new BrandConfiguration());
-            modelBuilder.Configurations.Add<Repair>(new RepairConfiguration());
-            modelBuilder.Configurations.Add<RepairGallery>(new RepairGalleryConfiguration());
-            modelBuilder.Configurations.Add<RepairItem>(new RepairItemConfiguration());
-            modelBuilder.Configurations.Add<LocalizedProperty>(new LocalizedPropertyConfiguration());
+            modelBuilder.Configurations.Add(new AttribureValueConfiguration());
+            modelBuilder.Configurations.Add(new NewsConfiguration());
+            modelBuilder.Configurations.Add(new GalleryImageConfiguration());
+            modelBuilder.Configurations.Add(new StaticContentConfiguration());
+            modelBuilder.Configurations.Add(new FlowStepConfiguration());
+            modelBuilder.Configurations.Add(new BrandConfiguration());
+            modelBuilder.Configurations.Add(new RepairConfiguration());
+            modelBuilder.Configurations.Add(new RepairGalleryConfiguration());
+            modelBuilder.Configurations.Add(new RepairItemConfiguration());
+            modelBuilder.Configurations.Add(new LocalizedPropertyConfiguration());
 
-            modelBuilder.Configurations.Add<GenericAttribute>(new GenericAttributeConfiguration());
-            modelBuilder.Configurations.Add<LocaleStringResource>(new LocaleStringResourceConfiguration());
+            modelBuilder.Configurations.Add(new GenericAttributeConfiguration());
+            modelBuilder.Configurations.Add(new LocaleStringResourceConfiguration());
 
             modelBuilder.Configurations.Add(new GenericControlConfiguration());
             modelBuilder.Configurations.Add(new GenericControlValueConfiguration());
             modelBuilder.Configurations.Add(new GenericControlValueItemConfiguration());
 
-            modelBuilder.Configurations.Add<ShoppingCartItem>(new ShoppingCartItemConfiguration());
+            modelBuilder.Configurations.Add(new ShoppingCartItemConfiguration());
 
-            modelBuilder.Configurations.Add<Customer>(new CustomerConfiguration());
+            modelBuilder.Configurations.Add(new CustomerConfiguration());
 
-            modelBuilder.Configurations.Add<Address>(new AddressConfiguration());
+            modelBuilder.Configurations.Add(new AddressConfiguration());
 
-            modelBuilder.Configurations.Add<PaymentMethod>(new PaymentMethodConfiguration());
-            modelBuilder.Configurations.Add<ShippingMethod>(new ShippingMethodConfiguration());
+            modelBuilder.Configurations.Add(new PaymentMethodConfiguration());
+            modelBuilder.Configurations.Add(new ShippingMethodConfiguration());
 
             modelBuilder.Configurations.Add(new OrderConfiguration());
             modelBuilder.Configurations.Add(new OrderItemConfiguration());

@@ -62,7 +62,7 @@ namespace App.Front.Controllers
             Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = _pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
             IEnumerable<News> news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
@@ -126,7 +126,7 @@ namespace App.Front.Controllers
             Paging paging = new Paging
             {
                 PageNumber = page,
-                PageSize = _pageSize,
+                PageSize = PageSize,
                 TotalRecord = 0
             };
 

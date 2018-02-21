@@ -1,8 +1,6 @@
 using App.Core.Utils;
-using App.Domain.Entities.Brandes;
 using App.Domain.Interfaces.Repository;
 using Domain.Entities.Customers;
-using System;
 using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.Customers

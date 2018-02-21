@@ -48,10 +48,6 @@
     <Reference Include="App.FakeEntity">
       <HintPath>..\App.FakeEntity\bin\Debug\App.FakeEntity.dll</HintPath>
     </Reference>
-    <Reference Include="App.Infra.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.Infra.Data\bin\Debug\App.Infra.Data.dll</HintPath>
-    </Reference>
     <Reference Include="App.Infra.Data.Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data.Repository\bin\Debug\App.Infra.Data.Repository.dll</HintPath>
@@ -307,6 +303,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.Infra.Data\App.Infra.Data.csproj">
+      <Project>{BADAAF5E-E078-4763-A4E9-6FE9076376F4}</Project>
+      <Name>App.Infra.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

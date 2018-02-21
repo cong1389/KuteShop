@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 namespace App.Infra.Data.Migrations
 {
@@ -14,7 +12,7 @@ namespace App.Infra.Data.Migrations
     {
         public Configuration()
         {
-            base.AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(AppContext context)

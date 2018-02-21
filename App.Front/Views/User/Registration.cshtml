@@ -1,5 +1,5 @@
 ﻿<!---Registration-->
-@using App.Aplication.MVCHelper
+@using App.Aplication.Extensions
 @model App.FakeEntity.User.RegisterFormViewModel
 
 <div class="columns-container">
@@ -35,19 +35,19 @@
 
                         <div id="last_name" class="clearfix large_form">
                             @Html.LabelFor(mode => mode.Email, new { @class = "label icon-field" })
-                            @Html.TextBoxFor(mode => mode.Email, new { @type = "email", required = true, @class = "text", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
+                            @Html.TextBoxFor(mode => mode.Email, new { type = "email", required = true, @class = "text", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "required require_symbol" })
                         </div>
 
                         <div id="last_name" class="clearfix large_form">
                             @Html.LabelFor(mode => mode.Password, new { @class = "label icon-field" })
-                            @Html.TextBoxFor(mode => mode.Password, new { @type = "password", required = true, @class = "password text", placeholder = Html.DisplayPlaceHolderFor(m => m.Password) })
+                            @Html.TextBoxFor(mode => mode.Password, new { type = "password", required = true, @class = "password text", placeholder = Html.DisplayPlaceHolderFor(m => m.Password) })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "required require_symbol" })
                         </div>
 
                         <div id="last_name" class="clearfix large_form">
                             @Html.LabelFor(mode => mode.ConfirmPassword, new { @class = "label icon-field" })
-                            @Html.TextBoxFor(mode => mode.ConfirmPassword, new { @type = "password", required = true, @class = "password text", placeholder = Html.DisplayPlaceHolderFor(m => m.ConfirmPassword) })
+                            @Html.TextBoxFor(mode => mode.ConfirmPassword, new { type = "password", required = true, @class = "password text", placeholder = Html.DisplayPlaceHolderFor(m => m.ConfirmPassword) })
                             @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "required require_symbol" })
                         </div>
 

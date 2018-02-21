@@ -3,38 +3,38 @@ using System.Net;
 
 namespace App.Front.Models
 {
-	public class SpeedSMSAPI
+	public class SpeedSmsapi
 	{
-		public const int TYPE_QC = 1;
+		public const int TypeQc = 1;
 
-		public const int TYPE_CSKH = 2;
+		public const int TypeCskh = 2;
 
-		public const int TYPE_BRANDNAME = 3;
+		public const int TypeBrandname = 3;
 
-		private const string rootURL = "http://api.speedsms.vn/index.php";
+		private const string RootUrl = "http://api.speedsms.vn/index.php";
 
-		private string accessToken = "Dz9QCXHaRUvVHw8k_gXapFDvVlR83Ps6";
+		private string _accessToken = "Dz9QCXHaRUvVHw8k_gXapFDvVlR83Ps6";
 
-		public SpeedSMSAPI()
+		public SpeedSmsapi()
 		{
 		}
 
-		public SpeedSMSAPI(string token)
+		public SpeedSmsapi(string token)
 		{
-			accessToken = token;
+			_accessToken = token;
 		}
 
-		public string getUserInfo()
+		public string GetUserInfo()
 		{
 			string str = "http://api.speedsms.vn/index.php/user/info";
-			NetworkCredential networkCredential = new NetworkCredential(accessToken, ":x");
+			NetworkCredential networkCredential = new NetworkCredential(_accessToken, ":x");
 			return (new StreamReader((new WebClient
 			{
 				Credentials = networkCredential
 			}).OpenRead(str))).ReadToEnd();
 		}
 
-		public string sendSMS(string phone, string content, int type, string brandname)
+		public string SendSms(string phone, string content, int type, string brandname)
 		{
 			string str = "http://api.speedsms.vn/index.php/sms/send";
 			if (phone.Length <= 0 || phone.Length < 10 || phone.Length > 11)
@@ -57,7 +57,7 @@ namespace App.Front.Models
 			{
 				return "";
 			}
-			NetworkCredential networkCredential = new NetworkCredential(accessToken, ":x");
+			NetworkCredential networkCredential = new NetworkCredential(_accessToken, ":x");
 			WebClient webClient = new WebClient
 			{
 				Credentials = networkCredential

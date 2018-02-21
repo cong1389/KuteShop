@@ -12,7 +12,7 @@ namespace App.Service.Account
 	{
 	    private readonly IRoleRepository _roleRepository;
 
-		public RoleService(IUnitOfWorkAsync unitOfWork, IRoleRepository roleRepository) : base(roleRepository, unitOfWork)
+		public RoleService(IUnitOfWorkAsync unitOfWork, IRoleRepository roleRepository) : base(roleRepository)
 		{
             _roleRepository = roleRepository;
 		}

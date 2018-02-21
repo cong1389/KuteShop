@@ -21,7 +21,7 @@ namespace App.Front.Controllers
 {
     public class ShoppingCartController : FrontBaseController
     {
-        public readonly IShoppingCartItemService _shoppingCartItemService;
+        public readonly IShoppingCartItemService ShoppingCartItemService;
 
         private readonly IPostService _postService;
 
@@ -33,7 +33,7 @@ namespace App.Front.Controllers
             , IPostService postService, IWorkContext workContext, IGenericAttributeService genericAttributeService,
             IPaymentMethodService paymentMethodService)
         {
-            _shoppingCartItemService = shoppingCartItemService;
+            ShoppingCartItemService = shoppingCartItemService;
             _postService = postService;
             _workContext = workContext;
             _genericAttributeService = genericAttributeService;
@@ -52,7 +52,7 @@ namespace App.Front.Controllers
             };
 
             //Create cart
-            _shoppingCartItemService.AddToCart(ctx);
+            ShoppingCartItemService.AddToCart(ctx);
 
             var model = PrepareMiniShoppingCartModel();
 
@@ -84,7 +84,7 @@ namespace App.Front.Controllers
             {
                 Items = lstPost,
                 ShoppingCarts = cart,
-                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
+                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
             return model;
@@ -104,9 +104,9 @@ namespace App.Front.Controllers
 
         public JsonResult DeleteProduct(int id)
         {
-            var shppingCart = _shoppingCartItemService.GetById(id);
+            var shppingCart = ShoppingCartItemService.GetById(id);
 
-            _shoppingCartItemService.Delete(shppingCart);
+            ShoppingCartItemService.Delete(shppingCart);
 
             JsonResult jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
@@ -179,7 +179,7 @@ namespace App.Front.Controllers
                 ShoppingCarts = cart
             };
 
-            model.SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart);
+            model.SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart);
 
             PrepareShoppingCartModel(cart);
 
@@ -211,7 +211,7 @@ namespace App.Front.Controllers
             };
 
             //Update cart
-            _shoppingCartItemService.AddToCart(ctx);
+            ShoppingCartItemService.AddToCart(ctx);
 
             var model = PrepareMiniShoppingCartModel();
 

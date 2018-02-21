@@ -339,13 +339,13 @@
         $(".addToCart").on('click',
             function(e) {
                 e.preventDefault();
-                var form_id = $(this).closest('form').attr('id');
+                var formId = $(this).closest('form').attr('id');
 
                 var dataParam = {
                     postId: @Model.Id,
                     quantity: parseInt($('#quantity').val()),
                     price: parseInt($('#hddPrice').val()),
-                    form: jQuery('#' + form_id).serialize()
+                    form: jQuery('#' + formId).serialize()
                 };
 
                 var param = {
@@ -358,8 +358,8 @@
                         AddItemSuccess(response);
                         CartNotification();
                     },
-                    error: function(XMLHttpRequest, textStatus) {
-                        Haravan.onError(XMLHttpRequest, textStatus);
+                    error: function(xmlHttpRequest, textStatus) {
+                        Haravan.onError(xmlHttpRequest, textStatus);
                     }
                 }
                 jQuery.ajax(param);
@@ -370,8 +370,8 @@
             jQuery("#top-cart").html(data.list);
         };
 
-        function addItem(form_id) {
-            Haravan.addItemFromForm(form_id, EGA.product.addItemSuccess);
+        function addItem(formId) {
+            Haravan.addItemFromForm(formId, EGA.product.addItemSuccess);
         };
 
     </script>

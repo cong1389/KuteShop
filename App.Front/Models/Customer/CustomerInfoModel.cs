@@ -2,6 +2,6 @@
 {
     public class CustomerInfoModel
     {
-        public int ShippingAddress_Id { get; set; }
+        public int ShippingAddressId { get; set; }
     }
 }

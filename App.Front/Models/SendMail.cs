@@ -10,28 +10,28 @@ namespace App.Front.Models
 {
 	public class SendMail
 	{
-		private string FromAddress;
+		private string _fromAddress;
 
-		private string Password;
+		private string _password;
 
-		private int SMTPPort;
+		private int _smtpPort;
 
-		private string UserID;
+		private string _userId;
 
-		private bool EnableSSL;
+		private bool _enableSsl;
 
-		private string strSmtpClient;
+		private string _strSmtpClient;
 
-	    public void InitMail(string fromAddress, string smtpClient, string userId, string password, string sMTPPort, bool enableSSL)
+	    public void InitMail(string fromAddress, string smtpClient, string userId, string password, string sMtpPort, bool enableSsl)
 		{
 			try
 			{
-				FromAddress = fromAddress;
-				strSmtpClient = smtpClient;
-				UserID = userId;
-				Password = password;
-				SMTPPort = int.Parse(sMTPPort);
-				EnableSSL = enableSSL;
+				_fromAddress = fromAddress;
+				_strSmtpClient = smtpClient;
+				_userId = userId;
+				_password = password;
+				_smtpPort = int.Parse(sMtpPort);
+				_enableSsl = enableSsl;
 			}
 			catch 
 			{
@@ -61,17 +61,17 @@ namespace App.Front.Models
 					innerText = innerText.Replace(string.Concat(i.ToString(), "?"), param[i]);
 				}
 				dynamic mailMessage = new MailMessage();
-				mailMessage.From = new MailAddress(FromAddress);
+				mailMessage.From = new MailAddress(_fromAddress);
 				mailMessage.To.Add(toAddress);
 				mailMessage.Subject = innerText;
 				mailMessage.IsBodyHtml = true;
 				mailMessage.Body = innerText1;
 				SmtpClient smtpClient = new SmtpClient
 				{
-					Host = strSmtpClient,
-					EnableSsl = EnableSSL,
-					Port = Convert.ToInt32(SMTPPort),
-					Credentials = new NetworkCredential(UserID, Password)
+					Host = _strSmtpClient,
+					EnableSsl = _enableSsl,
+					Port = Convert.ToInt32(_smtpPort),
+					Credentials = new NetworkCredential(_userId, _password)
 				};
 				try
 				{

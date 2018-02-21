@@ -31,7 +31,7 @@ namespace App.Front.Controllers
 			Paging paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = _pageSize,
+				PageSize = PageSize,
 				TotalRecord = 0
 			};
 			IEnumerable<News> news = _newsService.PagedListByMenu(sortingPagingBuilder, paging);

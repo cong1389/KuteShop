@@ -1,6 +1,5 @@
 using App.Domain.Entities.Account;
 using App.Domain.Interfaces.Repository;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

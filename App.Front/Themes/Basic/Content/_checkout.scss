@@ -1,4 +1,32 @@
-﻿.goweb-cart {
+﻿///////////////////////////////Common////////////////////////
+@mixin title-page-cart($font-size: 20px, $margin: 15px 0) {
+    font-size: $font-size;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #958457;
+    margin: $margin;
+}
+
+@mixin field () {
+    width: 100%;
+    float: left;
+    padding: .45em;
+    box-sizing: border-box;
+}
+
+@mixin userbox() {
+    padding: 15px 15px 15px;
+    -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px dashed;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+///////////////////////////////End Common////////////////////////////
+
+.goweb-cart {
     font-family: Open Sans;
 
     .cart-product-quantity {
@@ -6,11 +34,7 @@
     }
 
     .title-page {
-        font-size: 30px;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: #958457;
-        margin: 20px 0px;
+        @include title-page-cart();
     }
 
     .cart-amount {
@@ -124,20 +148,11 @@
     }
 
     .user_box {
-        padding: 15px 15px 15px;
-        -moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border: 1px dashed;
-        margin-bottom: 10px;
-        margin-top: 15px;
+        @include userbox();
     }
 
     .fieldset .field {
-        width: 100%;
-        float: left;
-        padding: .45em;
-        box-sizing: border-box;
+        @include field();
     }
 
     .create-address {
@@ -280,8 +295,6 @@
     }
 }
 
-
-
 .complete {
     .success {
         .well {
@@ -303,5 +316,33 @@
             margin-top: 0;
             color: $primary-color-1;
         }
+    }
+}
+
+.goweb-account-order {
+    .user_box {
+        @include userbox();
+    }
+
+    .fieldset .field {
+        @include field();
+    }
+
+    .title-page {
+        @include title-page-cart();
+    }
+}
+
+.goweb-order-detail {
+    .user_box {
+        @include userbox();
+    }
+
+    .fieldset .field {
+        @include field();
+    }
+
+    .title-page {
+        @include title-page-cart();
     }
 }

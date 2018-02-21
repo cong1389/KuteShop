@@ -64,7 +64,7 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult ChangeInfo()
         {
-            RegisterFormViewModel registerFormViewModel = Mapper.Map<RegisterFormViewModel>(_userManager.FindByName(HttpContext.User.Identity.Name));
+            RegisterFormViewModel registerFormViewModel = Mapper.Map<RegisterFormViewModel>(UserManager.FindByName(HttpContext.User.Identity.Name));
             return View(registerFormViewModel);
         }
 
@@ -77,7 +77,7 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult CreatePost()
         {
-            _userManager.FindByName(HttpContext.User.Identity.Name);
+            UserManager.FindByName(HttpContext.User.Identity.Name);
             return View(new PostViewModel());
         }
 
@@ -212,9 +212,9 @@ namespace App.Front.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditPost(int Id)
+        public ActionResult EditPost(int id)
         {
-            PostViewModel postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == Id && x.CreatedBy.Equals(HttpContext.User.Identity.Name), false));
+            PostViewModel postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == id && x.CreatedBy.Equals(HttpContext.User.Identity.Name), false));
             return View(postViewModel);
         }
 

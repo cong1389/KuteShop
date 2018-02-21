@@ -7,37 +7,37 @@ namespace WebCache.Static
 {
 	public class StaticContentFilter : Stream
 	{
-		private readonly static char[] HREF_ATTRIBUTE;
+		private readonly static char[] HrefAttribute;
 
-		private readonly static char[] REL_ATTRIBUTE;
+		private readonly static char[] RelAttribute;
 
-		private readonly static char[] HTTP_PREFIX;
+		private readonly static char[] HttpPrefix;
 
-		private readonly static char[] IMG_TAG;
+		private readonly static char[] ImgTag;
 
-		private readonly static char[] LINK_TAG;
+		private readonly static char[] LinkTag;
 
-		private readonly static char[] SCRIPT_TAG;
+		private readonly static char[] ScriptTag;
 
-		private readonly static char[] SRC_ATTRIBUTE;
+		private readonly static char[] SrcAttribute;
 
-		private byte[] _CssPrefix;
+		private byte[] _cssPrefix;
 
-		private Encoding _Encoding;
+		private Encoding _encoding;
 
-		private byte[] _ImagePrefix;
+		private byte[] _imagePrefix;
 
-		private byte[] _JavascriptPrefix;
+		private byte[] _javascriptPrefix;
 
-		private char[] _ApplicationPath;
+		private char[] _applicationPath;
 
-		private byte[] _BaseUrl;
+		private byte[] _baseUrl;
 
-		private byte[] _CurrentFolder;
+		private byte[] _currentFolder;
 
-		private char[] _PendingBuffer;
+		private char[] _pendingBuffer;
 
-		private Stream _ResponseStream;
+		private Stream _responseStream;
 
 		private Func<string, string> _getVersionOfFile;
 
@@ -81,35 +81,35 @@ namespace WebCache.Static
 
 		static StaticContentFilter()
 		{
-			HREF_ATTRIBUTE = "href".ToCharArray();
-			REL_ATTRIBUTE = "rel".ToCharArray();
-			HTTP_PREFIX = "http://".ToCharArray();
-			IMG_TAG = "img".ToCharArray();
-			LINK_TAG = "link".ToCharArray();
-			SCRIPT_TAG = "script".ToCharArray();
-			SRC_ATTRIBUTE = "src".ToCharArray();
+			HrefAttribute = "href".ToCharArray();
+			RelAttribute = "rel".ToCharArray();
+			HttpPrefix = "http://".ToCharArray();
+			ImgTag = "img".ToCharArray();
+			LinkTag = "link".ToCharArray();
+			ScriptTag = "script".ToCharArray();
+			SrcAttribute = "src".ToCharArray();
 		}
 
 		public StaticContentFilter(HttpResponse response, Func<string, string> getVersionOfFile, string imagePrefix, string javascriptPrefix, string cssPrefix, string baseUrl, string applicationPath, string currentRelativePath)
 		{
-			_Encoding = response.Output.Encoding;
-			_ResponseStream = response.Filter;
-			_ImagePrefix = _Encoding.GetBytes(imagePrefix);
-			_JavascriptPrefix = _Encoding.GetBytes(javascriptPrefix);
-			_CssPrefix = _Encoding.GetBytes(cssPrefix);
-			_ApplicationPath = applicationPath.ToCharArray();
-			_BaseUrl = _Encoding.GetBytes(baseUrl);
-			_CurrentFolder = _Encoding.GetBytes(currentRelativePath);
+			_encoding = response.Output.Encoding;
+			_responseStream = response.Filter;
+			_imagePrefix = _encoding.GetBytes(imagePrefix);
+			_javascriptPrefix = _encoding.GetBytes(javascriptPrefix);
+			_cssPrefix = _encoding.GetBytes(cssPrefix);
+			_applicationPath = applicationPath.ToCharArray();
+			_baseUrl = _encoding.GetBytes(baseUrl);
+			_currentFolder = _encoding.GetBytes(currentRelativePath);
 			_getVersionOfFile = getVersionOfFile;
 		}
 
 		public override void Close()
 		{
 			FlushPendingBuffer();
-			_ResponseStream.Close();
-			_ResponseStream = null;
+			_responseStream.Close();
+			_responseStream = null;
 			_getVersionOfFile = null;
-			_PendingBuffer = null;
+			_pendingBuffer = null;
 		}
 
 		private int FindAttributeValuePos(char[] attributeName, char[] content, int pos)
@@ -137,15 +137,15 @@ namespace WebCache.Static
 		public override void Flush()
 		{
 			FlushPendingBuffer();
-			_ResponseStream.Flush();
+			_responseStream.Flush();
 		}
 
 		private void FlushPendingBuffer()
 		{
-			if (_PendingBuffer != null)
+			if (_pendingBuffer != null)
 			{
-				WriteOutput(_PendingBuffer, 0, _PendingBuffer.Length);
-				_PendingBuffer = null;
+				WriteOutput(_pendingBuffer, 0, _pendingBuffer.Length);
+				_pendingBuffer = null;
 			}
 		}
 
@@ -176,33 +176,33 @@ namespace WebCache.Static
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			return _ResponseStream.Read(buffer, offset, count);
+			return _responseStream.Read(buffer, offset, count);
 		}
 
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			return _ResponseStream.Seek(offset, origin);
+			return _responseStream.Seek(offset, origin);
 		}
 
 		public override void SetLength(long length)
 		{
-			_ResponseStream.SetLength(length);
+			_responseStream.SetLength(length);
 		}
 
 		public override void Write(byte[] buffer, int offset, int count)
 		{
 			char[] chrArray;
-			char[] chars = _Encoding.GetChars(buffer, offset, count);
-			if (_PendingBuffer == null)
+			char[] chars = _encoding.GetChars(buffer, offset, count);
+			if (_pendingBuffer == null)
 			{
 				chrArray = chars;
 			}
 			else
 			{
-				chrArray = new char[chars.Length + _PendingBuffer.Length];
-				Array.Copy(_PendingBuffer, 0, chrArray, 0, _PendingBuffer.Length);
-				Array.Copy(chars, 0, chrArray, _PendingBuffer.Length, chars.Length);
-				_PendingBuffer = null;
+				chrArray = new char[chars.Length + _pendingBuffer.Length];
+				Array.Copy(_pendingBuffer, 0, chrArray, 0, _pendingBuffer.Length);
+				Array.Copy(chars, 0, chrArray, _pendingBuffer.Length, chars.Length);
+				_pendingBuffer = null;
 			}
 			int num = 0;
 			for (int i = 0; i < chrArray.Length; i++)
@@ -212,25 +212,25 @@ namespace WebCache.Static
 					i++;
 					if (!HasTagEnd(chrArray, i))
 					{
-						_PendingBuffer = new char[chrArray.Length - i];
-						Array.Copy(chrArray, i, _PendingBuffer, 0, chrArray.Length - i);
+						_pendingBuffer = new char[chrArray.Length - i];
+						Array.Copy(chrArray, i, _pendingBuffer, 0, chrArray.Length - i);
 						WriteOutput(chrArray, num, i - num);
 						return;
 					}
 					if (47 != chrArray[i])
 					{
-						if (HasMatch(chrArray, i, IMG_TAG))
+						if (HasMatch(chrArray, i, ImgTag))
 						{
-							num = WritePrefixIf(SRC_ATTRIBUTE, chrArray, i, num, _ImagePrefix);
+							num = WritePrefixIf(SrcAttribute, chrArray, i, num, _imagePrefix);
 						}
-						else if (HasMatch(chrArray, i, SCRIPT_TAG))
+						else if (HasMatch(chrArray, i, ScriptTag))
 						{
-							num = WritePrefixIf(SRC_ATTRIBUTE, chrArray, i, num, _JavascriptPrefix);
+							num = WritePrefixIf(SrcAttribute, chrArray, i, num, _javascriptPrefix);
 							num = WritePathWithVersion(chrArray, num);
 						}
-						else if (HasMatch(chrArray, i, LINK_TAG))
+						else if (HasMatch(chrArray, i, LinkTag))
 						{
-							num = WritePrefixIf(HREF_ATTRIBUTE, chrArray, i, num, _CssPrefix);
+							num = WritePrefixIf(HrefAttribute, chrArray, i, num, _cssPrefix);
 							num = WritePathWithVersion(chrArray, num);
 						}
 						if (num > i)
@@ -245,7 +245,7 @@ namespace WebCache.Static
 
 		private void WriteBytes(byte[] bytes, int pos, int length)
 		{
-			_ResponseStream.Write(bytes, 0, bytes.Length);
+			_responseStream.Write(bytes, 0, bytes.Length);
 		}
 
 		private void WriteOutput(char[] content, int pos, int length)
@@ -254,13 +254,13 @@ namespace WebCache.Static
 			{
 				return;
 			}
-			byte[] bytes = _Encoding.GetBytes(content, pos, length);
+			byte[] bytes = _encoding.GetBytes(content, pos, length);
 			WriteBytes(bytes, 0, bytes.Length);
 		}
 
 		private int WritePathWithVersion(char[] content, int lastPosWritten)
 		{
-			if (!HasMatch(content, lastPosWritten, HTTP_PREFIX))
+			if (!HasMatch(content, lastPosWritten, HttpPrefix))
 			{
 				int num = lastPosWritten + 1;
 				while (34 != content[num])
@@ -283,7 +283,7 @@ namespace WebCache.Static
 			{
 				return lastWritePos;
 			}
-			if (HasMatch(content, length, HTTP_PREFIX))
+			if (HasMatch(content, length, HttpPrefix))
 			{
 				return lastWritePos;
 			}
@@ -292,13 +292,13 @@ namespace WebCache.Static
 			{
 				WriteBytes(prefix, 0, prefix.Length);
 			}
-			if (HasMatch(content, length, _ApplicationPath))
+			if (HasMatch(content, length, _applicationPath))
 			{
-				length = length + _ApplicationPath.Length;
+				length = length + _applicationPath.Length;
 			}
-			else if (_CurrentFolder.Length != 0)
+			else if (_currentFolder.Length != 0)
 			{
-				WriteBytes(_CurrentFolder, 0, _CurrentFolder.Length);
+				WriteBytes(_currentFolder, 0, _currentFolder.Length);
 			}
 			if (47 == content[length])
 			{

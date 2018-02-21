@@ -24,7 +24,7 @@
                                     <div class="field">
                                         <div class="field-input-wrapper">
                                             <strong> @item.FirstName</strong>
-                                            @if (item.Id == Model.CustomerInfoModel.ShippingAddress_Id)
+                                            @if (item.Id == Model.CustomerInfoModel.ShippingAddressId)
                                             {
                                                 <div class="default-address">Mặc định</div>
                                             }
@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn @(item.Id == Model.CustomerInfoModel.ShippingAddress_Id? "btn-blue":"btn-gray")   " onclick="setLocation('@Url.Action("SelectShippingAddress", new {addressId = item.Id})')">
+                                <button class="btn @(item.Id == Model.CustomerInfoModel.ShippingAddressId? "btn-blue":"btn-gray")   " onclick="setLocation('@Url.Action("SelectShippingAddress", new {addressId = item.Id})')">
                                     Giao đến địa chỉ này
                                     <i class="btn-spinner icon icon-button-spinner"></i>
                                 </button>
@@ -136,7 +136,7 @@
 @section stylesheets
 {
     <link rel="stylesheet" href="/assets/0/0/global/check_out.css">
-    <link href='/assets/255/1000074255/1000138323/check_out.css?v=8' rel='stylesheet' type='text/css' media='all' />
+    <link href="/assets/255/1000074255/1000138323/check_out.css?v=8" rel="stylesheet" type="text/css" media="all" />
 }
 
 @section jquerys{

@@ -1,4 +1,5 @@
 ﻿<!---Login-->
+@using App.Aplication.Extensions
 @model App.FakeEntity.User.RegisterFormViewModel
 
 <div class="columns-container">
@@ -21,14 +22,14 @@
 
                             <div class="clearfix large_form">
                                 <label for="customer_email" class="icon-field"><i class="icon-login icon-envelope "></i></label>
-                                @Html.TextBoxFor(mode => mode.Email, new {required = true, placeholder = "Email", @class = "text"})
-                                @Html.ValidationMessageFor(model => model.UserName, "", new {@class = "required require_symbol"})
+                                @Html.TextBoxFor(mode => mode.UserName, new { required = true, @class = "text", placeholder = Html.DisplayPlaceHolderFor(m => m.UserName) })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "required require_symbol" })
                             </div>
 
                             <div class="clearfix large_form">
                                 <label for="customer_password" class="icon-field"><i class="icon-login icon-shield"></i></label>
-                                @Html.TextBoxFor(mode => mode.Password, new {required = true, placeholder = "Mật khẩu", @class = "text"})
-                                @Html.ValidationMessageFor(model => model.Password, "", new {@class = "required require_symbol"})
+                                @Html.TextBoxFor(mode => mode.Password, new { type = "password", required = true, @class = "text", placeholder = Html.DisplayPlaceHolderFor(m => m.Password) })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "required require_symbol" })
                             </div>
 
                             <div class="action_bottom">

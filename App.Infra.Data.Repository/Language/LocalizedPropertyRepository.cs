@@ -1,4 +1,3 @@
-using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
