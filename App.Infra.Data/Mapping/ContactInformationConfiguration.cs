@@ -1,12 +1,6 @@
-using App.Core.Common;
-using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Entities.Location;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
+using App.Domain.Entities.GlobalSetting;
 
 namespace App.Infra.Data.Mapping
 {
@@ -14,13 +8,13 @@ namespace App.Infra.Data.Mapping
 	{
 		public ContactInformationConfiguration()
 		{
-			base.ToTable("ContactInformation");
+			ToTable("ContactInformation");
 
-            base.HasKey<int>((ContactInformation x) => x.Id).Property<int>((ContactInformation x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            base.HasOptional<Province>((ContactInformation x) => x.Province)
-                .WithMany((Province x) => x.ContactInformations).HasForeignKey<int?>
-                ((ContactInformation x) => x.ProvinceId);
+            HasOptional(x => x.Province)
+                .WithMany(x => x.ContactInformations).HasForeignKey
+                (x => x.ProvinceId);
 
             //base.HasMany<GenericControl>((ContactInformation x) => x.GenericControls)
             //    .WithRequired((GenericControl x) => x.ContactInfo)

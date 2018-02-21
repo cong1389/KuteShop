@@ -1,8 +1,6 @@
-using App.Domain.Entities.Data;
-using App.Domain.Entities.Language;
-using App.Domain.Entities.Menu;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using App.Domain.Entities.Language;
 
 namespace App.Infra.Data.Mapping
 {
@@ -10,11 +8,11 @@ namespace App.Infra.Data.Mapping
 	{
 		public LocaleStringResourceConfiguration()
 		{
-			base.ToTable("LocaleStringResource");
-			base.HasKey<int>((LocaleStringResource x) => x.Id)
-                .Property<int>((LocaleStringResource x) => x.Id)
+			ToTable("LocaleStringResource");
+			HasKey(x => x.Id)
+                .Property(x => x.Id)
                 .HasColumnName("Id").HasColumnType("int")
-                .HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
             
         }
 	}

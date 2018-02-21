@@ -1,11 +1,6 @@
-﻿using App.Core.Common;
-using App.Domain.Entities.Brandes;
-using App.Domain.Entities.Data;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
+using App.Domain.Entities.Data;
 
 namespace App.Infra.Data.Mapping
 {
@@ -13,12 +8,12 @@ namespace App.Infra.Data.Mapping
     {
         public RepairConfiguration()
         {
-            base.ToTable("Repair");
-            base.HasKey<int>((Repair x) => x.Id).Property<int>((Repair x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            ToTable("Repair");
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            HasRequired((Repair x) => x.Brand)
-                .WithMany((Brand x) => x.Orders)
-                .HasForeignKey((Repair x) => x.BrandId)
+            HasRequired(x => x.Brand)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.BrandId)
                 .WillCascadeOnDelete(true);
         }
     }

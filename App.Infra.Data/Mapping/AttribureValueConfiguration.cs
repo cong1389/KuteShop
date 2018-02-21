@@ -1,12 +1,6 @@
-using App.Core.Common;
-using App.Domain.Entities.Attribute;
-using App.Domain.Entities.Data;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
+using App.Domain.Entities.Attribute;
 
 namespace App.Infra.Data.Mapping
 {
@@ -14,19 +8,19 @@ namespace App.Infra.Data.Mapping
 	{
 		public AttribureValueConfiguration()
 		{
-			base.ToTable("AttribureValue");
+			ToTable("AttribureValue");
 
-            base.HasKey<int>((AttributeValue x) => x.Id).Property<int>((AttributeValue x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            base.HasRequired<App.Domain.Entities.Attribute.Attribute>((AttributeValue x) => x.Attribute)
-                .WithMany((App.Domain.Entities.Attribute.Attribute x) => x.AttributeValues)
-                .HasForeignKey<int>((AttributeValue x) => x.AttributeId);
+            HasRequired(x => x.Attribute)
+                .WithMany(x => x.AttributeValues)
+                .HasForeignKey(x => x.AttributeId);
 
-            base.HasMany<Post>((AttributeValue x) => x.Posts)
-                .WithMany((Post x) => x.AttributeValues).Map((ManyToManyAssociationMappingConfiguration x) => {
+            HasMany(x => x.Posts)
+                .WithMany(x => x.AttributeValues).Map(x => {
 				x.ToTable("PostAttribute");
-				x.MapLeftKey(new string[] { "AttibuteValueId" });
-				x.MapRightKey(new string[] { "PostId" });
+				x.MapLeftKey("AttibuteValueId");
+				x.MapRightKey("PostId");
 			});
 
             

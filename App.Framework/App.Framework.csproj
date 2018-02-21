@@ -58,10 +58,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data.RepositoryAsync\bin\Debug\App.Infra.Data.RepositoryAsync.dll</HintPath>
     </Reference>
-    <Reference Include="App.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.Service\bin\Debug\App.Service.dll</HintPath>
-    </Reference>
     <Reference Include="App.Utils">
       <HintPath>..\App.Utils\bin\Debug\App.Utils.dll</HintPath>
     </Reference>
@@ -276,6 +272,10 @@
     <ProjectReference Include="..\App.FakeEntity\App.FakeEntity.csproj">
       <Project>{2205e10f-f6de-43c5-a39d-e9458639d0d5}</Project>
       <Name>App.FakeEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Service\App.Service.csproj">
+      <Project>{66967df3-d493-4c60-ade9-b3f616f83b8d}</Project>
+      <Name>App.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

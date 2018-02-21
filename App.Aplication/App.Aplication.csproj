@@ -37,10 +37,6 @@
     <RootNamespace>App.Aplication</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.FakeEntity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.FakeEntity\bin\Debug\App.FakeEntity.dll</HintPath>
-    </Reference>
     <Reference Include="App.Service">
       <HintPath>..\App.Service\bin\Debug\App.Service.dll</HintPath>
     </Reference>
@@ -102,7 +98,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\HtmlHelperExtensions.cs">
+    <Compile Include="Extensions\HtmlHelperExtensions.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -134,8 +130,8 @@
     <Compile Include="Utils\FormRenderCollection.cs" />
     <Compile Include="Utils\GenericControlType.cs" />
     <Compile Include="Utils\ModelHelper_T_.cs" />
-    <Compile Include="Utils\MVCHelper\HtmlRenderExtensions.cs" />
-    <Compile Include="Utils\MVCHelper\RenderRazorViewHelper.cs" />
+    <Compile Include="Extensions\HtmlRenderExtensions.cs" />
+    <Compile Include="Extensions\RenderRazorViewHelper.cs" />
     <Compile Include="Utils\SEO\ImageSiteMap.cs" />
     <Compile Include="Utils\SEO\Location.cs" />
     <Compile Include="Utils\SEO\Sitemap.cs" />
@@ -156,6 +152,10 @@
     <ProjectReference Include="..\App.Domain\App.Domain.csproj">
       <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
       <Name>App.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.FakeEntity\App.FakeEntity.csproj">
+      <Project>{2205e10f-f6de-43c5-a39d-e9458639d0d5}</Project>
+      <Name>App.FakeEntity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

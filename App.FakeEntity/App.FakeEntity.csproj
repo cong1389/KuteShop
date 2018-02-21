@@ -35,9 +35,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.Aplication">
-      <HintPath>..\App.Aplication\bin\Debug\App.Aplication.dll</HintPath>
-    </Reference>
     <Reference Include="App.Service">
       <HintPath>..\App.Service\bin\Debug\App.Service.dll</HintPath>
     </Reference>

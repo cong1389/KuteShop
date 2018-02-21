@@ -1,9 +1,6 @@
-using App.Domain.Common;
-using App.Domain.Entities.Menu;
-using Domain.Entities.Customers;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
+using App.Domain.Common;
 
 namespace App.Infra.Data.Mapping
 {
@@ -11,9 +8,10 @@ namespace App.Infra.Data.Mapping
 	{
 		public AddressConfiguration()
 		{
-			base.ToTable("Address");
+			ToTable("Address");
 
-			base.HasKey<int>((Address x) => x.Id).Property<int>((Address x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int")
+			    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             //base.HasMany<Customer>((Address x) => x.Customers)
             //  .WithMany((Customer x) => x.Addresses)

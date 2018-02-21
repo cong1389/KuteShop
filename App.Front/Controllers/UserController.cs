@@ -12,7 +12,7 @@ namespace App.Front.Controllers
 {
 	public class UserController : BaseAccessUserController
 	{
-		public UserController(UserManager<IdentityUser, Guid> UserManager) : base(UserManager)
+		public UserController(UserManager<IdentityUser, Guid> userManager) : base(userManager)
 		{
 		}
 
@@ -29,14 +29,13 @@ namespace App.Front.Controllers
 			bool flag = HasPassword();
 			ViewBag.HasLocalPassword = flag;
 			ViewBag.ReturnUrl = Url.Action("Index", "Home");
+
 			if (!flag)
 			{
 				ModelState item = ModelState["OldPassword"];
-				if (item != null)
-				{
-					item.Errors.Clear();
-				}
-				if (ModelState.IsValid)
+			    item?.Errors.Clear();
+
+			    if (ModelState.IsValid)
 				{
 					IdentityResult identityResult = await _userManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
 					IdentityResult identityResult1 = identityResult;
@@ -64,7 +63,9 @@ namespace App.Front.Controllers
 					return action;
 				}
 			}
+
 			action = View();
+
 			return action;
 		}
 
@@ -146,7 +147,6 @@ namespace App.Front.Controllers
 
                     if (identityResult.Succeeded)
                     {
-                        //((dynamic)ViewBag).Error = "Đăng ký tài khoản thành công.";
                         ModelState.AddModelError("", "Đăng ký tài khoản thành công.");
                     }
                     else

@@ -1,10 +1,5 @@
-using App.Core.Common;
-using App.Domain.Entities.Account;
-using System;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
+using App.Domain.Entities.Account;
 
 namespace App.Infra.Data.Mapping
 {
@@ -12,22 +7,22 @@ namespace App.Infra.Data.Mapping
 	{
 		public UserConfiguration()
 		{
-			base.ToTable("User");
-			base.HasKey<Guid>((User x) => x.Id).Property<Guid>((User x) => x.Id).HasColumnName("UserId").HasColumnType("uniqueidentifier").IsRequired();
-			base.Property((User x) => x.PasswordHash).HasColumnName("PasswordHash").HasColumnType("nvarchar").IsMaxLength().IsOptional();
-			base.Property((User x) => x.SecurityStamp).HasColumnName("SecurityStamp").HasColumnType("nvarchar").IsMaxLength().IsOptional();
-			base.Property((User x) => x.UserName).HasColumnName("UserName").HasColumnType("nvarchar").HasMaxLength(new int?(256)).IsRequired();
-			base.Property((User x) => x.Email).HasColumnName("Email").HasColumnType("nvarchar").HasMaxLength(new int?(50)).IsOptional();
-			base.HasMany<Role>((User x) => x.Roles).WithMany((Role x) => x.Users).Map((ManyToManyAssociationMappingConfiguration x) => {
+			ToTable("User");
+			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("UserId").HasColumnType("uniqueidentifier").IsRequired();
+			Property(x => x.PasswordHash).HasColumnName("PasswordHash").HasColumnType("nvarchar").IsMaxLength().IsOptional();
+			Property(x => x.SecurityStamp).HasColumnName("SecurityStamp").HasColumnType("nvarchar").IsMaxLength().IsOptional();
+			Property(x => x.UserName).HasColumnName("UserName").HasColumnType("nvarchar").HasMaxLength(256).IsRequired();
+			Property(x => x.Email).HasColumnName("Email").HasColumnType("nvarchar").HasMaxLength(50).IsOptional();
+			HasMany(x => x.Roles).WithMany(x => x.Users).Map(x => {
 				x.ToTable("UserRole");
-				x.MapLeftKey(new string[] { "UserId" });
-				x.MapRightKey(new string[] { "RoleId" });
+				x.MapLeftKey("UserId");
+				x.MapRightKey("RoleId");
 			});
-			base.HasMany<Claim>((User x) => x.Claims).WithRequired((Claim x) => x.User).HasForeignKey<Guid>((Claim x) => x.UserId);
+			HasMany(x => x.Claims).WithRequired(x => x.User).HasForeignKey(x => x.UserId);
 
-            base.HasMany<ExternalLogin>((User x) => x.Logins)
-                .WithRequired((ExternalLogin x) => x.User)
-                .HasForeignKey<Guid>((ExternalLogin x) => x.UserId);
+            HasMany(x => x.Logins)
+                .WithRequired(x => x.User)
+                .HasForeignKey(x => x.UserId);
 		}
 	}
 }

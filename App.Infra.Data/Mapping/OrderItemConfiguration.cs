@@ -8,16 +8,16 @@ namespace App.Infra.Data.Mapping
     {
         public OrderItemConfiguration()
         {
-            base.ToTable("OrderItem");
-            base.HasKey<int>((OrderItem x) => x.Id).Property<int>((OrderItem x) => x.Id)
+            ToTable("OrderItem");
+            HasKey(x => x.Id).Property(x => x.Id)
                 .HasColumnName("Id").HasColumnType("int")
-                .HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            this.HasRequired(orderItem => orderItem.Order)
+            HasRequired(orderItem => orderItem.Order)
                .WithMany(o => o.OrderItems)
                .HasForeignKey(orderItem => orderItem.OrderId);
 
-            this.HasRequired(orderItem => orderItem.Post)
+            HasRequired(orderItem => orderItem.Post)
                 .WithMany()
                 .HasForeignKey(orderItem => orderItem.PostId);
         }

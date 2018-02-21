@@ -1,11 +1,6 @@
-using App.Core.Common;
-using App.Domain.Entities.Data;
-using App.Domain.Entities.Menu;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
+using App.Domain.Entities.Data;
 
 namespace App.Infra.Data.Mapping
 {
@@ -13,9 +8,9 @@ namespace App.Infra.Data.Mapping
 	{
 		public StaticContentConfiguration()
 		{
-			base.ToTable("StaticContent");
-			base.HasKey<int>((StaticContent x) => x.Id).Property<int>((StaticContent x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
-			base.HasRequired<MenuLink>((StaticContent x) => x.MenuLink).WithMany((MenuLink x) => x.StaticContents).HasForeignKey<int>((StaticContent x) => x.MenuId);
+			ToTable("StaticContent");
+			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
+			HasRequired(x => x.MenuLink).WithMany(x => x.StaticContents).HasForeignKey(x => x.MenuId);
 		}
 	}
 }

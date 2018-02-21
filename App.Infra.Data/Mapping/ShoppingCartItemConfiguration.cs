@@ -1,7 +1,6 @@
-﻿using App.Domain.Entities.Orders;
-using Domain.Entities.Customers;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using App.Domain.Entities.Orders;
 
 namespace App.Infra.Data.Mapping
 {
@@ -9,13 +8,13 @@ namespace App.Infra.Data.Mapping
     {
         public ShoppingCartItemConfiguration()
         {
-            base.ToTable("ShoppingCartItem");
+            ToTable("ShoppingCartItem");
 
-            base.HasKey<int>((ShoppingCartItem x) => x.Id).Property<int>((ShoppingCartItem x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            base.HasRequired<Customer>((ShoppingCartItem x) => x.Customers)
-             .WithMany((Customer x) => x.ShoppingCartItems)
-             .HasForeignKey<int>((ShoppingCartItem x) => x.CustomerId);           
+            HasRequired(x => x.Customers)
+             .WithMany(x => x.ShoppingCartItems)
+             .HasForeignKey(x => x.CustomerId);           
         }
     }
 }

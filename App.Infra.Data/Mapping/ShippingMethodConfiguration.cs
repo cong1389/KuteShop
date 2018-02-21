@@ -1,7 +1,6 @@
-using App.Domain.Entities.Brandes;
-using App.Domain.Shippings;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using App.Domain.Shippings;
 
 namespace App.Infra.Data.Mapping
 {
@@ -9,10 +8,10 @@ namespace App.Infra.Data.Mapping
     {
         public ShippingMethodConfiguration()
         {
-            base.ToTable("ShippingMethod");
-            base.HasKey<int>((ShippingMethod x) => x.Id)
-                .Property<int>((ShippingMethod x) => x.Id).HasColumnName("Id")
-                .HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            ToTable("ShippingMethod");
+            HasKey(x => x.Id)
+                .Property(x => x.Id).HasColumnName("Id")
+                .HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
         }
     }
 }

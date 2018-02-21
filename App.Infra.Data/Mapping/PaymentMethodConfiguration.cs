@@ -1,6 +1,6 @@
-using App.Domain.Entities.Payments;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using App.Domain.Entities.Payments;
 
 namespace App.Infra.Data.Mapping
 {
@@ -8,10 +8,10 @@ namespace App.Infra.Data.Mapping
     {
         public PaymentMethodConfiguration()
         {
-            base.ToTable("PaymentMethod");
-            base.HasKey<int>((PaymentMethod x) => x.Id).Property<int>((PaymentMethod x) => x.Id)
+            ToTable("PaymentMethod");
+            HasKey(x => x.Id).Property(x => x.Id)
                 .HasColumnName("Id").HasColumnType("int")
-                .HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
         }
     }
 }

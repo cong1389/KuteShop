@@ -1,12 +1,6 @@
-using App.Core.Common;
-using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.Language;
-using App.Domain.Entities.Menu;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq.Expressions;
+using App.Domain.Entities.Menu;
 
 namespace App.Infra.Data.Mapping
 {
@@ -14,19 +8,19 @@ namespace App.Infra.Data.Mapping
 	{
 		public MenuLinkConfiguration()
 		{
-			base.ToTable("MenuLink");
-			base.HasKey<int>((MenuLink x) => x.Id).Property<int>((MenuLink x) => x.Id).HasColumnName("Id").HasColumnType("int")
-                .HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+			ToTable("MenuLink");
+			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-			base.HasOptional<MenuLink>((MenuLink e) => e.ParentMenu)
-                .WithMany().HasForeignKey<int?>((MenuLink m) => m.ParentId);
+			HasOptional(e => e.ParentMenu)
+                .WithMany().HasForeignKey(m => m.ParentId);
 
-            base.HasMany<GenericControl>((MenuLink x) => x.GenericControls)
-              .WithMany((GenericControl x) => x.MenuLinks)
-              .Map((ManyToManyAssociationMappingConfiguration x) => {
+            HasMany(x => x.GenericControls)
+              .WithMany(x => x.MenuLinks)
+              .Map(x => {
                   x.ToTable("GenericControlMenuLink");
-                  x.MapLeftKey(new string[] { "MenuLinkId" });
-                  x.MapRightKey(new string[] { "GenericControlId" });
+                  x.MapLeftKey("MenuLinkId");
+                  x.MapRightKey("GenericControlId");
               });
 
         }

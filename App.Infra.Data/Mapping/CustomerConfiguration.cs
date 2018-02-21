@@ -1,8 +1,6 @@
-﻿using App.Domain.Common;
-using Domain.Entities.Customers;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.ModelConfiguration.Configuration;
+using Domain.Entities.Customers;
 
 namespace App.Infra.Data.Mapping
 {
@@ -10,14 +8,14 @@ namespace App.Infra.Data.Mapping
     {
         public CustomerConfiguration()
         {
-            base.ToTable("Customer");
-            base.HasKey<int>((Customer x) => x.Id).Property<int>((Customer x) => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(new DatabaseGeneratedOption?(DatabaseGeneratedOption.Identity)).IsRequired();
+            ToTable("Customer");
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            this.HasMany<Address>(c => c.Addresses)
+            HasMany(c => c.Addresses)
                 .WithMany()
                 .Map(m => m.ToTable("CustomerAddresses"));
-            this.HasOptional<Address>(c => c.BillingAddress);
-            this.HasOptional<Address>(c => c.ShippingAddress);
+            HasOptional(c => c.BillingAddress);
+            HasOptional(c => c.ShippingAddress);
 
             //base.HasMany<Address>((Customer x) => x.Addresses)
             //  .WithMany((Address x) => x.Customers)
