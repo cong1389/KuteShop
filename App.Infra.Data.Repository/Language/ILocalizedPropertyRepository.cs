@@ -1,15 +1,16 @@
-using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
 using System.Collections.Generic;
+using App.Core.Utils;
+using App.Domain.Entities.Language;
+using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Language
 {
-	public interface ILocalizedPropertyRepository : IRepositoryBase<App.Domain.Entities.Language.LocalizedProperty>
+	public interface ILocalizedPropertyRepository : IRepositoryBase<LocalizedProperty>
 	{
-		App.Domain.Entities.Language.LocalizedProperty GetId(int id);
+		LocalizedProperty GetId(int id);
 
-		IEnumerable<App.Domain.Entities.Language.LocalizedProperty> PagedList(Paging page);
+		IEnumerable<LocalizedProperty> PagedList(Paging page);
 
-		IEnumerable<App.Domain.Entities.Language.LocalizedProperty> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<LocalizedProperty> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

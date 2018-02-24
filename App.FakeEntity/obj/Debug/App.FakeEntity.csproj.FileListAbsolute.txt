@@ -366,7 +366,6 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.FakeEntity.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.FakeEntity.pdb
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.Core.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.Domain.dll
-D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.Service.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Resources.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\System.Web.Mvc.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\HtmlAgilityPack.dll
@@ -403,3 +402,4 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.pdb
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.Service.dll

@@ -31,7 +31,7 @@ using App.Service.SeoSetting;
 using App.Service.ShippingMethodes;
 using App.Service.Slide;
 using App.Service.Static;
-using App.Service.Step;
+using App.Service.Manufacturers;
 using App.Service.SystemApp;
 using Autofac;
 
@@ -73,7 +73,7 @@ namespace App.Framework.Ioc
 
             builder.RegisterType<SlideShowService>().As<ISlideShowService>().InstancePerRequest();
             builder.RegisterType<LandingPageService>().As<ILandingPageService>().InstancePerRequest();
-            builder.RegisterType<FlowStepService>().As<IFlowStepService>().InstancePerRequest();
+            builder.RegisterType<ManufacturerService>().As<IManufacturerService>().InstancePerRequest();
             builder.RegisterType<SitemapProvider>().As<ISitemapProvider>().InstancePerRequest();
 
             builder.RegisterType<PostAsynService>().As<IPostAsynService>().InstancePerRequest();

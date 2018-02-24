@@ -448,12 +448,12 @@ namespace App.Aplication.Extensions
             return destination;
         }
 
-        public static FlowStep ToModel(this FlowStep entity)
+        public static Manufacturer ToModel(this Manufacturer entity)
         {
             if (entity == null)
                 return null;
 
-            var model = new FlowStep
+            var model = new Manufacturer
             {
                 Id = entity.Id,
                 OtherLink = entity.OtherLink,

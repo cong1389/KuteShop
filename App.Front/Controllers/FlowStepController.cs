@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using App.Domain.Entities.Data;
-using App.Service.Step;
+using App.Service.Manufacturers;
 
 namespace App.Front.Controllers
 {
     public class FlowStepController : Controller
     {
-        private readonly IFlowStepService _flowStepService;
-        public FlowStepController(IFlowStepService flowStepService)
+        private readonly IManufacturerService _manufacturerService;
+        public FlowStepController(IManufacturerService manufacturerService)
         {
-            _flowStepService = flowStepService;
+            _manufacturerService = manufacturerService;
         }
 
         public ActionResult FlowStepHome()
         {
-            IEnumerable<FlowStep> flowSteps = _flowStepService.FindBy(x => x.Status == 1, false);
+            IEnumerable<Manufacturer> flowSteps = _manufacturerService.FindBy(x => x.Status == 1, false);
 
             return PartialView(flowSteps);
         }

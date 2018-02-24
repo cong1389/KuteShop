@@ -1,9 +1,9 @@
-using App.Core.Utils;
-using App.Domain.Entities.Account;
-using App.Domain.Interfaces.Repository;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Core.Utils;
+using App.Domain.Entities.Account;
+using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Account
 {

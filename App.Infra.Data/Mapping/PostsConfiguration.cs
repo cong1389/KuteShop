@@ -10,7 +10,11 @@ namespace App.Infra.Data.Mapping
         {
             ToTable("Post");
             HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
-            
+
+            HasRequired(o => o.Manufacturer)
+                .WithMany(c => c.Posts)
+                .HasForeignKey(o => o.ManufacturerId);
+
             HasRequired(x => x.MenuLink)
                 .WithMany(x => x.Posts)
                 .HasForeignKey(x => x.MenuId)

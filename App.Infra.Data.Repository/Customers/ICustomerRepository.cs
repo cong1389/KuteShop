@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Interfaces.Repository;
 using Domain.Entities.Customers;
-using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.Customers
 {

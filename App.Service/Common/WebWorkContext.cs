@@ -111,7 +111,7 @@ namespace App.Service.Common
 
                     //Kiểm tra nếu chưa có user trong table Customer thì create new customer
                     //Load customer đã có 
-                    Customer customerExsist = _customerService.GetByGuid(Guid.Parse(userId), isCache: false);
+                    Customer customerExsist = _customerService.GetByGuid(Guid.Parse(userId), false);
                     if (customerExsist == null || !customerExsist.Active)
                     {
                         IdentityUser objUser = UserManager.FindById(Guid.Parse(userId));

@@ -21,10 +21,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using App.Domain.Entities.Orders;
@@ -58,7 +56,7 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public virtual IDbSet<FlowStep> FlowSteps
+        public virtual IDbSet<Manufacturer> Manufacturers
         {
             get;
             set;
@@ -356,7 +354,7 @@ namespace App.Infra.Data.Context
             modelBuilder.Configurations.Add(new NewsConfiguration());
             modelBuilder.Configurations.Add(new GalleryImageConfiguration());
             modelBuilder.Configurations.Add(new StaticContentConfiguration());
-            modelBuilder.Configurations.Add(new FlowStepConfiguration());
+            modelBuilder.Configurations.Add(new ManufacturerConfiguration());
             modelBuilder.Configurations.Add(new BrandConfiguration());
             modelBuilder.Configurations.Add(new RepairConfiguration());
             modelBuilder.Configurations.Add(new RepairGalleryConfiguration());

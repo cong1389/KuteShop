@@ -27,7 +27,7 @@ using App.Infra.Data.Repository.SeoSetting;
 using App.Infra.Data.Repository.ShippingMethods;
 using App.Infra.Data.Repository.Slide;
 using App.Infra.Data.Repository.Static;
-using App.Infra.Data.Repository.Step;
+using App.Infra.Data.Repository.Manufacturers;
 using App.Infra.Data.Repository.System;
 using App.Infra.Data.RepositoryAsync.Post;
 using Autofac;
@@ -61,7 +61,7 @@ namespace App.Framework.Ioc
             builder.RegisterType<AttributeRepository>().As<IAttributeRepository>().InstancePerRequest();
             builder.RegisterType<AttributeValueRepository>().As<IAttributeValueRepository>().InstancePerRequest();
             builder.RegisterType<SlideShowRepository>().As<ISlideShowRepository>().InstancePerRequest();
-            builder.RegisterType<FlowStepRepository>().As<IFlowStepRepository>().InstancePerRequest();
+            builder.RegisterType<ManufacturerRepository>().As<IManufacturerRepository>().InstancePerRequest();
             builder.RegisterType<PostRepositoryAsync>().As<IPostRepositoryAsync>().InstancePerRequest();
             builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerRequest();
             builder.RegisterType<RoleRepository>().As<IRoleRepository>().InstancePerRequest();

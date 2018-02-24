@@ -31,7 +31,7 @@ using App.FakeEntity.ServerMail;
 using App.FakeEntity.Shippings;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
-using App.FakeEntity.Step;
+using App.FakeEntity.Manufacturers;
 using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
@@ -70,7 +70,7 @@ namespace App.Framework.Mappings
             CreateMap<Banner, BannerViewModel>();
             CreateMap<StaticContent, StaticContentViewModel>();
             CreateMap<GalleryImage, GalleryImageViewModel>();
-            CreateMap<FlowStep, FlowStepViewModel>();
+            CreateMap<Manufacturer, ManufacturerViewModel>();
             CreateMap<IdentityUser, RegisterFormViewModel>();
             CreateMap<AttributeValue, AttributeValueViewModel>();
             CreateMap<Attribute, AttributeViewModel>();

@@ -2,12 +2,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
-using App.FakeEntity.Step;
+using App.FakeEntity.Manufacturers;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class FlowStepValidator : AbstractValidator<FlowStepViewModel>
+	public class FlowStepValidator : AbstractValidator<ManufacturerViewModel>
 	{
 		public FlowStepValidator()
 		{

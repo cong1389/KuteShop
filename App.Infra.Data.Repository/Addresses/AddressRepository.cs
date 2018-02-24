@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Common;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Addresses
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Addresses
 
 		public Address GetById(int id)
 		{
-            Address address = this.FindBy((Address x) => x.Id == id, false).FirstOrDefault<Address>();
+            Address address = FindBy(x => x.Id == id, false).FirstOrDefault();
 
             return address;
 		}
@@ -34,7 +34,7 @@ namespace App.Infra.Data.Repository.Addresses
 
 		public IEnumerable<Address> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<Address>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<Address> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -42,9 +42,9 @@ namespace App.Infra.Data.Repository.Addresses
 			Expression<Func<Address, bool>> expression = PredicateBuilder.True<Address>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<Address>((Address x) => x.Title.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Address1.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.Title.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Address1.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

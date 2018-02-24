@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Menu;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Menu
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Menu
 
         public MenuLink GetById(int Id)
         {
-            MenuLink menuLink = FindBy((MenuLink x) => x.Id == Id, false).FirstOrDefault<MenuLink>();         
+            MenuLink menuLink = FindBy(x => x.Id == Id, false).FirstOrDefault();         
 
             return menuLink;
         }
@@ -34,7 +34,7 @@ namespace App.Infra.Data.Repository.Menu
 
         public IEnumerable<MenuLink> PagedList(Paging page)
         {
-            return this.GetAllPagedList(page).ToList<MenuLink>();
+            return GetAllPagedList(page).ToList();
         }
 
         public IEnumerable<MenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -42,9 +42,9 @@ namespace App.Infra.Data.Repository.Menu
             Expression<Func<MenuLink, bool>> expression = PredicateBuilder.True<MenuLink>();
             if (!string.IsNullOrEmpty(sortBuider.Keywords))
             {
-                expression = expression.And<MenuLink>((MenuLink x) => x.MenuName.ToLower().Contains(sortBuider.Keywords.ToLower()));
+                expression = expression.And(x => x.MenuName.ToLower().Contains(sortBuider.Keywords.ToLower()));
             }
-            return this.FindAndSort(expression, sortBuider.Sorts, page);
+            return FindAndSort(expression, sortBuider.Sorts, page);
         }
     }
 }

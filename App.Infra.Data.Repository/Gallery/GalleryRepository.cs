@@ -1,8 +1,8 @@
+using System.Linq;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System.Linq;
 
 namespace App.Infra.Data.Repository.Gallery
 {
@@ -23,7 +23,7 @@ namespace App.Infra.Data.Repository.Gallery
 
 		public GalleryImage GetGalleryById(int id)
 		{
-			GalleryImage galleryImage = this.FindBy((GalleryImage x) => x.Id == id, false).FirstOrDefault<GalleryImage>();
+			GalleryImage galleryImage = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return galleryImage;
 		}
 	}

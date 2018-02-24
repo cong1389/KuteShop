@@ -6,8 +6,10 @@ using Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Mvc;
+using App.Domain.Entities.Data;
 
 namespace App.FakeEntity.Post
 {
@@ -253,13 +255,23 @@ namespace App.FakeEntity.Post
 			set;
 		}
 
+        [Display(Name = "Manufacturer", ResourceType = typeof(FormUI))]
+        public int ManufacturerId
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public virtual Manufacturer Manufacturer { get; set; }
+
         public IList<PostLocalesViewModel> Locales { get; set; }
 
         public PostViewModel()
 		{
-			this.GalleryImages = new List<GalleryImageViewModel>();
-            this.PostGallerys = new List<PostGalleryViewModel>();
-            this.Locales = new List<PostLocalesViewModel>();
+			GalleryImages = new List<GalleryImageViewModel>();
+            PostGallerys = new List<PostGalleryViewModel>();
+            Locales = new List<PostLocalesViewModel>();
         }
 	}
 
@@ -508,6 +520,15 @@ namespace App.FakeEntity.Post
             get;
             set;
         }
-        
+
+        [Display(Name = "Manufacturer", ResourceType = typeof(FormUI))]
+        public int ManufacturerId
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public virtual Manufacturer Manufacturer { get; set; }
     }
 }

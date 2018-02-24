@@ -3691,16 +3691,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2017 19:39:22</publishTime>
     </File>
     <File Include="Areas/Admin/Views/FlowStep/Create.cshtml">
-      <publishTime>11/29/2017 19:39:22</publishTime>
+      <publishTime>02/24/2018 10:53:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/FlowStep/Edit.cshtml">
-      <publishTime>01/09/2018 23:52:10</publishTime>
+      <publishTime>02/24/2018 10:53:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/FlowStep/Index.cshtml">
-      <publishTime>11/29/2017 19:39:22</publishTime>
+      <publishTime>02/24/2018 10:53:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/FlowStep/_CreateOrUpdate.cshtml">
-      <publishTime>01/10/2018 00:07:20</publishTime>
+      <publishTime>02/24/2018 10:53:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/GenericControl/Create.cshtml">
       <publishTime>11/29/2017 19:39:22</publishTime>
@@ -3762,6 +3762,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/MailSetting/Index.cshtml">
       <publishTime>12/14/2017 22:21:22</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/Manufacturer/Create.cshtml">
+      <publishTime>02/24/2018 11:07:36</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturer/Edit.cshtml">
+      <publishTime>02/24/2018 11:07:36</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturer/Index.cshtml">
+      <publishTime>02/24/2018 11:07:11</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturer/_CreateOrUpdate.cshtml">
+      <publishTime>02/24/2018 11:12:25</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturers/Create.cshtml">
+      <publishTime>02/24/2018 11:07:36</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturers/Edit.cshtml">
+      <publishTime>02/24/2018 11:07:36</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturers/Index.cshtml">
+      <publishTime>02/24/2018 11:07:11</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Manufacturers/_CreateOrUpdate.cshtml">
+      <publishTime>02/24/2018 11:12:25</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/Menu/Create.cshtml">
       <publishTime>12/18/2017 13:30:40</publishTime>
     </File>
@@ -3811,10 +3835,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/18/2017 14:10:06</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Post/Index.cshtml">
-      <publishTime>12/18/2017 14:10:06</publishTime>
+      <publishTime>02/24/2018 12:45:29</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Post/_CreateOrUpdate.cshtml">
-      <publishTime>01/13/2018 12:27:23</publishTime>
+      <publishTime>02/24/2018 12:05:16</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Post/_CreateOrUpdate.Gallery.cshtml">
       <publishTime>01/06/2018 12:59:50</publishTime>
@@ -3910,7 +3934,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2017 11:25:50</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_PartialMenuLink.cshtml">
-      <publishTime>01/17/2018 00:10:20</publishTime>
+      <publishTime>02/24/2018 11:02:12</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Scripts.cshtml">
       <publishTime>01/06/2018 09:54:53</publishTime>
@@ -3979,88 +4003,88 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/App.Admin.dll">
-      <publishTime>02/18/2018 20:15:02</publishTime>
+      <publishTime>02/24/2018 12:27:50</publishTime>
     </File>
     <File Include="bin/App.Admin.pdb">
-      <publishTime>02/18/2018 20:15:02</publishTime>
+      <publishTime>02/24/2018 12:27:50</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll">
-      <publishTime>02/18/2018 20:14:37</publishTime>
+      <publishTime>02/24/2018 12:13:02</publishTime>
     </File>
     <File Include="bin/App.Aplication.dll.config">
       <publishTime>01/06/2018 11:01:06</publishTime>
     </File>
     <File Include="bin/App.Aplication.pdb">
-      <publishTime>02/18/2018 20:14:37</publishTime>
+      <publishTime>02/24/2018 12:13:02</publishTime>
     </File>
     <File Include="bin/App.AsyncService.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Core.dll">
-      <publishTime>02/17/2018 12:07:37</publishTime>
+      <publishTime>02/21/2018 21:58:35</publishTime>
     </File>
     <File Include="bin/App.Core.dll.config">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Core.pdb">
-      <publishTime>02/17/2018 12:07:37</publishTime>
+      <publishTime>02/21/2018 21:58:35</publishTime>
     </File>
     <File Include="bin/App.Domain.dll">
-      <publishTime>02/17/2018 22:07:36</publishTime>
+      <publishTime>02/24/2018 12:12:59</publishTime>
     </File>
     <File Include="bin/App.Domain.dll.config">
       <publishTime>01/06/2018 11:01:06</publishTime>
     </File>
     <File Include="bin/App.Domain.pdb">
-      <publishTime>02/17/2018 22:07:36</publishTime>
+      <publishTime>02/24/2018 12:12:59</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll">
-      <publishTime>02/18/2018 20:14:51</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.dll.config">
       <publishTime>01/06/2018 11:01:06</publishTime>
     </File>
     <File Include="bin/App.FakeEntity.pdb">
-      <publishTime>02/18/2018 20:14:51</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Framework.dll">
-      <publishTime>02/18/2018 20:14:52</publishTime>
+      <publishTime>02/24/2018 12:21:48</publishTime>
     </File>
     <File Include="bin/App.Framework.dll.config">
       <publishTime>01/06/2018 11:01:06</publishTime>
     </File>
     <File Include="bin/App.Framework.pdb">
-      <publishTime>02/18/2018 20:14:52</publishTime>
+      <publishTime>02/24/2018 12:21:48</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.dll">
-      <publishTime>02/17/2018 22:16:43</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.pdb">
-      <publishTime>02/17/2018 22:16:43</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.dll">
-      <publishTime>02/17/2018 22:18:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.Repository.pdb">
-      <publishTime>02/17/2018 22:18:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.dll">
-      <publishTime>02/17/2018 22:18:06</publishTime>
+      <publishTime>02/24/2018 12:13:01</publishTime>
     </File>
     <File Include="bin/App.Infra.Data.RepositoryAsync.pdb">
-      <publishTime>02/17/2018 22:18:06</publishTime>
+      <publishTime>02/24/2018 12:13:01</publishTime>
     </File>
     <File Include="bin/App.SeoSitemap.dll">
       <publishTime>10/30/2017 11:25:54</publishTime>
     </File>
     <File Include="bin/App.Service.dll">
-      <publishTime>02/18/2018 20:14:51</publishTime>
+      <publishTime>02/24/2018 12:21:45</publishTime>
     </File>
     <File Include="bin/App.Service.dll.config">
       <publishTime>10/30/2017 11:26:06</publishTime>
     </File>
     <File Include="bin/App.Service.pdb">
-      <publishTime>02/18/2018 20:14:51</publishTime>
+      <publishTime>02/24/2018 12:21:45</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>10/16/2017 09:53:24</publishTime>
@@ -4141,10 +4165,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2012 12:19:34</publishTime>
     </File>
     <File Include="bin/Resources.dll">
-      <publishTime>02/17/2018 12:07:38</publishTime>
+      <publishTime>02/24/2018 11:51:34</publishTime>
     </File>
     <File Include="bin/Resources.pdb">
-      <publishTime>02/17/2018 12:07:38</publishTime>
+      <publishTime>02/24/2018 11:51:34</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/13/2017 15:47:48</publishTime>

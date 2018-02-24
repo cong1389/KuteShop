@@ -597,4 +597,7 @@
   <data name="UploadFiles" xml:space="preserve">
     <value>Up file lên</value>
   </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Hãng sản xuất</value>
+  </data>
 </root>

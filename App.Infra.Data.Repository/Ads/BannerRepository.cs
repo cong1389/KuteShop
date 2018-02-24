@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Ads;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Ads
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Ads
 
 		public Banner GetById(int Id)
 		{
-			Banner banner = this.FindBy((Banner x) => x.Id == Id, false).FirstOrDefault<Banner>();
+			Banner banner = FindBy(x => x.Id == Id, false).FirstOrDefault();
 			return banner;
 		}
 
@@ -33,13 +33,13 @@ namespace App.Infra.Data.Repository.Ads
 
 		public IEnumerable<Banner> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<Banner>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<Banner> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
 			Expression<Func<Banner, bool>> expression = PredicateBuilder.True<Banner>();
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

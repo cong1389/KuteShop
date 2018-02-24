@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Repairs
 {
@@ -25,19 +25,19 @@ namespace App.Infra.Data.Repository.Repairs
 			return orders;
 		}
 
-		public IEnumerable<App.Domain.Entities.Data.Repair> PagedList(Paging page)
+		public IEnumerable<Repair> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<App.Domain.Entities.Data.Repair>();
+			return GetAllPagedList(page).ToList();
 		}
 
-		public IEnumerable<App.Domain.Entities.Data.Repair> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+		public IEnumerable<Repair> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<App.Domain.Entities.Data.Repair, bool>> expression = PredicateBuilder.True<App.Domain.Entities.Data.Repair>();
+			Expression<Func<Repair, bool>> expression = PredicateBuilder.True<Repair>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<App.Domain.Entities.Data.Repair>((App.Domain.Entities.Data.Repair x) => x.RepairCode.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CustomerCode.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CustomerName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CreatedDate.ToString("dd/MM/yyyy").ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.RepairCode.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CustomerCode.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CustomerName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.CreatedDate.ToString("dd/MM/yyyy").ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

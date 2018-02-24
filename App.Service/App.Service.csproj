@@ -41,13 +41,6 @@
     <Reference Include="App.Core">
       <HintPath>..\App.Core\bin\Debug\App.Core.dll</HintPath>
     </Reference>
-    <Reference Include="App.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.Domain\bin\Debug\App.Domain.dll</HintPath>
-    </Reference>
-    <Reference Include="App.FakeEntity">
-      <HintPath>..\App.FakeEntity\bin\Debug\App.FakeEntity.dll</HintPath>
-    </Reference>
     <Reference Include="App.Infra.Data.Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data.Repository\bin\Debug\App.Infra.Data.Repository.dll</HintPath>
@@ -157,7 +150,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Step\IFlowStepService.cs">
+    <Compile Include="Manufacturers\IManufacturerService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -173,7 +166,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Step\FlowStepService.cs">
+    <Compile Include="Manufacturers\ManufacturerService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -305,6 +298,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj">
+      <Project>{396ff6df-0f55-4c8f-9b2f-233f439da8f6}</Project>
+      <Name>App.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Infra.Data\App.Infra.Data.csproj">
       <Project>{BADAAF5E-E078-4763-A4E9-6FE9076376F4}</Project>
       <Name>App.Infra.Data</Name>

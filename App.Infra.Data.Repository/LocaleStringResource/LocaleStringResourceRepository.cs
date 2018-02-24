@@ -1,50 +1,50 @@
-using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
-using App.Infra.Data.Common;
-using App.Infra.Data.DbFactory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using App.Core.Utils;
+using App.Domain.Interfaces.Repository;
+using App.Infra.Data.Common;
+using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.LocaleStringResource
 {
-    public class LocaleStringResourceRepository : RepositoryBase<App.Domain.Entities.Language.LocaleStringResource>, ILocaleStringResourceRepository, IRepositoryBase<App.Domain.Entities.Language.LocaleStringResource>
+    public class LocaleStringResourceRepository : RepositoryBase<Domain.Entities.Language.LocaleStringResource>, ILocaleStringResourceRepository, IRepositoryBase<Domain.Entities.Language.LocaleStringResource>
 	{
 
         public LocaleStringResourceRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
         }
 
-        public App.Domain.Entities.Language.LocaleStringResource GetLocaleStringResourceById(int id)
+        public Domain.Entities.Language.LocaleStringResource GetLocaleStringResourceById(int id)
         {
-            App.Domain.Entities.Language.LocaleStringResource localeString = this.FindBy((App.Domain.Entities.Language.LocaleStringResource x) => x.Id == id, false).FirstOrDefault();
+            Domain.Entities.Language.LocaleStringResource localeString = FindBy(x => x.Id == id, false).FirstOrDefault();
             
             return localeString;
         }
 
-        protected override IOrderedQueryable<App.Domain.Entities.Language.LocaleStringResource> GetDefaultOrder(IQueryable<App.Domain.Entities.Language.LocaleStringResource> query)
+        protected override IOrderedQueryable<Domain.Entities.Language.LocaleStringResource> GetDefaultOrder(IQueryable<Domain.Entities.Language.LocaleStringResource> query)
         {
-            IOrderedQueryable<App.Domain.Entities.Language.LocaleStringResource> attributes =
+            IOrderedQueryable<Domain.Entities.Language.LocaleStringResource> attributes =
                 from p in query
                 orderby p.Id
                 select p;
             return attributes;
         }
 
-        public IEnumerable<App.Domain.Entities.Language.LocaleStringResource> PagedList(Paging page)
+        public IEnumerable<Domain.Entities.Language.LocaleStringResource> PagedList(Paging page)
         {
-            return this.GetAllPagedList(page).ToList<App.Domain.Entities.Language.LocaleStringResource>();
+            return GetAllPagedList(page).ToList();
         }
 
-        public IEnumerable<App.Domain.Entities.Language.LocaleStringResource> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+        public IEnumerable<Domain.Entities.Language.LocaleStringResource> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
         {
-            Expression<Func<App.Domain.Entities.Language.LocaleStringResource, bool>> expression = PredicateBuilder.True<App.Domain.Entities.Language.LocaleStringResource>();
+            Expression<Func<Domain.Entities.Language.LocaleStringResource, bool>> expression = PredicateBuilder.True<Domain.Entities.Language.LocaleStringResource>();
             if (!string.IsNullOrEmpty(sortBuider.Keywords))
             {
-                expression = expression.And<App.Domain.Entities.Language.LocaleStringResource>((App.Domain.Entities.Language.LocaleStringResource x) => x.ResourceName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.ResourceName.ToLower().Contains(sortBuider.Keywords.ToLower()));
+                expression = expression.And(x => x.ResourceName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.ResourceName.ToLower().Contains(sortBuider.Keywords.ToLower()));
             }
-            return this.FindAndSort(expression, sortBuider.Sorts, page);
+            return FindAndSort(expression, sortBuider.Sorts, page);
         }
     }
 }

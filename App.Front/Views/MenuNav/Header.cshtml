@@ -4,62 +4,43 @@
 @if (Model != null)
 {
     <div id="header" class="header">
-        
-        <div class="top-header">
-        <div class="container">
-            <div class="nav-top-links">
-                <a class="first-item" href="#"><img alt="phone" src="assets/images/phone.png">00-62-658-658</a>
-                <a href="#"><img alt="email" src="assets/images/email.png">Contact us today!</a>
-            </div>
-            <div class="currency ">
-                <div class="dropdown">
-                      <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">USD</a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Dollar</a></li>
-                        <li><a href="#">Euro</a></li>
-                      </ul>
-                </div>
-            </div>
-            <div class="language ">
-                <div class="dropdown">
-                      <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                      <img alt="email" src="assets/images/fr.jpg">French
-                      
-                      </a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#"><img alt="email" src="assets/images/en.jpg">English</a></li>
-                        <li><a href="#"><img alt="email" src="assets/images/fr.jpg">French</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="support-link">
-                <a href="#">Services</a>
-                <a href="#">Support</a>
-            </div>
 
-            
-        <div id="user-info-top" class="user-info pull-right">
-                <div class="dropdown">
-                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>My Account</span></a>
-                    <ul class="dropdown-menu mega_dropdown" role="menu">
-                        @{
-                            if (HttpContext.Current.User.Identity.IsAuthenticated)
-                            {
-                                <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'><strong>@HttpContext.Current.User.Identity.Name </strong></a></li>
-                                <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'>Thông tin tài khoản</a></li>
+        <div class="top-header">
+            <div class="container">
+                <div class="nav-top-links">
+                    <a class="first-item" href="#"><img alt="phone" src="assets/images/phone.png">00-62-658-658</a>
+                    <a href="#"><img alt="email" src="assets/images/email.png">Contact us today!</a>
+                </div>
+
+                <div class="support-link">
+                    <a href="#">Services</a>
+                    <a href="#">Support</a>
+                </div>
+
+
+                <div id="user-info-top" class="user-info pull-right">
+                    <div class="dropdown">
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Xin chào @HttpContext.Current.User.Identity.Name</span></a>
+                            <ul class="dropdown-menu mega_dropdown" role="menu">
+                                <li><a href='@Url.Action("ChangeInfo","Account", new { area =""})'>Đơn hàng của tôi</a></li>
                                 <li><a href='@Url.Action("LogOff","Account", new { area =""})'>Đăng xuất</a></li>
-                            }
-                            else
-                            {
+                            </ul>
+                        }
+                        else
+                        {
+                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>Đăng nhập tài khoản</span></a>
+                            <ul class="dropdown-menu mega_dropdown" role="menu">
                                 <li><a href='@Url.Action("Login", "User", new { area = "" })'>Đăng nhập</a></li>
                                 <li><a href='@Url.Action("Registration", "User", new { area = "" })'>Đăng ký</a></li>
-                            }
+                            </ul>
+
                         }
-                    </ul>
+                    </div>
                 </div>
-            </div></div>
-    </div>
+            </div>
+        </div>
 
         <!-- MAIN HEADER -->
         <div class="container main-header">
@@ -91,16 +72,16 @@
                 <!-- userinfo on top-->
                 <div id="user-info-opntop">
                     @*<div id="user-info-top" class="user-info pull-right">
-                        <div class="dropdown">
-                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                <span>My Account</span>
-                            </a>
-                            <ul class="dropdown-menu mega_dropdown header-login" role="menu">
-                                <li><i class="fa fa-sign-in"></i><a href="account/login.html" id="customer_login_link">Đăng nhập</a></li>
-                                <li><i class="fa fa-user"></i><a href="account/register.html" id="customer_register_link">Đăng kí</a></li>
-                            </ul>
-                        </div>
-                    </div>*@
+                            <div class="dropdown">
+                                <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <span>My Account</span>
+                                </a>
+                                <ul class="dropdown-menu mega_dropdown header-login" role="menu">
+                                    <li><i class="fa fa-sign-in"></i><a href="account/login.html" id="customer_login_link">Đăng nhập</a></li>
+                                    <li><i class="fa fa-user"></i><a href="account/register.html" id="customer_register_link">Đăng kí</a></li>
+                                </ul>
+                            </div>
+                        </div>*@
                 </div>
                 <!-- CART ICON ON MMENU -->
                 <div id="shopping-cart-box-ontop">

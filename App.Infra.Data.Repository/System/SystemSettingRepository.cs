@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.System
 {
@@ -19,7 +19,7 @@ namespace App.Infra.Data.Repository.System
 
 		public SystemSetting GetById(int id)
         {
-            SystemSetting systemSetting = this.FindBy((SystemSetting x) => x.Id == id, false).FirstOrDefault<SystemSetting>();
+            SystemSetting systemSetting = FindBy(x => x.Id == id, false).FirstOrDefault();
             
             return systemSetting;
 		}
@@ -35,13 +35,13 @@ namespace App.Infra.Data.Repository.System
 
 		public IEnumerable<SystemSetting> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<SystemSetting>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<SystemSetting> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
 			Expression<Func<SystemSetting, bool>> expression = PredicateBuilder.True<SystemSetting>();
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

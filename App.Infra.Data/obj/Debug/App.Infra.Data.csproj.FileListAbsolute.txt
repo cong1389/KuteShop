@@ -178,7 +178,6 @@ D:\Project\Practice\AoThun\Source\App.Infra.Data\obj\Debug\App.Infra.Data.pdb
 D:\FreeLance\2017\AoThun\Source\App.Infra.Data\bin\Debug\App.Domain.dll
 D:\Project\Practice\AoThun\Source\App.Infra.Data\bin\Debug\System.Web.Mvc.dll
 D:\Project\Practice\AoThun\Source\App.Infra.Data\bin\Debug\System.Web.Mvc.xml
-D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\obj\Debug\App.Infra.Data.csprojResolveAssemblyReference.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\obj\Debug\App.Infra.Data.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\bin\Debug\App.Infra.Data.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\bin\Debug\App.Infra.Data.pdb
@@ -196,3 +195,4 @@ D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\bin\Debug\HtmlAgilityPack.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\bin\Debug\HtmlAgilityPack.xml
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\obj\Debug\App.Infra.Data.dll
 D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\obj\Debug\App.Infra.Data.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Infra.Data\obj\Debug\App.Infra.Data.csprojResolveAssemblyReference.cache

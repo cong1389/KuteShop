@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Brandes;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Brandes
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Brandes
 
 		public Brand GetById(int id)
 		{
-			Brand province = this.FindBy((Brand x) => x.Id == id, false).FirstOrDefault<Brand>();
+			Brand province = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return province;
 		}
 
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Repository.Brandes
 
 		public IEnumerable<Brand> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<Brand>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<Brand> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -41,9 +41,9 @@ namespace App.Infra.Data.Repository.Brandes
 			Expression<Func<Brand, bool>> expression = PredicateBuilder.True<Brand>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<Brand>((Brand x) => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

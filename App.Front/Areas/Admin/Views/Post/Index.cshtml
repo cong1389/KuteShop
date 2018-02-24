@@ -10,11 +10,11 @@
     <thead class="flip-content">
         <tr>
             <th class="text-center"> @FormUI.Image</th>
-            <th class="text-center"> @FormUI.ProductCode </th>
             <th class="text-center"> @FormUI.ProductName </th>
+            <th class="text-center"> @FormUI.ProductCode </th>
             <th class="text-center"> @FormUI.MenuLink </th>
             <th class="text-center hidden"> @FormUI.ColorHex </th>
-            <th class="text-center"> @FormUI.OrderDisplay </th>
+            <th class="text-center hidden"> @FormUI.OrderDisplay </th>
             <th class="text-center"> @FormUI.OutOfStock </th>
             <th class="text-center"> @FormUI.Status </th>
             <th class="text-center">
@@ -31,10 +31,10 @@
                     <td>
                         <img alt="@item.MetaTitle" src="@Url.Content("~/" + item.ImageSmallSize)" width="80px" />
                     </td>
-                    <td>@item.ProductCode</td>
                     <td>
                         <a class="highlight0" href="@Url.Action("Edit", new {id = item.Id, ReturnUrl = Request.Url.PathAndQuery})">@item.Title</a>
                     </td>
+                    <td>@item.ProductCode</td>
                     <td>@Html.Raw(item.MenuId > 0 ? item.MenuLink.MenuName : string.Empty)</td>
                     <td class="hidden">
                         @if (item.AttributeValues.IsAny())
@@ -42,7 +42,7 @@
                             @Html.Raw("<span>" + string.Join(", ", item.AttributeValues.Select(x => x.ValueName)) + "</span>")
                         }
                     </td>
-                    <td>@item.OrderDisplay</td>
+                    <td class="hidden">@item.OrderDisplay</td>
                     <td>@Html.Raw(item.OutOfStock ? "<span class='label label-sm label-warning'>" + FormUI.OutOfStock + "</span>" : "<span class='label label-sm label-success'>" + FormUI.InStock + "</span>")</td>
                     <td>@Html.Raw(item.Status == (int)Status.Disable ? "<span class='label label-sm label-warning'>" + FormUI.InActive + "</span>" : "<span class='label label-sm label-success'>" + FormUI.Active + "</span>")</td>
                     <td class="text-center">

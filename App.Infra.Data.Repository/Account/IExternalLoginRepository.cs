@@ -1,7 +1,7 @@
-using App.Domain.Entities.Account;
-using App.Domain.Interfaces.Repository;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Domain.Entities.Account;
+using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Account
 {

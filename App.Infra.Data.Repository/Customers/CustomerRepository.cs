@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 using Domain.Entities.Customers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Customers
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Customers
 
 		public Customer GetById(int id)
 		{
-			Customer province = this.FindBy((Customer x) => x.Id == id, false).FirstOrDefault<Customer>();
+			Customer province = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return province;
 		}
 
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Repository.Customers
 
 		public IEnumerable<Customer> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<Customer>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<Customer> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -41,9 +41,9 @@ namespace App.Infra.Data.Repository.Customers
 			Expression<Func<Customer, bool>> expression = PredicateBuilder.True<Customer>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<Customer>((Customer x) => x.Username.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Email.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.Username.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Email.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

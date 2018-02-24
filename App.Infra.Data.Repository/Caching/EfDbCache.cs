@@ -1,14 +1,14 @@
-﻿using App.Core.Caching;
-using App.Core.Infrastructure.DependencyManagement;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using App.Core.Caching;
+using App.Core.Infrastructure.DependencyManagement;
 
 namespace App.Infra.Data.Repository.Caching
 {
-    public partial class EfDbCache : IDbCache
+    public class EfDbCache : IDbCache
     {
         private const string KEYPREFIX = "efcache:";
         private readonly object _lock = new object();
@@ -39,7 +39,7 @@ namespace App.Infra.Data.Repository.Caching
 
                 lock (_lock)
                 {
-                    if (_enabled == false && value == true)
+                    if (_enabled == false && value)
                     {
                         // When cache was disabled previously and gets enabled,
                         // we should clear the cache, because no invalidation has been performed
@@ -127,12 +127,10 @@ namespace App.Infra.Data.Repository.Caching
             {
                 return _cache.GetHashSet(key);
             }
-            else
+
+            if (_cache.Contains(key))
             {
-                if (_cache.Contains(key))
-                {
-                    return _cache.GetHashSet(key);
-                }
+                return _cache.GetHashSet(key);
             }
 
             return null;
@@ -227,10 +225,8 @@ namespace App.Infra.Data.Repository.Caching
             {
                 return _requestCache.Value.Get(key, () => new HashSet<string>());
             }
-            else
-            {
-                return _requestCache.Value.Get<HashSet<string>>(key);
-            }
+
+            return _requestCache.Value.Get<HashSet<string>>(key);
         }
     }
 }

@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.SeoSetting
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.SeoSetting
 
 		public SettingSeoGlobal GetById(int Id)
 		{
-			SettingSeoGlobal settingSeoGlobal = this.FindBy((SettingSeoGlobal x) => x.Id == Id, false).FirstOrDefault<SettingSeoGlobal>();
+			SettingSeoGlobal settingSeoGlobal = FindBy(x => x.Id == Id, false).FirstOrDefault();
 			return settingSeoGlobal;
 		}
 
@@ -33,13 +33,13 @@ namespace App.Infra.Data.Repository.SeoSetting
 
 		public IEnumerable<SettingSeoGlobal> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<SettingSeoGlobal>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<SettingSeoGlobal> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
 			Expression<Func<SettingSeoGlobal, bool>> expression = PredicateBuilder.True<SettingSeoGlobal>();
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

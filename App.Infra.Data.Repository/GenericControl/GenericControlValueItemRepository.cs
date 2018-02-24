@@ -1,8 +1,8 @@
+using System.Linq;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System.Linq;
 
 namespace App.Infra.Data.Repository.GenericControl
 {
@@ -24,7 +24,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public GenericControlValueItem GetById(int id)
 		{
-			GenericControlValueItem GenericControlValueItem = this.FindBy((GenericControlValueItem x) => x.Id == id, false).FirstOrDefault<GenericControlValueItem>();
+			GenericControlValueItem GenericControlValueItem = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return GenericControlValueItem;
 		}
 	}

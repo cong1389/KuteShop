@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Location;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Locations
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public District GetById(int id)
 		{
-			District district = this.FindBy((District x) => x.Id == id, false).FirstOrDefault<District>();
+			District district = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return district;
 		}
 
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public IEnumerable<District> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<District>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<District> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -41,9 +41,9 @@ namespace App.Infra.Data.Repository.Locations
 			Expression<Func<District, bool>> expression = PredicateBuilder.True<District>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<District>((District x) => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

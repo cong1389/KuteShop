@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Slide;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Slide
 {
@@ -27,13 +27,13 @@ namespace App.Infra.Data.Repository.Slide
 
 		public IEnumerable<SlideShow> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<SlideShow>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<SlideShow> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
 			Expression<Func<SlideShow, bool>> expression = PredicateBuilder.True<SlideShow>();
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

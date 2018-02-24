@@ -178,7 +178,7 @@
     <Compile Include="Areas\Admin\Controllers\ContactInformationController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExtentionsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\FlowStepController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManufacturerController.cs" />
     <Compile Include="Areas\Admin\Controllers\GenericControlController.cs" />
     <Compile Include="Areas\Admin\Controllers\GenericControlValueController.cs" />
     <Compile Include="Areas\Admin\Controllers\GenericControlValueItemController.cs" />
@@ -271,10 +271,10 @@
     <Content Include="Areas\Admin\Views\ContactInformation\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ContactInformation\_CreateOrUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\Extentions\ResourceScript.cshtml" />
-    <Content Include="Areas\Admin\Views\FlowStep\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\FlowStep\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\FlowStep\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\FlowStep\_CreateOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturer\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturer\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Manufacturer\_CreateOrUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValueItem\_CreateOrUpdate.GenericControlValueItem.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValue\Create.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValue\Edit.cshtml" />

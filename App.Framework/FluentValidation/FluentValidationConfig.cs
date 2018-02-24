@@ -10,7 +10,7 @@ using App.FakeEntity.Post;
 using App.FakeEntity.ServerMail;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
-using App.FakeEntity.Step;
+using App.FakeEntity.Manufacturers;
 using App.FakeEntity.System;
 using App.FakeEntity.User;
 using App.Framework.ValidateEntity;
@@ -58,7 +58,7 @@ namespace App.Framework.FluentValidation
 			_validators.Add(typeof(IValidator<AttributeViewModel>), new AttributeValidator());
 			_validators.Add(typeof(IValidator<AttributeValueViewModel>), new AttributeValueValidator());
 			_validators.Add(typeof(IValidator<LandingPageViewModel>), new LandingPageValidator());
-			_validators.Add(typeof(IValidator<FlowStepViewModel>), new FlowStepValidator());
+			_validators.Add(typeof(IValidator<ManufacturerViewModel>), new FlowStepValidator());
             _validators.Add(typeof(IValidator<BrandViewModel>), new BrandValidator());
             _validators.Add(typeof(IValidator<RepairViewModel>), new RepairValidator());
             _validators.Add(typeof(IValidator<LocalizedPropertyViewModel>), new LocalizedPropertyValidator());

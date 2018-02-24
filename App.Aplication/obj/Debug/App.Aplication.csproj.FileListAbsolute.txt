@@ -400,7 +400,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.Aplication.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.Core.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.Domain.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.FakeEntity.dll
-D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.Service.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\EPPlus.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\HtmlAgilityPack.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\Kaliko.ImageLibrary.dll
@@ -440,3 +439,4 @@ D:\FreeLance\2018\KuteShop\Source\App.Aplication\obj\Debug\App.Aplication.csproj
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\obj\Debug\App.Aplication.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\obj\Debug\App.Aplication.dll
 D:\FreeLance\2018\KuteShop\Source\App.Aplication\obj\Debug\App.Aplication.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Aplication\bin\Debug\App.Service.dll

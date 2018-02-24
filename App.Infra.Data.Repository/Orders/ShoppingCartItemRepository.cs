@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Orders;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Orders
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Orders
 
         public ShoppingCartItem GetById(int Id)
         {
-            ShoppingCartItem shopCart = this.FindBy((ShoppingCartItem x) => x.Id == Id, false).FirstOrDefault<ShoppingCartItem>();
+            ShoppingCartItem shopCart = FindBy(x => x.Id == Id, false).FirstOrDefault();
             return shopCart;
         }
 
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Repository.Orders
 
         public IEnumerable<ShoppingCartItem> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<ShoppingCartItem>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<ShoppingCartItem> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -41,9 +41,9 @@ namespace App.Infra.Data.Repository.Orders
 			Expression<Func<ShoppingCartItem, bool>> expression = PredicateBuilder.True<ShoppingCartItem>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<ShoppingCartItem>((ShoppingCartItem x) =>x.CreatedDate.ToString("dd/MM/yyyy").ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x =>x.CreatedDate.ToString("dd/MM/yyyy").ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

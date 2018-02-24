@@ -1,17 +1,17 @@
+using System.Collections.Generic;
 using App.Core.Utils;
 using App.Domain.Interfaces.Repository;
-using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.News
 {
-	public interface INewsRepository : IRepositoryBase<App.Domain.Entities.Data.News>
+	public interface INewsRepository : IRepositoryBase<Domain.Entities.Data.News>
 	{
-		App.Domain.Entities.Data.News GetById(int Id);
+		Domain.Entities.Data.News GetById(int Id);
 
-		IEnumerable<App.Domain.Entities.Data.News> PagedList(Paging page);
+		IEnumerable<Domain.Entities.Data.News> PagedList(Paging page);
 
-		IEnumerable<App.Domain.Entities.Data.News> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<Domain.Entities.Data.News> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
 
-		IEnumerable<App.Domain.Entities.Data.News> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<Domain.Entities.Data.News> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

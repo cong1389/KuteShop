@@ -1,10 +1,10 @@
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using App.Domain.Entities.Account;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace App.Infra.Data.Repository.Account
 {
@@ -16,19 +16,19 @@ namespace App.Infra.Data.Repository.Account
 
 		public ExternalLogin GetByProviderAndKey(string loginProvider, string providerKey)
 		{
-			ExternalLogin externalLogin = base.Get((ExternalLogin x) => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			ExternalLogin externalLogin = Get(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
 			return externalLogin;
 		}
 
 		public Task<ExternalLogin> GetByProviderAndKeyAsync(string loginProvider, string providerKey)
 		{
-			Task<ExternalLogin> async = base.GetAsync((ExternalLogin x) => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			Task<ExternalLogin> async = GetAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
 			return async;
 		}
 
 		public Task<ExternalLogin> GetByProviderAndKeyAsync(CancellationToken cancellationToken, string loginProvider, string providerKey)
 		{
-			Task<ExternalLogin> async = base.GetAsync(cancellationToken, (ExternalLogin x) => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			Task<ExternalLogin> async = GetAsync(cancellationToken, x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
 			return async;
 		}
 

@@ -20,11 +20,11 @@ using App.Service.Gallery;
 using App.Service.GenericControl;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Manufacturers;
 using App.Service.Menu;
 using App.Service.Post;
 using AutoMapper;
 using Resources;
-using Attribute = App.Domain.Entities.Attribute.Attribute;
 
 namespace App.Admin.Controllers
 {
@@ -51,6 +51,8 @@ namespace App.Admin.Controllers
 
         private readonly IPostGalleryService _postGalleryService;
 
+        private readonly IManufacturerService _manufacturerService;
+
         public PostController(
             IPostService postService
             , IMenuLinkService menuLinkService
@@ -62,7 +64,8 @@ namespace App.Admin.Controllers
             , ILocalizedPropertyService localizedPropertyService
             , IPostGalleryService postGalleryService
             , IGenericControlService genericControlService
-            , ICacheManager cacheManager)
+            , ICacheManager cacheManager
+            , IManufacturerService manufacturerService)
             : base(cacheManager)
         {
             _postService = postService;
@@ -75,6 +78,7 @@ namespace App.Admin.Controllers
             _localizedPropertyService = localizedPropertyService;
             _postGalleryService = postGalleryService;
             _cacheManager = cacheManager;
+            _manufacturerService = manufacturerService;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CachePostKey);
@@ -141,7 +145,7 @@ namespace App.Admin.Controllers
 
                 int? menuId = model.MenuId;
                 int i = 0;
-                if (menuId.GetValueOrDefault() > i ? menuId.HasValue : false)
+                if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                 {
                     IMenuLinkService menuLinkService = _menuLinkService;
                     menuId = model.MenuId;
@@ -411,7 +415,7 @@ namespace App.Admin.Controllers
                     }
                     int? menuId = model.MenuId;
                     int i = 0;
-                    if (menuId.GetValueOrDefault() > i ? menuId.HasValue : false)
+                    if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                     {
                         IMenuLinkService menuLinkService = _menuLinkService;
                         menuId = model.MenuId;
@@ -599,7 +603,13 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("edit") || filterContext.RouteData.Values["action"].Equals("create"))
             {
-                IEnumerable<Attribute> attributes = _attributeService.FindBy(x => x.Status == 1);
+                var manufacturers = _manufacturerService.FindBy(x => x.Status == 1);
+                if (manufacturers.IsAny())
+                {
+                    ViewBag.Manufacturers = manufacturers;
+                }
+
+                var attributes = _attributeService.FindBy(x => x.Status == 1);
                 if (attributes.IsAny())
                 {
                     ViewBag.Attributes = attributes;

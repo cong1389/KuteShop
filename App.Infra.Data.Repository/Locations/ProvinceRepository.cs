@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Location;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Repository.Locations
 {
@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public Province GetById(int id)
 		{
-			Province province = this.FindBy((Province x) => x.Id == id, false).FirstOrDefault<Province>();
+			Province province = FindBy(x => x.Id == id, false).FirstOrDefault();
 			return province;
 		}
 
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public IEnumerable<Province> PagedList(Paging page)
 		{
-			return this.GetAllPagedList(page).ToList<Province>();
+			return GetAllPagedList(page).ToList();
 		}
 
 		public IEnumerable<Province> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
@@ -41,9 +41,9 @@ namespace App.Infra.Data.Repository.Locations
 			Expression<Func<Province, bool>> expression = PredicateBuilder.True<Province>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And<Province>((Province x) => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
-			return this.FindAndSort(expression, sortBuider.Sorts, page);
+			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}
 }

@@ -4,7 +4,7 @@ namespace App.Domain.Common
 {
 	public static class ApplicationRoles
 	{
-		public const string ViewFlowStep = "ViewFlowStep";
+		public const string ViewManufacturer = "ViewManufacturer";
 
 		public const string CreateEditFlowStep = "CreateEditFlowStep";
 
