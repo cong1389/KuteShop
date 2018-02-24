@@ -114,6 +114,8 @@ namespace App.Aplication.Extensions
                 PostGallerys = entity.PostGallerys,
                 GalleryImages = entity.GalleryImages,
                 AttributeValues = entity.AttributeValues,
+                ManufacturerId = entity.ManufacturerId,
+                Manufacturer = entity.Manufacturer,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 ProductCode = entity.GetLocalized(x => x.ProductCode, entity.Id),
@@ -123,6 +125,7 @@ namespace App.Aplication.Extensions
                 MetaTitle = entity.GetLocalized(x => x.MetaTitle, entity.Id),
                 MetaKeywords = entity.GetLocalized(x => x.MetaKeywords, entity.Id),
                 MetaDescription = entity.GetLocalized(x => x.MetaDescription, entity.Id),
+               
             };
 
             return model;
@@ -158,7 +161,7 @@ namespace App.Aplication.Extensions
                 VirtualSeoUrl = entity.VirtualSeoUrl,
                 DisplayOnHomePage = entity.DisplayOnHomePage,
                 DisplayOnMenu = entity.DisplayOnMenu,
-                DisplayOnSearch = entity.DisplayOnSearch,
+                DisplayOnSearch = entity.DisplayOnSearch
             };
 
             return model;

@@ -378,11 +378,10 @@ namespace App.Front.Controllers
         }
 
         //Get product trang chủ
-        [PartialCache("Medium")]
+        [PartialCache("Long")]
         public ActionResult GetProductHome()
         {
-            //Get danh sách menu có DisplayOnHomePage ==true
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
 
             if (!menuLinks.Any())
             {
@@ -395,10 +394,9 @@ namespace App.Front.Controllers
             var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
 
             List<Post> lstPost = new List<Post>();
-            IEnumerable<Post> iePost = null;
             foreach (var item in menuParent)
             {
-                iePost = _postService.GetByOption(item.CurrentVirtualId, true);
+                var iePost = _postService.GetByOption(item.CurrentVirtualId, true);
 
                 if (iePost.IsAny())
                 {
@@ -408,12 +406,11 @@ namespace App.Front.Controllers
                 }
             }
 
-            iePost = from x in lstPost orderby x.OrderDisplay descending select x;
-            CategoryPostModel categoryPost = new CategoryPostModel()
+            CategoryPostModel categoryPost = new CategoryPostModel
             {
                 NumberMenu = menuParent.Count(),
                 MenuLinks = menuParent,
-                Posts = iePost
+                Posts = from x in lstPost orderby x.OrderDisplay descending select x
             };
 
             return PartialView(categoryPost);
