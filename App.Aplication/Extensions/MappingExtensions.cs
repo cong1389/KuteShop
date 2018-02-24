@@ -206,6 +206,7 @@ namespace App.Aplication.Extensions
                 OrderDisplay = entity.OrderDisplay,
                 ProvinceId = entity.ProvinceId,
                 Status = entity.Status,
+                Type = entity.Type,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
                 Address = entity.GetLocalized(x => x.Address, entity.Id)

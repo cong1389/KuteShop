@@ -8,51 +8,13 @@
             <div id="introduce-box" class="row">
                 <div class="col-md-3">
                     <div id="address-box">
-                        <a href="#">
-                            <img src="/assets/255/1000074255/1000138323/logo28e0e.png?v=8" alt="logo" />
-                        </a>
-                        <div id="address-list">
-                            <div class="tit-name">Địa chỉ:</div>
-                            <div class="tit-contain">56 Vân côi, Phường 7, Quận Tân Bình, Tp. Hồ Chí Minh</div>
-                            <div class="tit-name">Điện thoại:</div>
-                            <div class="tit-contain">1900.636.099</div>
-                            <div class="tit-name">Email:</div>
-                            <div class="tit-contain">hi@haravan.com</div>
-                        </div>
+                        <div id="divFooterLogo"></div>
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="introduce-title">Về chúng tôi</div>
-                            <ul id="introduce-company" class="introduce-list">
-                                <li><a href="collections/all.html">Tất cả sản phẩm</a></li>
-                                <li><a href="collections/index.html">Thể thao</a></li>
-                                <li><a href="collections/index.html">Điện thoại & Ipad</a></li>
-                                <li><a href="collections/index.html">Mỹ phẩm</a></li>
-                                <li><a href="collections/index.html">Thời trang</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="introduce-title">Hổ trợ</div>
-                            <ul id="introduce-Account" class="introduce-list">
-                                <li><a href="index.html">Trang chủ</a></li>
-                                <li><a href="collections/all.html">Sản phẩm</a></li>
-                                <li><a href="blogs/all">Tin tức</a></li>
-                                <li><a href="pages/about-us">Giới thiệu</a></li>
-                                <li><a href="pages/lien-he.html">Liên hệ</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="introduce-title">Hướng dẫn</div>
-                            <ul id="introduce-support" class="introduce-list">
-                                <li><a href="collections/all.html">Tất cả sản phẩm</a></li>
-                                <li><a href="collections/index.html">Thể thao</a></li>
-                                <li><a href="collections/index.html">Điện thoại & Ipad</a></li>
-                                <li><a href="collections/index.html">Mỹ phẩm</a></li>
-                                <li><a href="collections/index.html">Thời trang</a></li>
-                            </ul>
-                        </div>
+                        @Html.Action("GetFooterLink", "MenuNav", new { area = "" })
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -141,43 +103,16 @@
                 </div>
             </div>
             <!-- /#trademark-box -->
+            <div id="divFooterAddress"></div>
+
             <p class="cpr text-center">
                 Copyright &copy; 2016 kute-shop. <a target='_blank' href='https://www.haravan.com/'>Powered by Haravan</a>.
             </p>
         </div>
     </footer>
+}
 
-    @*<footer id="footer" class='dark'>
-
-        <div class="container">
-            <!-- Footer Widgets
-            ============================================= -->
-            <div class="style_1 prefooter_wrap footer-widgets-wrap clearfix">
-                <div class='row'>
-
-                    <div id="divFooterLogo" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
-                    <div id="divFooterAddress" class="scroller" data-always-visible="1" data-rail-visible="0"></div>
-
-                    @Html.Action("GetFooterLink", "MenuNav", new { area = "" })
-
-                    <div class="prefooter_one col-xs-12">
-                        <div class="widget widget_links clearfix">
-                            <h4 class='widget_trigger'><i class="fa fa-map-signs"></i> @T("Social.Lable")</h4>
-                            <div class="widget_content">
-                                @{Html.RenderPartial("Socials/_Social.FB_Page");}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div><!-- .footer-widgets-wrap end -->
-        </div>
-
-
-    </footer>*@
-                                    }
-
-@*<script>
+<script>
     jQuery(function () {
 
         jQuery.post('@Url.Action("GetFooterAddress", "Summary")')
@@ -191,6 +126,6 @@
                });
     })
 
-</script>*@
+</script>
 
 <!---/GetInformationFooter--->

@@ -37,7 +37,10 @@ namespace App.Front.Controllers
 
             MenuLink menuLink = _menuLinkService.GetBySeoUrl(menu);
 
-            if (menuLink == null) return View();
+            if (menuLink == null)
+            {
+                return View();
+            }
 
             var menuLinkLocalized = menuLink.ToModel();
 

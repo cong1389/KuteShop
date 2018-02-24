@@ -1,27 +1,46 @@
-﻿@model IEnumerable<App.Domain.Entities.GlobalSetting.ContactInformation>
+﻿@using App.Domain.Entities.GlobalSetting
+@model IEnumerable<ContactInformation>
+
 @if (Model != null)
 {
-    <div class="prefooter_two col-xs-12">
-        <div class="widget widget_links clearfix">
-            <div class="title-company">
-
-                @{
-                    var contact = Model.Where(x => x.Type == 1).SingleOrDefault();
-                }
-                <strong> @contact.Title</strong>
-                <br /><i class="fa fa-map-marker"></i> @T("Address.Lable") : @contact.Address
-                <br /> <i class="fa fa-phone"></i>  @T("DienThoai.Lable"):  @contact.MobilePhone
-                <br /> <i class="fa fa-phone"></i>  @T("Hotline.Lable"):  @contact.Hotline
-                <br /> <i class="fa fa-envelope"></i> Email:  @contact.Email
-            </div>
-            <h4 class='widget_trigger'><i class="fa fa-map-signs"></i> Hệ thống cửa hàng Mazzola</h4>
-            <div class="widget_content">
-                @foreach (var item in Model.Where(x => x.Type == 0))
+    var contact = Model.SingleOrDefault(x => x.Type == 1);
+    <div id="trademark-text-box" class="row">
+        <div class="col-sm-12">
+            <ul id="trademark-search-list" class="trademark-list">
+                <li class="trademark-text-tit">@contact.Title :</li>
+                @if (!string.IsNullOrEmpty(contact.Address))
                 {
-                    <p><i class="fa fa-map-marker"></i> @item.Title: 99 Trương Định, phường 6, Quận 3 </p>
+                    <li>@T("Address.Lable"): @contact.Address</li>
                 }
-            </div>
+                @if (!string.IsNullOrEmpty(contact.MobilePhone))
+                {
+                    <li>@T("DienThoai.Lable"): @contact.MobilePhone</li>
+                }
+                @if (!string.IsNullOrEmpty(contact.Email))
+                {
+                    <li>Email: @contact.Email</li>
+                }
+            </ul>
         </div>
-    </div>
-
+        @foreach (var item in Model.Where(x => x.Type == 0))
+        {
+            <div class="col-sm-12">
+                <ul id="trademark-search-list" class="trademark-list">
+                    <li class="trademark-text-tit">@item.Title :</li>
+                    @if (!string.IsNullOrEmpty(item.Address))
+                    {
+                        <li>@T("Address.Lable"): @item.Address</li>
                     }
+                    @if (!string.IsNullOrEmpty(item.MobilePhone))
+                    {
+                        <li>@T("DienThoai.Lable"): @item.MobilePhone</li>
+                    }
+                    @if (!string.IsNullOrEmpty(item.Email))
+                    {
+                        <li>Email: @item.Email</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}
