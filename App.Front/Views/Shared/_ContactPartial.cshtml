@@ -1,66 +1,65 @@
-﻿@model App.Domain.Entities.GlobalSetting.ContactInformation
+﻿@model IEnumerable<App.Domain.Entities.GlobalSetting.ContactInformation>
 
-<div class="info-company marginbottom">
-    <div class="col-sm-6">
-        <div class="img">
-            <img src="/Images/chart.png" />
-        </div>
-    </div>
-    <div class="col-sm-6 col-xs-12">
-        <ul>
-            <li class="fa-home">
-                @Model.Address
+@if (Model != null)
+{
+    var contact = Model.SingleOrDefault(x => x.Type == 1);
+
+    <h3>Chúng tôi ở đây</h3>
+    <hr class="line-right">
+    <h3 class="name-company">@contact.Title</h3>
+    <ul class="info-address">
+        @if (!string.IsNullOrEmpty(contact.Address))
+        {
+            <li>
+                <i class="glyphicon glyphicon-map-marker"></i>
+                <span>@contact.Address</span>
             </li>
-            @if (!string.IsNullOrEmpty(Model.MobilePhone))
+        }
+
+        @if (!string.IsNullOrEmpty(contact.Email))
+        {
+            <li>
+                <i class="glyphicon glyphicon-envelope"></i>
+                <span>@contact.Email</span>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(contact.MobilePhone))
+        {
+            <li>
+                <i class="glyphicon glyphicon-phone-alt"></i>
+                <span>@contact.MobilePhone</span>
+            </li>
+        }
+
+    </ul>
+
+    foreach (var item in Model.Where(x => x.Type == 0))
+    {
+        <ul class="info-address">
+            <li><strong>@item.Title:</strong> </li>
+            @if (!string.IsNullOrEmpty(item.Address))
             {
-                <li class="fa-phone" itemprop="telephone">@Model.MobilePhone</li>
+                <li>
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                    <span> @T("Address.Lable"): @item.Address</span>
+                </li>
             }
-            @if (!string.IsNullOrEmpty(Model.Fax))
+            @if (!string.IsNullOrEmpty(item.MobilePhone))
             {
-                <li class="fa-print" itemprop="faxNumber">@Model.Fax</li>
+                <li>
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <span> @T("DienThoai.Lable"): @item.MobilePhone</span>
+                </li>
+
             }
-            @if (!string.IsNullOrEmpty(Model.Email))
+            @if (!string.IsNullOrEmpty(item.Email))
             {
-                <li class="fa-envelope" itemprop="email">@Model.Email</li>
+                <li>
+                    <i class="glyphicon glyphicon-phone-alt"></i>
+                    <span> Email: @item.Email</span>
+                </li>
             }
-           
-            <li class="fa-globe" itemprop="url">www.thienphattiengiang.com</li>
         </ul>
-    </div>
-    <a class="view-map hidden" onclick="">Xem bản đồ</a><div class="clear"></div>
-</div>
-
-
-<div id="formContact" name="formContact" method="post" action="#" class="form validate col-sm-6">
-
-    <form id="formContact" name="formContact" method="post" action="#" class="form validate">
-        <p>@T("Contact.Thanks")</p>
-        <div class="form-group">
-            <label for="">@T("HoTen.Lable") <span class="per">(*)</span></label>
-            <input type="text" name="name" id="name" class="icon1 form-control" />
-        </div>
-        <div class="form-group">
-            <label for="">@T("Email.Lable") <span class="per">(*)</span></label>
-            <input type="text" name="email" id="email" class="icon2 form-control" />
-        </div>
-        <div class="form-group">
-            <label for="">@T("DienThoai.Lable")<span class="per">(*)</span></label>
-            <input type="text" name="phone" id="phone" class="icon3 form-control" />
-        </div>
-        <div class="form-group">
-            <label for="">@T("NoiDungLienLac")<span class="per">(*)</span></label>
-            <textarea class="icon4 form-control" id="content" name="content"></textarea>
-        </div>
-        <div class="form-group hidden">
-            <label for="">Mã bảo vệ <span class="per">(*)</span></label>
-            <input type="text" name="security_code" id="security_code" class="icon5 form-control" />
-            @*<img class="security_ver" src="http://trisedco.com/includes/sec_image.php?code=jMTUyMIw" />*@
-        </div>
-        <div class="form-group">
-            <div class="col-right">
-                <button id="do_submit" name="do_submit" type="submit" class="btn" value="@T("btnSend")"><span>@T("btnSend")</span></button>
-                <button id="btnReset" name="btnReset" type="reset" class="btn" value="@T("NhapLai")"><span>@T("NhapLai")</span></button>
-            </div>
-        </div>
-    </form>
-</div>
+    }
+}

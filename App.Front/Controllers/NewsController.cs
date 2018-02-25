@@ -145,10 +145,7 @@ namespace App.Front.Controllers
                 news = news.Where(n => n.CreatedDate.Year == year);
 
             IEnumerable<News> newsLocalized = news
-                .Select(x =>
-            {
-                return x.ToModel();
-            });
+                .Select(x => x.ToModel());
 
             if (news.IsAny())
             {

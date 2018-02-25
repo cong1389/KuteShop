@@ -801,6 +801,8 @@
     <Content Include="Themes\Basic\Content\_post.scss" />
     <Content Include="Views\Post\_PostDetail.Discount.cshtml" />
     <Content Include="Themes\Basic\Content\_modal.scss" />
+    <Content Include="Views\MenuNav\GetTopHead.cshtml" />
+    <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -857,7 +859,6 @@
     <Content Include="Views\MenuNav\GetFooterLink.cshtml" />
     <Content Include="Views\MenuNav\GetMenuCategory.cshtml" />
     <Content Include="Views\MenuNav\GetMenuLinkSideBar.cshtml" />
-    <Content Include="Views\MenuNav\GetMenuOnHomePage.cshtml" />
     <Content Include="Views\MenuNav\GetTopMenu.cshtml" />
     <Content Include="Views\MenuNav\GetTopMenuMobile.cshtml" />
     <Content Include="Views\MenuNav\Header.cshtml" />

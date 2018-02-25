@@ -24,21 +24,17 @@ namespace App.Front.Controllers
     {
         private readonly ISystemSettingService _systemSettingService;
 
-        private readonly IMailSettingService _mailSettingService;
-
-        private readonly IProvinceService _province;
-
         private readonly IBrandService _brandService;
 
         private readonly IRepairService _orderService;
 
         private readonly IImagePlugin _imagePlugin;
 
-        public HomeController(ISystemSettingService systemSettingService, IProvinceService province, IMailSettingService mailSettingService, IBrandService brandService, IImagePlugin imagePlugin, IRepairService orderService)
+        public HomeController(ISystemSettingService systemSettingService, IProvinceService province,
+            IMailSettingService mailSettingService, IBrandService brandService, IImagePlugin imagePlugin,
+            IRepairService orderService)
         {
             _systemSettingService = systemSettingService;
-            _province = province;
-            _mailSettingService = mailSettingService;
             _brandService = brandService;
             _imagePlugin = imagePlugin;
             _orderService = orderService;
@@ -226,33 +222,6 @@ select x.ErrorMessage).ToArray())
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SendContact(string name, string email, string content)
-        {
-            ActionResult actionResult;
-            try
-            {
-                if (!Request.IsAjaxRequest())
-                {
-                    return Json(new { succes = false, message = "Liên hệ chưa gửi được, vui lòng thử lại." });
-                }
-
-                ServerMailSetting serverMailSetting = _mailSettingService.Get(x => x.Status == 1, false);
-                string str = _systemSettingService.Get(x => x.Status == 1, false).Email;
-                string str1 = "Thông tin liên hệ";
-                string str2 = string.Concat("", "Người gửi: ", name, "<br>");
-                str2 = string.Concat(str2, string.Concat("E-mail: ", email), "<br>");
-                str2 = string.Concat(str2, content, "<br>");
-                SendMail sendMail = new SendMail();
-                sendMail.InitMail(serverMailSetting.FromAddress, serverMailSetting.SmtpClient, serverMailSetting.UserID, serverMailSetting.Password, serverMailSetting.SMTPPort, serverMailSetting.EnableSSL);
-                sendMail.SendToMail("Email", str, new[] { str1, str2 });
-                actionResult = Json(new { success = true, message = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể." });
-            }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
-            }
-            return actionResult;
-        }
+       
     }
 }

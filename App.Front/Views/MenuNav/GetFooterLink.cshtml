@@ -7,25 +7,25 @@
 {
     int i = 0;
 
-    foreach (MenuNavViewModel item in Model)
+    foreach (MenuNavViewModel lv1 in Model)
     {
         <div class="col-sm-4">
-            <div class="introduce-title"> @item.MenuName</div>
+            <div class="introduce-title"><a href="@Url.Action("GetContent", "Menu", new { menu = lv1.SeoUrl, area = "" })"> @lv1.MenuName</a></div>
             <ul id="introduce-Account" class="introduce-list">
-                @foreach (var lv1 in item.ChildNavMenu)
+                @foreach (var lv2 in lv1.ChildNavMenu)
                 {
-                    if (!string.IsNullOrEmpty(lv1.OtherLink))
+                    if (!string.IsNullOrEmpty(lv2.OtherLink))
                     {
-                        <li><a href="@lv1.OtherLink">@lv1.MenuName</a></li>
+                        <li><a href="@lv2.OtherLink">@lv2.MenuName</a></li>
                     }
                     else
                     {
-                        <li><a href="@Url.Action("GetContent", "Menu", new { menu = lv1.SeoUrl, area = "" })">@lv1.MenuName</a></li>
+                        <li><a href="@Url.Action("GetContent", "Menu", new { menu = lv2.SeoUrl, area = "" })">@lv2.MenuName</a></li>
                     }
                     i++;
                 }
             </ul>
-        </div>        
+        </div>
     }
 }
 
