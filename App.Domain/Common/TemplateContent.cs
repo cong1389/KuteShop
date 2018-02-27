@@ -8,7 +8,6 @@ namespace App.Domain.Common
 		AboutUs = 4,
 		Static = 5,
 		FixItem = 6,
-		SaleOff = 7,
-		Accessories = 8
+		SaleOff = 7
 	}
 }

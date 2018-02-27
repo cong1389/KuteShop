@@ -83,7 +83,7 @@ select x.ErrorMessage).ToArray())
                                     RepairId = repair.Id
                                 };
                                 string str1 = string.Format("{0}-{1}.jpg", repair.RepairCode, Guid.NewGuid());
-                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize, false);
+                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                 orderGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repair.RepairCode, str1);
                                 orderGalleries.Add(Mapper.Map<RepairGallery>(orderGalleryViewModel));
                             }
@@ -167,7 +167,7 @@ select x.ErrorMessage).ToArray())
                                     RepairId = repair.Id
                                 };
                                 string str1 = string.Format("{0}-{1}.jpg", repair.RepairCode, Guid.NewGuid());
-                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize, false);
+                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                 orderGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repair.RepairCode, str1);
                                 orderGalleries.Add(Mapper.Map<RepairGallery>(orderGalleryViewModel));
                             }
@@ -198,7 +198,7 @@ select x.ErrorMessage).ToArray())
         {
             dynamic viewBag = ViewBag;
             IBrandService brandService = _brandService;
-            viewBag.Brands = brandService.FindBy(x => x.Status == 1, false);
+            viewBag.Brands = brandService.FindBy(x => x.Status == 1);
             return PartialView();
         }
 

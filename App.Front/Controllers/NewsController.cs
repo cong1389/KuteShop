@@ -241,7 +241,7 @@ namespace App.Front.Controllers
                 for (int i = 0; i < strArrays.Length; i++)
                 {
                     string str = strArrays[i];
-                    MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str), false);
+                    MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str));
 
                     //Lấy bannerId từ post để hiển thị banner trên post
                     if (i == 0)

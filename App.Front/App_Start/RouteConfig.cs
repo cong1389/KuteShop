@@ -14,11 +14,11 @@ namespace App.Front
             routes.IgnoreRoute("fonts/{*pathInfo}");
             routes.LowercaseUrls = true;
             routes.MapRoute(null, "sitemap.xml", new { controller = "SiteMap", action = "SiteMapXml" }, new[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "getprice.html", new { controller = "Post", action = "GetPriceProduct" }, new[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "getprice.html", new { controller = "Post", action = "PostPrice" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "sitemap-images.xml", new { controller = "SiteMap", action = "SiteMapImage" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "gallery-images.html", new { controller = "Post", action = "GetGallery" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "left-fixitem.html", new { controller = "Menu", action = "GetLeftFixItem" }, new[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "fixitem-content.html", new { controller = "Post", action = "GetProductHome" }, new[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "fixitem-content.html", new { controller = "Post", action = "PostHome" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/quan-ly-tin-rao.html", new { controller = "Account", action = "PostManagement", page = 1 }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "danh-sach-cua-hang.html", new { controller = "StoreList", action = "GetStoreListByProvince" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "ban-do/{Id}.html", new { controller = "GoogleMap", action = "ShowGoogleMap", Id = UrlParameter.Optional }, new[] { "App.Front.Controllers" });
@@ -40,8 +40,8 @@ namespace App.Front
             routes.MapRoute(null, "404.html", new { controller = "Home", action = "Error" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "dang-nhap.html", new { controller = "User", action = "Login" }, new[] { "App.Front.Controllers" });
 
-            routes.MapRoute(null, "tin-cho-ban.html", new { controller = "Post", action = "GetPostForYou" }, new[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "tin-moi-nhat.html", new { controller = "Post", action = "GetPostLatest" }, new[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "tin-cho-ban.html", new { controller = "Post", action = "PostForYou" }, new[] { "App.Front.Controllers" });
+            routes.MapRoute(null, "tin-moi-nhat.html", new { controller = "Post", action = "PostLatest" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "tin-theo-chu-de.html", new { controller = "News", action = "GetContentTabsNewsHome" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "quan-huyen", new { controller = "Summary", action = "GetDistrictByProvinceId" }, new[] { "App.Front.Controllers" });
             routes.MapRoute("tim-kiem", "tim-kiem", new { controller = "Menu", action = "Search" }, new[] { "App.Front.Controllers" });

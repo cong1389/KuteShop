@@ -3615,7 +3615,7 @@ span.notify-right {
             padding-right: 0;
         }
 
-.social-link a:hover {
+/*.social-link a:hover {
     opacity: 0.8;
 }
 
@@ -3645,7 +3645,7 @@ span.notify-right {
 
 .social-link .fa-google-plus {
     background: #da4735;
-}
+}*/
 
 /** #footer-menu-box **/
 #footer {

@@ -32,7 +32,7 @@ namespace App.Infra.Data.Common
 
         public async Task<IEnumerable<T>> FindAsync<TKey>(CancellationToken cancellationToken, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
-            IEnumerable<T> ts = await _repository.FindAsync<TKey>(cancellationToken, whereClause, orderByClause, page);
+            IEnumerable<T> ts = await _repository.FindAsync(cancellationToken, whereClause, orderByClause, page);
             return ts;
         }
 
@@ -88,7 +88,7 @@ namespace App.Infra.Data.Common
 
         public async Task<IEnumerable<T>> GetTop<TKey>(int take, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause)
         {
-            return await _repository.GetTopBy<TKey>(take, whereClause, orderByClause);
+            return await _repository.GetTopBy(take, whereClause, orderByClause);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace App.Front.Controllers
 
         public ActionResult FlowStepHome()
         {
-            IEnumerable<Manufacturer> flowSteps = _manufacturerService.FindBy(x => x.Status == 1, false);
+            IEnumerable<Manufacturer> flowSteps = _manufacturerService.FindBy(x => x.Status == 1);
 
             return PartialView(flowSteps);
         }

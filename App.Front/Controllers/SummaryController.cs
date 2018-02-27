@@ -124,7 +124,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContactHeader()
         {
-            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1);
 
             var systemSettingLocalized = systemSetting.ToModel();
 
@@ -232,7 +232,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetProvinceSearchBox()
         {
-            IEnumerable<Province> provinces = _provinceService.FindBy(x => x.Status == 1, false);
+            IEnumerable<Province> provinces = _provinceService.FindBy(x => x.Status == 1);
             return PartialView(provinces);
         }
 
@@ -279,7 +279,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public JsonResult GetFooterLogo()
         {
-            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1);
 
             var systemSettingLocalize = systemSetting.ToModel();
 
@@ -292,7 +292,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public JsonResult GetSystemSetting()
         {
-            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
+            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1);
 
             var systemSettingLocalize = systemSetting.ToModel();
 
@@ -338,7 +338,7 @@ namespace App.Front.Controllers
             SystemSetting systemSetting = _cacheManager.Get<SystemSetting>(key);
             if (systemSetting == null)
             {
-                systemSetting = _systemSettingService.Get(x => x.Status == 1, false);
+                systemSetting = _systemSettingService.Get(x => x.Status == 1);
                 _cacheManager.Put(key, systemSetting);
             }
 
@@ -358,7 +358,7 @@ namespace App.Front.Controllers
             SettingSeoGlobal settingSeoGlobal = _cacheManager.Get<SettingSeoGlobal>(key);
             if (settingSeoGlobal == null)
             {
-                settingSeoGlobal = _settingSeoGlobal.Get(x => x.Status == 1, false);
+                settingSeoGlobal = _settingSeoGlobal.Get(x => x.Status == 1);
                 _cacheManager.Put(key, settingSeoGlobal);
             }
 

@@ -3,11 +3,11 @@
 
 @if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.Static || ViewBag.TemplateType == (int)TemplateContent.FixItem)
 {
-    @Html.Action("GetStaticContent", "Menu", new {ViewBag.MenuId, virtualId = ViewBag.VirtualId, title = ViewBag.Title, area = "" })
+    @Html.Action("GetStaticContent", "Menu", new { ViewBag.MenuId, virtualId = ViewBag.VirtualId, title = ViewBag.Title, area = "" })
 }
 else
 {
-    if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.Product || ViewBag.TemplateType == (int)TemplateContent.Accessories)
+    if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.Product)
     {
         @section jquerys{
             <script src="~/Scripts/pricerange/bootstrap-slider.js"></script>
@@ -18,7 +18,8 @@ else
         @section stylesheets{
             <link href="~/Content/pricerange/slider.css" rel="stylesheet" />
         }
-        @Html.Action("GetPostByCategory", "Post", new { virtualCategoryId = ViewBag.VirtualId, page = ViewBag.PageNumber, title = ViewBag.Title, attrs = ViewBag.Attrs, proattrs = ViewBag.ProAttrs, prices = ViewBag.Prices, keywords = ViewBag.Keywords, area = "" })
+
+        @Html.Action("PostCategories", "Post", new { virtualCategoryId = ViewBag.VirtualId, page = ViewBag.PageNumber, title = ViewBag.Title, attrs = ViewBag.Attrs, proattrs = ViewBag.ProAttrs, prices = ViewBag.Prices, keywords = ViewBag.Keywords, area = "" })
     }
 
     if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.News)

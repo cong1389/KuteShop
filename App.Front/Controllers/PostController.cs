@@ -47,97 +47,8 @@ namespace App.Front.Controllers
             _galleryService = galleryService;
         }
 
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetCareerHomePage(string virtualId)
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId), x => x.ViewCount);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView("GetPostRelative", posts);
-        }
-
-        public ActionResult GetGallery(int postId, int typeId)
-        {
-            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(typeId, postId: postId);
-
-            if (!galleryImages.IsAny())
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true }, JsonRequestBehavior.AllowGet);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetNewProductRelative(double? price, int productId)
-        {
-            double? nullable1;
-            double? nullable2;
-            double? nullable3 = price;
-            double num = 2000000;
-            if (nullable3.HasValue)
-            {
-                nullable1 = nullable3.GetValueOrDefault() - num;
-            }
-            else
-            {
-                nullable1 = null;
-            }
-            double? nullable4 = nullable1;
-            nullable3 = price;
-            num = 2000000;
-            if (nullable3.HasValue)
-            {
-                nullable2 = nullable3.GetValueOrDefault() + num;
-            }
-            else
-            {
-                nullable2 = null;
-            }
-            double? nullable5 = nullable2;
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.Price >= nullable4 && x.Price <= nullable5 && x.Id != productId, x => x.UpdatedDate);
-
-            if (top == null)
-                return HttpNotFound();
-
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView(posts);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetNewProductRelative2(string virtualId, int productId)
-        {
-            List<Post> lstPost = new List<Post>();
-            IEnumerable<Post> iePost = _postService.GetTop(10,
-                x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != productId, x => x.UpdatedDate);
-
-            if (iePost == null)
-            {
-                return HttpNotFound();
-            }
-
-            //if (iePost.IsAny())
-            //{
-            //    var postLocalized = iePost.Select(x => x.ToModel());
-
-            //    lstPost.AddRange(postLocalized);
-            //}
-            var postLocalized = iePost.Select(x => x.ToModel());
-
-            return PartialView(postLocalized);
-        }
-
         //[PartialCache("Short")]
-        public ActionResult GetPostByCategory(string virtualCategoryId, int page, string title, string attrs,
+        public ActionResult PostCategories(string virtualCategoryId, int page, string title, string attrs,
             string prices, string proattrs, string keywords
             , int? productOld, int? productNew)
         {
@@ -270,176 +181,7 @@ namespace App.Front.Controllers
             return PartialView(postLocalized);
         }
 
-        [PartialCache("Medium")]
-        public ActionResult GetPostForYou()
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(20, x => x.Status == 1 && x.PostType == 1, x => x.CreatedDate);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true }, JsonRequestBehavior.AllowGet);
-        }
 
-        [PartialCache("Medium")]
-        public ActionResult GetPostLatest()
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(20, x => x.Status == 1, x => x.CreatedDate);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true }, JsonRequestBehavior.AllowGet);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetPostRelative(string virtualId)
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId), x => x.UpdatedDate);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView(posts);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult GetPostSameMenu(int menuId, int postId)
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(6, x => x.Status == 1 && x.MenuId == menuId && x.Id != postId, x => x.CreatedDate);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView(posts);
-        }
-
-        [PartialCache("Medium")]
-        public ActionResult GetPriceProduct(int productId, int attributeId)
-        {
-            var galleryImage = _galleryService.Get(x => x.PostId == productId && x.AttributeValueId == attributeId);
-
-            return galleryImage?.Price == null ? Json("Liên hệ") : Json(galleryImage.Price);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Long")]
-        public ActionResult GetProductHot()
-        {
-            IEnumerable<Post> top = _postService.GetTop(5, x => x.Status == 1 && (x.ProductHot || x.ProductNew));
-
-            return PartialView(top);
-        }
-
-        [PartialCache("Medium")]
-        public ActionResult GetProductTimeLine()
-        {
-            IEnumerable<Post> top = _postService.GetTop(9999, x => x.Status == 1 && x.OldOrNew);
-            return PartialView(top);
-        }
-
-        [PartialCache("Medium")]
-        public ActionResult GetProductNewHome(int page, string id)
-        {
-            Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
-            expression = expression.And(x => x.Status == 1);
-            expression = expression.And(x => x.VirtualCategoryId.Contains(id));
-            expression = expression.And(x => x.ProductHot);
-            SortBuilder sortBuilder = new SortBuilder
-            {
-                ColumnName = "UpdatedDate",
-                ColumnOrder = SortBuilder.SortOrder.Descending
-            };
-            Paging paging = new Paging
-            {
-                PageNumber = page,
-                PageSize = 4,
-                TotalRecord = 0
-            };
-            IEnumerable<Post> posts = _postService.FindAndSort(expression, sortBuilder, paging);
-            if (!posts.IsAny())
-            {
-                return Json(new { success = true, data = string.Empty }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new
-            {
-                data = this.RenderRazorViewToString("_SlideProductHome",
-                from x in posts
-                orderby x.OrderDisplay descending
-                select x),
-                success = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        //Get product trang chủ
-        [PartialCache("Long")]
-        public ActionResult GetProductHome()
-        {
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
-
-            if (!menuLinks.Any())
-            {
-                return HttpNotFound();
-            }
-
-            //Convert to localized
-            menuLinks = menuLinks.Select(x => x.ToModel());
-
-            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
-
-            List<Post> lstPost = new List<Post>();
-            foreach (var item in menuParent)
-            {
-                var iePost = _postService.GetByOption(item.CurrentVirtualId, true);
-
-                if (iePost.IsAny())
-                {
-                    iePost = iePost.Select(x => x.ToModel());
-
-                    lstPost.AddRange(iePost);
-                }
-            }
-
-            CategoryPostModel categoryPost = new CategoryPostModel
-            {
-                NumberMenu = menuParent.Count(),
-                MenuLinks = menuParent,
-                Posts = from x in lstPost orderby x.OrderDisplay descending select x
-            };
-
-            return PartialView(categoryPost);
-        }
-
-        //Get product SearchHome
-        [PartialCache("Medium")]
-        public ActionResult GetProductSearchHome(bool productHot, bool productNew, bool productOld)
-        {
-            IEnumerable<Post> iePost = _postService.GetTop(9999, x => x.Status == 1 && x.ProductHot);
-
-            return PartialView(iePost);
-
-        }
-
-        [ChildActionOnly]
-        public ActionResult GetProductNewTabHome(string virtualId)
-        {
-            List<Post> posts = new List<Post>();
-            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.ProductHot, x => x.UpdatedDate);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView("_SlideProductHome",
-                from x in posts
-                orderby x.OrderDisplay descending
-                select x);
-        }
 
         [PartialCache("Medium")]
         public ActionResult PostDetail(string seoUrl)
@@ -484,6 +226,245 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Medium")]
+        public ActionResult PostForYou()
+        {
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(20, x => x.Status == 1 && x.PostType == 1, x => x.CreatedDate);
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [PartialCache("Medium")]
+        public ActionResult PostLatest()
+        {
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(20, x => x.Status == 1, x => x.CreatedDate);
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [ChildActionOnly]
+        [PartialCache("Short")]
+        public ActionResult PostSameMenu(int menuId, int postId)
+        {
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(6, x => x.Status == 1 && x.MenuId == menuId && x.Id != postId, x => x.CreatedDate);
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return PartialView(posts);
+        }
+
+        [PartialCache("Medium")]
+        public ActionResult PostPrice(int productId, int attributeId)
+        {
+            var galleryImage = _galleryService.Get(x => x.PostId == productId && x.AttributeValueId == attributeId);
+
+            return galleryImage?.Price == null ? Json("Liên hệ") : Json(galleryImage.Price);
+        }
+
+        [ChildActionOnly]
+        [PartialCache("Long")]
+        public ActionResult PostHot()
+        {
+            IEnumerable<Post> top = _postService.GetTop(5, x => x.Status == 1 && (x.ProductHot || x.ProductNew));
+
+            return PartialView(top);
+        }
+
+        [PartialCache("Medium")]
+        public ActionResult PostTimeLine()
+        {
+            IEnumerable<Post> top = _postService.GetTop(9999, x => x.Status == 1 && x.OldOrNew);
+            return PartialView(top);
+        }
+
+        [PartialCache("Medium")]
+        public ActionResult PostHomeNew(int page, string id)
+        {
+            Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
+            expression = expression.And(x => x.Status == 1);
+            expression = expression.And(x => x.VirtualCategoryId.Contains(id));
+            expression = expression.And(x => x.ProductHot);
+            SortBuilder sortBuilder = new SortBuilder
+            {
+                ColumnName = "UpdatedDate",
+                ColumnOrder = SortBuilder.SortOrder.Descending
+            };
+            Paging paging = new Paging
+            {
+                PageNumber = page,
+                PageSize = 4,
+                TotalRecord = 0
+            };
+            IEnumerable<Post> posts = _postService.FindAndSort(expression, sortBuilder, paging);
+            if (!posts.IsAny())
+            {
+                return Json(new { success = true, data = string.Empty }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new
+            {
+                data = this.RenderRazorViewToString("_SlideProductHome",
+                from x in posts
+                orderby x.OrderDisplay descending
+                select x),
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [PartialCache("Long")]
+        public ActionResult PostHome()
+        {
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
+
+            if (!menuLinks.Any())
+            {
+                return HttpNotFound();
+            }
+
+            //Convert to localized
+            menuLinks = menuLinks.Select(x => x.ToModel());
+
+            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
+
+            List<Post> lstPost = new List<Post>();
+            foreach (var item in menuParent)
+            {
+                var iePost = _postService.GetByOption(item.CurrentVirtualId, true);
+
+                if (iePost.IsAny())
+                {
+                    iePost = iePost.Select(x => x.ToModel());
+
+                    lstPost.AddRange(iePost);
+                }
+            }
+
+            CategoryPostModel categoryPost = new CategoryPostModel
+            {
+                NumberMenu = menuParent.Count(),
+                MenuLinks = menuParent,
+                Posts = from x in lstPost orderby x.OrderDisplay descending select x
+            };
+
+            return PartialView(categoryPost);
+        }
+
+        //Get product SearchHome
+        [PartialCache("Medium")]
+        public ActionResult PostHomeSearch(bool productHot, bool productNew, bool productOld)
+        {
+            IEnumerable<Post> iePost = _postService.GetTop(9999, x => x.Status == 1 && x.ProductHot);
+
+            return PartialView(iePost);
+
+        }
+
+        [ChildActionOnly]
+        public ActionResult PostHomeNewTab(string virtualId)
+        {
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.ProductHot, x => x.UpdatedDate);
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return PartialView("_SlideProductHome",
+                from x in posts
+                orderby x.OrderDisplay descending
+                select x);
+        }
+        
+        [ChildActionOnly]
+        [PartialCache("Short")]
+        public ActionResult PostHomeCareer(string virtualId)
+        {
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId), x => x.ViewCount);
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return PartialView(posts);
+        }
+
+        public ActionResult GetGallery(int postId, int typeId)
+        {
+            IEnumerable<GalleryImage> galleryImages = _galleryService.GetByOption(typeId, postId: postId);
+
+            if (!galleryImages.IsAny())
+            {
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [ChildActionOnly]
+        [PartialCache("Short")]
+        public ActionResult PostRelativePrice(double? price, int productId)
+        {
+            double? nullable1;
+            double? nullable2;
+            double? nullable3 = price;
+            double num = 2000000;
+            if (nullable3.HasValue)
+            {
+                nullable1 = nullable3.GetValueOrDefault() - num;
+            }
+            else
+            {
+                nullable1 = null;
+            }
+            double? nullable4 = nullable1;
+            nullable3 = price;
+            num = 2000000;
+            if (nullable3.HasValue)
+            {
+                nullable2 = nullable3.GetValueOrDefault() + num;
+            }
+            else
+            {
+                nullable2 = null;
+            }
+            double? nullable5 = nullable2;
+            List<Post> posts = new List<Post>();
+            IEnumerable<Post> top = _postService.GetTop(4, x => x.Status == 1 && x.Price >= nullable4 && x.Price <= nullable5 && x.Id != productId, x => x.UpdatedDate);
+
+            if (top == null)
+                return HttpNotFound();
+
+            if (top.IsAny())
+            {
+                posts.AddRange(top);
+            }
+            return PartialView(posts);
+        }
+
+        [ChildActionOnly]
+        [PartialCache("Short")]
+        public ActionResult PostRelative(string virtualId, int productId)
+        {
+            var iePost = _postService.GetTop(10,
+                x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != productId, x => x.UpdatedDate);
+
+            if (iePost == null)
+            {
+                return HttpNotFound();
+            }
+
+            var postLocalized = iePost.Select(x => x.ToModel());
+
+            return PartialView(postLocalized);
+        }
+        
+        [PartialCache("Medium")]
         public ActionResult SearchResult(string catUrl, string parameters, int page)
         {
             HttpCookie httpCookie = HttpContext.Request.Cookies.Get("system_search");
@@ -491,6 +472,7 @@ namespace App.Front.Controllers
             {
                 return View();
             }
+
             Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
             SortBuilder sortBuilder = new SortBuilder
             {
@@ -504,37 +486,33 @@ namespace App.Front.Controllers
                 TotalRecord = 0
             };
 
-            SeachConditions seachCondition = JsonConvert.DeserializeObject<SeachConditions>(Server.UrlDecode(httpCookie.Value));
-
-            //expression = expression.And<Post>((Post x) => (int?)x.MenuId == seachCondition.CategoryId);
-            //MenuLink byId = this._menuLinkService.GetById(seachCondition.CategoryId.Value);
-            //((dynamic)base.ViewBag).KeyWords = byId.MetaKeywords;
-            //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { catUrl = catUrl, parameters = parameters, page = page, area = "" });
-            //((dynamic)base.ViewBag).Description = byId.MetaDescription;
-            //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", byId.ImageUrl));
-            //((dynamic)base.ViewBag).VirtualId = byId.CurrentVirtualId;
-            //string menuName = byId.MenuName;
+            var seachCondition = JsonConvert.DeserializeObject<SeachConditions>(Server.UrlDecode(httpCookie.Value));
 
             if (!string.IsNullOrEmpty(seachCondition.Keywords))
             {
-                expression = expression.And(x => x.SeoUrl.Contains(seachCondition.Keywords) || x.Title.Contains(seachCondition.Keywords) || x.Description.Contains(seachCondition.Keywords));
+                expression = expression.And(x =>
+                    x.SeoUrl.Contains(seachCondition.Keywords) || x.Title.Contains(seachCondition.Keywords) ||
+                    x.Description.Contains(seachCondition.Keywords));
             }
 
-            IEnumerable<Post> posts = _postService.FindAndSort(expression, sortBuilder, paging);
-            ViewBag.PageNumber = page;
-            //((dynamic)base.ViewBag).Title = menuName;
+            var posts = _postService.FindAndSort(expression, sortBuilder, paging);
             if (posts.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                    i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
             }
-            return View("GetPostByCategory", posts);
+
+            ViewBag.PageNumber = page;
+            ViewBag.Title = "Tìm kiếm";
+
+            return View(posts);
         }
 
         //Hien thi san pham footer
         [PartialCache("Medium")]
-        public JsonResult GetProductOutOfStock()
+        public JsonResult PostOutOfStock()
         {
             IEnumerable<Post> post = _postService.GetTop(6, x => x.Status == 1 && x.OutOfStock);
 
@@ -545,22 +523,21 @@ namespace App.Front.Controllers
 
         #region Post discount
 
-
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult GetPostDiscount()
+        public ActionResult PostDiscountSlide()
         {
-            return PartialView(PostDiscountBase());
+            return PartialView(PreparePostDiscount());
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult PostDetailDiscount()
+        public ActionResult PostDiscountBlock()
         {
-            return PartialView("_PostDetail.Discount", PostDiscountBase().Take(5));
+            return PartialView("_PostDetail.Discount", PreparePostDiscount().Take(5));
         }
 
-        private IEnumerable<Post> PostDiscountBase()
+        private IEnumerable<Post> PreparePostDiscount()
         {
             return _postService.GetByOption(isDiscount: true);
         }

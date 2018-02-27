@@ -34,11 +34,11 @@
                         </form>
                         <div class="introduce-title">Liên kết</div>
                         <div class="social-link">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            <a href="#"><i class="fa fa-vk"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
+                            @{Html.RenderPartial("Socials/_Social.FB_Link");}
+                            @{Html.RenderPartial("Socials/_Social.GooglePlus_Link");}
+                            @{Html.RenderPartial("Socials/_Social.Twitter _Link");}
+                            @{Html.RenderPartial("Socials/_Social.Pinterest_Link");}
+                            @{Html.RenderPartial("Socials/_Social.Youtube_Link");}
                         </div>
                     </div>
                 </div>
@@ -105,9 +105,9 @@
             <!-- /#trademark-box -->
             <div id="divFooterAddress"></div>
 
-            <p class="cpr text-center">
-                Copyright &copy; 2016 kute-shop. <a target='_blank' href='https://www.haravan.com/'>Powered by Haravan</a>.
-            </p>
+           <div id="footer-menu-box">
+                <p class="text-center">Copyrights © 2015 KuteShop. All Rights Reserved. Designed by KuteThemes.com</p>
+            </div>
         </div>
     </footer>
 }

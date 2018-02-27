@@ -18,7 +18,7 @@
                 <div class="column col-xs-12 col-sm-3" id="left_column">
                     <!-- block best sellers -->
                     @{
-                        Html.RenderAction("GetProductHot", "Post");
+                        Html.RenderAction("PostHot", "Post");
                     }
                     <!-- ./block best sellers  -->
                     <!-- block category -->
@@ -36,7 +36,7 @@
                     </div>
                     <!-- ./block category  -->
                     @{
-                        Html.RenderAction("PostDetailDiscount", "Post");
+                        Html.RenderAction("PostDiscountBlock", "Post");
                     }
 
                 </div>
@@ -186,7 +186,7 @@
                         </div>
                         <!-- ./tab product -->
                         <!-- box product -->
-                        @Html.Action("GetNewProductRelative2", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })
+                        @Html.Action("PostRelative", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })
 
 
                         <!-- ./box product -->

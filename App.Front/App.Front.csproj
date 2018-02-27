@@ -272,6 +272,7 @@
     <Compile Include="Models\Checkout\CheckoutShippingMethodModel.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\Customer\CustomerInfoModel.cs" />
+    <Compile Include="Models\Extensions\MappingFrontExtensions.cs" />
     <Compile Include="Models\FrontAuthorize.cs" />
     <Compile Include="Models\ImageSize.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -797,12 +798,13 @@
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\MenuNav\GetMenuVerticalMega.cshtml" />
     <Content Include="Themes\Basic\Content\_attributefilter.scss" />
-    <Content Include="Views\Post\GetPostDiscount.cshtml" />
+    <Content Include="Views\Post\PostDiscountSlide.cshtml" />
     <Content Include="Themes\Basic\Content\_post.scss" />
     <Content Include="Views\Post\_PostDetail.Discount.cshtml" />
     <Content Include="Themes\Basic\Content\_modal.scss" />
     <Content Include="Views\MenuNav\GetTopHead.cshtml" />
     <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
+    <Content Include="Views\Post\_PostByCategory.Post.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -865,7 +867,7 @@
     <Content Include="Views\MenuNav\MenuNavLeft.cshtml" />
     <Content Include="Views\MenuNav\StickyBar.cshtml" />
     <Content Include="Views\Menu\GetContent.cshtml" />
-    <Content Include="Views\Menu\GetProductTab.cshtml" />
+    <Content Include="Views\Menu\MenuHomeTab.cshtml" />
     <Content Include="Views\Menu\GetStaticContent.cshtml" />
     <Content Include="Views\Menu\GetStaticContentParent.cshtml" />
     <Content Include="Views\Menu\GetStaticHot.cshtml" />
@@ -874,14 +876,13 @@
     <Content Include="Views\News\GetNewsByCategory.cshtml" />
     <Content Include="Views\News\GetRelativeNews.cshtml" />
     <Content Include="Views\News\NewsDetail.cshtml" />
-    <Content Include="Views\Post\GetNewProductRelative.cshtml" />
-    <Content Include="Views\Post\GetNewProductRelative2.cshtml" />
-    <Content Include="Views\Post\GetPostByCategory.cshtml" />
-    <Content Include="Views\Post\GetPostRelative.cshtml" />
-    <Content Include="Views\Post\GetPostSameMenu.cshtml" />
-    <Content Include="Views\Post\GetProductHome.cshtml" />
-    <Content Include="Views\Post\GetProductHot.cshtml" />
-    <Content Include="Views\Post\GetProductTimeLine.cshtml" />
+    <Content Include="Views\Post\PostRelativePrice.cshtml" />
+    <Content Include="Views\Post\PostRelative.cshtml" />
+    <Content Include="Views\Post\PostCategories.cshtml" />
+    <Content Include="Views\Post\PostSameMenu.cshtml" />
+    <Content Include="Views\Post\PostHome.cshtml" />
+    <Content Include="Views\Post\PostHot.cshtml" />
+    <Content Include="Views\Post\PostTimeLine.cshtml" />
     <Content Include="Views\Post\PostDetail.cshtml" />
     <Content Include="Views\Post\SearchResult.cshtml" />
     <Content Include="Views\Post\_Footer.Product.cshtml" />
@@ -923,7 +924,7 @@
     <Content Include="Views\ShoppingCart\_Cart.CartItem.cshtml" />
     <Content Include="Views\ShoppingCart\_Order.Notification.cshtml" />
     <Content Include="Views\ShoppingCart\_Order.TopCart.cshtml" />
-    <Content Include="Views\SlideShow\GetSlideShow.cshtml" />
+    <Content Include="Views\SlideShow\SlideShowHome.cshtml" />
     <Content Include="Views\StaticContent\GetHomeIntro.cshtml" />
     <Content Include="Views\StaticContent\GetHomeProduct.cshtml" />
     <Content Include="Views\StaticContent\GetSlogan.cshtml" />

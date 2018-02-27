@@ -35,7 +35,7 @@ namespace App.Front.Controllers
         {
             dynamic viewBag = ViewBag;
 
-            MenuLink menuLink = _menuLinkService.GetBySeoUrl(menu);
+            var menuLink = _menuLinkService.GetBySeoUrl(menu);
 
             if (menuLink == null)
             {
@@ -51,7 +51,7 @@ namespace App.Front.Controllers
             ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
 
             //((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle;
-            //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;D:\Project\MVC\AoThun\AoThun_ANT\App.Front\App.Front\Views\Post\GetProductTimeLine.cshtml
+            //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;D:\Project\MVC\AoThun\AoThun_ANT\App.Front\App.Front\Views\Post\PostTimeLine.cshtml
             //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
             //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
             //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
@@ -76,9 +76,9 @@ namespace App.Front.Controllers
 
             ViewBag.TemplateType = menuLink.TemplateType;
             ViewBag.MenuId = menuLink.Id;
-            ViewBag.ImgePath = menuLink.ImageUrl;
-            ViewBag.PageNumber = page;
+            ViewBag.ImgePath = menuLink.ImageUrl;           
             ViewBag.VirtualId = menuLink.VirtualId;
+            ViewBag.PageNumber = page;
 
             return View();
         }
@@ -95,9 +95,12 @@ namespace App.Front.Controllers
 
             if (!menuLinks.IsAny())
             {
-                return Json(new { success = true, data = "" }, JsonRequestBehavior.AllowGet);
+                return Json(new{ data = "", success = true}
+                    , JsonRequestBehavior.AllowGet);
             }
-            return Json(new { data = this.RenderRazorViewToString("_PartialFixItemContent", menuLinks), success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {data = this.RenderRazorViewToString("_PartialFixItemContent", menuLinks), success = true},
+                JsonRequestBehavior.AllowGet);
         }
 
         [PartialCache("Short")]
@@ -109,12 +112,14 @@ namespace App.Front.Controllers
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true},
+                JsonRequestBehavior.AllowGet);
         }
 
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult GetProductTab()
+        public ActionResult MenuHomeTab()
         {
             var menuLinks = _menuLinkService.GetByOption(template: new List<int> { 2 }, isDisplayHomePage: true);
 
@@ -175,14 +180,14 @@ namespace App.Front.Controllers
             List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
             string[] strArrays = virtualId.Split('/');
 
-            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1, false);
+            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1);
 
             //Convert to localized
             var staticContentLocalized = staticContent.ToModel();
 
             dynamic viewBag = ViewBag;
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1, false);
+            IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1);
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
@@ -196,7 +201,7 @@ namespace App.Front.Controllers
             for (int i = 0; i < strArrays1.Length; i++)
             {
                 string str = strArrays1[i];
-                MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str) && !x.MenuName.Equals(title), false);
+                MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str) && !x.MenuName.Equals(title));
                 if (menuLink != null)
                 {
                     breadCrumbs.Add(new BreadCrumb
@@ -239,19 +244,20 @@ namespace App.Front.Controllers
 
         public ActionResult Search(SeachConditions conditions)
         {
-            string str = JsonConvert.SerializeObject(conditions);
-            HttpCookie cookie = new HttpCookie("system_search", str) { Expires = DateTime.Now.AddDays(1.0) };
+            string objCondition = JsonConvert.SerializeObject(conditions);
+            HttpCookie cookie = new HttpCookie("system_search", objCondition) { Expires = DateTime.Now.AddDays(1.0) };
             Response.Cookies.Add(cookie);
 
-            MenuLink byId = new MenuLink();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
+            var byId = new MenuLink();
+            var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
 
             if (menuLinks.IsAny())
             {
                 byId = menuLinks.FirstOrDefault();
             }
 
-            return RedirectToAction("SearchResult", "Post", new { catUrl = byId?.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" });
+            return RedirectToAction("SearchResult", "Post",
+                new {catUrl = byId?.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = ""});
         }
     }
 }

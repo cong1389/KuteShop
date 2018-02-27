@@ -1,13 +1,13 @@
 ﻿<!-- Home slideder-->
-@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
+@{Html.RenderAction("SlideShowHome", "SlideShow"); }
 <!-- END Home slideder-->
 
-@{ Html.RenderAction("GetPostDiscount", "Post", new { area = "" });}
+@{ Html.RenderAction("PostDiscountSlide", "Post", new { area = "" });}
 
 <div class="content-page">
     <div class="container">
         @{
-            Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });
+            Html.RenderAction("PostHome", "Post", new { MenuId = 15, area = "" });
         }
     </div>
 </div>
@@ -120,14 +120,3 @@
 
     </div>
 </div>
-
-@*@{Html.RenderAction("GetSlideShow", "SlideShow", new { area = "" }); }
-    @{Html.RenderAction("GetSlogan", "StaticContent", new { MenuId = 16, area = "" }); }
-    @{Html.RenderAction("BannerHomeProduct", "Banner", new { area = "" }); }
-
-    @{Html.RenderAction("GetProductHome", "Post", new { MenuId = 15, area = "" });}
-    @{Html.RenderPartial("Socials/_Social.FB_Link");}
-    @{Html.RenderPartial("Socials/_Social.GooglePlus_Link");}
-    @{Html.RenderPartial("Socials/_Social.Twitter _Link");}
-    @{Html.RenderPartial("Socials/_Social.Pinterest_Link");}
-    @{Html.RenderPartial("Socials/_Social.Youtube_Link");}*@

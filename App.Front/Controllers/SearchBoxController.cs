@@ -33,7 +33,7 @@ namespace App.Front.Controllers
         {
             ViewBag.Attributes = attributes;
 
-            IEnumerable<Attribute> ieAttributes = _attributeService.FindBy(x => x.Status == 1, false);
+            IEnumerable<Attribute> ieAttributes = _attributeService.FindBy(x => x.Status == 1);
 
             return PartialView(ieAttributes);
         }

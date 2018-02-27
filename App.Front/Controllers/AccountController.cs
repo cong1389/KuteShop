@@ -107,9 +107,9 @@ namespace App.Front.Controllers
                         string str1 = string.Format("{0}-{1}", str, Utils.GetTime());
                         string str2 = string.Format("{0}-{1}", str, Utils.GetTime());
                         string str3 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize, false);
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize, false);
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize, false);
+                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
                         post.ImageBigSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str1);
                         post.ImageMediumSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str2);
                         post.ImageSmallSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str3);
@@ -148,8 +148,8 @@ namespace App.Front.Controllers
                                         };
                                         string str5 = string.Format("{0}-{1}", str, Utils.GetTime());
                                         string str6 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize, false);
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize, false);
+                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
                                         galleryImageViewModel.ImageThumbnail = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str6);
                                         galleryImageViewModel.ImagePath = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str5);
                                         galleryImageViewModel.OrderDisplay = num;
@@ -188,12 +188,12 @@ namespace App.Front.Controllers
             {
                 try
                 {
-                    if (_postService.Get(x => x.Id == postId && x.CreatedBy.Equals(HttpContext.User.Identity.Name), false) == null)
+                    if (_postService.Get(x => x.Id == postId && x.CreatedBy.Equals(HttpContext.User.Identity.Name)) == null)
                     {
                         return Json(new { success = false });
                     }
 
-                    GalleryImage galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId, false);
+                    GalleryImage galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
                     _galleryService.Delete(galleryImage);
                     string str = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
                     string str1 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
@@ -214,7 +214,7 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult EditPost(int id)
         {
-            PostViewModel postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == id && x.CreatedBy.Equals(HttpContext.User.Identity.Name), false));
+            PostViewModel postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == id && x.CreatedBy.Equals(HttpContext.User.Identity.Name)));
             return View(postViewModel);
         }
 
@@ -243,9 +243,9 @@ namespace App.Front.Controllers
                         string str1 = string.Format("{0}-{1}", str, Utils.GetTime());
                         string str2 = string.Format("{0}-{1}", str, Utils.GetTime());
                         string str3 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize, false);
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize, false);
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize, false);
+                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
                         postView.ImageBigSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str1);
                         postView.ImageMediumSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str2);
                         postView.ImageSmallSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str3);
@@ -282,8 +282,8 @@ namespace App.Front.Controllers
                                         };
                                         string str5 = string.Format("{0}-{1}", str, Utils.GetTime());
                                         string str6 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize, false);
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize, false);
+                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
                                         galleryImageViewModel.ImageThumbnail = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str6);
                                         galleryImageViewModel.ImagePath = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str5);
                                         galleryImageViewModel.OrderDisplay = num;

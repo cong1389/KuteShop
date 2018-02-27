@@ -18,7 +18,7 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
-        public ActionResult GetSlideShow()
+        public ActionResult SlideShowHome()
         {
             IEnumerable<SlideShow> slideShows = _slideShowService.FindBy(x => x.Status == 1, true);
 

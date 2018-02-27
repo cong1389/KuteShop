@@ -1,11 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using App.Core.Common;
 using App.Core.Utils;
 using App.Domain.Interfaces.Repository;
 using App.Domain.Interfaces.Services;
 using App.Infra.Data.UOW.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace App.Infra.Data.Common
 {
@@ -97,7 +97,7 @@ namespace App.Infra.Data.Common
 
         public IEnumerable<T> GetTop<TKey>(int take, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause)
         {
-            return _repository.GetTopBy<TKey>(take, whereClause, orderByClause);
+            return _repository.GetTopBy(take, whereClause, orderByClause);
         }
 
         public virtual void Update(T entity)

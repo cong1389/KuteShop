@@ -75,8 +75,8 @@ namespace App.Front.Controllers
                     return Json(new { succes = false, message = "Liên hệ chưa gửi được, vui lòng thử lại." });
                 }
 
-                ServerMailSetting serverMailSetting = _mailSettingService.Get(x => x.Status == 1, false);
-                string str = _systemSettingService.Get(x => x.Status == 1, false).Email;
+                ServerMailSetting serverMailSetting = _mailSettingService.Get(x => x.Status == 1);
+                string str = _systemSettingService.Get(x => x.Status == 1).Email;
                 string str1 = "Thông tin liên hệ";
                 string str2 = string.Concat("", "Người gửi: ", name, "<br>");
                 str2 = string.Concat(str2, string.Concat("E-mail: ", email), "<br>");
