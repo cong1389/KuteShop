@@ -64,3 +64,14 @@ D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Release\App.AsyncService.cs
 D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Release\App.AsyncService.csproj.CoreCompileInputs.cache
 D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Release\App.AsyncService.dll
 D:\FreeLance\2017\AoThun\Source\App.AsyncService\obj\Release\App.AsyncService.pdb
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.AsyncService.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.AsyncService.pdb
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.Core.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.Domain.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.Infra.Data.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\App.Infra.Data.RepositoryAsync.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\AutoMapper.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\bin\Release\AutoMapper.xml
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Release\App.AsyncService.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Release\App.AsyncService.dll
+D:\FreeLance\2018\KuteShop\Source\App.AsyncService\obj\Release\App.AsyncService.pdb

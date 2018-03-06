@@ -1,7 +1,7 @@
-﻿using App.Domain.Entities.Brandes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using App.Domain.Entities.Brandes;
 
 namespace App.FakeEntity.Repairs
 {
@@ -205,7 +205,7 @@ namespace App.FakeEntity.Repairs
 
         public RepairViewModel()
         {
-            this.RepairItems = new List<RepairItemViewModel>();
+            RepairItems = new List<RepairItemViewModel>();
         }
     }
 }

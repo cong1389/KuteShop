@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.FakeEntity.Gallery
 {
     public class GalleryImageViewModel
@@ -57,10 +54,6 @@ namespace App.FakeEntity.Gallery
         {
             get;
             set;
-        }
-
-        public GalleryImageViewModel()
-        {
         }
     }
 }

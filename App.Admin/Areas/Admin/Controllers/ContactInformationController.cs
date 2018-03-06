@@ -71,13 +71,13 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                           .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                ContactInformation modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
+                var modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
                 _contactInfoService.Create(modelMap);
 
                 //Update Localized   
@@ -99,7 +99,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
                 return View(model);
             }
@@ -113,15 +113,15 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<ContactInformation> contactInformations =
+                    var contactInformations =
                         from id in ids
                         select _contactInfoService.GetById(int.Parse(id));
                     _contactInfoService.BatchDelete(contactInformations);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
-                        IEnumerable<LocalizedProperty> ieLocalizedProperty
+                        var ieLocalizedProperty
                            = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
@@ -129,7 +129,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -138,7 +138,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditContactInformation")]
         public ActionResult Edit(int id)
         {
-            ContactInformationViewModel modelMap = Mapper.Map<ContactInformation, ContactInformationViewModel>(_contactInfoService.GetById(id));
+            var modelMap = Mapper.Map<ContactInformation, ContactInformationViewModel>(_contactInfoService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -172,13 +172,13 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                           .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                ContactInformation modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
+                var modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
                 _contactInfoService.Update(modelMap);
 
                 //Update Localized   
@@ -200,7 +200,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
                 return View(model);
             }
@@ -211,7 +211,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -220,16 +220,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<ContactInformation> contactInformations = _contactInfoService.PagedList(sortingPagingBuilder, paging);
+            var contactInformations = _contactInfoService.PagedList(sortingPagingBuilder, paging);
             if (contactInformations != null && contactInformations.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(contactInformations);
@@ -239,7 +239,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                IEnumerable<Province> all = _provinceService.GetAll();
+                var all = _provinceService.GetAll();
                 ViewBag.Provinces = all;
             }
         }

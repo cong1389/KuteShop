@@ -4,7 +4,6 @@ using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utils;
 using App.Domain.Entities.Payments;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.PaymentMethodes;
 using App.Infra.Data.UOW.Interfaces;

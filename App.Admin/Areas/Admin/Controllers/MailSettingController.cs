@@ -52,7 +52,7 @@ namespace App.Admin.Controllers
 					return View(serverMail);
 				}
 
-			    ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
+			    var serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
 			    _mailSettingService.Create(serverMailSetting);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.ServerMailSetting)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -66,7 +66,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(serverMail);
 			}
@@ -80,7 +80,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<ServerMailSetting> serverMailSettings = 
+					var serverMailSettings = 
 						from id in ids
 						select _mailSettingService.GetById(int.Parse(id));
 					_mailSettingService.BatchDelete(serverMailSettings);
@@ -88,7 +88,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("ServerMailSetting.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -97,7 +97,7 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="CreateEditMailSetting")]
 		public ActionResult Edit(int id)
 		{
-			ServerMailSettingViewModel serverMailSettingViewModel = Mapper.Map<ServerMailSetting, ServerMailSettingViewModel>(_mailSettingService.GetById(id));
+			var serverMailSettingViewModel = Mapper.Map<ServerMailSetting, ServerMailSettingViewModel>(_mailSettingService.GetById(id));
 			return View(serverMailSettingViewModel);
 		}
 
@@ -114,7 +114,7 @@ namespace App.Admin.Controllers
 					return View(serverMail);
 				}
 
-			    ServerMailSetting serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
+			    var serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
 			    _mailSettingService.Update(serverMailSetting);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.ServerMailSetting)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -128,7 +128,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(serverMail);
 			}
@@ -139,7 +139,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -148,16 +148,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<ServerMailSetting> serverMailSettings = _mailSettingService.PagedList(sortingPagingBuilder, paging);
+			var serverMailSettings = _mailSettingService.PagedList(sortingPagingBuilder, paging);
 			if (serverMailSettings != null && serverMailSettings.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(serverMailSettings);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.FakeEntity.Shippings
+﻿namespace App.FakeEntity.Shippings
 {
     public class ShippingMethodViewModel
     {
@@ -23,10 +17,6 @@ namespace App.FakeEntity.Shippings
         public bool IgnoreCharges
         {
             get; set;
-        }
-
-        public ShippingMethodViewModel()
-        {
         }
     }
 }

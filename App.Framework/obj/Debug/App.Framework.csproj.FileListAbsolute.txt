@@ -612,9 +612,7 @@ D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\App.Infra.Data.Reposit
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\App.Infra.Data.RepositoryAsync.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\App.Service.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\App.Service.dll.config
-D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Autofac.xml
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\AutoMapper.xml
-D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\FluentValidation.xml
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\System.Web.Mvc.xml
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Resources.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\EPPlus.xml
@@ -624,3 +622,5 @@ D:\FreeLance\2018\KuteShop\Source\App.Framework\obj\Debug\App.Framework.csprojRe
 D:\FreeLance\2018\KuteShop\Source\App.Framework\obj\Debug\App.Framework.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Framework\obj\Debug\App.Framework.dll
 D:\FreeLance\2018\KuteShop\Source\App.Framework\obj\Debug\App.Framework.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Autofac.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Autofac.xml

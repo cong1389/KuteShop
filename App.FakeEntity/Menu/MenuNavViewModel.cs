@@ -1,5 +1,5 @@
-using App.Service.Language;
 using System.Collections.Generic;
+using App.Service.Language;
 
 namespace App.FakeEntity.Menu
 {
@@ -92,7 +92,7 @@ namespace App.FakeEntity.Menu
 
         public MenuNavViewModel()
         {
-            this.Locales = new List<MenuNavViewModelLocales>();
+            Locales = new List<MenuNavViewModelLocales>();
         }
     }
 

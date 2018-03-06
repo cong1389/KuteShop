@@ -1,7 +1,5 @@
-﻿using App.FakeEntity.Repairs;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace App.FakeEntity.Repairs
 {
@@ -55,10 +53,6 @@ namespace App.FakeEntity.Repairs
         {
             get;
             set;
-        }
-
-        public RepairItemViewModel()
-        {
         }
     }
 }

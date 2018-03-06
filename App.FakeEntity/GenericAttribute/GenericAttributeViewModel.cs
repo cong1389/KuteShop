@@ -1,23 +1,18 @@
-﻿using Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Resources;
 
 namespace App.FakeEntity.GenericAttribute
 {
     public class GenericAttributeViewModel
     {
-        [Display(Name = "Entity", ResourceType = typeof(Resources.FormUI))]
+        [Display(Name = "Entity", ResourceType = typeof(FormUI))]
         public int EntityId
         {
             get;
             set;
         }
 
-        [Display(Name = "Entity", ResourceType = typeof(Resources.FormUI))]
+        [Display(Name = "Entity", ResourceType = typeof(FormUI))]
         public string KeyGroup
         {
             get;
@@ -49,10 +44,6 @@ namespace App.FakeEntity.GenericAttribute
         {
             get;
             set;
-        }
-
-        public GenericAttributeViewModel()
-        {
         }
     }
 }

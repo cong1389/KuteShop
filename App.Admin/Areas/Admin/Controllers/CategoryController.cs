@@ -28,8 +28,8 @@ namespace App.Admin.Controllers
         private List<MenuNav> CreateMenuNav(int? parentId, IEnumerable<MenuNav> source)
 		{
 			return source.Where(x => {
-				int? nullable1 = x.ParentId;
-				int? nullable = parentId;
+				var nullable1 = x.ParentId;
+				var nullable = parentId;
 				if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
 				{
 					return false;
@@ -46,11 +46,11 @@ namespace App.Admin.Controllers
 
 		public ActionResult GetMenu(int? selected)
 		{
-			List<MenuNav> menuNavs = new List<MenuNav>();
-			IEnumerable<MenuLink> all = _menuLinkService.GetAll();
+			var menuNavs = new List<MenuNav>();
+			var all = _menuLinkService.GetAll();
 			if (all.Any())
 			{
-				IEnumerable<MenuNav> orderDisplay = 
+				var orderDisplay = 
 					from x in all
 					orderby x.OrderDisplay descending
 					select new MenuNav
@@ -67,11 +67,11 @@ namespace App.Admin.Controllers
 
 		public ActionResult GetMenuProduct(int? selected)
 		{
-			List<MenuNav> menuNavs = new List<MenuNav>();
-			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.TemplateType == 2 || x.TemplateType == 8, true);
+			var menuNavs = new List<MenuNav>();
+			var menuLinks = _menuLinkService.FindBy(x => x.TemplateType == 2 || x.TemplateType == 8, true);
 			if (menuLinks.Any())
 			{
-				IEnumerable<MenuNav> orderDisplay = 
+				var orderDisplay = 
 					from x in menuLinks
 					orderby x.OrderDisplay descending
 					select new MenuNav

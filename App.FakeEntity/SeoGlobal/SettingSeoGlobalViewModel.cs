@@ -1,8 +1,6 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
+using Resources;
 
 namespace App.FakeEntity.SeoGlobal
 {
@@ -116,9 +114,5 @@ namespace App.FakeEntity.SeoGlobal
             get;
             set;
         }
-      
-        public SettingSeoGlobalViewModel()
-		{
-		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿<!---_CreateOrUpdate--->
 @using App.Domain.Common
-@using App.Framework.Ultis
 @using Resources
 @using App.Service.Language
 @model  App.FakeEntity.Menu.MenuLinkViewModel
@@ -84,9 +83,6 @@
                     </label>
                     <label class="radio-inline">
                         @Html.RadioButtonFor(x => x.TemplateType, (int)TemplateContent.FixItem) FixItem
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.TemplateType, (int)TemplateContent.Accessories) Accessories
                     </label>
                     <label class="radio-inline">
                         @Html.RadioButtonFor(x => x.TemplateType, (int)TemplateContent.AboutUs) AboutUs

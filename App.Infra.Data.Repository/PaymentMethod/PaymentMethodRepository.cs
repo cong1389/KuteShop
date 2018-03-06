@@ -4,13 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Payments;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.PaymentMethodes
 {
-    public class PaymentMethodRepository : RepositoryBase<PaymentMethod>, IPaymentMethodRepository, IRepositoryBase<PaymentMethod>
+    public class PaymentMethodRepository : RepositoryBase<PaymentMethod>, IPaymentMethodRepository
 	{
 		public PaymentMethodRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -18,7 +17,7 @@ namespace App.Infra.Data.Repository.PaymentMethodes
 
 		public PaymentMethod GetById(int id)
 		{
-			PaymentMethod province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			PaymentMethod province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

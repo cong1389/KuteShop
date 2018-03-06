@@ -31,7 +31,7 @@ namespace App.Admin.Controllers
             if (order == null || order.Deleted)
                 return RedirectToAction("Index");
 
-            OrderViewModel model = new OrderViewModel();
+            var model = new OrderViewModel();
             model = order.ToModel(model);
 
             PrepareOrderDetailsModel(model, order);
@@ -79,7 +79,7 @@ namespace App.Admin.Controllers
                     return View(orderView);
                 }
 
-                Order map = Mapper.Map<OrderViewModel, Order>(orderView);
+                var map = Mapper.Map<OrderViewModel, Order>(orderView);
 
                 _orderService.Update(map);
 
@@ -108,7 +108,7 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<Order> order =
+                    var order =
                         from id in ids
                         select _orderService.GetById(int.Parse(id));
 
@@ -125,7 +125,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -134,24 +134,24 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<Order> orders = _orderService.PagedList(sortingPagingBuilder, paging);
+            var orders = _orderService.PagedList(sortingPagingBuilder, paging);
 
-            OrderViewModel orderViewModel = new OrderViewModel();
-            IEnumerable<OrderViewModel> model = orders.Select(m =>
+            var orderViewModel = new OrderViewModel();
+            var model = orders.Select(m =>
             {
                 return m.ToModel(orderViewModel);
             });
 
             if (model != null && model.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

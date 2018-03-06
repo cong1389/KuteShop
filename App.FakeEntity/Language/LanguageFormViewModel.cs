@@ -1,6 +1,6 @@
-using Resources;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using Resources;
 
 namespace App.FakeEntity.Language
 {
@@ -12,7 +12,7 @@ namespace App.FakeEntity.Language
             set;
         }
 
-        [Display(Name= "LanguageCode", ResourceType=typeof(Resources.FormUI))]
+        [Display(Name= "LanguageCode", ResourceType=typeof(FormUI))]
 		public string LanguageCode
         {
 			get;
@@ -45,10 +45,6 @@ namespace App.FakeEntity.Language
 		{
 			get;
 			set;
-		}		
-
-		public LanguageFormViewModel()
-		{
 		}
 	}
 }

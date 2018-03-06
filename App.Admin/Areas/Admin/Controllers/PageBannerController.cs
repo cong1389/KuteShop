@@ -52,7 +52,7 @@ namespace App.Admin.Controllers
 					return View(pageBannerModel);
 				}
 
-			    PageBanner pageBanner = Mapper.Map<PageBannerViewModel, PageBanner>(pageBannerModel);
+			    var pageBanner = Mapper.Map<PageBannerViewModel, PageBanner>(pageBannerModel);
 			    _pageBannerService.Create(pageBanner);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.PageBanner)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -66,7 +66,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("PageBanner.Create: ", exception.Message));
 				ModelState.AddModelError("", exception.Message);
 				return View(pageBannerModel);
@@ -81,7 +81,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<PageBanner> pageBanners = 
+					var pageBanners = 
 						from id in ids
 						select _pageBannerService.GetById(int.Parse(id));
 					_pageBannerService.BatchDelete(pageBanners);
@@ -89,7 +89,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("PageBanner.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -98,7 +98,7 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="CreateEditPageBanner")]
 		public ActionResult Edit(int id)
 		{
-			PageBannerViewModel pageBannerViewModel = Mapper.Map<PageBanner, PageBannerViewModel>(_pageBannerService.GetById(id));
+			var pageBannerViewModel = Mapper.Map<PageBanner, PageBannerViewModel>(_pageBannerService.GetById(id));
 			return View(pageBannerViewModel);
 		}
 
@@ -115,8 +115,8 @@ namespace App.Admin.Controllers
 					return View(pageBannerModel);
 				}
 
-			    PageBanner byId = _pageBannerService.GetById(pageBannerModel.Id);
-			    PageBanner pageBanner = Mapper.Map(pageBannerModel, byId);
+			    var byId = _pageBannerService.GetById(pageBannerModel.Id);
+			    var pageBanner = Mapper.Map(pageBannerModel, byId);
 			    _pageBannerService.Update(pageBanner);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.PageBanner)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -130,7 +130,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ModelState.AddModelError("", exception.Message);
 				ExtentionUtils.Log(string.Concat("PageBanner.Edit: ", exception.Message));
 				return View(pageBannerModel);
@@ -142,7 +142,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -151,16 +151,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<PageBanner> pageBanners = _pageBannerService.PagedList(sortingPagingBuilder, paging);
+			var pageBanners = _pageBannerService.PagedList(sortingPagingBuilder, paging);
 			if (pageBanners != null && pageBanners.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(pageBanners);

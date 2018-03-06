@@ -73,29 +73,29 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                            .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                string titleNonAccent = model.Title.NonAccent();
-                IEnumerable<StaticContent> bySeoUrl = _staticContentService.GetBySeoUrl(titleNonAccent, isCache: false);
+                var titleNonAccent = model.Title.NonAccent();
+                var bySeoUrl = _staticContentService.GetBySeoUrl(titleNonAccent, false);
                 model.SeoUrl = model.Title.NonAccent();
 
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    StaticContentViewModel staticContentViewModel = model;
+                    var staticContentViewModel = model;
                     staticContentViewModel.SeoUrl = string.Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(model.Image.FileName);
-                    string extension = Path.GetExtension(model.Image.FileName);
+                    var fileName = Path.GetFileName(model.Image.FileName);
+                    var extension = Path.GetExtension(model.Image.FileName);
                     fileName = fileName.FileNameFormat(extension);
 
-                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
 
                     model.Image.SaveAs(str);
                     model.ImagePath = string.Concat(Contains.ImageFolder, fileName);
@@ -103,12 +103,12 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    MenuLink menuLink = _menuLinkService.GetById(model.MenuId, isCache: false);
+                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);
                     model.VirtualCategoryId = menuLink.VirtualId;
                 }
 
-                StaticContent modelMap = Mapper.Map<StaticContentViewModel, StaticContent>(model);
+                var modelMap = Mapper.Map<StaticContentViewModel, StaticContent>(model);
                 _staticContentService.Create(modelMap);
 
                 //Update Localized   
@@ -135,7 +135,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Post.Create: ", exception.Message));
                 ModelState.AddModelError("", exception.Message);
                 return View(model);
@@ -150,7 +150,7 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<StaticContent> staticContents =
+                    var staticContents =
                         from id in ids
                         select _staticContentService.GetById(int.Parse(id));
                     _staticContentService.BatchDelete(staticContents);
@@ -161,9 +161,9 @@ namespace App.Admin.Controllers
                     //    System.IO.File.Delete(str);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
-                        IEnumerable<LocalizedProperty> ieLocalizedProperty
+                        var ieLocalizedProperty
                            = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
@@ -171,7 +171,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Post.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -180,7 +180,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditStaticContent")]
         public ActionResult Edit(int id)
         {
-            StaticContentViewModel modelMap = Mapper.Map<StaticContent, StaticContentViewModel>(_staticContentService.GetById(id));
+            var modelMap = Mapper.Map<StaticContent, StaticContentViewModel>(_staticContentService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -212,21 +212,21 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                StaticContent byId = _staticContentService.GetById(model.Id, isCache: false);
+                var byId = _staticContentService.GetById(model.Id, false);
 
-                string titleNonAccent = model.Title.NonAccent();
-                IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, isCache: false);
+                var titleNonAccent = model.Title.NonAccent();
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, false);
                 model.SeoUrl = titleNonAccent;
 
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    StaticContentViewModel staticContentViewModel = model;
+                    var staticContentViewModel = model;
                     staticContentViewModel.SeoUrl = string.Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string extension = Path.GetExtension(model.Image.FileName);
-                    string fileName = titleNonAccent.FileNameFormat(extension);
+                    var extension = Path.GetExtension(model.Image.FileName);
+                    var fileName = titleNonAccent.FileNameFormat(extension);
 
                     model.Image.SaveAs(Path.Combine(Server.MapPath(string.Concat("~/", Contains.StaticContentFolder)), fileName));
                     model.ImagePath = string.Concat(Contains.StaticContentFolder, fileName);
@@ -234,12 +234,12 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    MenuLink menuLink = _menuLinkService.GetById(model.MenuId, isCache: false);
+                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);
                     model.VirtualCategoryId = menuLink.VirtualId;
                 }
 
-                StaticContent modelMap = Mapper.Map(model, byId);
+                var modelMap = Mapper.Map(model, byId);
                 _staticContentService.Update(modelMap);
 
                 //Update Localized   
@@ -277,7 +277,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -286,16 +286,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<StaticContent> staticContents = _staticContentService.PagedList(sortingPagingBuilder, paging);
+            var staticContents = _staticContentService.PagedList(sortingPagingBuilder, paging);
             if (staticContents != null && staticContents.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(staticContents);
@@ -305,7 +305,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType == 5 || x.TemplateType == 6);
+                var menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType == 5 || x.TemplateType == 6);
                 ViewBag.MenuList = menuLinks;
             }
         }

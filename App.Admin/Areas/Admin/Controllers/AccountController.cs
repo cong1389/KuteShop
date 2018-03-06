@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Utils;
-using App.Domain.Entities.Account;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
@@ -50,7 +48,7 @@ namespace App.Admin.Controllers
             }
             else
             {
-                IdentityUser identityUser = new IdentityUser
+                var identityUser = new IdentityUser
                 {
                     UserName = model.UserName,
                     Address = model.Address,
@@ -65,17 +63,17 @@ namespace App.Admin.Controllers
                     IsSuperAdmin = false,
                     Created = DateTime.UtcNow
                 };
-                IdentityUser identityUser1 = identityUser;
-                IdentityResult identityResult = await UserManager.CreateAsync(identityUser1, model.Password);
-                IdentityResult identityResult1 = identityResult;
+                var identityUser1 = identityUser;
+                var identityResult = await UserManager.CreateAsync(identityUser1, model.Password);
+                var identityResult1 = identityResult;
                 if (identityResult1.Succeeded)
                 {
                     if (!model.IsSuperAdmin)
                     {
-                        string item = Request["roles"];
+                        var item = Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            string[] strArrays = item.Split(',');
+                            var strArrays = item.Split(',');
                             await UserManager.AddToRolesAsync(identityUser1.Id, strArrays);
                         }
                     }
@@ -102,8 +100,8 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditAccount")]
         public async Task<ActionResult> Edit(string id)
         {
-            Guid guid = GetGuid(id);
-            IdentityUser identityUser = await UserManager.FindByIdAsync(guid);
+            var guid = GetGuid(id);
+            var identityUser = await UserManager.FindByIdAsync(guid);
             return View(Mapper.Map<RegisterFormViewModel>(identityUser));
         }
 
@@ -114,24 +112,24 @@ namespace App.Admin.Controllers
             try
             {
                 model.Created = null;
-                IdentityUser identityUser = UserManager.FindById(model.Id);
+                var identityUser = UserManager.FindById(model.Id);
                 identityUser = Mapper.Map(model, identityUser);
-                IdentityResult identityResult = await UserManager.UpdateAsync(identityUser);
+                var identityResult = await UserManager.UpdateAsync(identityUser);
                 if (identityResult.Succeeded)
                 {
                     if (model.IsSuperAdmin)
                     {
-                        IList<string> roles = UserManager.GetRoles(model.Id);
+                        var roles = UserManager.GetRoles(model.Id);
                         UserManager.RemoveFromRoles(model.Id, roles.ToArray());
                     }
                     else
                     {
-                        string item = Request["roles"];
+                        var item = Request["roles"];
                         if (!string.IsNullOrEmpty(item))
                         {
-                            IList<string> lstUserRole = UserManager.GetRoles(model.Id);
+                            var lstUserRole = UserManager.GetRoles(model.Id);
                             UserManager.RemoveFromRoles(model.Id, lstUserRole.ToArray());
-                            string[] strArrays = item.Split(',');
+                            var strArrays = item.Split(',');
                             UserManager.AddToRoles(model.Id, strArrays);
                         }
                     }
@@ -152,7 +150,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Account.Update: ", exception.Message));
             }
             action = View();
@@ -166,15 +164,15 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    foreach (string id in ids)
+                    foreach (var id in ids)
                     {
-                        Guid userId = Guid.Parse(id);
-                        IdentityUser objUser = (from user in ids select UserManager.FindById(userId)).FirstOrDefault();
+                        var userId = Guid.Parse(id);
+                        var objUser = (from user in ids select UserManager.FindById(userId)).FirstOrDefault();
                         
                         //Task<IList<UserLoginInfo>> loginInfo = _userLoginStore.GetLoginsAsync(objUser);
                         //_userLoginStore.RemoveLoginAsync(objUser, loginInfo);
 
-                        IList<string> lstUserRole = UserManager.GetRoles(userId);
+                        var lstUserRole = UserManager.GetRoles(userId);
                         UserManager.RemoveFromRoles(userId, lstUserRole.ToArray());
                         UserManager.Update(objUser);
                         UserManager.Delete(objUser);
@@ -192,28 +190,28 @@ namespace App.Admin.Controllers
         public async Task<ActionResult> Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords
             };
-            SortBuilder sortBuilder = new SortBuilder
+            var sortBuilder = new SortBuilder
             {
                 ColumnName = "UserName",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
             sortingPagingBuilder.Sorts = sortBuilder;
-            SortingPagingBuilder sortingPagingBuilder1 = sortingPagingBuilder;
-            Paging paging = new Paging
+            var sortingPagingBuilder1 = sortingPagingBuilder;
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            Paging paging1 = paging;
-            IEnumerable<User> users = await _userService.PagedList(sortingPagingBuilder1, paging1);
+            var paging1 = paging;
+            var users = await _userService.PagedList(sortingPagingBuilder1, paging1);
             if (users != null && users.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(users);
@@ -223,20 +221,20 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create"))
             {
-                List<IdentityRole> lstRoles = _roleManager.Roles.ToList();
+                var lstRoles = _roleManager.Roles.ToList();
                 ViewBag.Roles = lstRoles;
             }
 
             else if (filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                List<IdentityRole> lstRoles = _roleManager.Roles.ToList();
+                var lstRoles = _roleManager.Roles.ToList();
 
-                string userId = filterContext.RouteData.Values["id"].ToString();
-                IList<string> lstRolesByUser = UserManager.GetRoles(Guid.Parse(userId));
+                var userId = filterContext.RouteData.Values["id"].ToString();
+                var lstRolesByUser = UserManager.GetRoles(Guid.Parse(userId));
 
-                foreach (IdentityRole item in lstRoles)
+                foreach (var item in lstRoles)
                 {
-                    foreach (string role in lstRolesByUser)
+                    foreach (var role in lstRolesByUser)
                     {
                         if (item.Name == role)
                         {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -44,13 +43,11 @@ namespace App.Admin.Controllers
         [HttpPost]
         public ActionResult Create(LanguageFormViewModel model, string returnUrl)
         {
-            ActionResult action;
-
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                             .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -58,15 +55,15 @@ namespace App.Admin.Controllers
 
                 if (model.File != null && model.File.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(model.File.FileName);
-                    string extension = Path.GetExtension(model.File.FileName);
+                    var fileName = Path.GetFileName(model.File.FileName);
+                    var extension = Path.GetExtension(model.File.FileName);
                     //image = string.Concat(image.NonAccent(), extension);
-                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
                     model.File.SaveAs(str);
                     model.Flag = string.Concat(Contains.FolderLanguage, fileName);
                 }
 
-                Language modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);
+                var modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);
                 _langService.CreateLanguage(modelMap);
 
                 if (_langService.SaveLanguage() > 0)
@@ -74,14 +71,13 @@ namespace App.Admin.Controllers
                     Response.Cookies.Add(new HttpCookie("system_message", MessageUI.SuccessLanguage));
                     if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                     {
-                        action = RedirectToAction("Index");
-                        return action;
+                        return RedirectToAction("Index");
+                        
                     }
-
-                    action = Redirect(returnUrl);
-                    return action;
+                    return Redirect(returnUrl);
                 }
                 ModelState.AddModelError("", MessageUI.ErrorMessage);
+
                 return View(model);
             }
             catch (Exception ex)
@@ -93,7 +89,7 @@ namespace App.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            LanguageFormViewModel languageViewModel = Mapper.Map<Language, LanguageFormViewModel>(_langService.GetById(id));
+            var languageViewModel = Mapper.Map<Language, LanguageFormViewModel>(_langService.GetById(id));
             return View(languageViewModel);
         }
 
@@ -105,7 +101,7 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                            .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -113,15 +109,15 @@ namespace App.Admin.Controllers
 
                 if (model.File != null && model.File.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(model.File.FileName);
-                    string extension = Path.GetExtension(model.File.FileName);
+                    var fileName = Path.GetFileName(model.File.FileName);
+                    var extension = Path.GetExtension(model.File.FileName);
                     //fileName = string.Concat(empty.NonAccent(), extension);
-                    string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
                     model.File.SaveAs(str);
                     model.Flag = string.Concat(Contains.FolderLanguage, fileName);
                 }
 
-                Language modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);
+                var modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);
                 _langService.Update(modelMap);
 
                 Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Language)));
@@ -136,7 +132,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Language.Edit: ", exception.Message));
                 return View(model);
             }
@@ -149,7 +145,7 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<Language> language =
+                    var language =
                         from id in ids
                         select _langService.GetById(int.Parse(id));
                     _langService.BatchDelete(language);
@@ -157,7 +153,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Banner.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -166,7 +162,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -175,16 +171,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<Language> languages = _langService.PagedList(sortingPagingBuilder, paging);
+            var languages = _langService.PagedList(sortingPagingBuilder, paging);
             if (languages != null && languages.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(languages);

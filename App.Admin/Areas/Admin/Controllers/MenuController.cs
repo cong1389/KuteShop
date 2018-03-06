@@ -63,65 +63,65 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                             .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                string str = model.MenuName.NonAccent();
-                IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(str);
+                var str = model.MenuName.NonAccent();
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
                 model.SeoUrl = model.MenuName.NonAccent();
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    MenuLinkViewModel menuLinkViewModel = model;
-                    string seoUrl = menuLinkViewModel.SeoUrl;
-                    int num = bySeoUrl.Count();
+                    var menuLinkViewModel = model;
+                    var seoUrl = menuLinkViewModel.SeoUrl;
+                    var num = bySeoUrl.Count();
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(model.Image.FileName);
-                    string extension = Path.GetExtension(model.Image.FileName);
+                    var fileName = Path.GetFileName(model.Image.FileName);
+                    var extension = Path.GetExtension(model.Image.FileName);
                     fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    string str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
                     model.Image.SaveAs(str1);
                     model.ImageUrl = string.Concat(Contains.ImageFolder, fileName);
                 }
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
-                    string fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
-                    string extension1 = Path.GetExtension(model.ImageIcon1.FileName);
+                    var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
+                    var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
                     fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    string str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
+                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
                     model.ImageIcon1.SaveAs(str2);
                     model.Icon1 = string.Concat(Contains.ImageFolder, fileName1);
                 }
                 if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
                 {
-                    string fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
-                    string extension2 = Path.GetExtension(model.ImageIcon2.FileName);
+                    var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
+                    var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
                     fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    string str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
+                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
                     model.ImageIcon2.SaveAs(str3);
                     model.Icon2 = string.Concat(Contains.ImageFolder, fileName2);
                 }
                 if (model.ParentId.HasValue)
                 {
-                    string str4 = Guid.NewGuid().ToString();
+                    var str4 = Guid.NewGuid().ToString();
                     model.CurrentVirtualId = str4;
-                    MenuLink byId = _menuLinkService.GetById(model.ParentId.Value);
+                    var byId = _menuLinkService.GetById(model.ParentId.Value);
                     model.VirtualId = $"{byId.VirtualId}/{str4}";
                     model.VirtualSeoUrl = $"{byId.SeoUrl}/{model.SeoUrl}";
                 }
                 else
                 {
-                    string str5 = Guid.NewGuid().ToString();
+                    var str5 = Guid.NewGuid().ToString();
                     model.VirtualId = str5;
                     model.CurrentVirtualId = str5;
                 }
 
-                MenuLink modelMap = Mapper.Map<MenuLinkViewModel, MenuLink>(model);
+                var modelMap = Mapper.Map<MenuLinkViewModel, MenuLink>(model);
                 _menuLinkService.Create(modelMap);
 
                 //Update Localized   
@@ -146,7 +146,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
                 return View(model);
             }
@@ -160,15 +160,15 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<MenuLink> menuLinks =
+                    var menuLinks =
                         from id in ids
                         select _menuLinkService.GetById(int.Parse(id));
                     _menuLinkService.BatchDelete(menuLinks);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
-                        IEnumerable<LocalizedProperty> ieLocalizedProperty
+                        var ieLocalizedProperty
                             = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
@@ -189,7 +189,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                MenuLink menuLink = _menuLinkService.GetById(id);
+                var menuLink = _menuLinkService.GetById(id);
 
                 _menuLinkService.Delete(menuLink);
             }
@@ -206,7 +206,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditMenu")]
         public ActionResult Edit(int id)
         {
-            MenuLinkViewModel modelMap = Mapper.Map<MenuLink, MenuLinkViewModel>(_menuLinkService.GetById(id));
+            var modelMap = Mapper.Map<MenuLink, MenuLinkViewModel>(_menuLinkService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -232,51 +232,51 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                              .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                MenuLink byId = _menuLinkService.GetById(model.Id);
-                string str = model.MenuName.NonAccent();
-                IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(str);
+                var byId = _menuLinkService.GetById(model.Id);
+                var str = model.MenuName.NonAccent();
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
                 model.SeoUrl = model.MenuName.NonAccent();
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    MenuLinkViewModel menuLinkViewModel = model;
-                    string seoUrl = menuLinkViewModel.SeoUrl;
-                    int num = bySeoUrl.Count();
+                    var menuLinkViewModel = model;
+                    var seoUrl = menuLinkViewModel.SeoUrl;
+                    var num = bySeoUrl.Count();
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileName = Path.GetFileName(model.Image.FileName);
-                    string extension = Path.GetExtension(model.Image.FileName);
+                    var fileName = Path.GetFileName(model.Image.FileName);
+                    var extension = Path.GetExtension(model.Image.FileName);
                     fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    string str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
                     model.Image.SaveAs(str1);
                     model.ImageUrl = string.Concat(Contains.ImageFolder, fileName);
                 }
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
-                    string fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
-                    string extension1 = Path.GetExtension(model.ImageIcon1.FileName);
+                    var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
+                    var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
                     fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    string str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
+                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
                     model.ImageIcon1.SaveAs(str2);
                     model.Icon1 = string.Concat(Contains.ImageFolder, fileName1);
                 }
                 if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
                 {
-                    string fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
-                    string extension2 = Path.GetExtension(model.ImageIcon2.FileName);
+                    var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
+                    var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
                     fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    string str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
+                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
                     model.ImageIcon2.SaveAs(str3);
                     model.Icon2 = string.Concat(Contains.ImageFolder, fileName2);
                 }
-                int? parentId = model.ParentId;
+                var parentId = model.ParentId;
                 if (!parentId.HasValue)
                 {
                     parentId = null;
@@ -286,14 +286,14 @@ namespace App.Admin.Controllers
                 }
                 else
                 {
-                    IMenuLinkService menuLinkService = _menuLinkService;
+                    var menuLinkService = _menuLinkService;
                     parentId = model.ParentId;
-                    MenuLink byId1 = menuLinkService.GetById(parentId.Value);
+                    var byId1 = menuLinkService.GetById(parentId.Value);
                     model.VirtualId = $"{byId1.VirtualId}/{byId.CurrentVirtualId}";
                     model.VirtualSeoUrl = $"{byId1.SeoUrl}/{model.SeoUrl}";
                 }
 
-                MenuLink modelMap = Mapper.Map(model, byId);
+                var modelMap = Mapper.Map(model, byId);
                 _menuLinkService.Update(byId);
 
                 //Update Localized   
@@ -330,12 +330,12 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "ViewMenu")]
         public ActionResult Index(int page = 1, string keywords = "")
         {
-            List<MenuNavViewModel> lstMenuNav = new List<MenuNavViewModel>();
+            var lstMenuNav = new List<MenuNavViewModel>();
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetAll();
+            var menuLinks = _menuLinkService.GetAll();
             if (menuLinks.Any())
             {
-                IEnumerable<MenuNavViewModel> menuNav =
+                var menuNav =
                     from x in menuLinks
                     select new MenuNavViewModel
                     {
@@ -358,12 +358,12 @@ namespace App.Admin.Controllers
 
         private List<MenuNavViewModel> CreateMenuNav(int? parentId, IEnumerable<MenuNavViewModel> source)
         {
-            List<MenuNavViewModel> ieMenuNavViewModel = (from x in source
+            var ieMenuNavViewModel = (from x in source
                                                          orderby x.OrderDisplay descending
                                                          select x).Where(x =>
                                                          {
-                                                             int? nullable1 = x.ParentId;
-                                                             int? nullable = parentId;
+                                                             var nullable1 = x.ParentId;
+                                                             var nullable = parentId;
                                                              if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
                                                              {
                                                                  return false;
@@ -393,7 +393,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                IEnumerable<MenuLink> all = _menuLinkService.GetAll();
+                var all = _menuLinkService.GetAll();
                 ViewBag.MenuList = all;
             }
         }

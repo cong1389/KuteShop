@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -9,7 +8,6 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.Language;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
 using App.FakeEntity.News;
@@ -21,9 +19,6 @@ using App.Service.News;
 using AutoMapper;
 using Resources;
 
-/// <summary>
-/// Khi get value từ tầng service nhớ, isCache:false
-/// </summary>
 namespace App.Admin.Controllers
 {
     public class NewsController : BaseAdminController
@@ -35,7 +30,7 @@ namespace App.Admin.Controllers
 
         private readonly INewsService _newsService;
 
-        private IImagePlugin _imagePlugin;
+        private readonly IImagePlugin _imagePlugin;
 
         private readonly ILanguageService _languageService;
 
@@ -81,29 +76,29 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                            .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                string titleNonAccent = model.Title.NonAccent();
-                IEnumerable<News> bySeoUrl = _newsService.GetBySeoUrl(titleNonAccent);
+                var titleNonAccent = model.Title.NonAccent();
+                var bySeoUrl = _newsService.GetBySeoUrl(titleNonAccent);
                 model.SeoUrl = model.Title.NonAccent();
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    NewsViewModel newsViewModel = model;
+                    var newsViewModel = model;
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                string folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-                    string fileName2 = titleNonAccent.FileNameFormat(fileExtension);
-                    string fileName3 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
@@ -116,12 +111,12 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    MenuLink byId = _menuLinkService.GetById(model.MenuId, isCache: false);
+                    var byId = _menuLinkService.GetById(model.MenuId, false);
                     model.VirtualCatUrl = byId.VirtualSeoUrl;
                     model.VirtualCategoryId = byId.VirtualId;
                 }
 
-                News modelMap = Mapper.Map<NewsViewModel, News>(model);
+                var modelMap = Mapper.Map<NewsViewModel, News>(model);
                 _newsService.Create(modelMap);
 
                 //Update Localized   
@@ -163,15 +158,15 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<News> news =
+                    var news =
                         from id in ids
                         select _newsService.GetById(id);
                     _newsService.BatchDelete(news);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
-                        IEnumerable<LocalizedProperty> ieLocalizedProperty
+                        var ieLocalizedProperty
                            = _localizedPropertyService.GetByEntityId(ids[i]);
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
@@ -179,7 +174,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Post.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -188,7 +183,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditNews")]
         public ActionResult Edit(int id)
         {
-            NewsViewModel modelMap = Mapper.Map<News, NewsViewModel>(_newsService.GetById(id));
+            var modelMap = Mapper.Map<News, NewsViewModel>(_newsService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -216,32 +211,30 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                           .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                News byId = _newsService.GetById(model.Id, isCache: false);
+                var byId = _newsService.GetById(model.Id, false);
 
-                string titleNonAccent = model.Title.NonAccent();
-                IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, isCache: false);
+                var titleNonAccent = model.Title.NonAccent();
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, false);
                 model.SeoUrl = model.Title.NonAccent();
                     
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    NewsViewModel newsViewModel = model;
+                    var newsViewModel = model;
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                string folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
-
-                    string fileName1 = string.Concat(titleNonAccent, ".jpg");
-                    string fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
-                    string fileName3 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
+                    var fileName1 = string.Concat(titleNonAccent, ".jpg");
+                    var fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
+                    var fileName3 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
 
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
@@ -254,13 +247,13 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    MenuLink menuLink = _menuLinkService.GetById(model.MenuId, isCache: false);
+                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
                     model.VirtualCatUrl = menuLink.VirtualSeoUrl;
                     model.VirtualCategoryId = menuLink.VirtualId;
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);
                 }
 
-                News modelMap = Mapper.Map(model, byId);
+                var modelMap = Mapper.Map(model, byId);
                 _newsService.Update(modelMap);
 
                 //Update Localized   
@@ -298,7 +291,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -307,16 +300,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<News> news = _newsService.PagedList(sortingPagingBuilder, paging);
+            var news = _newsService.PagedList(sortingPagingBuilder, paging);
             if (news != null && news.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(news);
@@ -326,7 +319,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit") || filterContext.RouteData.Values["action"].ToString().ToLower().Equals("index"))
             {
-                IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType == 1 || x.TemplateType == 6 || x.TemplateType == 7, true);
+                var menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType == 1 || x.TemplateType == 6 || x.TemplateType == 7, true);
                 ViewBag.MenuList = menuLinks;
             }
         }

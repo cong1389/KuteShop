@@ -1,7 +1,7 @@
-using Resources;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
+using Resources;
 
 namespace App.FakeEntity.Manufacturers
 {
@@ -60,10 +60,6 @@ namespace App.FakeEntity.Manufacturers
 		{
 			get;
 			set;
-		}
-
-		public ManufacturerViewModel()
-		{
 		}
 	}
 }

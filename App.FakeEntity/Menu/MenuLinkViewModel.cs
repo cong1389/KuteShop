@@ -1,15 +1,12 @@
-using App.FakeEntity.Language;
-using App.Service.Language;
-using Resources;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Web;
+using App.Service.Language;
+using Resources;
 
 namespace App.FakeEntity.Menu
 {
-	public class MenuLinkViewModel: ILocalizedModel<MenuLinkLocalesViewModel>
+    public class MenuLinkViewModel: ILocalizedModel<MenuLinkLocalesViewModel>
     {
 		public string CurrentVirtualId
 		{
@@ -17,7 +14,7 @@ namespace App.FakeEntity.Menu
 			set;
 		}
 
-        [Display(Name= "DisplayOnHomePage", ResourceType=typeof(Resources.FormUI))]
+        [Display(Name= "DisplayOnHomePage", ResourceType=typeof(FormUI))]
 		public bool DisplayOnHomePage
 		{
 			get;
@@ -201,9 +198,9 @@ namespace App.FakeEntity.Menu
         public IList<MenuLinkLocalesViewModel> Locales { get; set; }
 
         public MenuLinkViewModel()
-		{           
-            this.Locales = new List<MenuLinkLocalesViewModel>();
-            this.GenericControls = new List<Domain.Entities.GenericControl.GenericControl>();
+		{
+            Locales = new List<MenuLinkLocalesViewModel>();
+            GenericControls = new List<Domain.Entities.GenericControl.GenericControl>();
         }
 	}
 

@@ -34,7 +34,7 @@ namespace App.Admin.Controllers
 
 		protected void AddErrors(IdentityResult result)
 		{
-			foreach (string error in result.Errors)
+			foreach (var error in result.Errors)
 			{
 				ModelState.AddModelError("", error);
 			}
@@ -51,7 +51,7 @@ namespace App.Admin.Controllers
 
 		protected Guid GetGuid(string value)
 		{
-			Guid guid = new Guid();
+			var guid = new Guid();
 			Guid.TryParse(value, out guid);
 			return guid;
 		}
@@ -66,7 +66,7 @@ namespace App.Admin.Controllers
 
 		protected bool HasPassword()
 		{
-			IdentityUser identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
+			var identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
 			if (identityUser == null)
 			{
 				return false;

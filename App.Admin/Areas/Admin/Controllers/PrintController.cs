@@ -15,13 +15,13 @@ namespace App.Admin.Controllers
 
         public ActionResult Bill(int id)
         {
-            Repair order = _orderService.Get(x => x.Id == id);
+            var order = _orderService.Get(x => x.Id == id);
             return View(order);
         }
 
         public ActionResult Warranty(int id)
         {
-            Repair order = _orderService.Get(x => x.Id == id);
+            var order = _orderService.Get(x => x.Id == id);
             return View(order);
         }
     }

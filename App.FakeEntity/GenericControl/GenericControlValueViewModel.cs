@@ -1,7 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.GenericControl
 {
@@ -59,9 +57,5 @@ namespace App.FakeEntity.GenericControl
             get;
             set;
         }
-
-        public GenericControlValueViewModel()
-		{
-		}
 	}
 }

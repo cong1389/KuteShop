@@ -65,7 +65,7 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
 
@@ -74,17 +74,17 @@ namespace App.Admin.Controllers
 
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    string fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
+                    var fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
 
-                    string imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+                    var imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
 
                     model.ImgPath = $"{Contains.AdsFolder}/{fileName}";
                     model.Image.SaveAs(imageServerPath);
                 }
 
-                SlideShow modelMap = Mapper.Map<SlideShowViewModel, SlideShow>(model);
+                var modelMap = Mapper.Map<SlideShowViewModel, SlideShow>(model);
                 _slideShowService.Create(modelMap);
 
                 //Update Localized   
@@ -121,11 +121,11 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    int[] numArray = ids;
-                    for (int i = 0; i < numArray.Length; i++)
+                    var numArray = ids;
+                    for (var i = 0; i < numArray.Length; i++)
                     {
-                        int num = numArray[i];
-                        SlideShow slideShow = _slideShowService.Get(x => x.Id == num);
+                        var num = numArray[i];
+                        var slideShow = _slideShowService.Get(x => x.Id == num);
 
                         _slideShowService.Delete(slideShow);
 
@@ -146,7 +146,7 @@ namespace App.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            SlideShowViewModel modelMap = Mapper.Map<SlideShow, SlideShowViewModel>(_slideShowService.Get(x => x.Id == id));
+            var modelMap = Mapper.Map<SlideShow, SlideShowViewModel>(_slideShowService.Get(x => x.Id == id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -168,28 +168,28 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
 
                     return View(model);
                 }
 
-                SlideShow slideShow = _slideShowService.Get(x => x.Id == model.Id);
+                var slideShow = _slideShowService.Get(x => x.Id == model.Id);
 
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    string fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
+                    var fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
 
-                    string imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+                    var imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
 
                     model.ImgPath = $"{Contains.AdsFolder}/{fileName}";
                     model.Image.SaveAs(imageServerPath);
                 }
 
-                SlideShow modelMap = Mapper.Map(model, slideShow);
+                var modelMap = Mapper.Map(model, slideShow);
                 _slideShowService.Update(modelMap);
 
                 //Update Localized   
@@ -224,7 +224,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -233,17 +233,17 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<SlideShow> slideShows = _slideShowService.PagedList(sortingPagingBuilder, paging);
+            var slideShows = _slideShowService.PagedList(sortingPagingBuilder, paging);
             if (slideShows != null && slideShows.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
                     i => Url.Action("Index", new {page = i, keywords}));
 
                 ViewBag.PageInfo = pageInfo;

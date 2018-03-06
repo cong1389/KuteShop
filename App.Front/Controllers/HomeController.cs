@@ -221,7 +221,6 @@ select x.ErrorMessage).ToArray())
             //viewBag.Provinces = provinceService.FindBy((Province x) => x.Status == 1, false);
             return View();
         }
-
-       
+        
     }
 }

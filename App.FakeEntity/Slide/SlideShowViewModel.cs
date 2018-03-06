@@ -1,12 +1,10 @@
-using App.Core.Common;
-using App.Service.Language;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Service.Language;
+using Resources;
 
 namespace App.FakeEntity.Slide
 {
@@ -113,7 +111,7 @@ namespace App.FakeEntity.Slide
 
         public SlideShowViewModel()
         {
-            this.Locales = new List<SlideShowLocalizesViewModel>();
+            Locales = new List<SlideShowLocalizesViewModel>();
         }
 	}
 

@@ -204,7 +204,7 @@ namespace App.Framework.Mappings
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id)).ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
                 .ForMember(x => x.ColorHex, map => map.MapFrom(vm => vm.ColorHex))
                 .ForMember(x => x.Description, map => map.MapFrom(vm => vm.Description))
-                .ForMember(x => (object) x.AttributeId, map => map.MapFrom(vm => vm.AttributeId))
+                .ForMember(x => (object)x.AttributeId, map => map.MapFrom(vm => vm.AttributeId))
                 .ForMember(x => x.Attribute, map => map.Ignore())
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
@@ -350,48 +350,30 @@ namespace App.Framework.Mappings
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
             CreateMap<BannerViewModel, Banner>()
-                .ForMember(x => x.Title, map
-                => map.MapFrom(vm => vm.Title))
-                .ForMember(x => (object)x.Id, map
-                => map.MapFrom(vm => vm.Id))
-                .ForMember(x => (object)x.Status, map
-                => map.MapFrom(vm => vm.Status))
-                .ForMember(x => x.WebsiteLink, map
-                => map.MapFrom(vm => vm.WebsiteLink))
-                .ForMember(x => x.ImgPath, map
-                => map.Condition(source => !string.IsNullOrEmpty(source.ImgPath)))
-                .ForMember(x => x.Width, map
-                => map.MapFrom(vm => vm.Width))
-                .ForMember(x => x.Language, map
-                => map.MapFrom(vm => vm.Language))
-                .ForMember(x => x.Height, map
-                => map.MapFrom(vm => vm.Height))
-                .ForMember(x => x.Target, map
-                => map.MapFrom(vm => vm.Target))
-                .ForMember(x => (object)x.OrderDisplay, map
-                => map.MapFrom(vm => vm.OrderDisplay))
-                .ForMember(x => (object)x.FromDate, map
-                => map.MapFrom(vm => vm.FromDate))
-                .ForMember(x => (object)x.ToDate, map
-                => map.MapFrom(vm => vm.ToDate))
-                .ForMember(x => (object)x.PageId, map
-                => map.MapFrom(vm => vm.PageId))
-                .ForMember(x => (object)x.MenuId, map
-                => map.MapFrom(vm => vm.MenuId))
-                .ForMember(x => x.Language, map
-                => map.MapFrom(vm => vm.Language))
+                .ForMember(x => x.Title, map=> map.MapFrom(vm => vm.Title))
+                .ForMember(x => (object)x.Id, map=> map.MapFrom(vm => vm.Id))
+                .ForMember(x => (object)x.Status, map=> map.MapFrom(vm => vm.Status))
+                .ForMember(x => x.WebsiteLink, map=> map.MapFrom(vm => vm.WebsiteLink))
+                .ForMember(x => x.ImgPath, map=> map.Condition(source => !string.IsNullOrEmpty(source.ImgPath)))
+                .ForMember(x => x.Width, map=> map.MapFrom(vm => vm.Width))
+                .ForMember(x => x.Language, map=> map.MapFrom(vm => vm.Language))
+                .ForMember(x => x.Height, map=> map.MapFrom(vm => vm.Height))
+                .ForMember(x => x.Target, map=> map.MapFrom(vm => vm.Target))
+                .ForMember(x => (object)x.OrderDisplay, map=> map.MapFrom(vm => vm.OrderDisplay))
+                .ForMember(x => (object)x.FromDate, map=> map.MapFrom(vm => vm.FromDate))
+                .ForMember(x => (object)x.ToDate, map=> map.MapFrom(vm => vm.ToDate))
+                .ForMember(x => (object)x.PageId, map=> map.MapFrom(vm => vm.PageId))
+                .ForMember(x => (object)x.MenuId, map=> map.MapFrom(vm => vm.MenuId))
+                .ForMember(x => x.Language, map=> map.MapFrom(vm => vm.Language))
                 .ForMember(x => x.PageBanner, map => map.Ignore())
                 .ForMember(x => x.MenuLink, map => map.Ignore());
 
             CreateMap<SlideShowViewModel, SlideShow>()
                 .ForMember(x => x.Title, map => map.MapFrom(vm => vm.Title))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
-                .ForMember(x => (object)x.Status,
-                    map => map.MapFrom(vm => vm.Status))
-                .ForMember(x => x.WebsiteLink,
-                    map => map.MapFrom(vm => vm.WebsiteLink))
-                .ForMember(x => x.ImgPath,
-                    map => map.Condition(source => !string.IsNullOrEmpty(source.ImgPath)))
+                .ForMember(x => (object)x.Status,map => map.MapFrom(vm => vm.Status))
+                .ForMember(x => x.WebsiteLink,map => map.MapFrom(vm => vm.WebsiteLink))
+                .ForMember(x => x.ImgPath,map => map.Condition(source => !string.IsNullOrEmpty(source.ImgPath)))
                 .ForMember(x => x.Width, map => map.MapFrom(vm => vm.Width))
                 .ForMember(x => x.Description,
                     map => map.MapFrom(vm => vm.Description))
@@ -531,7 +513,7 @@ namespace App.Framework.Mappings
              => map.MapFrom(vm => vm.CountryId))
              .ForMember(x => (object)x.StateProvinceId, map
              => map.MapFrom(vm => vm.StateProvinceId))
-             .ForMember(x => (string)x.City, map
+             .ForMember(x => x.City, map
              => map.MapFrom(vm => vm.City))
              .ForMember(x => (string)x.Address1, map
              => map.MapFrom(vm => vm.Address1))
@@ -552,12 +534,15 @@ namespace App.Framework.Mappings
 
             CreateMap<PaymentMethodViewModel, PaymentMethod>()
                .ForMember(x => x.PaymentMethodSystemName, map => map.MapFrom(vm => vm.PaymentMethodSystemName))
-               .ForMember(x => x.FullDescription, map => map.MapFrom(vm => vm.FullDescription));
+               .ForMember(x => x.Description, map => map.MapFrom(vm => vm.Description))
+                .ForMember(x => x.ImageUrl, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageUrl)))
+                .ForMember(x => x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+                .ForMember(x => x.Status, map => map.MapFrom(vm => vm.Status));
 
             CreateMap<ShippingMethodViewModel, ShippingMethod>()
               .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
               .ForMember(x => x.Description, map => map.MapFrom(vm => vm.Description))
-              .ForMember(x => x.DisplayOrder, map => map.MapFrom(vm => vm.DisplayOrder));
+            ;
 
             CreateMap<OrderViewModel, Order>()
             .ForMember(x => x.OrderNumber, map => map.MapFrom(vm => vm.OrderNumber))

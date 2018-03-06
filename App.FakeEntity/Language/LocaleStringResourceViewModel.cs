@@ -1,8 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Web;
+using Resources;
 
 namespace App.FakeEntity.Language
 {
@@ -45,9 +42,5 @@ namespace App.FakeEntity.Language
             get;
             set;
         }
-
-        public LocaleStringResourceViewModel()
-		{
-		}
 	}
 }

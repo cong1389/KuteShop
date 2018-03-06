@@ -1,12 +1,10 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
+using System.Web.Mvc;
 using App.FakeEntity.Menu;
 using App.Service.Language;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.FakeEntity.News
 {
@@ -183,7 +181,7 @@ namespace App.FakeEntity.News
 
         public NewsViewModel()
 		{
-            this.Locales = new List<NewsLocalesViewModel>();
+            Locales = new List<NewsLocalesViewModel>();
         }
 	}
 

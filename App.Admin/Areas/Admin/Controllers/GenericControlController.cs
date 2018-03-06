@@ -9,7 +9,6 @@ using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.Language;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.GenericControl;
 using App.FakeEntity.Menu;
@@ -79,13 +78,13 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                GenericControl modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
+                var modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
                 _genericControlService.Create(modelMap);
 
                 //Update Localized   
@@ -107,7 +106,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControl.Create: ", exception.Message));
                 return View(model);
             }
@@ -121,15 +120,15 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<GenericControl> genericControls =
+                    var genericControls =
                         from id in ids
                         select _genericControlService.GetById(int.Parse(id));
                     _genericControlService.BatchDelete(genericControls);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
-                        IEnumerable<LocalizedProperty> ieLocalizedProperty
+                        var ieLocalizedProperty
                            = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
@@ -137,7 +136,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("ServerGenericControl.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -146,7 +145,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditGenericControl")]
         public ActionResult Edit(int id)
         {
-            GenericControlViewModel modelMap = Mapper.Map<GenericControl, GenericControlViewModel>(_genericControlService.GetById(id));
+            var modelMap = Mapper.Map<GenericControl, GenericControlViewModel>(_genericControlService.GetById(id));
             
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -169,26 +168,26 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                GenericControl objGenericControl = _genericControlService.GetById(model.Id);
+                var objGenericControl = _genericControlService.GetById(model.Id);
 
-                List<MenuLink> lstMenuLink = new List<MenuLink>();
-                List<int> lstMenuId = new List<int>();
+                var lstMenuLink = new List<MenuLink>();
+                var lstMenuId = new List<int>();
 
-                string menuLink = Request["MenuLink"];
+                var menuLink = Request["MenuLink"];
                 if (!string.IsNullOrEmpty(menuLink))
                 {
                     foreach (var item in menuLink.Split(',').ToList())
                     {
-                        int menuId = int.Parse(item);
+                        var menuId = int.Parse(item);
                         lstMenuId.Add(menuId);
 
-                        lstMenuLink.Add(_menuLinkService.GetById(menuId,isCache:false));
+                        lstMenuLink.Add(_menuLinkService.GetById(menuId,false));
                     }
 
                     if (lstMenuId.IsAny())
@@ -203,7 +202,7 @@ namespace App.Admin.Controllers
                 }
                 objGenericControl.MenuLinks = lstMenuLink;
                     
-                GenericControl modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
+                var modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
                 _genericControlService.Update(objGenericControl);
 
 
@@ -226,7 +225,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControl.Create: ", exception.Message));
                 return View(model);
             }
@@ -237,7 +236,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -246,16 +245,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<GenericControl> genericControls = _genericControlService.PagedList(sortingPagingBuilder, paging);
+            var genericControls = _genericControlService.PagedList(sortingPagingBuilder, paging);
             if (genericControls != null && genericControls.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(genericControls);
@@ -282,7 +281,7 @@ namespace App.Admin.Controllers
 
             }
 
-            JsonResult jsonResult = Json(
+            var jsonResult = Json(
                 new
                 {
                     success = ieGenericControls.Count(),
@@ -297,10 +296,10 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create"))
             {
-                IEnumerable<MenuLink> lstMenuLink = _menuLinkService.GetAll();
+                var lstMenuLink = _menuLinkService.GetAll();
 
-                MenuLinkViewModel menuLinkViewModel = new MenuLinkViewModel();
-                IEnumerable<MenuLinkViewModel> model = lstMenuLink.Select(m =>
+                var menuLinkViewModel = new MenuLinkViewModel();
+                var model = lstMenuLink.Select(m =>
                 {
                     return m.ToModel(menuLinkViewModel);
                 });
@@ -310,11 +309,11 @@ namespace App.Admin.Controllers
 
             if (filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                int id = int.Parse(filterContext.RouteData.Values["id"].ToString());
+                var id = int.Parse(filterContext.RouteData.Values["id"].ToString());
 
-                IEnumerable<MenuLink> lstMenuLink = _menuLinkService.GetAll();
+                var lstMenuLink = _menuLinkService.GetAll();
 
-                IEnumerable<MenuLinkViewModel> model = from x in lstMenuLink
+                var model = from x in lstMenuLink
                                                        select new MenuLinkViewModel
                                                        {
                                                            Id = x.Id,

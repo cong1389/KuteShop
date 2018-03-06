@@ -10,11 +10,29 @@ namespace App.Domain.Entities.Payments
 			set;
 		}
 
-		public string FullDescription
+		public string Description
         {
 			get;
 			set;
 		}
+
+	    public string ImageUrl
+	    {
+	        get;
+	        set;
+	    }
+
+	    public int OrderDisplay
+	    {
+	        get;
+	        set;
+	    }
+
+	    public int Status
+	    {
+	        get;
+	        set;
+	    }
 
         public PaymentMethod()
 		{

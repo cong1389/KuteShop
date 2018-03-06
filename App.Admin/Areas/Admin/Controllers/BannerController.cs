@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,7 +7,6 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Ads;
-using App.Domain.Entities.Menu;
 using App.FakeEntity.Ads;
 using App.Framework.Ultis;
 using App.Service.Ads;
@@ -64,15 +62,14 @@ namespace App.Admin.Controllers
 			    {
 			        //string fileName = "Test";
 			        //string extension = "Test";
-			        string fileName = Path.GetFileName(bannerView.Image.FileName);
-			        string extension = Path.GetExtension(bannerView.Image.FileName);
+			        var fileName = Path.GetFileName(bannerView.Image.FileName);
 			        //fileName = string.Concat(bannerView.FullName.NonAccent(), extension);
-			        string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+			        var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
 			        bannerView.Image.SaveAs(str);
 			        bannerView.ImgPath = string.Concat(Contains.AdsFolder, fileName);
 			    }
 
-			    Banner banner = Mapper.Map<BannerViewModel, Banner>(bannerView);
+			    var banner = Mapper.Map<BannerViewModel, Banner>(bannerView);
 			    _bannerService.Create(banner);
 
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Banner)));
@@ -87,7 +84,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Banner.Create: ", exception.Message));
 				ModelState.AddModelError("", exception.Message);
 				return View(bannerView);
@@ -101,7 +98,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<Banner> banners = 
+					var banners = 
 						from id in ids
 						select _bannerService.GetById(int.Parse(id));
 					_bannerService.BatchDelete(banners);
@@ -109,7 +106,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Banner.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -117,7 +114,7 @@ namespace App.Admin.Controllers
 
 		public ActionResult Edit(int id)
 		{
-			BannerViewModel bannerViewModel = Mapper.Map<Banner, BannerViewModel>(_bannerService.GetById(id));
+			var bannerViewModel = Mapper.Map<Banner, BannerViewModel>(_bannerService.GetById(id));
 			return View(bannerViewModel);
 		}
 
@@ -133,18 +130,18 @@ namespace App.Admin.Controllers
 					return View(model);
 				}
 
-			    Banner byId = _bannerService.GetById(model.Id);
+			    var byId = _bannerService.GetById(model.Id);
 			    if (model.Image != null && model.Image.ContentLength > 0)
 			    {
-			        string fileName = Path.GetFileName(model.Image.FileName);
-			        string extension = Path.GetExtension(model.Image.FileName);
+			        var fileName = Path.GetFileName(model.Image.FileName);
+			        var extension = Path.GetExtension(model.Image.FileName);
 			        //fileName = string.Concat(bannerView.FullName.NonAccent(""), extension);
-			        string str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+			        var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
 			        model.Image.SaveAs(str);
 			        model.ImgPath = string.Concat(Contains.AdsFolder, fileName);
 			    }
 
-			    Banner banner = Mapper.Map(model, byId);
+			    var banner = Mapper.Map(model, byId);
 			    _bannerService.Update(banner);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Banner)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -158,7 +155,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ModelState.AddModelError("", exception.Message);
 				ExtentionUtils.Log(string.Concat("Banner.Edit: ", exception.Message));
 				return View(model);
@@ -169,7 +166,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -178,16 +175,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Banner> banners = _bannerService.PagedList(sortingPagingBuilder, paging);
+			var banners = _bannerService.PagedList(sortingPagingBuilder, paging);
 			if (banners != null && banners.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(banners);
@@ -197,10 +194,10 @@ namespace App.Admin.Controllers
 		{
 			if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
 			{
-				IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5, true);
+				var menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5, true);
 				ViewBag.MenuList = menuLinks;
 
-				IEnumerable<PageBanner> pageBanners = _pageBannerService.FindBy(x => x.Status == 1);
+				var pageBanners = _pageBannerService.FindBy(x => x.Status == 1);
 				ViewBag.PageBanners = pageBanners;
 			}
 		}

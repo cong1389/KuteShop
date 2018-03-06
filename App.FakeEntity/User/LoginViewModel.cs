@@ -1,7 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.User
 {
@@ -26,10 +24,6 @@ namespace App.FakeEntity.User
 		{
 			get;
 			set;
-		}
-
-		public LoginViewModel()
-		{
 		}
 	}
 }

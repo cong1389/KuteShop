@@ -11,7 +11,6 @@ using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.Menu;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.Post;
 using App.Framework.Ultis;
@@ -109,30 +108,30 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                           .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
                 }
 
-                string titleNonAccent = model.Title.NonAccent();
-                IEnumerable<Post> bySeoUrl = _postService.GetListSeoUrl(titleNonAccent);
+                var titleNonAccent = model.Title.NonAccent();
+                var bySeoUrl = _postService.GetListSeoUrl(titleNonAccent);
 
                 model.SeoUrl = model.Title.NonAccent();
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
-                    PostViewModel postViewModel = model;
+                    var postViewModel = model;
                     postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                string folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-                    string fileName2 = titleNonAccent.FileNameFormat(fileExtension);
-                    string fileName3 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
@@ -143,47 +142,46 @@ namespace App.Admin.Controllers
                     model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileName3}";
                 }
 
-                int? menuId = model.MenuId;
-                int i = 0;
+                var menuId = model.MenuId;
+                var i = 0;
                 if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                 {
-                    IMenuLinkService menuLinkService = _menuLinkService;
+                    var menuLinkService = _menuLinkService;
                     menuId = model.MenuId;
-                    MenuLink byId = menuLinkService.GetById(menuId.Value);
+                    var byId = menuLinkService.GetById(menuId.Value);
                     model.VirtualCatUrl = byId.VirtualSeoUrl;
                     model.VirtualCategoryId = byId.VirtualId;
                 }
 
                 //Gallery image
-                HttpFileCollectionBase files = Request.Files;
-                List<GalleryImage> galleryImages = new List<GalleryImage>();
+                var files = Request.Files;
+                var galleryImages = new List<GalleryImage>();
                 if (files.Count > 0)
                 {
-                    int count = files.Count - 1;
-                    int num = 0;
-                    string str6 = titleNonAccent;
-                    string[] allKeys = files.AllKeys;
+                    var count = files.Count - 1;
+                    var num = 0;
+                    var allKeys = files.AllKeys;
                     for (i = 0; i < allKeys.Length; i++)
                     {
-                        string str7 = allKeys[i];
+                        var str7 = allKeys[i];
                         if (num <= count)
                         {
                             if (!str7.Equals("Image"))
                             {
-                                string str8 = str7.Replace("[]", "");
-                                HttpPostedFileBase item = files[num];
+                                var str8 = str7.Replace("[]", "");
+                                var item = files[num];
                                 if (item.ContentLength > 0)
                                 {
-                                    string item1 = Request[str8];
-                                    GalleryImageViewModel galleryImageViewModel = new GalleryImageViewModel
+                                    var item1 = Request[str8];
+                                    var galleryImageViewModel = new GalleryImageViewModel
                                     {
                                         PostId = model.Id,
                                         AttributeValueId = int.Parse(str8)
                                     };
 
-                                    string fileExtension = Path.GetExtension(model.Image.FileName);
-                                    string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-                                    string fileName2 = titleNonAccent.FileNameFormat(fileExtension);
+                                    var fileExtension = Path.GetExtension(model.Image.FileName);
+                                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                                    var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
 
                                     _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                                     _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
@@ -209,18 +207,18 @@ namespace App.Admin.Controllers
                 }
 
                 //Attribute
-                List<AttributeValue> attributeValues = new List<AttributeValue>();
-                string item2 = Request["Values"];
+                var attributeValues = new List<AttributeValue>();
+                var item2 = Request["Values"];
                 if (!string.IsNullOrEmpty(item2))
                 {
-                    foreach (string list in item2.Split(',').ToList())
+                    foreach (var list in item2.Split(',').ToList())
                     {
-                        int num1 = int.Parse(list);
+                        var num1 = int.Parse(list);
                         attributeValues.Add(_attributeValueService.GetById(num1));
                     }
                 }
 
-                Post modelMap = Mapper.Map<PostViewModel, Post>(model);
+                var modelMap = Mapper.Map<PostViewModel, Post>(model);
                 if (galleryImages.IsAny())
                 {
                     modelMap.GalleryImages = galleryImages;
@@ -278,13 +276,13 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    List<Post> posts = new List<Post>();
-                    List<GalleryImage> galleryImages = new List<GalleryImage>();
-                    string[] strArrays = ids;
-                    for (int i = 0; i < strArrays.Length; i++)
+                    var posts = new List<Post>();
+                    var galleryImages = new List<GalleryImage>();
+                    var strArrays = ids;
+                    for (var i = 0; i < strArrays.Length; i++)
                     {
-                        int num = int.Parse(strArrays[i]);
-                        Post post = _postService.Get(x => x.Id == num);
+                        var num = int.Parse(strArrays[i]);
+                        var post = _postService.Get(x => x.Id == num);
                         galleryImages.AddRange(post.GalleryImages.ToList());
                         post.AttributeValues.ToList().ForEach(att => post.AttributeValues.Remove(att));
                         posts.Add(post);
@@ -294,7 +292,7 @@ namespace App.Admin.Controllers
                     _postService.BatchDelete(posts);
 
                     //Delete localize
-                    for (int i = 0; i < ids.Length; i++)
+                    for (var i = 0; i < ids.Length; i++)
                     {
                         var ieLocalizedProperty = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
 
@@ -320,11 +318,11 @@ namespace App.Admin.Controllers
             }
             try
             {
-                GalleryImage galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
+                var galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
                 _galleryService.Delete(galleryImage);
 
-                string path1 = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
-                string path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
+                var path1 = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
+                var path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
 
                 System.IO.File.Delete(path1);
                 System.IO.File.Delete(path2);
@@ -341,9 +339,9 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreatePost")]
         public ActionResult Edit(int id)
         {
-            Post byId = _postService.GetById(id);
+            var byId = _postService.GetById(id);
 
-            PostViewModel modelMap = Mapper.Map<Post, PostViewModel>(byId);
+            var modelMap = Mapper.Map<Post, PostViewModel>(byId);
 
             ViewBag.Galleries = byId.GalleryImages;
 
@@ -376,7 +374,7 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    String messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                           .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -384,26 +382,26 @@ namespace App.Admin.Controllers
 
                 if (!_postService.FindBy(x => x.ProductCode.Equals(model.ProductCode) && x.Id != model.Id, true).IsAny())
                 {
-                    Post byId = _postService.GetById(model.Id, false);
+                    var byId = _postService.GetById(model.Id, false);
 
-                    string titleNonAccent = model.Title.NonAccent();
-                    IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, false);
+                    var titleNonAccent = model.Title.NonAccent();
+                    var bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, false);
 
                     model.SeoUrl = model.Title.NonAccent();
                     if (bySeoUrl.Any(x => x.Id != model.Id))
                     {
-                        PostViewModel postViewModel = model;
+                        var postViewModel = model;
                         postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
                     }
 
-                    string folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                    var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
                     if (model.Image != null && model.Image.ContentLength > 0)
                     {
-                        string fileExtension = Path.GetExtension(model.Image.FileName);
+                        var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                        string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-                        string fileName2 = titleNonAccent.FileNameFormat(fileExtension);
-                        string fileName3 = titleNonAccent.FileNameFormat(fileExtension);
+                        var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                        var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
+                        var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
                         _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                         _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
@@ -413,45 +411,45 @@ namespace App.Admin.Controllers
                         model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileName2}";
                         model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileName3}";
                     }
-                    int? menuId = model.MenuId;
-                    int i = 0;
+                    var menuId = model.MenuId;
+                    var i = 0;
                     if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                     {
-                        IMenuLinkService menuLinkService = _menuLinkService;
+                        var menuLinkService = _menuLinkService;
                         menuId = model.MenuId;
-                        MenuLink menuLink = menuLinkService.GetById(menuId.Value, false);
+                        var menuLink = menuLinkService.GetById(menuId.Value, false);
                         model.VirtualCatUrl = menuLink.VirtualSeoUrl;
                         model.VirtualCategoryId = menuLink.VirtualId;
                     }
 
                     //GalleryImage
-                    HttpFileCollectionBase files = Request.Files;
-                    List<GalleryImage> lstGalleryImages = new List<GalleryImage>();
+                    var files = Request.Files;
+                    var lstGalleryImages = new List<GalleryImage>();
                     if (files.Count > 0)
                     {
-                        int count = files.Count - 1;
-                        int num = 0;
+                        var count = files.Count - 1;
+                        var num = 0;
 
-                        string[] allKeys = files.AllKeys;
+                        var allKeys = files.AllKeys;
                         for (i = 0; i < allKeys.Length; i++)
                         {
-                            string str7 = allKeys[i];
+                            var str7 = allKeys[i];
                             if (num <= count)
                             {
                                 if (!str7.Equals("Image"))
                                 {
-                                    string str8 = str7.Replace("[]", "");
-                                    HttpPostedFileBase item = files[num];
+                                    var str8 = str7.Replace("[]", "");
+                                    var item = files[num];
                                     if (item.ContentLength > 0)
                                     {
-                                        string item1 = Request[str8];
-                                        GalleryImageViewModel galleryImageViewModel = new GalleryImageViewModel
+                                        var item1 = Request[str8];
+                                        var galleryImageViewModel = new GalleryImageViewModel
                                         {
                                             PostId = model.Id,
                                             AttributeValueId = int.Parse(str8)
                                         };
-                                        string fileName1 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
-                                        string fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
+                                        var fileName1 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
+                                        var fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
 
                                         _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                         _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
@@ -483,14 +481,14 @@ namespace App.Admin.Controllers
                     }
 
                     //AttributeValue
-                    List<AttributeValue> lstAttributeValues = new List<AttributeValue>();
-                    List<int> nums = new List<int>();
-                    string item2 = Request["Values"];
+                    var lstAttributeValues = new List<AttributeValue>();
+                    var nums = new List<int>();
+                    var item2 = Request["Values"];
                     if (!string.IsNullOrEmpty(item2))
                     {
-                        foreach (string list in item2.Split(',').ToList())
+                        foreach (var list in item2.Split(',').ToList())
                         {
-                            int num1 = int.Parse(list);
+                            var num1 = int.Parse(list);
                             nums.Add(num1);
                             lstAttributeValues.Add(_attributeValueService.GetById(num1, false));
                         }
@@ -506,22 +504,22 @@ namespace App.Admin.Controllers
 
                     byId.AttributeValues = lstAttributeValues;
 
-                    Post modelMap = Mapper.Map(model, byId);
+                    var modelMap = Mapper.Map(model, byId);
                     _postService.Update(byId);
 
                     //Update GalleryImage
                     if (lstAttributeValues.IsAny())
                     {
-                        foreach (AttributeValue attributeValue in lstAttributeValues)
+                        foreach (var attributeValue in lstAttributeValues)
                         {
-                            GalleryImage nullable = _galleryService.Get(x => x.AttributeValueId == attributeValue.Id && x.PostId == model.Id);
+                            var nullable = _galleryService.Get(x => x.AttributeValueId == attributeValue.Id && x.PostId == model.Id);
                             if (nullable == null)
                             {
                                 continue;
                             }
-                            HttpRequestBase request = Request;
+                            var request = Request;
                             i = attributeValue.Id;
-                            double num2 = double.Parse(request[i.ToString()]);
+                            var num2 = double.Parse(request[i.ToString()]);
                             nullable.Price = num2;
                             _galleryService.Update(nullable);
                         }
@@ -572,7 +570,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -581,16 +579,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<Post> posts = _postService.PagedList(sortingPagingBuilder, paging);
+            var posts = _postService.PagedList(sortingPagingBuilder, paging);
             if (posts != null && posts.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
                     i => Url.Action("Index", new {page = i, keywords}));
 
                 ViewBag.PageInfo = pageInfo;
@@ -622,35 +620,35 @@ namespace App.Admin.Controllers
         [HttpPost]
         public ActionResult PostGalleryAdd(int postId)
         {
-            HttpFileCollectionBase files = Request.Files;
+            var files = Request.Files;
             if (files.Count > 0)
             {
-                int count = files.Count - 1;
-                int num = 0;
-                string[] allKeys = files.AllKeys;
-                for (int i = 0; i < allKeys.Length; i++)
+                var count = files.Count - 1;
+                var num = 0;
+                var allKeys = files.AllKeys;
+                for (var i = 0; i < allKeys.Length; i++)
                 {
-                    string str = allKeys[i];
+                    var str = allKeys[i];
                     if (num <= count)
                     {
                         if (!str.Equals("Image"))
                         {
-                            HttpPostedFileBase item = files[num];
+                            var item = files[num];
                             if (item.ContentLength > 0)
                             {
-                                PostGallery postGallery = new PostGallery
+                                var postGallery = new PostGallery
                                 {
                                     PostId = postId
                                 };
 
-                                string fileNameNonAccent = $"{item.FileName.NonAccent()}";
-                                string folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                                var fileNameNonAccent = $"{item.FileName.NonAccent()}";
+                                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
 
-                                string fileExtension = Path.GetExtension(item.FileName);
+                                var fileExtension = Path.GetExtension(item.FileName);
 
-                                string fileName1 = fileNameNonAccent.FileNameFormat(fileExtension);
-                                string fileName2 = fileNameNonAccent.FileNameFormat(fileExtension);
-                                string fileName3 = fileNameNonAccent.FileNameFormat(fileExtension);
+                                var fileName1 = fileNameNonAccent.FileNameFormat(fileExtension);
+                                var fileName2 = fileNameNonAccent.FileNameFormat(fileExtension);
+                                var fileName3 = fileNameNonAccent.FileNameFormat(fileExtension);
 
                                 _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
                                 _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
@@ -677,7 +675,7 @@ namespace App.Admin.Controllers
 
         public ActionResult PostGalleryEdit(PostGalleryViewModel model)
         {
-            PostGallery postGallery = _postGalleryService.GetById(model.Id);
+            var postGallery = _postGalleryService.GetById(model.Id);
 
             if (postGallery != null)
             {
@@ -685,7 +683,7 @@ namespace App.Admin.Controllers
                 model.ImageBigSize = postGallery.ImageBigSize;
                 model.ImageMediumSize = postGallery.ImageMediumSize;
 
-                PostGallery postGalleryMap = Mapper.Map(model, postGallery);
+                var postGalleryMap = Mapper.Map(model, postGallery);
                 _postGalleryService.Update(postGalleryMap);
             }
 
@@ -699,14 +697,14 @@ namespace App.Admin.Controllers
 
         public async Task<JsonResult> PostGalleryList(int postId)
         {
-            IEnumerable<PostGallery> postGalleryList = _postGalleryService.GetByPostId(postId);
+            var postGalleryList = _postGalleryService.GetByPostId(postId);
 
-            IOrderedEnumerable<PostGallery> posts = await Task.FromResult(
+            var posts = await Task.FromResult(
                 from x in postGalleryList
                 orderby x.Id descending
                 select x);
 
-            JsonResult jsonResult = Json(new { data = posts }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { data = posts }, JsonRequestBehavior.AllowGet);
 
 
 
@@ -723,13 +721,13 @@ namespace App.Admin.Controllers
             }
             try
             {
-                PostGallery galleryImage = _postGalleryService.Get(x => x.PostId == postId && x.Id == id);
+                var galleryImage = _postGalleryService.Get(x => x.PostId == postId && x.Id == id);
 
                 _postGalleryService.Delete(galleryImage);
 
-                string path1 = Server.MapPath(string.Concat("~/", galleryImage.ImageBigSize));
-                string path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageMediumSize));
-                string path3 = Server.MapPath(string.Concat("~/", galleryImage.ImageSmallSize));
+                var path1 = Server.MapPath(string.Concat("~/", galleryImage.ImageBigSize));
+                var path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageMediumSize));
+                var path3 = Server.MapPath(string.Concat("~/", galleryImage.ImageSmallSize));
 
                 System.IO.File.Delete(path1);
                 System.IO.File.Delete(path2);

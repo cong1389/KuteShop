@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace App.FakeEntity.User
 {
@@ -124,10 +123,6 @@ namespace App.FakeEntity.User
 		{
 			get;
 			set;
-		}
-
-		public RegisterFormViewModel()
-		{
 		}
 	}
 }

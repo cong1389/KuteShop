@@ -121,6 +121,32 @@ namespace App.Aplication
             }
         }
 
+        public static string ManufactureFolder
+        {
+            get
+            {
+                string item = ConfigurationManager.AppSettings["ManufactureFolder"] ?? "images/manufacture/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["ManufactureFolder"] ?? "images/manufacture/";
+            }
+        }
+
+        public static string PaymentMethodFolder
+        {
+            get
+            {
+                string item = ConfigurationManager.AppSettings["PaymentMethodFolder"] ?? "images/paymentmethod/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["PaymentMethodFolder"] ?? "images/paymentmethod/";
+            }
+        }
+
         public static bool RequiredActiveAccount
         {
             get

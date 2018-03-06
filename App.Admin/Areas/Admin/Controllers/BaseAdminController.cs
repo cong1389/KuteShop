@@ -38,14 +38,14 @@ namespace App.Admin.Controllers
 
 	    protected string RenderRazorViewToString(string viewName, object model)
 		{
-			string str=string.Empty;
+			var str=string.Empty;
             try
             {
                 ViewData.Model = model;
-                using (StringWriter stringWriter = new StringWriter())
+                using (var stringWriter = new StringWriter())
                 {
-                    ViewEngineResult viewEngineResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                    ViewContext viewContext = new ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData, stringWriter);
+                    var viewEngineResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                    var viewContext = new ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData, stringWriter);
                     viewEngineResult.View.Render(viewContext, stringWriter);
                     viewEngineResult.ViewEngine.ReleaseView(ControllerContext, viewEngineResult.View);
                     str = stringWriter.GetStringBuilder().ToString();

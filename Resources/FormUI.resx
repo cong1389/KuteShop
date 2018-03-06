@@ -600,4 +600,10 @@
   <data name="Manufacturer" xml:space="preserve">
     <value>Hãng sản xuất</value>
   </data>
+  <data name="Manufacture" xml:space="preserve">
+    <value>Nhà sản xuất</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Hình thức thanh toán</value>
+  </data>
 </root>

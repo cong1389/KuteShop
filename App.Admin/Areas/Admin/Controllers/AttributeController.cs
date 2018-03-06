@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +14,7 @@ using Attribute = App.Domain.Entities.Attribute.Attribute;
 
 namespace App.Admin.Controllers
 {
-	public class AttributeController : BaseAdminController
+    public class AttributeController : BaseAdminController
     {
         private const string CacheAttributeKey = "db.Attribute";
         private readonly ICacheManager _cacheManager;
@@ -51,7 +50,7 @@ namespace App.Admin.Controllers
 					return View(attributeView);
 				}
 
-			    Attribute attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
+			    var attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
 			    _attributeService.Create(attribute);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Attribute)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -65,7 +64,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
 				return View(attributeView);
 			}
@@ -79,7 +78,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<Attribute> attributes = 
+					var attributes = 
 						from id in ids
 						select _attributeService.GetById(int.Parse(id));
 					_attributeService.BatchDelete(attributes);
@@ -87,7 +86,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("ServerAttribute.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -96,7 +95,7 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="CreateEditAttribute")]
 		public ActionResult Edit(int id)
 		{
-			AttributeViewModel attributeViewModel = Mapper.Map<Attribute, AttributeViewModel>(_attributeService.GetById(id));
+			var attributeViewModel = Mapper.Map<Attribute, AttributeViewModel>(_attributeService.GetById(id));
 			return View(attributeViewModel);
 		}
 
@@ -113,7 +112,7 @@ namespace App.Admin.Controllers
 					return View(attributeView);
 				}
 
-			    Attribute attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
+			    var attribute = Mapper.Map<AttributeViewModel, Attribute>(attributeView);
 			    _attributeService.Update(attribute);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Attribute)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -127,7 +126,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
 				return View(attributeView);
 			}
@@ -138,7 +137,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -147,16 +146,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Attribute> attributes = _attributeService.PagedList(sortingPagingBuilder, paging);
+			var attributes = _attributeService.PagedList(sortingPagingBuilder, paging);
 			if (attributes != null && attributes.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(attributes);

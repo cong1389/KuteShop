@@ -220,7 +220,7 @@ namespace App.Front.Controllers
                                         {
                                             Id = x.Id,
                                             PaymentMethodSystemName = x.PaymentMethodSystemName,
-                                            FullDescription = x.FullDescription
+                                            FullDescription = x.Description
                                         }).ToList();
 
             }

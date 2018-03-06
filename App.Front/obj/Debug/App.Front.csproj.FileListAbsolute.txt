@@ -253,7 +253,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Aplication.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Core.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Domain.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.FakeEntity.dll
-D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Framework.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.SeoSitemap.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Service.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\Autofac.dll
@@ -367,3 +366,4 @@ D:\FreeLance\2018\KuteShop\Source\App.Front\obj\Debug\App.Front.csprojResolveAss
 D:\FreeLance\2018\KuteShop\Source\App.Front\obj\Debug\App.Front.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Front\obj\Debug\App.Front.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\obj\Debug\App.Front.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Front\bin\App.Framework.dll

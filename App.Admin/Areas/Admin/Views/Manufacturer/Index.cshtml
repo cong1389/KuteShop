@@ -1,8 +1,10 @@
-﻿@using App.Domain.Common
+﻿<!---Manufacturer-->
+
+@using App.Domain.Common
 @using Resources
 @model IEnumerable<App.Domain.Entities.Data.Manufacturer>
 @{
-    ViewBag.Title = FormUI.News;
+    ViewBag.Title = FormUI.Manufacturer;
     ViewBag.Toolbar = new[] {"Create", "Edit", "Delete", "Divider", "Reset"};
 }
 <table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content">
@@ -48,3 +50,5 @@
     </tbody>
 </table>
 @{ Html.RenderPartial("_PageLinks"); }
+
+<!---/Manufacturer-->

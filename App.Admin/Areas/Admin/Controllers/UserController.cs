@@ -27,20 +27,20 @@ namespace App.Admin.Controllers
 		public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
 		{
 			ActionResult actionResult;
-			bool flag = HasPassword();
+			var flag = HasPassword();
 			ViewBag.HasLocalPassword = flag;
 			ViewBag.ReturnUrl = Url.Action("Index", "Home");
 			if (!flag)
 			{
-				ModelState item = ModelState["OldPassword"];
+				var item = ModelState["OldPassword"];
 				if (item != null)
 				{
 					item.Errors.Clear();
 				}
 				if (ModelState.IsValid)
 				{
-					IdentityResult identityResult = await UserManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
-					IdentityResult identityResult1 = identityResult;
+					var identityResult = await UserManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
+					var identityResult1 = identityResult;
 					if (!identityResult1.Succeeded)
 					{
 						AddErrors(identityResult1);
@@ -55,8 +55,8 @@ namespace App.Admin.Controllers
 			}
 			else if (ModelState.IsValid)
 			{
-				IdentityResult identityResult2 = await UserManager.ChangePasswordAsync(GetGuid(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
-				IdentityResult identityResult3 = identityResult2;
+				var identityResult2 = await UserManager.ChangePasswordAsync(GetGuid(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+				var identityResult3 = identityResult2;
 				if (!identityResult3.Succeeded)
 				{
 					AddErrors(identityResult3);
@@ -85,8 +85,8 @@ namespace App.Admin.Controllers
 			ActionResult action;
 			if (ModelState.IsValid)
 			{
-				IdentityUser identityUser = await UserManager.FindAsync(login.UserName, login.Password);
-				IdentityUser identityUser1 = identityUser;
+				var identityUser = await UserManager.FindAsync(login.UserName, login.Password);
+				var identityUser1 = identityUser;
 				if (identityUser1 == null)
 				{
 					ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác.");
@@ -117,9 +117,9 @@ namespace App.Admin.Controllers
 		private async Task SignInAsync(IdentityUser user, bool isPersistent)
 		{
 			AuthenticationManager.SignOut("ExternalCookie");
-			ClaimsIdentity claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
-			IAuthenticationManager authenticationManager = AuthenticationManager;
-			AuthenticationProperties authenticationProperty = new AuthenticationProperties
+			var claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
+			var authenticationManager = AuthenticationManager;
+			var authenticationProperty = new AuthenticationProperties
 			{
 				IsPersistent = isPersistent
 			};

@@ -178,6 +178,7 @@
     <Compile Include="Areas\Admin\Controllers\ContactInformationController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExtentionsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentMethodController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManufacturerController.cs" />
     <Compile Include="Areas\Admin\Controllers\GenericControlController.cs" />
     <Compile Include="Areas\Admin\Controllers\GenericControlValueController.cs" />
@@ -215,7 +216,19 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Banner\_CreateOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethod\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethod\_CreateOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethod\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentMethod\Edit.cshtml" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Admin_Front.pubxml" />
+    <None Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\App.Aplication\App.Aplication.csproj">
@@ -365,9 +378,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

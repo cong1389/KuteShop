@@ -1,7 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.Attribute
 {
@@ -39,10 +37,6 @@ namespace App.FakeEntity.Attribute
 		{
 			get;
 			set;
-		}
-
-		public AttributeViewModel()
-		{
 		}
 	}
 }

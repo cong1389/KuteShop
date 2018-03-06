@@ -1,7 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.Ads
 {
@@ -45,10 +43,6 @@ namespace App.FakeEntity.Ads
 		{
 			get;
 			set;
-		}
-
-		public PageBannerViewModel()
-		{
 		}
 	}
 }

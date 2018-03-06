@@ -38,14 +38,16 @@ namespace App.Admin.Controllers
 
         }
 
-        [RequiredPermisson(Roles = "CreateEditFlowStep")]
+        [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Create()
         {
-            return View();
+            var model = new ManufacturerViewModel();
+
+            return View(model);
         }
 
         [HttpPost]
-        [RequiredPermisson(Roles = "CreateEditFlowStep")]
+        [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Create(ManufacturerViewModel model, string returnUrl)
         {
             ActionResult action;
@@ -57,22 +59,22 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                string titleNonAccent = model.Title.NonAccent();
+                var titleNonAccent = model.Title.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
-                    string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.FlowStepFolder}", fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName, ImageSize.Manufacture_WithMediumSize, ImageSize.Manufacture_HeightMediumSize);
 
-                    model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
+                    model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName);
                 }
 
-                Manufacturer manufacturer = Mapper.Map<ManufacturerViewModel, Manufacturer>(model);
+                var manufacturer = Mapper.Map<ManufacturerViewModel, Manufacturer>(model);
 
                 _manufacturerService.Create(manufacturer);
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.FlowStep)));
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Manufacture)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -92,14 +94,14 @@ namespace App.Admin.Controllers
             return action;
         }
 
-        [RequiredPermisson(Roles = "CreateEditFlowStep")]
+        [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Delete(int[] ids)
         {
             try
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<Manufacturer> flowSteps =
+                    var flowSteps =
                         from id in ids
                         select _manufacturerService.Get(x => x.Id == id);
                     _manufacturerService.BatchDelete(flowSteps);
@@ -113,16 +115,16 @@ namespace App.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [RequiredPermisson(Roles = "CreateEditFlowStep")]
+        [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Edit(int id)
         {
-            ManufacturerViewModel manufacturerViewModel = Mapper.Map<Manufacturer, ManufacturerViewModel>(_manufacturerService.Get(x => x.Id == id));
+            var manufacturerViewModel = Mapper.Map<Manufacturer, ManufacturerViewModel>(_manufacturerService.Get(x => x.Id == id));
 
             return View(manufacturerViewModel);
         }
 
         [HttpPost]
-        [RequiredPermisson(Roles = "CreateEditFlowStep")]
+        [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Edit(ManufacturerViewModel model, string returnUrl)
         {
             ActionResult action;
@@ -134,25 +136,25 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                Manufacturer byId = _manufacturerService.Get(x => x.Id == model.Id);
+                var byId = _manufacturerService.Get(x => x.Id == model.Id);
 
-                string titleNonAccent = model.Title.NonAccent();
+                var titleNonAccent = model.Title.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    string fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    string fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.FlowStepFolder}", fileName1, ImageSize.FlowStep_WithMediumSize, ImageSize.FlowStep_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName1, ImageSize.Manufacture_WithMediumSize, ImageSize.Manufacture_HeightMediumSize);
 
-                    model.ImageUrl = string.Concat(Contains.FlowStepFolder, fileName1);
+                    model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName1);
                 }
 
-                Manufacturer manufacturer = Mapper.Map(model, byId);
+                var manufacturer = Mapper.Map(model, byId);
 
                 _manufacturerService.Update(manufacturer);
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.FlowStep)));
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Manufacture)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -175,7 +177,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -184,17 +186,17 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<Manufacturer> manufacturers = _manufacturerService.PagedList(sortingPagingBuilder, paging);
+            var manufacturers = _manufacturerService.PagedList(sortingPagingBuilder, paging);
             if (manufacturers != null && manufacturers.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

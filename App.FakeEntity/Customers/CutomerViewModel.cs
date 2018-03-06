@@ -1,9 +1,6 @@
-using App.Domain.Entities.Orders;
-using Resources;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using App.Domain.Entities.Orders;
 
 namespace FakeEntity.Customers
 {

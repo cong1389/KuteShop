@@ -1,7 +1,5 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.ServerMail
 {
@@ -60,10 +58,6 @@ namespace App.FakeEntity.ServerMail
 		{
 			get;
 			set;
-		}
-
-		public ServerMailSettingViewModel()
-		{
 		}
 	}
 }

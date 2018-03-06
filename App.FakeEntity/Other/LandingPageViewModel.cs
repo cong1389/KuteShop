@@ -1,8 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using App.FakeEntity.ContactInformation;
 using Resources;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace App.FakeEntity.Other
 {
@@ -54,10 +52,6 @@ namespace App.FakeEntity.Other
 		{
 			get;
 			set;
-		}
-
-		public LandingPageViewModel()
-		{
 		}
 	}
 }

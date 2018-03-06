@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.FakeEntity.GenericControl
 {
     public class GenericControlValueItemViewModel
@@ -57,10 +54,6 @@ namespace App.FakeEntity.GenericControl
         {
             get;
             set;
-        }
-
-        public GenericControlValueItemViewModel()
-        {
         }
     }
 }

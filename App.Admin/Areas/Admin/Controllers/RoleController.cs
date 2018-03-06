@@ -23,28 +23,28 @@ namespace App.Admin.Controllers
 		public async Task<ActionResult> Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords
 			};
-			SortBuilder sortBuilder = new SortBuilder
+			var sortBuilder = new SortBuilder
 			{
 				ColumnName = "Name",
 				ColumnOrder = SortBuilder.SortOrder.Descending
 			};
 			sortingPagingBuilder.Sorts = sortBuilder;
-			SortingPagingBuilder sortingPagingBuilder1 = sortingPagingBuilder;
-			Paging paging = new Paging
+			var sortingPagingBuilder1 = sortingPagingBuilder;
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			Paging paging1 = paging;
-			IEnumerable<Role> roles = await _roleService.PagedList(sortingPagingBuilder1, paging1);
+			var paging1 = paging;
+			var roles = await _roleService.PagedList(sortingPagingBuilder1, paging1);
 			if (roles != null && roles.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(roles);

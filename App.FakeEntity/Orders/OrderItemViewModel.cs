@@ -1,10 +1,5 @@
-﻿using App.Domain.Orders;
+﻿using System;
 using App.FakeEntity.Post;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.FakeEntity.Orders
 {
@@ -93,10 +88,6 @@ namespace App.FakeEntity.Orders
         public decimal TaxRate
         {
             get; set;
-        }
-
-        public OrderItemViewModel()
-        {
         }
     }
 }

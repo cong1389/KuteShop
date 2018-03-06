@@ -1,11 +1,9 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Resources;
 
 namespace App.FakeEntity.Brandes
 {
-	public class BrandViewModel
+    public class BrandViewModel
 	{
 		[Display(Name="Description", ResourceType=typeof(FormUI))]
 		public string Description
@@ -45,10 +43,6 @@ namespace App.FakeEntity.Brandes
 		{
 			get;
 			set;
-		}
-
-		public BrandViewModel()
-		{
 		}
 	}
 }

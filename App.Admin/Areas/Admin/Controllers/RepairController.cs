@@ -51,8 +51,8 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditRepair")]
         public ActionResult Create()
         {
-            int id = 1;
-            Repair repair = _repairService.GetTop(1, x => x.RepairCode != null, x => x.Id).FirstOrDefault();
+            var id = 1;
+            var repair = _repairService.GetTop(1, x => x.RepairCode != null, x => x.Id).FirstOrDefault();
             if (repair != null)
             {
                 id = repair.Id;
@@ -78,28 +78,28 @@ namespace App.Admin.Controllers
                     return View(repair);
                 }
 
-                HttpFileCollectionBase files = Request.Files;
-                List<RepairGallery> repairGalleries = new List<RepairGallery>();
+                var files = Request.Files;
+                var repairGalleries = new List<RepairGallery>();
                 if (files.Count > 0)
                 {
-                    int count = files.Count - 1;
-                    int num = 0;
-                    string[] allKeys = files.AllKeys;
-                    for (int i = 0; i < allKeys.Length; i++)
+                    var count = files.Count - 1;
+                    var num = 0;
+                    var allKeys = files.AllKeys;
+                    for (var i = 0; i < allKeys.Length; i++)
                     {
-                        string str = allKeys[i];
+                        var str = allKeys[i];
                         if (num <= count)
                         {
                             if (!str.Equals("Image"))
                             {
-                                HttpPostedFileBase httpPostedFileBase = files[num];
+                                var httpPostedFileBase = files[num];
                                 if (httpPostedFileBase.ContentLength > 0)
                                 {
-                                    RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel
+                                    var repairGalleryViewModel = new RepairGalleryViewModel
                                     {
                                         RepairId = repair.Id
                                     };
-                                    string str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
+                                    var str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
                                     _imagePlugin.CropAndResizeImage(httpPostedFileBase,
                                         $"{Contains.ImageFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                     repairGalleryViewModel.ImagePath =
@@ -115,12 +115,12 @@ namespace App.Admin.Controllers
                         }
                     }
                 }
-                Repair repair1 = Mapper.Map<RepairViewModel, Repair>(repair);
+                var repair1 = Mapper.Map<RepairViewModel, Repair>(repair);
                 if (repairGalleries.IsAny())
                 {
                     repair1.RepairGalleries = repairGalleries;
                 }
-                List<RepairItem> repairItems = new List<RepairItem>();
+                var repairItems = new List<RepairItem>();
                 if (repair.RepairItems.IsAny())
                 {
                     repairItems.AddRange(
@@ -144,7 +144,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Repair.Create: ", exception.Message));
                 ModelState.AddModelError("", exception.Message);
                 return View(repair);
@@ -159,13 +159,13 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    List<Repair> repairs = new List<Repair>();
-                    List<RepairGallery> repairGalleries = new List<RepairGallery>();
-                    string[] strArrays = ids;
-                    for (int i = 0; i < strArrays.Length; i++)
+                    var repairs = new List<Repair>();
+                    var repairGalleries = new List<RepairGallery>();
+                    var strArrays = ids;
+                    for (var i = 0; i < strArrays.Length; i++)
                     {
-                        int num = int.Parse(strArrays[i]);
-                        Repair repair = _repairService.Get(x => x.Id == num);
+                        var num = int.Parse(strArrays[i]);
+                        var repair = _repairService.Get(x => x.Id == num);
                         repairGalleries.AddRange(repair.RepairGalleries.ToList());
                         repairs.Add(repair);
                     }
@@ -175,7 +175,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Repair.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -191,17 +191,17 @@ namespace App.Admin.Controllers
             }
             try
             {
-                RepairGallery repairGallery = _galleryService.Get(x => x.RepairId == repairId && x.Id == galleryId);
+                var repairGallery = _galleryService.Get(x => x.RepairId == repairId && x.Id == galleryId);
                 _galleryService.Delete(repairGallery);
-                string str = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
-                string str1 = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
+                var str = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
+                var str1 = Server.MapPath(string.Concat("~/", repairGallery.ImagePath));
                 System.IO.File.Delete(str);
                 System.IO.File.Delete(str1);
                 actionResult = Json(new { success = true });
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 actionResult = Json(new { success = false, messages = exception.Message });
             }
             return actionResult;
@@ -210,7 +210,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditRepair")]
         public ActionResult Edit(int id)
         {
-            RepairViewModel repairViewModel = Mapper.Map<Repair, RepairViewModel>(_repairService.Get(x => x.Id == id));
+            var repairViewModel = Mapper.Map<Repair, RepairViewModel>(_repairService.Get(x => x.Id == id));
             return View(repairViewModel);
         }
 
@@ -228,29 +228,29 @@ namespace App.Admin.Controllers
                     return View(repairView);
                 }
 
-                Repair repair = _repairService.Get(x => x.Id == repairView.Id);
-                HttpFileCollectionBase files = Request.Files;
-                List<RepairGallery> lstRepairGalleries = new List<RepairGallery>();
+                var repair = _repairService.Get(x => x.Id == repairView.Id);
+                var files = Request.Files;
+                var lstRepairGalleries = new List<RepairGallery>();
                 if (files.Count > 0)
                 {
-                    int count = files.Count - 1;
-                    int num = 0;
-                    string[] allKeys = files.AllKeys;
-                    for (int i = 0; i < allKeys.Length; i++)
+                    var count = files.Count - 1;
+                    var num = 0;
+                    var allKeys = files.AllKeys;
+                    for (var i = 0; i < allKeys.Length; i++)
                     {
-                        string str = allKeys[i];
+                        var str = allKeys[i];
                         if (num <= count)
                         {
                             if (!str.Equals("Image"))
                             {
-                                HttpPostedFileBase item = files[num];
+                                var item = files[num];
                                 if (item.ContentLength > 0)
                                 {
-                                    RepairGalleryViewModel repairGalleryViewModel = new RepairGalleryViewModel
+                                    var repairGalleryViewModel = new RepairGalleryViewModel
                                     {
                                         RepairId = repairView.Id
                                     };
-                                    string str1 = $"{repairView.RepairCode}-{Guid.NewGuid()}.jpg";
+                                    var str1 = $"{repairView.RepairCode}-{Guid.NewGuid()}.jpg";
                                     _imagePlugin.CropAndResizeImage(item,
                                         $"{Contains.ImageFolder}{repairView.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                     repairGalleryViewModel.ImagePath =
@@ -270,12 +270,12 @@ namespace App.Admin.Controllers
                 {
                     repair.RepairGalleries = lstRepairGalleries;
                 }
-                List<RepairItem> repairItems = new List<RepairItem>();
+                var repairItems = new List<RepairItem>();
                 if (repairView.RepairItems.IsAny())
                 {
-                    foreach (RepairItemViewModel repairItem in repairView.RepairItems)
+                    foreach (var repairItem in repairView.RepairItems)
                     {
-                        RepairItemViewModel repairItemViewModel = new RepairItemViewModel();
+                        var repairItemViewModel = new RepairItemViewModel();
                         if (repairItem.Id > 0)
                         {
                             repairItemViewModel.Id = repairItem.Id;
@@ -292,7 +292,7 @@ namespace App.Admin.Controllers
                 {
                     repair.RepairItems = repairItems;
                 }
-                IEnumerable<RepairItem> repairItems1 = _repairItemService.FindBy(x => x.RepairId == repairView.Id);
+                var repairItems1 = _repairItemService.FindBy(x => x.RepairId == repairView.Id);
                 _repairItemService.BatchDelete(repairItems1);
                 repair = Mapper.Map(repairView, repair);
                 _repairService.Update(repair);
@@ -308,7 +308,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ModelState.AddModelError("", exception.Message);
                 ExtentionUtils.Log(string.Concat("Repair.Edit: ", exception.Message));
                 return View(repairView);
@@ -320,7 +320,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -329,16 +329,16 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<Repair> repairs = _repairService.PagedList(sortingPagingBuilder, paging);
+            var repairs = _repairService.PagedList(sortingPagingBuilder, paging);
             if (repairs != null && repairs.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(repairs);
@@ -348,15 +348,15 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("edit") || filterContext.RouteData.Values["action"].Equals("create"))
             {
-                dynamic viewBag = ViewBag;
-                IBrandService brandService = _brandService;
+                var viewBag = ViewBag;
+                var brandService = _brandService;
                 viewBag.Brands = brandService.FindBy(x => x.Status == 1);
             }
         }
 
         public ActionResult WarrantyForm()
         {
-            RepairViewModel repairViewModel = new RepairViewModel();
+            var repairViewModel = new RepairViewModel();
             repairViewModel.RepairItems.Add(new RepairItemViewModel());
             return View(repairViewModel);
         }

@@ -1,23 +1,20 @@
-using Resources;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Web;
 using System.Web.Mvc;
+using Resources;
 
 namespace App.FakeEntity.Language
 {
 	public class LocalizedPropertyViewModel
 	{
         [AllowHtml]
-        [Display(Name= "LocaleValue", ResourceType=typeof(Resources.FormUI))]
+        [Display(Name= "LocaleValue", ResourceType=typeof(FormUI))]
 		public string LocaleValue
         {
 			get;
 			set;
 		}
 
-        [Display(Name = "LocaleValue", ResourceType = typeof(Resources.FormUI))]
+        [Display(Name = "LocaleValue", ResourceType = typeof(FormUI))]
         public string LocaleKey
         {
             get;
@@ -56,9 +53,5 @@ namespace App.FakeEntity.Language
             get;
             set;
         }
-
-        public LocalizedPropertyViewModel()
-		{
-		}
 	}
 }

@@ -42,7 +42,7 @@ namespace App.Admin.Controllers
 					return View(brand);
 				}
 
-			    Brand brand1 = Mapper.Map<BrandViewModel, Brand>(brand);
+			    var brand1 = Mapper.Map<BrandViewModel, Brand>(brand);
 			    _brandService.Create(brand1);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Brand)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -56,7 +56,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Brand.Create: ", exception.Message));
 				return View(brand);
 			}
@@ -70,7 +70,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<Brand> brands = 
+					var brands = 
 						from id in ids
 						select _brandService.GetById(int.Parse(id));
 					_brandService.BatchDelete(brands);
@@ -78,7 +78,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Brand.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -86,7 +86,7 @@ namespace App.Admin.Controllers
         		
 		public ActionResult Edit(int id)
 		{
-			BrandViewModel brandViewModel = Mapper.Map<Brand, BrandViewModel>(_brandService.GetById(id));
+			var brandViewModel = Mapper.Map<Brand, BrandViewModel>(_brandService.GetById(id));
 			return View(brandViewModel);
 		}
 
@@ -103,7 +103,7 @@ namespace App.Admin.Controllers
 					return View(brandView);
 				}
 
-			    Brand brand = Mapper.Map<BrandViewModel, Brand>(brandView);
+			    var brand = Mapper.Map<BrandViewModel, Brand>(brandView);
 			    _brandService.Update(brand);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Brand)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -117,7 +117,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(brandView);
 			}
@@ -128,7 +128,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -137,16 +137,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Brand> brands = _brandService.PagedList(sortingPagingBuilder, paging);
+			var brands = _brandService.PagedList(sortingPagingBuilder, paging);
 			if (brands != null && brands.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(brands);

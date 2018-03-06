@@ -46,7 +46,7 @@ namespace App.Admin.Controllers
 					return View(attributeValue);
 				}
 
-			    AttributeValue attributeValue1 = Mapper.Map<AttributeValueViewModel, AttributeValue>(attributeValue);
+			    var attributeValue1 = Mapper.Map<AttributeValueViewModel, AttributeValue>(attributeValue);
 			    _attributeValueService.Create(attributeValue1);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.AttributeValue)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -60,7 +60,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("District.Create: ", exception.Message));
 				return View(attributeValue);
 			}
@@ -74,7 +74,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<AttributeValue> attributeValues = 
+					var attributeValues = 
 						from id in ids
 						select _attributeValueService.GetById(int.Parse(id));
 					_attributeValueService.BatchDelete(attributeValues);
@@ -82,7 +82,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("District.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -91,7 +91,7 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="CreateEditDistrict")]
 		public ActionResult Edit(int id)
 		{
-			AttributeValueViewModel attributeValueViewModel = Mapper.Map<AttributeValue, AttributeValueViewModel>(_attributeValueService.GetById(id));
+			var attributeValueViewModel = Mapper.Map<AttributeValue, AttributeValueViewModel>(_attributeValueService.GetById(id));
 			return View(attributeValueViewModel);
 		}
 
@@ -108,7 +108,7 @@ namespace App.Admin.Controllers
 					return View(attributeValue);
 				}
 
-			    AttributeValue attributeValue1 = Mapper.Map<AttributeValueViewModel, AttributeValue>(attributeValue);
+			    var attributeValue1 = Mapper.Map<AttributeValueViewModel, AttributeValue>(attributeValue);
 			    _attributeValueService.Update(attributeValue1);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.AttributeValue)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -122,7 +122,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("District.Edit: ", exception.Message));
 				return View(attributeValue);
 			}
@@ -133,7 +133,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -142,17 +142,17 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			List<AttributeValue> list = _attributeValueService.PagedList(sortingPagingBuilder, paging).ToList();
+			var list = _attributeValueService.PagedList(sortingPagingBuilder, paging).ToList();
 			list.ForEach(item => item.Attribute = _attributeService.GetById(item.AttributeId));
 			if (list != null && list.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(list);
@@ -162,7 +162,7 @@ namespace App.Admin.Controllers
 		{
 			if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
 			{
-				IEnumerable<Attribute> all = _attributeService.GetAll();
+				var all = _attributeService.GetAll();
 				ViewBag.Attributes = all;
 			}
 		}

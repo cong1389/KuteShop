@@ -67,3 +67,15 @@ D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.csprojResolveAss
 D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.csproj.CoreCompileInputs.cache
 D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.dll
 D:\Project\Practice\AoThun\Source\App.Core\obj\Release\App.Core.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\App.Core.dll.config
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\App.Core.dll
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\App.Core.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\HtmlAgilityPack.dll
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\HtmlAgilityPack.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\HtmlAgilityPack.xml
+D:\FreeLance\2018\KuteShop\Source\App.Core\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2018\KuteShop\Source\App.Core\obj\Release\App.Core.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.Core\obj\Release\App.Core.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\App.Core\obj\Release\App.Core.dll
+D:\FreeLance\2018\KuteShop\Source\App.Core\obj\Release\App.Core.pdb

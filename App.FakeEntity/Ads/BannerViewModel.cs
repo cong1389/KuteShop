@@ -1,9 +1,8 @@
-using App.FakeEntity.Menu;
-using Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Web;
+using App.FakeEntity.Menu;
+using Resources;
 
 namespace App.FakeEntity.Ads
 {
@@ -122,10 +121,6 @@ namespace App.FakeEntity.Ads
 		{
 			get;
 			set;
-		}
-
-		public BannerViewModel()
-		{
 		}
 	}
 }

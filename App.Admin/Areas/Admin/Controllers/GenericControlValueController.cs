@@ -60,7 +60,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
+                var modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
                 _genericControlValueService.Create(modelMap);
 
                 Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Name)));
@@ -75,7 +75,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Create: ", exception.Message));
                 return View(model);
             }
@@ -89,7 +89,7 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    IEnumerable<GenericControlValue> genericControlValues =
+                    var genericControlValues =
                         from id in ids
                         select _genericControlValueService.GetById(int.Parse(id));
                     _genericControlValueService.BatchDelete(genericControlValues);
@@ -97,7 +97,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
@@ -106,7 +106,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
         public ActionResult Edit(int id)
         {
-            GenericControlValueViewModel genericControlValueViewModel = Mapper.Map<GenericControlValue, GenericControlValueViewModel>(_genericControlValueService.GetById(id));
+            var genericControlValueViewModel = Mapper.Map<GenericControlValue, GenericControlValueViewModel>(_genericControlValueService.GetById(id));
 
             //_genericControlValueService.GetById(Id)
 
@@ -127,7 +127,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                GenericControlValue modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
+                var modelMap = Mapper.Map<GenericControlValueViewModel, GenericControlValue>(model);
 
                 _genericControlValueService.Update(modelMap);
 
@@ -144,7 +144,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("GenericControlValue.Edit: ", exception.Message));
                 return View(model);
             }
@@ -155,7 +155,7 @@ namespace App.Admin.Controllers
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
-            SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+            var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
                 Sorts = new SortBuilder
@@ -164,17 +164,17 @@ namespace App.Admin.Controllers
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            List<GenericControlValue> list = _genericControlValueService.PagedList(sortingPagingBuilder, paging).ToList();
+            var list = _genericControlValueService.PagedList(sortingPagingBuilder, paging).ToList();
             list.ForEach(item => item.GenericControl = _genericControlService.GetById(item.GenericControlId));
             if (list != null && list.Any())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(list);
@@ -184,7 +184,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                IEnumerable<GenericControl> all = _genericControlService.GetAll();
+                var all = _genericControlService.GetAll();
                 ViewBag.GenericControls = all;
             }
         }
@@ -192,23 +192,23 @@ namespace App.Admin.Controllers
         [HttpPost]
         public JsonResult GetByMenuId(int menuId, int entityId)
         {
-            List<ControlValueItemResponse> lstValueResponse = new List<ControlValueItemResponse>();
+            var lstValueResponse = new List<ControlValueItemResponse>();
 
-            MenuLink menuLink = _menuLinkService.GetById(menuId);
+            var menuLink = _menuLinkService.GetById(menuId);
             if (menuLink != null)
             {
                 IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
                 if (ieGc.IsAny())
                 {
-                    foreach (GenericControl item in ieGc)
+                    foreach (var item in ieGc)
                     {
-                        IEnumerable<GenericControlValue> gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
+                        var gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
                         //if (gCVDefault.IsAny())
                         //    break;                       
 
                         foreach (var gcValue in gCvDefault)
                         {
-                            ControlValueItemResponse objValueResponse = new ControlValueItemResponse();
+                            var objValueResponse = new ControlValueItemResponse();
 
                             objValueResponse.GenericControlValueId = gcValue.Id;
                             objValueResponse.Name = gcValue.ValueName;
@@ -220,7 +220,7 @@ namespace App.Admin.Controllers
                 }
             }
 
-            JsonResult jsonResult = Json(
+            var jsonResult = Json(
                  new
                  {
                      success = lstValueResponse.Count() > 0,

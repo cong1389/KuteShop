@@ -48,7 +48,7 @@ namespace App.Admin.Controllers
             ViewBag.LanguageSelected = languageId;
             ViewBag.keywords = keywords;
 
-            IEnumerable<Language> all = _langService.GetAll();
+            var all = _langService.GetAll();
             ViewBag.AllLanguage = all;
 
             return View(resources);
@@ -67,7 +67,7 @@ namespace App.Admin.Controllers
 
         public ActionResult Edit(LocaleStringResourceViewModel model)
         {
-            LocaleStringResource locale = _services.Localization.GetById(model.Id);
+            var locale = _services.Localization.GetById(model.Id);
 
             if (locale != null)
             {
@@ -75,12 +75,12 @@ namespace App.Admin.Controllers
                 model.IsFromPlugin = locale.IsFromPlugin;
                 model.IsTouched = true;
 
-                LocaleStringResource localeByMap = Mapper.Map(model, locale);
+                var localeByMap = Mapper.Map(model, locale);
                 _localeStringResourceService.Update(localeByMap);
             }
             else
             {
-                LocaleStringResource localeByMap = Mapper.Map<LocaleStringResourceViewModel, LocaleStringResource>(model);
+                var localeByMap = Mapper.Map<LocaleStringResourceViewModel, LocaleStringResource>(model);
                 _localeStringResourceService.Create(localeByMap);
             }
 
@@ -97,7 +97,7 @@ namespace App.Admin.Controllers
 
         public ActionResult Delete(string id)
         {
-            LocaleStringResource locale = _services.Localization.GetById(int.Parse(id));
+            var locale = _services.Localization.GetById(int.Parse(id));
             _services.Localization.Delete(locale);
 
             return Json(
@@ -107,10 +107,10 @@ namespace App.Admin.Controllers
 
         public ActionResult NewRow(string languageId)
         {
-            LocaleStringResource model = new LocaleStringResource();
+            var model = new LocaleStringResource();
             model.LanguageId = int.Parse(languageId);
 
-            string newRow = RenderRazorViewToString("_NewRow", model);
+            var newRow = RenderRazorViewToString("_NewRow", model);
 
             return Json(new { data = newRow, success = true }, JsonRequestBehavior.AllowGet);
         }

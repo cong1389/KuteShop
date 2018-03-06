@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-
-namespace App.FakeEntity.Post
+﻿namespace App.FakeEntity.Post
 {
     public class PostGalleryViewModel
     {
@@ -45,10 +42,6 @@ namespace App.FakeEntity.Post
         {
             get;
             set;
-        }
-
-        public PostGalleryViewModel()
-        {
         }
     }
 }

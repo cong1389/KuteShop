@@ -301,7 +301,7 @@ namespace App.Aplication.Extensions
                 return null;
 
             destination.PaymentMethodSystemName = model.PaymentMethodSystemName;
-            destination.FullDescription = model.FullDescription;
+            destination.Description = model.Description;
 
             return destination;
         }

@@ -128,3 +128,12 @@ D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csproj
 D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csproj.CoreCompileInputs.cache
 D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
 D:\FreeLance\2017\AoThun\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll.config
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.dll
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\bin\Release\App.SeoSitemap.pdb
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\bin\Release\System.Web.Mvc.dll
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\bin\Release\System.Web.Mvc.xml
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.dll
+D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Release\App.SeoSitemap.pdb

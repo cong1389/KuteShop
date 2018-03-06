@@ -1,12 +1,10 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
+using System.Web.Mvc;
 using App.FakeEntity.Menu;
 using App.Service.Language;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Web;
-using System.Web.Mvc;
 
 namespace App.FakeEntity.Static
 {
@@ -124,7 +122,7 @@ namespace App.FakeEntity.Static
 
         public StaticContentViewModel()
 		{
-            this.Locales = new List<StaticContentLocalesViewModel>();
+            Locales = new List<StaticContentLocalesViewModel>();
         }
 	}
 

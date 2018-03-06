@@ -167,3 +167,14 @@ D:\Project\Practice\AoThun\Source\App.Domain\obj\Release\App.Domain.csprojResolv
 D:\Project\Practice\AoThun\Source\App.Domain\obj\Release\App.Domain.csproj.CoreCompileInputs.cache
 D:\Project\Practice\AoThun\Source\App.Domain\obj\Release\App.Domain.dll
 D:\Project\Practice\AoThun\Source\App.Domain\obj\Release\App.Domain.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\App.Domain.dll.config
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\App.Domain.dll
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\App.Domain.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\Autofac.dll
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\Autofac.Integration.Mvc.dll
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\Autofac.xml
+D:\FreeLance\2018\KuteShop\Source\App.Domain\bin\Release\Autofac.Integration.Mvc.xml
+D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Release\App.Domain.csprojResolveAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Release\App.Domain.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Release\App.Domain.dll
+D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Release\App.Domain.pdb

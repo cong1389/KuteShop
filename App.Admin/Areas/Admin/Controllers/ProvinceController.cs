@@ -42,7 +42,7 @@ namespace App.Admin.Controllers
 					return View(province);
 				}
 
-			    Province province1 = Mapper.Map<ProvinceViewModel, Province>(province);
+			    var province1 = Mapper.Map<ProvinceViewModel, Province>(province);
 			    _provinceService.Create(province1);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Provinces)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -56,7 +56,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Province.Create: ", exception.Message));
 				return View(province);
 			}
@@ -70,7 +70,7 @@ namespace App.Admin.Controllers
 			{
 				if (ids.Length != 0)
 				{
-					IEnumerable<Province> provinces = 
+					var provinces = 
 						from id in ids
 						select _provinceService.GetById(int.Parse(id));
 					_provinceService.BatchDelete(provinces);
@@ -78,7 +78,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("Province.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
@@ -87,7 +87,7 @@ namespace App.Admin.Controllers
 		[RequiredPermisson(Roles="ViewProvince")]
 		public ActionResult Edit(int id)
 		{
-			ProvinceViewModel provinceViewModel = Mapper.Map<Province, ProvinceViewModel>(_provinceService.GetById(id));
+			var provinceViewModel = Mapper.Map<Province, ProvinceViewModel>(_provinceService.GetById(id));
 			return View(provinceViewModel);
 		}
 
@@ -104,7 +104,7 @@ namespace App.Admin.Controllers
 					return View(provinceView);
 				}
 
-			    Province province = Mapper.Map<ProvinceViewModel, Province>(provinceView);
+			    var province = Mapper.Map<ProvinceViewModel, Province>(provinceView);
 			    _provinceService.Update(province);
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Provinces)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
@@ -118,7 +118,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception exception1)
 			{
-				Exception exception = exception1;
+				var exception = exception1;
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(provinceView);
 			}
@@ -129,7 +129,7 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			ViewBag.Keywords = keywords;
-			SortingPagingBuilder sortingPagingBuilder = new SortingPagingBuilder
+			var sortingPagingBuilder = new SortingPagingBuilder
 			{
 				Keywords = keywords,
 				Sorts = new SortBuilder
@@ -138,16 +138,16 @@ namespace App.Admin.Controllers
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};
-			Paging paging = new Paging
+			var paging = new Paging
 			{
 				PageNumber = page,
 				PageSize = PageSize,
 				TotalRecord = 0
 			};
-			IEnumerable<Province> provinces = _provinceService.PagedList(sortingPagingBuilder, paging);
+			var provinces = _provinceService.PagedList(sortingPagingBuilder, paging);
 			if (provinces != null && provinces.Any())
 			{
-				Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(provinces);

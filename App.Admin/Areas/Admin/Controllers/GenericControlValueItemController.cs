@@ -41,14 +41,14 @@ namespace App.Admin.Controllers
         {
             IEnumerable<GenericControlValueItem> genericControlValueItem = null;
 
-            genericControlValueItem = _genericControlValueItemService.GetByOption(genericControlValueId: menuId, entity: entityId);
+            genericControlValueItem = _genericControlValueItemService.GetByOption(menuId, entity: entityId);
 
             if (genericControlValueItem.IsAny())
             {
 
             }
 
-            JsonResult jsonResult = Json(
+            var jsonResult = Json(
                  new
                  {
                      success = genericControlValueItem.Count() > 0,
@@ -67,10 +67,10 @@ namespace App.Admin.Controllers
             {
                 var data = JsonConvert.DeserializeObject<GenericControlValueResponse>(param);
 
-                foreach (ControlValueItemResponse item in data.controlValueItemResponse)
+                foreach (var item in data.controlValueItemResponse)
                 {
                     //Get data
-                    GenericControlValueItem model = _genericControlValueItemService.Get(x => x.EntityId == entityId
+                    var model = _genericControlValueItemService.Get(x => x.EntityId == entityId
                     && x.GenericControlValueId == item.GenericControlValueId);
 
                     if (model != null)
@@ -101,7 +101,7 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("District.Edit: ", ex.Message));
             }
-            JsonResult jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
@@ -132,7 +132,7 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("District.Edit: ", exception.Message));
             }
-            JsonResult jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }

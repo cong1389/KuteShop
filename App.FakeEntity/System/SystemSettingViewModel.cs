@@ -1,11 +1,9 @@
-using App.Service.Language;
-using Resources;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using App.Service.Language;
+using Resources;
 
 namespace App.FakeEntity.System
 {
@@ -152,7 +150,7 @@ namespace App.FakeEntity.System
 
         public SystemSettingViewModel()
 		{
-            this.Locales = new List<SystemSettingLocalesViewModel>();
+            Locales = new List<SystemSettingLocalesViewModel>();
         }
 	}
 

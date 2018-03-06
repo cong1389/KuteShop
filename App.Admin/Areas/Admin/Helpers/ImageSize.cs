@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Specialized;
 using System.Configuration;
 
 namespace App.Admin.Helpers
 {
-	public static class ImageSize
+    public static class ImageSize
 	{
 		public static int HeightBigSize
 		{
@@ -30,17 +28,7 @@ namespace App.Admin.Helpers
 			}
 		}
 
-        public static int FlowStep_HeightMediumSize
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]))
-                {
-                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
-                }
-                return int.Parse(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]);
-            }
-        }
+        
 
         public static int HeightMediumSize
 		{
@@ -183,6 +171,64 @@ namespace App.Admin.Helpers
                     return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["FlowStep_WithMediumSize"]);
+            }
+        }
+        public static int FlowStep_HeightMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]);
+            }
+        }
+
+        public static int Manufacture_WithMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["Manufacture_WithMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["Manufacture_WithMediumSize"]);
+            }
+        }
+        public static int Manufacture_HeightMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["Manufacture_HeightMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["Manufacture_HeightMediumSize"]);
+            }
+        }
+
+
+        public static int PaymentMethod_WithMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PaymentMethod_WithMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["PaymentMethod_WithMediumSize"]);
+            }
+        }
+        public static int PaymentMethod_HeightMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PaymentMethod_HeightMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["PaymentMethod_HeightMediumSize"]);
             }
         }
 

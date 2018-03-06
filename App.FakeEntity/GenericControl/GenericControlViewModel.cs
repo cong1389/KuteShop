@@ -1,9 +1,7 @@
-using App.Domain.Entities.Menu;
-using App.FakeEntity.Menu;
-using App.Service.Language;
-using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using App.Service.Language;
+using Resources;
 
 namespace App.FakeEntity.GenericControl
 {
@@ -66,7 +64,7 @@ namespace App.FakeEntity.GenericControl
 
         public GenericControlViewModel()
         {
-            this.Locales = new List<GenericControlLocalesViewModel>();
+            Locales = new List<GenericControlLocalesViewModel>();
         }
     }
 

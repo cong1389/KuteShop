@@ -1,9 +1,9 @@
-﻿using App.Core.Common;
-using App.Domain.Common;
-using App.FakeEntity.Post;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using App.Core.Common;
+using App.Domain.Common;
+using App.FakeEntity.Post;
 
 namespace App.FakeEntity.Orders
 {
@@ -313,9 +313,6 @@ namespace App.FakeEntity.Orders
 
         public class OrderItemModel : AuditableEntity<int>
         {
-            public OrderItemModel()
-            {
-            }
             public int PostId { get; set; }
             public string PostName { get; set; }
 

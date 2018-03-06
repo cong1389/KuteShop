@@ -82,3 +82,13 @@ D:\Project\Practice\AoThun\Source\Resources\obj\Release\Resources.csproj.Generat
 D:\Project\Practice\AoThun\Source\Resources\obj\Release\Resources.csproj.CoreCompileInputs.cache
 D:\Project\Practice\AoThun\Source\Resources\obj\Release\Resources.dll
 D:\Project\Practice\AoThun\Source\Resources\obj\Release\Resources.pdb
+D:\FreeLance\2018\KuteShop\Source\Resources\bin\Release\Resources.dll
+D:\FreeLance\2018\KuteShop\Source\Resources\bin\Release\Resources.pdb
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.ModelValidationResources.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.MessageUI.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.FormUI.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.IdentityValidateResource.resources
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.csproj.GenerateResource.Cache
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.csproj.CoreCompileInputs.cache
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.dll
+D:\FreeLance\2018\KuteShop\Source\Resources\obj\Release\Resources.pdb

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-
-namespace App.FakeEntity.Repairs
+﻿namespace App.FakeEntity.Repairs
 {
     public class RepairGalleryViewModel
     {
@@ -21,10 +18,6 @@ namespace App.FakeEntity.Repairs
         {
             get;
             set;
-        }
-
-        public RepairGalleryViewModel()
-        {
         }
     }
 }
