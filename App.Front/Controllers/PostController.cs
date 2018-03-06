@@ -324,7 +324,7 @@ namespace App.Front.Controllers
         {
             var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
 
-            if (!menuLinks.Any())
+            if (!menuLinks.IsAny())
             {
                 return HttpNotFound();
             }

@@ -1,0 +1,58 @@
+﻿<!---GetNewProductRelative2--->
+@using App.Aplication
+@model IEnumerable<App.Domain.Entities.Data.Post>
+@if (Model.IsAny())
+{
+    <div class="page-product-box">
+        <h3 class="heading">Có thể bạn quan tâm</h3>
+        <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav="true" data-margin="30" data-autoplayTimeout="1000" data-autoplayHoverPause="true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":3}}'>
+            @foreach (var post in Model)
+            {
+                <li>
+                    <div class="product-container">
+                        <div class="left-block">
+                            <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                            </a>
+                            <div class="quick-view">
+                                <a title="Add to my wishlist" class="heart" href="#"></a>
+                                <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
+                                <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
+                            </div>
+                            <div class="add-to-cart">
+                                <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                        <div class="right-block">
+                            <h5 class="product-name">
+                                <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a>
+                            </h5>
+                            <div class="content_price">
+                                <span class="price product-price">
+                                    @if (post.Price.HasValue && post.Discount.HasValue)
+                                    {
+                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
+                                    }
+                                    else if (post.Price.HasValue && !post.Discount.HasValue)
+                                    {
+                                        @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("LienHeDatHang.Lable")
+                                    }
+                                </span>
+                                @if (post.Discount.HasValue)
+                                {
+                                    <span class="price old-price">@Html.Raw(string.Format("{0:##,### VND}", post.Price)) </span>
+                                    <span class="product-discount">@Html.Raw(post.Discount + "%")</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+<!---/GetNewProductRelative2--->
