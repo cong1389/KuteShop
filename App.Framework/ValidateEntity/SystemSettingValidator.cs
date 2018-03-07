@@ -23,9 +23,14 @@ namespace App.Framework.ValidateEntity
 		public static bool IsValidFileType(HttpPostedFileBase file)
 		{
 			bool flag;
-			if ((file == null ? false : file.ContentLength > 0))
+			if (file != null && file.ContentLength > 0)
 			{
-				ImageFormat[] jpeg = { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff, ImageFormat.Icon };
+				ImageFormat[] jpeg =
+				{
+				    ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff,
+				    ImageFormat.Icon
+				};
+
 				using (Image image = Image.FromStream(file.InputStream))
 				{
 					if (!jpeg.Contains(image.RawFormat))
@@ -36,6 +41,7 @@ namespace App.Framework.ValidateEntity
 				}
 			}
 			flag = true;
+
 			return flag;
 		}
 	}

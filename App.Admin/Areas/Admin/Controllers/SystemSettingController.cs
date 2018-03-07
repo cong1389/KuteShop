@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,6 +15,7 @@ using App.Service.LocalizedProperty;
 using App.Service.SystemApp;
 using AutoMapper;
 using Resources;
+using static System.String;
 
 namespace App.Admin.Controllers
 {
@@ -62,12 +62,11 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
         public ActionResult Create(SystemSettingViewModel model, string returnUrl)
         {
-            ActionResult action;
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -78,10 +77,10 @@ namespace App.Admin.Controllers
                     var systemSettings = _systemSettingService.FindBy(x => x.Status == 1);
                     if (systemSettings.IsAny())
                     {
-                        foreach (var systemSetting1 in systemSettings)
+                        foreach (var item in systemSettings)
                         {
-                            systemSetting1.Status = 0;
-                            _systemSettingService.Update(systemSetting1);
+                            item.Status = 0;
+                            _systemSettingService.Update(item);
                         }
                     }
                 }
@@ -90,30 +89,34 @@ namespace App.Admin.Controllers
                 {
                     var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
-                    fileName = string.Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    fileName = Concat("favicon", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
+                    {
                         System.IO.File.Delete(str);
+                    }
 
                     model.Favicon.SaveAs(str);
-                    model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
+                    model.FaviconImage = Concat(Contains.ImageFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
-                    fileName = string.Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    fileName = Concat("logo", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
+                    {
                         System.IO.File.Delete(str);
+                    }
 
                     model.Logo.SaveAs(str);
-                    model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
+                    model.LogoImage = Concat(Contains.ImageFolder, fileName);
                 }
 
                 var modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model);
@@ -132,24 +135,21 @@ namespace App.Admin.Controllers
                     _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
                 }
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SystemSetting)));
+                Response.Cookies.Add(new HttpCookie("system_message", Format(MessageUI.CreateSuccess, FormUI.SystemSetting)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
-                    action = RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    action = Redirect(returnUrl);
-                }
+
+                return Redirect(returnUrl);
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("SystemSetting.Create: ", exception.Message));
-                ModelState.AddModelError("", exception.Message);
+                ExtentionUtils.Log(Concat("SystemSetting.Create: ", ex.Message));
+                ModelState.AddModelError("", ex.Message);
+
                 return View(model);
             }
-            return action;
         }
 
         [RequiredPermisson(Roles = "DeleteSystemSetting")]
@@ -165,11 +165,11 @@ namespace App.Admin.Controllers
                     _systemSettingService.BatchDelete(systemSettings);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("SystemSetting.Delete: ", exception.Message));
+                ExtentionUtils.Log(Concat("SystemSetting.Delete: ", ex.Message));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -187,6 +187,7 @@ namespace App.Admin.Controllers
                 locale.Status = modelMap.Status;
                 locale.Favicon = modelMap.Favicon;
                 locale.LogoImage = modelMap.LogoImage;
+                locale.LogoFooterImage = modelMap.LogoFooterImage;
                 locale.MaintanceSite = modelMap.MaintanceSite;
                 locale.Hotline = modelMap.Hotline;
                 locale.Email = modelMap.Email;
@@ -208,14 +209,14 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
         public ActionResult Edit(SystemSettingViewModel model, string returnUrl)
         {
-            ActionResult action;
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                         .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
+
                     return View(model);
                 }
 
@@ -237,45 +238,51 @@ namespace App.Admin.Controllers
                 {
                     var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
-                    fileName = string.Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    fileName = Concat("favicon", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
+                    {
                         System.IO.File.Delete(str);
+                    }
 
                     model.Favicon.SaveAs(str);
-                    model.FaviconImage = string.Concat(Contains.ImageFolder, fileName);
+                    model.FaviconImage = Concat(Contains.ImageFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
-                    fileName = string.Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    fileName = Concat("logo", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
+                    {
                         System.IO.File.Delete(str);
+                    }
 
                     model.Logo.SaveAs(str);
-                    model.LogoImage = string.Concat(Contains.ImageFolder, fileName);
+                    model.LogoImage = Concat(Contains.ImageFolder, fileName);
                 }
 
                 if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
                 {
                     var fileName = Path.GetFileName(model.LogoFooter.FileName);
                     var extension = Path.GetExtension(model.LogoFooter.FileName);
-                    fileName = string.Concat("logoFooter", extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    fileName = Concat("logoFooter", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
+                    {
                         System.IO.File.Delete(str);
+                    }
 
                     model.LogoFooter.SaveAs(str);
-                    model.LogoFooterImage = string.Concat(Contains.ImageFolder, fileName);
+                    model.LogoFooterImage = Concat(Contains.ImageFolder, fileName);
                 }
 
                 var modelMap = Mapper.Map(model, byId);
@@ -294,30 +301,27 @@ namespace App.Admin.Controllers
                     _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Slogan, localized.Slogan, localized.LanguageId);
                 }
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.SystemSetting)));
+                Response.Cookies.Add(new HttpCookie("system_message", Format(MessageUI.UpdateSuccess, FormUI.SystemSetting)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
-                    action = RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    action = Redirect(returnUrl);
-                }
+
+                return Redirect(returnUrl);
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ModelState.AddModelError("", exception.Message);
-                ExtentionUtils.Log(string.Concat("SystemSetting.Edit: ", exception.Message));
+                ModelState.AddModelError("", ex.Message);
+                ExtentionUtils.Log(Concat("SystemSetting.Edit: ", ex.Message));
                 return View(model);
             }
-            return action;
         }
 
         [RequiredPermisson(Roles = "ViewSystemSetting")]
         public ActionResult Index(int page = 1, string keywords = "")
         {
             ViewBag.Keywords = keywords;
+
             var sortingPagingBuilder = new SortingPagingBuilder
             {
                 Keywords = keywords,
@@ -339,6 +343,7 @@ namespace App.Admin.Controllers
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
+
             return View(systemSettings);
         }
     }

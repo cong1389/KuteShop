@@ -51,7 +51,7 @@ namespace App.Front.Controllers
             ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
 
             //((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle;
-            //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;D:\Project\MVC\AoThun\AoThun_ANT\App.Front\App.Front\Views\Post\PostTimeLine.cshtml
+            //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;
             //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
             //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
             //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));

@@ -53,36 +53,6 @@ namespace App.Front.Controllers.Custom
             return ieMenuNav;
         }
 
-        [PartialCache("Long")]
-        public ActionResult GetFixedHomePage()
-        {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(template: new List<int> { 6 }, isDisplayHomePage: true);
-
-            if (menuLinks.Any())
-            {
-                IEnumerable<MenuNavViewModel> menuNav =
-                    from x in menuLinks
-                    select new MenuNavViewModel
-                    {
-                        MenuId = x.Id,
-                        ParentId = x.ParentId,
-                        MenuName = x.MenuName,
-                        SeoUrl = x.SeoUrl,
-                        OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageUrl,
-                        CurrentVirtualId = x.CurrentVirtualId,
-                        VirtualId = x.VirtualId,
-                        TemplateType = x.TemplateType,
-                        IconNav = x.Icon1,
-                        IconBar = x.Icon2
-                    };
-
-                menuNavs = CreateMenuNav(null, menuNav);
-            }
-            return PartialView(menuNavs);
-        }
-
         [ChildActionOnly]
         public ActionResult GetFooterLink()
         {
@@ -196,7 +166,7 @@ namespace App.Front.Controllers.Custom
         }
         
         [ChildActionOnly]
-        public ActionResult MenuNavLeft(string virtualId)
+        public PartialViewResult MenuNavLeft(string virtualId)
         {
             var ieMenuNav = PrepareMenuNavBase(virtualId);
 
@@ -205,6 +175,14 @@ namespace App.Front.Controllers.Custom
 
         [ChildActionOnly]
         public PartialViewResult MenuNavNews(string virtualId)
+        {
+            var ieMenuNav = PrepareMenuNavBase(virtualId);
+
+            return PartialView(ieMenuNav);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult MenuHomeSlide(string virtualId)
         {
             var ieMenuNav = PrepareMenuNavBase(virtualId);
 

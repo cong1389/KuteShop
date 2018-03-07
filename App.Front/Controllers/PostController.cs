@@ -138,7 +138,7 @@ namespace App.Front.Controllers
 
             //Get menu category filter
             IEnumerable<MenuLink> menuCategoryFilter = _menuLinkService.GetByOption(virtualId: virtualCategoryId);
-
+                
             if (menuCategoryFilter.IsAny())
             {
                 List<BreadCrumb> lstBreadCrumb = new List<BreadCrumb>();
@@ -180,9 +180,7 @@ namespace App.Front.Controllers
 
             return PartialView(postLocalized);
         }
-
-
-
+        
         [PartialCache("Medium")]
         public ActionResult PostDetail(string seoUrl)
         {

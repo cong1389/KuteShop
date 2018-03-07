@@ -26,7 +26,7 @@
                     </div>
                     <span class="toggle-menu"></span>
                     <div class="collapse navbar-collapse">
-                        @RenderManufacturer(mnuIndex,manufactorers)
+                        @RenderManufacturer(mnuIndex, manufactorers)
                     </div>
                 </div>
 
@@ -50,18 +50,9 @@
                                         mfIndex++;
                                         <div class="tab-panel @(mfIndex==1?"active":"")" id="tab-@string.Format("{0}_{1}", mnuIndex, mfIndex)">
                                             <div class="box-left">
-                                                <ul class="owl-intab owl-carousel" data-loop="true" data-items="1" data-autoplay="true" data-dots="false" data-nav="true">
-                                                    <li>
-                                                        <a href="ts1.html">
-                                                            <img src="/assets/255/1000074255/1000138323/banner-intab28e0e.jpg?v=8" alt="Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="ts2.html">
-                                                            <img src="/assets/255/1000074255/1000138323/jewelry-slide8e0e.jpg?v=8" alt="Image">
-                                                        </a>
-                                                    </li>
-                                                </ul>
+                                                @{
+                                                    Html.RenderAction("MenuHomeSlide", "MenuNav", new { virtualId = menuLink.VirtualId, area = "" });
+                                                }
                                             </div>
                                             <div class="box-right">
                                                 <ul class="product-list row">

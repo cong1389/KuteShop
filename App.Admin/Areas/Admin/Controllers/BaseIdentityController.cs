@@ -42,17 +42,16 @@ namespace App.Admin.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && UserManager != null)
+            if (disposing)
             {
-                UserManager.Dispose();
+                UserManager?.Dispose();
             }
             base.Dispose(disposing);
         }
 
         protected Guid GetGuid(string value)
         {
-            var guid = new Guid();
-            Guid.TryParse(value, out guid);
+            Guid.TryParse(value, out var guid);
             return guid;
         }
 

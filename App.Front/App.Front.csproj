@@ -805,6 +805,7 @@
     <Content Include="Views\MenuNav\GetTopHead.cshtml" />
     <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
     <Content Include="Views\Post\_PostByCategory.Post.cshtml" />
+    <Content Include="Views\MenuNav\MenuHomeSlide.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -857,7 +858,6 @@
     <Content Include="Views\GoogleMap\ShowGoogleMap.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\FlowForm.cshtml" />
-    <Content Include="Views\MenuNav\GetFixedHomePage.cshtml" />
     <Content Include="Views\MenuNav\GetFooterLink.cshtml" />
     <Content Include="Views\MenuNav\GetMenuCategory.cshtml" />
     <Content Include="Views\MenuNav\GetMenuLinkSideBar.cshtml" />
@@ -904,7 +904,6 @@
     <Content Include="Views\Shared\_BreadCrumb.cshtml" />
     <Content Include="Views\Shared\_ContactMap.cshtml" />
     <Content Include="Views\Shared\_ContactPartial.cshtml" />
-    <Content Include="Views\Shared\_HomePageForm.cshtml" />
     <Content Include="Views\Shared\_PagedLinks.cshtml" />
     <Content Include="Views\Shared\_PartialFixItemContent.cshtml" />
     <Content Include="Views\Shared\_PartialFlowForm.cshtml" />
@@ -917,7 +916,6 @@
     <Content Include="Views\Shared\_PartialWarranty.cshtml" />
     <Content Include="Views\Shared\_RepairResult.cshtml" />
     <Content Include="Views\Shared\_Scripts.cshtml" />
-    <Content Include="Views\Shared\_SlideProductHome.cshtml" />
     <Content Include="Views\Shared\_StyleSheet.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\ShoppingCart\OrderSummary.cshtml" />
