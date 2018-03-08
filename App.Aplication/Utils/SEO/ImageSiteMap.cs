@@ -1,21 +1,19 @@
-using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace App.Aplication.SEO
 {
-	public class ImageSiteMap
+    public class ImageSiteMap
 	{
-		private readonly ArrayList map;
+		private readonly ArrayList _map;
 
 		[XmlElement("url")]
 		public Location[] Locations
 		{
 			get
 			{
-				Location[] locationArray = new Location[this.map.Count];
-				this.map.CopyTo(locationArray);
+				Location[] locationArray = new Location[_map.Count];
+				_map.CopyTo(locationArray);
 				return locationArray;
 			}
 			set
@@ -24,19 +22,18 @@ namespace App.Aplication.SEO
 				{
 					return;
 				}
-				this.map.Clear();
-				Location[] locationArray = value;
-				for (int i = 0; i < (int)locationArray.Length; i++)
+				_map.Clear();
+				var locationArray = value;
+				foreach (var location in locationArray)
 				{
-					Location location = locationArray[i];
-					this.map.Add(location);
+				    _map.Add(location);
 				}
 			}
 		}
 
 		public ImageSiteMap()
 		{
-			this.map = new ArrayList();
+			_map = new ArrayList();
 		}
 
 		public class ImageInfo
@@ -62,18 +59,14 @@ namespace App.Aplication.SEO
 				set;
 			}
 
-			public ImageInfo()
+		    public bool ShouldSerializeLastModified()
 			{
-			}
-
-			public bool ShouldSerializeLastModified()
-			{
-				return !string.IsNullOrEmpty(this.LastModified);
+				return !string.IsNullOrEmpty(LastModified);
 			}
 
 			public bool ShouldSerializePriority()
 			{
-				return this.Priority.HasValue;
+				return Priority.HasValue;
 			}
 		}
 	}

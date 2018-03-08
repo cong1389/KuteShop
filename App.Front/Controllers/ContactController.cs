@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
-using App.Domain.Entities.GlobalSetting;
 using App.Front.Models;
 using App.Service.ContactInformation;
 using App.Service.Language;
@@ -44,7 +43,7 @@ namespace App.Front.Controllers
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
 
-            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
+            var breadCrumbs = new List<BreadCrumb>();
             if (menuLink != null)
             {
 
@@ -75,13 +74,13 @@ namespace App.Front.Controllers
                     return Json(new { succes = false, message = "Liên hệ chưa gửi được, vui lòng thử lại." });
                 }
 
-                ServerMailSetting serverMailSetting = _mailSettingService.Get(x => x.Status == 1);
-                string str = _systemSettingService.Get(x => x.Status == 1).Email;
-                string str1 = "Thông tin liên hệ";
-                string str2 = string.Concat("", "Người gửi: ", name, "<br>");
+                var serverMailSetting = _mailSettingService.Get(x => x.Status == 1);
+                var str = _systemSettingService.Get(x => x.Status == 1).Email;
+                var str1 = "Thông tin liên hệ";
+                var str2 = string.Concat("", "Người gửi: ", name, "<br>");
                 str2 = string.Concat(str2, string.Concat("E-mail: ", email), "<br>");
                 str2 = string.Concat(str2, content, "<br>");
-                SendMail sendMail = new SendMail();
+                var sendMail = new SendMail();
                 sendMail.InitMail(serverMailSetting.FromAddress, serverMailSetting.SmtpClient, serverMailSetting.UserID, serverMailSetting.Password, serverMailSetting.SMTPPort, serverMailSetting.EnableSSL);
                 sendMail.SendToMail("Email", str, new[] { str1, str2 });
                 actionResult = Json(new { success = true, message = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể." });

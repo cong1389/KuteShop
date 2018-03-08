@@ -84,27 +84,27 @@ namespace App.Admin.Controllers
                     var fileName = Path.GetFileName(model.Image.FileName);
                     var extension = Path.GetExtension(model.Image.FileName);
                     fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
                     model.Image.SaveAs(str1);
-                    model.ImageUrl = string.Concat(Contains.ImageFolder, fileName);
+                    model.ImageUrl = string.Concat(Contains.MenuFolder, fileName);
                 }
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
                     var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
                     var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
                     fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
+                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName1);
                     model.ImageIcon1.SaveAs(str2);
-                    model.Icon1 = string.Concat(Contains.ImageFolder, fileName1);
+                    model.Icon1 = string.Concat(Contains.MenuFolder, fileName1);
                 }
                 if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
                 {
                     var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
                     var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
                     fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
+                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName2);
                     model.ImageIcon2.SaveAs(str3);
-                    model.Icon2 = string.Concat(Contains.ImageFolder, fileName2);
+                    model.Icon2 = string.Concat(Contains.MenuFolder, fileName2);
                 }
                 if (model.ParentId.HasValue)
                 {
@@ -232,9 +232,10 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                              .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
+
                     return View(model);
                 }
 
@@ -254,27 +255,27 @@ namespace App.Admin.Controllers
                     var fileName = Path.GetFileName(model.Image.FileName);
                     var extension = Path.GetExtension(model.Image.FileName);
                     fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
                     model.Image.SaveAs(str1);
-                    model.ImageUrl = string.Concat(Contains.ImageFolder, fileName);
+                    model.ImageUrl = string.Concat(Contains.MenuFolder, fileName);
                 }
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
                     var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
                     var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
                     fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName1);
+                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName1);
                     model.ImageIcon1.SaveAs(str2);
-                    model.Icon1 = string.Concat(Contains.ImageFolder, fileName1);
+                    model.Icon1 = string.Concat(Contains.MenuFolder, fileName1);
                 }
                 if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
                 {
                     var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
                     var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
                     fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName2);
+                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName2);
                     model.ImageIcon2.SaveAs(str3);
-                    model.Icon2 = string.Concat(Contains.ImageFolder, fileName2);
+                    model.Icon2 = string.Concat(Contains.MenuFolder, fileName2);
                 }
                 var parentId = model.ParentId;
                 if (!parentId.HasValue)
@@ -393,8 +394,7 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                var all = _menuLinkService.GetAll();
-                ViewBag.MenuList = all;
+                ViewBag.MenuList = _menuLinkService.GetAll();
             }
         }
     }

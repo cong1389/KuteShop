@@ -4,13 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.System
 {
-	public class SystemSettingRepository : RepositoryBase<SystemSetting>, ISystemSettingRepository, IRepositoryBase<SystemSetting>
+    public class SystemSettingRepository : RepositoryBase<SystemSetting>, ISystemSettingRepository
 	{
 
         public SystemSettingRepository(IDbFactory dbFactory) : base(dbFactory)
@@ -19,7 +18,7 @@ namespace App.Infra.Data.Repository.System
 
 		public SystemSetting GetById(int id)
         {
-            SystemSetting systemSetting = FindBy(x => x.Id == id, false).FirstOrDefault();
+            SystemSetting systemSetting = FindBy(x => x.Id == id).FirstOrDefault();
             
             return systemSetting;
 		}

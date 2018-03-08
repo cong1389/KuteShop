@@ -1,9 +1,9 @@
-﻿using App.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using App.Core.Extensions;
 
 namespace App.Aplication.Filters
 {
@@ -41,10 +41,10 @@ namespace App.Aplication.Filters
             params string[] submitButtonNames)
         {
             // at least one submit button should be found (or being absent if 'inverse')
-            this._submitButtonNames = submitButtonNames;
-            this._requirement = requirement;
-            this._rule = rule;
-            this._inverse = inverse;
+            _submitButtonNames = submitButtonNames;
+            _requirement = requirement;
+            _rule = rule;
+            _inverse = inverse;
         }
 
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
@@ -56,15 +56,8 @@ namespace App.Aplication.Filters
         {
             try
             {
-                bool isMatch = false;
-                if (_rule == FormValueRequirementRule.MatchAny)
-                {
-                    isMatch = _submitButtonNames.Any(x => IsMatch(form, x));
-                }
-                else
-                {
-                    isMatch = _submitButtonNames.All(x => IsMatch(form, x));
-                }
+                bool isMatch;
+                isMatch = _rule == FormValueRequirementRule.MatchAny ? _submitButtonNames.Any(x => IsMatch(form, x)) : _submitButtonNames.All(x => IsMatch(form, x));
                 return isMatch;
             }
             catch 
@@ -93,12 +86,7 @@ namespace App.Aplication.Filters
                 }
             }
 
-            if (_inverse)
-            {
-                return value.IsEmpty();
-            }
-
-            return value.HasValue();
+            return _inverse ? value.IsEmpty() : value.HasValue();
         }
     }
 

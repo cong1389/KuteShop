@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
-using App.Domain.Entities.Slide;
 using App.Front.Models;
 using App.Service.Slide;
 
@@ -20,7 +18,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public ActionResult SlideShowHome()
         {
-            IEnumerable<SlideShow> slideShows = _slideShowService.FindBy(x => x.Status == 1, true);
+            var slideShows = _slideShowService.FindBy(x => x.Status == 1, true);
 
             if (slideShows == null)
             {

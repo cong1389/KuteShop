@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Ads
 
 		public PageBanner GetById(int Id)
 		{
-			PageBanner pageBanner = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			PageBanner pageBanner = FindBy(x => x.Id == Id).FirstOrDefault();
 			return pageBanner;
 		}
 

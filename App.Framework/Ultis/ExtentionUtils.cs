@@ -43,7 +43,7 @@ namespace App.Framework.Ultis
 					Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Logs"));
 				}
 				DateTime now = DateTime.Now;
-				string str1 = string.Format("{0}/{1}.txt", "Logs", now.ToString("yyyyMMdd"));
+				string str1 = $"{"Logs"}/{now.ToString("yyyyMMdd")}.txt";
 				if (!File.Exists(string.Concat(current.Server.MapPath("~/"), str1)))
 				{
 					File.Create(string.Concat(current.Server.MapPath("~/"), str1));
@@ -52,7 +52,7 @@ namespace App.Framework.Ultis
 				File.ReadAllLines(string.Concat(current.Server.MapPath("~/"), str1));
 				List<string> strs = new List<string>()
 				{
-					string.Format("{0}\t{1}\t{2}\r\n", DateTime.Now, txt, str)
+				    $"{DateTime.Now}\t{txt}\t{str}\r\n"
 				};
 				File.AppendAllText(string.Concat(current.Server.MapPath("~/"), str1), string.Join(Environment.NewLine, strs));
 				fileStream.Close();

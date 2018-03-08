@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Attribute
 
 		public AttributeValue GetById(int Id)
 		{
-			AttributeValue attributeValue = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			AttributeValue attributeValue = FindBy(x => x.Id == Id).FirstOrDefault();
 			return attributeValue;
 		}
 

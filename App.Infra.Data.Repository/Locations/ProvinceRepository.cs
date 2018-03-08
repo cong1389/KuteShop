@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public Province GetById(int id)
 		{
-			Province province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			Province province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

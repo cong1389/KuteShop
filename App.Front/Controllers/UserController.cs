@@ -1,5 +1,4 @@
 using System;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -26,19 +25,19 @@ namespace App.Front.Controllers
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             ActionResult action;
-            bool flag = HasPassword();
+            var flag = HasPassword();
             ViewBag.HasLocalPassword = flag;
             ViewBag.ReturnUrl = Url.Action("Index", "Home");
 
             if (!flag)
             {
-                ModelState item = ModelState["OldPassword"];
+                var item = ModelState["OldPassword"];
                 item?.Errors.Clear();
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult identityResult = await UserManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
-                    IdentityResult identityResult1 = identityResult;
+                    var identityResult = await UserManager.AddPasswordAsync(GetGuid(User.Identity.GetUserId()), model.NewPassword);
+                    var identityResult1 = identityResult;
                     if (!identityResult1.Succeeded)
                     {
                         AddErrors(identityResult1);
@@ -52,7 +51,7 @@ namespace App.Front.Controllers
             }
             else if (ModelState.IsValid)
             {
-                IdentityResult identityResult2 = await UserManager.ChangePasswordAsync(GetGuid(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+                var identityResult2 = await UserManager.ChangePasswordAsync(GetGuid(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                 if (!identityResult2.Succeeded)
                 {
                     ViewBag.Error = "Mật khẩu cũ không chính xác.";
@@ -71,12 +70,9 @@ namespace App.Front.Controllers
 
         protected bool HasPassword()
         {
-            IdentityUser identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
-            if (identityUser == null)
-            {
-                return false;
-            }
-            return identityUser.PasswordHash != null;
+            var identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
+
+            return identityUser?.PasswordHash != null;
         }
 
         public ActionResult Login()
@@ -93,7 +89,7 @@ namespace App.Front.Controllers
                 return View();
             }
 
-            IdentityUser identityUser = await UserManager.FindAsync(login.UserName, login.Password);
+            var identityUser = await UserManager.FindAsync(login.UserName, login.Password);
 
             if (identityUser == null)
             {
@@ -123,7 +119,7 @@ namespace App.Front.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityUser identityUser = new IdentityUser
+                    var identityUser = new IdentityUser
                     {
                         UserName = model.UserName,
                         Address = model.Address,
@@ -139,7 +135,7 @@ namespace App.Front.Controllers
                         Created = DateTime.UtcNow
                     };
 
-                    IdentityResult identityResult = await UserManager.CreateAsync(identityUser, model.Password);
+                    var identityResult = await UserManager.CreateAsync(identityUser, model.Password);
 
                     if (identityResult.Succeeded)
                     {
@@ -147,8 +143,8 @@ namespace App.Front.Controllers
                     }
                     else
                     {
-                        StringBuilder sb = new StringBuilder();
-                        foreach (string item in identityResult.Errors)
+                        var sb = new StringBuilder();
+                        foreach (var item in identityResult.Errors)
                         {
                             sb.Append(item);
                         }
@@ -168,9 +164,9 @@ namespace App.Front.Controllers
         private async Task SignInAsync(IdentityUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut("ExternalCookie");
-            ClaimsIdentity claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
-            IAuthenticationManager authenticationManager = AuthenticationManager;
-            AuthenticationProperties authenticationProperty = new AuthenticationProperties
+            var claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
+            var authenticationManager = AuthenticationManager;
+            var authenticationProperty = new AuthenticationProperties
             {
                 IsPersistent = isPersistent
             };

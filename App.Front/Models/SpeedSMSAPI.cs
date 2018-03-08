@@ -3,7 +3,7 @@ using System.Net;
 
 namespace App.Front.Models
 {
-	public class SpeedSmsapi
+    public class SpeedSmsapi
 	{
 		public const int TypeQc = 1;
 

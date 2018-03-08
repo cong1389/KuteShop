@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.SeoSetting
 
 		public SettingSeoGlobal GetById(int Id)
 		{
-			SettingSeoGlobal settingSeoGlobal = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			SettingSeoGlobal settingSeoGlobal = FindBy(x => x.Id == Id).FirstOrDefault();
 			return settingSeoGlobal;
 		}
 

@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.ShippingMethods
 
 		public ShippingMethod GetById(int id)
 		{
-			ShippingMethod province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			ShippingMethod province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

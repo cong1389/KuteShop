@@ -23,7 +23,7 @@ namespace App.Infra.Data.Repository.Gallery
 
 		public GalleryImage GetGalleryById(int id)
 		{
-			GalleryImage galleryImage = FindBy(x => x.Id == id, false).FirstOrDefault();
+			GalleryImage galleryImage = FindBy(x => x.Id == id).FirstOrDefault();
 			return galleryImage;
 		}
 	}

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -9,7 +8,6 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.Language;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
 using App.FakeEntity.Static;
@@ -20,6 +18,7 @@ using App.Service.Menu;
 using App.Service.Static;
 using AutoMapper;
 using Resources;
+using static System.String;
 
 namespace App.Admin.Controllers
 {
@@ -73,7 +72,7 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                            .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -86,7 +85,7 @@ namespace App.Admin.Controllers
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
                     var staticContentViewModel = model;
-                    staticContentViewModel.SeoUrl = string.Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
+                    staticContentViewModel.SeoUrl = Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
                 if (model.Image != null && model.Image.ContentLength > 0)
@@ -95,10 +94,10 @@ namespace App.Admin.Controllers
                     var extension = Path.GetExtension(model.Image.FileName);
                     fileName = fileName.FileNameFormat(extension);
 
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.ImageFolder)), fileName);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName);
 
                     model.Image.SaveAs(str);
-                    model.ImagePath = string.Concat(Contains.ImageFolder, fileName);
+                    model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
                 }
 
                 if (model.MenuId > 0)
@@ -123,7 +122,7 @@ namespace App.Admin.Controllers
                     _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
                 }
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.StaticContent)));
+                Response.Cookies.Add(new HttpCookie("system_message", Format(MessageUI.CreateSuccess, FormUI.StaticContent)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -136,7 +135,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Post.Create: ", exception.Message));
+                ExtentionUtils.Log(Concat("Post.Create: ", exception.Message));
                 ModelState.AddModelError("", exception.Message);
                 return View(model);
             }
@@ -172,7 +171,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Post.Delete: ", exception.Message));
+                ExtentionUtils.Log(Concat("Post.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
         }
@@ -221,15 +220,15 @@ namespace App.Admin.Controllers
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
                     var staticContentViewModel = model;
-                    staticContentViewModel.SeoUrl = string.Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
+                    staticContentViewModel.SeoUrl = Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
                     var extension = Path.GetExtension(model.Image.FileName);
                     var fileName = titleNonAccent.FileNameFormat(extension);
 
-                    model.Image.SaveAs(Path.Combine(Server.MapPath(string.Concat("~/", Contains.StaticContentFolder)), fileName));
-                    model.ImagePath = string.Concat(Contains.StaticContentFolder, fileName);
+                    model.Image.SaveAs(Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName));
+                    model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
                 }
 
                 if (model.MenuId > 0)
@@ -254,7 +253,7 @@ namespace App.Admin.Controllers
                     _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.MetaDescription, localized.MetaDescription, localized.LanguageId);
                 }
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.StaticContent)));
+                Response.Cookies.Add(new HttpCookie("system_message", Format(MessageUI.UpdateSuccess, FormUI.StaticContent)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -267,7 +266,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("Post.Edit: ", ex.Message));
+                ExtentionUtils.Log(Concat("Post.Edit: ", ex.Message));
                 return View(model);
             }
             return action;
@@ -293,7 +292,7 @@ namespace App.Admin.Controllers
                 TotalRecord = 0
             };
             var staticContents = _staticContentService.PagedList(sortingPagingBuilder, paging);
-            if (staticContents != null && staticContents.Any())
+            if (staticContents.IsAny())
             {
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;

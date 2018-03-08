@@ -26,7 +26,7 @@ namespace App.Infra.Data.Repository.Language
 
 		public Domain.Entities.Language.Language GetById(int id)
 		{
-            Domain.Entities.Language.Language language = FindBy(x => x.Id == id, false).FirstOrDefault();
+            Domain.Entities.Language.Language language = FindBy(x => x.Id == id).FirstOrDefault();
 
             return language;
 		}

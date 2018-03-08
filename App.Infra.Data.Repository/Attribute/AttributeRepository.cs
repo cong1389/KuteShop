@@ -17,7 +17,7 @@ namespace App.Infra.Data.Repository.Attribute
 
 		public Domain.Entities.Attribute.Attribute GetById(int Id)
 		{
-			Domain.Entities.Attribute.Attribute attribute = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			Domain.Entities.Attribute.Attribute attribute = FindBy(x => x.Id == Id).FirstOrDefault();
 			return attribute;
 		}
 

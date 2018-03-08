@@ -24,7 +24,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public GenericControlValueItem GetById(int id)
 		{
-			GenericControlValueItem GenericControlValueItem = FindBy(x => x.Id == id, false).FirstOrDefault();
+			GenericControlValueItem GenericControlValueItem = FindBy(x => x.Id == id).FirstOrDefault();
 			return GenericControlValueItem;
 		}
 	}

@@ -1,20 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 
 namespace App.Aplication.PagedSort.SortUtils
 {
-	public class SortExpressionCollectionConverter : TypeConverter
+    public class SortExpressionCollectionConverter : TypeConverter
 	{
 		public const char SortExpressionDelimiter = ';';
 
-		public SortExpressionCollectionConverter()
-		{
-		}
-
-		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+	    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
 			if (sourceType == typeof(string))
 			{
@@ -38,8 +33,8 @@ namespace App.Aplication.PagedSort.SortUtils
 			{
 				return new SortExpressionCollection();
 			}
-			string str = value as string;
-			if (str == null)
+
+		    if (!(value is string str))
 			{
 				return base.ConvertFrom(context, culture, value);
 			}
@@ -47,18 +42,17 @@ namespace App.Aplication.PagedSort.SortUtils
 			{
 				return new SortExpressionCollection();
 			}
-			string[] strArrays = str.Split(new char[] { ';' });
-			if ((int)strArrays.Length < 1)
+			string[] strArrays = str.Split(';');
+			if (strArrays.Length < 1)
 			{
 				return new SortExpressionCollection();
 			}
 			SortExpressionCollection sortExpressionCollection = new SortExpressionCollection();
 			TypeConverter converter = TypeDescriptor.GetConverter(typeof(SortExpression));
 			string[] strArrays1 = strArrays;
-			for (int i = 0; i < (int)strArrays1.Length; i++)
+			for (int i = 0; i < strArrays1.Length; i++)
 			{
-				SortExpression sortExpression = converter.ConvertFrom(strArrays1[i]) as SortExpression;
-				if (sortExpression != null)
+			    if (converter.ConvertFrom(strArrays1[i]) is SortExpression sortExpression)
 				{
 					sortExpressionCollection.Add(sortExpression);
 				}
@@ -70,9 +64,9 @@ namespace App.Aplication.PagedSort.SortUtils
 		{
 			if (value != null && !(value is SortExpressionCollection))
 			{
-				throw new Exception(string.Format("Unable to convert type '{0}'!", value.GetType()));
+				throw new Exception($"Unable to convert type '{value.GetType()}'!");
 			}
-			SortExpressionCollection sortExpressionCollection = value as SortExpressionCollection;
+			var sortExpressionCollection = (SortExpressionCollection) value;
 			if (destinationType != typeof(string))
 			{
 				return base.ConvertTo(context, culture, value, destinationType);

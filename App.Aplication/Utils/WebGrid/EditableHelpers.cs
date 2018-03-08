@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace App.Aplication.WebGrid
@@ -82,7 +78,7 @@ namespace App.Aplication.WebGrid
         private static string GetIcon(string iconName)
         {
             var icon = new TagBuilder("i");
-            icon.AddCssClass(String.Format("glyphicon glyphicon-{0}", iconName));
+            icon.AddCssClass($"glyphicon glyphicon-{iconName}");
 
             return icon.ToString(TagRenderMode.Normal);
         }

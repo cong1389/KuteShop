@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.MailSetting
 
 		public ServerMailSetting GetById(int Id)
 		{
-			ServerMailSetting serverMailSetting = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			ServerMailSetting serverMailSetting = FindBy(x => x.Id == Id).FirstOrDefault();
 			return serverMailSetting;
 		}
 

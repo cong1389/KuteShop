@@ -17,7 +17,7 @@ namespace App.Infra.Data.Repository.GenericAttribute
 
         public Domain.Entities.Data.GenericAttribute GetAttributeById(int Id)
         {
-            Domain.Entities.Data.GenericAttribute attribute = FindBy(x => x.Id == Id, false).FirstOrDefault();
+            Domain.Entities.Data.GenericAttribute attribute = FindBy(x => x.Id == Id).FirstOrDefault();
             return attribute;
         }
 

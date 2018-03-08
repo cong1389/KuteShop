@@ -16,19 +16,19 @@ namespace App.Infra.Data.Repository.Account
 
 		public ExternalLogin GetByProviderAndKey(string loginProvider, string providerKey)
 		{
-			ExternalLogin externalLogin = Get(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			ExternalLogin externalLogin = Get(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
 			return externalLogin;
 		}
 
 		public Task<ExternalLogin> GetByProviderAndKeyAsync(string loginProvider, string providerKey)
 		{
-			Task<ExternalLogin> async = GetAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			Task<ExternalLogin> async = GetAsync(x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
 			return async;
 		}
 
 		public Task<ExternalLogin> GetByProviderAndKeyAsync(CancellationToken cancellationToken, string loginProvider, string providerKey)
 		{
-			Task<ExternalLogin> async = GetAsync(cancellationToken, x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey, false);
+			Task<ExternalLogin> async = GetAsync(cancellationToken, x => x.LoginProvider == loginProvider && x.ProviderKey == providerKey);
 			return async;
 		}
 

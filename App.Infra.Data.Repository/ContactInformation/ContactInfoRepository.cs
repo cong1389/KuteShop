@@ -19,7 +19,7 @@ namespace App.Infra.Data.Repository.ContactInformation
 		{
             Domain.Entities.GlobalSetting.ContactInformation ContactInformation = 
                 FindBy(x 
-                => x.Id == Id, false).FirstOrDefault();
+                => x.Id == Id).FirstOrDefault();
 			return ContactInformation;
 		}
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -29,7 +28,7 @@ namespace App.Aplication
 			string expressionText = ExpressionHelper.GetExpressionText(propertyExpression);
 			string fullHtmlFieldName = html.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
 			Func<TValue, string> func = null;
-			func = (indexResolverExpression != null ? indexResolverExpression.Compile() : new Func<TValue, string>((TValue x) => null));
+			func = indexResolverExpression?.Compile() ?? (x => null);
 			foreach (TValue tValue in tValues)
 			{
 				stringBuilder.Append("<div class=\"item-render\">");
@@ -39,9 +38,9 @@ namespace App.Aplication
 				str = (!string.IsNullOrEmpty(str) ? html.AttributeEncode(str) : Guid.NewGuid().ToString());
 				if (includeIndexField)
 				{
-					stringBuilder.Append(FormRenderCollection._EditorForManyIndexField<TValue>(fullHtmlFieldName, str, indexResolverExpression));
+					stringBuilder.Append(_EditorForManyIndexField(fullHtmlFieldName, str, indexResolverExpression));
 				}
-				stringBuilder.Append(html.EditorFor<TModel, TValue>(expression, null, string.Format("{0}[{1}]", expressionText, str)));
+				stringBuilder.Append(html.EditorFor(expression, null, $"{expressionText}[{str}]"));
 				stringBuilder.Append("</div>");
 			}
 			return new MvcHtmlString(stringBuilder.ToString());
@@ -58,7 +57,7 @@ namespace App.Aplication
 			}
 			string str = htmlFieldPrefix.Substring(0, num);
 			string str1 = htmlFieldPrefix.Substring(num + 1, num1 - num - 1);
-			return FormRenderCollection._EditorForManyIndexField<TModel>(str, str1, indexResolverExpression);
+			return _EditorForManyIndexField(str, str1, indexResolverExpression);
 		}
 	}
 }

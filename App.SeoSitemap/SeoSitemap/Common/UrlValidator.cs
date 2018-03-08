@@ -25,7 +25,7 @@ namespace App.SeoSitemap.Common
 				string str = value.ToString();
 				if (!Uri.IsWellFormedUriString(str, UriKind.Absolute) && Uri.IsWellFormedUriString(str, UriKind.Relative))
 				{
-					string str1 = string.Format("{0}/{1}", baseUrlProvider.BaseUrl.ToString().TrimEnd(new char[] { '/' }), str.TrimStart(new char[] { '/' }));
+					string str1 = $"{baseUrlProvider.BaseUrl.ToString().TrimEnd(new char[] {'/'})}/{str.TrimStart(new char[] {'/'})}";
 					propertyInfo.SetValue(item, str1, null);
 				}
 			}

@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public GenericControlValue GetById(int Id)
 		{
-			GenericControlValue GenericControlValue = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			GenericControlValue GenericControlValue = FindBy(x => x.Id == Id).FirstOrDefault();
 			return GenericControlValue;
 		}
 

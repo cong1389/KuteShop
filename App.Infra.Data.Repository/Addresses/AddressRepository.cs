@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Addresses
 
 		public Address GetById(int id)
 		{
-            Address address = FindBy(x => x.Id == id, false).FirstOrDefault();
+            Address address = FindBy(x => x.Id == id).FirstOrDefault();
 
             return address;
 		}

@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Brandes
 
 		public Brand GetById(int id)
 		{
-			Brand province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			Brand province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

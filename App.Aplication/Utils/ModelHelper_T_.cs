@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace App.Aplication
 {
@@ -16,10 +14,6 @@ namespace App.Aplication
 		{
 			get;
 			set;
-		}
-
-		public ModelHelper()
-		{
 		}
 	}
 }

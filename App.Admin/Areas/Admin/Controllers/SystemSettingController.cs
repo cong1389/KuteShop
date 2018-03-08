@@ -87,10 +87,10 @@ namespace App.Admin.Controllers
 
                 if (model.Favicon != null && model.Favicon.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Favicon.FileName);
+                   // var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
-                    fileName = Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
+                    var fileName = Concat("favicon", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
@@ -99,15 +99,15 @@ namespace App.Admin.Controllers
                     }
 
                     model.Favicon.SaveAs(str);
-                    model.FaviconImage = Concat(Contains.ImageFolder, fileName);
+                    model.FaviconImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Logo.FileName);
+                    //var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
-                    fileName = Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
+                    var fileName = Concat("logo", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
@@ -116,7 +116,7 @@ namespace App.Admin.Controllers
                     }
 
                     model.Logo.SaveAs(str);
-                    model.LogoImage = Concat(Contains.ImageFolder, fileName);
+                    model.LogoImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 var modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model);
@@ -185,7 +185,7 @@ namespace App.Admin.Controllers
                 locale.LocalesId = modelMap.Id;
                 locale.Language = modelMap.Language;
                 locale.Status = modelMap.Status;
-                locale.Favicon = modelMap.Favicon;
+                locale.FaviconImage = modelMap.FaviconImage;
                 locale.LogoImage = modelMap.LogoImage;
                 locale.LogoFooterImage = modelMap.LogoFooterImage;
                 locale.MaintanceSite = modelMap.MaintanceSite;
@@ -236,10 +236,10 @@ namespace App.Admin.Controllers
 
                 if (model.Favicon != null && model.Favicon.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Favicon.FileName);
+                    // var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
-                    fileName = Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
+                    var fileName = Concat("favicon", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
@@ -248,15 +248,15 @@ namespace App.Admin.Controllers
                     }
 
                     model.Favicon.SaveAs(str);
-                    model.FaviconImage = Concat(Contains.ImageFolder, fileName);
+                    model.FaviconImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Logo.FileName);
+                    //  var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
-                    fileName = Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
+                    var fileName = Concat("logo", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
@@ -265,15 +265,15 @@ namespace App.Admin.Controllers
                     }
 
                     model.Logo.SaveAs(str);
-                    model.LogoImage = Concat(Contains.ImageFolder, fileName);
+                    model.LogoImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.LogoFooter.FileName);
+                    //var fileName = Path.GetFileName(model.LogoFooter.FileName);
                     var extension = Path.GetExtension(model.LogoFooter.FileName);
-                    fileName = Concat("logoFooter", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.ImageFolder)), fileName);
+                    var fileName = Concat("logoFooter", extension);
+                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
                     if (System.IO.File.Exists(str))
@@ -282,7 +282,7 @@ namespace App.Admin.Controllers
                     }
 
                     model.LogoFooter.SaveAs(str);
-                    model.LogoFooterImage = Concat(Contains.ImageFolder, fileName);
+                    model.LogoFooterImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 var modelMap = Mapper.Map(model, byId);

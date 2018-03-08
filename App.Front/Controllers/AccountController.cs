@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
-using App.Domain.Entities.Menu;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
@@ -64,7 +61,8 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult ChangeInfo()
         {
-            RegisterFormViewModel registerFormViewModel = Mapper.Map<RegisterFormViewModel>(UserManager.FindByName(HttpContext.User.Identity.Name));
+            var registerFormViewModel = Mapper.Map<RegisterFormViewModel>(UserManager.FindByName(HttpContext.User.Identity.Name));
+
             return View(registerFormViewModel);
         }
 
@@ -78,6 +76,7 @@ namespace App.Front.Controllers
         public ActionResult CreatePost()
         {
             UserManager.FindByName(HttpContext.User.Identity.Name);
+
             return View(new PostViewModel());
         }
 
@@ -94,64 +93,64 @@ namespace App.Front.Controllers
                 }
                 else
                 {
-                    string str = post.Title.NonAccent();
-                    IEnumerable<Post> bySeoUrl = _postService.GetListSeoUrl(str);
+                    var str = post.Title.NonAccent();
+                    var bySeoUrl = _postService.GetListSeoUrl(str);
                     post.SeoUrl = post.Title.NonAccent();
                     if (bySeoUrl.Any(x => x.Id != post.Id))
                     {
-                        PostViewModel postViewModel = post;
+                        var postViewModel = post;
                         postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
                     }
                     if (post.Image != null && post.Image.ContentLength > 0)
                     {
-                        string str1 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        string str2 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        string str3 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                        _imagePlugin.CropAndResizeImage(post.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
-                        post.ImageBigSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str1);
-                        post.ImageMediumSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str2);
-                        post.ImageSmallSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str3);
+                        var str1 = $"{str}-{Utils.GetTime()}";
+                        var str2 = $"{str}-{Utils.GetTime()}";
+                        var str3 = $"{str}-{Utils.GetTime()}";
+                        _imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                        post.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
+                        post.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
+                        post.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
                     }
-                    int? menuId = post.MenuId;
-                    int i = 0;
-                    if ((menuId.GetValueOrDefault() > i ? menuId.HasValue : false))
+                    var menuId = post.MenuId;
+                    var i = 0;
+                    if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                     {
-                        IMenuLinkService menuLinkService = _menuLinkService;
+                        var menuLinkService = _menuLinkService;
                         menuId = post.MenuId;
-                        MenuLink byId = menuLinkService.GetById(menuId.Value);
+                        var byId = menuLinkService.GetById(menuId.Value);
                         post.VirtualCatUrl = byId.VirtualSeoUrl;
                         post.VirtualCategoryId = byId.VirtualId;
                     }
-                    HttpFileCollectionBase files = Request.Files;
+                    var files = Request.Files;
                     List<GalleryImage> galleryImages = null;
                     if (files.Count > 0)
                     {
                         galleryImages = new List<GalleryImage>();
-                        int count = files.Count - 1;
-                        int num = 0;
-                        string[] allKeys = files.AllKeys;
+                        var count = files.Count - 1;
+                        var num = 0;
+                        var allKeys = files.AllKeys;
                         for (i = 0; i < allKeys.Length; i++)
                         {
-                            string str4 = allKeys[i];
+                            var str4 = allKeys[i];
                             if (num <= count)
                             {
                                 if (!str4.Equals("Image"))
                                 {
-                                    HttpPostedFileBase item = files[num];
+                                    var item = files[num];
                                     if (item.ContentLength > 0)
                                     {
-                                        GalleryImageViewModel galleryImageViewModel = new GalleryImageViewModel
+                                        var galleryImageViewModel = new GalleryImageViewModel
                                         {
                                             PostId = post.Id
                                         };
-                                        string str5 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        string str6 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
-                                        galleryImageViewModel.ImageThumbnail = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str6);
-                                        galleryImageViewModel.ImagePath = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str5);
+                                        var str5 = $"{str}-{Utils.GetTime()}";
+                                        var str6 = $"{str}-{Utils.GetTime()}";
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                        galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
+                                        galleryImageViewModel.ImagePath = $"{Contains.PostFolder}/{str}/{str5}";
                                         galleryImageViewModel.OrderDisplay = num;
                                         galleryImageViewModel.Status = 1;
                                         galleryImageViewModel.Title = post.Title;
@@ -166,7 +165,7 @@ namespace App.Front.Controllers
                             }
                         }
                     }
-                    Post post1 = Mapper.Map<PostViewModel, Post>(post);
+                    var post1 = Mapper.Map<PostViewModel, Post>(post);
                     post1.GalleryImages = galleryImages;
                     _postService.Create(post1);
                     return RedirectToAction("PostManagement");
@@ -174,7 +173,7 @@ namespace App.Front.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ExtentionUtils.Log(string.Concat("Post.Create: ", exception.Message));
                 ModelState.AddModelError("", exception.Message);
             }
@@ -193,17 +192,17 @@ namespace App.Front.Controllers
                         return Json(new { success = false });
                     }
 
-                    GalleryImage galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
+                    var galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
                     _galleryService.Delete(galleryImage);
-                    string str = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
-                    string str1 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
+                    var str = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
+                    var str1 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
                     System.IO.File.Delete(str);
                     System.IO.File.Delete(str1);
                     actionResult = Json(new { success = true });
                 }
                 catch (Exception exception1)
                 {
-                    Exception exception = exception1;
+                    var exception = exception1;
                     actionResult = Json(new { success = false, messages = exception.Message });
                 }
                 return actionResult;
@@ -214,7 +213,7 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult EditPost(int id)
         {
-            PostViewModel postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == id && x.CreatedBy.Equals(HttpContext.User.Identity.Name)));
+            var postViewModel = Mapper.Map<Post, PostViewModel>(_postService.Get(x => x.Id == id && x.CreatedBy.Equals(HttpContext.User.Identity.Name)));
             return View(postViewModel);
         }
 
@@ -228,64 +227,64 @@ namespace App.Front.Controllers
                 }
                 else
                 {
-                    Post byId = _postService.GetById(postView.Id);
-                    string str = postView.Title.NonAccent();
-                    IEnumerable<MenuLink> bySeoUrl = _menuLinkService.GetListSeoUrl(str);
+                    var byId = _postService.GetById(postView.Id);
+                    var str = postView.Title.NonAccent();
+                    var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
                     postView.SeoUrl = postView.Title.NonAccent();
                     if (bySeoUrl.Any(x => x.Id != postView.Id))
                     {
-                        PostViewModel postViewModel = postView;
+                        var postViewModel = postView;
                         postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
                     }
-                    HttpFileCollectionBase files = Request.Files;
+                    var files = Request.Files;
                     if (postView.Image != null && postView.Image.ContentLength > 0)
                     {
-                        string str1 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        string str2 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        string str3 = string.Format("{0}-{1}", str, Utils.GetTime());
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                        _imagePlugin.CropAndResizeImage(postView.Image, string.Format("{0}/{1}/", Contains.PostFolder, str), str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
-                        postView.ImageBigSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str1);
-                        postView.ImageMediumSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str2);
-                        postView.ImageSmallSize = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str3);
+                        var str1 = $"{str}-{Utils.GetTime()}";
+                        var str2 = $"{str}-{Utils.GetTime()}";
+                        var str3 = $"{str}-{Utils.GetTime()}";
+                        _imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                        postView.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
+                        postView.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
+                        postView.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
                     }
-                    int? menuId = postView.MenuId;
-                    int i = 0;
-                    if ((menuId.GetValueOrDefault() > i ? menuId.HasValue : false))
+                    var menuId = postView.MenuId;
+                    var i = 0;
+                    if (menuId.GetValueOrDefault() > i && menuId.HasValue)
                     {
-                        IMenuLinkService menuLinkService = _menuLinkService;
+                        var menuLinkService = _menuLinkService;
                         menuId = postView.MenuId;
-                        MenuLink menuLink = menuLinkService.GetById(menuId.Value);
+                        var menuLink = menuLinkService.GetById(menuId.Value);
                         postView.VirtualCatUrl = menuLink.VirtualSeoUrl;
                         postView.VirtualCategoryId = menuLink.VirtualId;
                     }
-                    List<GalleryImage> galleryImages = new List<GalleryImage>();
+                    var galleryImages = new List<GalleryImage>();
                     if (files.Count > 0)
                     {
-                        int count = files.Count - 1;
-                        int num = 0;
-                        string[] allKeys = files.AllKeys;
+                        var count = files.Count - 1;
+                        var num = 0;
+                        var allKeys = files.AllKeys;
                         for (i = 0; i < allKeys.Length; i++)
                         {
-                            string str4 = allKeys[i];
+                            var str4 = allKeys[i];
                             if (num <= count)
                             {
                                 if (!str4.Equals("Image"))
                                 {
-                                    HttpPostedFileBase item = files[num];
+                                    var item = files[num];
                                     if (item.ContentLength > 0)
                                     {
-                                        GalleryImageViewModel galleryImageViewModel = new GalleryImageViewModel
+                                        var galleryImageViewModel = new GalleryImageViewModel
                                         {
                                             PostId = postView.Id
                                         };
-                                        string str5 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        string str6 = string.Format("{0}-{1}", str, Utils.GetTime());
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-                                        _imagePlugin.CropAndResizeImage(item, string.Format("{0}/{1}/", Contains.PostFolder, str), str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
-                                        galleryImageViewModel.ImageThumbnail = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str6);
-                                        galleryImageViewModel.ImagePath = string.Format("{0}/{1}/{2}", Contains.PostFolder, str, str5);
+                                        var str5 = $"{str}-{Utils.GetTime()}";
+                                        var str6 = $"{str}-{Utils.GetTime()}";
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                        galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
+                                        galleryImageViewModel.ImagePath = $"{Contains.PostFolder}/{str}/{str5}";
                                         galleryImageViewModel.OrderDisplay = num;
                                         galleryImageViewModel.Status = 1;
                                         galleryImageViewModel.Title = postView.Title;
@@ -312,7 +311,7 @@ namespace App.Front.Controllers
             }
             catch (Exception exception1)
             {
-                Exception exception = exception1;
+                var exception = exception1;
                 ModelState.AddModelError("", exception.Message);
                 ExtentionUtils.Log(string.Concat("Post.Edit: ", exception.Message));
             }
@@ -339,12 +338,12 @@ namespace App.Front.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("CreatePost"))
             {
-                IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5 && x.TemplateType != 1, true);
+                var menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5 && x.TemplateType != 1, true);
                 ViewBag.MenuList = menuLinks;
             }
             if (filterContext.RouteData.Values["action"].Equals("EditPost"))
             {
-                IEnumerable<MenuLink> menuLinks1 = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5 && x.TemplateType != 1, true);
+                var menuLinks1 = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5 && x.TemplateType != 1, true);
                 ViewBag.MenuList = menuLinks1;
             }
         }
@@ -352,23 +351,23 @@ namespace App.Front.Controllers
         [HttpGet]
         public ActionResult PostManagement(int page = 1)
         {
-            SortBuilder sortBuilder = new SortBuilder
+            var sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = 10,
                 TotalRecord = 0
             };
-            Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
+            var expression = PredicateBuilder.True<Post>();
             expression = expression.And(x => x.CreatedBy.Equals(HttpContext.User.Identity.Name));
-            IEnumerable<Post> posts = _postService.FindAndSort(expression, sortBuilder, paging);
+            var posts = _postService.FindAndSort(expression, sortBuilder, paging);
             if (posts.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("PostManagement", "Account", new { page = i }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("PostManagement", "Account", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
             }
@@ -379,18 +378,18 @@ namespace App.Front.Controllers
         public ActionResult SearchPost(string keywords, int? status = null, DateTime? from = null, DateTime? to = null)
         {
             ViewBag.Keywords = keywords;
-            SortBuilder sortBuilder = new SortBuilder
+            var sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = 1,
                 PageSize = 10,
                 TotalRecord = 0
             };
-            Expression<Func<Post, bool>> expression = PredicateBuilder.True<Post>();
+            var expression = PredicateBuilder.True<Post>();
             expression = expression.And(x => x.CreatedBy.Equals(HttpContext.User.Identity.Name));
             if (status.HasValue)
             {
@@ -408,10 +407,10 @@ namespace App.Front.Controllers
             {
                 expression = expression.And(x => x.Title.Contains(keywords));
             }
-            IEnumerable<Post> posts = _postService.FindAndSort(expression, sortBuilder, paging);
+            var posts = _postService.FindAndSort(expression, sortBuilder, paging);
             if (posts.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, 1, paging.TotalRecord, i => Url.Action("PostManagement", "Account", new { page = i }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, 1, paging.TotalRecord, i => Url.Action("PostManagement", "Account", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
             }
@@ -422,9 +421,9 @@ namespace App.Front.Controllers
 
         public JsonResult AccountOrder()
         {
-            IEnumerable<OrderViewModel> model = PrepareCustomerOrderListModel(_workContext.CurrentCustomer);
+            var model = PrepareCustomerOrderListModel(_workContext.CurrentCustomer);
 
-            JsonResult jsonResult = Json(
+            var jsonResult = Json(
                 new
                 {
                     success = true,
@@ -438,7 +437,9 @@ namespace App.Front.Controllers
         protected IEnumerable<OrderViewModel> PrepareCustomerOrderListModel(Customer customer)
         {
             if (customer == null)
+            {
                 throw new ArgumentNullException("customer");
+            }
 
             var ieOrder = _orderService.GetByCustomerId(customer.Id, false);
 
@@ -449,31 +450,9 @@ namespace App.Front.Controllers
 
             ieOrder = ieOrder.OrderByDescending(m => m.Id);
 
-            OrderViewModel orderViewModel = new OrderViewModel();
+            var orderViewModel = new OrderViewModel();
 
-            IEnumerable<OrderViewModel> model = ieOrder.Select(x => x.ToModel(orderViewModel));
-
-            //OrderViewModel orderViewModel = new OrderViewModel();
-            //IEnumerable<OrderViewModel> model = ieOrder
-            //    .Select(m =>
-            //    {
-            //        foreach (var orderItem in m.OrderItems)
-            //        {
-            //            var orderItemModel = new OrderViewModel.OrderItemModel
-            //            {
-            //                Id = orderItem.Id,
-            //                PostId = orderItem.PostId,
-            //                PostName = orderItem.Post.Title,
-            //                Quantity = orderItem.Quantity,
-            //                UnitPriceInclTax = orderItem.UnitPriceInclTax,
-            //                SubTotalInclTax = orderItem.PriceInclTax
-            //            };
-
-            //            orderViewModel.Items.Add(orderItemModel);
-            //        }
-
-            //        return m.ToModel(orderViewModel);
-            //    });
+            var model = ieOrder.Select(x => x.ToModel(orderViewModel));
 
             return model;
 

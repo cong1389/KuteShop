@@ -1,32 +1,32 @@
+using System;
+using System.Collections.Generic;
 using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
+using App.FakeEntity.Brandes;
+using App.FakeEntity.Common;
 using App.FakeEntity.ContactInformation;
+using App.FakeEntity.GenericControl;
 using App.FakeEntity.Language;
 using App.FakeEntity.Location;
+using App.FakeEntity.Manufacturers;
 using App.FakeEntity.Menu;
 using App.FakeEntity.News;
+using App.FakeEntity.Orders;
 using App.FakeEntity.Other;
+using App.FakeEntity.Payments;
 using App.FakeEntity.Post;
+using App.FakeEntity.Repairs;
 using App.FakeEntity.ServerMail;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
-using App.FakeEntity.Manufacturers;
 using App.FakeEntity.System;
 using App.FakeEntity.User;
 using App.Framework.ValidateEntity;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using App.FakeEntity.Brandes;
-using App.FakeEntity.Repairs;
-using App.FakeEntity.GenericControl;
-using App.FakeEntity.Common;
-using App.FakeEntity.Payments;
-using App.FakeEntity.Orders;
 
 namespace App.Framework.FluentValidation
 {
-	public class FluentValidationConfig : ValidatorFactoryBase
+    public class FluentValidationConfig : ValidatorFactoryBase
 	{
 		private readonly Dictionary<Type, IValidator> _validators;
 
@@ -75,7 +75,7 @@ namespace App.Framework.FluentValidation
 
 		public override IValidator CreateInstance(Type validatorType)
 		{
-		    var validator1 = (!_validators.TryGetValue(validatorType, out var validator) ? null : validator);
+		    var validator1 = !_validators.TryGetValue(validatorType, out var validator) ? null : validator;
 
 		    return validator1;
 		}

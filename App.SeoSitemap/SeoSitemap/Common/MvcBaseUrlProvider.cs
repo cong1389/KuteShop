@@ -11,7 +11,8 @@ namespace App.SeoSitemap.Common
 		{
 			get
 			{
-				return new Uri(string.Format("{0}://{1}{2}", this.httpContext.Request.Url.Scheme, this.httpContext.Request.Url.Authority, this.httpContext.Request.ApplicationPath));
+				return new Uri(
+				    $"{this.httpContext.Request.Url.Scheme}://{this.httpContext.Request.Url.Authority}{this.httpContext.Request.ApplicationPath}");
 			}
 		}
 

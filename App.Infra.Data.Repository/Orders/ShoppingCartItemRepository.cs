@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Orders
 
         public ShoppingCartItem GetById(int Id)
         {
-            ShoppingCartItem shopCart = FindBy(x => x.Id == Id, false).FirstOrDefault();
+            ShoppingCartItem shopCart = FindBy(x => x.Id == Id).FirstOrDefault();
             return shopCart;
         }
 

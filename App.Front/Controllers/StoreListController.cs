@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Entities.Location;
 using App.Front.Models;
 using App.Service.ContactInformation;
 using App.Service.Locations;
@@ -11,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace App.Front.Controllers
 {
-	public class StoreListController : FrontBaseController
+    public class StoreListController : FrontBaseController
 	{
 		private readonly IProvinceService _provinceService;
 
@@ -29,8 +27,8 @@ namespace App.Front.Controllers
 			{
 				return Json(new { success = false });
 			}
-			IEnumerable<ContactInformation> contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)id, true);
-			List<StoreList> storeLists = new List<StoreList>();
+			var contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)id, true);
+			var storeLists = new List<StoreList>();
 			if (contactInformations.IsAny())
 			{
 				storeLists.AddRange(
@@ -49,11 +47,11 @@ namespace App.Front.Controllers
 
 		public ActionResult Index(int id)
 		{
-			Province province = _provinceService.GetTop(1, x => x.Status == 1, x => x.OrderDisplay).FirstOrDefault();
-			IEnumerable<Province> top = _provinceService.GetTop(2147483647, x => x.Status == 1, x => x.OrderDisplay);
+			var province = _provinceService.GetTop(1, x => x.Status == 1, x => x.OrderDisplay).FirstOrDefault();
+			var top = _provinceService.GetTop(2147483647, x => x.Status == 1, x => x.OrderDisplay);
 			ViewBag.Provinces = top;
-			IEnumerable<ContactInformation> contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
-			List<StoreList> storeLists = new List<StoreList>();
+			var contactInformations = _contactInfoService.FindBy(x => x.Status == 1 && x.ProvinceId == (int?)province.Id, true);
+			var storeLists = new List<StoreList>();
 			if (contactInformations.IsAny())
 			{
 				storeLists.AddRange(
@@ -69,6 +67,7 @@ namespace App.Front.Controllers
 					});
 				ViewBag.Data = JsonConvert.SerializeObject(storeLists);
 			}
+
 			return PartialView(contactInformations);
 		}
 	}

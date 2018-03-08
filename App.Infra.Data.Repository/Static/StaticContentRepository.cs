@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Static
 
 		public StaticContent GetById(int id)
         {
-            StaticContent staticContent = FindBy(x => x.Id == id, false).FirstOrDefault();
+            StaticContent staticContent = FindBy(x => x.Id == id).FirstOrDefault();
             
             return staticContent;
 		}

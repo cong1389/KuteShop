@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Customers
 
 		public Customer GetById(int id)
 		{
-			Customer province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			Customer province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

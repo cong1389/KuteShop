@@ -42,15 +42,13 @@ namespace App.Front.Models
 		{
 			XmlDocument xmlDocument = new XmlDocument();
 			string str = string.Concat(HttpContext.Current.Server.MapPath("\\"), "Mailformat.xml");
-			string innerText = "";
-			string innerText1 = "";
-			int i = 0;
+		    int i;
 			if (File.Exists(str))
 			{
 				xmlDocument.Load(str);
 				XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
-				innerText = xmlNodes.SelectSingleNode("Subject").InnerText;
-				innerText1 = xmlNodes.SelectSingleNode("Body").InnerText;
+				var innerText = xmlNodes.SelectSingleNode("Subject").InnerText;
+				var innerText1 = xmlNodes.SelectSingleNode("Body").InnerText;
 				if (param == null)
 				{
 					throw new Exception("Mail format file not found.");

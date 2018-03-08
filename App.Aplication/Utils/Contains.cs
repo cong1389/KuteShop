@@ -19,21 +19,9 @@ namespace App.Aplication
             }
         }
 
-        public static bool EnableSendEmai
-        {
-            get
-            {
-                return bool.Parse(ConfigurationManager.AppSettings["EnableSendEmail"] ?? "false");
-            }
-        }
+        public static bool EnableSendEmai => bool.Parse(ConfigurationManager.AppSettings["EnableSendEmail"] ?? "false");
 
-        public static bool EnableSendSMS
-        {
-            get
-            {
-                return bool.Parse(ConfigurationManager.AppSettings["EnableSendSMS"] ?? "false");
-            }
-        }
+        public static bool EnableSendSms => bool.Parse(ConfigurationManager.AppSettings["EnableSendSMS"] ?? "false");
 
         public static string FolderLanguage
         {
@@ -48,13 +36,7 @@ namespace App.Aplication
             }
         }
 
-        public static string ImageNoExsits
-        {
-            get
-            {
-                return "/Areas/Admin/images/no_image.jpg";
-            }
-        }
+        public static string ImageNoExsits => "/Areas/Admin/images/no_image.jpg";
 
         public static string ImageFolder
         {
@@ -147,23 +129,53 @@ namespace App.Aplication
             }
         }
 
-        public static bool RequiredActiveAccount
+        public static string SystemSettingFolder
         {
             get
             {
-                return bool.Parse(ConfigurationManager.AppSettings["RequiredActiveAccount"] ?? "false");
+                string item = ConfigurationManager.AppSettings["SystemSettingFolder"] ?? "images/systemsetting/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["SystemSettingFolder"] ?? "images/systemsetting/";
+            }
+        }
+
+        public static bool RequiredActiveAccount => bool.Parse(ConfigurationManager.AppSettings["RequiredActiveAccount"] ?? "false");
+
+        public static string MenuFolder
+        {
+            get
+            {
+                string item = ConfigurationManager.AppSettings["MenuFolder"] ?? "images/menu/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["MenuFolder"] ?? "images/menu/";
+            }
+        }
+
+        public static string RepairFolder
+        {
+            get
+            {
+                string item = ConfigurationManager.AppSettings["RepairFolder"] ?? "images/repair/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["RepairFolder"] ?? "images/repair/";
             }
         }
 
         //SystemCustomerAttributeNames
-        public static string SelectedPaymentMethod { get { return "SelectedPaymentMethod"; } }
-        public static string SelectedShippingOption { get { return "SelectedShippingOption"; } }
-
-       
-
+        public static string SelectedPaymentMethod => "SelectedPaymentMethod";
+        public static string SelectedShippingOption => "SelectedShippingOption";
     }
 
-    public enum PaymentMethodType : int
+    public enum PaymentMethodType
     {
         /// <summary>
         /// Unknown

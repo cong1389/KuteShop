@@ -10,7 +10,7 @@ using System.Web.Mvc.Html;
 
 namespace App.Aplication.Extensions
 {
-	public static class HtmlRenderExtensions
+    public static class HtmlRenderExtensions
 	{
 		public static IDisposable Delayed(this HtmlHelper helper, string injectionBlockId = null, string isOnlyOne = null)
 		{

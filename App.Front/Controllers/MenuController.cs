@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
-using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
 using App.Front.Models;
 using App.Service.Language;
@@ -33,7 +32,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContent(string menu, int page)
         {
-            dynamic viewBag = ViewBag;
+            var viewBag = ViewBag;
 
             var menuLink = _menuLinkService.GetBySeoUrl(menu);
 
@@ -86,7 +85,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetFixItemContent(int id)
         {
-            MenuLink menuLink = _menuLinkService.GetById(id);
+            var menuLink = _menuLinkService.GetById(id);
 
             ViewBag.ImgUrl = menuLink.ImageUrl;
             ViewBag.TitleFix = menuLink.MenuName;
@@ -129,13 +128,13 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetStaticContent(int menuId, string virtualId, string title)
         {
-            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-            string[] strArrays = virtualId.Split('/');
+            var breadCrumbs = new List<BreadCrumb>();
+            var strArrays = virtualId.Split('/');
 
-            for (int i = 0; i < strArrays.Length; i++)
+            for (var i = 0; i < strArrays.Length; i++)
             {
-                string str = strArrays[i];
-                MenuLink menuLink = _menuLinkService.GetByParentId(menuId, str);
+                var str = strArrays[i];
+                var menuLink = _menuLinkService.GetByParentId(menuId, str);
 
                 if (menuLink != null)
                 {
@@ -155,12 +154,12 @@ namespace App.Front.Controllers
             });
             ViewBag.BreadCrumb = breadCrumbs;
 
-            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == menuId, true);
+            var staticContent = _staticContentService.Get(x => x.MenuId == menuId, true);
             if (staticContent != null)
             {
                 staticContent = staticContent.ToModel();
 
-                StaticContent viewCount = staticContent;
+                var viewCount = staticContent;
                 viewCount.ViewCount = viewCount.ViewCount + 1;
                 _staticContentService.Update(staticContent);
 
@@ -177,17 +176,17 @@ namespace App.Front.Controllers
 
         public ActionResult GetStaticContentParent(int menuId, string title, string virtualId)
         {
-            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-            string[] strArrays = virtualId.Split('/');
+            var breadCrumbs = new List<BreadCrumb>();
+            var strArrays = virtualId.Split('/');
 
-            StaticContent staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1);
+            var staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1);
 
             //Convert to localized
             var staticContentLocalized = staticContent.ToModel();
 
-            dynamic viewBag = ViewBag;
+            var viewBag = ViewBag;
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1);
+            var menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1);
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
@@ -197,11 +196,11 @@ namespace App.Front.Controllers
                 viewBag.ListItems = menuLinks;
             }
 
-            string[] strArrays1 = strArrays;
-            for (int i = 0; i < strArrays1.Length; i++)
+            var strArrays1 = strArrays;
+            for (var i = 0; i < strArrays1.Length; i++)
             {
-                string str = strArrays1[i];
-                MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str) && !x.MenuName.Equals(title));
+                var str = strArrays1[i];
+                var menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str) && !x.MenuName.Equals(title));
                 if (menuLink != null)
                 {
                     breadCrumbs.Add(new BreadCrumb
@@ -229,8 +228,8 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetStaticHot(string virtualId)
         {
-            string str = virtualId;
-            string[] strArrays = str.Split('/');
+            var str = virtualId;
+            var strArrays = str.Split('/');
 
             if (strArrays.Length >= 3)
             {
@@ -244,8 +243,8 @@ namespace App.Front.Controllers
 
         public ActionResult Search(SeachConditions conditions)
         {
-            string objCondition = JsonConvert.SerializeObject(conditions);
-            HttpCookie cookie = new HttpCookie("system_search", objCondition) { Expires = DateTime.Now.AddDays(1.0) };
+            var objCondition = JsonConvert.SerializeObject(conditions);
+            var cookie = new HttpCookie("system_search", objCondition) { Expires = DateTime.Now.AddDays(1.0) };
             Response.Cookies.Add(cookie);
 
             var byId = new MenuLink();

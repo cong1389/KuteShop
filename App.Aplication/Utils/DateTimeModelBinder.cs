@@ -6,11 +6,7 @@ namespace App.Aplication
 {
 	public class DateTimeModelBinder : DefaultModelBinder
 	{
-		public DateTimeModelBinder()
-		{
-		}
-
-		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+	    public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			DateTime dateTime;
 			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);

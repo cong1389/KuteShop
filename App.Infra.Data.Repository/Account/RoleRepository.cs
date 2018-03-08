@@ -20,19 +20,19 @@ namespace App.Infra.Data.Repository.Account
 
 		public Role FindByName(string roleName)
 		{
-			Role role = Get(x => x.Name.Equals(roleName), false);
+			Role role = Get(x => x.Name.Equals(roleName));
 			return role;
 		}
 
 		public Task<Role> FindByNameAsync(string roleName)
 		{
-			Task<Role> async = GetAsync(x => x.Name.Equals(roleName), false);
+			Task<Role> async = GetAsync(x => x.Name.Equals(roleName));
 			return async;
 		}
 
 		public Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
 		{
-			Task<Role> async = GetAsync(cancellationToken, x => x.Name.Equals(roleName), false);
+			Task<Role> async = GetAsync(cancellationToken, x => x.Name.Equals(roleName));
 			return async;
 		}
 

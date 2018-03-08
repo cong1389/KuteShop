@@ -1,9 +1,6 @@
-﻿using App.Domain.Entities.Menu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using App.Domain.Entities.Data;
+using App.Domain.Entities.Menu;
 
 namespace App.Front.Models.Posts
 {

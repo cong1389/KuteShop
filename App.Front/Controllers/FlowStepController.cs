@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using App.Domain.Entities.Data;
+﻿using System.Web.Mvc;
 using App.Service.Manufacturers;
 
 namespace App.Front.Controllers
@@ -15,7 +13,7 @@ namespace App.Front.Controllers
 
         public ActionResult FlowStepHome()
         {
-            IEnumerable<Manufacturer> flowSteps = _manufacturerService.FindBy(x => x.Status == 1);
+            var flowSteps = _manufacturerService.FindBy(x => x.Status == 1);
 
             return PartialView(flowSteps);
         }

@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace App.Aplication.PagedSort.SortUtils
 {
-	[Serializable]
+    [Serializable]
 	[TypeConverter(typeof(SortExpressionConverter))]
 	public class SortExpression
 	{
@@ -28,16 +27,16 @@ namespace App.Aplication.PagedSort.SortUtils
 
 		public SortExpression()
 		{
-			this.Title = "";
-			this.Expression = "";
-			this.Direction = SortDirection.Ascending;
+			Title = "";
+			Expression = "";
+			Direction = SortDirection.Ascending;
 		}
 
 		public SortExpression(string title, string sortExpression, SortDirection direction ) : this()
 		{
-			this.Title = title;
-			this.Expression = sortExpression;
-			this.Direction = direction;
+			Title = title;
+			Expression = sortExpression;
+			Direction = direction;
 		}
 
 		public static SortExpression DeSerialize(string data)
@@ -47,7 +46,7 @@ namespace App.Aplication.PagedSort.SortUtils
 
 		public string Serialize()
 		{
-			return SortExpression.Serialize(this);
+			return Serialize(this);
 		}
 
 		public static string Serialize(SortExpression sortExpression)
@@ -57,12 +56,12 @@ namespace App.Aplication.PagedSort.SortUtils
 
 		public void ToggleDirection()
 		{
-			this.Direction = (this.Direction == SortDirection.Descending ? SortDirection.Ascending : SortDirection.Descending);
+			Direction = (Direction == SortDirection.Descending ? SortDirection.Ascending : SortDirection.Descending);
 		}
 
 		public override string ToString()
 		{
-			return string.Format("{0} ({1})", this.Title, this.Direction);
+			return $"{Title} ({Direction})";
 		}
 	}
 }

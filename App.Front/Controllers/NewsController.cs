@@ -24,7 +24,7 @@ namespace App.Front.Controllers
 
         private readonly IMenuLinkService _menuLinkService;
 
-        private IStaticContentService _staticContentService;
+        private readonly IStaticContentService _staticContentService;
 
         public NewsController(
             INewsService newsService
@@ -42,8 +42,8 @@ namespace App.Front.Controllers
         public ActionResult BreadCrumNews(string virtualId)
         {
             ViewBag.VirtualId = virtualId;
-            List<MenuLink> lstMenuLink = new List<MenuLink>();
-            IEnumerable<MenuLink> menuLinks1 = _menuLinkService.FindBy(x => x.TemplateType == 1 && x.Status == 1, true);
+            var lstMenuLink = new List<MenuLink>();
+            var menuLinks1 = _menuLinkService.FindBy(x => x.TemplateType == 1 && x.Status == 1, true);
             if (menuLinks1.IsAny())
             {
                 lstMenuLink.AddRange(menuLinks1);
@@ -54,26 +54,27 @@ namespace App.Front.Controllers
 
         public ActionResult GetCareerByCategory(string virtualCategoryId, int page, string title)
         {
-            SortBuilder sortBuilder = new SortBuilder
+            var sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            IEnumerable<News> news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
+            var news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
             if (news.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
             }
             ViewBag.Title = title;
             ViewBag.virtualCategoryId = virtualCategoryId;
+
             return PartialView(news);
         }
 
@@ -116,50 +117,56 @@ namespace App.Front.Controllers
 
         public ActionResult GetNewsByCategory(string virtualCategoryId, int? menuId, string title, int page, int? month, int? year)
         {
-            dynamic viewBag = ViewBag;
+            var viewBag = ViewBag;
 
-            SortBuilder sortBuilder = new SortBuilder
+            var sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
                 ColumnOrder = SortBuilder.SortOrder.Descending
             };
-            Paging paging = new Paging
+            var paging = new Paging
             {
                 PageNumber = page,
                 PageSize = PageSize,
                 TotalRecord = 0
             };
 
-            IEnumerable<News> news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId)
+            var news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId)
             , sortBuilder, paging);
 
             if (news == null)
+            {
                 return HttpNotFound();
+            }
 
             Expression<Func<StaticContent, bool>> status = x => x.Status == 1;
             viewBag.fixItems = _staticContentService.GetTop(3, status, x => x.ViewCount);
 
-            if (month != null)            
+            if (month != null)
+            {
                 news = news.Where(n => n.CreatedDate.Month == month);
-            if (year != null)
-                news = news.Where(n => n.CreatedDate.Year == year);
+            }
 
-            IEnumerable<News> newsLocalized = news
+            if (year != null)
+            {
+                news = news.Where(n => n.CreatedDate.Year == year);
+            }
+
+            var newsLocalized = news
                 .Select(x => x.ToModel());
 
             if (news.IsAny())
             {
-                Helper.PageInfo pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
 
-                MenuLink menuLink = null;
-                List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-                string[] strArrays2 = virtualCategoryId.Split('/');
-                for (int i1 = 0; i1 < strArrays2.Length; i1++)
+                var breadCrumbs = new List<BreadCrumb>();
+                var strArrays2 = virtualCategoryId.Split('/');
+                for (var i1 = 0; i1 < strArrays2.Length; i1++)
                 {
-                    string str = strArrays2[i1];
-                    menuLink = _menuLinkService.GetByMenuName(str, title);
+                    var str = strArrays2[i1];
+                    var menuLink = _menuLinkService.GetByMenuName(str, title);
                     if (menuLink != null)
                     {
                         breadCrumbs.Add(new BreadCrumb
@@ -189,8 +196,8 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetRelativeNews(string virtualId, int newsId)
         {
-            List<News> news = new List<News>();
-            IEnumerable<News> top = _newsService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != newsId && !x.Video, x => x.ViewCount);
+            var news = new List<News>();
+            var top = _newsService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != newsId && !x.Video, x => x.ViewCount);
             if (top.IsAny())
             {
                 news.AddRange(top);
@@ -201,32 +208,34 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetVideoSlide()
         {
-            List<News> news = new List<News>();
-            IEnumerable<News> news1 = _newsService.FindBy(x => x.Video && x.Status == 1, true);
+            var news = new List<News>();
+            var news1 = _newsService.FindBy(x => x.Video && x.Status == 1, true);
             if (news1.IsAny())
             {
                 news.AddRange(news1);
             }
+
             return PartialView(news);
         }
 
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult NewsDetail(string seoUrl)
         {
-            dynamic viewBag = ViewBag;
+            var viewBag = ViewBag;
 
-            IStaticContentService staticContentService = _staticContentService;
+            var staticContentService = _staticContentService;
             Expression<Func<StaticContent, bool>> status = x => x.Status == 1;
             viewBag.fixItems = staticContentService.GetTop(3, status, x => x.ViewCount);
 
-            List<BreadCrumb> breadCrumbs = new List<BreadCrumb>();
-            News news = _newsService.Get(x => x.SeoUrl.Equals(seoUrl), true);
+            var breadCrumbs = new List<BreadCrumb>();
+            var news = _newsService.Get(x => x.SeoUrl.Equals(seoUrl), true);
 
             if (news == null)
+            {
                 return HttpNotFound();
+            }
 
-            News newsLocalized = new News();
-            if (news != null)
+            var newsLocalized = new News();
             {
                 newsLocalized = news.ToModel();
 
@@ -237,15 +246,17 @@ namespace App.Front.Controllers
                 ViewBag.Image = Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
                 ViewBag.MenuId = newsLocalized.MenuId;
 
-                string[] strArrays = newsLocalized.VirtualCategoryId.Split('/');
-                for (int i = 0; i < strArrays.Length; i++)
+                var strArrays = newsLocalized.VirtualCategoryId.Split('/');
+                for (var i = 0; i < strArrays.Length; i++)
                 {
-                    string str = strArrays[i];
-                    MenuLink menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str));
+                    var str = strArrays[i];
+                    var menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str));
 
                     //Lấy bannerId từ post để hiển thị banner trên post
                     if (i == 0)
+                    {
                         ViewBag.BannerId = menuLink.Id;
+                    }
 
                     breadCrumbs.Add(new BreadCrumb
                     {
@@ -272,16 +283,15 @@ namespace App.Front.Controllers
         /// <returns></returns>       
         public ActionResult NewsTimeLine()
         {
-            IEnumerable<News> ieNews = _newsService.GetAll();
+            var ieNews = _newsService.GetAll();
 
             if (ieNews == null)
+            {
                 return HttpNotFound();
+            }
 
             IEnumerable<News> ieNewsGroup = ieNews.GroupBy(l => l.CreatedDate.Year + 12 + l.CreatedDate.Month)
-                .Select(g =>
-                {
-                    return g.First().ToModel();
-                }).ToList();
+                .Select(g => g.First().ToModel()).ToList();
 
             ViewBag.NewsGroup = ieNewsGroup;
 

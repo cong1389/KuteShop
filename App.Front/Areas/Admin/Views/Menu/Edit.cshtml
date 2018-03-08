@@ -1,5 +1,4 @@
-﻿@using App.Domain.Common
-@using App.Framework.Ultis
+﻿@using App.Framework.Ultis
 @using Resources
 @model  App.FakeEntity.Menu.MenuLinkViewModel
 @{
@@ -16,6 +15,9 @@
 }
 
 @section scripts{
+    <script src="@Url.FakePathAdmin("scripts/plugins/jquery-minicolors/jquery.minicolors.min.js")"></script>
+    <script src="@Url.FakePathAdmin("scripts/components-color-pickers.js")"></script>
+
     <script type="text/javascript">
 
         //Copy value từ tên sản phẩm bỏ vào group SEO
@@ -57,4 +59,8 @@
          CopyValue();
      });
 </script>
+}
+
+@section style{
+    <link href="@Url.FakePathAdmin("content/plugins/jquery-minicolors/jquery.minicolors.css")" rel="stylesheet" />
 }

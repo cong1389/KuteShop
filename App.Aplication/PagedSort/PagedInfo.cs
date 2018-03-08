@@ -1,12 +1,10 @@
-using App.Aplication.PagedSort.SortUtils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using App.Aplication.PagedSort.SortUtils;
 
 namespace App.Aplication.PagedSort
 {
-	public class PagedInfo : IPagedInfo
+    public class PagedInfo : IPagedInfo
 	{
 		public const int MaxSortSpecifications = 3;
 
@@ -20,62 +18,41 @@ namespace App.Aplication.PagedSort
 
 		private int m_PageSize = 20;
 
-		public bool IsFirstPage
-		{
-			get
-			{
-				return this.PageNo <= 1;
-			}
-		}
+		public bool IsFirstPage => PageNo <= 1;
 
-		public bool IsLastPage
-		{
-			get
-			{
-				return this.PageNo >= this.TotalPages;
-			}
-		}
+	    public bool IsLastPage => PageNo >= TotalPages;
 
-		public int PageNo
+	    public int PageNo
 		{
-			get
-			{
-				return JustDecompileGenerated_get_PageNo();
-			}
-			set
-			{
-				JustDecompileGenerated_set_PageNo(value);
-			}
-		}
+			get => JustDecompileGenerated_get_PageNo();
+	        set => JustDecompileGenerated_set_PageNo(value);
+	    }
 
 		public int JustDecompileGenerated_get_PageNo()
 		{
-			return this.m_pageNo;
+			return m_pageNo;
 		}
 
 		public void JustDecompileGenerated_set_PageNo(int value)
 		{
-			this.m_pageNo = (value < 1 ? 1 : value);
+			m_pageNo = (value < 1 ? 1 : value);
 		}
 
 		public int PageSize
 		{
-			get
-			{
-				return this.m_PageSize;
-			}
-			set
+			get => m_PageSize;
+		    set
 			{
 				int num = value;
-				if (!PagedInfo.PageSizes.Contains<int>(value))
+				if (!PageSizes.Contains(value))
 				{
-					num = PagedInfo.PageSizes.FirstOrDefault<int>((int size) => size > value);
+					num = PageSizes.FirstOrDefault(size => size > value);
 					if (num < 1)
 					{
-						num = PagedInfo.PageSizes.Last<int>();
+						num = PageSizes.Last();
 					}
 				}
-				this.m_PageSize = num;
+				m_PageSize = num;
 			}
 		}
 
@@ -83,27 +60,15 @@ namespace App.Aplication.PagedSort
 
 		public int TotalItems
 		{
-			get
-			{
-				return this.m_TotalItems;
-			}
-			set
-			{
-				this.m_TotalItems = (value < 0 ? 0 : value);
-			}
+			get => m_TotalItems;
+		    set => m_TotalItems = value < 0 ? 0 : value;
 		}
 
-		public int TotalPages
-		{
-			get
-			{
-				return (int)Math.Ceiling(decimal.Parse( TotalItems.ToString()) / this.PageSize);
-			}
-		}
+		public int TotalPages => (int)Math.Ceiling(decimal.Parse( TotalItems.ToString()) / PageSize);
 
-		static PagedInfo()
+	    static PagedInfo()
 		{
-			PagedInfo.PageSizes = new int[] { 5, 10, 20, 50, 100 };
+			PageSizes = new[] { 5, 10, 20, 50, 100 };
 		}
 
 		public PagedInfo()
@@ -116,31 +81,31 @@ namespace App.Aplication.PagedSort
 
 		public PagedInfo(string sortTitle, string sortExpression, SortDirection sortDirection)
 		{
-			this.AddSortExpression(sortTitle, sortExpression, sortDirection);
+			AddSortExpression(sortTitle, sortExpression, sortDirection);
 		}
 
 		public PagedInfo AddSortExpression(string metaData)
 		{
-			this.AddSortExpression(SortExpression.DeSerialize(metaData));
+			AddSortExpression(SortExpression.DeSerialize(metaData));
 			return this;
 		}
 
 		public PagedInfo AddSortExpression(string title, string sortExpression, SortDirection direction  )
 		{
-			this.AddSortExpression(new SortExpression(title, sortExpression, direction));
+			AddSortExpression(new SortExpression(title, sortExpression, direction));
 			return this;
 		}
 
 		public PagedInfo AddSortExpression(SortExpression sortExpression)
 		{
-			this.SortMetaData = PagedInfo.AddSortExpression(this.SortMetaData, sortExpression);
+			SortMetaData = AddSortExpression(SortMetaData, sortExpression);
 			return this;
 		}
 
 		public static string AddSortExpression(string sortMetaData, SortExpression sortExpression)
 		{
-			SortExpressionCollection sortExpressions = PagedInfo.GetSortExpressions(sortMetaData);
-			int num = sortExpressions.FindIndex((SortExpression s) => s.Expression == sortExpression.Expression);
+			SortExpressionCollection sortExpressions = GetSortExpressions(sortMetaData);
+			int num = sortExpressions.FindIndex(s => s.Expression == sortExpression.Expression);
 			if (num != 0)
 			{
 				if (num > 0)
@@ -162,21 +127,21 @@ namespace App.Aplication.PagedSort
 
 		public void ClearSortExpressions()
 		{
-			this.SortMetaData = string.Empty;
+			SortMetaData = string.Empty;
 		}
 
 		public static int GetNearestPageSize(int targetSize)
 		{
-			for (int i = 0; i < (int)PagedInfo.PageSizes.Length; i++)
+			for (int i = 0; i < PageSizes.Length; i++)
 			{
-				int pageSizes = PagedInfo.PageSizes[i];
+				int pageSizes = PageSizes[i];
 				if (pageSizes > targetSize)
 				{
 					if (i == 0)
 					{
 						return pageSizes;
 					}
-					int num = PagedInfo.PageSizes[i - 1];
+					int num = PageSizes[i - 1];
 					if (targetSize - num >= pageSizes - targetSize)
 					{
 						return pageSizes;
@@ -184,22 +149,22 @@ namespace App.Aplication.PagedSort
 					return num;
 				}
 			}
-			return PagedInfo.PageSizes.Last<int>();
+			return PageSizes.Last();
 		}
 
 		public string GetSortDescription()
 		{
-			return PagedInfo.GetSortDescription(this.SortMetaData);
+			return GetSortDescription(SortMetaData);
 		}
 
 		public static string GetSortDescription(string sortMetaData)
 		{
-			return PagedInfo.GetSortExpressions(sortMetaData).ToString();
+			return GetSortExpressions(sortMetaData).ToString();
 		}
 
 		public SortExpressionCollection GetSortExpressions()
 		{
-			return PagedInfo.GetSortExpressions(this.SortMetaData);
+			return GetSortExpressions(SortMetaData);
 		}
 
 		public static SortExpressionCollection GetSortExpressions(string sortMetaData)

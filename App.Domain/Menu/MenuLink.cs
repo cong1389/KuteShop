@@ -188,7 +188,13 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-	    public virtual ICollection<GenericControl.GenericControl> GenericControls
+        public string ColorHex
+        {
+            get;
+            set;
+        }
+
+        public virtual ICollection<GenericControl.GenericControl> GenericControls
 	    {
 	        get; set;
 	    }

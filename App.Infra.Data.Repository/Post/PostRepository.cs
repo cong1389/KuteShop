@@ -22,7 +22,7 @@ namespace App.Infra.Data.Repository.Post
 
 		public Domain.Entities.Data.Post GetById(int id)
         {
-            Domain.Entities.Data.Post post = FindBy(x => x.Id == id, false).FirstOrDefault();
+            Domain.Entities.Data.Post post = FindBy(x => x.Id == id).FirstOrDefault();
             
             return post;
 		}

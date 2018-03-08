@@ -14,7 +14,13 @@ namespace App.Front.Models
 			}
 			if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
 			{
-				filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Login", area = "", ReturnUrl = filterContext.HttpContext.Request.Url }));
+				filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+				{
+				    controller = "User",
+				    action = "Login",
+				    area = "",
+				    ReturnUrl = filterContext.HttpContext.Request.Url
+				}));
 			}
 		}
 	}

@@ -1,10 +1,8 @@
 using AutoMapper;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace App.Framework.Mappings
 {
-	public class AutoMapperConfiguration
+    public class AutoMapperConfiguration
 	{
 		public AutoMapperConfiguration()
 		{

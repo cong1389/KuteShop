@@ -1,9 +1,8 @@
 using App.Aplication.PagedSort.SortUtils;
-using System;
 
 namespace App.Aplication.PagedSort
 {
-	public interface IPagedInfo
+    public interface IPagedInfo
 	{
 		bool IsFirstPage
 		{

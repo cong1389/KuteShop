@@ -1,4 +1,5 @@
-﻿using App.Domain.Common;
+﻿using System;
+using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Identity;
@@ -13,9 +14,6 @@ using App.FakeEntity.Payments;
 using App.Service.Addresses;
 using App.Service.Language;
 using Domain.Entities.Customers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace App.Aplication.Extensions
 {
@@ -24,7 +22,9 @@ namespace App.Aplication.Extensions
         public static StaticContent ToModel(this StaticContent entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new StaticContent
             {
@@ -50,7 +50,9 @@ namespace App.Aplication.Extensions
         public static News ToModel(this News entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new News
             {
@@ -83,7 +85,9 @@ namespace App.Aplication.Extensions
         public static Post ToModel(this Post entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new Post
             {
@@ -124,8 +128,8 @@ namespace App.Aplication.Extensions
                 Description = entity.GetLocalized(x => x.Description, entity.Id),
                 MetaTitle = entity.GetLocalized(x => x.MetaTitle, entity.Id),
                 MetaKeywords = entity.GetLocalized(x => x.MetaKeywords, entity.Id),
-                MetaDescription = entity.GetLocalized(x => x.MetaDescription, entity.Id),
-               
+                MetaDescription = entity.GetLocalized(x => x.MetaDescription, entity.Id)
+
             };
 
             return model;
@@ -134,7 +138,9 @@ namespace App.Aplication.Extensions
         public static MenuLink ToModel(this MenuLink entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new MenuLink
             {
@@ -149,6 +155,7 @@ namespace App.Aplication.Extensions
                 ImageUrl = entity.ImageUrl,
                 Icon1 = entity.Icon1,
                 Icon2 = entity.Icon2,
+                ColorHex = entity.ColorHex,
                 CurrentVirtualId = entity.CurrentVirtualId,
                 VirtualId = entity.VirtualId,
                 TemplateType = entity.TemplateType,
@@ -170,7 +177,9 @@ namespace App.Aplication.Extensions
         public static MenuNavViewModel ToModel(this MenuLink entity, MenuNavViewModel destination)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             destination.MenuId = entity.Id;
             destination.ParentId = entity.ParentId;
@@ -190,7 +199,9 @@ namespace App.Aplication.Extensions
         public static ContactInformation ToModel(this ContactInformation entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new ContactInformation
             {
@@ -217,7 +228,9 @@ namespace App.Aplication.Extensions
         public static SystemSetting ToModel(this SystemSetting entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new SystemSetting
             {
@@ -246,7 +259,9 @@ namespace App.Aplication.Extensions
         public static Address ToEntity(this AddressViewModel model)
         {
             if (model == null)
+            {
                 return null;
+            }
 
             var entity = new Address();
             return ToEntity(model, entity);
@@ -255,7 +270,9 @@ namespace App.Aplication.Extensions
         public static Address ToEntity(this AddressViewModel model, Address destination)
         {
             if (model == null)
+            {
                 return destination;
+            }
 
             destination.Id = model.Id;
             destination.Salutation = model.Salutation;
@@ -295,24 +312,35 @@ namespace App.Aplication.Extensions
             model.FaxNumber = destination.FaxNumber;
         }
 
-        public static PaymentMethodViewModel ToModel(this PaymentMethod model, PaymentMethodViewModel destination)
+        public static PaymentMethodViewModel ToModel(this PaymentMethod model)
         {
             if (model == null)
+            {
                 return null;
+            }
 
-            destination.PaymentMethodSystemName = model.PaymentMethodSystemName;
-            destination.Description = model.Description;
+            var pamentMethod = new PaymentMethodViewModel
+            {
+                ImageUrl = model.ImageUrl,
+                Status = model.Status,
+                PaymentMethodSystemName = model.GetLocalized(x => x.PaymentMethodSystemName, model.Id),
+                Description = model.GetLocalized(x => x.Description, model.Id),
+            };
 
-            return destination;
+            return pamentMethod;
         }
 
         public static OrderViewModel ToModel(this Order model, OrderViewModel destination)
         {
             if (model == null)
+            {
                 throw new ArgumentNullException("Order");
+            }
 
             if (destination == null)
+            {
                 throw new ArgumentNullException("OrderViewModel");
+            }
 
             destination.Id = model.Id;
             destination.OrderNumber = model.OrderNumber;
@@ -418,10 +446,14 @@ namespace App.Aplication.Extensions
         public static MenuLinkViewModel ToModel(this MenuLink model, MenuLinkViewModel destination)
         {
             if (model == null)
+            {
                 throw new ArgumentNullException("MenuLink");
+            }
 
             if (destination == null)
+            {
                 throw new ArgumentNullException("MenuLinkViewModel");
+            }
 
             destination.Id = model.Id;
             destination.ParentId = model.ParentId;
@@ -455,7 +487,9 @@ namespace App.Aplication.Extensions
         public static Manufacturer ToModel(this Manufacturer entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new Manufacturer
             {
@@ -475,7 +509,9 @@ namespace App.Aplication.Extensions
         public static SlideShow ToModel(this SlideShow entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new SlideShow
             {
@@ -492,7 +528,7 @@ namespace App.Aplication.Extensions
                 OrderDisplay = entity.OrderDisplay,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
-                Description = entity.GetLocalized(x => x.Description, entity.Id),
+                Description = entity.GetLocalized(x => x.Description, entity.Id)
             };
 
             return model;
@@ -501,7 +537,9 @@ namespace App.Aplication.Extensions
         public static Customer ToModel(this IdentityUser entity)
         {
             if (entity == null)
+            {
                 return null;
+            }
 
             var model = new Customer
             {
@@ -510,7 +548,7 @@ namespace App.Aplication.Extensions
                 Password = entity.PasswordHash,
                 CreatedOnUtc = DateTime.UtcNow,
                 LastLoginDateUtc = DateTime.UtcNow,
-                LastActivityDateUtc = DateTime.UtcNow,
+                LastActivityDateUtc = DateTime.UtcNow
 
             };
 

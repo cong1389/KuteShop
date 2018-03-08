@@ -8,7 +8,6 @@ using App.Aplication.Filters;
 using App.Core.Extensions;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
-using App.Domain.Orders;
 using App.FakeEntity.Common;
 using App.Front.Models.Checkout;
 using App.Front.Models.ShoppingCart;
@@ -34,17 +33,18 @@ namespace App.Front.Controllers
 
         private readonly IPostService _postService;
 
-        public readonly IShoppingCartItemService ShoppingCartItemService;
+        private readonly IShoppingCartItemService _shoppingCartItemService;
 
-        public readonly IPaymentMethodService PaymentMethodService;
+        private readonly IPaymentMethodService _paymentMethodService;
 
-        public readonly IShippingMethodService ShippingMethodService;
+        private readonly IShippingMethodService _shippingMethodService;
 
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IOrderService _orderService;
         private readonly IOrderProcessingService _orderProcessingService;
 
-        public CheckoutController(IWorkContext workContext, ICustomerService customerService, IAddressService addressService, IPostService postService
+        public CheckoutController(IWorkContext workContext, ICustomerService customerService,
+            IAddressService addressService, IPostService postService
             , IShoppingCartItemService shoppingCartItemService
             , IPaymentMethodService paymentMethodService
             , IGenericAttributeService genericAttributeService
@@ -56,10 +56,10 @@ namespace App.Front.Controllers
             _customerService = customerService;
             _addressService = addressService;
             _postService = postService;
-            ShoppingCartItemService = shoppingCartItemService;
-            PaymentMethodService = paymentMethodService;
+            _shoppingCartItemService = shoppingCartItemService;
+            _paymentMethodService = paymentMethodService;
             _genericAttributeService = genericAttributeService;
-            ShippingMethodService = shippingMethodService;
+            _shippingMethodService = shippingMethodService;
             _orderService = orderService;
             _orderProcessingService = orderProcessingService;
         }
@@ -117,11 +117,15 @@ namespace App.Front.Controllers
             //validation
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart.Count() == 0)
+            if (!cart.Any())
+            {
                 return RedirectToRoute("ShoppingCart");
+            }
 
             if (!HttpContext.User.Identity.IsAuthenticated)
+            {
                 return new HttpUnauthorizedResult();
+            }
 
             if (ModelState.IsValid)
             {
@@ -179,12 +183,15 @@ namespace App.Front.Controllers
 
         public ActionResult SelectShippingAddress(int addressId)
         {
-            var address = _workContext.CurrentCustomer.Addresses.Where(a => a.Id == addressId).FirstOrDefault();
+            var address = _workContext.CurrentCustomer.Addresses.FirstOrDefault(a => a.Id == addressId);
             if (address == null)
+            {
                 return RedirectToAction("PaymentMethod");
+            }
 
             _workContext.CurrentCustomer.ShippingAddress = address;
             _customerService.Update(_workContext.CurrentCustomer);
+
             return RedirectToAction("PaymentMethod");
         }
 
@@ -196,7 +203,7 @@ namespace App.Front.Controllers
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart == null || !cart.Any())
+            if (!cart.IsAny())
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -211,9 +218,9 @@ namespace App.Front.Controllers
         {
             var model = new CheckoutPaymentMethodModel();
 
-            var payment = PaymentMethodService.GetAll();
+            var payment = _paymentMethodService.GetAll();
 
-            if (payment.Any())
+            if (payment.IsAny())
             {
                 model.PaymentMethods = (from x in payment
                                         select new CheckoutPaymentMethodModel.PaymentMethodModel
@@ -227,7 +234,7 @@ namespace App.Front.Controllers
 
             var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedPaymentMethod, _genericAttributeService);
 
-            bool selected = false;
+            var selected = false;
             if (selectedPaymentMethodSystemName.HasValue())
             {
                 var paymentMethodToSelect = model.PaymentMethods.Find(pm => pm.PaymentMethodSystemName.IsCaseInsensitiveEqual(selectedPaymentMethodSystemName));
@@ -243,7 +250,9 @@ namespace App.Front.Controllers
             {
                 var paymentMethodToSelect = model.PaymentMethods.FirstOrDefault();
                 if (paymentMethodToSelect != null)
+                {
                     paymentMethodToSelect.Selected = true;
+                }
             }
 
             return model;
@@ -262,20 +271,18 @@ namespace App.Front.Controllers
             }
 
             //Save payment method
-            string paymentMethodKey = form.AllKeys.FirstOrDefault(m => m.StartsWith("payment_method_id", StringComparison.InvariantCultureIgnoreCase));
+            var paymentMethodKey = form.AllKeys.FirstOrDefault(m => m.StartsWith("payment_method_id", StringComparison.InvariantCultureIgnoreCase));
             if (paymentMethodKey.HasValue())
             {
-                var id = paymentMethodKey.Replace("payment_method_id", "").Trim();
-                string paymentMethodName = form[paymentMethodKey];
+                var paymentMethodName = form[paymentMethodKey];
                 _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", Contains.SelectedPaymentMethod, paymentMethodName);
             }
 
             //Save shipping method
-            string shippingMethodKey = form.AllKeys.FirstOrDefault(m => m.StartsWith("shipping_rate_id", StringComparison.InvariantCultureIgnoreCase));
+            var shippingMethodKey = form.AllKeys.FirstOrDefault(m => m.StartsWith("shipping_rate_id", StringComparison.InvariantCultureIgnoreCase));
             if (shippingMethodKey.HasValue())
             {
-                var id = shippingMethodKey.Replace("shipping_rate_id", "").Trim();
-                string shippingMethodName = form[shippingMethodKey];
+                var shippingMethodName = form[shippingMethodKey];
                 _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", Contains.SelectedShippingOption, shippingMethodName);
             }
 
@@ -291,7 +298,7 @@ namespace App.Front.Controllers
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart == null || !cart.Any())
+            if (!cart.IsAny())
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -306,9 +313,9 @@ namespace App.Front.Controllers
         {
             var model = new CheckoutShippingMethodModel();
             //var customer = _workContext.CurrentCustomer;
-            var shipping = ShippingMethodService.GetAll();
+            var shipping = _shippingMethodService.GetAll();
 
-            if (shipping.Any())
+            if (shipping.IsAny())
             {
                 model.ShippingMethods = (from x in shipping
                                          select new CheckoutShippingMethodModel.ShippingMethodModel
@@ -322,11 +329,11 @@ namespace App.Front.Controllers
 
             var selectedShippingOption = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedShippingOption, _genericAttributeService);
 
-            bool selected = false;
+            var selected = false;
             if (selectedShippingOption.HasValue())
             {
                 var shippingOptionToSelect = model.ShippingMethods.ToList()
-                         .Find(so => !String.IsNullOrEmpty(so.Name) && so.Name.Equals(selectedShippingOption, StringComparison.InvariantCultureIgnoreCase));
+                         .Find(so => !string.IsNullOrEmpty(so.Name) && so.Name.Equals(selectedShippingOption, StringComparison.InvariantCultureIgnoreCase));
 
                 if (shippingOptionToSelect != null)
                 {
@@ -340,7 +347,9 @@ namespace App.Front.Controllers
             {
                 var shippingOptionToSelect = model.ShippingMethods.FirstOrDefault();
                 if (shippingOptionToSelect != null)
+                {
                     shippingOptionToSelect.Selected = true;
+                }
             }
 
             return model;
@@ -358,13 +367,13 @@ namespace App.Front.Controllers
         {
             //Get Cart by customer
             var cart = _workContext.CurrentCustomer.GetCartItems();
-            List<Post> lstPost = new List<Post>();
+            var lstPost = new List<Post>();
 
             if (cart.IsAny())
             {
                 foreach (var item in cart)
                 {
-                    Post objPost = _postService.GetById(item.PostId);
+                    var objPost = _postService.GetById(item.PostId);
                     lstPost.Add(objPost);
                 }
             }
@@ -372,7 +381,7 @@ namespace App.Front.Controllers
             {
                 Items = lstPost,
                 ShoppingCarts = cart,
-                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
+                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
             HttpContext.Session["OrderPaymentInfo"] = miniShopping;
@@ -388,7 +397,7 @@ namespace App.Front.Controllers
         {
             var miniCart = GetCartByCustomer();
 
-            JsonResult jsonResult =
+            var jsonResult =
                 Json(new {success = true, list = this.RenderRazorViewToString("_Checkout.Cart", miniCart)},
                     JsonRequestBehavior.AllowGet);
 
@@ -404,7 +413,7 @@ namespace App.Front.Controllers
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart == null || !cart.Any())
+            if (!cart.IsAny())
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -429,23 +438,22 @@ namespace App.Front.Controllers
             var customer = _workContext.CurrentCustomer;
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            if (cart == null || !cart.Any())
+            if (!cart.IsAny())
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            MiniShoppingCartModel miniShoppingCartModel = HttpContext.Session["OrderPaymentInfo"] as MiniShoppingCartModel;
-
-            PlaceOrderResult placeOrderResult = null;
-
-            var processPaymentRequest = new ProcessPaymentRequest();
-            processPaymentRequest.StoreId = storeId;
-            processPaymentRequest.CustomerId = customer.Id;
-            processPaymentRequest.PaymentMethodSystemName = customer.GetAttribute("Customer", Contains.SelectedPaymentMethod, _genericAttributeService);
+            var processPaymentRequest = new ProcessPaymentRequest
+            {
+                StoreId = storeId,
+                CustomerId = customer.Id,
+                PaymentMethodSystemName =
+                    customer.GetAttribute("Customer", Contains.SelectedPaymentMethod, _genericAttributeService)
+            };
 
             var placeOrderExtraData = new Dictionary<string, string>();
 
-            placeOrderResult = _orderProcessingService.PlaceOrder(processPaymentRequest, placeOrderExtraData);
+            _orderProcessingService.PlaceOrder(processPaymentRequest, placeOrderExtraData);
 
             return RedirectToAction("Complete");
         }
@@ -463,7 +471,7 @@ namespace App.Front.Controllers
                 return HttpNotFound();
             }
             
-            Order order = ieOrder.OrderByDescending(m => m.Id).FirstOrDefault();
+            var order = ieOrder.OrderByDescending(m => m.Id).FirstOrDefault();
 
             return View(order);
         }
@@ -477,7 +485,7 @@ namespace App.Front.Controllers
 
             var customer = _workContext.CurrentCustomer;
 
-            var address = customer.Addresses.Where(a => a.Id == addressId).FirstOrDefault();
+            var address = customer.Addresses.FirstOrDefault(a => a.Id == addressId);
 
             customer.RemoveAddress(address);
             _customerService.UpdateCustomer(customer);

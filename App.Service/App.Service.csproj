@@ -302,6 +302,10 @@
       <Project>{396ff6df-0f55-4c8f-9b2f-233f439da8f6}</Project>
       <Name>App.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\App.FakeEntity\App.FakeEntity.csproj">
+      <Project>{2205E10F-F6DE-43C5-A39D-E9458639D0D5}</Project>
+      <Name>App.FakeEntity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Infra.Data\App.Infra.Data.csproj">
       <Project>{BADAAF5E-E078-4763-A4E9-6FE9076376F4}</Project>
       <Name>App.Infra.Data</Name>

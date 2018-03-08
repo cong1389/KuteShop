@@ -9,8 +9,10 @@ using App.Domain.Entities.Identity;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Location;
 using App.Domain.Entities.Menu;
+using App.Domain.Entities.Orders;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
+using App.Domain.Orders;
 using App.Domain.Shippings;
 using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
@@ -21,23 +23,21 @@ using App.FakeEntity.Gallery;
 using App.FakeEntity.GenericControl;
 using App.FakeEntity.Language;
 using App.FakeEntity.Location;
+using App.FakeEntity.Manufacturers;
 using App.FakeEntity.Menu;
 using App.FakeEntity.News;
-using App.FakeEntity.Repairs;
+using App.FakeEntity.Orders;
 using App.FakeEntity.Payments;
 using App.FakeEntity.Post;
+using App.FakeEntity.Repairs;
 using App.FakeEntity.SeoGlobal;
 using App.FakeEntity.ServerMail;
 using App.FakeEntity.Shippings;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
-using App.FakeEntity.Manufacturers;
 using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
-using App.Domain.Entities.Orders;
-using App.FakeEntity.Orders;
-using App.Domain.Orders;
 
 namespace App.Framework.Mappings
 {

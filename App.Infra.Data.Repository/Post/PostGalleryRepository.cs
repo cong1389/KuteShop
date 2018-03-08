@@ -17,7 +17,7 @@ namespace App.Infra.Data.Repository.Post
 
         public PostGallery GetById(int id)
         {
-            PostGallery postGallery = FindBy(x => x.Id == id, false).FirstOrDefault();
+            PostGallery postGallery = FindBy(x => x.Id == id).FirstOrDefault();
             
             return postGallery;
         }

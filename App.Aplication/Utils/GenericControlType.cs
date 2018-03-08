@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Aplication
+﻿namespace App.Aplication
 {
     public enum GenericControlType
     {
@@ -39,6 +33,6 @@ namespace App.Aplication
         /// <summary>
         /// Boxes
         /// </summary>
-        Boxes = 40,
+        Boxes = 40
     }
 }

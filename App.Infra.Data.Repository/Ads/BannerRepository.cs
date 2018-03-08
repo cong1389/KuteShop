@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Ads
 
 		public Banner GetById(int Id)
 		{
-			Banner banner = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			Banner banner = FindBy(x => x.Id == Id).FirstOrDefault();
 			return banner;
 		}
 

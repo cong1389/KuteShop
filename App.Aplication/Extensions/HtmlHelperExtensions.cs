@@ -1,22 +1,23 @@
-using App.Aplication.PagedSort.SortUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using App.Aplication.PagedSort.SortUtils;
 
 namespace App.Aplication.Extensions
 {
-	public static class HtmlHelperExtensions
+    public static class HtmlHelperExtensions
 	{
-		public static MvcHtmlString CheckBoxListFor<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, object>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes = null)
+		public static MvcHtmlString CheckBoxListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+		    Expression<Func<TModel, object>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes = null)
 		{
 			TagBuilder tagBuilder = new TagBuilder("ul");
 			if (htmlAttributes != null)
 			{
-				tagBuilder.MergeAttributes<string, object>(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+				tagBuilder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 			}
 			tagBuilder.AddCssClass("check-box-list");
-			ModelMetadata modelMetadatum = ModelMetadata.FromLambdaExpression<TModel, object>(expression, htmlHelper.ViewData);
+			var modelMetadatum = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 			if (selectList == null)
 			{
 				return MvcHtmlString.Create(tagBuilder.ToString());
@@ -50,7 +51,7 @@ namespace App.Aplication.Extensions
 			TagBuilder tagBuilder = new TagBuilder("a");
 			if (htmlAttributes != null)
 			{
-				tagBuilder.MergeAttributes<string, object>(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+				tagBuilder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 			}
 			TagBuilder tagBuilder1 = new TagBuilder("i");
 			tagBuilder1.MergeAttribute("class", "indicator");

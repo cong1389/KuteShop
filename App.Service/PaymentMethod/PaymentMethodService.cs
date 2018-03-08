@@ -12,7 +12,7 @@ namespace App.Service.PaymentMethodes
 {
     public class PaymentMethodService : BaseService<PaymentMethod>, IPaymentMethodService
     {
-        private const string CachePaymentmethodKey = "db.PaymentMethod.{0}";
+        private const string CachePaymentMethodKey = "db.PaymentMethod.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IPaymentMethodRepository _paymentMethodRepository;
@@ -24,10 +24,35 @@ namespace App.Service.PaymentMethodes
             _cacheManager = cacheManager;
         }
 
+        public IEnumerable<PaymentMethod> GetAll(bool isCache = true)
+        {
+            IEnumerable<PaymentMethod> iePaymentMethod;
+            if (isCache)
+            {
+                StringBuilder sbKey = new StringBuilder();
+                sbKey.AppendFormat(CachePaymentMethodKey, "GetAll");
+
+                string key = sbKey.ToString();
+                iePaymentMethod = _cacheManager.GetCollection<PaymentMethod>(key);
+                if (iePaymentMethod == null)
+                {
+                    iePaymentMethod = _paymentMethodRepository.GetAll();
+                    _cacheManager.Put(key, iePaymentMethod);
+                }
+            }
+            else
+            {
+                iePaymentMethod = _paymentMethodRepository.GetAll();
+
+            }
+
+            return iePaymentMethod;
+        }
+
         public PaymentMethod GetById(int id)
         {
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePaymentmethodKey, "GetBySeoUrl");
+            sbKey.AppendFormat(CachePaymentMethodKey, "GetBySeoUrl");
             sbKey.AppendFormat("-{0}", id);
 
             string key = sbKey.ToString();
@@ -40,10 +65,11 @@ namespace App.Service.PaymentMethodes
 
             return paymentMethod;
         }
+
         public PaymentMethod GetBySystemName(string systemName)
         {
             StringBuilder sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePaymentmethodKey, "GetBySystemName");
+            sbKey.AppendFormat(CachePaymentMethodKey, "GetBySystemName");
 
             if (systemName.HasValue())
                 sbKey.AppendFormat("-{0}", systemName);

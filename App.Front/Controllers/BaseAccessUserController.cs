@@ -8,21 +8,15 @@ using Microsoft.Owin.Security;
 
 namespace App.Front.Controllers
 {
-	public class BaseAccessUserController : Controller
+    public class BaseAccessUserController : Controller
 	{
 		protected readonly UserManager<IdentityUser, Guid> UserManager;
 
 		protected string XsrfKey = AccountUtils.XsrfKey;
 
-		protected IAuthenticationManager AuthenticationManager
-		{
-			get
-			{
-				return HttpContext.GetOwinContext().Authentication;
-			}
-		}
+		protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-		protected BaseAccessUserController()
+	    protected BaseAccessUserController()
 		{
 		}
 
@@ -33,7 +27,7 @@ namespace App.Front.Controllers
 
 		protected void AddErrors(IdentityResult result)
 		{
-			foreach (string error in result.Errors)
+			foreach (var error in result.Errors)
 			{
                 ModelState.AddModelError("", error);
 			}
@@ -41,17 +35,17 @@ namespace App.Front.Controllers
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing && UserManager != null)
+			if (disposing)
 			{
-				UserManager.Dispose();
+				UserManager?.Dispose();
 			}
 			base.Dispose(disposing);
 		}
 
 		protected Guid GetGuid(string value)
 		{
-			Guid guid = new Guid();
-			Guid.TryParse(value, out guid);
+		    Guid.TryParse(value, out var guid);
+
 			return guid;
 		}
 	}

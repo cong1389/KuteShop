@@ -250,6 +250,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaymentMethodController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SaleOffController.cs" />
@@ -806,6 +807,7 @@
     <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
     <Content Include="Views\Post\_PostByCategory.Post.cshtml" />
     <Content Include="Views\MenuNav\MenuHomeSlide.cshtml" />
+    <Content Include="Views\PaymentMethod\_PaymentMethodFooter.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -817,7 +819,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Themes\Basic\Content\images\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,11 @@
 using System.Web.Mvc;
-using App.Domain.Entities.GlobalSetting;
 using App.Service.ContactInformation;
 
 namespace App.Front.Controllers
 {
-	public class GoogleMapController : Controller
+    public class GoogleMapController : Controller
 	{
-		private IContactInfoService _contactInfoService;
+		private readonly IContactInfoService _contactInfoService;
 
 		public GoogleMapController(IContactInfoService contactInfoService)
 		{
@@ -15,7 +14,8 @@ namespace App.Front.Controllers
 
 		public ActionResult ShowGoogleMap(int id)
 		{
-			ContactInformation contactInformation = _contactInfoService.Get(x => x.Id == id);
+			var contactInformation = _contactInfoService.Get(x => x.Id == id);
+
 			return View(contactInformation);
 		}
 	}

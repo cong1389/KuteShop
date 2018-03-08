@@ -47,7 +47,7 @@ namespace App.Front.Controllers
                 throw new ArgumentNullException("order");
             }
 
-            OrderViewModel model = new OrderViewModel();
+            var model = new OrderViewModel();
             order.ToModel(model);
 
             foreach (var orderItem in order.OrderItems)

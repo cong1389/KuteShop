@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Menu
 
         public MenuLink GetById(int Id)
         {
-            MenuLink menuLink = FindBy(x => x.Id == Id, false).FirstOrDefault();         
+            MenuLink menuLink = FindBy(x => x.Id == Id).FirstOrDefault();         
 
             return menuLink;
         }

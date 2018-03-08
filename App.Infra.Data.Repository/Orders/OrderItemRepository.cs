@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Orders
 
 		public OrderItem GetById(int id)
 		{
-			OrderItem province = FindBy(x => x.Id == id, false).FirstOrDefault();
+			OrderItem province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 

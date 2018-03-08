@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace App.Aplication.SEO
@@ -12,10 +10,6 @@ namespace App.Aplication.SEO
 		{
 			get;
 			set;
-		}
-
-		public SiteMapImage()
-		{
 		}
 	}
 }

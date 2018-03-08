@@ -17,7 +17,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public Domain.Entities.GenericControl.GenericControl GetById(int Id)
 		{
-			Domain.Entities.GenericControl.GenericControl GenericControl = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			Domain.Entities.GenericControl.GenericControl GenericControl = FindBy(x => x.Id == Id).FirstOrDefault();
 			return GenericControl;
 		}
 

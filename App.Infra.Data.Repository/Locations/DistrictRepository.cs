@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public District GetById(int id)
 		{
-			District district = FindBy(x => x.Id == id, false).FirstOrDefault();
+			District district = FindBy(x => x.Id == id).FirstOrDefault();
 			return district;
 		}
 

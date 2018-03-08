@@ -1,13 +1,11 @@
-using App.Aplication;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Web;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace App.Aplication.FileUtil
 {
@@ -20,7 +18,7 @@ namespace App.Aplication.FileUtil
 				string str = DateTime.Now.ToString("dd-MM-yyyy");
 				ExcelWorksheet name = excelPackage.Workbook.Worksheets.Add(str);
 				PropertyInfo[] properties = typeof(T).GetProperties();
-				for (int i = 0; i < properties.Count<PropertyInfo>(); i++)
+				for (int i = 0; i < properties.Length; i++)
 				{
 					object[] customAttributes = properties[i].GetCustomAttributes(typeof(DisplayAttribute), true);
 					if (customAttributes.Length == 0)
@@ -33,9 +31,9 @@ namespace App.Aplication.FileUtil
 						name.Cells[1, i + 1].Value = name1;
 					}
 				}
-				if (query.IsAny<T>())
+				if (query.IsAny())
 				{
-					name.Cells["A2"].LoadFromCollection<T>(query);
+					name.Cells["A2"].LoadFromCollection(query);
 				}
 				using (ExcelRange item = name.Cells["A1:BZ1"])
 				{

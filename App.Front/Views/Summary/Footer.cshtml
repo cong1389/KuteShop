@@ -45,67 +45,11 @@
             </div>
             <!-- /#introduce-box -->
             <!-- #trademark-box -->
-            <div id="trademark-box" class="row">
-                <div class="col-sm-12">
-                    <ul id="trademark-list">
-                        <li id="payment-methods">Phương thức thanh toán</li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_18e0e.jpg?v=8" alt="Phương thức thanh toán 1">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_28e0e.jpg?v=8" alt="Phương thức thanh toán 2">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_38e0e.jpg?v=8" alt="Phương thức thanh toán 3">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_48e0e.jpg?v=8" alt="Phương thức thanh toán 4">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_58e0e.jpg?v=8" alt="Phương thức thanh toán 5">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_68e0e.jpg?v=8" alt="Phương thức thanh toán 6">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_78e0e.jpg?v=8" alt="Phương thức thanh toán 7">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_88e0e.jpg?v=8" alt="Phương thức thanh toán 8">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_98e0e.jpg?v=8" alt="Phương thức thanh toán 9">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <img src="/assets/255/1000074255/1000138323/trademark_108e0e.jpg?v=8" alt="Phương thức thanh toán 10">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div id="divPaymentMethodFooter"></div>
             <!-- /#trademark-box -->
             <div id="divFooterAddress"></div>
 
-           <div id="footer-menu-box">
+            <div id="footer-menu-box">
                 <p class="text-center">Copyrights © 2015 KuteShop. All Rights Reserved. Designed by KuteThemes.com</p>
             </div>
         </div>
@@ -124,6 +68,11 @@
                .done(function (data) {
                    jQuery("#divFooterLogo").html(data.list);
                });
+
+        jQuery.post('@Url.Action("PaymentMethodFooter", "PaymentMethod")')
+            .done(function (data) {
+                jQuery("#divPaymentMethodFooter").html(data.list);
+            });
     })
 
 </script>

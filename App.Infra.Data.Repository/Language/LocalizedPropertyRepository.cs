@@ -27,7 +27,7 @@ namespace App.Infra.Data.Repository.Language
 
 		public LocalizedProperty GetId(int id)
 		{
-            LocalizedProperty language = FindBy(x => x.Id == id, false).FirstOrDefault();
+            LocalizedProperty language = FindBy(x => x.Id == id).FirstOrDefault();
 
             return language;
 		}

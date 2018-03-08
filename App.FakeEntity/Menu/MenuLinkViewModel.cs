@@ -194,6 +194,13 @@ namespace App.FakeEntity.Menu
         {
             get; set;
         }
+
+        public string ColorHex
+        {
+            get;
+            set;
+        }
+
         public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
         public IList<MenuLinkLocalesViewModel> Locales { get; set; }
 
@@ -388,6 +395,11 @@ namespace App.FakeEntity.Menu
         public bool Selected
         {
             get; set;
+        }
+        public string ColorHex
+        {
+            get;
+            set;
         }
         public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
     }

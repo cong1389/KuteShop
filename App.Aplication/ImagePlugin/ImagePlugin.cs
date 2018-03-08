@@ -1,18 +1,14 @@
-using Kaliko.ImageLibrary;
-using Kaliko.ImageLibrary.Scaling;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Web;
+using Kaliko.ImageLibrary;
+using Kaliko.ImageLibrary.Scaling;
 
 namespace App.Aplication
 {
     public class ImagePlugin : IImagePlugin
     {
-        public ImagePlugin()
-        {
-        }
-
         public void CropAndResizeImage(HttpPostedFileBase imageFile, string outPutFilePath, string outPuthFileName, int width, int height, bool pngFormat = false)
         {
             try
@@ -39,7 +35,7 @@ namespace App.Aplication
                 string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
-                    kalikoImage.SaveJpg(str, (long)99);
+                    kalikoImage.SaveJpg(str, 99);
                 }
                 else
                 {
@@ -77,7 +73,7 @@ namespace App.Aplication
                 string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
-                    kalikoImage1.SaveJpg(str, (long)99);
+                    kalikoImage1.SaveJpg(str, 99);
                 }
                 else
                 {
@@ -116,7 +112,7 @@ namespace App.Aplication
                 string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
-                    kalikoImage.SaveJpg(str, (long)99);
+                    kalikoImage.SaveJpg(str, 99);
                 }
                 else
                 {

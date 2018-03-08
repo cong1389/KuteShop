@@ -7,7 +7,7 @@ using App.Service.Language;
 
 namespace App.Front.Controllers
 {
-	public  class FrontBaseController : Controller
+    public  class FrontBaseController : Controller
 	{
         [PartialCache("Long")]
         protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService,
@@ -26,21 +26,12 @@ namespace App.Front.Controllers
             {
                 var locale = Activator.CreateInstance<TLocalizedPropertyViewModelLocal>();
                 locale.LanguageId = language.Id;
-                if (configure != null)
-                {
-                    configure.Invoke(locale, locale.LanguageId);
-                }
+                configure?.Invoke(locale, locale.LanguageId);
                 locales.Add(locale);
             }
         }
 
-	    protected int PageSize
-		{
-			get
-			{
-				return 20;
-			}
-		}
+	    protected int PageSize => 20;
 
 	    public FrontBaseController()
 		{

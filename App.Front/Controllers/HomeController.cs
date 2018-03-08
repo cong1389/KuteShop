@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.Repairs;
 using App.Front.Models;
 using App.Service.Brandes;
@@ -42,8 +39,8 @@ namespace App.Front.Controllers
 
         public ActionResult BuyProduct(RepairViewModel repair)
         {
-            int id = 1;
-            Repair order1 = _orderService.GetTop(1, x => x.Id > 0, x => x.Id).FirstOrDefault();
+            var id = 1;
+            var order1 = _orderService.GetTop(1, x => x.Id > 0, x => x.Id).FirstOrDefault();
             if (order1 != null)
             {
                 id = order1.Id;
@@ -61,30 +58,30 @@ from x in v.Errors
 select x.ErrorMessage).ToArray())
                 });
             }
-            HttpFileCollectionBase files = Request.Files;
-            List<RepairGallery> orderGalleries = new List<RepairGallery>();
+            var files = Request.Files;
+            var orderGalleries = new List<RepairGallery>();
             if (files.Count > 0)
             {
-                int count = files.Count - 1;
-                int num = 0;
-                string[] allKeys = files.AllKeys;
-                for (int i = 0; i < allKeys.Length; i++)
+                var count = files.Count - 1;
+                var num = 0;
+                var allKeys = files.AllKeys;
+                for (var i = 0; i < allKeys.Length; i++)
                 {
-                    string str = allKeys[i];
+                    var str = allKeys[i];
                     if (num <= count)
                     {
                         if (!str.Equals("Image"))
                         {
-                            HttpPostedFileBase item = files[num];
+                            var item = files[num];
                             if (item.ContentLength > 0)
                             {
-                                RepairGalleryViewModel orderGalleryViewModel = new RepairGalleryViewModel
+                                var orderGalleryViewModel = new RepairGalleryViewModel
                                 {
                                     RepairId = repair.Id
                                 };
-                                string str1 = string.Format("{0}-{1}.jpg", repair.RepairCode, Guid.NewGuid());
-                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
-                                orderGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repair.RepairCode, str1);
+                                var str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
+                                _imagePlugin.CropAndResizeImage(item, $"{Contains.RepairFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                orderGalleryViewModel.ImagePath = $"{Contains.RepairFolder}{repair.RepairCode}/{str1}";
                                 orderGalleries.Add(Mapper.Map<RepairGallery>(orderGalleryViewModel));
                             }
                             num++;
@@ -96,7 +93,7 @@ select x.ErrorMessage).ToArray())
                     }
                 }
             }
-            Repair order2 = Mapper.Map<RepairViewModel, Repair>(repair);
+            var order2 = Mapper.Map<RepairViewModel, Repair>(repair);
             if (orderGalleries.IsAny())
             {
                 order2.RepairGalleries = orderGalleries;
@@ -111,7 +108,7 @@ select x.ErrorMessage).ToArray())
             {
                 return Json(new { data = this.RenderRazorViewToString("_RepairResult", null), success = true }, JsonRequestBehavior.AllowGet);
             }
-            Expression<Func<Repair, bool>> expression = PredicateBuilder.True<Repair>();
+            var expression = PredicateBuilder.True<Repair>();
             if (!string.IsNullOrEmpty(phone))
             {
                 expression = expression.And(x => x.PhoneNumber == phone).Or(x => x.CustomerName.ToLower().Equals(phone));
@@ -120,14 +117,14 @@ select x.ErrorMessage).ToArray())
             {
                 expression = expression.And(x => x.RepairCode.ToLower() == ordercode);
             }
-            Repair repair = _orderService.Get(expression, true);
+            var repair = _orderService.Get(expression, true);
             return Json(new { data = this.RenderRazorViewToString("_RepairResult", repair), success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CheckProduct(RepairViewModel repair)
         {
-            int id = 1;
-            Repair order1 = _orderService.GetTop(1, x => x.Id > 0, x => x.Id).FirstOrDefault();
+            var id = 1;
+            var order1 = _orderService.GetTop(1, x => x.Id > 0, x => x.Id).FirstOrDefault();
             if (order1 != null)
             {
                 id = order1.Id;
@@ -145,30 +142,30 @@ from x in v.Errors
 select x.ErrorMessage).ToArray())
                 });
             }
-            HttpFileCollectionBase files = Request.Files;
-            List<RepairGallery> orderGalleries = new List<RepairGallery>();
+            var files = Request.Files;
+            var orderGalleries = new List<RepairGallery>();
             if (files.Count > 0)
             {
-                int count = files.Count - 1;
-                int num = 0;
-                string[] allKeys = files.AllKeys;
-                for (int i = 0; i < allKeys.Length; i++)
+                var count = files.Count - 1;
+                var num = 0;
+                var allKeys = files.AllKeys;
+                for (var i = 0; i < allKeys.Length; i++)
                 {
-                    string str = allKeys[i];
+                    var str = allKeys[i];
                     if (num <= count)
                     {
                         if (!str.Equals("Image"))
                         {
-                            HttpPostedFileBase item = files[num];
+                            var item = files[num];
                             if (item.ContentLength > 0)
                             {
-                                RepairGalleryViewModel orderGalleryViewModel = new RepairGalleryViewModel
+                                var orderGalleryViewModel = new RepairGalleryViewModel
                                 {
                                     RepairId = repair.Id
                                 };
-                                string str1 = string.Format("{0}-{1}.jpg", repair.RepairCode, Guid.NewGuid());
-                                _imagePlugin.CropAndResizeImage(item, string.Format("{0}{1}/", Contains.ImageFolder, repair.RepairCode), str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
-                                orderGalleryViewModel.ImagePath = string.Format("{0}{1}/{2}", Contains.ImageFolder, repair.RepairCode, str1);
+                                var str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
+                                _imagePlugin.CropAndResizeImage(item, $"{Contains.RepairFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                orderGalleryViewModel.ImagePath = $"{Contains.RepairFolder}{repair.RepairCode}/{str1}";
                                 orderGalleries.Add(Mapper.Map<RepairGallery>(orderGalleryViewModel));
                             }
                             num++;
@@ -180,7 +177,7 @@ select x.ErrorMessage).ToArray())
                     }
                 }
             }
-            Repair order2 = Mapper.Map<RepairViewModel, Repair>(repair);
+            var order2 = Mapper.Map<RepairViewModel, Repair>(repair);
             if (orderGalleries.IsAny())
             {
                 order2.RepairGalleries = orderGalleries;
@@ -196,8 +193,8 @@ select x.ErrorMessage).ToArray())
 
         public ActionResult FlowForm()
         {
-            dynamic viewBag = ViewBag;
-            IBrandService brandService = _brandService;
+            var viewBag = ViewBag;
+            var brandService = _brandService;
             viewBag.Brands = brandService.FindBy(x => x.Status == 1);
             return PartialView();
         }
@@ -205,7 +202,7 @@ select x.ErrorMessage).ToArray())
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult Index()
         {
-            SystemSetting systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
+            var systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
             if (systemSetting != null)
             {
                 ViewBag.Title = systemSetting.MetaTitle ?? systemSetting.Title;
@@ -215,7 +212,7 @@ select x.ErrorMessage).ToArray())
                 ViewBag.Image = Url.Content(string.Concat("~/", systemSetting.LogoImage));
                 ViewBag.Favicon = Url.Content(string.Concat("~/", systemSetting.FaviconImage));
             }
-            dynamic viewBag = ViewBag;
+            var viewBag = ViewBag;
 
             //IProvinceService provinceService = this._province;
             //viewBag.Provinces = provinceService.FindBy((Province x) => x.Status == 1, false);

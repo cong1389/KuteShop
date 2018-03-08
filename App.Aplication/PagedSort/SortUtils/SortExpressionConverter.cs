@@ -4,15 +4,11 @@ using System.Globalization;
 
 namespace App.Aplication.PagedSort.SortUtils
 {
-	public class SortExpressionConverter : TypeConverter
+    public class SortExpressionConverter : TypeConverter
 	{
 		public const char SortExpressionFieldDelimiter = ',';
 
-		public SortExpressionConverter()
-		{
-		}
-
-		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+	    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
 		{
 			if (sourceType == typeof(string))
 			{
@@ -36,17 +32,13 @@ namespace App.Aplication.PagedSort.SortUtils
 			{
 				return new SortExpression();
 			}
-			string str = value as string;
-			if (str == null)
-			{
-				return base.ConvertFrom(context, culture, value);
-			}
-			if (str.Length < 1)
+			string str = (string) value;
+		    if (str.Length < 1)
 			{
 				return new SortExpression();
 			}
-			string[] strArrays = str.Split(new char[] { ',' });
-			if ((int)strArrays.Length != 3)
+			string[] strArrays = str.Split(',');
+			if (strArrays.Length != 3)
 			{
 				throw new Exception("Invalid data format!");
 			}
@@ -60,7 +52,7 @@ namespace App.Aplication.PagedSort.SortUtils
 		{
 			if (value != null && !(value is SortExpression))
 			{
-				throw new Exception(string.Format("Unable to convert type '{0}'!", value.GetType()));
+				throw new Exception($"Unable to convert type '{value.GetType()}'!");
 			}
 			if (destinationType != typeof(string))
 			{
@@ -71,7 +63,7 @@ namespace App.Aplication.PagedSort.SortUtils
 				return string.Empty;
 			}
 			SortExpression sortExpression = value as SortExpression;
-			return string.Format("{1}{0}{2}{0}{3}", new object[] { ',', sortExpression.Title, sortExpression.Expression, sortExpression.Direction });
+			return $"{sortExpression.Title}{','}{sortExpression.Expression}{','}{sortExpression.Direction}";
 		}
 	}
 }

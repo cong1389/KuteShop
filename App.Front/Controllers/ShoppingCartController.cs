@@ -44,7 +44,7 @@ namespace App.Front.Controllers
         {
             var post = _postService.GetById(postId);
 
-            AddToCartContext ctx = new AddToCartContext
+            var ctx = new AddToCartContext
             {
                 Post = post,
                 Quantity = quantity,
@@ -56,7 +56,7 @@ namespace App.Front.Controllers
 
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult =
+            var jsonResult =
                 Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) },
                     JsonRequestBehavior.AllowGet);
 
@@ -67,7 +67,7 @@ namespace App.Front.Controllers
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            List<Post> lstPost = new List<Post>();
+            var lstPost = new List<Post>();
 
             if (cart.IsAny())
             {
@@ -75,7 +75,7 @@ namespace App.Front.Controllers
 
                 foreach (var item in cart)
                 {
-                    Post objPost = _postService.GetById(item.PostId, false);
+                    var objPost = _postService.GetById(item.PostId, false);
                     lstPost.Add(objPost);
                 }
             }
@@ -95,7 +95,7 @@ namespace App.Front.Controllers
         {
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult =
+            var jsonResult =
                 Json(new { success = true, list = this.RenderRazorViewToString("_Order.TopCart", model) },
                     JsonRequestBehavior.AllowGet);
 
@@ -108,7 +108,7 @@ namespace App.Front.Controllers
 
             ShoppingCartItemService.Delete(shppingCart);
 
-            JsonResult jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
@@ -121,10 +121,10 @@ namespace App.Front.Controllers
 
             if (lstShoppingCart.Any())
             {
-                ShoppingCartItem obj = lstShoppingCart.OrderByDescending(x => x.CreatedDate).First();
+                var obj = lstShoppingCart.OrderByDescending(x => x.CreatedDate).First();
 
-                List<Post> lstPost = new List<Post>();
-                Post objPost = _postService.GetById(obj.PostId);
+                var lstPost = new List<Post>();
+                var objPost = _postService.GetById(obj.PostId);
                 lstPost.Add(objPost);
 
                 model = new MiniShoppingCartModel
@@ -134,7 +134,7 @@ namespace App.Front.Controllers
                 };
             }
 
-            JsonResult jsonResult =
+            var jsonResult =
                 Json(
                     new
                     {
@@ -150,17 +150,20 @@ namespace App.Front.Controllers
         public void PrepareShoppingCartModel(IOrderedEnumerable<ShoppingCartItem> cart)
         {
             if (cart == null)
+            {
                 throw new ArgumentNullException("cart");
+            }
 
             if (!cart.Any())
-                return;
+            {
+            }
         }
 
         public ActionResult Cart()
         {
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
-            List<Post> lstPost = new List<Post>();
+            var lstPost = new List<Post>();
 
             if (cart.Any())
             {
@@ -168,7 +171,7 @@ namespace App.Front.Controllers
 
                 foreach (var item in cart)
                 {
-                    Post objPost = _postService.GetById(item.PostId);
+                    var objPost = _postService.GetById(item.PostId);
                     lstPost.Add(objPost);
                 }
             }
@@ -203,7 +206,7 @@ namespace App.Front.Controllers
             //Update cart theo số lượng mới
             var post = _postService.GetById(postId);
 
-            AddToCartContext ctx = new AddToCartContext
+            var ctx = new AddToCartContext
             {
                 Post = post,
                 Quantity = quantity,
@@ -215,7 +218,7 @@ namespace App.Front.Controllers
 
             var model = PrepareMiniShoppingCartModel();
 
-            JsonResult jsonResult =
+            var jsonResult =
                 Json(new { success = true, list = this.RenderRazorViewToString("_Cart.CartItem", model) },
                     JsonRequestBehavior.AllowGet);
 

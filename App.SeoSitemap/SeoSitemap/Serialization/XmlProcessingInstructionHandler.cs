@@ -21,7 +21,7 @@ namespace App.SeoSitemap.Serialization
 			}
 			foreach (XmlStyleSheet styleSheet in model.StyleSheets)
 			{
-				StringBuilder stringBuilder = new StringBuilder(string.Format("type=\"{0}\" href=\"{1}\"", styleSheet.Type, styleSheet.Url));
+				StringBuilder stringBuilder = new StringBuilder($"type=\"{styleSheet.Type}\" href=\"{styleSheet.Url}\"");
 				this.WriteAttribute(stringBuilder, "title", styleSheet.Title);
 				this.WriteAttribute(stringBuilder, "media", styleSheet.Media);
 				this.WriteAttribute(stringBuilder, "charset", styleSheet.Charset);
@@ -38,7 +38,7 @@ namespace App.SeoSitemap.Serialization
 		{
 			if (!string.IsNullOrWhiteSpace(value))
 			{
-				stringBuilder.Append(string.Format(" {0}=\"{1}\"", attributeName, value));
+				stringBuilder.Append($" {attributeName}=\"{value}\"");
 			}
 		}
 	}

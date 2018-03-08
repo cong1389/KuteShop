@@ -20,33 +20,33 @@ namespace App.Infra.Data.Repository.Account
 
 		public User FindByEmail(string email)
 		{
-			User user = Get(x => x.Email.Equals(email), false);
+			User user = Get(x => x.Email.Equals(email));
 			return user;
 		}
 
 		public async Task<User> FindByEmailAsync(string email)
 		{
 			UserRepository userRepository = this;
-			User async = await userRepository.GetAsync(x => x.Email.Equals(email), false);
+			User async = await userRepository.GetAsync(x => x.Email.Equals(email));
 			return async;
 		}
 
 		public Task<User> FindByEmailAsync(CancellationToken cancellationToken, string email)
 		{
-			Task<User> async = GetAsync(cancellationToken, x => x.Email.Equals(email), false);
+			Task<User> async = GetAsync(cancellationToken, x => x.Email.Equals(email));
 			return async;
 		}
 
 		public User FindByUserName(string username)
 		{
-			User user = Get(x => x.UserName.Equals(username), false);
+			User user = Get(x => x.UserName.Equals(username));
 			return user;
 		}
 
 		public async Task<User> FindByUserNameAsync(string username)
 		{
 			UserRepository userRepository = this;
-			User async = await userRepository.GetAsync(x => x.UserName.Equals(username), false);
+			User async = await userRepository.GetAsync(x => x.UserName.Equals(username));
 			return async;
 		}
 
@@ -54,7 +54,7 @@ namespace App.Infra.Data.Repository.Account
 		{
 			UserRepository userRepository = this;
 			CancellationToken cancellationToken1 = cancellationToken;
-			User async = await userRepository.GetAsync(cancellationToken1, x => x.UserName.Equals(username), false);
+			User async = await userRepository.GetAsync(cancellationToken1, x => x.UserName.Equals(username));
 			return async;
 		}
 

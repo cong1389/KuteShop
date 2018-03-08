@@ -4,8 +4,6 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication;
-using App.Domain.Entities.Data;
-using App.Domain.Entities.Menu;
 using App.SeoSitemap;
 using App.SeoSitemap.Enum;
 using App.SeoSitemap.Images;
@@ -15,7 +13,7 @@ using App.Service.Post;
 
 namespace App.Front.Controllers
 {
-	public class SiteMapController : Controller
+    public class SiteMapController : Controller
 	{
 		private readonly IMenuLinkService _menuLinkService;
 
@@ -25,7 +23,8 @@ namespace App.Front.Controllers
 
 		private readonly ISitemapProvider _sitemapProvider;
 
-		public SiteMapController(IMenuLinkService menuLinkService, IPostService postService, INewsService newsService, ISitemapProvider sitemapProvider)
+		public SiteMapController(IMenuLinkService menuLinkService, IPostService postService, INewsService newsService,
+		    ISitemapProvider sitemapProvider)
 		{
 			_menuLinkService = menuLinkService;
 			_postService = postService;
@@ -35,11 +34,11 @@ namespace App.Front.Controllers
 
 		public ActionResult Index()
 		{
-			List<SitemapNode> sitemapNodes = new List<SitemapNode>();
-			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
+			var sitemapNodes = new List<SitemapNode>();
+			var menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
 			if (menuLinks.IsAny())
 			{
-				foreach (MenuLink menuLink in menuLinks)
+				foreach (var menuLink in menuLinks)
 				{
 					sitemapNodes.Add(new SitemapNode("Normal")
 					{
@@ -50,20 +49,22 @@ namespace App.Front.Controllers
 					});
 				}
 			}
+
 			return _sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
 		}
 
 		public ActionResult SiteMapImage()
 		{
-			List<SitemapImage> sitemapImages = new List<SitemapImage>();
-			string item = ConfigurationManager.AppSettings["SiteName"];
-			IOrderedEnumerable<Post> posts = 
+			var sitemapImages = new List<SitemapImage>();
+			var item = ConfigurationManager.AppSettings["SiteName"];
+			var posts = 
 				from x in _postService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
+
 			if (posts.IsAny())
 			{
-				foreach (Post post in posts)
+				foreach (var post in posts)
 				{
 					sitemapImages.Add(new SitemapImage(string.Concat(item, post.ImageMediumSize))
 					{
@@ -74,7 +75,7 @@ namespace App.Front.Controllers
 					{
 						continue;
 					}
-					foreach (GalleryImage galleryImage in post.GalleryImages)
+					foreach (var galleryImage in post.GalleryImages)
 					{
 						sitemapImages.Add(new SitemapImage(string.Concat(item, galleryImage.ImagePath))
 						{
@@ -84,13 +85,13 @@ namespace App.Front.Controllers
 					}
 				}
 			}
-			IOrderedEnumerable<News> news = 
+			var news = 
 				from x in _newsService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
 			if (news.IsAny())
 			{
-				foreach (News news1 in news)
+				foreach (var news1 in news)
 				{
 					if (string.IsNullOrEmpty(news1.ImageSmallSize))
 					{
@@ -118,20 +119,20 @@ namespace App.Front.Controllers
 			string str;
 			string empty;
 			string str1;
-			List<SitemapNode> sitemapNodes = new List<SitemapNode>();
-			string item = ConfigurationManager.AppSettings["SiteName"];
+			var sitemapNodes = new List<SitemapNode>();
+			var item = ConfigurationManager.AppSettings["SiteName"];
 			sitemapNodes.Add(new SitemapNode(string.Empty)
 			{
 				Url = item,
 				ChangeFrequency = ChangeFrequency.Always,
 				Priority = 1
 			});
-			IEnumerable<MenuLink> menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
+			var menuLinks = _menuLinkService.FindBy(x => x.Status == 1, true);
 			if (menuLinks.IsAny())
 			{
-				foreach (MenuLink menuLink in menuLinks)
+				foreach (var menuLink in menuLinks)
 				{
-					SitemapNode sitemapNode = new SitemapNode(string.Empty)
+					var sitemapNode = new SitemapNode(string.Empty)
 					{
 						Url = Url.Action("GetContent", "Menu", new { menu = menuLink.SeoUrl }, Request.Url.Scheme),
 						ChangeFrequency = ChangeFrequency.Daily,
@@ -150,15 +151,15 @@ namespace App.Front.Controllers
 					sitemapNodes.Add(sitemapNode);
 				}
 			}
-			IOrderedEnumerable<Post> posts = 
+			var posts = 
 				from x in _postService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
 			if (posts.IsAny())
 			{
-				foreach (Post post in posts)
+				foreach (var post in posts)
 				{
-					SitemapNode sitemapNode1 = new SitemapNode(string.Empty)
+					var sitemapNode1 = new SitemapNode(string.Empty)
 					{
 						Url = Url.Action("PostDetail", "Post", new { seoUrl = post.SeoUrl }, Request.Url.Scheme),
 						ChangeFrequency = ChangeFrequency.Daily,
@@ -177,15 +178,15 @@ namespace App.Front.Controllers
 					sitemapNodes.Add(sitemapNode1);
 				}
 			}
-			IOrderedEnumerable<News> news = 
+			var news = 
 				from x in _newsService.FindBy(x => x.Status == 1, true)
 				orderby x.CreatedDate descending
 				select x;
 			if (news.IsAny())
 			{
-				foreach (News news1 in news)
+				foreach (var news1 in news)
 				{
-					SitemapNode sitemapNode2 = new SitemapNode(string.Empty)
+					var sitemapNode2 = new SitemapNode(string.Empty)
 					{
 						Url = Url.Action("NewsDetail", "News", new { seoUrl = news1.SeoUrl }, Request.Url.Scheme),
 						ChangeFrequency = ChangeFrequency.Daily,
@@ -204,6 +205,7 @@ namespace App.Front.Controllers
 					sitemapNodes.Add(sitemapNode2);
 				}
 			}
+
 			return _sitemapProvider.CreateSitemap(new SitemapModel(sitemapNodes));
 		}
 	}

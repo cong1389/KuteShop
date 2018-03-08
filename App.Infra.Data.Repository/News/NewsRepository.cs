@@ -17,7 +17,7 @@ namespace App.Infra.Data.Repository.News
 
 		public Domain.Entities.Data.News GetById(int Id)
 		{
-			Domain.Entities.Data.News news = FindBy(x => x.Id == Id, false).FirstOrDefault();
+			Domain.Entities.Data.News news = FindBy(x => x.Id == Id).FirstOrDefault();
 			return news;
 		}
 

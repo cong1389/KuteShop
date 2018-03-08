@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace App.Aplication.SEO
@@ -7,7 +5,7 @@ namespace App.Aplication.SEO
 	public class Location
 	{
 		[XmlElement("changefreq")]
-		public Location.eChangeFrequency? ChangeFrequency
+		public EChangeFrequency? ChangeFrequency
 		{
 			get;
 			set;
@@ -34,34 +32,30 @@ namespace App.Aplication.SEO
 			set;
 		}
 
-		public Location()
+	    public bool ShouldSerializeChangeFrequency()
 		{
-		}
-
-		public bool ShouldSerializeChangeFrequency()
-		{
-			return this.ChangeFrequency.HasValue;
+			return ChangeFrequency.HasValue;
 		}
 
 		public bool ShouldSerializeLastModified()
 		{
-			return !string.IsNullOrEmpty(this.LastModified);
+			return !string.IsNullOrEmpty(LastModified);
 		}
 
 		public bool ShouldSerializePriority()
 		{
-			return this.Priority.HasValue;
+			return Priority.HasValue;
 		}
 
-		public enum eChangeFrequency
+		public enum EChangeFrequency
 		{
-			always,
-			hourly,
-			daily,
-			weekly,
-			monthly,
-			yearly,
-			never
+			Always,
+			Hourly,
+			Daily,
+			Weekly,
+			Monthly,
+			Yearly,
+			Never
 		}
 	}
 }

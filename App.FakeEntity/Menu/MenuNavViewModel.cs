@@ -88,6 +88,13 @@ namespace App.FakeEntity.Menu
             get;
             set;
         }
+
+        public string ColorHex
+        {
+            get;
+            set;
+        }
+
         public IList<MenuNavViewModelLocales> Locales { get; set; }
 
         public MenuNavViewModel()
@@ -181,6 +188,12 @@ namespace App.FakeEntity.Menu
         }
 
         public string Language
+        {
+            get;
+            set;
+        }
+
+        public string ColorHex
         {
             get;
             set;

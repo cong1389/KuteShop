@@ -19,7 +19,7 @@ namespace App.Aplication.PagedSort.SortUtils
 
 		public SortExpressionCollection(SortExpression sortBy) : this()
 		{
-			base.Add(sortBy);
+			Add(sortBy);
 		}
 
 		public static SortExpressionCollection DeSerialize(string data)
@@ -29,7 +29,7 @@ namespace App.Aplication.PagedSort.SortUtils
 
 		public string Serialize()
 		{
-			return SortExpressionCollection.Serialize(this);
+			return Serialize(this);
 		}
 
 		public static string Serialize(SortExpressionCollection collection)

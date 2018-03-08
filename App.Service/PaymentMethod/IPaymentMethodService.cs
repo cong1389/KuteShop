@@ -9,6 +9,8 @@ namespace App.Service.PaymentMethodes
 	{
 		PaymentMethod GetById(int id);
 
+	    IEnumerable<PaymentMethod> GetAll(bool isCache = true);
+
         PaymentMethod GetBySystemName(string systemName);
 
         IEnumerable<PaymentMethod> PagedList(SortingPagingBuilder sortBuider, Paging page);

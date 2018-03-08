@@ -30,7 +30,7 @@ namespace App.Aplication.WebGrid
             // Input display.
             var formatName = HtmlHelper.GenerateIdFromName(name);
 
-            var uniqueId = String.Format("{0}_{1}", formatName, id);
+            var uniqueId = $"{formatName}_{id}";
 
             var input = helper.TextBox(uniqueId,
                 value, new { @class = "hide input-sm" });
@@ -53,10 +53,10 @@ namespace App.Aplication.WebGrid
             // Input display.
             var formatName = HtmlHelper.GenerateIdFromName(name);
 
-            var uniqueId = String.Format("{0}_{1}", formatName, id);
+            var uniqueId = $"{formatName}_{id}";
 
             var input = helper.TextBox(uniqueId, value.ToString("yyyy-MM-dd"),
-                new { @type = "date", @class = "hide input-sm" });
+                new { type = "date", @class = "hide input-sm" });
 
             var result = String.Concat(
                 span.ToString(TagRenderMode.Normal),

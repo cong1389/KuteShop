@@ -19,7 +19,7 @@
         <div class="category-featured jewelry">
             <nav class="navbar nav-menu show-brand">
                 <div class="container">
-                    <div class="navbar-brand">
+                    <div class="navbar-brand" style="background: @(menuLink.ColorHex)">
                         <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
                             <img alt="@menuLink.MenuName" src="@Url.Content("~/" + menuLink.Icon1)" /> @menuLink.MenuName
                         </a>

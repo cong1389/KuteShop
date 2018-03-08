@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
-using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
 using App.Front.Models;
 using App.Service.Menu;
@@ -22,12 +21,12 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         private List<MenuNavViewModel> CreateMenuNav(int? parentId, IEnumerable<MenuNavViewModel> source)
         {
-            List<MenuNavViewModel> ieMenuNav = (from x in source
+            var ieMenuNav = (from x in source
                                                 orderby x.OrderDisplay descending
                                                 select x).Where(x =>
                                                 {
-                                                    int? nullable1 = x.ParentId;
-                                                    int? nullable = parentId;
+                                                    var nullable1 = x.ParentId;
+                                                    var nullable = parentId;
                                                     if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
                                                     {
                                                         return false;
@@ -56,9 +55,9 @@ namespace App.Front.Controllers.Custom
         [ChildActionOnly]
         public ActionResult GetFooterLink()
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
+            var menuNavs = new List<MenuNavViewModel>();
 
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 2 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 2 });
 
             if (!menuLinks.Any())
             {
@@ -88,18 +87,18 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult TopMenu()
         {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 1 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 1 });
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
 
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
+            var menuNavs = new List<MenuNavViewModel>();
             if (!menuLinks.Any())
             {
                 return PartialView(menuNavs);
             }
 
-            IEnumerable<MenuNavViewModel> menuNav = menuLinks.Select(x => new MenuNavViewModel
+            var menuNav = menuLinks.Select(x => new MenuNavViewModel
             {
                 MenuId = x.Id,
                 ParentId = x.ParentId,
@@ -136,8 +135,8 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult GetTopHead()
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 7 });
+            var menuNavs = new List<MenuNavViewModel>();
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 7 });
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
@@ -147,7 +146,7 @@ namespace App.Front.Controllers.Custom
                 return PartialView(menuNavs);
             }
 
-            IEnumerable<MenuNavViewModel> menuNav = menuLinks.Select(x => new MenuNavViewModel
+            var menuNav = menuLinks.Select(x => new MenuNavViewModel
             {
                 MenuId = x.Id,
                 ParentId = x.ParentId,
@@ -229,12 +228,12 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult GetMenuCategory()
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 1, 5 });
+            var menuNavs = new List<MenuNavViewModel>();
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 1, 5 });
 
             if (menuLinks.Any())
             {
-                IEnumerable<MenuNavViewModel> menuNav =
+                var menuNav =
                     from x in menuLinks
                     select new MenuNavViewModel
                     {
@@ -258,14 +257,14 @@ namespace App.Front.Controllers.Custom
         [ChildActionOnly]
         public ActionResult GetMenuVerticalMega()
         {
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 5 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 });
 
             if (!menuLinks.Any())
             {
                 return HttpNotFound();
             }
 
-            IEnumerable<MenuNavViewModel> menuNav =
+            var menuNav =
                 from x in menuLinks
                 select new MenuNavViewModel
                 {
@@ -282,7 +281,7 @@ namespace App.Front.Controllers.Custom
                     IconBar = x.Icon2
                 };
 
-            List<MenuNavViewModel> menuNavs = CreateMenuNav(null, menuNav);
+            var menuNavs = CreateMenuNav(null, menuNav);
 
             return PartialView(menuNavs);
         }
@@ -338,12 +337,12 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult StickyBar()
         {
-            List<MenuNavViewModel> menuNavs = new List<MenuNavViewModel>();
-            IEnumerable<MenuLink> menuLinks = _menuLinkService.GetByOption(new List<int> { 6 }, isDisplaySearch: true);
+            var menuNavs = new List<MenuNavViewModel>();
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { 6 }, isDisplaySearch: true);
 
             if (menuLinks.Any())
             {
-                IEnumerable<MenuNavViewModel> menuNav =
+                var menuNav =
                     from x in menuLinks
                     select new MenuNavViewModel
                     {

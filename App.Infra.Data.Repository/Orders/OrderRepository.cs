@@ -18,13 +18,13 @@ namespace App.Infra.Data.Repository.Orderes
 
         public Order GetById(int id)
         {
-            Order order = FindBy(x => x.Id == id, false).FirstOrDefault();
+            Order order = FindBy(x => x.Id == id).FirstOrDefault();
             return order;
         }
 
         public IEnumerable<Order> GetByCustomerId(int customerId)
         {
-            IEnumerable<Order> order = FindBy(x => x.CustomerId == customerId, false);
+            IEnumerable<Order> order = FindBy(x => x.CustomerId == customerId);
             return order;
         }
 

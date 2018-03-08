@@ -6,11 +6,7 @@ namespace App.Aplication
 {
 	public class DoubleModelBinder : DefaultModelBinder
 	{
-		public DoubleModelBinder()
-		{
-		}
-
-		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+	    public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 			if (value == null)

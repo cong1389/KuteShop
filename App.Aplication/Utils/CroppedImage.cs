@@ -4,7 +4,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 
 namespace App.Aplication
@@ -16,28 +15,28 @@ namespace App.Aplication
 			string str;
 			Image image = Image.FromStream(imageFile.InputStream);
 			Guid guid = ImageFormat.Jpeg.Guid;
-			string lower = Path.GetExtension(imageFile.FileName).ToLower();
-			if (lower.Equals(".jpeg") || lower.Equals(".jpg"))
+			string lower = Path.GetExtension(imageFile.FileName)?.ToLower();
+			if (lower != null && (lower.Equals(".jpeg") || lower.Equals(".jpg")))
 			{
 				guid = ImageFormat.Jpeg.Guid;
 			}
-			if (lower.Equals(".png"))
+			if (lower != null && lower.Equals(".png"))
 			{
 				guid = ImageFormat.Png.Guid;
 			}
-			if (lower.Equals(".gif"))
+			if (lower != null && lower.Equals(".gif"))
 			{
 				guid = ImageFormat.Gif.Guid;
 			}
-			if (lower.Equals(".bmp"))
+			if (lower != null && lower.Equals(".bmp"))
 			{
 				guid = ImageFormat.Bmp.Guid;
 			}
-			if (lower.Equals(".tiff"))
+			if (lower != null && lower.Equals(".tiff"))
 			{
 				guid = ImageFormat.Tiff.Guid;
 			}
-			ImageCodecInfo imageCodecInfo = ImageCodecInfo.GetImageEncoders().First<ImageCodecInfo>((ImageCodecInfo codecInfo) => codecInfo.FormatID == guid);
+			ImageCodecInfo imageCodecInfo = ImageCodecInfo.GetImageEncoders().First(codecInfo => codecInfo.FormatID == guid);
 			Image image1 = image;
 			Bitmap bitmap = null;
 			try
@@ -49,14 +48,14 @@ namespace App.Aplication
 				value1 = height.Value;
 				value = width.Value;
 				bitmap = new Bitmap(value, value1);
-				double num2 = (double)value1 / (double)value;
-				double num3 = (double)value / (double)value1;
+				double num2 = value1 / (double)value;
+				double num3 = value / (double)value1;
 				if (image.Width <= image.Height)
 				{
-					value1 = (int)Math.Round((double)image.Width * num2);
+					value1 = (int)Math.Round(image.Width * num2);
 					if (value1 >= image.Height)
 					{
-						value = (int)Math.Round((double)image.Width * ((double)image.Height / (double)value1));
+						value = (int)Math.Round(image.Width * (image.Height / (double)value1));
 						value1 = image.Height;
 						num = (image.Width - value) / 2;
 					}
@@ -68,10 +67,10 @@ namespace App.Aplication
 				}
 				else
 				{
-					value = (int)Math.Round((double)image.Height * num3);
+					value = (int)Math.Round(image.Height * num3);
 					if (value >= image.Width)
 					{
-						value1 = (int)Math.Round((double)image.Height * ((double)image.Width / (double)value));
+						value1 = (int)Math.Round(image.Height * (image.Width / (double)value));
 						value = image.Width;
 						num1 = (image.Height - value1) / 2;
 					}
@@ -94,7 +93,8 @@ namespace App.Aplication
 				{
 					encoderParameter.Param[0] = new EncoderParameter(Encoder.Quality, (long)100);
 					string empty = string.Empty;
-					empty = (!string.IsNullOrEmpty(fileName) ? string.Format("{0}{1}", filePath, string.Concat(fileName, lower)) : string.Format("{0}{1}", filePath, string.Concat(App.Aplication.Utils.GetTime(), lower)));
+					empty = (!string.IsNullOrEmpty(fileName) ? $"{filePath}{string.Concat(fileName, lower)}" : $"{filePath}{string.Concat(Utils.GetTime(), lower)}"
+					    );
 					if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", filePath))))
 					{
 						Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", filePath)));

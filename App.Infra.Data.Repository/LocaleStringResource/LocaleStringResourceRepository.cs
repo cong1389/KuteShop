@@ -18,7 +18,7 @@ namespace App.Infra.Data.Repository.LocaleStringResource
 
         public Domain.Entities.Language.LocaleStringResource GetLocaleStringResourceById(int id)
         {
-            Domain.Entities.Language.LocaleStringResource localeString = FindBy(x => x.Id == id, false).FirstOrDefault();
+            Domain.Entities.Language.LocaleStringResource localeString = FindBy(x => x.Id == id).FirstOrDefault();
             
             return localeString;
         }

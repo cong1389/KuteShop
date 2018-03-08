@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using App.Domain.Entities.Attribute;
 using App.Front.Models;
 using App.Service.Attribute;
 
@@ -17,14 +16,14 @@ namespace App.Front.Controllers
 
         public ActionResult SearchMenu()
         {
-            SeachConditions seachConditions = new SeachConditions();
+            var seachConditions = new SeachConditions();
 
             return PartialView(seachConditions);
         }
 
         public ActionResult SearchMenuMobile()
         {
-            SeachConditions seachConditions = new SeachConditions();
+            var seachConditions = new SeachConditions();
 
             return PartialView(seachConditions);
         }
@@ -33,7 +32,7 @@ namespace App.Front.Controllers
         {
             ViewBag.Attributes = attributes;
 
-            IEnumerable<Attribute> ieAttributes = _attributeService.FindBy(x => x.Status == 1);
+            var ieAttributes = _attributeService.FindBy(x => x.Status == 1);
 
             return PartialView(ieAttributes);
         }
