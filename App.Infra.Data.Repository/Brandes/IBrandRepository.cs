@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Brandes
 {
-	public interface IBrandRepository : IRepositoryBase<Brand>
+    public interface IBrandRepository : IRepositoryBase<Brand>
 	{
 		Brand GetById(int id);
 

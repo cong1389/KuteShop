@@ -9,7 +9,8 @@ namespace App.Infra.Data.Mapping
 		public ClaimConfiguration()
 		{
 			ToTable("Claim");
-			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("ClaimId").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
+			HasKey(x => x.Id).Property(x => x.Id).HasColumnName("ClaimId").HasColumnType("int")
+			    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 			Property(x => x.UserId).HasColumnName("UserId").HasColumnType("uniqueidentifier").IsRequired();
 			Property(x => x.ClaimType).HasColumnName("ClaimType").HasColumnType("nvarchar").IsMaxLength().IsOptional();
 			Property(x => x.ClaimValue).HasColumnName("ClaimValue").HasColumnType("nvarchar").IsMaxLength().IsOptional();

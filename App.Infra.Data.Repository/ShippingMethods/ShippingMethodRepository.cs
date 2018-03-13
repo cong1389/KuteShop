@@ -1,16 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
 using App.Domain.Shippings;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.ShippingMethods
 {
-    public class ShippingMethodRepository : RepositoryBase<ShippingMethod>, IShippingMethodRepository, IRepositoryBase<ShippingMethod>
+    public class ShippingMethodRepository : RepositoryBase<ShippingMethod>, IShippingMethodRepository
 	{
 		public ShippingMethodRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -18,17 +15,17 @@ namespace App.Infra.Data.Repository.ShippingMethods
 
 		public ShippingMethod GetById(int id)
 		{
-			ShippingMethod province = FindBy(x => x.Id == id).FirstOrDefault();
+			var province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 
 		protected override IOrderedQueryable<ShippingMethod> GetDefaultOrder(IQueryable<ShippingMethod> query)
 		{
-			IOrderedQueryable<ShippingMethod> ShippingMethod = 
+			var shippingMethod = 
 				from p in query
 				orderby p.Id
 				select p;
-			return ShippingMethod;
+			return shippingMethod;
 		}
 
 		public IEnumerable<ShippingMethod> PagedList(Paging page)
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.ShippingMethods
 
 		public IEnumerable<ShippingMethod> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<ShippingMethod, bool>> expression = PredicateBuilder.True<ShippingMethod>();
+			var expression = PredicateBuilder.True<ShippingMethod>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));

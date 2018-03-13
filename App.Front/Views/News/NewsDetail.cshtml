@@ -10,7 +10,12 @@
             <div class="row">
                 <!-- Left colunm -->
                 <div class="column col-xs-12 col-sm-3" id="left_column">
-                    @{Html.RenderAction("MenuNavNews", "MenuNav", new { virtualId = ViewBag.VirtualId, area = "" });}
+                    @{
+                        Html.RenderAction("MenuNavNews", "MenuNav", new { virtualId = ViewBag.VirtualId, area = "" });
+                        Html.RenderAction("NewsTimeLine", "News", new {area = ""});
+                        Html.RenderAction("PostHot", "Post", new {area = ""});
+                    }
+                    
                 </div>
                 <!-- ./left colunm -->
                 <!-- Center colunm-->
@@ -34,14 +39,12 @@
                         <div class="content-text clearfix">
                             @Html.Raw(Model.Description)
                         </div>
-                        <div class="entry-tags">
-                            <span>Tags:</span>
-                            <a href="#">beauty,</a>
-                            <a href="#">medicine,</a>
-                            <a href="#">health</a>
-                        </div>
+
                     </article>
-                    @{Html.RenderAction("GetRelativeNews", "News", new { virtualId = Model.MenuLink.VirtualId, newsId = Model.Id, area = "" });}
+                    @{
+
+                        Html.RenderAction("GetRelativeNews", "News", new { virtualId = Model.MenuLink.VirtualId, newsId = Model.Id, area = "" });
+                    }
 
                 </div>
                 <!-- ./ Center colunm -->

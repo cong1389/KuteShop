@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.SeoSetting
 {
 	public interface ISettingSeoGlobalRepository : IRepositoryBase<SettingSeoGlobal>
 	{
-		SettingSeoGlobal GetById(int Id);
+		SettingSeoGlobal GetById(int id);
 
 		IEnumerable<SettingSeoGlobal> PagedList(Paging page);
 

@@ -1,9 +1,8 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace App.Framework.Ultis
 {
-	public enum EnumStatus
+    public enum EnumStatus
 	{
 		Success = 0,
 		[Display(Name="This email is already in use.")]

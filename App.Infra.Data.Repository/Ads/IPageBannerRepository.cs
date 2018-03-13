@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.Ads
 {
 	public interface IPageBannerRepository : IRepositoryBase<PageBanner>
 	{
-		PageBanner GetById(int Id);
+		PageBanner GetById(int id);
 
 		IEnumerable<PageBanner> PagedList(Paging page);
 

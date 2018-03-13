@@ -1,9 +1,7 @@
-﻿using App.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using App.Core.Extensions;
 
 namespace App.Core.Caching
 {
@@ -19,7 +17,7 @@ namespace App.Core.Caching
 
         public bool Move(string destinationKey, string item)
         {
-            if (this.Contains(item))
+            if (Contains(item))
             {
                 var target = _cache.GetHashSet(destinationKey);
                 return target.Add(item);
@@ -30,17 +28,17 @@ namespace App.Core.Caching
 
         public long ExceptWith(params string[] keys)
         {
-            return Combine(x => this.Except(x), keys);
+            return Combine(this.Except, keys);
         }
 
         public long IntersectWith(params string[] keys)
         {
-            return Combine(x => this.Intersect(x), keys);
+            return Combine(this.Intersect, keys);
         }
 
         public long UnionWith(params string[] keys)
         {
-            return Combine(x => this.Union(x), keys);
+            return Combine(this.Union, keys);
         }
 
         private long Combine(Func<IEnumerable<string>, IEnumerable<string>> func, params string[] keys)
@@ -49,12 +47,12 @@ namespace App.Core.Caching
                 return 0;
 
             var other = keys.SelectMany(x => _cache.GetHashSet(x)).Distinct();
-            var result = func(other);
+            func(other);
 
-            this.Clear();
+            Clear();
             this.AddRange(other);
 
-            return this.Count;
+            return Count;
         }
     }
 }

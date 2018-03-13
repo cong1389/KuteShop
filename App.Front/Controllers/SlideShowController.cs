@@ -2,6 +2,7 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.Slide;
 
 namespace App.Front.Controllers

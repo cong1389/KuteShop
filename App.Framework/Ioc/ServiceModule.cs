@@ -19,6 +19,7 @@ using App.Service.LocaleStringResource;
 using App.Service.LocalizedProperty;
 using App.Service.Locations;
 using App.Service.MailSetting;
+using App.Service.Manufacturers;
 using App.Service.Menu;
 using App.Service.News;
 using App.Service.Orders;
@@ -31,7 +32,6 @@ using App.Service.SeoSetting;
 using App.Service.ShippingMethodes;
 using App.Service.Slide;
 using App.Service.Static;
-using App.Service.Manufacturers;
 using App.Service.SystemApp;
 using Autofac;
 
@@ -107,8 +107,7 @@ namespace App.Framework.Ioc
 
             builder.RegisterType<AddressService>().As<IAddressService>().InstancePerRequest();
 
-            builder.RegisterType<PaymentMethodService>().As<IPaymentMethodService>()
-                .InstancePerRequest();
+            builder.RegisterType<PaymentMethodService>().As<IPaymentMethodService>().InstancePerRequest();
 
             builder.RegisterType<ShippingMethodService>().As<IShippingMethodService>().InstancePerRequest();
 

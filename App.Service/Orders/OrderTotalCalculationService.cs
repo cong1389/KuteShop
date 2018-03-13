@@ -7,9 +7,9 @@ namespace App.Service.Orders
     {
         public decimal GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart)
         {
-            decimal subTotal = decimal.Zero;
+            var subTotal = decimal.Zero;
 
-            if (cart == null || !cart.Any())
+            if (!cart.Any())
             {
                 return subTotal;
             }

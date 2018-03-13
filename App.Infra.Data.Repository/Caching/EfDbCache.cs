@@ -5,12 +5,13 @@ using System.Security.Cryptography;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Infrastructure.DependencyManagement;
+using static System.String;
 
 namespace App.Infra.Data.Repository.Caching
 {
     public class EfDbCache : IDbCache
     {
-        private const string KEYPREFIX = "efcache:";
+        private const string Keyprefix = "efcache:";
         private readonly object _lock = new object();
 
         private bool _enabled;
@@ -28,10 +29,7 @@ namespace App.Infra.Data.Repository.Caching
 
         public bool Enabled
         {
-            get
-            {
-                return _enabled;
-            }
+            get => _enabled;
             set
             {
                 if (_enabled == value)
@@ -53,7 +51,7 @@ namespace App.Infra.Data.Repository.Caching
 
         public void Clear()
         {
-            _cache.RemoveByPattern(KEYPREFIX);
+            _cache.RemoveByPattern(Keyprefix);
             //_requestCache.Value.RemoveByPattern(KEYPREFIX);
         }
 
@@ -75,7 +73,7 @@ namespace App.Infra.Data.Repository.Caching
             {
                 if (entry.HasExpired(now))
                 {
-                    lock (String.Intern(key))
+                    lock (Intern(key))
                     {
                         InvalidateItemUnlocked(entry);
                     }
@@ -94,12 +92,12 @@ namespace App.Infra.Data.Repository.Caching
         {
             // Looking up large Keys can be expensive (comparing Large Strings), so if keys are large, hash them, otherwise if keys are short just use as-is
             if (key.Length <= 128)
-                return KEYPREFIX + "data:" + key;
+                return Keyprefix + "data:" + key;
 
             using (var sha = new SHA1CryptoServiceProvider())
             {
                 key = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(key)));
-                return KEYPREFIX + "data:" + key;
+                return Keyprefix + "data:" + key;
             }
         }
 
@@ -112,10 +110,7 @@ namespace App.Infra.Data.Repository.Caching
             foreach (var set in entry.EntitySets)
             {
                 var lookup = GetLookupSet(set, false);
-                if (lookup != null)
-                {
-                    lookup.Remove(entry.Key);
-                }
+                lookup?.Remove(entry.Key);
             }
         }
 
@@ -138,7 +133,7 @@ namespace App.Infra.Data.Repository.Caching
 
         private string GetLookupKeyFor(string entitySet)
         {
-            return KEYPREFIX + "lookup:" + entitySet;
+            return Keyprefix + "lookup:" + entitySet;
         }
 
         public virtual DbCacheEntry Put(string key, object value, IEnumerable<string> dependentEntitySets, TimeSpan? duration)
@@ -150,7 +145,7 @@ namespace App.Infra.Data.Repository.Caching
 
             key = HashKey(key);
 
-            lock (String.Intern(key))
+            lock (Intern(key))
             {
                 var entitySets = dependentEntitySets.Distinct().ToArray();
                 var entry = new DbCacheEntry

@@ -1,30 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.SeoSetting
 {
-	public class SettingSeoGlobalRepository : RepositoryBase<SettingSeoGlobal>, ISettingSeoGlobalRepository, IRepositoryBase<SettingSeoGlobal>
+    public class SettingSeoGlobalRepository : RepositoryBase<SettingSeoGlobal>, ISettingSeoGlobalRepository
 	{
 		public SettingSeoGlobalRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		public SettingSeoGlobal GetById(int Id)
+		public SettingSeoGlobal GetById(int id)
 		{
-			SettingSeoGlobal settingSeoGlobal = FindBy(x => x.Id == Id).FirstOrDefault();
+			var settingSeoGlobal = FindBy(x => x.Id == id).FirstOrDefault();
 			return settingSeoGlobal;
 		}
 
 		protected override IOrderedQueryable<SettingSeoGlobal> GetDefaultOrder(IQueryable<SettingSeoGlobal> query)
 		{
-			IOrderedQueryable<SettingSeoGlobal> settingSeoGlobals = 
+			var settingSeoGlobals = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.SeoSetting
 
 		public IEnumerable<SettingSeoGlobal> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<SettingSeoGlobal, bool>> expression = PredicateBuilder.True<SettingSeoGlobal>();
+			var expression = PredicateBuilder.True<SettingSeoGlobal>();
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}

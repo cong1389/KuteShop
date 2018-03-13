@@ -8,7 +8,7 @@ namespace App.Service.Customers
     {
         public static IOrderedEnumerable<ShoppingCartItem> GetCartItems(this Customer customer)
         {
-            IOrderedEnumerable<ShoppingCartItem> items = customer.ShoppingCartItems.OrderByDescending(x => x.Id);
+            var items = customer.ShoppingCartItems.OrderByDescending(x => x.Id);
             return items;
         }
 

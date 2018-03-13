@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
@@ -34,11 +32,11 @@ namespace App.Service.Menu
             MenuLink menuLink;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
@@ -59,7 +57,7 @@ namespace App.Service.Menu
             IEnumerable<MenuLink> menuLinks;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetListSeoUrl");
 
                 if (seoUrl.HasValue())
@@ -67,7 +65,7 @@ namespace App.Service.Menu
                     sbKey.AppendFormat("-{0}", seoUrl);
                 }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
                 {
@@ -89,7 +87,7 @@ namespace App.Service.Menu
             MenuLink menuLink;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetBySeoUrl");
 
                 if (seoUrl.HasValue())
@@ -97,7 +95,7 @@ namespace App.Service.Menu
                     sbKey.AppendFormat("-{0}", seoUrl);
                 }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
@@ -118,14 +116,16 @@ namespace App.Service.Menu
             MenuLink menuLink;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetByParentId");
                 sbKey.AppendFormat("-{0}", parentId);
 
                 if (currentVirtualId.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", currentVirtualId);
+                }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
@@ -146,13 +146,15 @@ namespace App.Service.Menu
             MenuLink menuLink;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetByCurrentVirtualId");
 
                 if (currentVirtualId.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", currentVirtualId);
+                }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
@@ -174,16 +176,20 @@ namespace App.Service.Menu
             MenuLink menuLink;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheMenuKey, "GetByMenuName");
 
                 if (virtualCategoryId.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", virtualCategoryId);
+                }
 
                 if (menuName.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", menuName);
+                }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLink = _cacheManager.Get<MenuLink>(key);
                 if (menuLink == null)
                 {
@@ -214,7 +220,7 @@ namespace App.Service.Menu
             IEnumerable<MenuLink> menuLinks;
             if (isCache)
             {
-                string key = string.Format(CacheMenuKey2, "GetByTemplateType", templateType, @readonly);
+                var key = string.Format(CacheMenuKey2, "GetByTemplateType", templateType, @readonly);
 
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
@@ -246,17 +252,17 @@ namespace App.Service.Menu
             , bool isCache = true)
         {
 
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheMenuKey, "GetByOption");
 
-            Expression<Func<MenuLink, bool>> expression = PredicateBuilder.True<MenuLink>();
+            var expression = PredicateBuilder.True<MenuLink>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
             if (position != null && !position.IsNullOrEmpty())
             {
-                int i = 0;
-                foreach (int pos in position)
+                var i = 0;
+                foreach (var pos in position)
                 {
                     sbKey.AppendFormat("-{0}", pos);
                     expression = i == 0 ? expression.And(x => x.Position == pos) : expression.Or(x => x.Position == pos);
@@ -266,10 +272,10 @@ namespace App.Service.Menu
 
             if (template != null && !template.IsNullOrEmpty())
             {
-                foreach (int temp in template)
+                foreach (var temp in template)
                 {
                     sbKey.AppendFormat("-{0}", temp);
-                    int i = 0;
+                    var i = 0;
                     expression = i == 0
                         ? expression.And(x => x.TemplateType == temp)
                         : expression.Or(x => x.TemplateType == temp);
@@ -279,8 +285,8 @@ namespace App.Service.Menu
 
             if (parentId != null && !parentId.IsNullOrEmpty())
             {
-                int i = 0;
-                foreach (int par in parentId)
+                var i = 0;
+                foreach (var par in parentId)
                 {
                     sbKey.AppendFormat("-{0}", parentId);
                     expression = i == 0 ? expression.And(x => x.ParentId == par) : expression.Or(x => x.ParentId == par);
@@ -318,7 +324,7 @@ namespace App.Service.Menu
             if (isCache)
             {
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 menuLinks = _cacheManager.GetCollection<MenuLink>(key);
                 if (menuLinks == null)
                 {

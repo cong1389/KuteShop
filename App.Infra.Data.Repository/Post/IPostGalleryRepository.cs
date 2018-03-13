@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.Post
 {
 	public interface IPostGalleryRepository : IRepositoryBase<PostGallery>
 	{
-        PostGallery GetById(int Id);
+        PostGallery GetById(int id);
 
         IEnumerable<PostGallery> PagedList(Paging page);
 

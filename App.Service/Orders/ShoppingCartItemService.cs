@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Orders;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Orders;
 using App.Infra.Data.UOW.Interfaces;
@@ -42,11 +40,11 @@ namespace App.Service.Orders
             try
             {
                 var customer = ctx.Customers ?? _workContext.CurrentCustomer;
-                int storeId = 1;
+                var storeId = 1;
 
                 IEnumerable<ShoppingCartItem> ieShoppingCart = _workContext.CurrentCustomer.ShoppingCartItems;
 
-                ShoppingCartItem objNew = new ShoppingCartItem
+                var objNew = new ShoppingCartItem
                 {
                     PostId = ctx.Post.Id,
                     CustomerId = customer.Id,
@@ -67,7 +65,7 @@ namespace App.Service.Orders
                 else
                 {
                     //Kiem tra PostId cua customer nay co trong ShoppingCartItem chua
-                    ShoppingCartItem objOld = ieShoppingCart.FirstOrDefault(x => x.PostId == ctx.Post.Id);
+                    var objOld = ieShoppingCart.FirstOrDefault(x => x.PostId == ctx.Post.Id);
 
                     // int quantityOld = ieShoppingCart.Where(x => x.PostId == ctx.Post.Id && x.CustomerId == customer.Id).FirstOrDefault().Quantity;
                     if (objOld != null)
@@ -101,11 +99,11 @@ namespace App.Service.Orders
             ShoppingCartItem shoppingCartItem;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheShoppingcartitemKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 shoppingCartItem = _cacheManager.Get<ShoppingCartItem>(key);
                 if (shoppingCartItem == null)
                 {
@@ -126,21 +124,21 @@ namespace App.Service.Orders
             IEnumerable<ShoppingCartItem> shoppingCartItem;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheShoppingcartitemKey, "GetByPostId");
                 sbKey.Append(postId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 shoppingCartItem = _cacheManager.GetCollection<ShoppingCartItem>(key);
                 if (shoppingCartItem == null)
                 {
-                    shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId, false);
+                    shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId);
                     _cacheManager.Put(key, shoppingCartItem);
                 }
             }
             else
             {
-                shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId, false);
+                shoppingCartItem = _shoppingCartItemRepository.FindBy(x => x.PostId == postId);
             }
 
             return shoppingCartItem;
@@ -160,7 +158,9 @@ namespace App.Service.Orders
             bool ensureOnlyActiveCheckoutAttributes = false, bool deleteChildCartItems = true)
         {
             if (shoppingCartItem == null)
+            {
                 throw new ArgumentNullException("shoppingCartItem");
+            }
 
             Delete(shoppingCartItem);
         }

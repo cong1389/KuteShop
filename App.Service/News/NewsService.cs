@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
@@ -29,11 +27,11 @@ namespace App.Service.News
             Domain.Entities.Data.News news;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheNewsKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 news = _cacheManager.Get<Domain.Entities.Data.News>(key);
                 if (news == null)
                 {
@@ -55,7 +53,7 @@ namespace App.Service.News
             IEnumerable<Domain.Entities.Data.News> news;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheNewsKey, "GetBySeoUrl");
 
                 if (seoUrl.HasValue())
@@ -63,7 +61,7 @@ namespace App.Service.News
                     sbKey.AppendFormat("-{0}", seoUrl);
                 }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 news = _cacheManager.GetCollection<Domain.Entities.Data.News>(key);
                 if (news == null)
                 {
@@ -96,10 +94,10 @@ namespace App.Service.News
            , bool isCache = true)
         {
             IEnumerable<Domain.Entities.Data.News> news;
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheNewsKey, "GetByOption");
 
-            Expression<Func<Domain.Entities.Data.News, bool>> expression = PredicateBuilder.True<Domain.Entities.Data.News>();
+            var expression = PredicateBuilder.True<Domain.Entities.Data.News>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
@@ -121,7 +119,7 @@ namespace App.Service.News
 
             if (isCache)
             {
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 news = _cacheManager.GetCollection<Domain.Entities.Data.News>(key);
                 if (news == null)
                 {

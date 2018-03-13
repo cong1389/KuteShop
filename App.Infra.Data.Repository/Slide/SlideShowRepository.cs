@@ -1,16 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Slide;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Slide
 {
-	public class SlideShowRepository : RepositoryBase<SlideShow>, ISlideShowRepository, IRepositoryBase<SlideShow>
+    public class SlideShowRepository : RepositoryBase<SlideShow>, ISlideShowRepository
 	{
 		public SlideShowRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -18,7 +15,7 @@ namespace App.Infra.Data.Repository.Slide
 
 		protected override IOrderedQueryable<SlideShow> GetDefaultOrder(IQueryable<SlideShow> query)
 		{
-			IOrderedQueryable<SlideShow> slideShows = 
+			var slideShows = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -32,7 +29,7 @@ namespace App.Infra.Data.Repository.Slide
 
 		public IEnumerable<SlideShow> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<SlideShow, bool>> expression = PredicateBuilder.True<SlideShow>();
+			var expression = PredicateBuilder.True<SlideShow>();
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}

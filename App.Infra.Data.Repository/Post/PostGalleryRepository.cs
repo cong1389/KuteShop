@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Post
 {
-	public class PostGalleryRepository : RepositoryBase<PostGallery>, IPostGalleryRepository, IRepositoryBase<PostGallery>
+    public class PostGalleryRepository : RepositoryBase<PostGallery>, IPostGalleryRepository
 	{
 
         public PostGalleryRepository(IDbFactory dbFactory) : base(dbFactory)
@@ -17,18 +16,18 @@ namespace App.Infra.Data.Repository.Post
 
         public PostGallery GetById(int id)
         {
-            PostGallery postGallery = FindBy(x => x.Id == id).FirstOrDefault();
+            var postGallery = FindBy(x => x.Id == id).FirstOrDefault();
             
             return postGallery;
         }
 
         protected override IOrderedQueryable<PostGallery> GetDefaultOrder(IQueryable<PostGallery> query)
         {
-            IOrderedQueryable<PostGallery> PostGallery =
+            var postGallery =
                 from p in query
                 orderby p.Id
                 select p;
-            return PostGallery;
+            return postGallery;
         }
 
         public IEnumerable<PostGallery> PagedList(Paging page)

@@ -5,9 +5,9 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Attribute
 {
-	public interface IAttributeValueRepository : IRepositoryBase<AttributeValue>
+    public interface IAttributeValueRepository : IRepositoryBase<AttributeValue>
 	{
-		AttributeValue GetById(int Id);
+		AttributeValue GetById(int id);
 
 		IEnumerable<AttributeValue> PagedList(Paging page);
 

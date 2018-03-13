@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.MailSetting
 {
 	public interface IMailSettingRepository : IRepositoryBase<ServerMailSetting>
 	{
-		ServerMailSetting GetById(int Id);
+		ServerMailSetting GetById(int id);
 
 		IEnumerable<ServerMailSetting> PagedList(Paging page);
 

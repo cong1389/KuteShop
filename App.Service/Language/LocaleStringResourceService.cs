@@ -44,14 +44,16 @@ namespace App.Service.LocaleStringResource
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalestringresourceKey, "GetByName");
                 sbKey.AppendFormat("-{0}", languageId);
 
                 if (resourceName.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", resourceName);
+                }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 locale = _cacheManager.Get<Domain.Entities.Language.LocaleStringResource>(key);
                 if (locale == null)
                 {
@@ -85,11 +87,11 @@ namespace App.Service.LocaleStringResource
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalestringresourceKey, "GetById");
                 sbKey.AppendFormat("-{0}", id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 locale = _cacheManager.Get<Domain.Entities.Language.LocaleStringResource>(key);
                 if (locale == null)
                 {
@@ -111,11 +113,11 @@ namespace App.Service.LocaleStringResource
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalestringresourceKey, "GetByLanguageId");
                 sbKey.AppendFormat("-{0}", languageId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 locale = _cacheManager.GetCollection<Domain.Entities.Language.LocaleStringResource>(key);
                 if (locale == null)
                 {
@@ -152,7 +154,7 @@ namespace App.Service.LocaleStringResource
             ,bool isCache=true)
         {
             Domain.Entities.Language.LocaleStringResource locale;
-            string result = string.Empty;
+            var result = string.Empty;
 
             if (languageId <= 0)
             {
@@ -166,14 +168,16 @@ namespace App.Service.LocaleStringResource
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalestringresourceKey, "GetResource");
                 sbKey.AppendFormat("-{0}", languageId);
 
                 if (resourceKey.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", resourceKey);
+                }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 locale = _cacheManager.Get<Domain.Entities.Language.LocaleStringResource>(key);
                 if (locale == null)
                 {

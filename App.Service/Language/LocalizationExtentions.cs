@@ -45,9 +45,7 @@ namespace App.Service.Language
            bool ensureTwoPublishedLanguages = true)
 
         {
-
-            var member = keySelector.Body as MemberExpression;
-            if (member == null)
+            if (!(keySelector.Body is MemberExpression member))
             {
                 throw new ArgumentException($"Expression '{keySelector}' refers to a method, not a property.");
             }
@@ -60,24 +58,24 @@ namespace App.Service.Language
             string result = null;
 
             // load localized value
-            string localeKeyGroup = typeof(T).Name.Replace("ViewModel", "");
-            string localeKey = propInfo.Name;
+            var localeKeyGroup = typeof(T).Name.Replace("ViewModel", "");
+            var localeKey = propInfo.Name;
 
             if (languageId > 0)
             {
                 DependencyResolver.Current.GetService<ICacheManager>();
                 var localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
 
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalizaKey, "GetLocalized");
-                Guid guid = entity.GetType().GUID;
+                var guid = entity.GetType().GUID;
                 sbKey.AppendFormat("-{0}", guid);
                 sbKey.AppendFormat("-{0}", entityId);
                 sbKey.AppendFormat("-{0}", languageId);
                 sbKey.AppendFormat("-{0}", localeKeyGroup);
                 sbKey.AppendFormat("-{0}", localeKey);
                 
-                Domain.Entities.Language.LocalizedProperty localizedProperty = localizedPropertyService.GetByKey(languageId
+                var localizedProperty = localizedPropertyService.GetByKey(languageId
                     , entityId, localeKeyGroup, localeKey);
 
                 result = localizedProperty?.LocaleValue;
@@ -105,16 +103,16 @@ namespace App.Service.Language
                 var cacheManager = DependencyResolver.Current.GetService<ICacheManager>();
                 var localizedPropertyService = DependencyResolver.Current.GetService<ILocalizedPropertyService>();
 
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalizaKey, "GetLocalizedByLocaleKey");
-                Guid guid = entity.GetType().GUID;
+                var guid = entity.GetType().GUID;
                 sbKey.AppendFormat("-{0}", guid);
                 sbKey.AppendFormat("-{0}", entityId);
                 sbKey.AppendFormat("-{0}", languageId);
                 sbKey.AppendFormat("-{0}", localeKeyGroup);
                 sbKey.AppendFormat("-{0}", localeKey);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 var localizedProperty = cacheManager.Get<Domain.Entities.Language.LocalizedProperty>(key);
                 if (localizedProperty == null)
                 {

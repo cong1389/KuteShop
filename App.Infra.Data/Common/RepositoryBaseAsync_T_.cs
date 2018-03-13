@@ -1,7 +1,3 @@
-using App.Core.Common;
-using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
-using App.Infra.Data.DbFactory;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,6 +5,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Core.Common;
+using App.Core.Utils;
+using App.Domain.Interfaces.Repository;
+using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Common
 {
@@ -23,11 +23,11 @@ namespace App.Infra.Data.Common
         {
             get
             {
-                Context.AppContext appContext = _dataContext;
+                var appContext = _dataContext;
                 if (appContext == null)
                 {
-                    Context.AppContext appContext1 = DbFactory.Init();
-                    Context.AppContext appContext2 = appContext1;
+                    var appContext1 = DbFactory.Init();
+                    var appContext2 = appContext1;
                     _dataContext = appContext1;
                     appContext = appContext2;
                 }
@@ -53,7 +53,7 @@ namespace App.Infra.Data.Common
 
         public void Delete(Expression<Func<T, bool>> where)
         {
-            foreach (T t in _dbSet.Where(where).AsEnumerable())
+            foreach (var t in _dbSet.Where(where).AsEnumerable())
             {
                 _dbSet.Remove(t);
             }
@@ -67,7 +67,8 @@ namespace App.Infra.Data.Common
         public IEnumerable<T> Find<TKey>(Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            IEnumerable<T> list = _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
+            IEnumerable<T> list = _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause)
+                .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
             return list;
         }
 
@@ -89,7 +90,8 @@ namespace App.Infra.Data.Common
             }
             else if (sortBuilder.ColumnOrder != SortBuilder.SortOrder.Ascending)
             {
-                listAsync = await _dbSet.OrderByDescending(sortBuilder.ColumnName).AsNoTracking().Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+                listAsync = await _dbSet.OrderByDescending(sortBuilder.ColumnName).AsNoTracking().Where(whereClause)
+                    .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
                 list = listAsync;
             }
             else
@@ -103,58 +105,70 @@ namespace App.Infra.Data.Common
         public virtual async Task<IEnumerable<T>> FindAsync<TKey>(CancellationToken cancellationToken, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            List<T> listAsync = await QueryableExtensions.ToListAsync(_dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize), cancellationToken);
+
+            var listAsync = await _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause)
+                .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync(cancellationToken);
+
             return listAsync;
         }
 
         public virtual async Task<IEnumerable<T>> FindAsync<TKey>(Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
             page.TotalRecord = _dbSet.Where(whereClause).Count();
-            List<T> listAsync = await _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+
+            var listAsync = await _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+
             return listAsync;
         }
 
         public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> whereClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            List<T> listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+
+            var listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+
             return listAsync;
         }
 
         public virtual async Task<IEnumerable<T>> FindAsync(CancellationToken cancellationToken, Expression<Func<T, bool>> whereClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            List<T> listAsync = await QueryableExtensions.ToListAsync(GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize), cancellationToken);
+
+            var listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize).ToListAsync(cancellationToken);
+
             return listAsync;
         }
 
         public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(predicate).ToList() : _dbSet.Where(predicate).ToList());
+            return @readonly ? _dbSet.AsNoTracking().Where(predicate).ToList() : _dbSet.Where(predicate).ToList();
         }
 
         public virtual async Task<IEnumerable<T>> FindByAsync(CancellationToken cancellationToken, Expression<Func<T, bool>> predicate, bool @readonly = false)
         {
-            Task<List<T>> task;
-            task = (@readonly ? QueryableExtensions.ToListAsync(_dbSet.AsNoTracking().Where(predicate), cancellationToken) : QueryableExtensions.ToListAsync(_dbSet.Where(predicate), cancellationToken));
+            var task = @readonly
+                ? _dbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken)
+                : _dbSet.Where(predicate).ToListAsync(cancellationToken);
+
             return await task;
         }
 
         public virtual async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate, bool @readonly = false)
         {
-            Task<List<T>> task;
-            task = (@readonly ? _dbSet.AsNoTracking().Where(predicate).ToListAsync() : _dbSet.Where(predicate).ToListAsync());
+            var task = @readonly ? _dbSet.AsNoTracking().Where(predicate).ToListAsync() : _dbSet.Where(predicate).ToListAsync();
+
             return await task;
         }
 
         public T FindById(object id, bool @readonly = false)
         {
-            return _dbSet.Find(new object[] { id });
+            return _dbSet.Find(id);
         }
 
         public T Get(Expression<Func<T, bool>> where, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefault() : _dbSet.Where(where).FirstOrDefault());
+            return @readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefault() : _dbSet.Where(where).FirstOrDefault();
         }
 
         public IEnumerable<T> GetAll()
@@ -170,38 +184,47 @@ namespace App.Infra.Data.Common
         public virtual async Task<IEnumerable<T>> GetAllPagedListAsync(Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Count();
-            List<T> listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+
+            var listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize).ToListAsync();
+
             return listAsync;
         }
 
         public virtual async Task<IEnumerable<T>> GetAllPagedListAsync(CancellationToken cancellationToken, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Count();
-            List<T> listAsync = await QueryableExtensions.ToListAsync(GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize), cancellationToken);
+
+            var listAsync = await GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize).ToListAsync(cancellationToken);
+
             return listAsync;
         }
 
         public Task<T> GetAsync(CancellationToken cancellationToken, Expression<Func<T, bool>> where, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefaultAsync(cancellationToken) : _dbSet.Where(where).FirstOrDefaultAsync(cancellationToken));
+            return @readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefaultAsync(cancellationToken) : _dbSet.Where(where).FirstOrDefaultAsync(cancellationToken);
         }
 
         public Task<T> GetAsync(Expression<Func<T, bool>> where, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefaultAsync() : _dbSet.Where(where).FirstOrDefaultAsync());
+            return @readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefaultAsync() : _dbSet.Where(where).FirstOrDefaultAsync();
         }
 
         protected abstract IOrderedQueryable<T> GetDefaultOrder(IQueryable<T> query);
 
         public async Task<IEnumerable<T>> GetTop(int take)
         {
-            List<T> listAsync = await _dbSet.AsNoTracking().Take(take).ToListAsync();
+            var listAsync = await _dbSet.AsNoTracking().Take(take).ToListAsync();
+
             return listAsync;
         }
 
         public async Task<IEnumerable<T>> GettopBy<TKey>(Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, int take)
         {
-            List<T> listAsync = await _dbSet.AsNoTracking().OrderBy(orderByClause).Where(whereClause).Take(take).ToListAsync();
+            var listAsync = await _dbSet.AsNoTracking().OrderBy(orderByClause).Where(whereClause).Take(take)
+                .ToListAsync();
+
             return listAsync;
         }
 
@@ -212,7 +235,8 @@ namespace App.Infra.Data.Common
 
         public async Task<IEnumerable<T>> GetTopBy(int take, Expression<Func<T, bool>> where)
         {
-            List<T> listAsync = await _dbSet.AsNoTracking().Where(where).Take(take).ToListAsync();
+            var listAsync = await _dbSet.AsNoTracking().Where(where).Take(take).ToListAsync();
+
             return listAsync;
         }
 
@@ -229,6 +253,7 @@ namespace App.Infra.Data.Common
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
+
             _dataContext.Entry(entity).State = EntityState.Modified;
         }
     }

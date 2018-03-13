@@ -1,3 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using App.Core.Common;
 using App.Domain.Common;
 using App.Domain.Entities.Account;
@@ -10,23 +19,14 @@ using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Location;
 using App.Domain.Entities.Menu;
+using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
+using App.Domain.Orders;
 using App.Domain.Shippings;
 using App.Infra.Data.Mapping;
 using Domain.Entities.Customers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using App.Domain.Entities.Orders;
-using App.Domain.Orders;
 
 namespace App.Infra.Data.Context
 {
@@ -273,14 +273,14 @@ namespace App.Infra.Data.Context
 
         public virtual int Commit()
         {
-            IEnumerable<DbEntityEntry> dbEntityEntries =
+            var dbEntityEntries =
                 from x in ChangeTracker.Entries()
                 where x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified)
                 select x;
-            foreach (DbEntityEntry dbEntityEntry in dbEntityEntries)
+
+            foreach (var dbEntityEntry in dbEntityEntries)
             {
-                IAuditableEntity entity = dbEntityEntry.Entity as IAuditableEntity;
-                if (entity != null)
+                if (dbEntityEntry.Entity is IAuditableEntity entity)
                 {
                     string name = Thread.CurrentPrincipal.Identity.Name;
                     DateTime utcNow = DateTime.UtcNow;
@@ -295,7 +295,7 @@ namespace App.Infra.Data.Context
                         entity.CreatedDate = utcNow;
                     }
                     entity.UpdatedBy = name;
-                    entity.UpdatedDate = new DateTime?(utcNow);
+                    entity.UpdatedDate = utcNow;
                 }
             }
             return SaveChanges();
@@ -303,14 +303,14 @@ namespace App.Infra.Data.Context
 
         public virtual Task<int> CommitAsync()
         {
-            IEnumerable<DbEntityEntry> dbEntityEntries =
+            var dbEntityEntries =
                 from x in ChangeTracker.Entries()
                 where x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified)
                 select x;
-            foreach (DbEntityEntry dbEntityEntry in dbEntityEntries)
+
+            foreach (var dbEntityEntry in dbEntityEntries)
             {
-                IAuditableEntity entity = dbEntityEntry.Entity as IAuditableEntity;
-                if (entity != null)
+                if (dbEntityEntry.Entity is IAuditableEntity entity)
                 {
                     string name = Thread.CurrentPrincipal.Identity.Name;
                     DateTime utcNow = DateTime.UtcNow;
@@ -325,7 +325,7 @@ namespace App.Infra.Data.Context
                         entity.CreatedDate = utcNow;
                     }
                     entity.UpdatedBy = name;
-                    entity.UpdatedDate = new DateTime?(utcNow);
+                    entity.UpdatedDate = utcNow;
                 }
             }
             return SaveChangesAsync();
@@ -336,7 +336,8 @@ namespace App.Infra.Data.Context
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            modelBuilder.Properties().Where(x => x.Name == string.Concat(x.ReflectedType.Name, "Id")).Configure(x => x.IsKey().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity));
+            modelBuilder.Properties().Where(x => x.Name == string.Concat(x.ReflectedType.Name, "Id")).Configure(x =>
+                x.IsKey().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity));
 
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());

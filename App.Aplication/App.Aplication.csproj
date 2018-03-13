@@ -37,9 +37,6 @@
     <RootNamespace>App.Aplication</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.Service">
-      <HintPath>..\App.Service\bin\Debug\App.Service.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
     </Reference>
@@ -81,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\MappingExtensions.cs" />
     <Compile Include="FileUtil\ExcelUtil.cs" />
     <Compile Include="Filters\FormValueRequiredAttribute.cs" />
     <Compile Include="ImagePlugin\IImagePlugin.cs" />
@@ -150,12 +146,8 @@
       <Name>App.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.Domain\App.Domain.csproj">
-      <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
+      <Project>{396ff6df-0f55-4c8f-9b2f-233f439da8f6}</Project>
       <Name>App.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\App.FakeEntity\App.FakeEntity.csproj">
-      <Project>{2205e10f-f6de-43c5-a39d-e9458639d0d5}</Project>
-      <Name>App.FakeEntity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

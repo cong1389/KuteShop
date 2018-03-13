@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace App.Core.Extensions
 {
@@ -21,12 +17,12 @@ namespace App.Core.Extensions
                 return;
             }
 
-            other.Each(x => initial.Add(x));
+            other.Each(initial.Add);
         }
 
         public static bool IsNullOrEmpty<T>(this ICollection<T> source)
         {
-            return (source == null || source.Count == 0);
+            return source == null || source.Count == 0;
         }
     }
 }

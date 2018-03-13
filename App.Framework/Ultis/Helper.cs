@@ -1,15 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
 
 namespace App.Framework.Ultis
 {
 	public class Helper
 	{
-		public Helper()
-		{
-		}
-
-		public class PageInfo
+	    public class PageInfo
 		{
 			public readonly int Leave;
 
@@ -21,32 +16,20 @@ namespace App.Framework.Ultis
 			{
 				get
 				{
-					int num = (this._page - 1) * this._limit + 1;
+					int num = (_page - 1) * _limit + 1;
 					return num;
 				}
 			}
 
 			public int CurrentPage
 			{
-				get
-				{
-					return this._page;
-				}
-				set
-				{
-					this._page = (value < 1 ? 1 : value);
-				}
+				get => _page;
+			    set => _page = value < 1 ? 1 : value;
 			}
 
-			public int End
-			{
-				get
-				{
-					return this._page * this._limit;
-				}
-			}
+			public int End => _page * _limit;
 
-			public bool HideJumpBox
+		    public bool HideJumpBox
 			{
 				get;
 				set;
@@ -60,11 +43,8 @@ namespace App.Framework.Ultis
 
 			public int ItemsPerPage
 			{
-				get
-				{
-					return this._limit;
-				}
-				set
+				get => _limit;
+			    set
 				{
 					int num;
 					if (value < 4)
@@ -73,9 +53,9 @@ namespace App.Framework.Ultis
 					}
 					else
 					{
-						num = (value > 200 ? 200 : value);
+						num = value > 200 ? 200 : value;
 					}
-					this._limit = num;
+					_limit = num;
 				}
 			}
 
@@ -85,15 +65,9 @@ namespace App.Framework.Ultis
 				set;
 			}
 
-			public int TotalPage
-			{
-				get
-				{
-					return (this.ItemsPerPage > 0 ? (int)Math.Ceiling(this.TotalItems / this.ItemsPerPage) : 0);
-				}
-			}
+			public int TotalPage => ItemsPerPage > 0 ? (int)Math.Ceiling(TotalItems / ItemsPerPage) : 0;
 
-			public Func<int, string> Url
+		    public Func<int, string> Url
 			{
 				get;
 				set;
@@ -101,10 +75,10 @@ namespace App.Framework.Ultis
 
 			public PageInfo()
 			{
-				this.Url = (int i) => "";
+				Url = i => "";
 			}
 
-			public PageInfo(int limit, int page) : this(limit, page, 0, false, false, (int u) => string.Empty)
+			public PageInfo(int limit, int page) : this(limit, page, 0, false, false, u => string.Empty)
 			{
 			}
 
@@ -114,12 +88,12 @@ namespace App.Framework.Ultis
 
 			public PageInfo(int limit, int page, int count, bool hlb, bool hjb, Func<int, string> url)
 			{
-				this.ItemsPerPage = limit;
-				this.CurrentPage = page;
-				this.TotalItems = count;
-				this.HideLimitBox = hlb;
-				this.HideJumpBox = hjb;
-				this.Url = url;
+				ItemsPerPage = limit;
+				CurrentPage = page;
+				TotalItems = count;
+				HideLimitBox = hlb;
+				HideJumpBox = hjb;
+				Url = url;
 			}
 		}
 	}

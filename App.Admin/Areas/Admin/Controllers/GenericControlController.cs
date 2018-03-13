@@ -298,13 +298,13 @@ namespace App.Admin.Controllers
             {
                 var lstMenuLink = _menuLinkService.GetAll();
 
-                var menuLinkViewModel = new MenuLinkViewModel();
-                var model = lstMenuLink.Select(m =>
-                {
-                    return m.ToModel(menuLinkViewModel);
-                });
+                //var menuLinkViewModel = new MenuLinkViewModel();
+                //var model = lstMenuLink.Select(m =>
+                //{
+                //    return m.ToModel(menuLinkViewModel);
+                //});
 
-                ViewBag.MenuLink = model;
+                //ViewBag.MenuLink = model;
             }
 
             if (filterContext.RouteData.Values["action"].Equals("edit"))

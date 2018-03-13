@@ -7,7 +7,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Other
 {
-	public class LandingPageService : BaseService<LandingPage>, ILandingPageService
+    public class LandingPageService : BaseService<LandingPage>, ILandingPageService
 	{
 		private readonly ILandingPageRepository _landingPageRepository;
 

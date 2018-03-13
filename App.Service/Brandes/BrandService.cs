@@ -7,7 +7,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Brandes
 {
-	public class BrandService : BaseService<Brand>, IBrandService
+    public class BrandService : BaseService<Brand>, IBrandService
 	{
 		private readonly IBrandRepository _brandRepository;
 

@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Language
 {
-	public class LanguageRepository : RepositoryBase<Domain.Entities.Language.Language>, ILanguageRepository, IRepositoryBase<Domain.Entities.Language.Language>
+    public class LanguageRepository : RepositoryBase<Domain.Entities.Language.Language>, ILanguageRepository
 	{
         public LanguageRepository(IDbFactory dbFactory) : base(dbFactory)
         {
@@ -17,7 +14,7 @@ namespace App.Infra.Data.Repository.Language
 
 		protected override IOrderedQueryable<Domain.Entities.Language.Language> GetDefaultOrder(IQueryable<Domain.Entities.Language.Language> query)
 		{
-			IOrderedQueryable<Domain.Entities.Language.Language> languages = 
+			var languages = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -26,7 +23,7 @@ namespace App.Infra.Data.Repository.Language
 
 		public Domain.Entities.Language.Language GetById(int id)
 		{
-            Domain.Entities.Language.Language language = FindBy(x => x.Id == id).FirstOrDefault();
+            var language = FindBy(x => x.Id == id).FirstOrDefault();
 
             return language;
 		}
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.Language
 
 		public IEnumerable<Domain.Entities.Language.Language> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<Domain.Entities.Language.Language, bool>> expression = PredicateBuilder.True<Domain.Entities.Language.Language>();
+			var expression = PredicateBuilder.True<Domain.Entities.Language.Language>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.LanguageCode.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.LanguageName.ToLower().Contains(sortBuider.Keywords.ToLower()));

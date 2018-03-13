@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Core.Localization
+﻿namespace App.Core.Localization
 {
     public static class NullLocalizer
     {
@@ -15,9 +9,6 @@ namespace App.Core.Localization
             s_instance = (format, args) => new LocalizedString((args == null || args.Length == 0) ? format : string.Format(format, args));
         }
 
-        public static Localizer Instance
-        {
-            get { return s_instance; }
-        }
+        public static Localizer Instance => s_instance;
     }
 }

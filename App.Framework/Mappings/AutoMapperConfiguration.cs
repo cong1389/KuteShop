@@ -4,11 +4,7 @@ namespace App.Framework.Mappings
 {
     public class AutoMapperConfiguration
 	{
-		public AutoMapperConfiguration()
-		{
-		}
-
-		public static void Configure()
+	    public static void Configure()
         {
             Mapper.Initialize(cfg => {
                 cfg.AddProfile<DomainToViewModelMappingProfile>();

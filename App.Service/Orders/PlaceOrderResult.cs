@@ -15,10 +15,7 @@ namespace App.Service.Orders
             Errors = new List<string>();
         }
 
-        public bool Success
-        {
-            get { return (Errors.Count == 0); }
-        }
+        public bool Success => (Errors.Count == 0);
 
         public void AddError(string error)
         {

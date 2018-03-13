@@ -7,7 +7,6 @@ using App.Core.Caching;
 using App.Core.Common;
 using App.Core.Extensions;
 using App.Core.Utils;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Language;
 using App.Infra.Data.UOW.Interfaces;
@@ -24,7 +23,9 @@ namespace App.Service.LocalizedProperty
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public LocalizedPropertyService(IUnitOfWork unitOfWork, ILocalizedPropertyRepository localizedPropertyRepository, ICacheManager cacheManager) : base(unitOfWork, localizedPropertyRepository)
+        public LocalizedPropertyService(IUnitOfWork unitOfWork,
+            ILocalizedPropertyRepository localizedPropertyRepository, ICacheManager cacheManager) : base(unitOfWork,
+            localizedPropertyRepository)
         {
             _unitOfWork = unitOfWork;
             _localizedPropertyRepository = localizedPropertyRepository;
@@ -42,11 +43,11 @@ namespace App.Service.LocalizedProperty
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalizedpropertyKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 localizedProperty = _cacheManager.Get<Domain.Entities.Language.LocalizedProperty>(key);
                 if (localizedProperty == null)
                 {
@@ -68,21 +69,21 @@ namespace App.Service.LocalizedProperty
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalizedpropertyKey, "GetByEntityId");
                 sbKey.Append(entityId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 localizedProperty = _cacheManager.GetCollection<Domain.Entities.Language.LocalizedProperty>(key);
                 if (localizedProperty == null)
                 {
-                    localizedProperty = _localizedPropertyRepository.FindBy(x => x.EntityId == entityId, false);
+                    localizedProperty = _localizedPropertyRepository.FindBy(x => x.EntityId == entityId);
                     _cacheManager.Put(key, localizedProperty);
                 }
             }
             else
             {
-                localizedProperty = _localizedPropertyRepository.FindBy(x => x.EntityId == entityId, false);
+                localizedProperty = _localizedPropertyRepository.FindBy(x => x.EntityId == entityId);
             }
 
 
@@ -95,17 +96,22 @@ namespace App.Service.LocalizedProperty
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheLocalizedpropertyKey, "GetByKey");
                 sbKey.Append(languageId);
                 sbKey.Append(entityId);
 
                 if (localeKeyGroup.HasValue())
+                {
                     sbKey.AppendFormat("-{0}", localeKeyGroup);
-                if (localeKey.HasValue())
-                    sbKey.AppendFormat("-{0}", localeKey);
+                }
 
-                string key = sbKey.ToString();
+                if (localeKey.HasValue())
+                {
+                    sbKey.AppendFormat("-{0}", localeKey);
+                }
+
+                var key = sbKey.ToString();
                 attr = _cacheManager.Get<Domain.Entities.Language.LocalizedProperty>(key);
                 if (attr == null)
                 {
@@ -113,8 +119,7 @@ namespace App.Service.LocalizedProperty
                       x.LanguageId.Equals(languageId)
                       && x.EntityId.Equals(entityId)
                        && x.LocaleKeyGroup.Equals(localeKeyGroup)
-                       && x.LocaleKey.Equals(localeKey)
-                      , false);
+                       && x.LocaleKey.Equals(localeKey));
                     _cacheManager.Put(key, attr);
                 }
             }
@@ -124,8 +129,7 @@ namespace App.Service.LocalizedProperty
                       x.LanguageId.Equals(languageId)
                       && x.EntityId.Equals(entityId)
                        && x.LocaleKeyGroup.Equals(localeKeyGroup)
-                       && x.LocaleKey.Equals(localeKey)
-                      , false);
+                       && x.LocaleKey.Equals(localeKey));
             }
 
             return attr;
@@ -156,8 +160,7 @@ namespace App.Service.LocalizedProperty
            string localeValue,
            int languageId) where T : AuditableEntity<int>
         {
-            var member = keySelector.Body as MemberExpression;
-            if (member == null)
+            if (!(keySelector.Body is MemberExpression member))
             {
                 throw new ArgumentException($"Expression '{keySelector}' refers to a method, not a property.");
             }
@@ -171,7 +174,7 @@ namespace App.Service.LocalizedProperty
             var keyGroup = typeof(T).Name;
             var key = propInfo.Name;
 
-            Domain.Entities.Language.LocalizedProperty obj = GetByKey(languageId, entity.Id
+            var obj = GetByKey(languageId, entity.Id
            , keyGroup, key);
 
             if (obj == null)

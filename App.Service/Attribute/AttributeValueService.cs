@@ -3,7 +3,6 @@ using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Attribute;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Attribute;
 using App.Infra.Data.UOW.Interfaces;
@@ -30,11 +29,11 @@ namespace App.Service.Attribute
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheAttributevalueKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 attributeValue = _cacheManager.Get<AttributeValue>(key);
                 if (attributeValue == null)
                 {

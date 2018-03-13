@@ -3,7 +3,7 @@ using App.Domain.Interfaces.Services;
 
 namespace App.Service.Repair
 {
-	public interface IRepairGalleryService : IBaseService<RepairGallery>, IService
+    public interface IRepairGalleryService : IBaseService<RepairGallery>
 	{
 
 	}

@@ -1,30 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Attribute;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Attribute
 {
-	public class AttributeValueRepository : RepositoryBase<AttributeValue>, IAttributeValueRepository, IRepositoryBase<AttributeValue>
+    public class AttributeValueRepository : RepositoryBase<AttributeValue>, IAttributeValueRepository
 	{
 		public AttributeValueRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		public AttributeValue GetById(int Id)
+		public AttributeValue GetById(int id)
 		{
-			AttributeValue attributeValue = FindBy(x => x.Id == Id).FirstOrDefault();
+			var attributeValue = FindBy(x => x.Id == id).FirstOrDefault();
 			return attributeValue;
 		}
 
 		protected override IOrderedQueryable<AttributeValue> GetDefaultOrder(IQueryable<AttributeValue> query)
 		{
-			IOrderedQueryable<AttributeValue> attributeValues = 
+			var attributeValues = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.Attribute
 
 		public IEnumerable<AttributeValue> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<AttributeValue, bool>> expression = PredicateBuilder.True<AttributeValue>();
+			var expression = PredicateBuilder.True<AttributeValue>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.ValueName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Attribute.AttributeName.ToLower().Contains(sortBuider.Keywords.ToLower()));

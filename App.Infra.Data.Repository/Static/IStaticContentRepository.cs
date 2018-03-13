@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.Static
 {
 	public interface IStaticContentRepository : IRepositoryBase<StaticContent>
 	{
-		StaticContent GetById(int Id);
+		StaticContent GetById(int id);
 
 		IEnumerable<StaticContent> PagedList(Paging page);
 

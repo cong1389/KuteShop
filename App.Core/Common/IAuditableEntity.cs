@@ -2,7 +2,7 @@ using System;
 
 namespace App.Core.Common
 {
-	public interface IAuditableEntity
+    public interface IAuditableEntity
 	{
 		string CreatedBy
 		{

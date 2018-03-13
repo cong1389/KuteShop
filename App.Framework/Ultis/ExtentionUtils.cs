@@ -9,25 +9,13 @@ using System.Web.Security;
 
 namespace App.Framework.Ultis
 {
-	public static class ExtentionUtils
+    public static class ExtentionUtils
 	{
-		public static string ApplicationName
-		{
-			get
-			{
-				return Membership.ApplicationName.ToLower();
-			}
-		}
+		public static string ApplicationName => Membership.ApplicationName.ToLower();
 
-		public static int PageSize
-		{
-			get
-			{
-				return int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"]);
-			}
-		}
+	    public static int PageSize => int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"]);
 
-		public static bool Log(string txt)
+	    public static bool Log(string txt)
 		{
 			bool flag;
 			try
@@ -43,14 +31,14 @@ namespace App.Framework.Ultis
 					Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Logs"));
 				}
 				DateTime now = DateTime.Now;
-				string str1 = $"{"Logs"}/{now.ToString("yyyyMMdd")}.txt";
+				string str1 = $"Logs/{now.ToString("yyyyMMdd")}.txt";
 				if (!File.Exists(string.Concat(current.Server.MapPath("~/"), str1)))
 				{
 					File.Create(string.Concat(current.Server.MapPath("~/"), str1));
 				}
 				FileStream fileStream = File.Open(string.Concat(current.Server.MapPath("~/"), str1), FileMode.Open);
 				File.ReadAllLines(string.Concat(current.Server.MapPath("~/"), str1));
-				List<string> strs = new List<string>()
+				List<string> strs = new List<string>
 				{
 				    $"{DateTime.Now}\t{txt}\t{str}\r\n"
 				};
@@ -101,7 +89,7 @@ namespace App.Framework.Ultis
 				else
 				{
 					DisplayAttribute[] customAttributes = (DisplayAttribute[])field.GetCustomAttributes(typeof(DisplayAttribute), false);
-					empty = (customAttributes.Length != 0 ? customAttributes[0].GetName() : value.ToString());
+					empty = customAttributes.Length != 0 ? customAttributes[0].GetName() : value.ToString();
 				}
 			}
 			else
@@ -119,9 +107,9 @@ namespace App.Framework.Ultis
 			}
 			else
 			{
-				string[] strArrays = new string[] { "aAeEoOuUiIdDyY", "áàảãạăắằẳẵặâấầẩẫậ", "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ", "éèẻẽẹêếềểễệ", "ÉÈẺẼẸÊẾỀỂỄỆ", "óòỏõọôốồổỗộơớờởỡợ", "ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ", "úùủũụưứừửữự", "ÚÙỦŨỤƯỨỪỬỮỰ", "íìỉĩị", "ÍÌỈĨỊ", "đ", "Đ", "ýỳỷỹỵ", "ÝỲỶỸỴ" };
-				string[] strArrays1 = new string[] { "aAeEoOuUiIdDyY", "áàảãạăắằẳẵặâấầẩẫậ", "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ", "éèẻẽẹêếềểễệ", "ÉÈẺẼẸÊẾỀỂỄỆ", "óòỏõọôốồổỗộơớờởỡợ", "ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ", "úùủũụưứừửữự", "ÚÙỦŨỤƯỨỪỬỮỰ", "íìỉĩị", "ÍÌỈĨỊ", "đ", "Đ", "ýỳỷỹỵ", "ÝỲỶỸỴ" };
-				for (int i = 1; i < (int)strArrays.Length; i++)
+				string[] strArrays = { "aAeEoOuUiIdDyY", "áàảãạăắằẳẵặâấầẩẫậ", "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ", "éèẻẽẹêếềểễệ", "ÉÈẺẼẸÊẾỀỂỄỆ", "óòỏõọôốồổỗộơớờởỡợ", "ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ", "úùủũụưứừửữự", "ÚÙỦŨỤƯỨỪỬỮỰ", "íìỉĩị", "ÍÌỈĨỊ", "đ", "Đ", "ýỳỷỹỵ", "ÝỲỶỸỴ" };
+				string[] strArrays1 = { "aAeEoOuUiIdDyY", "áàảãạăắằẳẵặâấầẩẫậ", "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ", "éèẻẽẹêếềểễệ", "ÉÈẺẼẸÊẾỀỂỄỆ", "óòỏõọôốồổỗộơớờởỡợ", "ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ", "úùủũụưứừửữự", "ÚÙỦŨỤƯỨỪỬỮỰ", "íìỉĩị", "ÍÌỈĨỊ", "đ", "Đ", "ýỳỷỹỵ", "ÝỲỶỸỴ" };
+				for (int i = 1; i < strArrays.Length; i++)
 				{
 					for (int j = 0; j < strArrays[i].Length; j++)
 					{

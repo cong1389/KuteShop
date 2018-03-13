@@ -143,3 +143,14 @@ D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.csproj.GenerateR
 D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.dll
 D:\FreeLance\2018\KuteShop\Source\Resources\obj\Debug\Resources.pdb
+D:\Project\Practice\kute\Source\Resources\bin\Debug\Resources.dll
+D:\Project\Practice\kute\Source\Resources\bin\Debug\Resources.pdb
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.ModelValidationResources.resources
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.MessageUI.resources
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.FormUI.resources
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.IdentityValidateResource.resources
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.csproj.GenerateResource.Cache
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.csproj.CoreCompileInputs.cache
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.dll
+D:\Project\Practice\kute\Source\Resources\obj\Debug\Resources.pdb

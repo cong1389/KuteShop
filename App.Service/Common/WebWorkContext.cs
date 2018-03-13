@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Web;
-using App.Aplication.Extensions;
 using App.Core.Extensions;
 using App.Domain.Common;
 using App.Domain.Entities.Identity;
@@ -47,9 +46,11 @@ namespace App.Service.Common
             get
             {
                 if (_cachedLanguage != null)
+                {
                     return _cachedLanguage;
+                }
 
-                Domain.Entities.Data.GenericAttribute attribute = _genericAttributeService.GetByKey(CurrentCustomer.Id, "Customer", "LanguageId");
+                var attribute = _genericAttributeService.GetByKey(CurrentCustomer.Id, "Customer", "LanguageId");
 
                 if (attribute == null)
                 {
@@ -72,7 +73,7 @@ namespace App.Service.Common
 
         private void SetCustomerLanguage(int languageId, int storeId)
         {
-            Domain.Entities.Data.GenericAttribute objAttribute = new Domain.Entities.Data.GenericAttribute
+            var objAttribute = new Domain.Entities.Data.GenericAttribute
             {
                 EntityId = CurrentCustomer.Id,
                 KeyGroup = "Customer",
@@ -87,7 +88,9 @@ namespace App.Service.Common
                 , objAttribute.KeyGroup, objAttribute.Key);
 
             if (attribute == null)
+            {
                 _genericAttributeService.Create(objAttribute);
+            }
             else
             {
                 attribute.Value = languageId.ToString();
@@ -100,25 +103,35 @@ namespace App.Service.Common
             get
             {
                 if (_cachedCustomer != null)
+                {
                     return _cachedCustomer;
+                }
 
-                Customer customer = null;
+                Customer customer;
 
                 //Get user registered
                 if (_httpContextBase.User.Identity.IsAuthenticated)
                 {
-                    string userId = _httpContextBase.User.Identity.GetUserId();
+                    var userId = _httpContextBase.User.Identity.GetUserId();
 
                     //Kiểm tra nếu chưa có user trong table Customer thì create new customer
                     //Load customer đã có 
-                    Customer customerExsist = _customerService.GetByGuid(Guid.Parse(userId), false);
+                    var customerExsist = _customerService.GetByGuid(Guid.Parse(userId), false);
                     if (customerExsist == null || !customerExsist.Active)
                     {
-                        IdentityUser objUser = UserManager.FindById(Guid.Parse(userId));
-                        customerExsist = objUser.ToModel();
-                        customerExsist.CustomerGuid = Guid.Parse(userId);                       
-                        customerExsist.Active = true;
-                        customerExsist.Deleted = false;                       
+                        var objUser = UserManager.FindById(Guid.Parse(userId));
+                        customerExsist = new Customer
+                        {
+                            Username = objUser.UserName,
+                            Email = objUser.Email,
+                            Password = objUser.PasswordHash,
+                            CreatedOnUtc = DateTime.UtcNow,
+                            LastLoginDateUtc = DateTime.UtcNow,
+                            LastActivityDateUtc = DateTime.UtcNow,
+                            CustomerGuid = Guid.Parse(userId),
+                            Active = true,
+                            Deleted = false
+                        };
 
                         //Create address and BillingAddress
                         var objAddress = new Address
@@ -127,13 +140,13 @@ namespace App.Service.Common
                             FirstName = objUser.FirstName,
                             LastName = objUser.LastName,
                             Address1 = objUser.Address,
-                            PhoneNumber=objUser.Phone,
-                            City=objUser.City
+                            PhoneNumber = objUser.Phone,
+                            City = objUser.City
                         };
 
                         customerExsist.Addresses.Add(objAddress);
                         customerExsist.BillingAddress = objAddress;
-                        
+
                         _customerService.Create(customerExsist);
                         _customerService.Update(customerExsist);
 
@@ -150,16 +163,13 @@ namespace App.Service.Common
                 _cachedCustomer = customer;
                 return _cachedCustomer;
             }
-            set
-            {
-                _cachedCustomer = value;
-            }
+            set => _cachedCustomer = value;
         }
 
         protected virtual Customer GetGuestCustomer()
         {
-            Customer customer = null;
-            Guid customerGuid = Guid.Empty;
+            Customer customer;
+            var customerGuid = Guid.Empty;
 
             var anonymousId = _httpContextBase.Request.AnonymousID;
 

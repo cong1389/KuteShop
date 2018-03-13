@@ -1,12 +1,12 @@
-using App.Core.Common;
-using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
-using App.Infra.Data.DbFactory;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using App.Core.Common;
+using App.Core.Utils;
+using App.Domain.Interfaces.Repository;
+using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Common
 {
@@ -21,11 +21,11 @@ namespace App.Infra.Data.Common
         {
             get
             {
-                Context.AppContext appContext = _dataContext;
+                var appContext = _dataContext;
                 if (appContext == null)
                 {
-                    Context.AppContext appContext1 = DbFactory.Init();
-                    Context.AppContext appContext2 = appContext1;
+                    var appContext1 = DbFactory.Init();
+                    var appContext2 = appContext1;
                     _dataContext = appContext1;
                     appContext = appContext2;
                 }
@@ -51,7 +51,7 @@ namespace App.Infra.Data.Common
 
         public void BactchAdd(IEnumerable<T> entity)
         {
-            foreach (T t in _dbSet.AsEnumerable())
+            foreach (var t in _dbSet.AsEnumerable())
             {
                 _dbSet.Add(t);
             }
@@ -59,7 +59,7 @@ namespace App.Infra.Data.Common
 
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
-            foreach (T t in _dbSet.Where(where).AsEnumerable())
+            foreach (var t in _dbSet.Where(where).AsEnumerable())
             {
                 _dataContext.Entry(t).State = EntityState.Deleted;
                 _dbSet.Remove(t);
@@ -75,14 +75,17 @@ namespace App.Infra.Data.Common
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> whereClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            IEnumerable<T> list = GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
+            IEnumerable<T> list = GetDefaultOrder(_dbSet.AsNoTracking()).Where(whereClause)
+                .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
+
             return list;
         }
 
         public virtual IEnumerable<T> Find<TKey>(Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
-            IEnumerable<T> list = _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
+            IEnumerable<T> list = _dbSet.AsNoTracking().Where(whereClause).OrderBy(orderByClause)
+                .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
             return list;
         }
 
@@ -92,7 +95,11 @@ namespace App.Infra.Data.Common
             page.TotalRecord = _dbSet.AsNoTracking().Where(whereClause).Count();
             if (!string.IsNullOrEmpty(sortBuilder.ColumnName))
             {
-                list = (sortBuilder.ColumnOrder != SortBuilder.SortOrder.Descending ? _dbSet.OrderBy(sortBuilder.ColumnName).AsNoTracking().Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList() : _dbSet.OrderByDescending(sortBuilder.ColumnName).AsNoTracking().Where(whereClause).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList());
+                list = sortBuilder.ColumnOrder != SortBuilder.SortOrder.Descending
+                    ? _dbSet.OrderBy(sortBuilder.ColumnName).AsNoTracking().Where(whereClause)
+                        .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList()
+                    : _dbSet.OrderByDescending(sortBuilder.ColumnName).AsNoTracking().Where(whereClause)
+                        .Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
             }
             else
             {
@@ -103,12 +110,12 @@ namespace App.Infra.Data.Common
 
         public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(predicate).ToList() : _dbSet.Where(predicate).ToList());
+            return @readonly ? _dbSet.AsNoTracking().Where(predicate).ToList() : _dbSet.Where(predicate).ToList();
         }
 
         public virtual T Get(Expression<Func<T, bool>> where, bool @readonly = false)
         {
-            return (@readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefault() : _dbSet.Where(where).FirstOrDefault());
+            return @readonly ? _dbSet.AsNoTracking().Where(where).FirstOrDefault() : _dbSet.Where(where).FirstOrDefault();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -119,7 +126,8 @@ namespace App.Infra.Data.Common
         public virtual IEnumerable<T> GetAllPagedList(Paging page)
         {
             page.TotalRecord = _dbSet.Count();
-            IEnumerable<T> list = GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize).ToList();
+            IEnumerable<T> list = GetDefaultOrder(_dbSet.AsNoTracking()).Skip((page.PageNumber - 1) * page.PageSize)
+                .Take(page.PageSize).ToList();
             return list;
         }
 
@@ -149,16 +157,6 @@ namespace App.Infra.Data.Common
             _dataContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual IQueryable<T> Table
-        {
-            get
-            {
-                //if (_dataContext.ForceNoTracking)
-                //{
-                //    return this._dbSet.AsNoTracking();
-                //}
-                return _dbSet;
-            }
-        }
+        public virtual IQueryable<T> Table => _dbSet;
     }
 }

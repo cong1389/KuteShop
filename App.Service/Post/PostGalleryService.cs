@@ -28,11 +28,11 @@ namespace App.Service.Post
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CachePostgalleryKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 postGallery = _cacheManager.Get<PostGallery>(key);
                 if (postGallery == null)
                 {
@@ -54,11 +54,11 @@ namespace App.Service.Post
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CachePostgalleryKey, "GetByPostId");
                 sbKey.Append(postId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 postGallery = _cacheManager.GetCollection<PostGallery>(key);
                 if (postGallery == null)
                 {

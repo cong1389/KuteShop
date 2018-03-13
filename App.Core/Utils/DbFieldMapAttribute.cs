@@ -1,9 +1,8 @@
 using System;
-using System.Runtime.CompilerServices;
 
 namespace App.Core.Utils
 {
-	[AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property)]
 	public class DbFieldMapAttribute : Attribute
 	{
 		public string Field
@@ -14,7 +13,7 @@ namespace App.Core.Utils
 
 		public DbFieldMapAttribute(string field)
 		{
-			this.Field = field;
+			Field = field;
 		}
 	}
 }

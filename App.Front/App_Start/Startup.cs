@@ -23,7 +23,8 @@ namespace App.Front
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            string str = (new UrlHelper(HttpContext.Current.Request.RequestContext)).Action("Login", "User", new { area = "" });
+            string str =
+                (new UrlHelper(HttpContext.Current.Request.RequestContext)).Action("Login", "User", new {area = ""});
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "ApplicationCookie",

@@ -38,7 +38,7 @@ namespace App.Infra.Data.Common
             {
                 throw new ArgumentNullException("entity");
             }
-            foreach (T t in entity)
+            foreach (var t in entity)
             {
                 _repository.Delete(t);
             }

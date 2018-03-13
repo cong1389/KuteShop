@@ -13,6 +13,7 @@ using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
 using App.Framework.Ultis;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Front.Models.Posts;
 using App.Service.Common;
 using App.Service.Gallery;
@@ -558,24 +559,14 @@ namespace App.Front.Controllers
                 IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
                 if (ieGc.IsAny())
                 {
-                    foreach (var item in ieGc)
-                    {
-                        var gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
-
-                        foreach (var gcValue in gCvDefault)
+                    lstValueResponse.AddRange(from item in ieGc
+                        from gcValue in item.GenericControlValues.Where(m => m.Status == 1)
+                        select new ControlValueItemResponse
                         {
-                            var objValueResponse =
-                                new ControlValueItemResponse
-                                {
-                                    GenericControlValueId = gcValue.Id,
-                                    Name = gcValue.ValueName,
-                                    ValueName = gcValue.GetValueItem(entityId)
-                                };
-
-
-                            lstValueResponse.Add(objValueResponse);
-                        }
-                    }
+                            GenericControlValueId = gcValue.Id,
+                            Name = gcValue.ValueName,
+                            ValueName = gcValue.GetValueItem(entityId)
+                        });
                 }
             }
 

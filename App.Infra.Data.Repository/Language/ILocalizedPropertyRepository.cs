@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Language
 {
-	public interface ILocalizedPropertyRepository : IRepositoryBase<LocalizedProperty>
+    public interface ILocalizedPropertyRepository : IRepositoryBase<LocalizedProperty>
 	{
 		LocalizedProperty GetId(int id);
 

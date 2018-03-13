@@ -1,8 +1,6 @@
-using System;
-
 namespace App.Infra.Data.DbFactory
 {
-	public class DbFactory : Disposable, IDbFactory
+    public class DbFactory : Disposable, IDbFactory
 	{
 		private Context.AppContext _dbContext;
 

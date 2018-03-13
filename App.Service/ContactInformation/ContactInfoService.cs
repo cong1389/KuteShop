@@ -31,11 +31,11 @@ namespace App.Service.ContactInformation
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheContactinfoKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 contactInformation = _cacheManager.Get<Domain.Entities.GlobalSetting.ContactInformation>(key);
                 if (contactInformation == null)
                 {

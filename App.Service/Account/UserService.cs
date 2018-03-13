@@ -6,7 +6,6 @@ using App.Core.Utils;
 using App.Domain.Entities.Account;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Account;
-using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Account
 {
@@ -14,7 +13,7 @@ namespace App.Service.Account
 	{
 	    private readonly IUserRepository _userRepository;
 
-		public UserService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository) : base(userRepository)
+		public UserService(IUserRepository userRepository) : base(userRepository)
 		{
 		    _userRepository = userRepository;
 		}

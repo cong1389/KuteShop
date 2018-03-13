@@ -5,6 +5,7 @@ using App.Aplication.Extensions;
 using App.Domain.Entities.Payments;
 using App.FakeEntity.Payments;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.PaymentMethodes;
 
 namespace App.Front.Controllers

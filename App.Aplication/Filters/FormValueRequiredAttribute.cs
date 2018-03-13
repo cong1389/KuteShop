@@ -56,8 +56,7 @@ namespace App.Aplication.Filters
         {
             try
             {
-                bool isMatch;
-                isMatch = _rule == FormValueRequirementRule.MatchAny ? _submitButtonNames.Any(x => IsMatch(form, x)) : _submitButtonNames.All(x => IsMatch(form, x));
+                var isMatch = _rule == FormValueRequirementRule.MatchAny ? _submitButtonNames.Any(x => IsMatch(form, x)) : _submitButtonNames.All(x => IsMatch(form, x));
                 return isMatch;
             }
             catch 

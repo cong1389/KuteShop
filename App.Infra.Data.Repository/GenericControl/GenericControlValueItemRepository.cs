@@ -1,12 +1,11 @@
 using System.Linq;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.GenericControl
 {
-	public class GenericControlValueItemRepository : RepositoryBase<GenericControlValueItem>, IGenericControlValueItemRepository, IRepositoryBase<GenericControlValueItem>
+    public class GenericControlValueItemRepository : RepositoryBase<GenericControlValueItem>, IGenericControlValueItemRepository
 	{
 		public GenericControlValueItemRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -14,7 +13,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		protected override IOrderedQueryable<GenericControlValueItem> GetDefaultOrder(IQueryable<GenericControlValueItem> query)
 		{
-			IOrderedQueryable<GenericControlValueItem> genericControlValueItem = 
+			var genericControlValueItem = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -24,8 +23,8 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public GenericControlValueItem GetById(int id)
 		{
-			GenericControlValueItem GenericControlValueItem = FindBy(x => x.Id == id).FirstOrDefault();
-			return GenericControlValueItem;
+			var genericControlValueItem = FindBy(x => x.Id == id).FirstOrDefault();
+			return genericControlValueItem;
 		}
 	}
 }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
@@ -31,11 +29,11 @@ namespace App.Service.Gallery
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGalleryKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 galleryImage = _cacheManager.Get<GalleryImage>(key);
                 if (galleryImage == null)
                 {
@@ -57,10 +55,10 @@ namespace App.Service.Gallery
             , bool isCache = true)
         {
             IEnumerable<GalleryImage> galleryImages;
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheGalleryKey, "GetByOption");
 
-            Expression<Func<GalleryImage, bool>> expression = PredicateBuilder.True<GalleryImage>();
+            var expression = PredicateBuilder.True<GalleryImage>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
@@ -78,7 +76,7 @@ namespace App.Service.Gallery
 
             if (isCache)
             {
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 galleryImages = _cacheManager.GetCollection<GalleryImage>(key);
                 if (galleryImages == null)
                 {

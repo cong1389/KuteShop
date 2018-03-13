@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Infra.Data.Common;
@@ -18,14 +16,14 @@ namespace App.Infra.Data.Repository.System
 
 		public SystemSetting GetById(int id)
         {
-            SystemSetting systemSetting = FindBy(x => x.Id == id).FirstOrDefault();
+            var systemSetting = FindBy(x => x.Id == id).FirstOrDefault();
             
             return systemSetting;
 		}
 
 		protected override IOrderedQueryable<SystemSetting> GetDefaultOrder(IQueryable<SystemSetting> query)
 		{
-			IOrderedQueryable<SystemSetting> systemSettings = 
+			var systemSettings = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -39,7 +37,7 @@ namespace App.Infra.Data.Repository.System
 
 		public IEnumerable<SystemSetting> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<SystemSetting, bool>> expression = PredicateBuilder.True<SystemSetting>();
+			var expression = PredicateBuilder.True<SystemSetting>();
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}

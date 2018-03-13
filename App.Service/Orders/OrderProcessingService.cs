@@ -35,14 +35,18 @@ namespace App.Service.Orders
            ProcessPaymentRequest processPaymentRequest,
            Dictionary<string, string> extraData)
         {
-            PlaceOrderResult result = new PlaceOrderResult();
+            var result = new PlaceOrderResult();
             var utcNow = DateTime.UtcNow;
 
             if (processPaymentRequest == null)
+            {
                 throw new AggregateException("processPaymentRequest");
+            }
 
             if (processPaymentRequest.OrderGuid == Guid.Empty)
+            {
                 processPaymentRequest.OrderGuid = Guid.NewGuid();
+            }
 
             try
             {
@@ -61,7 +65,8 @@ namespace App.Service.Orders
                 var billingAddress = customer.BillingAddress;
 
                 //Shiping method
-                string shippingMethod = customer.GetAttribute("Customer", Contains.SelectedShippingOption, _genericAttributeService);
+                var shippingMethod = customer.GetAttribute("Customer", Contains.SelectedShippingOption,
+                    _genericAttributeService);
 
                 var order = new Order
                 {
@@ -106,8 +111,8 @@ namespace App.Service.Orders
                 //Insert OrderItem
                 foreach (var sc in cart)
                 {
-                    decimal scSubTotal = _priceCalculationService.GetSubTotal(sc, true);
-                    decimal scSubTotalInclTax = scSubTotal;
+                    var scSubTotal = _priceCalculationService.GetSubTotal(sc, true);
+                    var scSubTotalInclTax = scSubTotal;
 
                     var orderItem = new OrderItem
                     {
@@ -128,7 +133,7 @@ namespace App.Service.Orders
                     //Delete
                     cart.ToList().ForEach(cr => ShoppingCartItemService.DeleteShoppingCartItem(cr, false));
 
-                    CustomerService.ResetCheckoutData(customer, 1, false, true, true, true, true);
+                    CustomerService.ResetCheckoutData(customer, 1, false, true);
 
                 }
             }

@@ -19,29 +19,10 @@ namespace App.Service.Common
             _cacheManager = cacheManager;
         }
 
-        public IWorkContext WorkContext
-        {
-            get
-            {
-                return _workContext.Value;
-            }
+        public IWorkContext WorkContext => _workContext.Value;
 
-        }
+        public ILocaleStringResourceService Localization => _localization.Value;
 
-        public ILocaleStringResourceService Localization
-        {
-            get
-            {
-                return _localization.Value;
-            }
-        }
-
-        public ICacheManager Cache
-        {
-            get
-            {
-                return _cacheManager.Value;
-            }
-        }
+        public ICacheManager Cache => _cacheManager.Value;
     }
 }

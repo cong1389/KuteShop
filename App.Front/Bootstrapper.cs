@@ -18,7 +18,8 @@ public class Bootstrapper
         SetAutofacContainer();
 
         AutoMapperConfiguration.Configure();
-        FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
+        FluentValidationModelValidatorProvider.Configure(provider =>
+            provider.ValidatorFactory = new FluentValidationConfig());
     }
 
     private static void SetAutofacContainer()

@@ -6,13 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using App.Core.Utils;
 using App.Domain.Entities.Account;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Account
 {
-	public class RoleRepository : RepositoryBaseAsync<Role>, IRoleRepository, IRepositoryBaseAsync<Role>
+    public class RoleRepository : RepositoryBaseAsync<Role>, IRoleRepository
 	{
 		public RoleRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -20,25 +19,25 @@ namespace App.Infra.Data.Repository.Account
 
 		public Role FindByName(string roleName)
 		{
-			Role role = Get(x => x.Name.Equals(roleName));
+			var role = Get(x => x.Name.Equals(roleName));
 			return role;
 		}
 
 		public Task<Role> FindByNameAsync(string roleName)
 		{
-			Task<Role> async = GetAsync(x => x.Name.Equals(roleName));
+			var async = GetAsync(x => x.Name.Equals(roleName));
 			return async;
 		}
 
 		public Task<Role> FindByNameAsync(CancellationToken cancellationToken, string roleName)
 		{
-			Task<Role> async = GetAsync(cancellationToken, x => x.Name.Equals(roleName));
+			var async = GetAsync(cancellationToken, x => x.Name.Equals(roleName));
 			return async;
 		}
 
 		protected override IOrderedQueryable<Role> GetDefaultOrder(IQueryable<Role> query)
 		{
-			IOrderedQueryable<Role> roles = 
+			var roles = 
 				from p in query
 				orderby p.Name
 				select p;
@@ -47,10 +46,10 @@ namespace App.Infra.Data.Repository.Account
 
 		public async Task<IEnumerable<Role>> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<Role, bool>> expression = PredicateBuilder.True<Role>();
+			var expression = PredicateBuilder.True<Role>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				Expression<Func<Role, bool>> expression1 = expression;
+				var expression1 = expression;
 				expression = expression1.And(x => x.Name.Contains(sortBuider.Keywords));
 			}
 			return await FindAndSort(expression, sortBuider.Sorts, page);

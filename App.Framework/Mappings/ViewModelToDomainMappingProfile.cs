@@ -46,13 +46,7 @@ namespace App.Framework.Mappings
 {
     public class ViewModelToDomainMappingProfile : Profile
     {
-        public override string ProfileName
-        {
-            get
-            {
-                return "ViewModelToDomainMappings";
-            }
-        }
+        public override string ProfileName => "ViewModelToDomainMappings";
 
         public ViewModelToDomainMappingProfile()
         {
@@ -187,7 +181,7 @@ namespace App.Framework.Mappings
                     x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
 
-            CreateMap<AttributeViewModel, App.Domain.Entities.Attribute.Attribute>()
+            CreateMap<AttributeViewModel, Attribute>()
                 .ForMember(x => x.AttributeName, map => map.MapFrom(vm => vm.AttributeName))
                 .ForMember(x => (object)x.Id, map
                 => map.MapFrom(vm => vm.Id))
@@ -218,7 +212,7 @@ namespace App.Framework.Mappings
                     .ForMember(dest => dest.MetaDescription, opt => opt.MapFrom(src => src.MetaDescription))
                     .ForMember(dest => dest.MetaKeywords, opt => opt.MapFrom(src => src.MetaKeywords))
                     .ForMember(dest => (object)dest.MenuId, opt => opt.MapFrom(src => (int)src.MenuId))
-                .ForMember(dest => (object)dest.ManufacturerId, opt => opt.MapFrom(src => (int)src.ManufacturerId))
+                .ForMember(dest => (object)dest.ManufacturerId, opt => opt.MapFrom(src => src.ManufacturerId))
                     .ForMember(dest => dest.TechInfo, opt => opt.MapFrom(src => src.TechInfo))
                     .ForMember(dest => (object)dest.PostType, opt => opt.MapFrom(src => src.PostType))
                     .ForMember(dest => (object)dest.OldOrNew, opt => opt.MapFrom(src => src.OldOrNew))
@@ -495,9 +489,9 @@ namespace App.Framework.Mappings
              => map.MapFrom(vm => vm.CustomerId))
              .ForMember(x => (object)x.AttributesXml, map
              => map.MapFrom(vm => vm.AttributesXml))
-             .ForMember(x => (decimal)x.CustomerEnteredPrice, map
+             .ForMember(x => x.CustomerEnteredPrice, map
              => map.MapFrom(vm => vm.CustomerEnteredPrice))
-             .ForMember(x => (int)x.Quantity, map
+             .ForMember(x => x.Quantity, map
              => map.MapFrom(vm => vm.Quantity));
 
             CreateMap<AddressViewModel, Address>()
@@ -515,21 +509,21 @@ namespace App.Framework.Mappings
              => map.MapFrom(vm => vm.StateProvinceId))
              .ForMember(x => x.City, map
              => map.MapFrom(vm => vm.City))
-             .ForMember(x => (string)x.Address1, map
+             .ForMember(x => x.Address1, map
              => map.MapFrom(vm => vm.Address1))
-             .ForMember(x => (string)x.Address2, map
+             .ForMember(x => x.Address2, map
              => map.MapFrom(vm => vm.Address2))
-             .ForMember(x => (string)x.ZipPostalCode, map
+             .ForMember(x => x.ZipPostalCode, map
              => map.MapFrom(vm => vm.ZipPostalCode))
-             .ForMember(x => (string)x.PhoneNumber, map
+             .ForMember(x => x.PhoneNumber, map
              => map.MapFrom(vm => vm.PhoneNumber))
-             .ForMember(x => (string)x.FaxNumber, map
+             .ForMember(x => x.FaxNumber, map
              => map.MapFrom(vm => vm.FaxNumber))
-              .ForMember(x => (string)x.Salutation, map
+              .ForMember(x => x.Salutation, map
              => map.MapFrom(vm => vm.Salutation))
-             .ForMember(x => (string)x.Title, map
+             .ForMember(x => x.Title, map
              => map.MapFrom(vm => vm.Title))
-             .ForMember(x => (string)x.Title, map
+             .ForMember(x => x.Title, map
              => map.MapFrom(vm => vm.Title));
 
             CreateMap<PaymentMethodViewModel, PaymentMethod>()

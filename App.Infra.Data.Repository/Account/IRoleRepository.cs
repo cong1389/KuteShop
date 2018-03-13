@@ -7,7 +7,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Account
 {
-	public interface IRoleRepository : IRepositoryBaseAsync<Role>
+    public interface IRoleRepository : IRepositoryBaseAsync<Role>
 	{
 		Role FindByName(string roleName);
 

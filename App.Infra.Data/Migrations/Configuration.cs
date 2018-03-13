@@ -1,10 +1,10 @@
-using App.Domain.Common;
-using App.Domain.Entities.Account;
-using App.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using App.Domain.Common;
+using App.Domain.Entities.Account;
+using App.Infra.Data.Context;
 
 namespace App.Infra.Data.Migrations
 {
@@ -17,18 +17,18 @@ namespace App.Infra.Data.Migrations
 
         protected override void Seed(AppContext context)
         {
-            IEnumerable<string> constantsValues = typeof(ApplicationRoles).GetConstantsValues<string>();
-            if ((constantsValues == null ? false : constantsValues.Any<string>()))
+            var constantsValues = typeof(ApplicationRoles).GetConstantsValues<string>();
+            if (constantsValues != null && constantsValues.Any())
             {
-                foreach (string constantsValue in constantsValues)
+                foreach (var constantsValue in constantsValues)
                 {
-                    if (context.Roles.FirstOrDefault<Role>((Role x) => x.Name == constantsValue) == null)
+                    if (context.Roles.FirstOrDefault(x => x.Name == constantsValue) == null)
                     {
-                        context.Roles.AddOrUpdate<Role>(new Role[] { new Role()
+                        context.Roles.AddOrUpdate(new Role()
                         {
                             Id = Guid.NewGuid(),
                             Name = constantsValue
-                        } });
+                        });
                     }
                 }
             }

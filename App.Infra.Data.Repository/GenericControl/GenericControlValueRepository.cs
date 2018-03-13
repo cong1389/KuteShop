@@ -1,34 +1,31 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.GenericControl
 {
-	public class GenericControlValueRepository : RepositoryBase<GenericControlValue>, IGenericControlValueRepository, IRepositoryBase<GenericControlValue>
+    public class GenericControlValueRepository : RepositoryBase<GenericControlValue>, IGenericControlValueRepository
 	{
 		public GenericControlValueRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		public GenericControlValue GetById(int Id)
+		public GenericControlValue GetById(int id)
 		{
-			GenericControlValue GenericControlValue = FindBy(x => x.Id == Id).FirstOrDefault();
-			return GenericControlValue;
+			var genericControlValue = FindBy(x => x.Id == id).FirstOrDefault();
+			return genericControlValue;
 		}
 
 		protected override IOrderedQueryable<GenericControlValue> GetDefaultOrder(IQueryable<GenericControlValue> query)
 		{
-			IOrderedQueryable<GenericControlValue> GenericControlValues = 
+			var genericControlValues = 
 				from p in query
 				orderby p.Id
 				select p;
-			return GenericControlValues;
+			return genericControlValues;
 		}
 
 		public IEnumerable<GenericControlValue> PagedList(Paging page)
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.GenericControl
 
 		public IEnumerable<GenericControlValue> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<GenericControlValue, bool>> expression = PredicateBuilder.True<GenericControlValue>();
+			var expression = PredicateBuilder.True<GenericControlValue>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.ValueName.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.GenericControl.Name.ToLower().Contains(sortBuider.Keywords.ToLower()));

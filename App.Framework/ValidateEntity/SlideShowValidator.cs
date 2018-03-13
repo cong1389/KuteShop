@@ -18,13 +18,13 @@ namespace App.Framework.ValidateEntity
 		public static bool IsValidFileType(HttpPostedFileBase file)
 		{
 			bool flag;
-			if ((file == null ? true : file.ContentLength <= 0))
+			if (file == null || file.ContentLength <= 0)
 			{
 				flag = true;
 			}
 			else
 			{
-				flag = ((new[] { ".jpg", ".png", ".gif", ".jpeg", ".mp4" }).Contains(Path.GetExtension(file.FileName)) ? true : false);
+				flag = new[] { ".jpg", ".png", ".gif", ".jpeg", ".mp4" }.Contains(Path.GetExtension(file.FileName));
 			}
 			return flag;
 		}

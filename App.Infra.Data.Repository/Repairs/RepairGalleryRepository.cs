@@ -1,12 +1,11 @@
 using System.Linq;
 using App.Domain.Entities.Data;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Repairs
 {
-    public class RepairGalleryRepository : RepositoryBase<RepairGallery>, IRepairGalleryRepository, IRepositoryBase<RepairGallery>
+    public class RepairGalleryRepository : RepositoryBase<RepairGallery>, IRepairGalleryRepository
 	{
 		public RepairGalleryRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -14,7 +13,7 @@ namespace App.Infra.Data.Repository.Repairs
 
         protected override IOrderedQueryable<RepairGallery> GetDefaultOrder(IQueryable<RepairGallery> query)
         {
-            IOrderedQueryable<RepairGallery> repairGalleries =
+            var repairGalleries =
                 from p in query
                 orderby p.Id
                 select p;

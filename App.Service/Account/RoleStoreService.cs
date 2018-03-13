@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace App.Service.Account
 {
-	public class RoleStoreService : IQueryableRoleStore<IdentityRole, Guid>
+    public class RoleStoreService : IQueryableRoleStore<IdentityRole, Guid>
 	{
 		private readonly IRoleRepository _roleRepository;
 
@@ -38,7 +38,7 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = GetRole(role);
+			var role1 = GetRole(role);
 			_roleRepository.Add(role1);
 			return _unitOfWork.CommitAsync();
 		}
@@ -49,7 +49,7 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = GetRole(role);
+			var role1 = GetRole(role);
 			_roleRepository.Delete(role1);
 			return _unitOfWork.CommitAsync();
 		}
@@ -60,13 +60,13 @@ namespace App.Service.Account
 
 		public Task<IdentityRole> FindByIdAsync(Guid roleId)
 		{
-			Role role = _roleRepository.FindById(roleId, false);
+			var role = _roleRepository.FindById(roleId);
 			return Task.FromResult(GetIdentityRole(role));
 		}
 
 		public Task<IdentityRole> FindByNameAsync(string roleName)
 		{
-			Role role = _roleRepository.FindByName(roleName);
+			var role = _roleRepository.FindByName(roleName);
 			return Task.FromResult(GetIdentityRole(role));
 		}
 
@@ -114,7 +114,7 @@ namespace App.Service.Account
 			{
 				throw new ArgumentNullException("role");
 			}
-			Role role1 = GetRole(role);
+			var role1 = GetRole(role);
 			_roleRepository.Update(role1);
 			return _unitOfWork.CommitAsync();
 		}

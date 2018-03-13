@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.MailSetting;

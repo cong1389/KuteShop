@@ -7,7 +7,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Locations
 {
-	public class DistrictService : BaseService<District>, IDistrictService
+    public class DistrictService : BaseService<District>, IDistrictService
 	{
 		private readonly IDistrictRepository _districtRepository;
 
@@ -23,7 +23,7 @@ namespace App.Service.Locations
 
 		public IEnumerable<District> GetByProvinceId(int provinceId)
 		{
-			IEnumerable<District> districts = _districtRepository.FindBy(x => x.ProvinceId == provinceId);
+			var districts = _districtRepository.FindBy(x => x.ProvinceId == provinceId);
 			return districts;
 		}
 

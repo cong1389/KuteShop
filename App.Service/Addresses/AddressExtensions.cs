@@ -8,7 +8,10 @@ namespace App.Service.Addresses
     {
 		public static string GetFullName(this Address address)
         {
-            if (address == null) return null;
+            if (address == null)
+            {
+                return null;
+            }
 
             var sb = new StringBuilder(address.FirstName);
 

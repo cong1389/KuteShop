@@ -3,7 +3,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.UnitOfWork.UOW
 {
-	public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
 	{
 		private readonly IDbFactory _dbFactory;
 

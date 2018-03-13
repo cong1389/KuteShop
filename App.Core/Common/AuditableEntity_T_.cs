@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace App.Core.Common
 {
-	public abstract class AuditableEntity<T> : Entity<T>, IAuditableEntity
+    public abstract class AuditableEntity<T> : Entity<T>, IAuditableEntity
 	{
 		[MaxLength(256)]
 		[ScaffoldColumn(false)]

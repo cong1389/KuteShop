@@ -26,12 +26,12 @@ namespace App.Service.SeoSetting
 
 		public SettingSeoGlobal GetById(int id)
 		{
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheSettingseoglobalKey, "GetById");
             sbKey.Append(id);
 
-            string key = sbKey.ToString();
-            SettingSeoGlobal settingSeoGlobal = _cacheManager.Get<SettingSeoGlobal>(key);
+            var key = sbKey.ToString();
+            var settingSeoGlobal = _cacheManager.Get<SettingSeoGlobal>(key);
             if (settingSeoGlobal == null)
             {
                 settingSeoGlobal = _settingSeoGlobalRepository.GetById(id);

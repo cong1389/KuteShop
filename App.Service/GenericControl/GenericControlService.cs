@@ -28,11 +28,11 @@ namespace App.Service.GenericControl
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericcontrolKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericControl = _cacheManager.Get<Domain.Entities.GenericControl.GenericControl>(key);
                 if (genericControl == null)
                 {
@@ -54,11 +54,11 @@ namespace App.Service.GenericControl
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericcontrolKey, "GetByMenuId");
                 sbKey.AppendFormat("-{0}", menuId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericControls = _cacheManager.GetCollection<Domain.Entities.GenericControl.GenericControl>(key);
                 if (genericControls == null)
                 {

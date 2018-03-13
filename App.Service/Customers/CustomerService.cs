@@ -28,11 +28,11 @@ namespace App.Service.Customers
             Customer customer;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheCustomerKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 customer = _cacheManager.Get<Customer>(key);
                 if (customer == null)
                 {
@@ -53,11 +53,11 @@ namespace App.Service.Customers
             Customer customer;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheCustomerKey, "GetByGuid");
                 sbKey.Append(guid);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 customer = _cacheManager.Get<Customer>(key);
                 if (customer == null)
                 {
@@ -98,7 +98,9 @@ namespace App.Service.Customers
             bool clearPaymentMethod = true)
         {
             if (customer == null)
+            {
                 throw new ArgumentNullException("customer");
+            }
 
             if (clearShippingMethod)
             {
@@ -116,7 +118,9 @@ namespace App.Service.Customers
         public virtual void UpdateCustomer(Customer customer)
         {
             if (customer == null)
+            {
                 throw new ArgumentNullException("customer");
+            }
 
             _customerRepository.Update(customer);
         }

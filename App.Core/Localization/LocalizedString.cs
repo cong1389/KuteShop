@@ -29,20 +29,11 @@ namespace App.Core.Localization
             return new LocalizedString(text);
         }
 
-        public string TextHint
-        {
-            get { return _textHint; }
-        }
+        public string TextHint => _textHint;
 
-        public object[] Args
-        {
-            get { return _args; }
-        }
+        public object[] Args => _args;
 
-        public string Text
-        {
-            get { return _localized; }
-        }
+        public string Text => _localized;
 
         public static implicit operator string(LocalizedString obj)
         {

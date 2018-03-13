@@ -14,7 +14,8 @@ namespace App.Service.GenericAttribute
         private readonly ICacheManager _cacheManager;
         private readonly IGenericAttributeRepository _genericAttributeRepository;
 
-        public GenericAttributeService(IUnitOfWork unitOfWork, IGenericAttributeRepository genericAttributeRepository, ICacheManager cacheManager) : base(unitOfWork, genericAttributeRepository)
+        public GenericAttributeService(IUnitOfWork unitOfWork, IGenericAttributeRepository genericAttributeRepository,
+            ICacheManager cacheManager) : base(unitOfWork, genericAttributeRepository)
         {
             _genericAttributeRepository = genericAttributeRepository;
             _cacheManager = cacheManager;
@@ -31,11 +32,11 @@ namespace App.Service.GenericAttribute
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericattributeKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericAttribute = _cacheManager.Get<Domain.Entities.Data.GenericAttribute>(key);
                 if (genericAttribute == null)
                 {
@@ -45,10 +46,10 @@ namespace App.Service.GenericAttribute
             }
             else
             {
-                _genericAttributeRepository.GetAttributeById(id);
+                genericAttribute= _genericAttributeRepository.GetAttributeById(id);
             }
 
-            return _genericAttributeRepository.GetAttributeById(id);
+            return genericAttribute;
         }
 
         public Domain.Entities.Data.GenericAttribute GetByKey(int entityId, string keyGroup, string key, bool isCache = true)
@@ -57,20 +58,27 @@ namespace App.Service.GenericAttribute
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericattributeKey, "GetByKey");
                 sbKey.Append(entityId);
 
-                if (!string.IsNullOrWhiteSpace(keyGroup))                
+                if (!string.IsNullOrWhiteSpace(keyGroup))
+                {
                     sbKey.Append(keyGroup);
+                }
 
                 if (!string.IsNullOrWhiteSpace(key))
+                {
                     sbKey.Append(key);
+                }
 
-                string keyCachare = sbKey.ToString();
+                var keyCachare = sbKey.ToString();
                 attr = _cacheManager.Get<Domain.Entities.Data.GenericAttribute>(keyCachare);
 
-                if (attr != null) return attr;
+                if (attr != null)
+                {
+                    return attr;
+                }
 
                 attr = _genericAttributeRepository
                     .Get(x =>
@@ -99,7 +107,7 @@ namespace App.Service.GenericAttribute
 
         public void SaveGenericAttribute(int entityId, string keyGroup, string key, string value, int storeId = 0)
         {
-            Domain.Entities.Data.GenericAttribute objAttribute = new Domain.Entities.Data.GenericAttribute
+            var objAttribute = new Domain.Entities.Data.GenericAttribute
             {
                 EntityId = entityId,
                 KeyGroup = keyGroup,

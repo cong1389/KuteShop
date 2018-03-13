@@ -1,12 +1,5 @@
-﻿using App.Core.Localization;
+﻿using System.Web.Mvc;
 using App.Service.Language;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace App.Framework.Theme
 {
@@ -14,18 +7,7 @@ namespace App.Framework.Theme
     {
         private ITextService _textService;
 
-        protected virtual ITextService TextService
-        {
-            get
-            {
-                if (_textService == null)
-                {
-                    _textService = DependencyResolver.Current.GetService<ITextService>();                    
-                }
-
-                return _textService;
-            }
-        }
+        protected virtual ITextService TextService => _textService ?? (_textService = DependencyResolver.Current.GetService<ITextService>());
 
         //private WebViewPageHelper _helper;
 

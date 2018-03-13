@@ -28,11 +28,11 @@ namespace App.Service.Ads
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheBannerKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 banner = _cacheManager.Get<Banner>(key);
                 if (banner == null)
                 {

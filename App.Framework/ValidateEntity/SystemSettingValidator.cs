@@ -22,27 +22,19 @@ namespace App.Framework.ValidateEntity
 
 		public static bool IsValidFileType(HttpPostedFileBase file)
 		{
-			bool flag;
-			if (file != null && file.ContentLength > 0)
-			{
-				ImageFormat[] jpeg =
-				{
-				    ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff,
-				    ImageFormat.Icon
-				};
+		    if (file == null || file.ContentLength <= 0) return true;
 
-				using (Image image = Image.FromStream(file.InputStream))
-				{
-					if (!jpeg.Contains(image.RawFormat))
-					{
-						flag = false;
-						return flag;
-					}
-				}
-			}
-			flag = true;
+		    ImageFormat[] jpeg =
+		        {ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff};
+		    using (Image image = Image.FromStream(file.InputStream))
+		    {
+		        if (!jpeg.Contains(image.RawFormat))
+		        {
+		            return false;
+		        }
+		    }
 
-			return flag;
-		}
+		    return true;
+        }
 	}
 }

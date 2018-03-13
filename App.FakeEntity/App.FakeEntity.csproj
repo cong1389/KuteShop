@@ -35,9 +35,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.Service">
-      <HintPath>..\App.Service\bin\Debug\App.Service.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Resources, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -169,6 +166,10 @@
     <ProjectReference Include="..\App.Domain\App.Domain.csproj">
       <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
       <Name>App.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Service\App.Service.csproj">
+      <Project>{66967df3-d493-4c60-ade9-b3f616f83b8d}</Project>
+      <Name>App.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

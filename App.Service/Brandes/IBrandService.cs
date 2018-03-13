@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Services;
 
 namespace App.Service.Brandes
 {
-	public interface IBrandService : IBaseService<Brand>
+    public interface IBrandService : IBaseService<Brand>
 	{
 		Brand GetById(int id);
 

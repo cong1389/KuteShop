@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
@@ -33,11 +31,11 @@ namespace App.Service.GenericControl
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericcontrolvalueitemKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericControlValueItem = _cacheManager.Get<GenericControlValueItem>(key);
                 if (genericControlValueItem == null)
                 {
@@ -59,10 +57,10 @@ namespace App.Service.GenericControl
             , bool isCache = true)
         {
             IEnumerable<GenericControlValueItem> genericControlValueItem;
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheGenericcontrolvalueitemKey, "GetByOption");
 
-            Expression<Func<GenericControlValueItem, bool>> expression = PredicateBuilder.True<GenericControlValueItem>();
+            var expression = PredicateBuilder.True<GenericControlValueItem>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
@@ -80,7 +78,7 @@ namespace App.Service.GenericControl
 
             if (isCache)
             {
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericControlValueItem = _cacheManager.GetCollection<GenericControlValueItem>(key);
                 if (genericControlValueItem.Any())
                 {

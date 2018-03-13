@@ -1,9 +1,6 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.Core.Utils
 {
-	public class SortBuilder
+    public class SortBuilder
 	{
 		public string ColumnName
 		{
@@ -11,7 +8,7 @@ namespace App.Core.Utils
 			set;
 		}
 
-		public SortBuilder.SortOrder ColumnOrder
+		public SortOrder ColumnOrder
 		{
 			get;
 			set;

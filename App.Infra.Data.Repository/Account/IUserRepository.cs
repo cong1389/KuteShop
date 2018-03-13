@@ -7,7 +7,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Account
 {
-	public interface IUserRepository : IRepositoryBaseAsync<User>
+    public interface IUserRepository : IRepositoryBaseAsync<User>
 	{
 		User FindByEmail(string email);
 

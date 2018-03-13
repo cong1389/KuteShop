@@ -6,7 +6,7 @@ namespace App.Infra.Data.Repository.GenericAttribute
 {
 	public interface IGenericAttributeRepository : IRepositoryBase<Domain.Entities.Data.GenericAttribute>
 	{
-		Domain.Entities.Data.GenericAttribute GetAttributeById(int Id);
+		Domain.Entities.Data.GenericAttribute GetAttributeById(int id);
 
 		IEnumerable<Domain.Entities.Data.GenericAttribute> PagedList(Paging page);
 

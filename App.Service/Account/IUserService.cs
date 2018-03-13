@@ -6,7 +6,7 @@ using App.Domain.Interfaces.Services;
 
 namespace App.Service.Account
 {
-	public interface IUserService : IBaseAsyncService<User>, IService
+    public interface IUserService : IBaseAsyncService<User>
 	{
 		Task<IEnumerable<User>> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}

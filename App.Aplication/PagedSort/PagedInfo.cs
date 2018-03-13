@@ -10,13 +10,13 @@ namespace App.Aplication.PagedSort
 
 		public const int DefaultPageSize = 20;
 
-		public readonly static int[] PageSizes;
+		public static readonly int[] PageSizes;
 
-		private int m_pageNo = 1;
+		private int _mPageNo = 1;
 
-		private int m_TotalItems;
+		private int _mTotalItems;
 
-		private int m_PageSize = 20;
+		private int _mPageSize = 20;
 
 		public bool IsFirstPage => PageNo <= 1;
 
@@ -30,17 +30,17 @@ namespace App.Aplication.PagedSort
 
 		public int JustDecompileGenerated_get_PageNo()
 		{
-			return m_pageNo;
+			return _mPageNo;
 		}
 
 		public void JustDecompileGenerated_set_PageNo(int value)
 		{
-			m_pageNo = (value < 1 ? 1 : value);
+			_mPageNo = (value < 1 ? 1 : value);
 		}
 
 		public int PageSize
 		{
-			get => m_PageSize;
+			get => _mPageSize;
 		    set
 			{
 				int num = value;
@@ -52,7 +52,7 @@ namespace App.Aplication.PagedSort
 						num = PageSizes.Last();
 					}
 				}
-				m_PageSize = num;
+				_mPageSize = num;
 			}
 		}
 
@@ -60,8 +60,8 @@ namespace App.Aplication.PagedSort
 
 		public int TotalItems
 		{
-			get => m_TotalItems;
-		    set => m_TotalItems = value < 0 ? 0 : value;
+			get => _mTotalItems;
+		    set => _mTotalItems = value < 0 ? 0 : value;
 		}
 
 		public int TotalPages => (int)Math.Ceiling(decimal.Parse( TotalItems.ToString()) / PageSize);

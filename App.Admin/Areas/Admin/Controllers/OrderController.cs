@@ -29,24 +29,28 @@ namespace App.Admin.Controllers
             var order = _orderService.GetById(id);
 
             if (order == null || order.Deleted)
+            {
                 return RedirectToAction("Index");
+            }
 
-            var model = new OrderViewModel();
-            model = order.ToModel(model);
+            var modelMap = Mapper.Map<Order, OrderViewModel>(order);
+            PrepareOrderDetailsModel(modelMap, order);
 
-            PrepareOrderDetailsModel(model, order);
-
-            return View(model);
+            return View(modelMap);
         }
 
         [NonAction]
         private void PrepareOrderDetailsModel(OrderViewModel model, Order order)
         {
             if (order == null)
+            {
                 throw new ArgumentNullException("order");
+            }
 
             if (model == null)
+            {
                 throw new ArgumentNullException("model");
+            }
 
             //Post item
             foreach (var orderItem in order.OrderItems)
@@ -143,19 +147,16 @@ namespace App.Admin.Controllers
 
             var orders = _orderService.PagedList(sortingPagingBuilder, paging);
 
-            var orderViewModel = new OrderViewModel();
-            var model = orders.Select(m =>
-            {
-                return m.ToModel(orderViewModel);
-            });
+            var orderViewModels = orders.Select(Mapper.Map<Order, OrderViewModel>).ToList();
 
-            if (model != null && model.Any())
+            if (orderViewModels.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                    i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 
-            return View(model);
+            return View(orderViewModels);
         }
     }
 }

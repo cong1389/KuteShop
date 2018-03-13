@@ -8,19 +8,23 @@ namespace App.Service.Menu
     {
         public static bool SelectedMenu(this MenuLink menuLink, int id)
         {
-            bool result = false;
+            var result = false;
             try
             {
                 if (id == 0)
+                {
                     result = false;
+                }
 
-                IGenericControlService genericControlService = DependencyResolver.Current.GetService<IGenericControlService>();
+                var genericControlService = DependencyResolver.Current.GetService<IGenericControlService>();
 
-                Domain.Entities.GenericControl.GenericControl genericControl = genericControlService.GetById(id);
+                var genericControl = genericControlService.GetById(id);
                 if (genericControl == null)
+                {
                     return false;
+                }
 
-                foreach (MenuLink mnu in genericControl.MenuLinks)
+                foreach (var mnu in genericControl.MenuLinks)
                 {
                     if (menuLink.Id == mnu.Id)
                     {

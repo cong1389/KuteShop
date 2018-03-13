@@ -1,16 +1,16 @@
-using App.Core.Common;
-using App.Core.Utils;
-using App.Domain.Interfaces.Repository;
-using App.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Core.Common;
+using App.Core.Utils;
+using App.Domain.Interfaces.Repository;
+using App.Domain.Interfaces.Services;
 
 namespace App.Infra.Data.Common
 {
-	public class BaseAsyncService<T> : IBaseAsyncService<T>
+    public class BaseAsyncService<T> : IBaseAsyncService<T>
 	where T : BaseEntity
 	{
         private readonly IRepositoryBaseAsync<T> _repository;
@@ -25,14 +25,16 @@ namespace App.Infra.Data.Common
             return await _repository.FindAsync(whereClause, page);
         }
 
-        public async Task<IEnumerable<T>> FindAsync(CancellationToken cancellationToken, Expression<Func<T, bool>> whereClause, Paging page)
+        public async Task<IEnumerable<T>> FindAsync(CancellationToken cancellationToken,
+            Expression<Func<T, bool>> whereClause, Paging page)
         {
             return await _repository.FindAsync(cancellationToken, whereClause, page);
         }
 
-        public async Task<IEnumerable<T>> FindAsync<TKey>(CancellationToken cancellationToken, Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
+        public async Task<IEnumerable<T>> FindAsync<TKey>(CancellationToken cancellationToken,
+            Expression<Func<T, bool>> whereClause, Expression<Func<T, TKey>> orderByClause, Paging page)
         {
-            IEnumerable<T> ts = await _repository.FindAsync(cancellationToken, whereClause, orderByClause, page);
+            var ts = await _repository.FindAsync(cancellationToken, whereClause, orderByClause, page);
             return ts;
         }
 

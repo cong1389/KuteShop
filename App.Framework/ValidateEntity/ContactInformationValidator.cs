@@ -17,9 +17,10 @@ namespace App.Framework.ValidateEntity
 
 		public static bool IsValidEmail(string email)
 		{
-			bool flag;
-			flag = ((new Regex("^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([\\w-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")).IsMatch(email) ? true : false);
-			return flag;
+		    var flag = new Regex(
+		            "^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([\\w-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")
+		        .IsMatch(email);
+		    return flag;
 		}
 	}
 }

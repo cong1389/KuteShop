@@ -260,3 +260,15 @@ D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Debug\App.Domain.csprojResolveA
 D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Debug\App.Domain.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Debug\App.Domain.dll
 D:\FreeLance\2018\KuteShop\Source\App.Domain\obj\Debug\App.Domain.pdb
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\App.Domain.dll.config
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\App.Domain.dll
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\App.Domain.pdb
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\Autofac.dll
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\Autofac.Integration.Mvc.dll
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\System.Web.Mvc.dll
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\Autofac.xml
+D:\Project\Practice\kute\Source\App.Domain\bin\Debug\Autofac.Integration.Mvc.xml
+D:\Project\Practice\kute\Source\App.Domain\obj\Debug\App.Domain.csprojResolveAssemblyReference.cache
+D:\Project\Practice\kute\Source\App.Domain\obj\Debug\App.Domain.csproj.CoreCompileInputs.cache
+D:\Project\Practice\kute\Source\App.Domain\obj\Debug\App.Domain.dll
+D:\Project\Practice\kute\Source\App.Domain\obj\Debug\App.Domain.pdb

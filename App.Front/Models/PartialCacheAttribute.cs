@@ -7,7 +7,7 @@ namespace App.Front.Models
 	{
 		public PartialCacheAttribute(string cacheProfileName)
 		{
-			OutputCacheProfile item =
+			var item =
 			    ((OutputCacheSettingsSection) WebConfigurationManager.GetSection("system.web/caching/outputCacheSettings"))
 			    .OutputCacheProfiles[cacheProfileName];
 			Duration = item.Duration;

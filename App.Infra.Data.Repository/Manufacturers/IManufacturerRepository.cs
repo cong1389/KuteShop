@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Manufacturers
 {
-	public interface IManufacturerRepository : IRepositoryBase<Manufacturer>
+    public interface IManufacturerRepository : IRepositoryBase<Manufacturer>
 	{
 		IEnumerable<Manufacturer> PagedList(Paging page);
 

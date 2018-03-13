@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.GenericControl
 {
 	public interface IGenericControlValueRepository : IRepositoryBase<GenericControlValue>
 	{
-		GenericControlValue GetById(int Id);
+		GenericControlValue GetById(int id);
 
 		IEnumerable<GenericControlValue> PagedList(Paging page);
 

@@ -11,7 +11,7 @@ namespace App.Service.GenericControl
         {
             var itemService = DependencyResolver.Current.GetService<IGenericControlValueItemService>();
 
-            IEnumerable<GenericControlValueItem> valueItem = itemService.GetByOption(genericControlValue.Id, entityId,isCache:false);
+            var valueItem = itemService.GetByOption(genericControlValue.Id, entityId,isCache:false);
 
             return valueItem.Any() ? valueItem.FirstOrDefault().Value : null;
         }

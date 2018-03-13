@@ -1,8 +1,6 @@
-using System;
-
 namespace App.Domain.Common
 {
-	public static class ApplicationRoles
+    public static class ApplicationRoles
 	{
 		public const string ViewManufacturer = "ViewManufacturer";
 

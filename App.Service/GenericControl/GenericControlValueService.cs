@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Interfaces.Services;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.GenericControl;
 using App.Infra.Data.UOW.Interfaces;
@@ -30,11 +30,11 @@ namespace App.Service.GenericControl
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheGenericontrolvalueKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 genericControlValue = _cacheManager.Get<GenericControlValue>(key);
                 if (genericControlValue == null)
                 {
@@ -52,13 +52,13 @@ namespace App.Service.GenericControl
 
         public IEnumerable<GenericControlValue> GetByEntityId(int entityId)
         {
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheGenericontrolvalueKey, "GetByEntityId");
             sbKey.AppendFormat("-{0}", entityId);
 
-            string key = sbKey.ToString();
-            IEnumerable<GenericControlValue> genericControlValues = _cacheManager.GetCollection<GenericControlValue>(key);
-            if (genericControlValues == null)
+            var key = sbKey.ToString();
+            var genericControlValues = _cacheManager.GetCollection<GenericControlValue>(key);
+            if (genericControlValues.Any())
             {
                 genericControlValues = _attributeValueRepository.FindBy(x => x.EntityId == entityId);
                 _cacheManager.Put(key, genericControlValues);

@@ -6,7 +6,7 @@ namespace App.Infra.Data.Repository.News
 {
 	public interface INewsRepository : IRepositoryBase<Domain.Entities.Data.News>
 	{
-		Domain.Entities.Data.News GetById(int Id);
+		Domain.Entities.Data.News GetById(int id);
 
 		IEnumerable<Domain.Entities.Data.News> PagedList(Paging page);
 

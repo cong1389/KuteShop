@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Payments;
 using App.Infra.Data.Common;
@@ -17,17 +15,17 @@ namespace App.Infra.Data.Repository.PaymentMethodes
 
 		public PaymentMethod GetById(int id)
 		{
-			PaymentMethod province = FindBy(x => x.Id == id).FirstOrDefault();
+			var province = FindBy(x => x.Id == id).FirstOrDefault();
 			return province;
 		}
 
 		protected override IOrderedQueryable<PaymentMethod> GetDefaultOrder(IQueryable<PaymentMethod> query)
 		{
-			IOrderedQueryable<PaymentMethod> PaymentMethod = 
+			var paymentMethod = 
 				from p in query
 				orderby p.Id
 				select p;
-			return PaymentMethod;
+			return paymentMethod;
 		}
 
 		public IEnumerable<PaymentMethod> PagedList(Paging page)
@@ -37,7 +35,7 @@ namespace App.Infra.Data.Repository.PaymentMethodes
 
 		public IEnumerable<PaymentMethod> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<PaymentMethod, bool>> expression = PredicateBuilder.True<PaymentMethod>();
+			var expression = PredicateBuilder.True<PaymentMethod>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.PaymentMethodSystemName.ToLower().Contains(sortBuider.Keywords.ToLower()));

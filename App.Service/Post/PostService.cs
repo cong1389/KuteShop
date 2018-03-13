@@ -26,11 +26,11 @@ namespace App.Service.Post
 
         public Domain.Entities.Data.Post GetById(int id, bool isCache = true)
         {
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CachePostKey, "GetById");
             sbKey.Append(id);
 
-            string key = sbKey.ToString();
+            var key = sbKey.ToString();
             Domain.Entities.Data.Post post;
             if (isCache)
             {
@@ -42,7 +42,9 @@ namespace App.Service.Post
                 }
             }
             else
+            {
                 post = _postRepository.GetById(id);
+            }
 
             return post;
         }
@@ -53,7 +55,7 @@ namespace App.Service.Post
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CachePostKey, "GetListSeoUrl");
 
                 if (seoUrl.HasValue())
@@ -61,7 +63,7 @@ namespace App.Service.Post
                     sbKey.AppendFormat("-{0}", seoUrl);
                 }
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 posts = _cacheManager.GetCollection<Domain.Entities.Data.Post>(key);
                 if (posts == null)
                 {
@@ -71,7 +73,7 @@ namespace App.Service.Post
             }
             else
             {
-                posts = _postRepository.FindBy(x => x.SeoUrl.Equals(seoUrl), false);
+                posts = _postRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
             }
 
             return posts;
@@ -79,7 +81,7 @@ namespace App.Service.Post
 
         public Domain.Entities.Data.Post GetBySeoUrl(string seoUrl, bool @readonly = false)
         {
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CachePostKey, "GetBySeoUrl");
 
             if (seoUrl.HasValue())
@@ -87,8 +89,8 @@ namespace App.Service.Post
                 sbKey.AppendFormat("-{0}", seoUrl);
             }
 
-            string key = sbKey.ToString();
-            Domain.Entities.Data.Post post = _cacheManager.Get<Domain.Entities.Data.Post>(key);
+            var key = sbKey.ToString();
+            var post = _cacheManager.Get<Domain.Entities.Data.Post>(key);
             if (post == null)
             {
                 post = _postRepository.Get(x => x.SeoUrl.Equals(seoUrl), @readonly);
@@ -120,10 +122,10 @@ namespace App.Service.Post
             , bool isCache = true)
         {
             IEnumerable<Domain.Entities.Data.Post> posts;
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CachePostKey, "GetByOption");
 
-            Expression<Func<Domain.Entities.Data.Post, bool>> expression = PredicateBuilder.True<Domain.Entities.Data.Post>();
+            var expression = PredicateBuilder.True<Domain.Entities.Data.Post>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
@@ -149,7 +151,7 @@ namespace App.Service.Post
 
             if (isCache)
             {
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 posts = _cacheManager.GetCollection<Domain.Entities.Data.Post>(key);
                 if (posts == null)
                 {

@@ -1,21 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace App.Core.Utils
 {
-	public class PaginationSet<T>
+    public class PaginationSet<T>
 	{
-		public int Count
-		{
-			get
-			{
-				return (this.Items != null ? this.Items.Count<T>() : 0);
-			}
-		}
+		public int Count => Items?.Count() ?? 0;
 
-		public IEnumerable<T> Items
+	    public IEnumerable<T> Items
 		{
 			get;
 			set;

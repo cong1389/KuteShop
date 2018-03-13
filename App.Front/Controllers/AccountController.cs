@@ -13,6 +13,7 @@ using App.FakeEntity.Post;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.Locations;

@@ -43,13 +43,7 @@ namespace App.Framework.Mappings
 {
     public class DomainToViewModelMappingProfile : Profile
     {
-        public override string ProfileName
-        {
-            get
-            {
-                return "DomainToViewModelMappings";
-            }
-        }
+        public override string ProfileName => "DomainToViewModelMappings";
 
         public DomainToViewModelMappingProfile()
         {

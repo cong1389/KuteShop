@@ -28,11 +28,11 @@ namespace App.Service.Attribute
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheAttributeKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 attribute = _cacheManager.Get<Domain.Entities.Attribute.Attribute>(key);
                 if (attribute == null)
                 {

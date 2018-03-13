@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Repairs
 {
-	public interface IRepairRepository : IRepositoryBase<Repair>
+    public interface IRepairRepository : IRepositoryBase<Repair>
 	{
 		IEnumerable<Repair> PagedList(Paging page);
 

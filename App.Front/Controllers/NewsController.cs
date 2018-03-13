@@ -10,6 +10,7 @@ using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
 using App.Framework.Ultis;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.Common;
 using App.Service.Language;
 using App.Service.Menu;
@@ -221,12 +222,6 @@ namespace App.Front.Controllers
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult NewsDetail(string seoUrl)
         {
-            var viewBag = ViewBag;
-
-            var staticContentService = _staticContentService;
-            Expression<Func<StaticContent, bool>> status = x => x.Status == 1;
-            viewBag.fixItems = staticContentService.GetTop(3, status, x => x.ViewCount);
-
             var breadCrumbs = new List<BreadCrumb>();
             var news = _newsService.Get(x => x.SeoUrl.Equals(seoUrl), true);
 
@@ -245,6 +240,7 @@ namespace App.Front.Controllers
                 ViewBag.Description = newsLocalized.MetaDescription;
                 ViewBag.Image = Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
                 ViewBag.MenuId = newsLocalized.MenuId;
+                ViewBag.VirtualId = newsLocalized.VirtualCategoryId;
 
                 var strArrays = newsLocalized.VirtualCategoryId.Split('/');
                 for (var i = 0; i < strArrays.Length; i++)
@@ -272,6 +268,7 @@ namespace App.Front.Controllers
                 });
                 ViewBag.BreadCrumb = breadCrumbs;
             }
+           
             ViewBag.SeoUrl = newsLocalized.MenuLink.SeoUrl;
 
             return View(newsLocalized);

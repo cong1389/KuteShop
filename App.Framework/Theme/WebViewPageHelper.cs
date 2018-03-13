@@ -1,6 +1,6 @@
-﻿using App.Core.Extensions;
+﻿using System.Web.Mvc;
+using App.Core.Extensions;
 using App.Core.Localization;
-using System.Web.Mvc;
 
 namespace App.Framework.Theme
 {

@@ -8,6 +8,7 @@ using App.Core.Caching;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.Menu;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.Common;
 using App.Service.ContactInformation;
 using App.Service.Locations;

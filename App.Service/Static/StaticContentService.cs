@@ -26,11 +26,11 @@ namespace App.Service.Static
 
 		public StaticContent GetById(int id, bool isCache = true)
 		{
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheStaticcontentKey, "GetById");
             sbKey.Append(id);
 
-            string key = sbKey.ToString();
+            var key = sbKey.ToString();
             StaticContent staticContent;
             if (isCache)
             {
@@ -51,7 +51,7 @@ namespace App.Service.Static
 
 		public IEnumerable<StaticContent> GetBySeoUrl(string seoUrl, bool isCache = true)
 		{
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheStaticcontentKey, "GetBySeoUrl");
 
             if (seoUrl.HasValue())
@@ -59,7 +59,7 @@ namespace App.Service.Static
                 sbKey.AppendFormat("-{0}", seoUrl);
             }
 
-            string key = sbKey.ToString();
+            var key = sbKey.ToString();
             IEnumerable<StaticContent> staticContents ;
             if (isCache)
             {

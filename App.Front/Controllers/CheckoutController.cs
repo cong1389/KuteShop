@@ -10,6 +10,7 @@ using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.FakeEntity.Common;
 using App.Front.Models.Checkout;
+using App.Front.Models.Localizeds;
 using App.Front.Models.ShoppingCart;
 using App.Service.Addresses;
 using App.Service.Common;

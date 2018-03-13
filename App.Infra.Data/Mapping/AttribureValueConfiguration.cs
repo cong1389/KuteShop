@@ -4,7 +4,7 @@ using App.Domain.Entities.Attribute;
 
 namespace App.Infra.Data.Mapping
 {
-	public class AttribureValueConfiguration : EntityTypeConfiguration<AttributeValue>
+    public class AttribureValueConfiguration : EntityTypeConfiguration<AttributeValue>
 	{
 		public AttribureValueConfiguration()
 		{

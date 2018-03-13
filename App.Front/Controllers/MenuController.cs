@@ -7,6 +7,7 @@ using App.Aplication;
 using App.Aplication.Extensions;
 using App.Domain.Entities.Menu;
 using App.Front.Models;
+using App.Front.Models.Localizeds;
 using App.Service.Language;
 using App.Service.Menu;
 using App.Service.Static;

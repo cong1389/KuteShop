@@ -62,7 +62,7 @@ namespace App.Aplication.PagedSort.SortUtils
 			{
 				return string.Empty;
 			}
-			SortExpression sortExpression = value as SortExpression;
+			SortExpression sortExpression = (SortExpression) value;
 			return $"{sortExpression.Title}{','}{sortExpression.Expression}{','}{sortExpression.Direction}";
 		}
 	}

@@ -1,19 +1,17 @@
-﻿using App.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+using App.Core.Extensions;
 
 namespace App.Core.Caching
 {
     public class RequestCache : IRequestCache
     {
-        const string RegionName = "SmartStoreNET:";
+        private const string RegionName = "SmartStoreNET:";
 
-        private IDictionary _emptyDictionary = new Dictionary<string, object>();
+        private readonly IDictionary _emptyDictionary = new Dictionary<string, object>();
 
         private readonly HttpContextBase _context;
 
@@ -89,7 +87,7 @@ namespace App.Core.Caching
 
         protected IDictionary GetItems()
         {
-            return _context.Items ?? _emptyDictionary;
+            return _context.Items;
         }
 
         public IEnumerable<string> Keys(string pattern)
@@ -106,8 +104,7 @@ namespace App.Core.Caching
             var enumerator = items.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                string key = enumerator.Key as string;
-                if (key == null)
+                if (!(enumerator.Key is string key))
                     continue;
                 if (key.StartsWith(RegionName))
                 {

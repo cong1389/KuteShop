@@ -7,7 +7,7 @@ namespace App.Infra.Data.Repository.System
 {
 	public interface ISystemSettingRepository : IRepositoryBase<SystemSetting>
 	{
-		SystemSetting GetById(int Id);
+		SystemSetting GetById(int id);
 
 		IEnumerable<SystemSetting> PagedList(Paging page);
 

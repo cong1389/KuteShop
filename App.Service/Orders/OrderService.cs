@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
-using App.Domain.Interfaces.Services;
 using App.Domain.Orders;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Orderes;
@@ -29,11 +28,11 @@ namespace App.Service.Orders
             Order order;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheOrderKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 order = _cacheManager.Get<Order>(key);
                 if (order == null)
                 {
@@ -54,11 +53,11 @@ namespace App.Service.Orders
             IEnumerable<Order> ieOrder;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheOrderKey, "GetByCustomerId");
                 sbKey.AppendFormat("-{0}", customerId);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 ieOrder = _cacheManager.GetCollection<Order>(key);
                 if (ieOrder == null)
                 {

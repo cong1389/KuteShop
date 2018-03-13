@@ -41,12 +41,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("claim");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Domain.Entities.Account.Claim claim1 = new Domain.Entities.Account.Claim
+            var claim1 = new Domain.Entities.Account.Claim
             {
                 ClaimType = claim.Type,
                 ClaimValue = claim.Value,
@@ -67,12 +67,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("login");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            ExternalLogin externalLogin = new ExternalLogin
+            var externalLogin = new ExternalLogin
             {
                 LoginProvider = login.LoginProvider,
                 ProviderKey = login.ProviderKey,
@@ -93,12 +93,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: roleName.");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Role role = _roleRepository.FindByName(roleName);
+            var role = _roleRepository.FindByName(roleName);
             if (role == null)
             {
                 throw new ArgumentException("roleName does not correspond to a Role entity.", "roleName");
@@ -110,14 +110,14 @@ namespace App.Service.Account
 
         public Task CreateAsync(IdentityUser user)
         {
-            User user1 = GetUser(user);
+            var user1 = GetUser(user);
             _userRepository.Add(user1);
             return _unitOfWork.CommitAsync();
         }
 
         public Task DeleteAsync(IdentityUser user)
         {
-            User user1 = GetUser(user);
+            var user1 = GetUser(user);
             _userRepository.Delete(user1);
             return _unitOfWork.CommitAsync();
         }
@@ -133,7 +133,7 @@ namespace App.Service.Account
                 throw new ArgumentNullException("login");
             }
             IdentityUser identityUser = null;
-            ExternalLogin byProviderAndKey = _externalLoginRepository.GetByProviderAndKey(login.LoginProvider, login.ProviderKey);
+            var byProviderAndKey = _externalLoginRepository.GetByProviderAndKey(login.LoginProvider, login.ProviderKey);
             if (byProviderAndKey != null)
             {
                 identityUser = GetIdentityUser(byProviderAndKey.User);
@@ -143,24 +143,24 @@ namespace App.Service.Account
 
         public Task<IdentityUser> FindByIdAsync(Guid userId)
         {
-            User user = _userRepository.FindById(userId, false);
+            var user = _userRepository.FindById(userId);
             return Task.FromResult(GetIdentityUser(user));
         }
 
         public Task<IdentityUser> FindByNameAsync(string userName)
         {
-            User user = _userRepository.FindByUserName(userName);
+            var user = _userRepository.FindByUserName(userName);
             return Task.FromResult(GetIdentityUser(user));
         }
 
         public Task<IList<Claim>> GetClaimsAsync(IdentityUser user)
         {
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<IList<Claim>> task = Task.FromResult<IList<Claim>>((
+            var task = Task.FromResult<IList<Claim>>((
                 from x in user1.Claims
                 select new Claim(x.ClaimType, x.ClaimValue)).ToList());
             return task;
@@ -171,7 +171,7 @@ namespace App.Service.Account
             IdentityUser identityUser;
             if (user != null)
             {
-                IdentityUser identityUser1 = new IdentityUser();
+                var identityUser1 = new IdentityUser();
                 PopulateIdentityUser(identityUser1, user);
                 identityUser = identityUser1;
             }
@@ -188,12 +188,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("user");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<IList<UserLoginInfo>> task = Task.FromResult<IList<UserLoginInfo>>((
+            var task = Task.FromResult<IList<UserLoginInfo>>((
                 from x in user1.Logins
                 select new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToList());
             return task;
@@ -210,12 +210,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("user");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<IList<string>> task = Task.FromResult<IList<string>>((
+            var task = Task.FromResult<IList<string>>((
                 from x in user1.Roles
                 select x.Name).ToList());
             return task;
@@ -228,14 +228,14 @@ namespace App.Service.Account
 
         private User GetUser(IdentityUser identityUser)
         {
-            User user = new User();
+            var user = new User();
             PopulateUser(user, identityUser);
             return user;
         }
 
         public Task<bool> HasPasswordAsync(IdentityUser user)
         {
-            Task<bool> task = Task.FromResult(!string.IsNullOrWhiteSpace(user.PasswordHash));
+            var task = Task.FromResult(!string.IsNullOrWhiteSpace(user.PasswordHash));
             return task;
         }
 
@@ -249,12 +249,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Task<bool> task = Task.FromResult(user1.Roles.Any(x => x.Name == roleName));
+            var task = Task.FromResult(user1.Roles.Any(x => x.Name == roleName));
             return task;
         }
 
@@ -306,7 +306,7 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("claim");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
@@ -327,12 +327,12 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("Argument cannot be null, empty, or whitespace: role.");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            Role role = user1.Roles.FirstOrDefault(x => x.Name == roleName);
+            var role = user1.Roles.FirstOrDefault(x => x.Name == roleName);
             user1.Roles.Remove(role);
             _userRepository.Update(user1);
             return _unitOfWork.CommitAsync();
@@ -348,7 +348,7 @@ namespace App.Service.Account
             {
                 throw new ArgumentNullException("login");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
@@ -377,7 +377,7 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("user");
             }
-            User user1 = _userRepository.FindById(user.Id, false);
+            var user1 = _userRepository.FindById(user.Id);
             if (user1 == null)
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");

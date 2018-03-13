@@ -5,7 +5,7 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Account
 {
-	public interface IExternalLoginRepository : IRepositoryBaseAsync<ExternalLogin>
+    public interface IExternalLoginRepository : IRepositoryBaseAsync<ExternalLogin>
 	{
 		ExternalLogin GetByProviderAndKey(string loginProvider, string providerKey);
 

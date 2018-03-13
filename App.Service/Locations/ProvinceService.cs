@@ -7,7 +7,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Locations
 {
-	public class ProvinceService : BaseService<Province>, IProvinceService
+    public class ProvinceService : BaseService<Province>, IProvinceService
 	{
 		private readonly IProvinceRepository _provinceRepository;
 

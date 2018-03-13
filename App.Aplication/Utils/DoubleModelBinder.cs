@@ -8,7 +8,7 @@ namespace App.Aplication
 	{
 	    public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
-			ValueProviderResult value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
+			var value = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
 			if (value == null)
 			{
 				return base.BindModel(controllerContext, bindingContext);

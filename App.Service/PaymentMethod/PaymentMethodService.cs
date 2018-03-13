@@ -29,10 +29,10 @@ namespace App.Service.PaymentMethodes
             IEnumerable<PaymentMethod> iePaymentMethod;
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CachePaymentMethodKey, "GetAll");
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 iePaymentMethod = _cacheManager.GetCollection<PaymentMethod>(key);
                 if (iePaymentMethod == null)
                 {
@@ -51,14 +51,17 @@ namespace App.Service.PaymentMethodes
 
         public PaymentMethod GetById(int id)
         {
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CachePaymentMethodKey, "GetBySeoUrl");
             sbKey.AppendFormat("-{0}", id);
 
-            string key = sbKey.ToString();
-            PaymentMethod paymentMethod = _cacheManager.Get<PaymentMethod>(key);
+            var key = sbKey.ToString();
+            var paymentMethod = _cacheManager.Get<PaymentMethod>(key);
 
-            if (paymentMethod != null) return paymentMethod;
+            if (paymentMethod != null)
+            {
+                return paymentMethod;
+            }
 
             paymentMethod = _paymentMethodRepository.GetById(id);
             _cacheManager.Put(key, paymentMethod);
@@ -68,16 +71,21 @@ namespace App.Service.PaymentMethodes
 
         public PaymentMethod GetBySystemName(string systemName)
         {
-            StringBuilder sbKey = new StringBuilder();
+            var sbKey = new StringBuilder();
             sbKey.AppendFormat(CachePaymentMethodKey, "GetBySystemName");
 
             if (systemName.HasValue())
+            {
                 sbKey.AppendFormat("-{0}", systemName);
+            }
 
-            string key = sbKey.ToString();
-            PaymentMethod paymentMethod = _cacheManager.Get<PaymentMethod>(key);
+            var key = sbKey.ToString();
+            var paymentMethod = _cacheManager.Get<PaymentMethod>(key);
 
-            if (paymentMethod != null) return paymentMethod;
+            if (paymentMethod != null)
+            {
+                return paymentMethod;
+            }
 
             paymentMethod = _paymentMethodRepository.Get(x => x.PaymentMethodSystemName == systemName);
 

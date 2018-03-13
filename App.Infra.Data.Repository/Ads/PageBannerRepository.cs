@@ -4,27 +4,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Ads;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Ads
 {
-	public class PageBannerRepository : RepositoryBase<PageBanner>, IPageBannerRepository, IRepositoryBase<PageBanner>
+    public class PageBannerRepository : RepositoryBase<PageBanner>, IPageBannerRepository
 	{
 		public PageBannerRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		public PageBanner GetById(int Id)
+		public PageBanner GetById(int id)
 		{
-			PageBanner pageBanner = FindBy(x => x.Id == Id).FirstOrDefault();
+			var pageBanner = FindBy(x => x.Id == id).FirstOrDefault();
 			return pageBanner;
 		}
 
 		protected override IOrderedQueryable<PageBanner> GetDefaultOrder(IQueryable<PageBanner> query)
 		{
-			IOrderedQueryable<PageBanner> pageBanners = 
+			var pageBanners = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -38,7 +37,7 @@ namespace App.Infra.Data.Repository.Ads
 
 		public IEnumerable<PageBanner> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<PageBanner, bool>> expression = PredicateBuilder.True<PageBanner>();
+			var expression = PredicateBuilder.True<PageBanner>();
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 	}

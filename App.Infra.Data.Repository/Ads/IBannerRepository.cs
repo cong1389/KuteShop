@@ -5,9 +5,9 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Ads
 {
-	public interface IBannerRepository : IRepositoryBase<Banner>
+    public interface IBannerRepository : IRepositoryBase<Banner>
 	{
-		Banner GetById(int Id);
+		Banner GetById(int id);
 
 		IEnumerable<Banner> PagedList(Paging page);
 

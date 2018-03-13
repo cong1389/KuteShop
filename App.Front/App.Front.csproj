@@ -273,9 +273,9 @@
     <Compile Include="Models\Checkout\CheckoutShippingMethodModel.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\Customer\CustomerInfoModel.cs" />
-    <Compile Include="Models\Extensions\MappingFrontExtensions.cs" />
     <Compile Include="Models\FrontAuthorize.cs" />
     <Compile Include="Models\ImageSize.cs" />
+    <Compile Include="Models\Localizeds\MappingExtensions.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PartialCacheAttribute.cs" />
     <Compile Include="Models\Posts\CategoryPostModel.cs" />
@@ -808,6 +808,7 @@
     <Content Include="Views\Post\_PostByCategory.Post.cshtml" />
     <Content Include="Views\MenuNav\MenuHomeSlide.cshtml" />
     <Content Include="Views\PaymentMethod\_PaymentMethodFooter.cshtml" />
+    <Content Include="Views\News\NewsTimeLine.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

@@ -6,13 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using App.Core.Utils;
 using App.Domain.Entities.Account;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Account
 {
-	public class UserRepository : RepositoryBaseAsync<User>, IUserRepository, IRepositoryBaseAsync<User>
+    public class UserRepository : RepositoryBaseAsync<User>, IUserRepository
 	{
 		public UserRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -20,47 +19,47 @@ namespace App.Infra.Data.Repository.Account
 
 		public User FindByEmail(string email)
 		{
-			User user = Get(x => x.Email.Equals(email));
+			var user = Get(x => x.Email.Equals(email));
 			return user;
 		}
 
 		public async Task<User> FindByEmailAsync(string email)
 		{
-			UserRepository userRepository = this;
-			User async = await userRepository.GetAsync(x => x.Email.Equals(email));
+			var userRepository = this;
+			var async = await userRepository.GetAsync(x => x.Email.Equals(email));
 			return async;
 		}
 
 		public Task<User> FindByEmailAsync(CancellationToken cancellationToken, string email)
 		{
-			Task<User> async = GetAsync(cancellationToken, x => x.Email.Equals(email));
+			var async = GetAsync(cancellationToken, x => x.Email.Equals(email));
 			return async;
 		}
 
 		public User FindByUserName(string username)
 		{
-			User user = Get(x => x.UserName.Equals(username));
+			var user = Get(x => x.UserName.Equals(username));
 			return user;
 		}
 
 		public async Task<User> FindByUserNameAsync(string username)
 		{
-			UserRepository userRepository = this;
-			User async = await userRepository.GetAsync(x => x.UserName.Equals(username));
+			var userRepository = this;
+			var async = await userRepository.GetAsync(x => x.UserName.Equals(username));
 			return async;
 		}
 
 		public async Task<User> FindByUserNameAsync(CancellationToken cancellationToken, string username)
 		{
-			UserRepository userRepository = this;
-			CancellationToken cancellationToken1 = cancellationToken;
-			User async = await userRepository.GetAsync(cancellationToken1, x => x.UserName.Equals(username));
+			var userRepository = this;
+			var cancellationToken1 = cancellationToken;
+			var async = await userRepository.GetAsync(cancellationToken1, x => x.UserName.Equals(username));
 			return async;
 		}
 
 		protected override IOrderedQueryable<User> GetDefaultOrder(IQueryable<User> query)
 		{
-			IOrderedQueryable<User> users = 
+			var users = 
 				from x in query
 				orderby x.UserName
 				select x;
@@ -69,10 +68,10 @@ namespace App.Infra.Data.Repository.Account
 
 		public async Task<IEnumerable<User>> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<User, bool>> expression = PredicateBuilder.True<User>();
+			var expression = PredicateBuilder.True<User>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				Expression<Func<User, bool>> expression1 = expression;
+				var expression1 = expression;
 				expression = expression1.And(x => x.UserName.Contains(sortBuider.Keywords));
 			}
 			return await FindAndSort(expression, sortBuider.Sorts, page);

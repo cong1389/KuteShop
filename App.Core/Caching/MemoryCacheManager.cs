@@ -1,13 +1,11 @@
-﻿using App.Core.Extensions;
-using App.Core.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using App.Core.Extensions;
+using static System.String;
 
 namespace App.Core.Caching
 {
@@ -26,10 +24,7 @@ namespace App.Core.Caching
             _cache = new MemoryCache("SmartStore");
         }
 
-        public bool IsDistributedCache
-        {
-            get { return false; }
-        }
+        public bool IsDistributedCache => false;
 
         private bool TryGet<T>(string key, out T value)
         {
@@ -53,22 +48,19 @@ namespace App.Core.Caching
 
         public T Get<T>(string key)
         {
-            T value;
-            TryGet(key, out value);
+            TryGet(key, out T value);
 
             return value;
         }
 
         public T Get<T>(string key, Func<T> acquirer, TimeSpan? duration = null)
         {
-            T value;
-
-            if (TryGet(key, out value))
+            if (TryGet(key, out T value))
             {
                 return value;
             }
 
-            lock (String.Intern(key))
+            lock (Intern(key))
             {
                 // atomic operation must be outer locked
                 if (!TryGet(key, out value))
@@ -84,22 +76,19 @@ namespace App.Core.Caching
 
         public IEnumerable<T> GetCollection<T>(string key)
         {
-            IEnumerable<T> value;
-            TryGetCollection(key, out value);
+            TryGetCollection(key, out IEnumerable<T> value);
 
             return value;
         }
 
         public IEnumerable<T> GetCollection<T>(string key, Func<IEnumerable<T>> acquirer, TimeSpan? duration = null)
         {
-            IEnumerable<T> value;
-
-            if (TryGetCollection(key, out value))
+            if (TryGetCollection(key, out IEnumerable<T> value))
             {
                 return value;
             }
 
-            lock (String.Intern(key))
+            lock (Intern(key))
             {
                 // atomic operation must be outer locked
                 if (!TryGetCollection(key, out value))

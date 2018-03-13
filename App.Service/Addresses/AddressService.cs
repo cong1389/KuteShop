@@ -28,11 +28,11 @@ namespace App.Service.Addresses
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheAddressKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 address = _cacheManager.Get<Address>(key);
                 if (address == null)
                 {

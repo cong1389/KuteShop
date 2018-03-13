@@ -1,30 +1,27 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Orders;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Orders
 {
-    public class ShoppingCartItemRepository : RepositoryBase<ShoppingCartItem>, IShoppingCartItemRepository, IRepositoryBase<ShoppingCartItem>
+    public class ShoppingCartItemRepository : RepositoryBase<ShoppingCartItem>, IShoppingCartItemRepository
     {
         public ShoppingCartItemRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
 
-        public ShoppingCartItem GetById(int Id)
+        public ShoppingCartItem GetById(int id)
         {
-            ShoppingCartItem shopCart = FindBy(x => x.Id == Id).FirstOrDefault();
+            var shopCart = FindBy(x => x.Id == id).FirstOrDefault();
             return shopCart;
         }
 
         protected override IOrderedQueryable<ShoppingCartItem> GetDefaultOrder(IQueryable<ShoppingCartItem> query)
         {
-            IOrderedQueryable<ShoppingCartItem> orders =
+            var orders =
                 from p in query
                 orderby p.Id
                 select p;
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.Orders
 
 		public IEnumerable<ShoppingCartItem> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<ShoppingCartItem, bool>> expression = PredicateBuilder.True<ShoppingCartItem>();
+			var expression = PredicateBuilder.True<ShoppingCartItem>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x =>x.CreatedDate.ToString("dd/MM/yyyy").ToLower().Contains(sortBuider.Keywords.ToLower()));

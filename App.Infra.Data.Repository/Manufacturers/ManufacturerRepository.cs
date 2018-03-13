@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Data;
 using App.Infra.Data.Common;
@@ -9,7 +7,7 @@ using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Manufacturers
 {
-	public class ManufacturerRepository : RepositoryBase<Manufacturer>, IManufacturerRepository
+    public class ManufacturerRepository : RepositoryBase<Manufacturer>, IManufacturerRepository
 	{
 		public ManufacturerRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -17,7 +15,7 @@ namespace App.Infra.Data.Repository.Manufacturers
 
 		protected override IOrderedQueryable<Manufacturer> GetDefaultOrder(IQueryable<Manufacturer> query)
 		{
-			IOrderedQueryable<Manufacturer> flowSteps = 
+			var flowSteps = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -31,7 +29,7 @@ namespace App.Infra.Data.Repository.Manufacturers
 
 		public IEnumerable<Manufacturer> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<Manufacturer, bool>> expression = PredicateBuilder.True<Manufacturer>();
+			var expression = PredicateBuilder.True<Manufacturer>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.Title.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
@@ -41,7 +39,7 @@ namespace App.Infra.Data.Repository.Manufacturers
 
 		public IEnumerable<Manufacturer> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<Manufacturer, bool>> expression = PredicateBuilder.True<Manufacturer>();
+			var expression = PredicateBuilder.True<Manufacturer>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.Title.Contains(sortBuider.Keywords) && x.Status == 1);

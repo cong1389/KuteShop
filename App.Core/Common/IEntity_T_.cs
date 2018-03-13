@@ -1,8 +1,6 @@
-using System;
-
 namespace App.Core.Common
 {
-	public interface IEntity<T>
+    public interface IEntity<T>
 	{
 		T Id
 		{

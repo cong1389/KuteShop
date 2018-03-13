@@ -1,16 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using App.Core.Utils;
 using App.Domain.Entities.Location;
-using App.Domain.Interfaces.Repository;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Locations
 {
-	public class DistrictRepository : RepositoryBase<District>, IDistrictRepository, IRepositoryBase<District>
+    public class DistrictRepository : RepositoryBase<District>, IDistrictRepository
 	{
 		public DistrictRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
@@ -18,13 +15,13 @@ namespace App.Infra.Data.Repository.Locations
 
 		public District GetById(int id)
 		{
-			District district = FindBy(x => x.Id == id).FirstOrDefault();
+			var district = FindBy(x => x.Id == id).FirstOrDefault();
 			return district;
 		}
 
 		protected override IOrderedQueryable<District> GetDefaultOrder(IQueryable<District> query)
 		{
-			IOrderedQueryable<District> districts = 
+			var districts = 
 				from p in query
 				orderby p.Id
 				select p;
@@ -38,7 +35,7 @@ namespace App.Infra.Data.Repository.Locations
 
 		public IEnumerable<District> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			Expression<Func<District, bool>> expression = PredicateBuilder.True<District>();
+			var expression = PredicateBuilder.True<District>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));

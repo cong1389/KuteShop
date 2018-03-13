@@ -9,7 +9,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Ads
 {
-	public class PageBannerService : BaseService<PageBanner>, IPageBannerService
+    public class PageBannerService : BaseService<PageBanner>, IPageBannerService
 	{
         private const string CachePagebannerKey = "db.PageBanner.{0}";
         private readonly ICacheManager _cacheManager;
@@ -29,11 +29,11 @@ namespace App.Service.Ads
 
             if (isCache)
             {
-                StringBuilder sbKey = new StringBuilder();
+                var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CachePagebannerKey, "GetById");
                 sbKey.Append(id);
 
-                string key = sbKey.ToString();
+                var key = sbKey.ToString();
                 pageBanner = _cacheManager.Get<PageBanner>(key);
                 if (pageBanner == null)
                 {

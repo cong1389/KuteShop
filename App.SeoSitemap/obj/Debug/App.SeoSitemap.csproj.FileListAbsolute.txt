@@ -254,3 +254,12 @@ D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.csproj
 D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.dll
 D:\FreeLance\2018\KuteShop\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.pdb
+D:\Project\Practice\kute\Source\App.SeoSitemap\bin\Debug\App.SeoSitemap.dll.config
+D:\Project\Practice\kute\Source\App.SeoSitemap\bin\Debug\App.SeoSitemap.dll
+D:\Project\Practice\kute\Source\App.SeoSitemap\bin\Debug\App.SeoSitemap.pdb
+D:\Project\Practice\kute\Source\App.SeoSitemap\bin\Debug\System.Web.Mvc.dll
+D:\Project\Practice\kute\Source\App.SeoSitemap\bin\Debug\System.Web.Mvc.xml
+D:\Project\Practice\kute\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.csprojResolveAssemblyReference.cache
+D:\Project\Practice\kute\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.csproj.CoreCompileInputs.cache
+D:\Project\Practice\kute\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.dll
+D:\Project\Practice\kute\Source\App.SeoSitemap\obj\Debug\App.SeoSitemap.pdb

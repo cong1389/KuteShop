@@ -1,9 +1,6 @@
-using System;
-using System.Runtime.CompilerServices;
-
 namespace App.Core.Utils
 {
-	public class Paging
+    public class Paging
 	{
 		public int PageNumber
 		{
