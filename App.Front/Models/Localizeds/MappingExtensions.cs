@@ -44,7 +44,7 @@ namespace App.Front.Models.Localizeds
             };
             return model;
         }
-
+        
         public static News ToModel(this News entity)
         {
             if (entity == null)

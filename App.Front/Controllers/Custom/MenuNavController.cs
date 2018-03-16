@@ -133,7 +133,7 @@ namespace App.Front.Controllers.Custom
         }
 
         [ChildActionOnly]
-        [PartialCache("Long")]
+        //[PartialCache("Long")]
         public ActionResult GetTopHead()
         {
             var menuNavs = new List<MenuNavViewModel>();

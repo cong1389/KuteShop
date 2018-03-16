@@ -349,7 +349,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Service.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Aplication.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Core.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Domain.dll
-D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.FakeEntity.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Infra.Data.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Infra.Data.Repository.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\AutoMapper.dll
@@ -359,7 +358,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\Kaliko.ImageLibrary.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.WebPages.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\EPPlus.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\HtmlAgilityPack.dll
-D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\Resources.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.Razor.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\Microsoft.Web.Infrastructure.dll
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.WebPages.Deployment.dll
@@ -370,8 +368,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Core.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Core.dll.config
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Domain.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Domain.dll.config
-D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.FakeEntity.pdb
-D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.FakeEntity.dll.config
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\App.Infra.Data.Repository.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\AutoMapper.xml
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.Mvc.xml
@@ -379,7 +375,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.WebPages.xml
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\EPPlus.xml
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\HtmlAgilityPack.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\HtmlAgilityPack.xml
-D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\Resources.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.Razor.xml
 D:\FreeLance\2018\KuteShop\Source\App.Service\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\FreeLance\2018\KuteShop\Source\App.Service\obj\Debug\App.Service.csprojResolveAssemblyReference.cache

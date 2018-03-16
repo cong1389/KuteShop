@@ -75,29 +75,32 @@ namespace App.Front.Controllers
             return identityUser?.PasswordHash != null;
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel login, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var identityUser = await UserManager.FindAsync(login.UserName, login.Password);
+            var user = await UserManager.FindAsync(model.UserName, model.Password);
 
-            if (identityUser == null)
+            if (user == null)
             {
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác.");
                 return View();
             }
 
-            await SignInAsync(identityUser, login.Remember);
+            await SignInAsync(user, model.Remember);
+
             if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
             {
                 return RedirectToAction("Index", "Home");
@@ -163,14 +166,18 @@ namespace App.Front.Controllers
 
         private async Task SignInAsync(IdentityUser user, bool isPersistent)
         {
-            AuthenticationManager.SignOut("ExternalCookie");
-            var claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
-            var authenticationManager = AuthenticationManager;
-            var authenticationProperty = new AuthenticationProperties
-            {
-                IsPersistent = isPersistent
-            };
-            authenticationManager.SignIn(authenticationProperty, claimsIdentity);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+
+            //AuthenticationManager.SignOut("ExternalCookie");
+            //var claimsIdentity = await UserManager.CreateIdentityAsync(user, "ApplicationCookie");
+            //var authenticationManager = AuthenticationManager;
+            //var authenticationProperty = new AuthenticationProperties
+            //{
+            //    IsPersistent = isPersistent
+            //};
+            //authenticationManager.SignIn(authenticationProperty, claimsIdentity);
         }
     }
 }

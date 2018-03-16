@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
@@ -179,10 +180,10 @@ namespace App.Front.Controllers
             var model = new MiniShoppingCartModel
             {
                 Items = lstPost,
-                ShoppingCarts = cart
+                ShoppingCarts = cart,
+                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
-            model.SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart);
 
             PrepareShoppingCartModel(cart);
 
@@ -230,6 +231,11 @@ namespace App.Front.Controllers
         [FormValueRequired("startcheckout")]
         public ActionResult StartCheckout()
         {
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var cart = _workContext.CurrentCustomer.GetCartItems();
 
             if (cart.IsAny())

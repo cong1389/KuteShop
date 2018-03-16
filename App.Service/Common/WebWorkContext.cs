@@ -168,7 +168,6 @@ namespace App.Service.Common
 
         protected virtual Customer GetGuestCustomer()
         {
-            Customer customer;
             var customerGuid = Guid.Empty;
 
             var anonymousId = _httpContextBase.Request.AnonymousID;
@@ -185,7 +184,7 @@ namespace App.Service.Common
             }
 
             //Load customer đã có 
-            customer = _customerService.GetByGuid(customerGuid, false);
+            var customer = _customerService.GetByGuid(customerGuid, false);
 
             if (customer == null || customer.Deleted || !customer.Active)
             {

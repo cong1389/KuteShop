@@ -21,7 +21,6 @@ D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.AspNet.SignalR.Core.dl
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.dll
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Host.SystemWeb.dll
-D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Security.dll
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Web.Infrastructure.dll
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Newtonsoft.Json.dll
 D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Owin.dll

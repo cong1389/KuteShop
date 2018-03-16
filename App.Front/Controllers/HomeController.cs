@@ -198,7 +198,7 @@ select x.ErrorMessage).ToArray())
             viewBag.Brands = brandService.FindBy(x => x.Status == 1);
             return PartialView();
         }
-
+        
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult Index()
         {
@@ -212,7 +212,6 @@ select x.ErrorMessage).ToArray())
                 ViewBag.Image = Url.Content(string.Concat("~/", systemSetting.LogoImage));
                 ViewBag.Favicon = Url.Content(string.Concat("~/", systemSetting.FaviconImage));
             }
-            var viewBag = ViewBag;
 
             //IProvinceService provinceService = this._province;
             //viewBag.Provinces = provinceService.FindBy((Province x) => x.Status == 1, false);

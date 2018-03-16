@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utils;
@@ -328,10 +329,12 @@ namespace App.Front.Controllers
             return Json(byProvinceId);
         }
 
-        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+
             return RedirectToAction("Index", "Home");
         }
 
