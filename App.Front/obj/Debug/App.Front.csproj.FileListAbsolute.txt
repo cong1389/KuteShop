@@ -492,3 +492,5 @@ D:\Project\Practice\kute\Source\App.Front\obj\Debug\App.Front.dll
 D:\Project\Practice\kute\Source\App.Front\obj\Debug\App.Front.pdb
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\Microsoft.Owin.Security.Google.dll
 D:\FreeLance\2018\KuteShop\Source\App.Front\bin\Microsoft.Owin.Security.Google.xml
+D:\FreeLance\2018\KuteShop\Source\App.Front\bin\Microsoft.Owin.Security.Facebook.dll
+D:\FreeLance\2018\KuteShop\Source\App.Front\bin\Microsoft.Owin.Security.Facebook.xml

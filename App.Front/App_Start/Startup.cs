@@ -50,8 +50,8 @@ namespace App.Front
                 DefaultAuthenticationTypes.ExternalCookie);
 
             app.UseGoogleAuthentication(
-                clientId: "000-000.apps.googleusercontent.com",
-                clientSecret: "00000000000");
+                clientId: "264629127668-pp28sk9b98o9hdvagvqimm1to2qjpejf.apps.googleusercontent.com",
+                clientSecret: "OE3P6-4o0zVCd-k8QQ415oVn");
 
             // Uncomment the following lines to enable logging in
             // with third party login providers
@@ -63,10 +63,10 @@ namespace App.Front
             // consumerKey: "",
             // consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            // appId: "",
-            // appSecret: "");
-            //app.UseGoogleAuthentication();
+            app.UseFacebookAuthentication(
+             appId: "1318503118251337",
+             appSecret: "2b816c9bb9637eddfb8056aaca4abe1b");
+
         }
     }
 }

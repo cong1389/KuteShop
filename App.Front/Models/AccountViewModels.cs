@@ -9,10 +9,15 @@ namespace App.Front.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Tên đăng nhập")]
+        public string UserName { get; set; }
     }
 
     public class ExternalLoginListViewModel
     {
+        public string Action { get; set; }
         public string ReturnUrl { get; set; }
     }
 
