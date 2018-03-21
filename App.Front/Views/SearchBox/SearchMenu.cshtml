@@ -2,34 +2,16 @@
 @model App.Front.Models.SeachConditions
 
 <div class="search-box">
-    @using (Html.BeginForm("Search", "Menu", FormMethod.Get, new { @class = "search form-inline " }))
-    {<div class="form-group input-serach">
-         @Html.TextBoxFor(model => model.Keywords, new { @class = "search_box", placeholder = T("Search.PlaceHolder") })
-          
-        </div>
-        <button id="submit-button" class="pull-right btn-search">
-            <span class="hidden-400">Tìm kiếm</span>
-            <span class="show-400"><i class="fa fa-search" aria-hidden="true"></i></span>
-        </button>
+	@using (Html.BeginForm("Search", "Menu", FormMethod.Get, new { @class = "search form-inline " }))
+	{<div class="input-serach">
+		@Html.TextBoxFor(model => model.Keywords, new { @class = "search_box", placeholder = T("Search.PlaceHolder") })
 
-    }
-    @*<form class="search form-inline" action="https://kute-shop.myharavan.com/search"></form>*@
+	</div>
+		<button id="submit-button" class="pull-right btn-search">
+			<span class="hidden-400">Tìm kiếm</span>
+			<span class="show-400"><i class="fa fa-search" aria-hidden="true"></i></span>
+		</button>
+
+	}
 </div>
-
-@*<div class='header_search fleft'>
-        <a href='#'><i class='glyphicon glyphicon-search'></i></a>
-        @using (Html.BeginForm("Search", "Menu", FormMethod.Get))
-        {
-            <input type="hidden" name="type" value="product" />
-            @Html.TextBoxFor(model => model.Keywords, new { @class = "form-control noboxshadow noradius", placeholder = T("Search.PlaceHolder") })
-
-            <button class='button nomargin'>Tìm kiếm</button>
-        }
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            EGA.search.headerSearch();
-        })
-    </script>*@
 <!--/SearchHome--->

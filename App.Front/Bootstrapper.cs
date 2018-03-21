@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
@@ -5,6 +6,7 @@ using System.Web.Mvc;
 using App.Framework.FluentValidation;
 using App.Framework.Ioc;
 using App.Framework.Mappings;
+using App.Front.App_Start;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
@@ -13,18 +15,29 @@ using FluentValidation.Mvc;
 
 public class Bootstrapper
 {
-    public static void Run()
+    public static ContainerBuilder Run()
     {
-        SetAutofacContainer();
-
-        AutoMapperConfiguration.Configure();
-        FluentValidationModelValidatorProvider.Configure(provider =>
-            provider.ValidatorFactory = new FluentValidationConfig());
+        return ContainerBuilder.Value;
     }
 
-    private static void SetAutofacContainer()
+    private static readonly Lazy<ContainerBuilder> ContainerBuilder = new Lazy<ContainerBuilder>(() =>
     {
-        ContainerBuilder containerBuilder = new ContainerBuilder();
+        var container = new ContainerBuilder();
+        SetAutofacContainer(container);
+        AutoMapperConfiguration.Configure();
+        FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
+
+        return container;
+    });
+
+    //public static ContainerBuilder GetConfiguredContainer()
+    //{
+    //    return containerBuilder.Value;
+    //}
+
+    private static void SetAutofacContainer(ContainerBuilder containerBuilder)
+    {
+        //ContainerBuilder containerBuilder = new ContainerBuilder();
         Assembly[] array = (
             from Assembly p in BuildManager.GetReferencedAssemblies()
             where p.ManifestModule.Name.StartsWith("App.")
@@ -39,6 +52,8 @@ public class Bootstrapper
         containerBuilder.RegisterModule(new RepositoryModule());
         containerBuilder.RegisterModule(new IdentityModule());
         containerBuilder.RegisterModule(new ServiceModule());
+        containerBuilder.RegisterType<IdentityConfig>();
+
         IContainer container = containerBuilder.Build(ContainerBuildOptions.IgnoreStartableComponents);
         //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

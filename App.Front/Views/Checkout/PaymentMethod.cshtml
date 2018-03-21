@@ -1,5 +1,8 @@
 ﻿<!----PaymentMethod-->
 @model App.Front.Models.Checkout.CheckoutPaymentMethodModel
+@{
+	ViewBag.Title = "Thông tin thanh toán";
+}
 
 @if (Model != null)
 {
@@ -8,7 +11,7 @@
         <div class="columns-container ">
             <div class="container clearfix" id="columns">
                 <div class="page-content page-order checkout-page">
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
 
                         @{
                             Html.RenderAction("ShippingMethod", "Checkout", new { area = "" });
@@ -33,9 +36,10 @@
 
                     </div>
 
-                    <div class="col-sm-6">
-                        <div id="divCart"></div>
-                    </div>
+	                <div class="col-sm-5">
+		                <div id="divCart"></div>
+	                </div>
+
                     <div class="cart_navigation">
                         <a class="prev-btn" href="@Url.Action("BillingAddress", "Checkout")">
                             Quay lại thông tin giao hàng
@@ -45,7 +49,6 @@
                         <a href="#" class="next-btn" onclick="$('#nextstep').trigger('click');return false;">
                             <span class="btn-content">Đặt mua</span>
                         </a>
-
                     </div>
 
                 </div>

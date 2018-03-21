@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Domain.Entities.Identity;
+using App.Service.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -11,8 +12,9 @@ namespace App.Front.Controllers
     public class BaseAccessUserController : Controller
 	{
 		protected readonly UserManager<IdentityUser, Guid> UserManager;
+	    //private readonly IEmailService _emailService;
 
-		protected string XsrfKey = AccountUtils.XsrfKey;
+        protected string XsrfKey = AccountUtils.XsrfKey;
 
 		protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
@@ -20,9 +22,11 @@ namespace App.Front.Controllers
 		{
 		}
 
-		protected BaseAccessUserController(UserManager<IdentityUser, Guid> userManager)
+		protected BaseAccessUserController(UserManager<IdentityUser, Guid> userManager, IIdentityMessageService emailService)
 		{
             UserManager = userManager;
+
+		    UserManager.EmailService = emailService;
 		}
 
 		protected void AddErrors(IdentityResult result)

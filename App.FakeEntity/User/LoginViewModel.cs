@@ -25,5 +25,12 @@ namespace App.FakeEntity.User
 			get;
 			set;
 		}
-	}
+
+	    [Display(Name = "Email")]
+	    public string Email
+	    {
+	        get;
+	        set;
+	    }
+    }
 }

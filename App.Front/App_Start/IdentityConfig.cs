@@ -1,160 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
+using App.Domain.Entities.Identity;
+using App.Front.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Twilio.Clients;
-using IdentityUser = App.Domain.Entities.Identity.IdentityUser;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace App.Front.App_Start
 {
-    public class EmailService : IIdentityMessageService
+    public class IdentityConfig : UserManager<IdentityUser, Guid>
     {
-        public async Task SendAsync(IdentityMessage message)
+        public IdentityConfig(IUserStore<IdentityUser, Guid> store, IIdentityMessageService emailService, IDataProtectionProvider dataProtectionProvider) : base(store)
         {
-            await configSendGridasync(message);
-        }
-
-        // Use NuGet to install SendGrid (Basic C# client lib) 
-        private async Task configSendGridasync(IdentityMessage message)
-        {
-            var myMessage = new SendGridMessage();
-            myMessage.AddTo(message.Destination);
-            myMessage.From = new System.Net.Mail.MailAddress(
-                                "Joe@contoso.com", "Joe S.");
-            myMessage.Subject = message.Subject;
-            myMessage.Text = message.Body;
-            myMessage.Html = message.Body;
-
-            var credentials = new NetworkCredential(
-                       ConfigurationManager.AppSettings["mailAccount"],
-                       ConfigurationManager.AppSettings["mailPassword"]
-                       );
-
-            // Create a Web transport for sending email.
-            var transportWeb = new Web(credentials);
-
-            try
-            {
-                // Send the email.
-                if (transportWeb != null)
-                {
-                    await transportWeb.DeliverAsync(myMessage);
-                }
-                else
-                {
-                    Trace.TraceError("Failed to create Web transport.");
-                    await Task.FromResult(0);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.Message + " SendGrid probably not configured correctly.");
-            }
-        }
-    }
-
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            var Twilio = new TwilioRestClient(
-               ConfigurationManager.AppSettings["TwilioSid"],
-               ConfigurationManager.AppSettings["TwilioToken"]
-           );
-            var result = Twilio.SendMessage(
-                ConfigurationManager.AppSettings["TwilioFromPhone"],
-               message.Destination, message.Body);
-
-            // Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
-            Trace.TraceInformation(result.Status);
-
-            // Twilio doesn't currently have an async API, so return success.
-            return Task.FromResult(0);
-        }
-    }
-
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
-    {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
-           : base(store)
-        {
-        }
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
-        {
-            var manager = new ApplicationUserManager(new UserStore<IdentityUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+            UserValidator = new UserValidator<IdentityUser, Guid>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
-            //manager.PasswordValidator = new PasswordValidator
-            //{
-            //    RequiredLength = 6,
-            //    RequireNonLetterOrDigit = true,
-            //    RequireDigit = true,
-            //    RequireLowercase = true,
-            //    RequireUppercase = true,
-            //};
+            PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
+            };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            UserLockoutEnabledByDefault = true;
+            DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+            RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<IdentityUser, Guid>
             {
                 MessageFormat = "Your security code is {0}"
             });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<IdentityUser, Guid>
             {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
-            manager.EmailService = new EmailService();
-            //manager.SmsService = new SmsService();
-            var dataProtectionProvider = options.DataProtectionProvider;
+            EmailService = emailService;
+            //this.SmsService = new SmsService();
+
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                IDataProtector dataProtector = dataProtectionProvider.Create("ASP.NET Identity");
+
+                UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
             }
-            return manager;
-        }
-    }
 
-    // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
-    {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-           : base(userManager, authenticationManager)
-        {
-        }
-
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-        }
-
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            //alternatively use this if you are running in Azure Web Sites
+            UserTokenProvider = new EmailTokenProvider<IdentityUser, Guid>();
         }
     }
 }

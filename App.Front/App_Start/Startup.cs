@@ -1,10 +1,16 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using App.Front.App_Start;
+using App.Front.Models;
+using Autofac;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Owin;
 
 namespace App.Front
@@ -24,30 +30,26 @@ namespace App.Front
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            //string str =
-            //    (new UrlHelper(HttpContext.Current.Request.RequestContext)).Action("Login", "User", new {area = ""});
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions
-            //{
-            //    AuthenticationType = "ApplicationCookie",
-            //    LoginPath = new PathString(str)
-            //});
-            //app.UseExternalSignInCookie("ExternalCookie");
-
             string loginUrl = new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Login", "User", new { area = "" });
 
             // Enable the application to use a cookie to store
             // information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType =
-                    DefaultAuthenticationTypes.ApplicationCookie,
+                AuthenticationType =DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString(loginUrl)
             });
 
             // Use a cookie to temporarily store information about
             // a user logging in with a third party login provider
-            app.UseExternalSignInCookie(
-                DefaultAuthenticationTypes.ExternalCookie);
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+
+            // Enables the application to remember the second login verification factor such as phone or email.
+            // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
+            // This is similar to the RememberMe option when you log in.
+            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             app.UseGoogleAuthentication(
                 clientId: "264629127668-pp28sk9b98o9hdvagvqimm1to2qjpejf.apps.googleusercontent.com",

@@ -6,8 +6,11 @@ using System.Web.Mvc;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Front.Models;
+using App.Service.Account;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using ChangePasswordViewModel = App.FakeEntity.User.ChangePasswordViewModel;
 using LoginViewModel = App.FakeEntity.User.LoginViewModel;
 
@@ -16,15 +19,23 @@ namespace App.Front.Controllers
     [Authorize]
     public class UserController : BaseAccessUserController
     {
-        public UserController(UserManager<IdentityUser, Guid> userManager) : base(userManager)
-        {
-        }
+        //private readonly IEmailService _emailService;
+        //private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
 
-        public ActionResult ChangePassword()
+        public UserController(UserManager<IdentityUser, Guid> userManager
+            , IIdentityMessageService emailService
+            ) : base(userManager, emailService)
         {
-            return View();
-        }
+            //_emailService = emailService;
 
+            //if (_provider != null)
+            //{
+            //    var dataProtector = _provider.Create("ASP.NET Identity");
+
+            //    UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
+            //}
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -114,12 +125,14 @@ namespace App.Front.Controllers
             return Redirect(returnUrl);
         }
 
+        [AllowAnonymous]
         public ActionResult Registration()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Registration(RegisterFormViewModel model)
         {
@@ -324,8 +337,102 @@ namespace App.Front.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+                
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "User", new { userId = user.Id, code }, Request.Url.Scheme);
+
+                var message = new IdentityMessage()
+                {
+                    Subject= "Reset Password",
+                    Body= "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>",
+                    Destination="ddemo9698@gmail.com"
+                };
+                //await _emailService.SendAsync(message);
+
+                //TODO: Implementation UserManager
+                await UserManager.SendEmailAsync(user.Id, "Reset Password",
+                "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                TempData["ViewBagLink"] = callbackUrl;
+                return RedirectToAction("ForgotPasswordConfirmation", "User");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            ViewBag.Link = TempData["ViewBagLink"];
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string code)
+        {
+            return code == null ? View("Error") : View();
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "User");
+            }
+            
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "User");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
         #region Helpers
-        
+
         private const string XsrfKey = "XsrfId";
 
         public enum ManageMessageId

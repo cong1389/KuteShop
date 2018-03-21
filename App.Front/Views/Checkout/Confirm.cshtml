@@ -1,6 +1,10 @@
 ﻿<!----Confirm-->
 @model App.Front.Models.Checkout.CheckoutConfirmModel
 
+@{
+	ViewBag.Title = "Kiểm tra đơn hàng";
+}
+
 @if (Model != null)
 {
     using (Html.BeginForm(null, null, FormMethod.Post, new { id = "confirm-order-form" }))
@@ -9,17 +13,17 @@
 
             <div class="container clearfix" id="columns">
                 <h2 class="page-heading">
-                    <span class="page-heading-title2">Kiểm tra đơn hàng</span>
+                    <span class="page-heading-title2">@ViewBag.Title</span>
                 </h2>
                 <div class="page-content page-order checkout-page">
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         @{
                             Html.RenderAction("OrderSummary", "ShoppingCart", new { area = "" });
                         }
 
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div id="divCart"></div>
                     </div>
 

@@ -13,16 +13,15 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-sm-12">
-                    @using (Html.BeginForm("ExternalLoginConfirmation", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary()
+                    <div class="box-authentication">
+                        @using (Html.BeginForm("ExternalLoginConfirmation", "User", new {ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
 
-                        <div class="box-authentication">
                             <p>
-                                You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
-                                Please enter a user name for this site below and click the Register button to finish
-                                logging in.
+                                Bạn đã đăng ký <strong>@ViewBag.LoginProvider</strong>.
+                                Bạn vui lòng nhập tên đăng nhập, email và click button đăng ký để hoàn thành đăng nhập
                             </p>
 
                             @Html.LabelFor(mode => mode.UserName)
@@ -30,11 +29,13 @@
                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "required require_symbol" })
 
                             @Html.LabelFor(mode => mode.Email)
-                            @Html.TextBoxFor(mode => mode.Email, new { required = true, disabled = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
+                            @Html.TextBoxFor(mode => mode.Email, new { required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "required require_symbol" })
 
                             <button class="button"><i class="fa fa-user"></i> @ViewBag.Title</button>
-                        </div>
-                    }
+                        }
+                    </div>
+
                 </div>
 
             </div>

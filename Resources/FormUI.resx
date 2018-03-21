@@ -543,9 +543,6 @@
   <data name="EnableSSL1" xml:space="preserve">
     <value>Enable SSL</value>
   </data>
-  <data name="FromAddress1" xml:space="preserve">
-    <value>From address</value>
-  </data>
   <data name="InActive" xml:space="preserve">
     <value>Không hoạt động</value>
   </data>
@@ -605,5 +602,20 @@
   </data>
   <data name="PaymentMethod" xml:space="preserve">
     <value>Hình thức thanh toán</value>
+  </data>
+  <data name="Address1" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Công ty</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Họ</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Tên lót</value>
   </data>
 </root>

@@ -112,7 +112,6 @@ D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.Owin.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.Owin.Host.SystemWeb.dll
-D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.Owin.Security.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Microsoft.Web.Infrastructure.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Newtonsoft.Json.dll
 D:\Project\Practice\kute\Source\App.Admin\bin\Owin.dll
@@ -181,3 +180,9 @@ D:\Project\Practice\kute\Source\App.Admin\obj\Debug\App.Admin.csprojResolveAssem
 D:\Project\Practice\kute\Source\App.Admin\obj\Debug\App.Admin.csproj.CoreCompileInputs.cache
 D:\Project\Practice\kute\Source\App.Admin\obj\Debug\App.Admin.dll
 D:\Project\Practice\kute\Source\App.Admin\obj\Debug\App.Admin.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Security.OAuth.dll
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Security.Cookies.dll
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Security.OAuth.xml
+D:\FreeLance\2018\KuteShop\Source\App.Admin\bin\Microsoft.Owin.Security.Cookies.xml

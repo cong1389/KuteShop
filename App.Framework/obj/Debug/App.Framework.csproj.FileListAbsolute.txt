@@ -667,3 +667,14 @@ D:\Project\Practice\kute\Source\App.Framework\bin\Debug\HtmlAgilityPack.pdb
 D:\Project\Practice\kute\Source\App.Framework\bin\Debug\HtmlAgilityPack.xml
 D:\Project\Practice\kute\Source\App.Framework\obj\Debug\App.Framework.dll
 D:\Project\Practice\kute\Source\App.Framework\obj\Debug\App.Framework.pdb
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Owin.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.xml
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.xml
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+D:\FreeLance\2018\KuteShop\Source\App.Framework\bin\Debug\Microsoft.Owin.Security.Cookies.xml

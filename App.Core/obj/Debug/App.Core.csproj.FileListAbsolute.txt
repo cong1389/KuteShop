@@ -119,3 +119,4 @@ D:\Project\Practice\kute\Source\App.Core\bin\Debug\System.Web.Mvc.xml
 D:\Project\Practice\kute\Source\App.Core\obj\Debug\App.Core.csproj.CoreCompileInputs.cache
 D:\Project\Practice\kute\Source\App.Core\obj\Debug\App.Core.dll
 D:\Project\Practice\kute\Source\App.Core\obj\Debug\App.Core.pdb
+D:\Project\Practice\kute\Source\App.Core\obj\Debug\App.Core.csprojResolveAssemblyReference.cache

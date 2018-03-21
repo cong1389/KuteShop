@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using App.Domain.Entities.Account;
 using App.Domain.Entities.Identity;
@@ -13,7 +15,8 @@ namespace App.Service.Account
 {
     public class UserStoreService : IUserLoginStore<IdentityUser, Guid>, IUserClaimStore<IdentityUser, Guid>,
         IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>,
-        IUserSecurityStampStore<IdentityUser, Guid>
+        IUserSecurityStampStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>, IIdentityMessageService, IUserStoreService
+
     {
         private readonly IExternalLoginRepository _externalLoginRepository;
 
@@ -265,6 +268,7 @@ namespace App.Service.Account
             identityUser.PasswordHash = user.PasswordHash;
             identityUser.SecurityStamp = user.SecurityStamp;
             identityUser.Email = user.Email;
+            identityUser.EmailConfirmed = user.EmailConfirmed;
             identityUser.FirstName = user.FirstName;
             identityUser.MiddleName = user.MiddleName;
             identityUser.LastName = user.LastName;
@@ -284,6 +288,7 @@ namespace App.Service.Account
             user.PasswordHash = identityUser.PasswordHash;
             user.SecurityStamp = identityUser.SecurityStamp;
             user.Email = identityUser.Email;
+            user.EmailConfirmed = identityUser.EmailConfirmed;
             user.FirstName = identityUser.FirstName;
             user.MiddleName = identityUser.MiddleName;
             user.LastName = identityUser.LastName;
@@ -385,6 +390,68 @@ namespace App.Service.Account
             PopulateUser(user1, user);
             _userRepository.Update(user1);
             return _unitOfWork.CommitAsync();
+        }
+
+        public Task<IdentityUser> FindByEmailAsync(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetEmailAsync(IdentityUser user, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetEmailAsync(IdentityUser user)
+        {
+            return Task.Factory.StartNew(() => user.Email);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(IdentityUser user)
+        {
+           return Task.Factory.StartNew(() => user.EmailConfirmed);
+        }
+
+        public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IdentityUser> FindByIdAsync(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendAsync(IdentityMessage message)
+        {
+            SmtpClient client = new SmtpClient
+            {
+                Port = 587,
+                Host = "smtp.gmail.com",
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("ddemo9698@gmail.com", "abc@12345")
+            };
+            //client.Timeout = 10000;
+
+            return client.SendMailAsync("ddemo9698@gmail.com", message.Destination, message.Subject, message.Body);
+        }
+
+        public Task SendEmailAsync(Guid userId, string subject, string body)
+        {
+            SmtpClient client = new SmtpClient
+            {
+                Port = 587,
+                Host = "smtp.gmail.com",
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("ddemo9698@gmail.com", "abc@12345")
+            };
+            //client.Timeout = 10000;
+
+            return client.SendMailAsync("ddemo9698@gmail.com","","","" );
         }
     }
 }

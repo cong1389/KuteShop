@@ -1,4 +1,7 @@
-﻿namespace App.FakeEntity.Common
+﻿using System.ComponentModel.DataAnnotations;
+using Resources;
+
+namespace App.FakeEntity.Common
 {
     public class AddressViewModel
     {
@@ -8,10 +11,16 @@
             set;
         }
 
+        [Display(Name = "FirstName", ResourceType = typeof(FormUI))]
+        [Required(ErrorMessage = "Vui lòng nhập tên.")]
+        [StringLength(150, ErrorMessage = "{0} phải có íth nhất {2} ký tự.", MinimumLength = 1)]
         public string FirstName
         {
             get; set;
         }
+
+        [Display(Name = "LastName", ResourceType = typeof(FormUI))]
+        [MaxLength(150)]
         public string LastName
         {
             get; set;
@@ -20,6 +29,7 @@
         {
             get; set;
         }
+
         public string Company
         {
             get; set;
@@ -36,6 +46,8 @@
         {
             get; set;
         }
+
+        [Display(Name = "Address1", ResourceType = typeof(FormUI))]
         public string Address1
         {
             get; set;
@@ -48,6 +60,9 @@
         {
             get; set;
         }
+
+        [Display(Name = "PhoneNumber", ResourceType = typeof(FormUI))]
+        [MaxLength(12)]
         public string PhoneNumber
         {
             get; set;

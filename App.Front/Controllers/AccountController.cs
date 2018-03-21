@@ -24,6 +24,7 @@ using App.Service.Post;
 using AutoMapper;
 using Domain.Entities.Customers;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.DataProtection;
 using Resources;
 
 namespace App.Front.Controllers
@@ -49,7 +50,8 @@ namespace App.Front.Controllers
             IMenuLinkService menuLinkService
             , IDistrictService districtService, IImagePlugin imagePlugin
             , IOrderService orderService
-            , IWorkContext workContext) : base(userManager)
+            , IIdentityMessageService emailService
+            , IWorkContext workContext) : base(userManager, emailService)
         {
             _postService = postService;
             _galleryService = galleryService;
@@ -420,7 +422,7 @@ namespace App.Front.Controllers
             }
             return View("PostManagement", posts);
         }
-
+        
         #region Information account of customer
 
         public JsonResult AccountOrder()

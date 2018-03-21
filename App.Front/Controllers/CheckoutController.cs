@@ -87,7 +87,6 @@ namespace App.Front.Controllers
             var model = new CheckoutBillingAddressModel();
             try
             {
-
                 var billAddress = _workContext.CurrentCustomer.Addresses;
                 if (billAddress.Count != 0 && billAddress.Any())
                 {
@@ -106,6 +105,7 @@ namespace App.Front.Controllers
             }
             catch
             {
+                // ignored
             }
 
             return model;

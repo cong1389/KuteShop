@@ -29,7 +29,9 @@ namespace App.Domain.Entities.Identity
 			set;
 		}
 
-		public virtual string FirstName
+	    public virtual bool EmailConfirmed { get; set; }
+
+        public virtual string FirstName
 		{
 			get;
 			set;

@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ.
+        /// </summary>
+        public static string Address1 {
+            get {
+                return ResourceManager.GetString("Address1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thuộc tính.
         /// </summary>
         public static string Attribute {
@@ -183,6 +192,15 @@ namespace Resources {
         public static string ColorHex {
             get {
                 return ResourceManager.GetString("ColorHex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Công ty.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
             }
         }
         
@@ -457,6 +475,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hình đại diện.
         /// </summary>
         public static string Flag {
@@ -489,15 +516,6 @@ namespace Resources {
         public static string FromAddress {
             get {
                 return ResourceManager.GetString("FromAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to From address.
-        /// </summary>
-        public static string FromAddress1 {
-            get {
-                return ResourceManager.GetString("FromAddress1", resourceCulture);
             }
         }
         
@@ -709,6 +727,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Họ.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lat.
         /// </summary>
         public static string Lat {
@@ -822,6 +849,15 @@ namespace Resources {
         public static string MetaTitle {
             get {
                 return ResourceManager.GetString("MetaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên lót.
+        /// </summary>
+        public static string MiddleName {
+            get {
+                return ResourceManager.GetString("MiddleName", resourceCulture);
             }
         }
         
