@@ -172,8 +172,8 @@ namespace App.Domain.Entities.Account
 			get;
 			set;
 		}
-
-		public string UserName
+        
+        public string UserName
 		{
 			get;
 			set;

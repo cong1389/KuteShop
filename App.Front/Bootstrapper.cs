@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using App.Framework.FluentValidation;
 using App.Framework.Ioc;
 using App.Framework.Mappings;
-using App.Front.App_Start;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
@@ -52,7 +51,6 @@ public class Bootstrapper
         containerBuilder.RegisterModule(new RepositoryModule());
         containerBuilder.RegisterModule(new IdentityModule());
         containerBuilder.RegisterModule(new ServiceModule());
-        containerBuilder.RegisterType<IdentityConfig>();
 
         IContainer container = containerBuilder.Build(ContainerBuildOptions.IgnoreStartableComponents);
         //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);

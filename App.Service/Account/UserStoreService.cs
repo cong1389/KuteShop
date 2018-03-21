@@ -15,7 +15,7 @@ namespace App.Service.Account
 {
     public class UserStoreService : IUserLoginStore<IdentityUser, Guid>, IUserClaimStore<IdentityUser, Guid>,
         IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>,
-        IUserSecurityStampStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>, IIdentityMessageService, IUserStoreService
+        IUserSecurityStampStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>, IUserTokenProvider<IdentityUser, Guid>, IIdentityMessageService, IUserStoreService
 
     {
         private readonly IExternalLoginRepository _externalLoginRepository;
@@ -409,7 +409,7 @@ namespace App.Service.Account
 
         public Task<bool> GetEmailConfirmedAsync(IdentityUser user)
         {
-           return Task.Factory.StartNew(() => user.EmailConfirmed);
+            return Task.Factory.StartNew(() => user.EmailConfirmed);
         }
 
         public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed)
@@ -451,7 +451,57 @@ namespace App.Service.Account
             };
             //client.Timeout = 10000;
 
-            return client.SendMailAsync("ddemo9698@gmail.com","","","" );
+            return client.SendMailAsync("ddemo9698@gmail.com", "", "", "");
+        }
+
+        //public async Task<IdentityResult> ResetPasswordAsync(IdentityUser user,
+        //    string token, string newPassword)
+        //{
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException("user");
+        //    }
+
+        //    // Make sure the token is valid and the stamp matches.
+        //    if (!await ValidateAsync("ResetPassword", token, token, user))
+        //    {
+        //        return IdentityResult.Failed("Invalid token.");
+        //    }
+
+        //    // Make sure the new password is valid.
+        //    var result = await PasswordValidator.ValidateAsync(newPassword)
+        //        .ConfigureAwait(false);
+        //    if (!result.Succeeded)
+        //    {
+        //        return result;
+        //    }
+
+        //    // Update the password hash and invalidate the current security stamp.
+        //    user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+        //    user.SecurityStamp = Guid.NewGuid().ToString();
+
+        //    // Save the user and return the outcome.
+        //    return await UpdateAsync(user).ConfigureAwait(false);
+        //}
+
+        public Task<string> GenerateAsync(string purpose, UserManager<IdentityUser, Guid> manager, IdentityUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ValidateAsync(string purpose, string token, UserManager<IdentityUser, Guid> manager, IdentityUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NotifyAsync(string token, UserManager<IdentityUser, Guid> manager, IdentityUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsValidProviderForUserAsync(UserManager<IdentityUser, Guid> manager, IdentityUser user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

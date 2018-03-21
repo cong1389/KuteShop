@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using App.Aplication;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Front.Models;
@@ -20,7 +21,7 @@ namespace App.Front.Controllers
     public class UserController : BaseAccessUserController
     {
         //private readonly IEmailService _emailService;
-        //private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
+        private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
 
         public UserController(UserManager<IdentityUser, Guid> userManager
             , IIdentityMessageService emailService
@@ -28,12 +29,12 @@ namespace App.Front.Controllers
         {
             //_emailService = emailService;
 
-            //if (_provider != null)
-            //{
-            //    var dataProtector = _provider.Create("ASP.NET Identity");
+            if (_provider != null)
+            {
+                var dataProtector = _provider.Create("ASP.NET Identity");
 
-            //    UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
-            //}  
+                UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
+            }
         }
         
         [HttpPost]
@@ -433,7 +434,8 @@ namespace App.Front.Controllers
 
         #region Helpers
 
-        private const string XsrfKey = "XsrfId";
+
+        
 
         public enum ManageMessageId
         {
@@ -453,13 +455,15 @@ namespace App.Front.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private class ChallengeResult : HttpUnauthorizedResult
+        private class ChallengeResult :  HttpUnauthorizedResult
         {
+            private readonly string _xsrfKey = AccountUtils.XsrfKey;
+
             public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
             }
 
-            protected ChallengeResult(string provider, string redirectUri, string userId)
+            private ChallengeResult(string provider, string redirectUri, string userId)
             {
                 LoginProvider = provider;
                 RedirectUri = redirectUri;
@@ -475,7 +479,7 @@ namespace App.Front.Controllers
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
-                    properties.Dictionary[XsrfKey] = UserId;
+                    properties.Dictionary[_xsrfKey] = UserId;
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
