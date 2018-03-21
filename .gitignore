@@ -1,6 +1,8 @@
 $ cat .gitignore
 # không theo dõi thư mục bin
 .vs/
-/bin/
-/obj/
-packages/
+/**/bin
+/**/obj
+/**/packages
+/*.cs
+/*.vs
