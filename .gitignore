@@ -1,8 +1,10 @@
 $ cat .gitignore
 # không theo dõi thư mục bin
 .vs/
-/**/bin
-/**/obj
-/**/packages
+**/bin
+**/obj
 /*.cs
 /*.vs
+
+/packages
+/App.Core/obj
