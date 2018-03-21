@@ -33,7 +33,7 @@ namespace App.Front.Controllers
             //    var dataProtector = _provider.Create("ASP.NET Identity");
 
             //    UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
-            //}
+            //}  
         }
         
         [HttpPost]
