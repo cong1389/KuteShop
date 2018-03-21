@@ -2,6 +2,8 @@
 # không theo dõi thư mục bin
 .vs/
 /packages
-/**/bin
-/**/obj
-/App.Service/obj
+
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj/Debug
+*/**/obj/Release
