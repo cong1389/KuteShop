@@ -73,7 +73,13 @@ namespace App.Domain.Entities.Account
 			set;
 		}
 
-		public string FirstName
+	    public bool EmailConfirmed
+        {
+	        get;
+	        set;
+	    }
+
+        public string FirstName
 		{
 			get;
 			set;
