@@ -70,11 +70,6 @@ namespace App.Front.Controllers
             ActionResult actionResult;
             try
             {
-                if (!Request.IsAjaxRequest())
-                {
-                    return Json(new { succes = false, message = "Liên hệ chưa gửi được, vui lòng thử lại." });
-                }
-
                 var serverMailSetting = _mailSettingService.Get(x => x.Status == 1);
                 var str = _systemSettingService.Get(x => x.Status == 1).Email;
                 var str1 = "Thông tin liên hệ";

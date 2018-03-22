@@ -21,7 +21,7 @@ namespace App.Front.Controllers
     public class UserController : BaseAccessUserController
     {
         //private readonly IEmailService _emailService;
-        private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
+        //private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
 
         public UserController(UserManager<IdentityUser, Guid> userManager
             , IIdentityMessageService emailService
@@ -29,12 +29,12 @@ namespace App.Front.Controllers
         {
             //_emailService = emailService;
 
-            if (_provider != null)
-            {
-                var dataProtector = _provider.Create("ASP.NET Identity");
+            //if (_provider != null)
+            //{
+            //    var dataProtector = _provider.Create("ResetPassword");
 
-                UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
-            }
+            //    UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
+            //}
         }
         
         [HttpPost]

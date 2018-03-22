@@ -4,17 +4,19 @@ using System.Web.Mvc;
 using App.Aplication;
 using App.Domain.Entities.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace App.Front.Controllers
 {
     public class BaseAccessUserController :Controller
     {
 		protected readonly UserManager<IdentityUser, Guid> UserManager;
-	    //private readonly IEmailService _emailService;
+        private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
 
 
-		protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+        protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
 	    protected BaseAccessUserController()
 		{
@@ -23,9 +25,15 @@ namespace App.Front.Controllers
 		protected BaseAccessUserController(UserManager<IdentityUser, Guid> userManager, IIdentityMessageService emailService)
 		{
             UserManager = userManager;
-
 		    UserManager.EmailService = emailService;
-		}
+
+		    if (_provider != null)
+		    {
+		        var dataProtector = _provider.Create("ResetPassword");
+
+		        UserManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
+		    }
+        }
 
 		protected void AddErrors(IdentityResult result)
 		{

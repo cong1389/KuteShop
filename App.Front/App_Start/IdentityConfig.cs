@@ -49,7 +49,7 @@ namespace App.Front.App_Start
 
             if (dataProtectionProvider != null)
             {
-                IDataProtector dataProtector = dataProtectionProvider.Create("ASP.NET Identity");
+                IDataProtector dataProtector = dataProtectionProvider.Create("ResetPassword");
 
                 UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, Guid>(dataProtector);
             }

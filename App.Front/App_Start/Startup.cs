@@ -25,6 +25,8 @@ namespace App.Front
 
         public void ConfigureAuth(IAppBuilder app)
         {
+            //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<IdentityConfig>());
+
             string loginUrl = new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Login", "User", new { area = "" });
 
             // Enable the application to use a cookie to store
