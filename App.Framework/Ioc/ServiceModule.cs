@@ -81,7 +81,7 @@ namespace App.Framework.Ioc
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<RoleService>().As<IRoleService>().InstancePerRequest();
             builder.RegisterType<UserStoreService>().As<IUserStoreService>().InstancePerRequest();
-            builder.RegisterType<EmailService>().As<IEmailService>().InstancePerRequest();
+            builder.RegisterType<SendMailService>().As<ISendMailService>().InstancePerRequest();
 
             builder.RegisterType<ImagePlugin>().As<IImagePlugin>().InstancePerRequest();
            

@@ -173,6 +173,9 @@ namespace App.Aplication
         //SystemCustomerAttributeNames
         public static string SelectedPaymentMethod => "SelectedPaymentMethod";
         public static string SelectedShippingOption => "SelectedShippingOption";
+
+        //Template mail
+        public static string TemplateMailBasicContact => "Themes/Basic/TemplateMails/Contact.xml";
     }
 
     public enum PaymentMethodType

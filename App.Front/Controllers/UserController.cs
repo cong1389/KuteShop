@@ -7,7 +7,7 @@ using App.Aplication;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Front.Models;
-using App.Service.Account;
+using App.Service.MailSetting;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -20,7 +20,7 @@ namespace App.Front.Controllers
     [Authorize]
     public class UserController : BaseAccessUserController
     {
-        //private readonly IEmailService _emailService;
+        //private readonly ISendMailService _emailService;
         //private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider();
 
         public UserController(UserManager<IdentityUser, Guid> userManager
@@ -372,8 +372,7 @@ namespace App.Front.Controllers
                 //TODO: Implementation UserManager
                 await UserManager.SendEmailAsync(user.Id, "Reset Password",
                 "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                TempData["ViewBagLink"] = callbackUrl;
+                
                 return RedirectToAction("ForgotPasswordConfirmation", "User");
             }
 
@@ -384,20 +383,15 @@ namespace App.Front.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
-            ViewBag.Link = TempData["ViewBagLink"];
             return View();
         }
-
-        //
-        // GET: /Account/ResetPassword
+        
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
-
-        //
-        // POST: /Account/ResetPassword
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -433,9 +427,6 @@ namespace App.Front.Controllers
         }
 
         #region Helpers
-
-
-        
 
         public enum ManageMessageId
         {

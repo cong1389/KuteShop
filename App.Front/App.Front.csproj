@@ -308,7 +308,6 @@
     <Compile Include="Models\PartialCacheAttribute.cs" />
     <Compile Include="Models\Posts\CategoryPostModel.cs" />
     <Compile Include="Models\SeachConditions.cs" />
-    <Compile Include="Models\SendMail.cs" />
     <Compile Include="Models\ShoppingCart\MiniShoppingCartModel.cs" />
     <Compile Include="Models\ShoppingCart\ShoppingCartModel.cs" />
     <Compile Include="Models\SpeedSMSAPI.cs" />
@@ -801,6 +800,7 @@
     <Content Include="Themes\Basic\Scripts\goweb.customer.js" />
     <Content Include="Themes\Basic\Scripts\goweb.common.js" />
     <Content Include="Themes\Basic\Scripts\goweb.plugins.min.js" />
+    <Content Include="Themes\Basic\TemplateMails\Contact.xml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

@@ -1,8 +1,11 @@
+﻿using System.ComponentModel;
+
 namespace App.Front.Models
 {
 	public class ContactForm
 	{
-		public string Content
+	    [DisplayName("Nội dung liên hệ")]
+        public string Content
 		{
 			get;
 			set;
@@ -14,6 +17,7 @@ namespace App.Front.Models
 			set;
 		}
 
+        [DisplayName("Tên của bạn")]
 		public string FullName
 		{
 			get;

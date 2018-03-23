@@ -108,6 +108,7 @@
     <Compile Include="Data\Repair.cs" />
     <Compile Include="Data\RepairGallery.cs" />
     <Compile Include="Data\RepairItem.cs" />
+    <Compile Include="GlobalSetting\SendMail.cs" />
     <Compile Include="Language\LocaleStringResource.cs" />
     <Compile Include="Language\LocalizedProperty.cs" />
     <Compile Include="Orders\Order.cs" />

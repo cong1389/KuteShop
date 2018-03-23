@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
-using App.Aplication.Extensions;
+using System.Xml;
+using App.Aplication;
+using App.Domain.GlobalSetting;
 using App.Front.Models;
 using App.Front.Models.Localizeds;
 using App.Service.ContactInformation;
@@ -17,17 +22,18 @@ namespace App.Front.Controllers
     {
         private readonly IContactInfoService _contactInfoService;
         private readonly IMenuLinkService _menuLinkService;
-        private readonly IMailSettingService _mailSettingService;
         private readonly ISystemSettingService _systemSettingService;
+        private readonly ISendMailService _sendMailService;
 
         public ContactController(IContactInfoService contactInfoService, IMenuLinkService menuLinkService
             , IMailSettingService mailSettingService
-            , ISystemSettingService systemSettingService)
+            , ISystemSettingService systemSettingService
+            , ISendMailService sendMailService)
         {
             _contactInfoService = contactInfoService;
             _menuLinkService = menuLinkService;
-            _mailSettingService = mailSettingService;
             _systemSettingService = systemSettingService;
+            _sendMailService = sendMailService;
         }
 
         [ChildActionOnly]
@@ -47,7 +53,6 @@ namespace App.Front.Controllers
             var breadCrumbs = new List<BreadCrumb>();
             if (menuLink != null)
             {
-
                 breadCrumbs.Add(new BreadCrumb
                 {
                     Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
@@ -59,32 +64,65 @@ namespace App.Front.Controllers
             ViewBag.BreadCrumb = breadCrumbs;
 
             ViewBag.Title = title;
-            //ViewBag.Contact = contactInformationLocalize;
+            ViewBag.Contact = contactInformationLocalize;
 
-            return PartialView(contactInformationLocalize);
+            return PartialView();
         }
 
         [HttpPost]
-        public ActionResult SendContact(string name, string email, string content)
+        public async Task<ActionResult> SendContact(ContactForm model)
         {
             ActionResult actionResult;
             try
             {
-                var serverMailSetting = _mailSettingService.Get(x => x.Status == 1);
-                var str = _systemSettingService.Get(x => x.Status == 1).Email;
-                var str1 = "Thông tin liên hệ";
-                var str2 = string.Concat("", "Người gửi: ", name, "<br>");
-                str2 = string.Concat(str2, string.Concat("E-mail: ", email), "<br>");
-                str2 = string.Concat(str2, content, "<br>");
-                var sendMail = new SendMail();
-                sendMail.InitMail(serverMailSetting.FromAddress, serverMailSetting.SmtpClient, serverMailSetting.UserID, serverMailSetting.Password, serverMailSetting.SMTPPort, serverMailSetting.EnableSSL);
-                sendMail.SendToMail("Email", str, new[] { str1, str2 });
+                var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
+                const string title = "Thông tin liên hệ";
+                var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
+                body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
+                body = string.Concat(body, model.Content, "<br>");
+
+                XmlDocument xmlDocument = new XmlDocument();
+                string serverPathEmail = string.Concat(Server.MapPath("\\"), "Mailformat.xml");
+                if (System.IO.File.Exists(serverPathEmail))
+                {
+                    xmlDocument.Load(serverPathEmail);
+                    XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
+                    var subject = xmlNodes.SelectSingleNode("Subject").InnerText;
+                    var body = xmlNodes.SelectSingleNode("Body").InnerText;
+
+                    int i;
+                    for (i = 0; i <= param.Length - 1; i++)
+                    {
+                        body = body.Replace(string.Concat(i.ToString(), "?"), param[i]);
+                        subject = subject.Replace(string.Concat(i.ToString(), "?"), param[i]);
+                    }
+                   
+                }
+
+                var sendMail = new SendMail
+                {
+                    MessageId = "Email",
+                    ToEmail = toEmail,
+                    Subject = title,
+                    Body = body
+                };
+
+                //var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
+                //const string title = "Thông tin liên hệ";
+                //var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
+                //body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
+                //body = string.Concat(body, model.Content, "<br>");
+
+                //await _sendMailService.SendMailSmtp("Email", toEmail, new[] { title, body });
+
                 actionResult = Json(new { success = true, message = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể." });
+
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+
             return actionResult;
         }
     }
