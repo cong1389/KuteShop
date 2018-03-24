@@ -1,7 +1,7 @@
 ﻿$(function () {
     window.setLocation = function (url) {
         window.location.href = url;
-    }
+    };
 
     $("#ProductDetailsForm .product-attr .item input")
         .click(function () {
@@ -25,13 +25,13 @@
                 function (price) {
 
                     if (price === parseInt(price, 10)) {
-                       
+
                         var priceOriginalUnit = Haravan.formatMoney(price, EGA.options.money_format);
 
                         //Gía nguyên thủy
                         $("#ProductDetailsForm .product-price-group #span-list-price").html(priceOriginalUnit);
                         $("#detail-two .variant-price ins span ").html(priceOriginalUnit);
-                        
+
                         //product-discount
                         var discount = $('#product-discount').html();
                         var priceDiscount = price * parseInt(discount) / 100;//Số tiền được giảm
@@ -142,7 +142,7 @@ function showTool() {
             $(".nav-tools").stop().animate({
                 left: '0',
                 top: $(window).height() / 3
-            })
+            });
         } else {
             $(".nav-tools").stop().animate({
                 left: '-80px',
@@ -169,6 +169,12 @@ function handleSuccess(msg) {
 }
 
 $(function () {
+    $("#btn-send-contact").click(function (e) {
+        var fromId = "#form-send-Contact";
+        formAjax(fromId);
+        return false;
+    });
+
     $("#CheckProduct").click(function (e) {
         var fromId = "#checking";
         formAjax(fromId);
@@ -187,7 +193,7 @@ $(function () {
             , function (response) {
                 $(".result_check").empty().html(response.data);
             }
-        )
+        );
         return false;
     });
 });
@@ -203,9 +209,8 @@ function formAjax(element) {
             var resonse = responseText.responseJSON;
             if (resonse.success) {
                 $form[0].reset();
-                alert("Gửi thông tin thành công.");
+                feature.fancyMsgBox(resonse.title, resonse.message);
             } else {
-                $(".ajax-loading").hide();
                 //show message
                 alert(resonse.errors);
                 $('html, body').animate({
@@ -213,6 +218,7 @@ function formAjax(element) {
                 },
                     2000);
             }
+            $(".ajax-loading").hide();
         }
     };
 

@@ -42,7 +42,7 @@
     <!-- HEADER -->
     @{ Html.RenderAction("Header", "MenuNav", new { area = "" });}
     <!-- end header -->
-    
+
 
     @RenderBody()
 
@@ -50,6 +50,9 @@
     @{Html.RenderAction("Footer", "Summary", new { area = "" }); }
 
     <a href="#" class="scroll_top" title="Scroll to Top" style="display: none;">Scroll</a>
+
+    <div class="ajax-loading"></div>
+
     <div id="popup-newletter" class="hide hidden">
         <div class="pa-header">
             <h3 class="">
@@ -111,10 +114,8 @@
             </div>
         </div>
     </div>
-    <script>
-                                                              
-    </script>
-    <div class="modal fade hidden" id="quick-view-modal123" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+
+    <div class="modal fade hidden" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,7 +125,7 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <form method="post" action="https://kute-shop.myharavan.com/cart/add">
+                            <form method="post" action="">
                                 <div class="col-lg-5 col-md-6">
                                     <div class="image-zoom row">
                                         <img class="p-product-image-feature" src="#">

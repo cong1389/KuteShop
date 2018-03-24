@@ -22,6 +22,12 @@ namespace App.Front
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            //fancybox
+            bundles.Add(new ScriptBundle("~/bundles/Scriptsfancybox").Include(
+                "~/Scripts/jquery.fancybox.*"));
+            bundles.Add(new StyleBundle("~/bundles/Contentfancybox").Include(
+                "~/Content/jquery.fancybox.*"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

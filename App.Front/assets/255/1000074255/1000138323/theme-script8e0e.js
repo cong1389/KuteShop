@@ -287,28 +287,28 @@
 			}
 		})
 		/* Send conttact*/
-		$(document).on('click','#btn-send-contact',function(){
-			var subject = $('#subject').val(),
-					email   = $('#email').val(),
-					order_reference = $('#order_reference').val(),
-					message = $('#message').val();
-			var data = {
-				subject:subject,
-				email:email,
-				order_reference:order_reference,
-				message:message
-			}
-			$.post('ajax_contact.php',data,function(result){
-				if(result.trim()=="done"){
-					$('#email').val('');
-					$('#order_reference').val('');
-					$('#message').val('');
-					$('#message-box-conact').html('<div class="alert alert-info">Your message was sent successfully. Thanks</div>');
-				}else{
-					$('#message-box-conact').html(result);
-				}
-			})
-		})
+		//$(document).on('click','#btn-send-contact',function(){
+		//	var subject = $('#subject').val(),
+		//			email   = $('#email').val(),
+		//			order_reference = $('#order_reference').val(),
+		//			message = $('#message').val();
+		//	var data = {
+		//		subject:subject,
+		//		email:email,
+		//		order_reference:order_reference,
+		//		message:message
+		//	}
+		//	$.post('ajax_contact.php',data,function(result){
+		//		if(result.trim()=="done"){
+		//			$('#email').val('');
+		//			$('#order_reference').val('');
+		//			$('#message').val('');
+		//			$('#message-box-conact').html('<div class="alert alert-info">Your message was sent successfully. Thanks</div>');
+		//		}else{
+		//			$('#message-box-conact').html(result);
+		//		}
+		//	})
+		//})
 	});
 	/* ---------------------------------------------
      Scripts resize

@@ -549,7 +549,7 @@ namespace App.Front.Controllers
         #region Attribute
 
         [HttpPost]
-        public async Task<JsonResult> GetByMenuId(int menuId, int entityId)
+        public JsonResult GetByMenuId(int menuId, int entityId)
         {
             var lstValueResponse = new List<ControlValueItemResponse>();
 
@@ -560,13 +560,13 @@ namespace App.Front.Controllers
                 if (ieGc.IsAny())
                 {
                     lstValueResponse.AddRange(from item in ieGc
-                        from gcValue in item.GenericControlValues.Where(m => m.Status == 1)
-                        select new ControlValueItemResponse
-                        {
-                            GenericControlValueId = gcValue.Id,
-                            Name = gcValue.ValueName,
-                            ValueName = gcValue.GetValueItem(entityId)
-                        });
+                                              from gcValue in item.GenericControlValues.Where(m => m.Status == 1)
+                                              select new ControlValueItemResponse
+                                              {
+                                                  GenericControlValueId = gcValue.Id,
+                                                  Name = gcValue.ValueName,
+                                                  ValueName = gcValue.GetValueItem(entityId)
+                                              });
                 }
             }
 

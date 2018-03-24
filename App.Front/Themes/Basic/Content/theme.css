@@ -1215,6 +1215,33 @@ div.jGrowl div.jGrowl-closer:hover {
     margin-left: 10px;
     margin-right: 5px; } }
 
+.ajax-loading {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  background-image: url(../Themes/Basic/Content/images/loading.gif);
+  background-color: #666;
+  opacity: .4;
+  background-repeat: no-repeat;
+  background-position: center;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0; }
+
+.fancybox-skin p {
+  padding: 10px; }
+
+.fancybox-skin__title {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700; }
+
+.fancybox-skin__content {
+  padding: 10px; }
+
 .btn {
   cursor: pointer;
   display: inline-block;
@@ -1378,3 +1405,4 @@ div.jGrowl div.jGrowl-closer:hover {
       text-decoration: none;
       opacity: .9;
       filter: alpha(opacity=90); }
+

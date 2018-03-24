@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Xml;
+using App.Aplication;
+using App.Aplication.Filters;
+using App.Domain.GlobalSetting;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.ContactInformation;
@@ -30,11 +34,10 @@ namespace App.Front.Controllers
             _systemSettingService = systemSettingService;
             _sendMailService = sendMailService;
         }
-
-        [ChildActionOnly]
-        public ActionResult ContactUs(int id, string title)
+        
+        public ActionResult ContactUs()
         {
-            var menuLink = _menuLinkService.GetById(id);
+            //var menuLink = _menuLinkService.GetById(id);
 
             var contactInformation = _contactInfoService.FindBy(x => x.Status == 1, true);
 
@@ -45,79 +48,91 @@ namespace App.Front.Controllers
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
 
-            var breadCrumbs = new List<BreadCrumb>();
-            if (menuLink != null)
-            {
-                breadCrumbs.Add(new BreadCrumb
-                {
-                    Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
-                    Current = false,
-                    Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
-                });
-                ViewBag.MenuId = menuLink.Id;
-            }
-            ViewBag.BreadCrumb = breadCrumbs;
+            //var breadCrumbs = new List<BreadCrumb>();
+            //if (menuLink != null)
+            //{
+            //    breadCrumbs.Add(new BreadCrumb
+            //    {
+            //        Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
+            //        Current = false,
+            //        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+            //    });
+            //    ViewBag.MenuId = menuLink.Id;
+            //}
+            //ViewBag.BreadCrumb = breadCrumbs;
 
-            ViewBag.Title = title;
+            //ViewBag.Title = title;
             ViewBag.Contact = contactInformationLocalize;
 
-            return PartialView();
-        }
+            var contact = new ContactForm();
 
-        [HttpPost]
-        public async Task<ActionResult> SendContact(ContactForm model)
+            return PartialView(contact);
+        }
+        
+        public ActionResult SendContact(ContactForm model)
         {
-            ActionResult actionResult;
             try
             {
-                //var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
-                //const string title = "Thông tin liên hệ";
-                //var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
-                //body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
-                //body = string.Concat(body, model.Content, "<br>");
+                if (!Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        title="Gửi liên hệ",
+                        success = false,
+                        errors = string.Join(", ", ModelState.Values.SelectMany(v =>
+                            from x in v.Errors
+                            select x.ErrorMessage).ToArray())
+                    });
+                }
 
-                //XmlDocument xmlDocument = new XmlDocument();
-                //string serverPathEmail = string.Concat(Server.MapPath("\\"), "Mailformat.xml");
-                //if (System.IO.File.Exists(serverPathEmail))
-                //{
-                //    xmlDocument.Load(serverPathEmail);
-                //    XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
-                //    var subject = xmlNodes.SelectSingleNode("Subject").InnerText;
-                //    var body = xmlNodes.SelectSingleNode("Body").InnerText;
+                string serverPathEmail = string.Concat(Server.MapPath("\\"), Contains.TemplateMailBasicContact);
+                if (System.IO.File.Exists(serverPathEmail))
+                {
+                    const string messageId = "Email";
+                    string subject = "Thông tin liên hệ";
 
-                //    int i;
-                //    for (i = 0; i <= param.Length - 1; i++)
-                //    {
-                //        body = body.Replace(string.Concat(i.ToString(), "?"), param[i]);
-                //        subject = subject.Replace(string.Concat(i.ToString(), "?"), param[i]);
-                //    }
-                //}
+                    var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
+                    body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
+                    body = string.Concat(body, model.Content, "<br>");
 
-                //var sendMail = new SendMail
-                //{
-                //    MessageId = "Email",
-                //    ToEmail = toEmail,
-                //    Subject = title,
-                //    Body = body
-                //};
+                    XmlDocument xmlDocument = new XmlDocument();
+                    xmlDocument.Load(serverPathEmail);
+                    XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
 
-                //var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
-                //const string title = "Thông tin liên hệ";
-                //var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
-                //body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
-                //body = string.Concat(body, model.Content, "<br>");
+                    string subjectNodes = xmlNodes.SelectSingleNode("Subject")?.InnerText;
+                    subjectNodes = subject.Replace(string.Concat(subject, "?"), subject);
 
-                //await _sendMailService.SendMailSmtp("Email", toEmail, new[] { title, body });
+                    string bodyNodes = xmlNodes.SelectSingleNode("Body")?.InnerText;
+                    bodyNodes = body.Replace(string.Concat(body, "?"), body);
 
-                actionResult = Json(new { success = true, message = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể." });
+                    var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
+
+                    var sendMail = new SendMail
+                    {
+                        MessageId = "Email",
+                        ToEmail = toEmail,
+                        Subject = subjectNodes,
+                        Body = bodyNodes
+                    };
+
+                     _sendMailService.SendMailSmtp(sendMail);
+
+                    model.SuccessfullySent = true;
+                    model.Result = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể.";
+                }
+
+                return Json(new
+                {
+                    title = "Gửi liên hệ",
+                    success = true,
+                    message = "Gửi liên hệ thành công, chúng tôi sẽ liên lạc với bạn ngay khi có thể."
+                });
 
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
-            return actionResult;
         }
     }
 }

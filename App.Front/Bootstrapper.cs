@@ -46,7 +46,6 @@ public class Bootstrapper
         containerBuilder.RegisterAssemblyModules(array);
         containerBuilder.RegisterApiControllers(array);
         containerBuilder.RegisterFilterProvider();
-        
         containerBuilder.RegisterSource(new ViewRegistrationSource());
         containerBuilder.RegisterModule(new EFModule());
         containerBuilder.RegisterModule(new RepositoryModule());

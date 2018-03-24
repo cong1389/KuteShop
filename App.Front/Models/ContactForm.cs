@@ -23,5 +23,8 @@ namespace App.Front.Models
 			get;
 			set;
 		}
-	}
+
+	    public bool SuccessfullySent { get; set; }
+	    public string Result { get; set; }
+    }
 }
