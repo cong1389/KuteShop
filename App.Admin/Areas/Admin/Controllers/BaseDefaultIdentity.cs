@@ -10,73 +10,67 @@ using Microsoft.Owin.Security;
 namespace App.Admin.Controllers
 {
     public abstract class BaseDefaultIdentity : BaseAdminController
-	{
-		protected readonly UserManager<IdentityUser, Guid> UserManager;
+    {
+        protected readonly UserManager<IdentityUser, Guid> UserManager;
 
-		protected string XsrfKey = AccountUtils.XsrfKey;
+        protected string XsrfKey = Contains.XsrfKey;
 
-		protected IAuthenticationManager AuthenticationManager
-		{
-			get
-			{
-				return HttpContext.GetOwinContext().Authentication;
-			}
-		}
+        protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-		protected BaseDefaultIdentity()
-		{
-		}
+        protected BaseDefaultIdentity()
+        {
+        }
 
-		protected BaseDefaultIdentity(UserManager<IdentityUser, Guid> userManager)
-		{
-			UserManager = userManager;
-		}
+        protected BaseDefaultIdentity(UserManager<IdentityUser, Guid> userManager)
+        {
+            UserManager = userManager;
+        }
 
-		protected void AddErrors(IdentityResult result)
-		{
-			foreach (var error in result.Errors)
-			{
-				ModelState.AddModelError("", error);
-			}
-		}
+        protected void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				UserManager?.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                UserManager?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		protected Guid GetGuid(string value)
-		{
-		    Guid.TryParse(value, out var guid);
+        protected Guid GetGuid(string value)
+        {
+            Guid.TryParse(value, out var guid);
 
-			return guid;
-		}
+            return guid;
+        }
 
-		protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
-		{
-			return (
-				from auth in AuthenticationManager.GetAuthenticationTypes()
-				where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
-				select auth).ToList();
-		}
+        protected IList<AuthenticationDescription> GetUnassignedExternalLogins(IList<UserLoginInfo> userLogins)
+        {
+            return (
+                from auth in AuthenticationManager.GetAuthenticationTypes()
+                where userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)
+                select auth).ToList();
+        }
 
-		protected bool HasPassword()
-		{
-			var identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
+        protected bool HasPassword()
+        {
+            var identityUser = UserManager.FindById(GetGuid(User.Identity.GetUserId()));
 
-		    return identityUser?.PasswordHash != null;
-		}
+            return identityUser?.PasswordHash != null;
+        }
 
-		public enum ManageMessageId
-		{
-			ChangePasswordSuccess,
-			SetPasswordSuccess,
-			RemoveLoginSuccess,
-			Error
-		}
-	}
+        public enum ManageMessageId
+        {
+            ChangePasswordSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            Error
+        }
+    }
 }

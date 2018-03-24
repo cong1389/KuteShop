@@ -12,10 +12,10 @@ namespace App.Aplication
 		private static MvcHtmlString _EditorForManyIndexField<TModel>(string htmlFieldNameWithPrefix, string guid, Expression<Func<TModel, string>> indexResolverExpression)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.AppendFormat("<input type=\"hidden\" name=\"{0}.Index\" value=\"{1}\" />", htmlFieldNameWithPrefix, guid);
+			stringBuilder.AppendFormat(@"<input type=""hidden"" name=""{0}.Index"" value=""{1}"" />", htmlFieldNameWithPrefix, guid);
 			if (indexResolverExpression != null)
 			{
-				stringBuilder.AppendFormat("<input type=\"hidden\" name=\"{0}[{1}].{2}\" value=\"{1}\" />", htmlFieldNameWithPrefix, guid, ExpressionHelper.GetExpressionText(indexResolverExpression));
+				stringBuilder.AppendFormat(@"<input type=""hidden"" name=""{0}[{1}].{2}"" value=""{1}"" />", htmlFieldNameWithPrefix, guid, ExpressionHelper.GetExpressionText(indexResolverExpression));
 			}
 			return new MvcHtmlString(stringBuilder.ToString());
 		}
@@ -27,7 +27,7 @@ namespace App.Aplication
 			StringBuilder stringBuilder = new StringBuilder();
 			string expressionText = ExpressionHelper.GetExpressionText(propertyExpression);
 			string fullHtmlFieldName = html.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
-			Func<TValue, string> func = null;
+			Func<TValue, string> func;
 			func = indexResolverExpression?.Compile() ?? (x => null);
 			foreach (TValue tValue in tValues)
 			{

@@ -118,13 +118,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\AccountUtils.cs" />
     <Compile Include="Utils\Contains.cs" />
     <Compile Include="Utils\CroppedImage.cs" />
     <Compile Include="Utils\DateTimeModelBinder.cs" />
     <Compile Include="Utils\DoubleModelBinder.cs" />
     <Compile Include="Utils\FormRenderCollection.cs" />
-    <Compile Include="Utils\GenericControlType.cs" />
     <Compile Include="Utils\ModelHelper_T_.cs" />
     <Compile Include="Extensions\HtmlRenderExtensions.cs" />
     <Compile Include="Extensions\RenderRazorViewHelper.cs" />

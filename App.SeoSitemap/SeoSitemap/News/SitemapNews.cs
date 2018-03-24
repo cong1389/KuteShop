@@ -61,14 +61,14 @@ namespace App.SeoSitemap.News
 
 		public SitemapNews(NewsPublication newsPublication, DateTime publicationDate, string title)
 		{
-			this.Publication = newsPublication;
-			this.PublicationDate = publicationDate;
-			this.Title = title;
+			Publication = newsPublication;
+			PublicationDate = publicationDate;
+			Title = title;
 		}
 
 		public bool ShouldSerializeAccess()
 		{
-			return this.Access.HasValue;
+			return Access.HasValue;
 		}
 	}
 }

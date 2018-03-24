@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace App.SeoSitemap
 {
-	public class DynamicSitemapIndexProvider : IDynamicSitemapIndexProvider
+    public class DynamicSitemapIndexProvider : IDynamicSitemapIndexProvider
 	{
 		public DynamicSitemapIndexProvider()
 		{
@@ -13,8 +13,8 @@ namespace App.SeoSitemap
 
 		private ActionResult CreateSitemap<T>(ISitemapProvider sitemapProvider, ISitemapIndexConfiguration<T> sitemapIndexConfiguration, List<T> items)
 		{
-			ISitemapIndexConfiguration<T> sitemapIndexConfiguration1 = sitemapIndexConfiguration;
-			List<SitemapNode> list = items.Select<T, SitemapNode>(new Func<T, SitemapNode>(sitemapIndexConfiguration1.CreateNode)).ToList<SitemapNode>();
+			var sitemapIndexConfiguration1 = sitemapIndexConfiguration;
+			var list = items.Select(sitemapIndexConfiguration1.CreateNode).ToList();
 			return sitemapProvider.CreateSitemap(new SitemapModel(list)
 			{
 				StyleSheets = sitemapIndexConfiguration.SitemapStyleSheets
@@ -31,20 +31,20 @@ namespace App.SeoSitemap
 			{
 				throw new ArgumentNullException("sitemapIndexConfiguration");
 			}
-			int num = sitemapIndexConfiguration.DataSource.Count<T>();
+			int num = sitemapIndexConfiguration.DataSource.Count();
 			if (sitemapIndexConfiguration.Size >= num)
 			{
-				return this.CreateSitemap<T>(sitemapProvider, sitemapIndexConfiguration, sitemapIndexConfiguration.DataSource.ToList<T>());
+				return CreateSitemap(sitemapProvider, sitemapIndexConfiguration, sitemapIndexConfiguration.DataSource.ToList());
 			}
 			if (!sitemapIndexConfiguration.CurrentPage.HasValue || sitemapIndexConfiguration.CurrentPage.Value <= 0)
 			{
-				int num1 = (int)Math.Ceiling((double)num / (double)sitemapIndexConfiguration.Size);
-				return sitemapProvider.CreateSitemapIndex(this.CreateSitemapIndex<T>(sitemapIndexConfiguration, num1));
+				int num1 = (int)Math.Ceiling(num / (double)sitemapIndexConfiguration.Size);
+				return sitemapProvider.CreateSitemapIndex(CreateSitemapIndex(sitemapIndexConfiguration, num1));
 			}
 			int? currentPage = sitemapIndexConfiguration.CurrentPage;
 			int value = (currentPage.Value - 1) * sitemapIndexConfiguration.Size;
-			List<T> list = sitemapIndexConfiguration.DataSource.Skip<T>(value).Take<T>(sitemapIndexConfiguration.Size).ToList<T>();
-			return this.CreateSitemap<T>(sitemapProvider, sitemapIndexConfiguration, list);
+			List<T> list = sitemapIndexConfiguration.DataSource.Skip(value).Take(sitemapIndexConfiguration.Size).ToList();
+			return CreateSitemap(sitemapProvider, sitemapIndexConfiguration, list);
 		}
 
 		private SitemapIndexModel CreateSitemapIndex<T>(ISitemapIndexConfiguration<T> sitemapIndexConfiguration, int sitemapCount)
@@ -52,10 +52,10 @@ namespace App.SeoSitemap
 			IEnumerable<int> nums = Enumerable.Range(1, sitemapCount);
 			if (sitemapIndexConfiguration.UseReverseOrderingForSitemapIndexNodes)
 			{
-				nums = nums.Reverse<int>();
+				nums = nums.Reverse();
 			}
 			ISitemapIndexConfiguration<T> sitemapIndexConfiguration1 = sitemapIndexConfiguration;
-			return new SitemapIndexModel(nums.Select<int, SitemapIndexNode>(new Func<int, SitemapIndexNode>(sitemapIndexConfiguration1.CreateSitemapIndexNode)).ToList<SitemapIndexNode>())
+			return new SitemapIndexModel(nums.Select(sitemapIndexConfiguration1.CreateSitemapIndexNode).ToList())
 			{
 				StyleSheets = sitemapIndexConfiguration.SitemapIndexStyleSheets
 			};

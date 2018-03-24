@@ -1,9 +1,8 @@
-using App.SeoSitemap.Serialization;
-using App.SeoSitemap.StyleSheets;
-using App.SeoSitemap.Translations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
+using App.SeoSitemap.Serialization;
+using App.SeoSitemap.StyleSheets;
 
 namespace App.SeoSitemap
 {
@@ -29,49 +28,39 @@ namespace App.SeoSitemap
 
 		public SitemapModel(List<SitemapNode> nodes)
 		{
-			this.Nodes = nodes;
+			Nodes = nodes;
 		}
 
 		public IEnumerable<string> GetNamespaces()
 		{
-			if (this.Nodes == null)
+			if (Nodes == null)
 			{
 				yield break;
 			}
-			List<SitemapNode> nodes = this.Nodes;
-            //Test
-			//if (nodes.Any<SitemapNode>((SitemapNode node) => {
-			//	if (node.Images == null)
-			//	{
-			//		return false;
-			//	}
-			//	return node.Images.Any<SiteMapImage>();
-			//}))
-			//{
-			//	yield return "http://www.google.com/schemas/sitemap-image/1.1";
-			//}
-			List<SitemapNode> sitemapNodes = this.Nodes;
-			if (sitemapNodes.Any<SitemapNode>((SitemapNode node) => node.News != null))
+			List<SitemapNode> nodes = Nodes;
+
+			List<SitemapNode> sitemapNodes = Nodes;
+			if (sitemapNodes.Any(node => node.News != null))
 			{
 				yield return "http://www.google.com/schemas/sitemap-news/0.9";
 			}
-			List<SitemapNode> nodes1 = this.Nodes;
-			if (nodes1.Any<SitemapNode>((SitemapNode node) => node.Video != null))
+			List<SitemapNode> nodes1 = Nodes;
+			if (nodes1.Any(node => node.Video != null))
 			{
 				yield return "http://www.google.com/schemas/sitemap-video/1.1";
 			}
-			List<SitemapNode> sitemapNodes1 = this.Nodes;
-			if (sitemapNodes1.Any<SitemapNode>((SitemapNode node) => node.Mobile != null))
+			List<SitemapNode> sitemapNodes1 = Nodes;
+			if (sitemapNodes1.Any(node => node.Mobile != null))
 			{
 				yield return "http://www.google.com/schemas/sitemap-mobile/1.0";
 			}
-			List<SitemapNode> nodes2 = this.Nodes;
-			if (nodes2.Any<SitemapNode>((SitemapNode node) => {
+			List<SitemapNode> nodes2 = Nodes;
+			if (nodes2.Any(node => {
 				if (node.Translations == null)
 				{
 					return false;
 				}
-				return node.Translations.Any<SitemapPageTranslation>();
+				return node.Translations.Any();
 			}))
 			{
 				yield return "http://www.w3.org/1999/xhtml";

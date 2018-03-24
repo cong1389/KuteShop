@@ -1,10 +1,8 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.News
 {
-	[XmlRoot("url", Namespace="http://www.google.com/schemas/sitemap-news/0.9")]
+    [XmlRoot("url", Namespace="http://www.google.com/schemas/sitemap-news/0.9")]
 	public class NewsPublication
 	{
 		[XmlElement("language")]
@@ -27,8 +25,8 @@ namespace App.SeoSitemap.News
 
 		public NewsPublication(string name, string language)
 		{
-			this.Name = name;
-			this.Language = language;
+			Name = name;
+			Language = language;
 		}
 	}
 }

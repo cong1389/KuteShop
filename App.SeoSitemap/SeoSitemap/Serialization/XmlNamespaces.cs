@@ -1,8 +1,6 @@
-using System;
-
 namespace App.SeoSitemap.Serialization
 {
-	internal static class XmlNamespaces
+    internal static class XmlNamespaces
 	{
 		public const string Sitemap = "http://www.sitemaps.org/schemas/sitemap/0.9";
 

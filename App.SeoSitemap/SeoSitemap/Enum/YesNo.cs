@@ -1,9 +1,8 @@
-using System;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Enum
 {
-	public enum YesNo
+    public enum YesNo
 	{
 		None,
 		[XmlEnum("yes")]

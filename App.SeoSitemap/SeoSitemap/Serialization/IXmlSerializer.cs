@@ -1,9 +1,8 @@
-using System;
 using System.IO;
 
 namespace App.SeoSitemap.Serialization
 {
-	internal interface IXmlSerializer
+    internal interface IXmlSerializer
 	{
 		string Serialize<T>(T data);
 

@@ -5,20 +5,14 @@ namespace App.SeoSitemap.Common
 {
 	internal class MvcBaseUrlProvider : IBaseUrlProvider
 	{
-		private readonly HttpContextBase httpContext;
+		private readonly HttpContextBase _httpContext;
 
-		public Uri BaseUrl
-		{
-			get
-			{
-				return new Uri(
-				    $"{this.httpContext.Request.Url.Scheme}://{this.httpContext.Request.Url.Authority}{this.httpContext.Request.ApplicationPath}");
-			}
-		}
+		public Uri BaseUrl => new Uri(
+		    $"{_httpContext.Request.Url.Scheme}://{_httpContext.Request.Url.Authority}{_httpContext.Request.ApplicationPath}");
 
-		public MvcBaseUrlProvider(HttpContextBase httpContext)
+	    public MvcBaseUrlProvider(HttpContextBase httpContext)
 		{
-			this.httpContext = httpContext;
+			_httpContext = httpContext;
 		}
 	}
 }

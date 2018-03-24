@@ -1,12 +1,10 @@
-using App.SeoSitemap.StyleSheets;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using App.SeoSitemap.StyleSheets;
 
 namespace App.SeoSitemap
 {
-	public abstract class SitemapIndexConfiguration<T> : ISitemapIndexConfiguration<T>
+    public abstract class SitemapIndexConfiguration<T> : ISitemapIndexConfiguration<T>
 	{
 		public int? CurrentPage
 		{
@@ -20,105 +18,81 @@ namespace App.SeoSitemap
 
 		public List<XmlStyleSheet> SitemapIndexStyleSheets
 		{
-			get
-			{
-				return JustDecompileGenerated_get_SitemapIndexStyleSheets();
-			}
-			set
-			{
-				JustDecompileGenerated_set_SitemapIndexStyleSheets(value);
-			}
+			get => GetSitemapIndexStyleSheets();
+		    set => SetSitemapIndexStyleSheets(value);
 		}
 
-		private List<XmlStyleSheet> JustDecompileGenerated_SitemapIndexStyleSheets_k__BackingField;
+		private List<XmlStyleSheet> _justDecompileGeneratedSitemapIndexStyleSheetsKBackingField;
 
-		public List<XmlStyleSheet> JustDecompileGenerated_get_SitemapIndexStyleSheets()
+		public List<XmlStyleSheet> GetSitemapIndexStyleSheets()
 		{
-			return this.JustDecompileGenerated_SitemapIndexStyleSheets_k__BackingField;
+			return _justDecompileGeneratedSitemapIndexStyleSheetsKBackingField;
 		}
 
-		protected void JustDecompileGenerated_set_SitemapIndexStyleSheets(List<XmlStyleSheet> value)
+		protected void SetSitemapIndexStyleSheets(List<XmlStyleSheet> value)
 		{
-			this.JustDecompileGenerated_SitemapIndexStyleSheets_k__BackingField = value;
+			_justDecompileGeneratedSitemapIndexStyleSheetsKBackingField = value;
 		}
 
 		public List<XmlStyleSheet> SitemapStyleSheets
 		{
-			get
-			{
-				return JustDecompileGenerated_get_SitemapStyleSheets();
-			}
-			set
-			{
-				JustDecompileGenerated_set_SitemapStyleSheets(value);
-			}
+			get => GetSitemapStyleSheets();
+		    set => GetSitemapStyleSheets(value);
 		}
 
-		private List<XmlStyleSheet> JustDecompileGenerated_SitemapStyleSheets_k__BackingField;
+		private List<XmlStyleSheet> _generatedSitemapStyleSheetsKBackingField;
 
-		public List<XmlStyleSheet> JustDecompileGenerated_get_SitemapStyleSheets()
+		public List<XmlStyleSheet> GetSitemapStyleSheets()
 		{
-			return this.JustDecompileGenerated_SitemapStyleSheets_k__BackingField;
+			return _generatedSitemapStyleSheetsKBackingField;
 		}
 
-		protected void JustDecompileGenerated_set_SitemapStyleSheets(List<XmlStyleSheet> value)
+		protected void GetSitemapStyleSheets(List<XmlStyleSheet> value)
 		{
-			this.JustDecompileGenerated_SitemapStyleSheets_k__BackingField = value;
+			_generatedSitemapStyleSheetsKBackingField = value;
 		}
 
 		public int Size
 		{
-			get
-			{
-				return JustDecompileGenerated_get_Size();
-			}
-			set
-			{
-				JustDecompileGenerated_set_Size(value);
-			}
+			get => GetSize();
+		    set => SetSize(value);
 		}
 
-		private int JustDecompileGenerated_Size_k__BackingField;
+		private int _generatedSizeKBackingField;
 
-		public int JustDecompileGenerated_get_Size()
+		public int GetSize()
 		{
-			return this.JustDecompileGenerated_Size_k__BackingField;
+			return _generatedSizeKBackingField;
 		}
 
-		protected void JustDecompileGenerated_set_Size(int value)
+		protected void SetSize(int value)
 		{
-			this.JustDecompileGenerated_Size_k__BackingField = value;
+			_generatedSizeKBackingField = value;
 		}
 
 		public bool UseReverseOrderingForSitemapIndexNodes
 		{
-			get
-			{
-				return JustDecompileGenerated_get_UseReverseOrderingForSitemapIndexNodes();
-			}
-			set
-			{
-				JustDecompileGenerated_set_UseReverseOrderingForSitemapIndexNodes(value);
-			}
+			get => GetUseReverseOrderingForSitemapIndexNodes();
+		    set => JustDecompileGenerated_set_UseReverseOrderingForSitemapIndexNodes(value);
 		}
 
-		private bool JustDecompileGenerated_UseReverseOrderingForSitemapIndexNodes_k__BackingField;
+		private bool _generatedUseReverseOrderingForSitemapIndexNodesKBackingField;
 
-		public bool JustDecompileGenerated_get_UseReverseOrderingForSitemapIndexNodes()
+		public bool GetUseReverseOrderingForSitemapIndexNodes()
 		{
-			return this.JustDecompileGenerated_UseReverseOrderingForSitemapIndexNodes_k__BackingField;
+			return _generatedUseReverseOrderingForSitemapIndexNodesKBackingField;
 		}
 
 		protected void JustDecompileGenerated_set_UseReverseOrderingForSitemapIndexNodes(bool value)
 		{
-			this.JustDecompileGenerated_UseReverseOrderingForSitemapIndexNodes_k__BackingField = value;
+			_generatedUseReverseOrderingForSitemapIndexNodesKBackingField = value;
 		}
 
 		protected SitemapIndexConfiguration(IQueryable<T> dataSource, int? currentPage)
 		{
-			this.DataSource = dataSource;
-			this.CurrentPage = currentPage;
-			this.Size = 50000;
+			DataSource = dataSource;
+			CurrentPage = currentPage;
+			Size = 50000;
 		}
 
 		public abstract SitemapNode CreateNode(T source);

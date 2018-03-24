@@ -1,10 +1,10 @@
-using App.SeoSitemap.Common;
 using System;
 using System.Web.Mvc;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap
 {
-	public class SitemapProvider : ISitemapProvider
+    public class SitemapProvider : ISitemapProvider
 	{
 		private readonly IBaseUrlProvider _baseUrlProvider;
 
@@ -14,7 +14,7 @@ namespace App.SeoSitemap
 
 		public SitemapProvider(IBaseUrlProvider baseUrlProvider)
 		{
-			this._baseUrlProvider = baseUrlProvider;
+			_baseUrlProvider = baseUrlProvider;
 		}
 
 		public ActionResult CreateSitemap(SitemapModel sitemapModel)
@@ -23,7 +23,7 @@ namespace App.SeoSitemap
 			{
 				throw new ArgumentNullException("sitemapModel");
 			}
-			return new XmlResult<SitemapModel>(sitemapModel, this._baseUrlProvider);
+			return new XmlResult<SitemapModel>(sitemapModel, _baseUrlProvider);
 		}
 
 		public ActionResult CreateSitemapIndex(SitemapIndexModel sitemapIndexModel)
@@ -32,7 +32,7 @@ namespace App.SeoSitemap
 			{
 				throw new ArgumentNullException("sitemapIndexModel");
 			}
-			return new XmlResult<SitemapIndexModel>(sitemapIndexModel, this._baseUrlProvider);
+			return new XmlResult<SitemapIndexModel>(sitemapIndexModel, _baseUrlProvider);
 		}
 	}
 }

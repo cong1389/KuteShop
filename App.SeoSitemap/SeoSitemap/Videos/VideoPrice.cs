@@ -1,10 +1,8 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Videos
 {
-	public class VideoPrice
+    public class VideoPrice
 	{
 		[XmlAttribute("currency")]
 		public string Currency
@@ -40,18 +38,18 @@ namespace App.SeoSitemap.Videos
 
 		public VideoPrice(string currency, decimal value)
 		{
-			this.Currency = currency;
-			this.Value = value;
+			Currency = currency;
+			Value = value;
 		}
 
 		public bool ShouldSerializeResolution()
 		{
-			return this.Resolution != VideoPurchaseResolution.None;
+			return Resolution != VideoPurchaseResolution.None;
 		}
 
 		public bool ShouldSerializeType()
 		{
-			return this.Type != VideoPurchaseOption.None;
+			return Type != VideoPurchaseOption.None;
 		}
 	}
 }

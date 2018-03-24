@@ -1,12 +1,10 @@
+using System.Xml.Serialization;
 using App.SeoSitemap.Common;
 using App.SeoSitemap.Enum;
-using System;
-using System.Runtime.CompilerServices;
-using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Videos
 {
-	public class VideoPlayer
+    public class VideoPlayer
 	{
 		[XmlAttribute("allow_embed")]
 		public YesNo AllowEmbed
@@ -36,12 +34,12 @@ namespace App.SeoSitemap.Videos
 
 		public VideoPlayer(string url)
 		{
-			this.Url = url;
+			Url = url;
 		}
 
 		public bool ShouldSerializeAllowEmbed()
 		{
-			return this.AllowEmbed != YesNo.None;
+			return AllowEmbed != YesNo.None;
 		}
 	}
 }

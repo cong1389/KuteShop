@@ -1,11 +1,9 @@
-using App.SeoSitemap.Common;
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap.Translations
 {
-	public class SitemapPageTranslation
+    public class SitemapPageTranslation
 	{
 		[XmlAttribute("hreflang")]
 		public string Language
@@ -35,9 +33,9 @@ namespace App.SeoSitemap.Translations
 
 		public SitemapPageTranslation(string url, string language, string rel = "alternate")
 		{
-			this.Url = url;
-			this.Language = language;
-			this.Rel = rel;
+			Url = url;
+			Language = language;
+			Rel = rel;
 		}
 	}
 }

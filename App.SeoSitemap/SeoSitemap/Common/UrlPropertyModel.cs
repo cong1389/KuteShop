@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace App.SeoSitemap.Common
 {
-	internal class UrlPropertyModel
+    internal class UrlPropertyModel
 	{
 		public List<PropertyInfo> ClassProperties
 		{
@@ -24,9 +22,9 @@ namespace App.SeoSitemap.Common
 
 		public UrlPropertyModel()
 		{
-			this.UrlProperties = new List<PropertyInfo>();
-			this.EnumerableProperties = new List<PropertyInfo>();
-			this.ClassProperties = new List<PropertyInfo>();
+			UrlProperties = new List<PropertyInfo>();
+			EnumerableProperties = new List<PropertyInfo>();
+			ClassProperties = new List<PropertyInfo>();
 		}
 	}
 }

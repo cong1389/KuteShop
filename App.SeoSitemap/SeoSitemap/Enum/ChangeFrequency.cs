@@ -1,9 +1,8 @@
-using System;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Enum
 {
-	public enum ChangeFrequency
+    public enum ChangeFrequency
 	{
 		[XmlEnum("always")]
 		Always,

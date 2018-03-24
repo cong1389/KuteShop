@@ -176,34 +176,85 @@ namespace App.Aplication
 
         //Template mail
         public static string TemplateMailBasicContact => "Themes/Basic/TemplateMails/Contact.xml";
+
+        //Account
+        public static string XsrfKey => ConfigurationManager.AppSettings["XsrfKey"] ?? "XsrfKey";
+
+        public enum ManageMessageId
+        {
+            ChangePasswordSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            Error
+        }
+        
+        public enum GenericControlType
+        {
+            /// <summary>
+            /// Dropdown list
+            /// </summary>
+            DropdownList = 1,
+            /// <summary>
+            /// Radio list
+            /// </summary>
+            RadioList = 2,
+            /// <summary>
+            /// Checkboxes
+            /// </summary>
+            Checkboxes = 3,
+            /// <summary>
+            /// TextBox
+            /// </summary>
+            TextBox = 4,
+            /// <summary>
+            /// Multiline textbox
+            /// </summary>
+            MultilineTextbox = 10,
+            /// <summary>
+            /// Datepicker
+            /// </summary>
+            Datepicker = 20,
+            /// <summary>
+            /// File upload control
+            /// </summary>
+            FileUpload = 30,
+            /// <summary>
+            /// Boxes
+            /// </summary>
+            Boxes = 40
+        }
+
+        public enum PaymentMethodType
+        {
+            /// <summary>
+            /// Unknown
+            /// </summary>
+            Unknown = 0,
+            /// <summary>
+            /// All payment information is entered on the site
+            /// </summary>
+            Standard = 10,
+            /// <summary>
+            /// A customer is redirected to a third-party site in order to complete the payment
+            /// </summary>
+            Redirection = 15,
+            /// <summary>
+            /// Button
+            /// </summary>
+            Button = 20,
+            /// <summary>
+            /// All payment information is entered on the site and is available via button
+            /// </summary>
+            StandardAndButton = 25,
+            /// <summary>
+            /// Payment information is entered in checkout and customer is redirected to complete payment (e.g. 3D Secure) after order has been placed
+            /// </summary>
+            StandardAndRedirection = 30
+        }
     }
 
-    public enum PaymentMethodType
-    {
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        Unknown = 0,
-        /// <summary>
-        /// All payment information is entered on the site
-        /// </summary>
-        Standard = 10,
-        /// <summary>
-        /// A customer is redirected to a third-party site in order to complete the payment
-        /// </summary>
-        Redirection = 15,
-        /// <summary>
-        /// Button
-        /// </summary>
-        Button = 20,
-        /// <summary>
-        /// All payment information is entered on the site and is available via button
-        /// </summary>
-        StandardAndButton = 25,
-        /// <summary>
-        /// Payment information is entered in checkout and customer is redirected to complete payment (e.g. 3D Secure) after order has been placed
-        /// </summary>
-        StandardAndRedirection = 30
-    }
+   
+
+   
 
 }

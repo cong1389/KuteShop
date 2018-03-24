@@ -7,19 +7,19 @@ namespace WebCache.Static
 {
 	public class StaticContentFilter : Stream
 	{
-		private readonly static char[] HrefAttribute;
+		private static readonly char[] HrefAttribute;
 
-		private readonly static char[] RelAttribute;
+		private static readonly char[] RelAttribute;
 
-		private readonly static char[] HttpPrefix;
+		private static readonly char[] HttpPrefix;
 
-		private readonly static char[] ImgTag;
+		private static readonly char[] ImgTag;
 
-		private readonly static char[] LinkTag;
+		private static readonly char[] LinkTag;
 
-		private readonly static char[] ScriptTag;
+		private static readonly char[] ScriptTag;
 
-		private readonly static char[] SrcAttribute;
+		private static readonly char[] SrcAttribute;
 
 		private byte[] _cssPrefix;
 

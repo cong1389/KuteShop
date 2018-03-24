@@ -303,7 +303,7 @@
     <Compile Include="Models\FrontAuthorize.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageSize.cs" />
-    <Compile Include="Models\Localizeds\MappingExtensions.cs" />
+    <Compile Include="Extensions\MappingExtensions.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PartialCacheAttribute.cs" />
     <Compile Include="Models\Posts\CategoryPostModel.cs" />

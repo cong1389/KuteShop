@@ -13,15 +13,9 @@ namespace App.Admin.Controllers
     {
         protected readonly UserManager<IdentityUser, Guid> UserManager;
 
-        protected string XsrfKey = AccountUtils.XsrfKey;
+        protected string XsrfKey = Contains.XsrfKey;
 
-        protected IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         protected BaseIdentityController()
         {

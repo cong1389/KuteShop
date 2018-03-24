@@ -1,16 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Serialization
 {
-	internal class XmlNamespaceBuilder : IXmlNamespaceBuilder
+    internal class XmlNamespaceBuilder : IXmlNamespaceBuilder
 	{
-		private readonly IDictionary<string, string> prefixList;
+		private readonly IDictionary<string, string> _prefixList;
 
 		public XmlNamespaceBuilder()
 		{
-			this.prefixList = new Dictionary<string, string>()
+			_prefixList = new Dictionary<string, string>
 			{
 				{ "http://www.sitemaps.org/schemas/sitemap/0.9", "" },
 				{ "http://www.google.com/schemas/sitemap-image/1.1", "image" },
@@ -23,12 +22,11 @@ namespace App.SeoSitemap.Serialization
 
 		public XmlSerializerNamespaces Create(IEnumerable<string> namespaces)
 		{
-			string str;
-			XmlSerializerNamespaces xmlSerializerNamespace = new XmlSerializerNamespaces();
+		    XmlSerializerNamespaces xmlSerializerNamespace = new XmlSerializerNamespaces();
 			xmlSerializerNamespace.Add("", "http://www.sitemaps.org/schemas/sitemap/0.9");
 			foreach (string @namespace in namespaces)
 			{
-				if (!this.prefixList.TryGetValue(@namespace, out str))
+			    if (!_prefixList.TryGetValue(@namespace, out var str))
 				{
 					continue;
 				}

@@ -12,37 +12,46 @@ namespace App.Aplication.Extensions
 		    Expression<Func<TModel, object>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes = null)
 		{
 			TagBuilder tagBuilder = new TagBuilder("ul");
+
 			if (htmlAttributes != null)
 			{
 				tagBuilder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 			}
 			tagBuilder.AddCssClass("check-box-list");
 			var modelMetadatum = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+
 			if (selectList == null)
 			{
 				return MvcHtmlString.Create(tagBuilder.ToString());
 			}
+
 			foreach (SelectListItem selectListItem in selectList)
 			{
-				TagBuilder str = new TagBuilder("li");
-				TagBuilder tagBuilder1 = new TagBuilder("label");
-				TagBuilder tagBuilder2 = new TagBuilder("input");
-				str.AddCssClass("checkbox");
-				tagBuilder2.MergeAttribute("type", "checkbox");
-				tagBuilder2.MergeAttribute("name", modelMetadatum.PropertyName);
-				tagBuilder2.MergeAttribute("value", selectListItem.Value);
+				TagBuilder li = new TagBuilder("li");
+				TagBuilder tagBuilderLable = new TagBuilder("label");
+				TagBuilder tagBuilderInput = new TagBuilder("input");
+
+				li.AddCssClass("checkbox");
+				tagBuilderInput.MergeAttribute("type", "checkbox");
+				tagBuilderInput.MergeAttribute("name", modelMetadatum.PropertyName);
+				tagBuilderInput.MergeAttribute("value", selectListItem.Value);
+
 				if (selectListItem.Selected)
 				{
-					tagBuilder2.MergeAttribute("checked", "checked");
+					tagBuilderInput.MergeAttribute("checked", "checked");
 				}
-				tagBuilder2.GenerateId(modelMetadatum.PropertyName);
-				tagBuilder1.InnerHtml = tagBuilder2.ToString(TagRenderMode.SelfClosing);
-				TagBuilder tagBuilder3 = tagBuilder1;
+
+				tagBuilderInput.GenerateId(modelMetadatum.PropertyName);
+				tagBuilderLable.InnerHtml = tagBuilderInput.ToString(TagRenderMode.SelfClosing);
+
+				TagBuilder tagBuilder3 = tagBuilderLable;
 				tagBuilder3.InnerHtml = string.Concat(tagBuilder3.InnerHtml, " ", selectListItem.Text);
-				str.InnerHtml = tagBuilder1.ToString();
+
+				li.InnerHtml = tagBuilderLable.ToString();
 				TagBuilder tagBuilder4 = tagBuilder;
-				tagBuilder4.InnerHtml = string.Concat(tagBuilder4.InnerHtml, str.ToString());
+				tagBuilder4.InnerHtml = string.Concat(tagBuilder4.InnerHtml, li.ToString());
 			}
+
 			return MvcHtmlString.Create(tagBuilder.ToString());
 		}
 
@@ -53,14 +62,16 @@ namespace App.Aplication.Extensions
 			{
 				tagBuilder.MergeAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 			}
-			TagBuilder tagBuilder1 = new TagBuilder("i");
-			tagBuilder1.MergeAttribute("class", "indicator");
+
+			TagBuilder tagI = new TagBuilder("i");
+			tagI.MergeAttribute("class", "indicator");
 			tagBuilder.AddCssClass("sort-expression-link");
 			tagBuilder.MergeAttribute("title", title);
 			tagBuilder.MergeAttribute("href", string.Concat("#", sortExpression));
 			tagBuilder.MergeAttribute("data-sort-expression", sortExpression);
 			tagBuilder.MergeAttribute("data-sort-direction", direction.ToString());
-			tagBuilder.InnerHtml = string.Concat(title, tagBuilder1.ToString(TagRenderMode.Normal));
+			tagBuilder.InnerHtml = string.Concat(title, tagI.ToString(TagRenderMode.Normal));
+
 			return MvcHtmlString.Create(tagBuilder.ToString(TagRenderMode.Normal));
 		}
 	}

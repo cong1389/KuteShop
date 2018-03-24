@@ -1,15 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Xml;
-using App.Aplication;
-using App.Domain.GlobalSetting;
+using App.Front.Extensions;
 using App.Front.Models;
-using App.Front.Models.Localizeds;
 using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.MailSetting;
@@ -75,37 +70,36 @@ namespace App.Front.Controllers
             ActionResult actionResult;
             try
             {
-                var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
-                const string title = "Thông tin liên hệ";
-                var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
-                body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
-                body = string.Concat(body, model.Content, "<br>");
+                //var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
+                //const string title = "Thông tin liên hệ";
+                //var body = string.Concat("", "Người gửi: ", model.FullName, "<br>");
+                //body = string.Concat(body, string.Concat("E-mail: ", model.Email), "<br>");
+                //body = string.Concat(body, model.Content, "<br>");
 
-                XmlDocument xmlDocument = new XmlDocument();
-                string serverPathEmail = string.Concat(Server.MapPath("\\"), "Mailformat.xml");
-                if (System.IO.File.Exists(serverPathEmail))
-                {
-                    xmlDocument.Load(serverPathEmail);
-                    XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
-                    var subject = xmlNodes.SelectSingleNode("Subject").InnerText;
-                    var body = xmlNodes.SelectSingleNode("Body").InnerText;
+                //XmlDocument xmlDocument = new XmlDocument();
+                //string serverPathEmail = string.Concat(Server.MapPath("\\"), "Mailformat.xml");
+                //if (System.IO.File.Exists(serverPathEmail))
+                //{
+                //    xmlDocument.Load(serverPathEmail);
+                //    XmlNode xmlNodes = xmlDocument.SelectSingleNode(string.Concat("MailFormats/MailFormat[@Id='", messageId, "']"));
+                //    var subject = xmlNodes.SelectSingleNode("Subject").InnerText;
+                //    var body = xmlNodes.SelectSingleNode("Body").InnerText;
 
-                    int i;
-                    for (i = 0; i <= param.Length - 1; i++)
-                    {
-                        body = body.Replace(string.Concat(i.ToString(), "?"), param[i]);
-                        subject = subject.Replace(string.Concat(i.ToString(), "?"), param[i]);
-                    }
-                   
-                }
+                //    int i;
+                //    for (i = 0; i <= param.Length - 1; i++)
+                //    {
+                //        body = body.Replace(string.Concat(i.ToString(), "?"), param[i]);
+                //        subject = subject.Replace(string.Concat(i.ToString(), "?"), param[i]);
+                //    }
+                //}
 
-                var sendMail = new SendMail
-                {
-                    MessageId = "Email",
-                    ToEmail = toEmail,
-                    Subject = title,
-                    Body = body
-                };
+                //var sendMail = new SendMail
+                //{
+                //    MessageId = "Email",
+                //    ToEmail = toEmail,
+                //    Subject = title,
+                //    Body = body
+                //};
 
                 //var toEmail = _systemSettingService.Get(x => x.Status == 1).Email;
                 //const string title = "Thông tin liên hệ";

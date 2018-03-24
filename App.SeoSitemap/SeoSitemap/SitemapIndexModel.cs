@@ -1,12 +1,10 @@
-using App.SeoSitemap.StyleSheets;
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.StyleSheets;
 
 namespace App.SeoSitemap
 {
-	[XmlRoot("sitemapindex", Namespace="http://www.sitemaps.org/schemas/sitemap/0.9")]
+    [XmlRoot("sitemapindex", Namespace="http://www.sitemaps.org/schemas/sitemap/0.9")]
 	public class SitemapIndexModel : IHasStyleSheets
 	{
 		[XmlElement("sitemap")]
@@ -28,7 +26,7 @@ namespace App.SeoSitemap
 
 		public SitemapIndexModel(List<SitemapIndexNode> nodes)
 		{
-			this.Nodes = nodes;
+			Nodes = nodes;
 		}
 	}
 }

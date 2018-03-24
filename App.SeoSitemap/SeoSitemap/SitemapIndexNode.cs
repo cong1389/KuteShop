@@ -1,11 +1,10 @@
-using App.SeoSitemap.Common;
 using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap
 {
-	[XmlRoot("sitemap", Namespace="http://www.sitemaps.org/schemas/sitemap/0.9")]
+    [XmlRoot("sitemap", Namespace="http://www.sitemaps.org/schemas/sitemap/0.9")]
 	public class SitemapIndexNode
 	{
 		[XmlElement("lastmod", Order=2)]
@@ -29,12 +28,12 @@ namespace App.SeoSitemap
 
 		public SitemapIndexNode(string url)
 		{
-			this.Url = url;
+			Url = url;
 		}
 
 		public bool ShouldSerializeLastModificationDate()
 		{
-			return this.LastModificationDate.HasValue;
+			return LastModificationDate.HasValue;
 		}
 	}
 }

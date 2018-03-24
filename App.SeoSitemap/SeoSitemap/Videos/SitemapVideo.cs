@@ -1,13 +1,12 @@
-using App.SeoSitemap.Common;
-using App.SeoSitemap.Enum;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
+using App.SeoSitemap.Enum;
 
 namespace App.SeoSitemap.Videos
 {
-	public class SitemapVideo
+    public class SitemapVideo
 	{
 		[XmlElement("category", Order=13)]
 		public string Category
@@ -157,58 +156,58 @@ namespace App.SeoSitemap.Videos
 
 		public SitemapVideo(string title, string description, string thumbnailUrl, string contentUrl)
 		{
-			this.Title = title;
-			this.Description = description;
-			this.ThumbnailUrl = thumbnailUrl;
-			this.ContentUrl = contentUrl;
+			Title = title;
+			Description = description;
+			ThumbnailUrl = thumbnailUrl;
+			ContentUrl = contentUrl;
 		}
 
 		public SitemapVideo(string title, string description, string thumbnailUrl, VideoPlayer player)
 		{
-			this.Title = title;
-			this.Description = description;
-			this.ThumbnailUrl = thumbnailUrl;
-			this.Player = player;
+			Title = title;
+			Description = description;
+			ThumbnailUrl = thumbnailUrl;
+			Player = player;
 		}
 
 		public bool ShouldSerializeDuration()
 		{
-			return this.Duration.HasValue;
+			return Duration.HasValue;
 		}
 
 		public bool ShouldSerializeExpirationDate()
 		{
-			return this.ExpirationDate.HasValue;
+			return ExpirationDate.HasValue;
 		}
 
 		public bool ShouldSerializeFamilyFriendly()
 		{
-			return this.FamilyFriendly.HasValue;
+			return FamilyFriendly.HasValue;
 		}
 
 		public bool ShouldSerializeLive()
 		{
-			return this.Live.HasValue;
+			return Live.HasValue;
 		}
 
 		public bool ShouldSerializePublicationDate()
 		{
-			return this.PublicationDate.HasValue;
+			return PublicationDate.HasValue;
 		}
 
 		public bool ShouldSerializeRating()
 		{
-			return this.Rating.HasValue;
+			return Rating.HasValue;
 		}
 
 		public bool ShouldSerializeRequiresSubscription()
 		{
-			return this.RequiresSubscription.HasValue;
+			return RequiresSubscription.HasValue;
 		}
 
 		public bool ShouldSerializeViewCount()
 		{
-			return this.ViewCount.HasValue;
+			return ViewCount.HasValue;
 		}
 	}
 }

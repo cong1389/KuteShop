@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace App.SeoSitemap.Common
 {
-	internal class UrlValidator : IUrlValidator
+    internal class UrlValidator : IUrlValidator
 	{
 		private readonly IReflectionHelper _reflectionHelper;
 
@@ -13,8 +13,8 @@ namespace App.SeoSitemap.Common
 
 		public UrlValidator(IReflectionHelper reflectionHelper)
 		{
-			this._reflectionHelper = reflectionHelper;
-			this._propertyModelList = new Dictionary<Type, UrlPropertyModel>();
+			_reflectionHelper = reflectionHelper;
+			_propertyModelList = new Dictionary<Type, UrlPropertyModel>();
 		}
 
 		private void CheckForRelativeUrls(object item, PropertyInfo propertyInfo, IBaseUrlProvider baseUrlProvider)
@@ -25,7 +25,7 @@ namespace App.SeoSitemap.Common
 				string str = value.ToString();
 				if (!Uri.IsWellFormedUriString(str, UriKind.Absolute) && Uri.IsWellFormedUriString(str, UriKind.Relative))
 				{
-					string str1 = $"{baseUrlProvider.BaseUrl.ToString().TrimEnd(new char[] {'/'})}/{str.TrimStart(new char[] {'/'})}";
+					string str1 = $"{baseUrlProvider.BaseUrl.ToString().TrimEnd('/')}/{str.TrimStart('/')}";
 					propertyInfo.SetValue(item, str1, null);
 				}
 			}
@@ -33,11 +33,10 @@ namespace App.SeoSitemap.Common
 
 		private UrlPropertyModel GetPropertyModel(Type type)
 		{
-			UrlPropertyModel propertyModel;
-			if (!this._propertyModelList.TryGetValue(type, out propertyModel))
+		    if (!_propertyModelList.TryGetValue(type, out var propertyModel))
 			{
-				propertyModel = this._reflectionHelper.GetPropertyModel(type);
-				this._propertyModelList[type] = propertyModel;
+				propertyModel = _reflectionHelper.GetPropertyModel(type);
+				_propertyModelList[type] = propertyModel;
 			}
 			return propertyModel;
 		}
@@ -52,10 +51,10 @@ namespace App.SeoSitemap.Common
 			{
 				throw new ArgumentNullException("baseUrlProvider");
 			}
-			UrlPropertyModel propertyModel = this.GetPropertyModel(item.GetType());
+			UrlPropertyModel propertyModel = GetPropertyModel(item.GetType());
 			foreach (PropertyInfo urlProperty in propertyModel.UrlProperties)
 			{
-				this.CheckForRelativeUrls(item, urlProperty, baseUrlProvider);
+				CheckForRelativeUrls(item, urlProperty, baseUrlProvider);
 			}
 			foreach (PropertyInfo classProperty in propertyModel.ClassProperties)
 			{
@@ -64,7 +63,7 @@ namespace App.SeoSitemap.Common
 				{
 					continue;
 				}
-				this.ValidateUrls(value, baseUrlProvider);
+				ValidateUrls(value, baseUrlProvider);
 			}
 			foreach (PropertyInfo enumerableProperty in propertyModel.EnumerableProperties)
 			{
@@ -75,7 +74,7 @@ namespace App.SeoSitemap.Common
 				}
 				foreach (object obj in enumerable)
 				{
-					this.ValidateUrls(obj, baseUrlProvider);
+					ValidateUrls(obj, baseUrlProvider);
 				}
 			}
 		}

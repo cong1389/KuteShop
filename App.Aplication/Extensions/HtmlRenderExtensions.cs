@@ -24,17 +24,20 @@ namespace App.Aplication.Extensions
 			{
 				return MvcHtmlString.Create(string.Join(Environment.NewLine, queue));
 			}
+
 			StringBuilder stringBuilder = new StringBuilder();
 			while (queue.Count > 0)
 			{
 				stringBuilder.AppendLine(queue.Dequeue());
 			}
+
 			return MvcHtmlString.Create(stringBuilder.ToString());
 		}
 
 	    public static MvcHtmlString DisplayPlaceHolderFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression)
 	    {
 	        var result = html.DisplayNameFor(expression).ToHtmlString();
+
 	        return new MvcHtmlString(HttpUtility.HtmlDecode(result));
 	    }
 

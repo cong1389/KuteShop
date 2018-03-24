@@ -1,11 +1,9 @@
-using App.SeoSitemap.Common;
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap.Videos
 {
-	public class VideoUploader
+    public class VideoUploader
 	{
 		[Url]
 		[XmlAttribute("info")]
@@ -28,7 +26,7 @@ namespace App.SeoSitemap.Videos
 
 		public VideoUploader(string name)
 		{
-			this.Name = name;
+			Name = name;
 		}
 	}
 }

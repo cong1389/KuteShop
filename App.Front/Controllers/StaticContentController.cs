@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
-using App.Aplication.Extensions;
-using App.Front.Models.Localizeds;
+using App.Front.Extensions;
 using App.Service.Menu;
 using App.Service.Static;
 

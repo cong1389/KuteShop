@@ -1,11 +1,9 @@
-using App.SeoSitemap.Common;
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap.Videos
 {
-	public class VideoGallery
+    public class VideoGallery
 	{
 		[XmlAttribute("title")]
 		public string Title
@@ -28,7 +26,7 @@ namespace App.SeoSitemap.Videos
 
 		public VideoGallery(string url)
 		{
-			this.Url = url;
+			Url = url;
 		}
 	}
 }

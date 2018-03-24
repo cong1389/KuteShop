@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
-using App.Domain.Entities.Payments;
 using App.FakeEntity.Payments;
-using App.Front.Models;
-using App.Front.Models.Localizeds;
+using App.Front.Extensions;
 using App.Service.PaymentMethodes;
 
 namespace App.Front.Controllers

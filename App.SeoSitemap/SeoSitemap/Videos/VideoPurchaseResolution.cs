@@ -1,9 +1,8 @@
-using System;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Videos
 {
-	public enum VideoPurchaseResolution
+    public enum VideoPurchaseResolution
 	{
 		None,
 		[XmlEnum("hd")]

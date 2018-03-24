@@ -1,8 +1,6 @@
-using System;
-
 namespace App.SeoSitemap.Mobile
 {
-	public class SitemapMobile
+    public class SitemapMobile
 	{
 		public SitemapMobile()
 		{

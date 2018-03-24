@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace App.SeoSitemap.Common
 {
-	internal class ReflectionHelper : IReflectionHelper
+    internal class ReflectionHelper : IReflectionHelper
 	{
 		public ReflectionHelper()
 		{
@@ -16,10 +15,10 @@ namespace App.SeoSitemap.Common
 		{
 			UrlPropertyModel urlPropertyModel = new UrlPropertyModel();
 			PropertyInfo[] properties = type.GetProperties();
-			for (int i = 0; i < (int)properties.Length; i++)
+			for (int i = 0; i < properties.Length; i++)
 			{
 				PropertyInfo propertyInfo = properties[i];
-				if (propertyInfo.GetCustomAttributes(typeof(UrlAttribute), true).Any<object>() && propertyInfo.PropertyType == typeof(string) && propertyInfo.CanRead && propertyInfo.CanWrite)
+				if (propertyInfo.GetCustomAttributes(typeof(UrlAttribute), true).Any() && propertyInfo.PropertyType == typeof(string) && propertyInfo.CanRead && propertyInfo.CanWrite)
 				{
 					urlPropertyModel.UrlProperties.Add(propertyInfo);
 				}

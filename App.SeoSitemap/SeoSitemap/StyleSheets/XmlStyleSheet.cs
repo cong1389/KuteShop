@@ -44,8 +44,8 @@ namespace App.SeoSitemap.StyleSheets
 
 		public XmlStyleSheet(string url)
 		{
-			this.Url = url;
-			this.Type = "text/xsl";
+			Url = url;
+			Type = "text/xsl";
 		}
 	}
 }

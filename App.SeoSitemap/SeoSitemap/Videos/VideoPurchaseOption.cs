@@ -1,9 +1,8 @@
-using System;
 using System.Xml.Serialization;
 
 namespace App.SeoSitemap.Videos
 {
-	public enum VideoPurchaseOption
+    public enum VideoPurchaseOption
 	{
 		None,
 		[XmlEnum("rent")]

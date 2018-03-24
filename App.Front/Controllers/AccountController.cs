@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utils;
@@ -13,8 +12,8 @@ using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
 using App.FakeEntity.User;
 using App.Framework.Ultis;
+using App.Front.Extensions;
 using App.Front.Models;
-using App.Front.Models.Localizeds;
 using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.Locations;
@@ -24,7 +23,6 @@ using App.Service.Post;
 using AutoMapper;
 using Domain.Entities.Customers;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security.DataProtection;
 using Resources;
 
 namespace App.Front.Controllers

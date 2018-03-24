@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
-using App.Aplication;
 using App.Domain.Entities.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;

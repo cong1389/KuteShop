@@ -1,11 +1,9 @@
-using App.SeoSitemap.Common;
-using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
+using App.SeoSitemap.Common;
 
 namespace App.SeoSitemap.Images
 {
-	public class SitemapImage
+    public class SitemapImage
 	{
 		[XmlElement("caption", Order=2)]
 		public string Caption
@@ -50,7 +48,7 @@ namespace App.SeoSitemap.Images
 
 		public SitemapImage(string url)
 		{
-			this.Url = url;
+			Url = url;
 		}
 	}
 }

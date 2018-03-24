@@ -1,11 +1,10 @@
-using App.SeoSitemap.StyleSheets;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using App.SeoSitemap.StyleSheets;
 
 namespace App.SeoSitemap
 {
-	public interface ISitemapIndexConfiguration<T>
+    public interface ISitemapIndexConfiguration<T>
 	{
 		int? CurrentPage
 		{

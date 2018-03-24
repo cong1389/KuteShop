@@ -31,7 +31,7 @@ namespace App.Framework.Ultis
 					Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Logs"));
 				}
 				DateTime now = DateTime.Now;
-				string str1 = $"Logs/{now.ToString("yyyyMMdd")}.txt";
+				string str1 = $"Logs/{now:yyyyMMdd}.txt";
 				if (!File.Exists(string.Concat(current.Server.MapPath("~/"), str1)))
 				{
 					File.Create(string.Concat(current.Server.MapPath("~/"), str1));

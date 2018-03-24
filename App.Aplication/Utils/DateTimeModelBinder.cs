@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace App.Aplication
 {
-	public class DateTimeModelBinder : DefaultModelBinder
+    public class DateTimeModelBinder : DefaultModelBinder
 	{
 	    public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{

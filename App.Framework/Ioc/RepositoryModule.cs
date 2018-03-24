@@ -85,9 +85,7 @@ namespace App.Framework.Ioc
 
             builder.RegisterType<AddressRepository>().As<IAddressRepository>().InstancePerRequest();
 
-            builder.RegisterType<PaymentMethodRepository>()
-                .As<IPaymentMethodRepository>()
-                .InstancePerRequest();
+            builder.RegisterType<PaymentMethodRepository>().As<IPaymentMethodRepository>().InstancePerRequest();
 
             builder.RegisterType<ShippingMethodRepository>().As<IShippingMethodRepository>().InstancePerRequest();
 
