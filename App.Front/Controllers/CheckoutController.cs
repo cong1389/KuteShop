@@ -461,17 +461,19 @@ namespace App.Front.Controllers
 
         #endregion
 
+        #region Complete
+
         public ActionResult Complete()
         {
             var customer = _workContext.CurrentCustomer;
 
-            var ieOrder = _orderService.GetByCustomerId(customer.Id,false);
+            var ieOrder = _orderService.GetByCustomerId(customer.Id, false);
 
-            if (ieOrder== null)
+            if (ieOrder == null)
             {
                 return HttpNotFound();
             }
-            
+
             var order = ieOrder.OrderByDescending(m => m.Id).FirstOrDefault();
 
             return View(order);
@@ -494,6 +496,9 @@ namespace App.Front.Controllers
 
             return RedirectToAction("BillingAddress");
         }
+
+        #endregion
+
 
     }
 }

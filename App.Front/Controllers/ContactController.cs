@@ -13,6 +13,7 @@ using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.MailSetting;
 using App.Service.Menu;
+using App.Service.Messages;
 using App.Service.SystemApp;
 
 namespace App.Front.Controllers

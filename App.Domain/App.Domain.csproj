@@ -99,6 +99,7 @@
     <Compile Include="Common\ShippingStatus.cs" />
     <Compile Include="Customers\Customer.cs" />
     <Compile Include="Data\PostGallery.cs" />
+    <Compile Include="Email\EmailAddress.cs" />
     <Compile Include="GenericControl\GenericControlValueItem.cs" />
     <Compile Include="GenericControl\GenericControl.cs" />
     <Compile Include="GenericControl\GenericControlValue.cs" />
@@ -111,6 +112,8 @@
     <Compile Include="GlobalSetting\SendMail.cs" />
     <Compile Include="Language\LocaleStringResource.cs" />
     <Compile Include="Language\LocalizedProperty.cs" />
+    <Compile Include="Messages\MessageTemplate.cs" />
+    <Compile Include="Messages\MessageTemplateNames.cs" />
     <Compile Include="Orders\Order.cs" />
     <Compile Include="Orders\OrderItem.cs" />
     <Compile Include="Orders\ShoppingCartItem.cs" />

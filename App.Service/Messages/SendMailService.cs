@@ -4,11 +4,12 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using App.Domain.GlobalSetting;
+using App.Service.MailSetting;
 using Microsoft.AspNet.Identity;
 
-namespace App.Service.MailSetting
+namespace App.Service.Messages
 {
-    public class SendMailService : IIdentityMessageService, ISendMailService
+	public class SendMailService : IIdentityMessageService, ISendMailService
     {
         private readonly IMailSettingService _mailSettingService;
 
@@ -85,7 +86,7 @@ namespace App.Service.MailSetting
             {
                 Subject = message.Subject,
                 Body = message.Body,
-                IsBodyHtml = true,
+                IsBodyHtml = true
             };
 
             client.Send(mail);

@@ -176,9 +176,10 @@ namespace App.Aplication
 
         //Template mail
         public static string TemplateMailBasicContact => "Themes/Basic/TemplateMails/Contact.xml";
+	    public static string TemplateMailBasicTest => "Themes/Basic/TemplateMails/Test.xml";
 
-        //Account
-        public static string XsrfKey => ConfigurationManager.AppSettings["XsrfKey"] ?? "XsrfKey";
+		//Account
+		public static string XsrfKey => ConfigurationManager.AppSettings["XsrfKey"] ?? "XsrfKey";
 
         public enum ManageMessageId
         {

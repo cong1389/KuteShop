@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -96,6 +97,60 @@ namespace App.Core.Extensions
         {
             return (value ?? string.Empty).Trim();
         }
-        
-    }
+
+		[DebuggerStepThrough]
+		public static string EnsureEndsWith(this string value, string endWith)
+		{
+			if (value.Length >= endWith.Length)
+			{
+				if (string.Compare(value, value.Length - endWith.Length, endWith, 0, endWith.Length, StringComparison.OrdinalIgnoreCase) == 0)
+					return value;
+
+				string trimmedString = value.TrimEnd(null);
+
+				if (string.Compare(trimmedString, trimmedString.Length - endWith.Length, endWith, 0, endWith.Length, StringComparison.OrdinalIgnoreCase) == 0)
+					return value;
+			}
+
+			return value + endWith;
+		}
+
+	    [DebuggerStepThrough]
+	    public static string FormatInvariant(this string format, params object[] objects)
+	    {
+		    return string.Format(CultureInfo.InvariantCulture, format, objects);
+	    }
+
+	    [DebuggerStepThrough]
+	    public static string[] SplitSafe(this string value, string separator)
+	    {
+		    if (string.IsNullOrEmpty(value))
+			    return new string[0];
+
+		    // do not use separator.IsEmpty() here because whitespace like " " is a valid separator.
+		    // an empty separator "" returns array with value.
+		    if (separator == null)
+		    {
+			    separator = "|";
+
+			    if (value.IndexOf(separator) < 0)
+			    {
+				    if (value.IndexOf(';') > -1)
+				    {
+					    separator = ";";
+				    }
+				    else if (value.IndexOf(',') > -1)
+				    {
+					    separator = ",";
+				    }
+				    else if (value.IndexOf(Environment.NewLine) > -1)
+				    {
+					    separator = Environment.NewLine;
+				    }
+			    }
+		    }
+
+		    return value.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+	    }
+	}
 }

@@ -10,6 +10,7 @@ using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.ServerMail;
 using App.Framework.Ultis;
 using App.Service.MailSetting;
+using App.Service.Messages;
 using AutoMapper;
 using Resources;
 

@@ -2,7 +2,7 @@
 using App.Domain.GlobalSetting;
 using Microsoft.AspNet.Identity;
 
-namespace App.Service.MailSetting
+namespace App.Service.Messages
 {
     public interface ISendMailService
     {

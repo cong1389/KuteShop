@@ -94,8 +94,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MailSetting\SendMailService.cs" />
-    <Compile Include="MailSetting\ISendMailService.cs" />
+    <Compile Include="Messages\IMessageService.cs" />
+    <Compile Include="Messages\MessageContext.cs" />
+    <Compile Include="Messages\MessageService.cs" />
+    <Compile Include="Messages\MessageTemplateService.cs" />
+    <Compile Include="Messages\OrderMessageFactoryExtensions.cs" />
+    <Compile Include="Messages\SendMailService.cs" />
+    <Compile Include="Messages\ISendMailService.cs" />
     <Compile Include="Account\IUserManagerService.cs" />
     <Compile Include="Account\IUserStoreService.cs" />
     <Compile Include="Account\UserManagerService.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="GenericControl\GenericControlValueExtension.cs" />
     <Compile Include="GenericControl\IGenericControlValueItemService.cs" />
     <Compile Include="Menu\MenuLinkExtensions.cs" />
+    <Compile Include="Messages\TemplateModel.cs" />
     <Compile Include="Orders\OrderItemService.cs" />
     <Compile Include="Orders\IOrderItemService.cs" />
     <Compile Include="Orders\IOrderProcessingService.cs" />

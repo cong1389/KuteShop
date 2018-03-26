@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Caching;
+using System.Web.Mvc;
 
 namespace App.Core.Extensions
 {
@@ -15,5 +16,12 @@ namespace App.Core.Extensions
 
             return ctx;
         }
-    }
+
+	    public static string BuildScopedKey(this Cache cache, string key)
+	    {
+		    return key.HasValue() ? "SmartStoreNET:" + key : null;
+	    }
+	}
+
+
 }

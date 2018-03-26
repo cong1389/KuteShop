@@ -4,7 +4,7 @@
 @model App.Front.Models.ContactForm
 
 @{
-    <div class="columns-container">
+    <div class="columns-container" id="contact">
         <div class="container contact-shop" id="columns">
             <div class="breadcrumb clearfix">
                 <a class="home" href="#" title="Return to Home">Home</a>
@@ -46,7 +46,10 @@
                                     @Html.TextAreaFor(model => model.Content, new { rows = "6", @class = "form-control input-lg", required = true, autocapitalize = "words", placeholder = Html.DisplayPlaceHolderFor(m => m.Content) })
                                 </div>
 
-                                <button id="btn-send-contact" type="submit" class="btn btn-lg btn-primary">Gửi thông tin</button>
+                                <button id="btn-send-contact" type="submit" class="btn">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                    Gửi thông tin
+                                </button>
                             }
                         </div>
 

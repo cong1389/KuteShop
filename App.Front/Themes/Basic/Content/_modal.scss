@@ -188,7 +188,7 @@ div.jGrowl div.jGrowl-closer:hover {
 
 .ajax-loading {
     display: none;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     background-image: url(../Themes/Basic/Content/images/loading.gif);
     background-color: #666;

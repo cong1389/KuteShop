@@ -202,6 +202,7 @@ function formAjax(element) {
     var $form = $(element);
     var options = {
         beforeSend: function () {
+            debugger;
             $(".ajax-loading").show();
         },
         dataType: 'json',
@@ -210,11 +211,12 @@ function formAjax(element) {
             if (resonse.success) {
                 $form[0].reset();
                 feature.fancyMsgBox(resonse.title, resonse.message);
+
             } else {
-                //show message
-                alert(resonse.errors);
+                feature.fancyMsgBox(resonse.title, resonse.errors);
+               
                 $('html, body').animate({
-                    scrollTop: $("#form-flow").offset().top
+                    scrollTop: 0
                 },
                     2000);
             }

@@ -60,11 +60,30 @@
     <Compile Include="Caching\MemoryCacheManager.cs" />
     <Compile Include="Caching\MemorySet.cs" />
     <Compile Include="Caching\RequestCache.cs" />
+    <Compile Include="ComponentModel\FastProperty.cs" />
+    <Compile Include="ComponentModel\HybridExpando.cs" />
+    <Compile Include="ComponentModel\PropertyBag.cs" />
+    <Compile Include="ComponentModel\SerializationUtils.cs" />
+    <Compile Include="ComponentModel\TypeConversion\EmailAddressConverter.cs" />
+    <Compile Include="ComponentModel\TypeConversion\EnumerableConverter.cs" />
+    <Compile Include="ComponentModel\TypeConversion\ITypeConverter.cs" />
+    <Compile Include="ComponentModel\TypeConversion\ITypeConverterExtensions.cs" />
+    <Compile Include="ComponentModel\TypeConversion\NullableConverter.cs" />
+    <Compile Include="ComponentModel\TypeConversion\TypeConverterAdapter.cs" />
+    <Compile Include="ComponentModel\TypeConversion\TypeConverterBase.cs" />
+    <Compile Include="ComponentModel\TypeConversion\TypeConverterFactory.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\ConversionExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\HttpExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Infrastructure\DependencyManagement\Work.cs" />
+    <Compile Include="IO\VirtualPath\DefaultVirtualPathProvider.cs" />
+    <Compile Include="IO\VirtualPath\IVirtualPathProvider.cs" />
+    <Compile Include="IO\VirtualPath\IVirtualPathProviderExtensions.cs" />
+    <Compile Include="Localization\LocalizationHelper.cs" />
     <Compile Include="Localization\LocalizedString.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\NullLocalizer.cs" />
@@ -72,6 +91,9 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Templating\ITemplate.cs" />
+    <Compile Include="Templating\ITemplateEngine.cs" />
+    <Compile Include="Utils\CommonHelper.cs" />
     <Compile Include="Utils\SortBuilder.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -129,6 +151,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj">
+      <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
+      <Name>App.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,9 @@
 ﻿using App.Aplication;
 using App.AsyncService.Post;
+using App.Core.IO.VirtualPath;
+using App.Core.Templating;
 using App.Domain.Interfaces.Services;
+using App.Framework.Templating.Liquid;
 using App.Infra.Data.Common;
 using App.SeoSitemap;
 using App.Service.Account;
@@ -21,6 +24,7 @@ using App.Service.Locations;
 using App.Service.MailSetting;
 using App.Service.Manufacturers;
 using App.Service.Menu;
+using App.Service.Messages;
 using App.Service.News;
 using App.Service.Orders;
 using App.Service.Other;
@@ -119,6 +123,11 @@ namespace App.Framework.Ioc
 
             builder.RegisterType<OrderProcessingService>().As<IOrderProcessingService>().InstancePerRequest();
             builder.RegisterType<PriceCalculationService>().As<IPriceCalculationService>().InstancePerRequest();
+
+	        builder.RegisterType<MessageService>().As<IMessageService>().InstancePerRequest();
+
+	        builder.RegisterType<LiquidTemplateEngine>().As<ITemplateEngine>().InstancePerRequest();
+            builder.RegisterType<DefaultVirtualPathProvider>().As<IVirtualPathProvider>().InstancePerRequest();
 
         }
     }

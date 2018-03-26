@@ -4,6 +4,7 @@ using App.Domain.Entities.GlobalSetting;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.MailSetting;
 using App.Infra.Data.UOW.Interfaces;
+using App.Service.Messages;
 
 namespace App.Service.MailSetting
 {

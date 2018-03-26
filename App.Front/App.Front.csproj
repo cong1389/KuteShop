@@ -821,6 +821,7 @@
     <Content Include="Themes\Basic\Scripts\goweb.common.js" />
     <Content Include="Themes\Basic\Scripts\goweb.plugins.min.js" />
     <Content Include="Themes\Basic\TemplateMails\Contact.xml" />
+    <Content Include="Themes\Basic\TemplateMails\test.xml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
