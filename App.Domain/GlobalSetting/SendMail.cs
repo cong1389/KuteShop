@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace App.Domain.GlobalSetting
+﻿namespace App.Domain.GlobalSetting
 {
-    public class SendMail
+	public class SendMail
     {
         public string MessageId { get; set; }
         public string ToEmail{ get; set; }

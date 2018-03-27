@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web.Hosting;
 using App.Core.Extensions;
 
 namespace App.Core.Utils
@@ -40,5 +42,23 @@ namespace App.Core.Utils
 
 			return true;
 		}
-	}
+
+	    public static string MapPath(string path, bool findAppRoot = true)
+	    {
+	        if (HostingEnvironment.IsHosted)
+	        {
+	            return HostingEnvironment.MapPath(path);
+	        }
+	        else
+	        {
+	            // not hosted. For example, running in unit tests or EF tooling
+	            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+	            path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
+
+	            var testPath = Path.Combine(baseDirectory, path);
+
+	            return testPath;
+	        }
+        }
+    }
 }

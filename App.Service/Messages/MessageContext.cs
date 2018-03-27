@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using App.Core.Localization;
+using App.Domain.Entities.GlobalSetting;
 using App.Domain.Messages;
 using Domain.Entities.Customers;
 
@@ -35,10 +36,10 @@ namespace App.Service.Messages
 		public int? StoreId { get; set; }
 
 		internal Domain.Entities.Language.Language Language { get; set; }
-		//internal Store Store { get; set; }
-		//public EmailAccount EmailAccount { get; internal set; }
+        //internal Store Store { get; set; }
+        public ServerMailSetting EmailAccount { get; internal set; }
 
-		public bool TestMode { get; set; }
+        public bool TestMode { get; set; }
 		
 		public Uri BaseUri { get; set; }
 
