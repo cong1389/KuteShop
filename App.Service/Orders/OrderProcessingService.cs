@@ -150,8 +150,9 @@ namespace App.Service.Orders
 
 				}
 			}
-			catch
+			catch(Exception ex)
 			{
+				string msg = ex.Message;
 				// ignored
 			}
 

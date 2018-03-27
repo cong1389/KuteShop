@@ -9,6 +9,8 @@ namespace App.Service.MailSetting
 	{
 		ServerMailSetting GetById(int id);
 
+		ServerMailSetting GetActive();
+
 		IEnumerable<ServerMailSetting> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

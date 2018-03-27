@@ -94,8 +94,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messages\IMessageModelProvider.cs" />
     <Compile Include="Messages\IMessageService.cs" />
     <Compile Include="Messages\MessageContext.cs" />
+    <Compile Include="Messages\MessageModelProvider.cs" />
     <Compile Include="Messages\MessageService.cs" />
     <Compile Include="Messages\MessageTemplateService.cs" />
     <Compile Include="Messages\OrderMessageFactoryExtensions.cs" />

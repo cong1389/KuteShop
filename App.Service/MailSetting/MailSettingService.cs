@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using App.Core.Utils;
 using App.Domain.Entities.GlobalSetting;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.MailSetting;
 using App.Infra.Data.UOW.Interfaces;
-using App.Service.Messages;
 
 namespace App.Service.MailSetting
 {
@@ -23,6 +23,11 @@ namespace App.Service.MailSetting
 		public ServerMailSetting GetById(int id)
 		{
 			return _mailSettingRepository.GetById(id);
+		}
+
+		public ServerMailSetting GetActive()
+		{
+			return _mailSettingRepository.FindBy(m => m.Status == 1).FirstOrDefault();
 		}
 
 		public IEnumerable<ServerMailSetting> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
