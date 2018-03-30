@@ -4,20 +4,29 @@ using System.Web;
 using App.Core.Common;
 using App.Core.Extensions;
 using App.Core.IO.VirtualPath;
+using App.Core.Localization;
 using App.Core.Templating;
+using App.Framework.Templating.Filters;
 using App.Framework.Templating.Liquid.Drops;
 using DotLiquid;
 using DotLiquid.FileSystems;
+using DotLiquid.NamingConventions;
 
 namespace App.Framework.Templating.Liquid
 {
-    public class LiquidTemplateEngine :ITemplateEngine, ITemplateFileSystem
+    public partial class LiquidTemplateEngine :ITemplateEngine, ITemplateFileSystem
     {
         private readonly IVirtualPathProvider _vpp;
 
         public LiquidTemplateEngine(IVirtualPathProvider vpp)
         {
             _vpp = vpp;
+
+            // Register Filters
+            Template.RegisterFilter(typeof(AdditionalFilters));
+
+            Template.NamingConvention = new CSharpNamingConvention();
+            Template.FileSystem = this;
         }
 
         public string Render(string source, object model, IFormatProvider formatProvider)
@@ -106,5 +115,12 @@ namespace App.Framework.Templating.Liquid
             }
             return virtualPath;
         }
+
+        #region Services
+
+        //public ICommonServices Services => _services.Value;
+        
+
+        #endregion
     }
 }

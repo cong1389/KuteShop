@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace App.Core.Templating
 {
@@ -14,7 +15,7 @@ namespace App.Core.Templating
         /// </summary>
         /// <param name="model">
         /// The model object which contains the data for the template.
-        /// Can be a subclass of <see cref="IDictionary&lt;string, object&gt;"/>,
+        /// Can be a subclass of <see cref="IDictionary{TKey,TValue}"/>,
         /// a plain class object, or an anonymous type.
         /// </param>
         /// <param name="formatProvider">Provider to use for formatting numbers, dates, money etc.</param>

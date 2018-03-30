@@ -15,15 +15,15 @@ namespace App.Service.Messages
 
 		public string MessageTemplateName { get; set; }
 
-		/// <summary>
-		/// If <c>null</c>, the email account specifies the sender.
-		/// </summary>
-		//public EmailAddress SenderEmailAddress { get; set; }
+        /// <summary>
+        /// If <c>null</c>, the email account specifies the sender.
+        /// </summary>
+        public ServerMailSetting SenderEmailAddress { get; set; }
 
-		/// <summary>
-		/// If <c>null</c>, obtained from WorkContext.CurrentCustomer.
-		/// </summary>
-		public Customer Customer { get; set; }
+        /// <summary>
+        /// If <c>null</c>, obtained from WorkContext.CurrentCustomer.
+        /// </summary>
+        public Customer Customer { get; set; }
 
 		/// <summary>
 		/// If <c>null</c>, obtained from WorkContext.WorkingLanguage.

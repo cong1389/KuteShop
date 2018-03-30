@@ -129,6 +129,7 @@ namespace App.Framework.Ioc
 	        builder.RegisterType<LiquidTemplateEngine>().As<ITemplateEngine>().InstancePerRequest();
             builder.RegisterType<DefaultVirtualPathProvider>().As<IVirtualPathProvider>().InstancePerRequest();
             builder.RegisterType<MessageModelProvider>().As<IMessageModelProvider>().InstancePerRequest();
+            builder.RegisterType<DefaultTemplateManager>().As<ITemplateManager>().InstancePerRequest();
 
         }
     }

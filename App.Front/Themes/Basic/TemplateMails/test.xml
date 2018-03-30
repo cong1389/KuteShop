@@ -5,12 +5,15 @@
 	<Subject>New order has been placed by '{{ Customer.FullName }}'</Subject>
 	<ModelTypes>Order, Order.Customer</ModelTypes>
 	<Body>
-		<![CDATA[{% extends 'master' %}
+		<![CDATA[
 
 {% block 'body' %}
 <h1>
-  New order has been placed,
+  Hello {{ Customer.FullName }},
 </h1>
+<p>
+  thanks for your order at <a href="{{ Store.URL }}">{{ Store.Name }}</a> which we hereby confirm. A summary for this order can be found below.
+</p>
 
 <table class="w-100 mb-3">
   <thead>
@@ -56,20 +59,10 @@
                 {% endif %} 
                 {% if Order.ShippingMethod %}
                 	<h3 class="mt-2">Shipping method</h3>
-                	<div class="text-sm">{{ Order.ShippingMethod }} </div>  
+                	<div class="text-sm">{{ Order.ShippingMethod }} </div>    	
                 {% endif %}
               </td>
             </tr>
-			{% if Order.CustomerComment %}
-				<tr>
-					<td colspan="2">
-					  <h3 class="mt-2">Customer comment</h3>
-                	  <div class="text-sm">
-						{{ Order.CustomerComment }}
-					  </div>  
-					</td>
-            	</tr>
-            {% endif %}
           </tbody>
         </table>
         
@@ -81,6 +74,25 @@
 
 {% include 'order' %}
 
+<table id="conditions-of-use">
+  <tr>
+  	<td class="text-sm text-muted-all pt-5 pb-4">
+      <h2 class="mb-3">{{ Order.ConditionsOfUse.Title }} </h2>
+    	{{ Order.ConditionsOfUse.Body }}
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<table id="disclaimer">
+  <tr>
+  	<td class="text-sm text-muted-all pt-4">
+      <h2 class="mb-3">{{ Order.Disclaimer.Title }} </h2>
+    	{{ Order.Disclaimer.Body }}
+    </td>
+  </tr>
+</table>
 {% endblock %}]]>
 	</Body>
 </MessageTemplate>

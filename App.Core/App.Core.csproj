@@ -92,6 +92,8 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Templating\DefaultTemplateManager.cs" />
+    <Compile Include="Templating\ITemplateManager.cs" />
     <Compile Include="Templating\ITemplate.cs" />
     <Compile Include="Templating\ITemplateEngine.cs" />
     <Compile Include="Utils\CommonHelper.cs" />

@@ -6,6 +6,7 @@ using App.Core.Templating;
 using App.Core.Utils;
 using App.Domain.Email;
 using App.Domain.Entities.GlobalSetting;
+using App.Domain.GlobalSetting;
 using App.Domain.Messages;
 using App.Service.Common;
 using App.Service.Language;
@@ -20,15 +21,22 @@ namespace App.Service.Messages
 		private readonly ITemplateEngine _templateEngine;
 		private readonly IMailSettingService _mailSettingService;
 		private readonly IMessageModelProvider _modelProvider;
+		private readonly ITemplateManager _templateManager;
+	    private readonly ISendMailService _sendMailService;
+
+        private readonly int languageId = 1;
 
 		public MessageService(ICommonServices services, ILanguageService languageService,
-			ITemplateEngine templateEngine, IMailSettingService mailSettingService, IMessageModelProvider modelProvider)
+			ITemplateEngine templateEngine, IMailSettingService mailSettingService, IMessageModelProvider modelProvider
+			, ITemplateManager templateManager, ISendMailService sendMailService)
 		{
 			_services = services;
 			_templateEngine = templateEngine;
 			_mailSettingService = mailSettingService;
 			_languageService = languageService;
 			_modelProvider = modelProvider;
+			_templateManager = templateManager;
+		    _sendMailService = sendMailService;
 		}
 
 		public virtual CreateMessageResult CreateMessage(MessageContext messageContext, bool queue,
@@ -42,12 +50,39 @@ namespace App.Service.Messages
 			// Add all global template model parts
 			_modelProvider.AddGlobalModelParts(messageContext);
 
+			// Add specific template models for passed parts
+			foreach (var part in modelParts)
+			{
+				if (model != null)
+				{
+					_modelProvider.AddModelPart(part, messageContext);
+				}
+			}
+
 			var messageTemplate = messageContext.MessageTemplate;
 
 			// Render templates
 			var to = RenderEmailAddress(messageTemplate.To, messageContext);
+			var replyTo = RenderEmailAddress(messageTemplate.ReplyTo, messageContext, false);
+			var bcc = RenderTemplate(messageTemplate.BccEmailAddresses, messageContext, false);
 
-			return new CreateMessageResult { MessageContext = messageContext };
+			var subject = RenderTemplate(messageTemplate.Subject, messageContext);
+			((dynamic)model).Email.Subject = subject;
+
+			var body = RenderBodyTemplate(messageContext);
+            
+		    var mail = new SendMail
+		    {
+                Subject = subject,
+                Body = body,
+                MessageId = "mail",
+                ToEmail = messageContext.EmailAccount.FromAddress
+            };
+
+		    _sendMailService.SendMailSmtp(mail);
+
+
+            return new CreateMessageResult { MessageContext = messageContext };
 		}
 
 		private EmailAddress RenderEmailAddress(string email, MessageContext ctx, bool required = true)
@@ -103,6 +138,8 @@ namespace App.Service.Messages
 				ctx.Language = _languageService.GetById(ctx.LanguageId.Value);
 			}
 
+			var parts = modelParts?.AsEnumerable() ?? Enumerable.Empty<object>();
+
 			if (ctx.MessageTemplate == null)
 			{
 				if (ctx.MessageTemplateName.IsEmpty())
@@ -129,7 +166,7 @@ namespace App.Service.Messages
 			//	parts = bagParts.Concat(parts.Except(bagParts));
 			//}
 
-			//modelParts = parts.ToArray();
+			modelParts = parts.ToArray();
 		}
 
 		protected ServerMailSetting GetEmailAccountOfMessageTemplate(MessageTemplate messageTemplate, int languageId)
@@ -143,5 +180,29 @@ namespace App.Service.Messages
 
 			return account;
 		}
+
+		private string RenderBodyTemplate(MessageContext ctx)
+		{
+			var key = BuildTemplateKey(ctx);
+			var source = ctx.MessageTemplate.Body;
+			var template = _templateManager.GetOrAdd(key, GetBodyTemplate);
+
+			var temp = _templateEngine.Render(source, ctx.Model, ctx.FormatProvider);
+
+			return template.Render(ctx.Model, ctx.FormatProvider);
+
+			string GetBodyTemplate()
+			{
+				return source;
+			}
+		}
+
+
+		private string BuildTemplateKey(MessageContext messageContext)
+		{
+			return "MessageTemplate/Body";
+		}
+
+		
 	}
 }
