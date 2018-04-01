@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using App.Core.Common;
-using App.Core.ComponentModel;
 using App.Core.Extensions;
 using App.Core.Templating;
 using DotLiquid;
@@ -17,10 +12,10 @@ namespace App.Framework.Templating.Liquid.Drops
 		private readonly Type _type;
 		private readonly string _modelPrefix;
 
-		public TestDrop(BaseEntity entity, string modelPrefix)
+		public TestDrop(BaseEntity entity, string modelPrefix, Type type)
 		{
 			_entity = entity;
-			//_type = entity.GetUnproxiedType();
+			_type = type;
 
 			if (modelPrefix.HasValue())
 			{
@@ -30,10 +25,7 @@ namespace App.Framework.Templating.Liquid.Drops
 			_modelPrefix = _modelPrefix ?? string.Empty;
 		}
 
-		public string ModelName
-		{
-			get => _type.Name;
-		}
+		public string ModelName => _type.Name;
 
 		public object GetWrappedObject()
 		{

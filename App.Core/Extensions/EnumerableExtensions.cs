@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 
 namespace App.Core.Extensions
 {
@@ -198,83 +199,23 @@ namespace App.Core.Extensions
 
         #endregion
 
-        //#region Multimap
+        public static IEnumerable<FieldInfo> GetConstants(this Type type)
+        {
+            var fields =
+                from fi in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy)
+                where fi.IsLiteral && !fi.IsInitOnly
+                select fi;
 
-        //public static Multimap<TKey, TValue> ToMultimap<TSource, TKey, TValue>(
-        //                                        this IEnumerable<TSource> source,
-        //                                        Func<TSource, TKey> keySelector,
-        //                                        Func<TSource, TValue> valueSelector)
-        //{
-        //    Guard.NotNull(source, nameof(source));
-        //    Guard.NotNull(keySelector, nameof(keySelector));
-        //    Guard.NotNull(valueSelector, nameof(valueSelector));
+            return fields;
+        }
 
-        //    var map = new Multimap<TKey, TValue>();
-
-        //    foreach (var item in source)
-        //    {
-        //        map.Add(keySelector(item), valueSelector(item));
-        //    }
-
-        //    return map;
-        //}
-
-        //#endregion
-
-        //#region NameValueCollection
-
-        //public static void AddRange(this NameValueCollection initial, NameValueCollection other)
-        //{
-        //    Guard.NotNull(initial, "initial");
-
-        //    if (other == null)
-        //        return;
-
-        //    foreach (var item in other.AllKeys)
-        //    {
-        //        initial.Add(item, other[item]);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Builds an URL query string
-        ///// </summary>
-        ///// <param name="nvc">Name value collection</param>
-        ///// <param name="encoding">Encoding type. Can be null.</param>
-        ///// <param name="encode">Whether to encode keys and values</param>
-        ///// <returns>The query string without leading a question mark</returns>
-        //public static string BuildQueryString(this NameValueCollection nvc, Encoding encoding, bool encode = true)
-        //{
-        //    var sb = new StringBuilder();
-
-        //    if (nvc != null)
-        //    {
-        //        foreach (string str in nvc)
-        //        {
-        //            if (sb.Length > 0)
-        //                sb.Append('&');
-
-        //            if (!encode)
-        //                sb.Append(str);
-        //            else if (encoding == null)
-        //                sb.Append(HttpUtility.UrlEncode(str));
-        //            else
-        //                sb.Append(HttpUtility.UrlEncode(str, encoding));
-
-        //            sb.Append('=');
-
-        //            if (!encode)
-        //                sb.Append(nvc[str]);
-        //            else if (encoding == null)
-        //                sb.Append(HttpUtility.UrlEncode(nvc[str]));
-        //            else
-        //                sb.Append(HttpUtility.UrlEncode(nvc[str], encoding));
-        //        }
-        //    }
-
-        //    return sb.ToString();
-        //}
-
-        //#endregion
+        public static IEnumerable<T> GetConstantsValues<T>(this Type type)
+            where T : class
+        {
+            IEnumerable<T> constants =
+                from fi in type.GetConstants()
+                select fi.GetRawConstantValue() as T;
+            return constants;
+        }
     }
 }

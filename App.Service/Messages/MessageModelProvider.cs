@@ -6,22 +6,24 @@ using App.Core.ComponentModel;
 using App.Core.Extensions;
 using App.Core.IO.VirtualPath;
 using App.Core.Templating;
+using App.Domain.Common;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Orders;
+using App.Service.Addresses;
 using App.Service.Common;
-using App.Service.SystemApp;
+using App.Service.Language;
 
 namespace App.Service.Messages
 {
     public partial class MessageModelProvider : IMessageModelProvider
     {
-        private readonly ICommonServices _services;
         private readonly IVirtualPathProvider _vpp;
+        private readonly ICommonServices _services;
 
-        public MessageModelProvider(ICommonServices services, IVirtualPathProvider vpp)
+        public MessageModelProvider(IVirtualPathProvider vpp, ICommonServices services)
         {
-            _services = services;
             _vpp = vpp;
+            _services = services;
         }
 
         public virtual void AddGlobalModelParts(MessageContext messageContext)
@@ -81,13 +83,13 @@ namespace App.Service.Messages
                     if (existing is IDictionary<string, object> x)
                     {
                         // but it's a dictionary which we can easily merge with
-                        x.Merge(FastProperty.ObjectToDictionary(modelPart), true);
+                        x.Merge(FastProperty.ObjectToDictionary(modelPart));
                     }
                     else
                     {
                         // Wrap in HybridExpando and merge
                         var he = new HybridExpando(existing, true);
-                        he.Merge(FastProperty.ObjectToDictionary(modelPart), true);
+                        he.Merge(FastProperty.ObjectToDictionary(modelPart));
                         model[name] = he;
                     }
                 }
@@ -186,6 +188,38 @@ namespace App.Service.Messages
             return m;
         }
 
+        protected virtual object CreateModelPart(Address part, MessageContext messageContext)
+        {
+            var salutation = part.Salutation.NullEmpty();
+            var title = part.Title.NullEmpty();
+            var company = part.Company;
+            var firstName = part.FirstName.NullEmpty();
+            var lastName = part.LastName.NullEmpty();
+            var street1 = part.Address1;
+            var street2 = part.Address2;
+            var zip = part.ZipPostalCode;
+            var city = part.City;
+           
+            var m = new Dictionary<string, object>
+            {
+                { "Title", title },
+                { "Salutation", salutation },
+                { "FullName", part.GetFullName().NullEmpty() },
+                { "Company", company },
+                { "FirstName", firstName },
+                { "LastName", lastName },
+                { "Street1", street1 },
+                { "Street2", street2 },
+                { "City", city },
+                { "ZipCode", zip },
+                { "Email", part.Email.NullEmpty() },
+                { "Phone", part.PhoneNumber },
+                { "Fax", part.FaxNumber }
+            };
+            
+            return m;
+        }
+
         protected virtual object CreateModelPart(SystemSetting part, MessageContext messageContext)
         {
             var host = messageContext.BaseUri.ToString();
@@ -196,11 +230,22 @@ namespace App.Service.Messages
                 { "LogoSrc",_vpp.Combine(host, part.LogoImage) },
             };
 
-            //m["NameLine"] = Concat(salutation, title, firstName, lastName);
-            //m["StreetLine"] = Concat(street1, street2);
-            //m["CityLine"] = Concat(zip, city);
-            //m["CountryLine"] = Concat(country, state);
+            return m;
+        }
 
+        protected virtual object CreateModelPart(Domain.Entities.Data.Post part, MessageContext messageContext, string attributesXml = null)
+        {
+            var name = part.Title;
+
+            var m = new Dictionary<string, object>
+            {
+                { "Id", part.Id },
+                { "Name", name },
+                { "Description", part.ShortDesc.NullEmpty() },
+                { "DeliveryTime", null },
+                { "QtyUnit", null }
+            };
+            
             return m;
         }
     }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using App.Core.ComponentModel;
 using App.Core.Extensions;
 using App.Domain.Orders;
+using App.Service.Addresses;
+using App.Service.Common;
 
 namespace App.Service.Messages
 {
@@ -40,17 +39,17 @@ namespace App.Service.Messages
 			};
 
             var m = new HybridExpando(part, allow, MemberOptMethod.Allow);
-            var d = m as dynamic;
+            var d = (dynamic) m;
 
             d.ID = part.Id;
-            //d.Billing = CreateModelPart(part.BillingAddress, messageContext);
-            //if (part.ShippingAddress != null)
-            //{
-            //   // d.Shipping = part.ShippingAddress.IsPostalDataEqual(part.BillingAddress) == true ? null : CreateModelPart(part.ShippingAddress, messageContext);
-            //}
+            d.Billing = CreateModelPart(part.BillingAddress, messageContext);
+            if (part.ShippingAddress != null)
+            {
+                d.Shipping = part.ShippingAddress.IsPostalDataEqual(part.BillingAddress) ? null : CreateModelPart(part.ShippingAddress, messageContext);
+            }
             d.CustomerEmail = part.BillingAddress.Email.NullEmpty();
             d.CustomerComment = part.CustomerOrderComment.NullEmpty();
-            d.Status = 1;
+            d.Status =part.OrderStatus.ToString();
             //d.Disclaimer = GetTopic("Disclaimer", messageContext);
             //d.ConditionsOfUse = GetTopic("ConditionsOfUse", messageContext);
             //d.Status = part.OrderStatus.GetLocalizedEnum(_services.Localization, messageContext.Language.Id);
@@ -71,22 +70,39 @@ namespace App.Service.Messages
             //    : null;
 
             //// Overrides
-            m.Properties["OrderNumber"] = "123";
+            m.Properties["OrderNumber"] = part.Id;
             //m.Properties["AcceptThirdPartyEmailHandOver"] = GetBoolResource(part.AcceptThirdPartyEmailHandOver, messageContext);
 
             //// Items, Totals & Co.
-            //d.Items = part.OrderItems.Where(x => x.Product != null).Select(x => CreateModelPart(x, messageContext)).ToList();
-            //d.Totals = CreateOrderTotalsPart(part, messageContext);
+            d.Items = part.OrderItems.Select(x => CreateModelPart(x, messageContext)).ToList();
+            d.Totals = part.OrderTotal;
 
-            //// Checkout Attributes
-            //if (part.CheckoutAttributeDescription.HasValue())
-            //{
-            //    d.CheckoutAttributes = HtmlUtils.ConvertPlainTextToTable(HtmlUtils.ConvertHtmlToPlainText(part.CheckoutAttributeDescription)).NullEmpty();
-            //}
+			//// Checkout Attributes
+			//if (part.CheckoutAttributeDescription.HasValue())
+			//{
+			//    d.CheckoutAttributes = HtmlUtils.ConvertPlainTextToTable(HtmlUtils.ConvertHtmlToPlainText(part.CheckoutAttributeDescription)).NullEmpty();
+			//}
 
-            //PublishModelPartCreatedEvent<Order>(part, m);
+			//PublishModelPartCreatedEvent<Order>(part, m);
+
+			return m;
+        }
+
+        protected virtual object CreateModelPart(OrderItem part, MessageContext messageContext)
+        {
+            var product = part.Post;
+
+            var m = new Dictionary<string, object>
+            {
+                { "Qty", part.Quantity },
+                { "UnitPrice", part.UnitPriceInclTax },
+                { "LineTotal", part.PriceInclTax},
+                { "Product", CreateModelPart(product, messageContext, part.AttributesXml) }
+            };
+            
 
             return m;
         }
+
     }
 }

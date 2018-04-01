@@ -53,10 +53,7 @@ namespace App.Service.Messages
 			// Add specific template models for passed parts
 			foreach (var part in modelParts)
 			{
-				if (model != null)
-				{
-					_modelProvider.AddModelPart(part, messageContext);
-				}
+				_modelProvider.AddModelPart(part, messageContext);
 			}
 
 			var messageTemplate = messageContext.MessageTemplate;
@@ -72,7 +69,7 @@ namespace App.Service.Messages
 			var body = RenderBodyTemplate(messageContext);
 
 			// CSS inliner
-			body = InlineCss(body, model);
+			body = InlineCss(body);
 
 			var mail = new SendMail
 			{
@@ -132,7 +129,7 @@ namespace App.Service.Messages
 
 			if (ctx.BaseUri == null)
 			{
-				ctx.BaseUri = new Uri(Utils.GetBaseUrl);
+				ctx.BaseUri = new Uri(Aplication.Utils.GetBaseUrl);
 			}
 
 			if (ctx.LanguageId.GetValueOrDefault() == 0)
@@ -192,8 +189,6 @@ namespace App.Service.Messages
 			var source = ctx.MessageTemplate.Body;
 			var template = _templateManager.GetOrAdd(key, GetBodyTemplate);
 
-			var temp = _templateEngine.Render(source, ctx.Model, ctx.FormatProvider);
-
 			return template.Render(ctx.Model, ctx.FormatProvider);
 
 			string GetBodyTemplate()
@@ -207,14 +202,14 @@ namespace App.Service.Messages
 			return "MessageTemplate/Body";
 		}
 
-		private string InlineCss(string html, dynamic model)
+		private string InlineCss(string html)
 		{
 			Uri baseUri = null;
 
 			try
 			{
 				// 'Store' is a global model part, so we pretty can be sure it exists
-				baseUri = new Uri((string)model.Store.Url);
+				baseUri = new Uri(Aplication.Utils.GetBaseUrl);
 			}
 			catch { }
 

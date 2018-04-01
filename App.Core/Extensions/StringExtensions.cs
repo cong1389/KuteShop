@@ -71,7 +71,7 @@ namespace App.Core.Extensions
         [DebuggerStepThrough]
         public static string NullEmpty(this string value)
         {
-            return (string.IsNullOrEmpty(value)) ? null : value;
+            return string.IsNullOrEmpty(value) ? null : value;
         }
 
         [DebuggerStepThrough]

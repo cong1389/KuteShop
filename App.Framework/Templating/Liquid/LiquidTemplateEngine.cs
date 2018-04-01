@@ -70,10 +70,10 @@ namespace App.Framework.Templating.Liquid
             return ReadTemplateFileInternal(virtualPath);
         }
 
-	    public ITestModel CreateTestModelFor(BaseEntity entity, string modelPrefix)
-	    {
-	        return new TestDrop(entity, modelPrefix);
-        }
+	    //public ITestModel CreateTestModelFor(BaseEntity entity, string modelPrefix)
+	    //{
+	    //    return new TestDrop(entity, modelPrefix);
+     //   }
 
 		private string ReadTemplateFileInternal(string virtualPath)
         {
@@ -118,11 +118,16 @@ namespace App.Framework.Templating.Liquid
             return virtualPath;
         }
 
-        #region Services
+		public ITestModel CreateTestModelFor(BaseEntity entity, string modelPrefix)
+		{
+			throw new NotImplementedException();
+		}
 
-        //public ICommonServices Services => _services.Value;
-        
+		#region Services
 
-        #endregion
-    }
+		//public ICommonServices Services => _services.Value;
+
+
+		#endregion
+	}
 }

@@ -22,7 +22,7 @@
                 <div class="col-md-6">
 
                     @Html.DropDownList("drpLanguage", new SelectList(ViewBag.AllLanguage, "Id", "LanguageName", @ViewBag.LanguageSelected != null ? @ViewBag.LanguageSelected : 1)
-                   , new { @class = "form-control", @onChange = "drpLanguage_change();" })
+                        , new { @class = "form-control", @onChange = "drpLanguage_change();" })
 
                     <script>
                         function drpLanguage_change() {
@@ -57,34 +57,32 @@
 @using (Html.BeginForm("Edit", "LocaleResource", FormMethod.Post, new { data_container = @ViewContext.RouteData.Values["controller"], @enctype = "multipart/form-data" }))
 {
     @MvcHtmlString.Create(
-                        grid.GetHtml(
-                            htmlAttributes: new
-                            {
-                                id = "grid",
-                                @class = "table table-bordered table-striped table-condensed"
-                            },
-                            emptyRowCellValue: "No Records Found",
-                            headerStyle: "grid-header",
-                            footerStyle: "table-pager",
-                            columns: grid.Columns(
+            grid.GetHtml(
+                htmlAttributes: new
+                {
+                    id = "grid",
+                    @class = "table table-bordered table-striped table-condensed"
+                },
+                emptyRowCellValue: "No Records Found",
+                headerStyle: "grid-header",
+                footerStyle: "table-pager",
+                columns: grid.Columns(
 
-                                grid.Column(null, null,
-                                    format: @<text><input id="hddId" name="hddId" type="hidden" value="@item.Value.Id" />
-                                    <input id="hddLanguageId" name="hddLanguageId" type="hidden" value="@item.Value.LanguageId" />
-                                    <input id="hddIsFromPlugin" name="hddIsFromPlugin" type="hidden" value="@item.Value.IsFromPlugin" /></text>
+                    grid.Column(null, null,
+                        format: @<text><input id="hddId" name="hddId" type="hidden" value="@item.Value.Id" />
+                            <input id="hddLanguageId" name="hddLanguageId" type="hidden" value="@item.Value.LanguageId" />
+                            <input id="hddIsFromPlugin" name="hddIsFromPlugin" type="hidden" value="@item.Value.IsFromPlugin" /></text>
                                     ),
 
                                 grid.Column("ResourceName",
                                     format: item
-                                    => Html.EditableTextBox((item.Value as LocaleStringResource).ResourceName
-                                    , (item.Value as LocaleStringResource)
-                                    , "ResourceName", (item.Value as LocaleStringResource).Id.ToString()))
+                                        => Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceName
+                                            , "ResourceName", ((LocaleStringResource)item.Value).Id.ToString()))
 
                                 , grid.Column("ResourceValue",
                                     format: item
-                                    => Html.EditableTextBox((item.Value as LocaleStringResource).ResourceValue
-                                    , (item.Value as LocaleStringResource)
-                                    , "ResourceValue", (item.Value as LocaleStringResource).Id.ToString()))
+                                        => Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceValue
+                                            , "ResourceValue", ((LocaleStringResource)item.Value).Id.ToString()))
 
                                 , grid.Column("Options",
                                     format: item => Html.DisplayRecordOptions(), canSort: false, style: "colOption")
@@ -93,7 +91,7 @@
                             )
                             .ToString()
                             .Replace("{CheckBoxHeading}", "<div class='text-center'><input type='checkbox' id='allBox'/></div>")
-                        )    
+                        )
 }
 
 @Html.Hidden("dir", grid.SortDirection)

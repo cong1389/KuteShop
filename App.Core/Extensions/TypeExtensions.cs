@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace App.Core.Extensions
 {
-	public static class TypeExtensions
+    public static class TypeExtensions
 	{
-		private static readonly Type[] s_predefinedTypes = new Type[] { typeof(string), typeof(decimal), typeof(DateTime), typeof(TimeSpan), typeof(Guid) };
-		private static readonly Type[] s_predefinedGenericTypes = new Type[] { typeof(Nullable<>) };
+		private static readonly Type[] SPredefinedTypes = { typeof(string), typeof(decimal), typeof(DateTime), typeof(TimeSpan), typeof(Guid) };
+		private static readonly Type[] SPredefinedGenericTypes = { typeof(Nullable<>) };
 
 		public static string AssemblyQualifiedNameWithoutVersion(this Type type)
 		{
 			if (type.AssemblyQualifiedName != null)
 			{
-				var strArray = type.AssemblyQualifiedName.Split(new char[] { ',' });
-				return string.Format("{0}, {1}", strArray[0].Trim(), strArray[1].Trim());
+				var strArray = type.AssemblyQualifiedName.Split(',');
+				return $"{strArray[0].Trim()}, {strArray[1].Trim()}";
 			}
 
 			return null;
@@ -34,7 +34,7 @@ namespace App.Core.Extensions
 
 		public static bool IsPredefinedSimpleType(this Type type)
 		{
-			if ((type.IsPrimitive && (type != typeof(IntPtr))) && (type != typeof(UIntPtr)))
+			if (type.IsPrimitive && type != typeof(IntPtr) && type != typeof(UIntPtr))
 			{
 				return true;
 			}
@@ -44,7 +44,7 @@ namespace App.Core.Extensions
 				return true;
 			}
 
-			return s_predefinedTypes.Any(t => t == type);
+			return SPredefinedTypes.Any(t => t == type);
 		}
 
 		public static bool IsStruct(this Type type)
@@ -68,14 +68,14 @@ namespace App.Core.Extensions
 				return false;
 			}
 
-			return s_predefinedGenericTypes.Any(t => t == type);
+			return SPredefinedGenericTypes.Any(t => t == type);
 		}
 
 		public static bool IsPredefinedType(this Type type)
 		{
-			if ((!IsPredefinedSimpleType(type) && !IsPredefinedGenericType(type)) && ((type != typeof(byte[]))))
+			if (!IsPredefinedSimpleType(type) && !IsPredefinedGenericType(type) && type != typeof(byte[]))
 			{
-				return (string.Compare(type.FullName, "System.Xml.Linq.XElement", StringComparison.Ordinal) == 0);
+				return string.Compare(type.FullName, "System.Xml.Linq.XElement", StringComparison.Ordinal) == 0;
 			}
 
 			return true;
@@ -135,7 +135,7 @@ namespace App.Core.Extensions
 				var d = type.GetGenericTypeDefinition();
 				if (d.IsClass && d.IsSealed && d.Attributes.HasFlag(TypeAttributes.NotPublic))
 				{
-					var attributes = d.GetCustomAttributes(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute), false);
+					var attributes = d.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false);
 					if (attributes != null && attributes.Length > 0)
 					{
 						//WOW! We have an anonymous type!!!

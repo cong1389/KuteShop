@@ -29,7 +29,7 @@
     	<td class="text-sm">{{ Order.CreatedOn | Date:'d' }}</td>
       <td class="text-sm">{{ Order.OrderNumber }}</td>
       <td class="text-sm">{{ Order.Status }}</td>
-      <td class="text-sm text-success">{{ Order.Totals.Total }}</td>
+      <td class="text-sm text-success">{{ Order.Totals }}</td>
     </tr>
   </tbody>
 </table>

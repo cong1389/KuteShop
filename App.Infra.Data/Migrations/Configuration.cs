@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using App.Core.Extensions;
 using App.Domain.Common;
 using App.Domain.Entities.Account;
 using App.Infra.Data.Context;
@@ -24,7 +24,7 @@ namespace App.Infra.Data.Migrations
                 {
                     if (context.Roles.FirstOrDefault(x => x.Name == constantsValue) == null)
                     {
-                        context.Roles.AddOrUpdate(new Role()
+                        context.Roles.AddOrUpdate(new Role
                         {
                             Id = Guid.NewGuid(),
                             Name = constantsValue
