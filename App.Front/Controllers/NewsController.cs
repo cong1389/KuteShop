@@ -82,35 +82,10 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public ActionResult GetHomeNews()
         {
-            ////Get danh sách menu có DisplayOnHomePage ==true
-            //var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 1 });
-
-            //if (!menuLinks.IsAny())
-            //{
-            //    return HttpNotFound();
-            //}
-
-            ////Convert to localized
-            //menuLinks = menuLinks.Select(x => x.ToModel());
-
             var iePost = _newsService.GetByOption(isDisplayHomePage:true);
             var lstPost = iePost.ToList();
 
-            //foreach (var item in menuLinks)
-            //{
-            //    iePost = _newsService.GetByOption(item.CurrentVirtualId, true);
-
-            //    if (iePost.IsAny())
-            //    {
-            //        iePost = iePost.Select(x => x.ToModel());
-
-            //        lstPost.AddRange(iePost);
-            //    }
-            //}
-
             iePost = from x in lstPost orderby x.OrderDisplay descending select x;
-
-            //ViewBag.MenuLinkHome = menuLinks;
 
             return PartialView(iePost);
         }

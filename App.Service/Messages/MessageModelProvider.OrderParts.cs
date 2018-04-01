@@ -43,11 +43,11 @@ namespace App.Service.Messages
             var d = m as dynamic;
 
             d.ID = part.Id;
-            d.Billing = CreateModelPart(part.BillingAddress, messageContext);
-            if (part.ShippingAddress != null)
-            {
-               // d.Shipping = part.ShippingAddress.IsPostalDataEqual(part.BillingAddress) == true ? null : CreateModelPart(part.ShippingAddress, messageContext);
-            }
+            //d.Billing = CreateModelPart(part.BillingAddress, messageContext);
+            //if (part.ShippingAddress != null)
+            //{
+            //   // d.Shipping = part.ShippingAddress.IsPostalDataEqual(part.BillingAddress) == true ? null : CreateModelPart(part.ShippingAddress, messageContext);
+            //}
             d.CustomerEmail = part.BillingAddress.Email.NullEmpty();
             d.CustomerComment = part.CustomerOrderComment.NullEmpty();
             d.Status = 1;

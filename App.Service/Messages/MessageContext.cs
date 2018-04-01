@@ -39,6 +39,8 @@ namespace App.Service.Messages
         //internal Store Store { get; set; }
         public ServerMailSetting EmailAccount { get; internal set; }
 
+        public SystemSetting SystemSettings { get; internal set; }
+
         public bool TestMode { get; set; }
 		
 		public Uri BaseUri { get; set; }

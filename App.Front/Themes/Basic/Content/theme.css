@@ -1242,6 +1242,9 @@ div.jGrowl div.jGrowl-closer:hover {
 .fancybox-skin__content {
   padding: 10px; }
 
+.-premailer-pmail {
+  background-color: red; }
+
 .btn {
   cursor: pointer;
   display: inline-block;

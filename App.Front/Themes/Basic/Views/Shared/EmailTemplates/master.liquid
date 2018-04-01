@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- https://github.com/wildbit/postmark-templates -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{{ Email.Subject }}</title>
+    <style type="text/css" rel="stylesheet" media="all">
+        .testDesc {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <style type="text/css" id="ignore">
+    </style>
+
+    <table class="wrapper">
+        <tr>
+            <td align="center">
+                <table class="content">
+                    <tr>
+                        <td class="masthead">
+                            {% block 'header_before' %}{% endblock %}
+                          
+                            {% block 'header' %}
+                            {% include 'header' %}
+                            {% endblock %}
+                            {% block 'header_after' %}{% endblock %}
+                          
+                        </td>
+                    </tr>
+                    <!-- Email Body -->
+                    <tr>
+                        <td class="body">
+                            <table class="body-inner">
+                                <!-- Body content -->
+                                <tr>
+                                    <td class="content-cell">
+                                        {% block 'body_before' %}{% endblock %}
+                                      
+                                        {% block 'body' %}{% endblock %}
+                                        {% block 'body_after' %}{% endblock %}
+                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="footer">
+                                <tr>
+                                    <td class="content-cell" align="center">
+                                        {% block 'footer_before' %}{% endblock %}
+                                       
+                                        {% block 'footer' %}
+                                        {% include 'footer' %}
+                                        {% endblock %}
+                                        {% block 'footer_after' %}{% endblock %}
+                                      
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

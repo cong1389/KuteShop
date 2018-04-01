@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using App.Core.Common;
 using App.Core.ComponentModel;
 using App.Core.Extensions;
+using App.Core.IO.VirtualPath;
 using App.Core.Templating;
-using App.Domain.Common;
+using App.Domain.Entities.GlobalSetting;
 using App.Domain.Orders;
-using App.Service.Orders;
-using Domain.Entities.Customers;
+using App.Service.Common;
+using App.Service.SystemApp;
 
 namespace App.Service.Messages
 {
     public partial class MessageModelProvider : IMessageModelProvider
     {
+        private readonly ICommonServices _services;
+        private readonly IVirtualPathProvider _vpp;
+
+        public MessageModelProvider(ICommonServices services, IVirtualPathProvider vpp)
+        {
+            _services = services;
+            _vpp = vpp;
+        }
+
         public virtual void AddGlobalModelParts(MessageContext messageContext)
         {
             var model = messageContext.Model;
@@ -25,7 +32,8 @@ namespace App.Service.Messages
             {
                 { "TemplateName", messageContext.MessageTemplate.Name },
                 { "LanguageId", messageContext.Language.Id },
-                { "LanguageCulture", messageContext.Language.LanguageCode }
+                { "LanguageCulture", messageContext.Language.LanguageCode },
+                { "BaseUrl", messageContext.BaseUri }
             };
 
             dynamic email = new ExpandoObject();
@@ -33,10 +41,9 @@ namespace App.Service.Messages
             email.SenderName = messageContext.EmailAccount.UserID;
             email.DisplayName = messageContext.EmailAccount.UserID; // Alias
             model["Email"] = email;
-
-            //model["Theme"] = CreateThemeModelPart(messageContext);
+            model["Theme"] = CreateThemeModelPart(messageContext);
             //model["Customer"] = CreateModelPart(messageContext.Customer, messageContext);
-            //model["Store"] = CreateModelPart(messageContext.Store, messageContext);
+            model["Store"] = CreateModelPart(messageContext.SystemSettings, messageContext);
         }
 
         public virtual void AddModelPart(object part, MessageContext messageContext, string name = null)
@@ -132,6 +139,27 @@ namespace App.Service.Messages
             bag.Merge(source);
         }
 
+        protected virtual object CreateThemeModelPart(MessageContext messageContext)
+        {
+            var m = new Dictionary<string, object>
+            {
+                { "FontFamily", "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" },
+                { "BodyBg", "#f2f4f6" },
+                { "BodyColor", "#555" },
+                { "TitleColor", "#2f3133" },
+                { "ContentBg", "#fff" },
+                { "ShadeColor", "#e2e2e2" },
+                { "LinkColor", "#0066c0" },
+                { "BrandPrimary", "#3f51b5" },
+                { "BrandSuccess", "#4caf50" },
+                { "BrandWarning", "#ff9800" },
+                { "BrandDanger", "#f44336" },
+                { "MutedColor", "#a5a5a5" },
+            };
+
+            return m;
+        }
+
         protected virtual object CreateModelPart(MessageContext messageContext)
         {
             var host = messageContext.BaseUri.ToString();
@@ -158,45 +186,14 @@ namespace App.Service.Messages
             return m;
         }
 
-        protected virtual object CreateModelPart(Address part, MessageContext messageContext)
+        protected virtual object CreateModelPart(SystemSetting part, MessageContext messageContext)
         {
-            //var settings = _services.Resolve<AddressSettings>();
-            //var languageId = messageContext.Language?.Id ?? messageContext.LanguageId;
-
-            var salutation = part.Salutation.NullEmpty();
-            var title = part.Title.NullEmpty();
-            //var company = settings.CompanyEnabled ? part.Company : null;
-            //var firstName = part.FirstName.NullEmpty();
-            //var lastName = part.LastName.NullEmpty();
-            //var street1 = settings.StreetAddressEnabled ? part.Address1 : null;
-            //var street2 = settings.StreetAddress2Enabled ? part.Address2 : null;
-            //var zip = settings.ZipPostalCodeEnabled ? part.ZipPostalCode : null;
-            //var city = settings.CityEnabled ? part.City : null;
-            //var country = settings.CountryEnabled ? part.Country?.GetLocalized(x => x.Name, languageId ?? 0).NullEmpty() : null;
-            //var state = settings.StateProvinceEnabled ? part.StateProvince?.GetLocalized(x => x.Name, languageId ?? 0).NullEmpty() : null;
+            var host = messageContext.BaseUri.ToString();
 
             var m = new Dictionary<string, object>
             {
-                { "Title", title },
-                //{ "Salutation", salutation },
-                //{ "FullSalutation", part.GetFullSalutaion().NullEmpty() },
-                //{ "FullName", part.GetFullName(false).NullEmpty() },
-                //{ "Company", company },
-                //{ "FirstName", firstName },
-                //{ "LastName", lastName },
-                //{ "Street1", street1 },
-                //{ "Street2", street2 },
-                //{ "Country", country },
-                //{ "CountryId", part.Country?.Id },
-                //{ "CountryAbbrev2", settings.CountryEnabled ? part.Country?.TwoLetterIsoCode.NullEmpty() : null },
-                //{ "CountryAbbrev3", settings.CountryEnabled ? part.Country?.ThreeLetterIsoCode.NullEmpty() : null },
-                //{ "State", state },
-                //{ "StateAbbrev", settings.StateProvinceEnabled ? part.StateProvince?.Abbreviation.NullEmpty() : null },
-                //{ "City", city },
-                //{ "ZipCode", zip },
-                //{ "Email", part.Email.NullEmpty() },
-                //{ "Phone", settings.PhoneEnabled ? part.PhoneNumber : null },
-                //{ "Fax", settings.FaxEnabled ? part.FaxNumber : null }
+                { "Title", part.Title},
+                { "LogoSrc",_vpp.Combine(host, part.LogoImage) },
             };
 
             //m["NameLine"] = Concat(salutation, title, firstName, lastName);

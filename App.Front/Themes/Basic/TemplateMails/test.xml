@@ -5,13 +5,13 @@
 	<Subject>New order has been placed by '{{ Customer.FullName }}'</Subject>
 	<ModelTypes>Order, Order.Customer</ModelTypes>
 	<Body>
-		<![CDATA[
+		<![CDATA[{% extends '~/Themes/Basic/Views/Shared/EmailTemplates/master.liquid' %}
 
 {% block 'body' %}
 <h1>
   Hello {{ Customer.FullName }},
 </h1>
-<p>
+<p class='testDesc'>
   thanks for your order at <a href="{{ Store.URL }}">{{ Store.Name }}</a> which we hereby confirm. A summary for this order can be found below.
 </p>
 
@@ -74,25 +74,6 @@
 
 {% include 'order' %}
 
-<table id="conditions-of-use">
-  <tr>
-  	<td class="text-sm text-muted-all pt-5 pb-4">
-      <h2 class="mb-3">{{ Order.ConditionsOfUse.Title }} </h2>
-    	{{ Order.ConditionsOfUse.Body }}
-    </td>
-  </tr>
-</table>
-
-<hr />
-
-<table id="disclaimer">
-  <tr>
-  	<td class="text-sm text-muted-all pt-4">
-      <h2 class="mb-3">{{ Order.Disclaimer.Title }} </h2>
-    	{{ Order.Disclaimer.Body }}
-    </td>
-  </tr>
-</table>
 {% endblock %}]]>
 	</Body>
 </MessageTemplate>

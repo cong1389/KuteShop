@@ -98,17 +98,19 @@ namespace App.Framework.Templating.Liquid
             var path = ((string)context[templateName]).NullEmpty() ?? templateName;
 
             if (path.IsEmpty())
-                return string.Empty;
+			{
+				return string.Empty;
+			}
 
-            path = path.EnsureEndsWith(".liquid");
+			path = path.EnsureEndsWith(".liquid");
 
-            string virtualPath = null;
+            string virtualPath;
 
             if (!path.StartsWith("~/"))
             {
-                //var currentTheme = _themeContext.Value.CurrentTheme;
-                //virtualPath = _vpp.Combine(currentTheme.Location, currentTheme.ThemeName, "Views/Shared/EmailTemplates", path);
-            }
+				//var currentTheme = _themeContext.Value.CurrentTheme;
+				virtualPath = _vpp.Combine("~/Themes/Basic/Views/Shared/EmailTemplates", path);
+			}
             else
             {
                 virtualPath = VirtualPathUtility.ToAppRelative(path);

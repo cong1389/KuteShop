@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using App.Aplication;
 using App.Core.Extensions;
 using App.Core.Templating;
 using App.Core.Utils;
@@ -11,6 +12,7 @@ using App.Domain.Messages;
 using App.Service.Common;
 using App.Service.Language;
 using App.Service.MailSetting;
+using App.Service.SystemApp;
 
 namespace App.Service.Messages
 {
@@ -22,9 +24,7 @@ namespace App.Service.Messages
 		private readonly IMailSettingService _mailSettingService;
 		private readonly IMessageModelProvider _modelProvider;
 		private readonly ITemplateManager _templateManager;
-	    private readonly ISendMailService _sendMailService;
-
-        private readonly int languageId = 1;
+		private readonly ISendMailService _sendMailService;
 
 		public MessageService(ICommonServices services, ILanguageService languageService,
 			ITemplateEngine templateEngine, IMailSettingService mailSettingService, IMessageModelProvider modelProvider
@@ -36,7 +36,7 @@ namespace App.Service.Messages
 			_languageService = languageService;
 			_modelProvider = modelProvider;
 			_templateManager = templateManager;
-		    _sendMailService = sendMailService;
+			_sendMailService = sendMailService;
 		}
 
 		public virtual CreateMessageResult CreateMessage(MessageContext messageContext, bool queue,
@@ -70,19 +70,21 @@ namespace App.Service.Messages
 			((dynamic)model).Email.Subject = subject;
 
 			var body = RenderBodyTemplate(messageContext);
-            
-		    var mail = new SendMail
-		    {
-                Subject = subject,
-                Body = body,
-                MessageId = "mail",
-                ToEmail = messageContext.EmailAccount.FromAddress
-            };
 
-		    _sendMailService.SendMailSmtp(mail);
+			// CSS inliner
+			body = InlineCss(body, model);
 
+			var mail = new SendMail
+			{
+				Subject = subject,
+				Body = body,
+				MessageId = "mail",
+				ToEmail = messageContext.EmailAccount.FromAddress
+			};
 
-            return new CreateMessageResult { MessageContext = messageContext };
+			_sendMailService.SendMailSmtp(mail);
+
+			return new CreateMessageResult { MessageContext = messageContext };
 		}
 
 		private EmailAddress RenderEmailAddress(string email, MessageContext ctx, bool required = true)
@@ -128,6 +130,11 @@ namespace App.Service.Messages
 				}
 			}
 
+			if (ctx.BaseUri == null)
+			{
+				ctx.BaseUri = new Uri(Utils.GetBaseUrl);
+			}
+
 			if (ctx.LanguageId.GetValueOrDefault() == 0)
 			{
 				ctx.Language = _services.WorkContext.WorkingLanguage;
@@ -156,20 +163,18 @@ namespace App.Service.Messages
 
 			if (ctx.EmailAccount == null)
 			{
-				ctx.EmailAccount = GetEmailAccountOfMessageTemplate(ctx.MessageTemplate, ctx.Language.Id);
+				ctx.EmailAccount = GetEmailAccountOfMessageTemplate(ctx.MessageTemplate);
 			}
 
-			//// Sort parts: "IModelPart" instances must come first
-			//var bagParts = parts.OfType<IModelPart>();
-			//if (bagParts.Any())
-			//{
-			//	parts = bagParts.Concat(parts.Except(bagParts));
-			//}
+			if (ctx.SystemSettings == null)
+			{
+				ctx.SystemSettings = _services.Resolve<ISystemSettingService>().Get(x => x.Status == 1);
+			}
 
 			modelParts = parts.ToArray();
 		}
 
-		protected ServerMailSetting GetEmailAccountOfMessageTemplate(MessageTemplate messageTemplate, int languageId)
+		protected ServerMailSetting GetEmailAccountOfMessageTemplate(MessageTemplate messageTemplate)
 		{
 			var account = _mailSettingService.GetActive();
 
@@ -183,7 +188,7 @@ namespace App.Service.Messages
 
 		private string RenderBodyTemplate(MessageContext ctx)
 		{
-			var key = BuildTemplateKey(ctx);
+			var key = BuildTemplateKey();
 			var source = ctx.MessageTemplate.Body;
 			var template = _templateManager.GetOrAdd(key, GetBodyTemplate);
 
@@ -197,12 +202,26 @@ namespace App.Service.Messages
 			}
 		}
 
-
-		private string BuildTemplateKey(MessageContext messageContext)
+		private string BuildTemplateKey()
 		{
 			return "MessageTemplate/Body";
 		}
 
-		
+		private string InlineCss(string html, dynamic model)
+		{
+			Uri baseUri = null;
+
+			try
+			{
+				// 'Store' is a global model part, so we pretty can be sure it exists
+				baseUri = new Uri((string)model.Store.Url);
+			}
+			catch { }
+
+			var pm = new PreMailer.Net.PreMailer(html, baseUri);
+			var result = pm.MoveCssInline(false, "#ignore");
+			return result.Html;
+		}
+
 	}
 }

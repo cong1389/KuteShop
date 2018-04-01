@@ -821,7 +821,9 @@
     <Content Include="Themes\Basic\Scripts\goweb.common.js" />
     <Content Include="Themes\Basic\Scripts\goweb.plugins.min.js" />
     <Content Include="Themes\Basic\TemplateMails\Contact.xml" />
-    <Content Include="Themes\Basic\TemplateMails\test.xml" />
+    <Content Include="Themes\Basic\TemplateMails\test.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -867,6 +869,13 @@
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Themes\Basic\Content\_message.scss" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\master.liquid" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\address.liquid" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\footer.liquid" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\header.liquid" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\order.liquid" />
+    <Content Include="Themes\Basic\Views\Shared\EmailTemplates\shipment.liquid" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

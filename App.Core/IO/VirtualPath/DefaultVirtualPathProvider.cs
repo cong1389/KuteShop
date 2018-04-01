@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web.Caching;
 using System.Web.Hosting;
+using System.Web.Mvc;
 
 namespace App.Core.IO.VirtualPath
 {
-	public class DefaultVirtualPathProvider : IVirtualPathProvider
+    public class DefaultVirtualPathProvider : VirtualPathProviderViewEngine, IVirtualPathProvider
 	{
 	    public DefaultVirtualPathProvider()
 	    {
@@ -17,7 +18,12 @@ namespace App.Core.IO.VirtualPath
 			return HostingEnvironment.VirtualPathProvider.FileExists(virtualPath);
 		}
 
-	    public virtual string GetFileHash(string virtualPath, IEnumerable<string> dependencies)
+	    public virtual string Combine(params string[] paths)
+	    {
+	        return Path.Combine(paths).Replace(Path.DirectorySeparatorChar, '/');
+	    }
+
+        public virtual string GetFileHash(string virtualPath, IEnumerable<string> dependencies)
 	    {
 	        return HostingEnvironment.VirtualPathProvider.GetFileHash(virtualPath, dependencies);
 	    }
@@ -31,5 +37,15 @@ namespace App.Core.IO.VirtualPath
 		{
 			return HostingEnvironment.VirtualPathProvider.GetFile(virtualPath).Open();
 		}
-	}
+
+	    protected override IView CreatePartialView(ControllerContext controllerContext, string partialPath)
+	    {
+	        return new RazorView(controllerContext, partialPath, null, false, FileExtensions);
+	    }
+
+	    protected override IView CreateView(ControllerContext controllerContext, string viewPath, string masterPath)
+	    {
+	        return new RazorView(controllerContext, viewPath, masterPath, true, FileExtensions);
+	    }
+    }
 }

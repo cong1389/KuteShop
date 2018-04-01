@@ -130,11 +130,11 @@ namespace App.Front.Controllers
         public ActionResult GetStaticContent(int menuId, string virtualId, string title)
         {
             var breadCrumbs = new List<BreadCrumb>();
-            var strArrays = virtualId.Split('/');
+            var virtualIds = virtualId.Split('/');
 
-            for (var i = 0; i < strArrays.Length; i++)
+            for (var i = 0; i < virtualIds.Length; i++)
             {
-                var str = strArrays[i];
+                var str = virtualIds[i];
                 var menuLink = _menuLinkService.GetByParentId(menuId, str);
 
                 if (menuLink != null)
@@ -178,7 +178,7 @@ namespace App.Front.Controllers
         public ActionResult GetStaticContentParent(int menuId, string title, string virtualId)
         {
             var breadCrumbs = new List<BreadCrumb>();
-            var strArrays = virtualId.Split('/');
+            var virtualIds = virtualId.Split('/');
 
             var staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1);
 
@@ -197,11 +197,11 @@ namespace App.Front.Controllers
                 viewBag.ListItems = menuLinks;
             }
 
-            var strArrays1 = strArrays;
-            for (var i = 0; i < strArrays1.Length; i++)
+            //var strArrays1 = virtualIds;
+            for (var i = 0; i < virtualIds.Length; i++)
             {
-                var str = strArrays1[i];
-                var menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(str) && !x.MenuName.Equals(title));
+                var item = virtualIds[i];
+                var menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(item) && !x.MenuName.Equals(title));
                 if (menuLink != null)
                 {
                     breadCrumbs.Add(new BreadCrumb

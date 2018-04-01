@@ -456,3 +456,6 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Microsoft.AspNet.Iden
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\PreMailer.Net.dll
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\AngleSharp.dll
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\AngleSharp.xml
