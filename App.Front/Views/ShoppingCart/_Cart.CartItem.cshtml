@@ -12,8 +12,9 @@
         </td>
 
         <td class="cart-product-name">
-            <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
-                @product.Title
+            <a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
+                @Html.Raw(product.Title)
+               
             </a>
             <p>
                 <a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Id);">

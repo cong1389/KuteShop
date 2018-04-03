@@ -22,19 +22,16 @@ namespace App.Front.Controllers
 {
     public class ShoppingCartController : FrontBaseController
     {
-        public readonly IShoppingCartItemService ShoppingCartItemService;
-
+        private readonly IShoppingCartItemService _shoppingCartItemService;
         private readonly IPostService _postService;
-
         private readonly IWorkContext _workContext;
-
         private readonly IGenericAttributeService _genericAttributeService;
 
         public ShoppingCartController(IShoppingCartItemService shoppingCartItemService
             , IPostService postService, IWorkContext workContext, IGenericAttributeService genericAttributeService,
             IPaymentMethodService paymentMethodService)
         {
-            ShoppingCartItemService = shoppingCartItemService;
+            _shoppingCartItemService = shoppingCartItemService;
             _postService = postService;
             _workContext = workContext;
             _genericAttributeService = genericAttributeService;
@@ -53,7 +50,7 @@ namespace App.Front.Controllers
             };
 
             //Create cart
-            ShoppingCartItemService.AddToCart(ctx);
+            _shoppingCartItemService.AddToCart(ctx);
 
             var model = PrepareMiniShoppingCartModel();
 
@@ -85,7 +82,7 @@ namespace App.Front.Controllers
             {
                 Items = lstPost,
                 ShoppingCarts = cart,
-                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
+                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
             return model;
@@ -105,9 +102,9 @@ namespace App.Front.Controllers
 
         public JsonResult DeleteProduct(int id)
         {
-            var shppingCart = ShoppingCartItemService.GetById(id);
+            var shppingCart = _shoppingCartItemService.GetById(id);
 
-            ShoppingCartItemService.Delete(shppingCart);
+            _shoppingCartItemService.Delete(shppingCart);
 
             var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
@@ -181,7 +178,7 @@ namespace App.Front.Controllers
             {
                 Items = lstPost,
                 ShoppingCarts = cart,
-                SubTotal = ShoppingCartItemService.GetCurrentCartSubTotal(cart)
+                SubTotal = _shoppingCartItemService.GetCurrentCartSubTotal(cart)
             };
 
 
@@ -215,7 +212,7 @@ namespace App.Front.Controllers
             };
 
             //Update cart
-            ShoppingCartItemService.AddToCart(ctx);
+            _shoppingCartItemService.AddToCart(ctx);
 
             var model = PrepareMiniShoppingCartModel();
 
