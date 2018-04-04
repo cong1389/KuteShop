@@ -11,7 +11,7 @@ namespace App.Service.SystemApp
 {
     public class SystemSettingService : BaseService<SystemSetting>, ISystemSettingService
     {
-        private const string CacheSystemsettingKey = "db.SystemSetting.{0}";
+        private const string CacheKey = "db.SystemSetting.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly ISystemSettingRepository _systemSettingRepository;
@@ -25,29 +25,73 @@ namespace App.Service.SystemApp
 
         public SystemSetting GetById(int id, bool isCache = true)
         {
+            if (!isCache)
+            {
+                return _systemSettingRepository.GetById(id); 
+            }
+
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheSystemsettingKey, "GetById");
+            sbKey.AppendFormat(CacheKey, "GetById");
             sbKey.Append(id);
 
             var key = sbKey.ToString();
-            SystemSetting systemSetting ;
-            if (isCache)
-            {
-                systemSetting = _cacheManager.Get<SystemSetting>(key);
-                if (systemSetting == null)
-                {
-                    systemSetting = _systemSettingRepository.GetById(id);
-                    _cacheManager.Put(key, systemSetting);
-                }
-            }
-            else
+
+            var systemSetting = _cacheManager.Get<SystemSetting>(key);
+            if (systemSetting == null)
             {
                 systemSetting = _systemSettingRepository.GetById(id);
-            }           
+                _cacheManager.Put(key, systemSetting);
+            }
 
             return systemSetting; 
         }
 
+        public SystemSetting GetEnableOrDisable(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _systemSettingRepository.Get(x => x.Status == (enable ? 1 : 0));
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var systemSetting = _cacheManager.Get<SystemSetting>(key);
+            if (systemSetting == null)
+            {
+                systemSetting = _systemSettingRepository.Get(x => x.Status == (enable ? 1 : 0));
+                _cacheManager.Put(key, systemSetting);
+            }
+
+            return systemSetting;
+        }
+
+        public IEnumerable<SystemSetting> GetEnableOrDisables(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _systemSettingRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var systemSettings = _cacheManager.GetCollection<SystemSetting>(key);
+            if (systemSettings == null)
+            {
+                systemSettings = _systemSettingRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                _cacheManager.Put(key, systemSettings);
+            }
+
+            return systemSettings;
+        }
+        
         public IEnumerable<SystemSetting> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _systemSettingRepository.PagedSearchList(sortbuBuilder, page);

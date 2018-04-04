@@ -821,7 +821,7 @@
     <Content Include="Themes\Basic\Scripts\goweb.common.js" />
     <Content Include="Themes\Basic\Scripts\goweb.plugins.min.js" />
     <Content Include="Themes\Basic\TemplateMails\Contact.xml" />
-    <Content Include="Themes\Basic\TemplateMails\test.xml">
+    <Content Include="Themes\Basic\TemplateMails\OrderPlaced.CustomerNotification.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Home\About.cshtml" />
@@ -856,7 +856,7 @@
     <Content Include="Themes\Basic\Content\_modal.scss" />
     <Content Include="Views\MenuNav\GetTopHead.cshtml" />
     <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
-    <Content Include="Views\Post\_PostByCategory.Post.cshtml" />
+    <Content Include="Views\Post\_PostCategory.Post.cshtml" />
     <Content Include="Views\MenuNav\MenuHomeSlide.cshtml" />
     <Content Include="Views\PaymentMethod\_PaymentMethodFooter.cshtml" />
     <Content Include="Views\News\NewsTimeLine.cshtml" />

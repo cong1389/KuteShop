@@ -11,7 +11,7 @@ namespace App.Service.Addresses
 {
     public class AddressService : BaseService<Address>, IAddressService
     {
-        private const string CacheAddressKey = "db.Address.{0}";
+        private const string CacheKey = "db.Address.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IAddressRepository _addressRepository;
@@ -29,7 +29,7 @@ namespace App.Service.Addresses
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheAddressKey, "GetById");
+                sbKey.AppendFormat(CacheKey, "GetById");
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();

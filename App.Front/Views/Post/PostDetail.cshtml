@@ -53,8 +53,8 @@
                                         <div id="gallery" class="royalSlider rsDefault">
                                             @if (Model.GalleryImages.IsAny())
                                             {
-                                                var attrid = Model.AttributeValues.FirstOrDefault();
-                                                var gallery = Model.GalleryImages.Where(x => x.AttributeValueId == attrid.Id);
+                                                //var attrid = Model.AttributeValues.FirstOrDefault();
+                                                //var gallery = Model.GalleryImages.Where(x => x.AttributeValueId == attrid.Id);
                                                 foreach (var item in Model.GalleryImages)
                                                 {
                                                     <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
@@ -76,7 +76,7 @@
                                 <div class="pb-right-column col-xs-12 col-sm-6">
                                     <h1 class="product-name">@Model.Title</h1>
 
-                                    @RenderPrice(Model.GalleryImages)
+                                    @RenderPrice(Model)
 
                                     <div class="info-orther">
                                         <p class="sku">Mã sản phẩm:@Model.ProductCode</p>
@@ -187,9 +187,6 @@
                         <!-- ./tab product -->
                         <!-- box product -->
                         @Html.Action("PostRelative", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })
-
-
-                        <!-- ./box product -->
                     </div>
                     <!-- Product -->
                 </div>
@@ -200,54 +197,64 @@
     </div>
 }
 
-@helper RenderPrice(ICollection<GalleryImage> galleryImages)
+@helper RenderPrice(Post post)
     {
-        if (Model.GalleryImages.IsAny())
+        if (post.OutOfStock)
         {
-            var attrid = Model.AttributeValues.FirstOrDefault();
-            if (attrid != null)
-            {
-                var gallery = Model.GalleryImages.FirstOrDefault(x => x.AttributeValueId == attrid.Id);
-                double? price = null;
-                <div class="product-price-group">
-                    @if (gallery != null && gallery.Price != null)
-                    {
-                        if (Model.Price.HasValue && Model.Discount.HasValue)
-                        {
-                            price = gallery.Price - gallery.Price * Model.Discount / 100;
-                            <span class="price"> @string.Format("{0:##,### VND}", price)</span>
-                        }
-                        else if (Model.Price.HasValue && !Model.Discount.HasValue)
-                        {
-                            price = gallery.Price;
-                            <span class="price"> @string.Format("{0:##,### VND}", price)</span>
-                        }
-                    }
-                    else
-                    {
-                        <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
-                    }
-                    @Html.Hidden("hddPrice", price.ToString())
+            return;
+        }
 
-                    @if (Model.Price.HasValue && Model.Discount.HasValue)
-                    {
-                        <div style="" class="saleoff-price-item">
-                            <span class="price-label">Tiết kiệm:</span>
-                            <span id="product-discount" class="product-discount">@Model.Discount%</span>
-                            <span id="span-saving-price" class="discount"> @string.Format("{0:##,### VND}", gallery.Price * Model.Discount / 100)</span>
-                        </div>
-                        <div class="old-price-item">
-                            <span class="price-label">Giá thị trường:</span>
-                            <span id="span-list-price"> @string.Format("{0:##,### VND}", gallery.Price)</span>
-                        </div>
-                    }
-                </div>
-            }
-        }
-        else
+        var galleryImages = post.GalleryImages;
+        if (!galleryImages.IsAny())
         {
-            <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+            <div class="product-price-group">
+                <span class="price"> @string.Format("{0:##,### VND}", post.Price)</span>
+            </div>
+            @Html.Hidden("hddPrice", post.Price.ToString())
+            return;
         }
+
+        var attrid = post.AttributeValues.FirstOrDefault();
+        if (attrid != null)
+        {
+            var gallery = post.GalleryImages.FirstOrDefault(x =>
+             x.AttributeValueId == attrid.Id);
+            double? price = null;
+            <div class="product-price-group">
+                @if (gallery != null && gallery.Price != null)
+                {
+                    if (post.Price.HasValue && post.Discount.HasValue)
+                    {
+                        price = gallery.Price - gallery.Price * post.Discount / 100;
+                        <span class="price"> @string.Format("{0:##,### VND}", price)</span>
+                    }
+                    else if (post.Price.HasValue && !post.Discount.HasValue)
+                    {
+                        price = gallery.Price;
+                        <span class="price"> @string.Format("{0:##,### VND}", price)</span>
+                    }
+                }
+                else
+                {
+                    <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+                }
+                @Html.Hidden("hddPrice", price.ToString())
+
+                @if (post.Price.HasValue && post.Discount.HasValue)
+                {
+                    <div style="" class="saleoff-price-item">
+                        <span class="price-label">Tiết kiệm:</span>
+                        <span id="product-discount" class="product-discount">@post.Discount%</span>
+                        <span id="span-saving-price" class="discount"> @string.Format("{0:##,### VND}", gallery.Price * post.Discount / 100)</span>
+                    </div>
+                    <div class="old-price-item">
+                        <span class="price-label">Giá thị trường:</span>
+                        <span id="span-list-price"> @string.Format("{0:##,### VND}", gallery.Price)</span>
+                    </div>
+                }
+            </div>
+        }
+
 }
 
 @section stylesheets

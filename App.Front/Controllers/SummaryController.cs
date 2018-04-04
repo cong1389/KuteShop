@@ -120,7 +120,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContactHeader()
         {
-            var systemSetting = _systemSettingService.Get(x => x.Status == 1);
+            var systemSetting = _systemSettingService.GetEnableOrDisable();
 
             var systemSettingLocalized = systemSetting.ToModel();
 
@@ -142,9 +142,9 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ContentResult GetContentFooter()
         {
-            var systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
+            var systemSetting = _systemSettingService.GetEnableOrDisable();
 
-            var systemSettingLocalized = systemSetting.ToModel();
+            //var systemSettingLocalized = systemSetting.ToModel();
 
             if (systemSetting == null)
             {
@@ -200,7 +200,7 @@ namespace App.Front.Controllers
 
         public ActionResult GetMeta()
         {
-            var systemSetting = _systemSettingService.Get(x => x.Status == 1, true);
+            var systemSetting = _systemSettingService.GetEnableOrDisable();
 
             if (systemSetting == null)
             {

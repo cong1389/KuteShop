@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Text;
+using App.Aplication;
+using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.Slide;
 using App.Infra.Data.Common;
@@ -9,11 +12,37 @@ namespace App.Service.Slide
 {
     public class SlideShowService : BaseService<SlideShow>, ISlideShowService
     {
+        private const string CacheKey = "db.SlideShow.{0}";
+        private readonly ICacheManager _cacheManager;
         private readonly ISlideShowRepository _slideShowRepository;
 
-        public SlideShowService(IUnitOfWork unitOfWork, ISlideShowRepository slideShowRepository) : base(unitOfWork, slideShowRepository)
+        public SlideShowService(IUnitOfWork unitOfWork, ISlideShowRepository slideShowRepository, ICacheManager cacheManager) : base(unitOfWork, slideShowRepository)
         {
             _slideShowRepository = slideShowRepository;
+            _cacheManager = cacheManager;
+        }
+
+        public IEnumerable<SlideShow> GetEnableOrDisables(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _slideShowRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var slideShows = _cacheManager.GetCollection<SlideShow>(key);
+            if (slideShows == null)
+            {
+                slideShows = _slideShowRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                _cacheManager.Put(key, slideShows);
+            }
+
+            return slideShows;
         }
 
         public IEnumerable<SlideShow> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)

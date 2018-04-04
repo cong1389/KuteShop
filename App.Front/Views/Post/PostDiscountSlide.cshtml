@@ -22,15 +22,6 @@
                                         <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
                                             <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
                                         </a>
-                                        <div class="quick-view">
-                                            <a title="Add to my wishlist" class="heart" href="#"></a>
-                                            <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
-                                            <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh"
-                                               data-handle="/products/bebe-gold-edp-for-women-nuoc-hoa-nu-100ml"></a>
-                                        </div>
-                                        <div class="add-to-cart">
-                                            <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823191">Thêm vào giỏ</a>
-                                        </div>
                                         @if (post.Discount.HasValue)
                                         {
                                             <div class="price-percent-reduction2">

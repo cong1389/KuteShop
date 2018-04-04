@@ -10,7 +10,7 @@ namespace App.Service.Post
 {
     public class PostGalleryService : BaseService<PostGallery>, IPostGalleryService
     {
-        private const string CachePostgalleryKey = "db.PostGallery.{0}";
+        private const string CacheKey = "db.PostGallery.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IPostGalleryRepository _galleryRepository;
@@ -29,7 +29,7 @@ namespace App.Service.Post
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CachePostgalleryKey, "GetById");
+                sbKey.AppendFormat(CacheKey, "GetById");
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();
@@ -55,7 +55,7 @@ namespace App.Service.Post
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CachePostgalleryKey, "GetByPostId");
+                sbKey.AppendFormat(CacheKey, "GetByPostId");
                 sbKey.Append(postId);
 
                 var key = sbKey.ToString();

@@ -13,7 +13,7 @@ namespace App.Service.Post
 {
     public class PostService : BaseService<Domain.Entities.Data.Post>, IPostService
     {
-        private const string CachePostKey = "db.Post.{0}";
+        private const string CacheKey = "db.Post.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IPostRepository _postRepository;
@@ -27,7 +27,7 @@ namespace App.Service.Post
         public Domain.Entities.Data.Post GetById(int id, bool isCache = true)
         {
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePostKey, "GetById");
+            sbKey.AppendFormat(CacheKey, "GetById");
             sbKey.Append(id);
 
             var key = sbKey.ToString();
@@ -56,7 +56,7 @@ namespace App.Service.Post
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CachePostKey, "GetListSeoUrl");
+                sbKey.AppendFormat(CacheKey, "GetListSeoUrl");
 
                 if (seoUrl.HasValue())
                 {
@@ -82,7 +82,7 @@ namespace App.Service.Post
         public Domain.Entities.Data.Post GetBySeoUrl(string seoUrl, bool @readonly = false)
         {
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePostKey, "GetBySeoUrl");
+            sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
 
             if (seoUrl.HasValue())
             {
@@ -123,7 +123,7 @@ namespace App.Service.Post
         {
             IEnumerable<Domain.Entities.Data.Post> posts;
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePostKey, "GetByOption");
+            sbKey.AppendFormat(CacheKey, "GetByOption");
 
             var expression = PredicateBuilder.True<Domain.Entities.Data.Post>();
             sbKey.AppendFormat("-{0}", status);

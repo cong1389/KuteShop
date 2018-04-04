@@ -11,7 +11,7 @@ namespace App.Service.Ads
 {
     public class BannerService : BaseService<Banner>, IBannerService
     {
-        private const string CacheBannerKey = "db.Banner.{0}";
+        private const string CacheKey = "db.Banner.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IBannerRepository _bannerRepository;
@@ -29,7 +29,7 @@ namespace App.Service.Ads
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheBannerKey, "GetById");
+                sbKey.AppendFormat(CacheKey, "GetById");
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();

@@ -59,9 +59,9 @@ namespace App.Service.Messages
 			var messageTemplate = messageContext.MessageTemplate;
 
 			// Render templates
-			var to = RenderEmailAddress(messageTemplate.To, messageContext);
-			var replyTo = RenderEmailAddress(messageTemplate.ReplyTo, messageContext, false);
-			var bcc = RenderTemplate(messageTemplate.BccEmailAddresses, messageContext, false);
+			//var to = RenderEmailAddress(messageTemplate.To, messageContext);
+			//var replyTo = RenderEmailAddress(messageTemplate.ReplyTo, messageContext, false);
+			//var bcc = RenderTemplate(messageTemplate.BccEmailAddresses, messageContext, false);
 
 			var subject = RenderTemplate(messageTemplate.Subject, messageContext);
 			((dynamic)model).Email.Subject = subject;
@@ -209,7 +209,7 @@ namespace App.Service.Messages
 			try
 			{
 				// 'Store' is a global model part, so we pretty can be sure it exists
-				baseUri = new Uri(Aplication.Utils.GetBaseUrl);
+				baseUri = new Uri(Utils.GetBaseUrl);
 			}
 			catch { }
 

@@ -10,8 +10,7 @@ namespace App.Core.Utils
 	{
 		public static MessageTemplate Load(string templateName)
 		{
-			var rootPath = CommonHelper.MapPath("~/Themes/Basic/TemplateMails/test.xml");
-			var fullPath = Path.Combine(@"~/Themes/Basic/TemplateMails/test.xml");
+			var rootPath = CommonHelper.MapPath("~/Themes/Basic/TemplateMails/OrderPlaced.CustomerNotification.xml");
 
 			if (!File.Exists(rootPath))
 			{
