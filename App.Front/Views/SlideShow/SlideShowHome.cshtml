@@ -14,7 +14,7 @@
                             {
                                 <li>
                                     <a href="@item.WebsiteLink">
-                                        <img src="@Url.Content("~/"+item.ImgPath)" alt="@item.Title" />
+                                        <img src="@item.ImgPath.ValidateImage()" alt="@item.Title" />
                                     </a>
                                 </li>
                             }

@@ -2,7 +2,7 @@
 @using App.Aplication
 @using App.Domain.Common
 @using App.Domain.Entities.Data
-@model App.Domain.Entities.Data.Post
+@model Post
 
 @if (Model != null)
 {
@@ -53,19 +53,17 @@
                                         <div id="gallery" class="royalSlider rsDefault">
                                             @if (Model.GalleryImages.IsAny())
                                             {
-                                                //var attrid = Model.AttributeValues.FirstOrDefault();
-                                                //var gallery = Model.GalleryImages.Where(x => x.AttributeValueId == attrid.Id);
                                                 foreach (var item in Model.GalleryImages)
                                                 {
                                                     <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
-                                                        <img width="195" height="350" class="rsTmb" src="@Url.Content("~/" + item.ImageThumbnail)" />
+                                                        <img width="195" height="350" class="rsTmb" src="@item.ImageThumbnail.ValidateImage()" />
                                                     </a>
                                                 }
                                             }
                                             else
                                             {
                                                 <a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageBigSize)" href="@Url.Content("~/" + Model.ImageBigSize)">
-                                                    <img width="195" height="350" class="rsTmb" src="@Url.Content("~/" + Model.ImageSmallSize)" />
+                                                    <img width="195" height="350" class="rsTmb" src="@Model.ImageSmallSize.ValidateImage()" />
                                                 </a>
                                             }
                                         </div>
@@ -75,11 +73,12 @@
                                 </div>
                                 <div class="pb-right-column col-xs-12 col-sm-6">
                                     <h1 class="product-name">@Model.Title</h1>
-
+                                    <p class="sku">Mã sản phẩm:@Model.ProductCode</p>
+                                    <p class="sku">Nhà sản xuất:@Model.Manufacturer.Title</p>
                                     @RenderPrice(Model)
 
                                     <div class="info-orther">
-                                        <p class="sku">Mã sản phẩm:@Model.ProductCode</p>
+                                        
                                         <p class="tt">
                                             Tình trạng:
                                             @if (Model.OutOfStock)

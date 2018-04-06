@@ -13,7 +13,7 @@
                     <li>
                         <div class="products-block-left">
                             <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
-                                <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                <img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
                             </a>
                         </div>
                         <div class="products-block-right">

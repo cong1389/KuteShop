@@ -12,16 +12,8 @@
                     <div class="product-container">
                         <div class="left-block">
                             <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
-                                <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                                <img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
                             </a>
-                            <div class="quick-view">
-                                <a title="Add to my wishlist" class="heart" href="#"></a>
-                                <a title="Xem chi tiết" class="compare" href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})"></a>
-                                <a href="javascript:;" class="qv-e-button btn-quickview-1 search" title="Xem nhanh" data-handle="/products/dam-body-lap-the-tay-dai"></a>
-                            </div>
-                            <div class="add-to-cart">
-                                <a class="add-to-car" title="Add to Cart" href="javascript:;" data-variantid="1005823288">Thêm vào giỏ</a>
-                            </div>
                         </div>
                         <div class="right-block">
                             <h5 class="product-name">

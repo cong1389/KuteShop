@@ -133,9 +133,9 @@ namespace App.Admin.Controllers
                     var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
                     var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize,true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize,true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize,true);
 
                     model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileName2}";
@@ -183,8 +183,8 @@ namespace App.Admin.Controllers
                                     var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
                                     var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
 
-                                    _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                                    _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                    _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
+                                    _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize, true);
 
                                     galleryImageViewModel.ImageThumbnail =$"{Contains.PostFolder}{folderName}/{fileName2}";
                                     galleryImageViewModel.ImagePath = $"{Contains.PostFolder}{folderName}/{fileName1}";
@@ -403,9 +403,9 @@ namespace App.Admin.Controllers
                         var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
                         var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
-                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
+                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize, true);
+                        _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize, true);
 
                         model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileName1}";
                         model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileName2}";
@@ -451,8 +451,8 @@ namespace App.Admin.Controllers
                                         var fileName1 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
                                         var fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
 
-                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.WithBigSize);
-                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.WithBigSize, true);
+                                        _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize, true);
 
                                         galleryImageViewModel.ImageThumbnail =
                                             $"{Contains.PostFolder}{folderName}/{fileName2}";
@@ -650,9 +650,9 @@ namespace App.Admin.Controllers
                                 var fileName2 = fileNameNonAccent.FileNameFormat(fileExtension);
                                 var fileName3 = fileNameNonAccent.FileNameFormat(fileExtension);
 
-                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
+                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize, true);
+                                _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize, true);
 
                                 postGallery.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileName1}";
                                 postGallery.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileName2}";

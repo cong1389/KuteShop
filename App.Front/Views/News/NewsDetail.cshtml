@@ -1,4 +1,5 @@
 ﻿<!--NewsDetail---->
+@using App.Aplication
 @model App.Domain.Entities.Data.News
 
 @if (Model != null)
@@ -34,7 +35,7 @@
 
                         </div>
                         <div class="entry-photo">
-                            <img src="@Url.Content("~/" + Model.ImageBigSize)" alt="@Model.Title" title="@Model.Title">
+                            <img src="@Model.ImageBigSize.ValidateImage()" alt="@Model.Title" title="@Model.Title">
                         </div>
                         <div class="content-text clearfix">
                             @Html.Raw(Model.Description)

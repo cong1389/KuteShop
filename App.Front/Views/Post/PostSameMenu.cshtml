@@ -13,7 +13,7 @@
                 </div>
                 <div class="unitimg">
                     <a href="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})" title="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})">
-                        <img src="@Url.Content("~/"+item.ImageSmallSize ?? "images/logo.png")" alt="@item.Title">
+                        <img src="@item.ImageSmallSize.ValidateImage()" alt="@item.Title">
                     </a>
                 </div>
                 <div class="divtext">

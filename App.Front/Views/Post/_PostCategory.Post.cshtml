@@ -40,7 +40,7 @@
                 <div class="product-container">
                     <div class="left-block">
                         <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
-                            <img class="img-responsive" alt="@post.Title" src="@Url.Content("~/" + post.ImageMediumSize)" />
+                            <img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
                         </a>
                         @if (post.Discount.HasValue)
                         {
