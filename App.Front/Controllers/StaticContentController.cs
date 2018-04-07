@@ -66,23 +66,5 @@ namespace App.Front.Controllers
 
             return PartialView(staticContentLocalized);
         }
-
-        [ChildActionOnly]
-        public ActionResult GetHomeProduct(int menuId)
-        {
-            //int languageId = _workContext.WorkingLanguage.Id;
-
-            var staticContent = _staticContentService.Get(x => x.Id == menuId, true);
-
-            if (staticContent == null)
-            {
-                return HttpNotFound();
-            }
-
-            var staticContentLocalized = staticContent.ToModel();            
-
-            return PartialView(staticContentLocalized);
-        }
-        
     }
 }

@@ -22,7 +22,7 @@ namespace App.Front.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("AppConnect", throwIfV1Schema: false)
+            : base("AppConnect", false)
         {
         }
 

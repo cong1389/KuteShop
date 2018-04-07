@@ -7,11 +7,10 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using App.Core.Extensions;
-using App.Core.Utils;
 
 namespace App.Aplication
 {
-	public static class Utils
+    public static class Utils
 	{
 		public static string GetParameter(string param, string defaultValue)
 		{
@@ -178,7 +177,7 @@ namespace App.Aplication
 			sb.Append(virtualPath);
 
 			// Append query
-			if (query != null && query.Length > 0)
+			if (!string.IsNullOrEmpty(query))
 			{
 				if (query[0] != '?') sb.Append("?");
 				sb.Append(query);

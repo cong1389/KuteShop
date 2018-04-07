@@ -63,10 +63,10 @@ namespace App.Admin.Controllers
                     IsSuperAdmin = false,
                     Created = DateTime.UtcNow
                 };
-                var identityUser1 = identityUser;
-                var identityResult = await UserManager.CreateAsync(identityUser1, model.Password);
-                var identityResult1 = identityResult;
-                if (identityResult1.Succeeded)
+                //var identityUser1 = identityUser;
+                var identityResult = await UserManager.CreateAsync(identityUser, model.Password);
+                //var identityResult1 = identityResult;
+                if (identityResult.Succeeded)
                 {
                     if (!model.IsSuperAdmin)
                     {
@@ -74,7 +74,7 @@ namespace App.Admin.Controllers
                         if (!string.IsNullOrEmpty(item))
                         {
                             var strArrays = item.Split(',');
-                            await UserManager.AddToRolesAsync(identityUser1.Id, strArrays);
+                            await UserManager.AddToRolesAsync(identityUser.Id, strArrays);
                         }
                     }
                     Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Account)));
@@ -89,7 +89,7 @@ namespace App.Admin.Controllers
                 }
                 else
                 {
-                    AddErrors(identityResult1);
+                    AddErrors(identityResult);
                     action = View(model);
                 }
             }

@@ -5,7 +5,7 @@
 @if (Model != null)
 {
     <a href='@Url.Action("Index", "Home", new { area = "" })'>
-        <img src="@Url.Content("~/" + Model.LogoFooterImage.ValidateImage())" alt="@Model.Title" />
+        <img src="@Model.LogoFooterImage.ValidateImage()" alt="@Model.Title" />
     </a>
 }
 <!---/_Footer.Logo--->

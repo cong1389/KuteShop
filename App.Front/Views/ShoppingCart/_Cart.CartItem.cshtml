@@ -1,4 +1,5 @@
 ﻿<!----_Cart.CartItem-->
+@using App.Aplication
 @model App.Front.Models.ShoppingCart.MiniShoppingCartModel
 
 @foreach (var product in Model.Items)
@@ -7,7 +8,7 @@
 
         <td class="cart-product-thumbnail">
             <a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
-                <img src="@Url.Content("~/" + product.ImageSmallSize)" alt="@product.Title">
+                <img src="@product.ImageSmallSize.ValidateImage()" alt="@product.Title">
             </a>
         </td>
 

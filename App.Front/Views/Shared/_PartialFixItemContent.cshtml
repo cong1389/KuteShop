@@ -12,7 +12,7 @@
                 <div class="left-block">
                     <div class="product-image-container">
                         <a class="product_img_link" href="@Url.Action("PostDetail","Post", new {seoUrl =item.SeoUrl,area=""})" title="Printed Dress" itemprop="url">
-                            <img class="replace-2x img-responsive" src="@Url.Content("~/" + item.ImageMediumSize)" alt="Printed Dress" title="Printed Dress" itemprop="image" width="260" height="305" />
+                            <img class="replace-2x img-responsive" src="@item.ImageMediumSize.ValidateImage()" alt="Printed Dress" title="Printed Dress" itemprop="image" width="260" height="305" />
                         </a>
                         <div class="group-price">
                         </div>

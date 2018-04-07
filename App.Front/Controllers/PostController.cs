@@ -146,16 +146,16 @@ namespace App.Front.Controllers
                 //Lấy bannerId từ post để hiển thị banner trên post
                 ViewBag.BannerId = menuCategoryFilter.FirstOrDefault(x => x.VirtualId == virtualCategoryId).Id;
 
-                var strArrays2 = virtualCategoryId.Split('/');
-                for (var i1 = 0; i1 < strArrays2.Length; i1++)
+                var categories = virtualCategoryId.Split('/');
+                for (var i = 0; i < categories.Length; i++)
                 {
-                    var str = strArrays2[i1];
-                    var menuLink = _menuLinkService.GetByMenuName(str, title);
+                    //var str = categories[i];
+                    var menuLink = _menuLinkService.GetByMenuName(categories[i], title);
 
                     if (menuLink != null)
                     {
                         //Lấy bannerId từ post để hiển thị banner trên post
-                        if (i1 == 0)
+                        if (i == 0)
                         {
                             ViewBag.BannerId = menuLink.Id;
                         }
@@ -198,9 +198,9 @@ namespace App.Front.Controllers
             viewCount.ViewCount = viewCount.ViewCount + 1;
             _postService.Update(post);
 
-            var strArrays = post.VirtualCategoryId.Split('/');
+            var categories = post.VirtualCategoryId.Split('/');
             var breadCrumbs = new List<BreadCrumb>();
-            breadCrumbs.AddRange(strArrays.Select(str => _menuLinkService.GetByCurrentVirtualId(str))
+            breadCrumbs.AddRange(categories.Select(str => _menuLinkService.GetByCurrentVirtualId(str))
                 .Select(menuLink => new BreadCrumb
                 {
                     Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id),
@@ -309,6 +309,7 @@ namespace App.Front.Controllers
             {
                 return Json(new { success = true, data = string.Empty }, JsonRequestBehavior.AllowGet);
             }
+
             return Json(new
             {
                 data = this.RenderRazorViewToString("_SlideProductHome",
@@ -397,7 +398,7 @@ namespace App.Front.Controllers
 
         public ActionResult GetGallery(int postId, int typeId)
         {
-            var galleryImages = _galleryService.GetByOption(typeId, postId: postId);
+            var galleryImages = _galleryService.GetByOption(typeId, postId);
 
             if (!galleryImages.IsAny())
             {

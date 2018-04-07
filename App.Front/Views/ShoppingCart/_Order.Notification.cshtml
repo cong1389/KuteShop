@@ -8,14 +8,14 @@
     <div class="row">
         <div class="col-md-4">
             <a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
-                <img width="70px" src="@Url.Content("~/" + product.ImageSmallSize)" alt="@product.Title" />
+                <img width="70px" src="@product.ImageSmallSize.ValidateImage()" alt="@product.Title" />
             </a>
         </div>
         <div class="col-md-8">
             <div class="jGrowl-note">
                 <a class="jGrowl-title" href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">@product.Title</a>
                 <ins>
-                    @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                    @if (Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id).CustomerEnteredPrice != 0)
                     {
                         @Html.Raw(string.Format("{0:##,### VND}", Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice))
                     }

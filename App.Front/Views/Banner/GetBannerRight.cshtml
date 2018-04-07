@@ -8,7 +8,7 @@
                 @foreach (var item in Model)
                 {
                     <a href="@item.WebsiteLink" rel="nofollow" target="@item.Target" style="width: 100px; display: none">
-                        <img src="@Url.Content("~/" + item.ImgPath)" />
+                        <img src="@item.ImgPath.ValidateImage()" />
                 </a>
                 }
             </div>

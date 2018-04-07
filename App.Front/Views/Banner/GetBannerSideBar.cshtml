@@ -12,7 +12,7 @@
                     <div class="owl-item" style="width: 635px;">
                         <div class="item">
                             <a href="@item.WebsiteLink" rel="nofollow " target="@item.Target">
-                                <img src="@Url.Content("~/"+item.ImgPath)" class="attachment-slicetheme-small size-slicetheme-small wp-post-image">
+                                <img src="@item.ImgPath.ValidateImage()" class="attachment-slicetheme-small size-slicetheme-small wp-post-image">
                             </a>
                         </div>
                     </div>

@@ -14,33 +14,12 @@
             <div class="col-sm-6 @(index % 2 > 0 ? "item-left" : "item-right") ">
                 <div class="banner-boder-zoom">
                     <a href="@banner.WebsiteLink" title="@banner.WebsiteLink">
-                        <img alt="@banner.Title" class="img-responsive" src="@Url.Content("~/" + banner.ImgPath)"/>
+                        <img alt="@banner.Title" class="img-responsive" src="@banner.ImgPath.ValidateImage()" />
                     </a>
                 </div>
             </div>
         }
     </div>
     <!-- end banner bottom -->
-
-    @*<div class="items-show">
-            <div class="container">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-sm-3">
-                            <div class="showitem">
-                                <div class="show-text">
-                                    <h3>@item.Title</h3>
-                                    <a href="@item.WebsiteLink">&lt; xem chi tiết &gt;</a>
-                                </div>
-                                <a href="@item.WebsiteLink">
-                                    <img src="@Url.Content("~/"+item.ImgPath)" alt="@item.Title">
-                                </a>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>*@
 }
 <!----/BannerHomeProduct-->

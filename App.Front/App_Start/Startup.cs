@@ -49,7 +49,7 @@ namespace App.Front
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             app.UseGoogleAuthentication(
-                clientId: "264629127668-pp28sk9b98o9hdvagvqimm1to2qjpejf.apps.googleusercontent.com",
+                "264629127668-pp28sk9b98o9hdvagvqimm1to2qjpejf.apps.googleusercontent.com",
                 clientSecret: "OE3P6-4o0zVCd-k8QQ415oVn");
 
             // Uncomment the following lines to enable logging in
@@ -63,7 +63,7 @@ namespace App.Front
             // consumerSecret: "");
 
             app.UseFacebookAuthentication(
-             appId: "1318503118251337",
+             "1318503118251337",
              appSecret: "2b816c9bb9637eddfb8056aaca4abe1b");
 
         }
