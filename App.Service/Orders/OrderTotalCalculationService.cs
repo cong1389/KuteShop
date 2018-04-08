@@ -14,8 +14,8 @@ namespace App.Service.Orders
                 return subTotal;
             }
 
-            subTotal = (from mul in cart
-                        select mul.Quantity * mul.CustomerEnteredPrice).Sum();
+            subTotal = (decimal) (from mul in cart
+                select mul.Quantity * mul.CustomerEnteredPrice).Sum();
 
             return subTotal;
         }

@@ -4,6 +4,8 @@
 
 @foreach (var product in Model.Items)
 {
+    var selectedProduct = Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id);
+
     <tr class="cart_item" id="row@(product.Id)">
 
         <td class="cart-product-thumbnail">
@@ -18,7 +20,7 @@
                
             </a>
             <p>
-                <a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Id);">
+                <a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@selectedProduct.Id);">
                     <i class="icon-trash2">Xóa</i>
                 </a>
             </p>
@@ -26,10 +28,10 @@
 
         <td class="cart-product-price">
             <span class="amount">
-                @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                @if (selectedProduct.CustomerEnteredPrice != 0)
                 {
-                    @Html.Raw(string.Format("{0:##,### VND}", Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice))
-                    @Html.Hidden("hddPrice" + product.Id, Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice)
+                    @Html.Raw(selectedProduct.CustomerEnteredPrice.FormatPrice())
+                    @Html.Hidden("hddPrice" + product.Id, selectedProduct.CustomerEnteredPrice)
                 }
                 else
                 {
@@ -44,18 +46,18 @@
             <div class="quantity clearfix product-quantity">
                 <input type="button" value="-" class="minus" onclick="MinusQuantity(@product.Id)">
                 <input type="text" id='product_quantity_@product.Id' min="1" name="quantity_@product.Id"
-                       value="@Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity" title="Qty" class="qty" size="4" />
+                       value="@selectedProduct.Quantity" title="Qty" class="qty" size="4" />
                 <input type="button" value="+" class="plus" onclick="PlusQuantity(@product.Id)">
             </div>
         </td>
 
         <td class="cart-amount">
             <span>
-                @if (Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice != 0)
+                @if (selectedProduct.CustomerEnteredPrice != 0)
                 {
-                    var price = Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().CustomerEnteredPrice;
-                    var quantity = Model.ShoppingCarts.Where(x => x.PostId == product.Id).FirstOrDefault().Quantity;
-                    @Html.Raw(string.Format("{0:##,### VND}", price * quantity))
+                    var price = selectedProduct.CustomerEnteredPrice;
+                    var quantity = selectedProduct.Quantity;
+                    @Html.Raw((price * quantity).FormatPrice())
                 }
             </span>
         </td>
@@ -66,6 +68,6 @@
     <td>&#160;</td>
     <td>&#160;</td>
     <td><h4 style="margin-bottom:10px;">Tổng tiền </h4></td>
-    <td class="cart-amount"><span class="cart-total"><strong>@string.Format("{0:##,### VND}", Model.SubTotal)</strong></span></td>
+    <td class="cart-amount"><span class="cart-total"><strong>@Model.SubTotal.FormatPrice()</strong></span></td>
 </tr>
 <!----/_Cart.CartItem-->

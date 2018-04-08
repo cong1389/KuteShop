@@ -318,8 +318,8 @@ namespace App.FakeEntity.Orders
 
             public int Quantity { get; set; }
 
-            public decimal UnitPriceInclTax { get; set; }
-            public decimal SubTotalInclTax { get; set; }
+            public decimal? UnitPriceInclTax { get; set; }
+            public decimal? SubTotalInclTax { get; set; }
         }
 
 
