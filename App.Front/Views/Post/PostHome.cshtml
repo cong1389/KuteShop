@@ -84,6 +84,19 @@
 
     @helper RenderPostBlock(Post post)
         {
+            <div class="left-block">
+                <a href="@Url.Action("PostDetail", "Post" , new {seoUrl=post.SeoUrl, area="" })">
+                    <img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
+                </a>
+                @if (post.Discount.HasValue)
+                {
+                <span class="price-percent">
+                    Sale
+                    <br>
+                    - @Html.Raw(post.Discount.FormatPersent())
+                </span>
+                }
+            </div>
             <div class="right-block">
                 <h5 class="product-name">
                     <a href="@Url.Action("PostDetail", "Post" , new {seoUrl=post.SeoUrl, area="" })" title="@post.Title">
@@ -105,18 +118,15 @@
                             @Html.Raw("LienHeDatHang.Lable")
                         }
                     </span>
+
                     @if (post.Discount.HasValue)
                     {
                         <span class="price old-price">@Html.Raw(post.Price.FormatPrice()) </span>
-                        <span class="product-discount">-@Html.Raw(post.Discount + "%")</span>
+                      
                     }
                 </div>
             </div>
-            <div class="left-block">
-                <a href="@Url.Action("PostDetail", "Post" , new {seoUrl=post.SeoUrl, area="" })">
-                    <img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
-                </a>
-            </div>
+
 }
 
     @helper RenderManufacturer(int mnuIndex, IEnumerable<Manufacturer> manufacturers)

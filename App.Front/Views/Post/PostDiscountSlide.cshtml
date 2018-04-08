@@ -24,11 +24,11 @@
                                         </a>
                                         @if (post.Discount.HasValue)
                                         {
-                                            <div class="price-percent-reduction2">
-                                                Sale
-                                                <br>
-                                                <strong>-@(post.Discount.FormatPersent())%</strong>
-                                            </div>
+                                        <div class="price-percent">
+                                            Sale
+                                            <br>
+                                            - @Html.Raw(post.Discount.FormatPersent())
+                                        </div>
                                         }
                                     </div>
                                     <div class="right-block">

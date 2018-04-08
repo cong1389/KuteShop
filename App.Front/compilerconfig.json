@@ -18,5 +18,9 @@
   {
     "outputFile": "Themes/Basic/Content/_attributefilter.css",
     "inputFile": "Themes/Basic/Content/_attributefilter.scss"
+  },
+  {
+    "outputFile": "Themes/Basic/Content/_post.css",
+    "inputFile": "Themes/Basic/Content/_post.scss"
   }
 ]

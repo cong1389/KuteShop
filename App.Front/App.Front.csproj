@@ -779,6 +779,7 @@
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.min.js" />
     <Content Include="Themes\Basic\Content\images\bg-selected.png" />
     <Content Include="Themes\Basic\Content\images\loading.gif" />
+    <Content Include="Themes\Basic\Content\images\price-percent.png" />
     <Content Include="Themes\Basic\Content\shared\_buttons.css">
       <DependentUpon>_buttons.scss</DependentUpon>
     </Content>
@@ -802,6 +803,12 @@
     </Content>
     <Content Include="Themes\Basic\Content\_checkout.min.css">
       <DependentUpon>_checkout.css</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_post.css">
+      <DependentUpon>_post.scss</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_post.min.css">
+      <DependentUpon>_post.css</DependentUpon>
     </Content>
     <Content Include="Themes\Basic\Content\_social.css">
       <DependentUpon>_social.scss</DependentUpon>

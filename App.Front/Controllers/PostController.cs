@@ -320,7 +320,7 @@ namespace App.Front.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [PartialCache("Long")]
+        //[PartialCache("Long")]
         public ActionResult PostHome()
         {
             var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
