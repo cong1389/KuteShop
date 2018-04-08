@@ -1,4 +1,5 @@
-﻿using App.Domain.Entities.Orders;
+﻿using System;
+using App.Domain.Entities.Orders;
 using Domain.Entities.Customers;
 
 namespace App.Service.Orders

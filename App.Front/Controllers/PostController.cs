@@ -84,7 +84,7 @@ namespace App.Front.Controllers
             {
                 var nums = (
                     from s in prices.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    select double.Parse(s)).ToList();
+                    select decimal.Parse(s)).ToList();
                 var item = nums[0];
                 var num = nums[1];
                 expression = expression.And(x => x.Price >= item && x.Price <= num);
@@ -137,7 +137,7 @@ namespace App.Front.Controllers
 
             //Get menu category filter
             var menuCategoryFilter = _menuLinkService.GetByOption(virtualId: virtualCategoryId);
-                
+
             if (menuCategoryFilter.IsAny())
             {
                 var lstBreadCrumb = new List<BreadCrumb>();
@@ -181,7 +181,7 @@ namespace App.Front.Controllers
 
             return PartialView(postLocalized);
         }
-        
+
         [PartialCache("Medium")]
         public ActionResult PostDetail(string seoUrl)
         {
@@ -233,7 +233,7 @@ namespace App.Front.Controllers
             {
                 posts.AddRange(top);
             }
-            return Json(new {data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true},
+            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true },
                 JsonRequestBehavior.AllowGet);
         }
 
@@ -382,7 +382,7 @@ namespace App.Front.Controllers
                 orderby x.OrderDisplay descending
                 select x);
         }
-        
+
         [ChildActionOnly]
         [PartialCache("Short")]
         public ActionResult PostHomeCareer(string virtualId)
@@ -409,19 +409,19 @@ namespace App.Front.Controllers
 
         [ChildActionOnly]
         [PartialCache("Short")]
-        public ActionResult PostRelativePrice(double? price, int productId)
+        public ActionResult PostRelativePrice(decimal? price, int productId)
         {
-            double? nullable1;
-            double? nullable2;
+            decimal nullable1 = decimal.Zero;
+            decimal nullable2 = decimal.Zero;
             var nullable3 = price;
-            double num = 2000000;
+            decimal num = 2000000;
             if (nullable3.HasValue)
             {
                 nullable1 = nullable3.GetValueOrDefault() - num;
             }
             else
             {
-                nullable1 = null;
+                nullable1 = decimal.Zero;
             }
             var nullable4 = nullable1;
             nullable3 = price;
@@ -432,7 +432,7 @@ namespace App.Front.Controllers
             }
             else
             {
-                nullable2 = null;
+                nullable2 = decimal.Zero;
             }
             var nullable5 = nullable2;
             var posts = new List<Post>();
@@ -466,7 +466,7 @@ namespace App.Front.Controllers
 
             return PartialView(postLocalized);
         }
-        
+
         [PartialCache("Medium")]
         public ActionResult SearchResult(string catUrl, string parameters, int page)
         {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace App.Domain.Entities.Orders
 {
     public class ShoppingCartItem : AuditableEntity<int>
-    {   
+    {
         public int StoreId
         {
             get; set;
@@ -48,6 +48,6 @@ namespace App.Domain.Entities.Orders
         public int Quantity
         {
             get; set;
-        }   
+        }
     }
 }

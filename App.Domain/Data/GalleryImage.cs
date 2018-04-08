@@ -50,7 +50,7 @@ namespace App.Domain.Entities.Data
             set;
         }
 
-        public double? Price
+        public decimal? Price
         {
             get;
             set;

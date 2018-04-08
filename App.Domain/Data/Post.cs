@@ -43,7 +43,7 @@ namespace App.Domain.Entities.Data
             set;
         }
 
-        public double? Discount
+        public decimal? Discount
         {
             get;
             set;
@@ -160,7 +160,7 @@ namespace App.Domain.Entities.Data
             set;
         }
 
-        public double? Price
+        public decimal? Price
         {
             get;
             set;

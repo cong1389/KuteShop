@@ -47,11 +47,11 @@
                         <span class="price product-price price_color pull-left">
                             @if (item.Price.HasValue && item.Discount.HasValue)
                             {
-                                @Html.Raw(string.Format("{0:##,### VND}", item.Price - item.Price * item.Discount / 100))
+                                @Html.Raw((item.Price - item.Price * item.Discount / 100).FormatPrice())
                             }
                             else if (item.Price.HasValue && !item.Discount.HasValue)
                             {
-                                @Html.Raw(string.Format("{0:##,### VND}", item.Price))
+                                @Html.Raw(item.Price.FormatPrice())
                             }
                             else
                             {
@@ -61,7 +61,7 @@
                         @if (item.Discount.HasValue)
                         {
                             <span class="old-price product-price">
-                                @Html.Raw(string.Format("{0:##,### VND}", item.Price))
+                                @Html.Raw(item.Price.FormatPrice())
                             </span>                           
                         }
 

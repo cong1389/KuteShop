@@ -25,7 +25,7 @@
 								<div class="col-sm-6 price">
 									@if (Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id).CustomerEnteredPrice != 0)
 									{
-										@Html.Raw(string.Format("{0:##,### VND}", Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id).CustomerEnteredPrice))
+										@Html.Raw(Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id).CustomerEnteredPrice.FormatPrice())
 									}
 									else
 									{
