@@ -78,7 +78,7 @@
                                     @RenderPrice(Model)
 
                                     <div class="info-orther">
-                                        
+
                                         <p class="tt">
                                             Tình trạng:
                                             @if (Model.OutOfStock)
@@ -207,7 +207,7 @@
         if (!galleryImages.IsAny())
         {
             <div class="product-price-group">
-                <span class="price"> @string.Format("{0:##,### VND}", post.Price)</span>
+                <span class="price"> @post.Price.FormatPrice())</span>
             </div>
             @Html.Hidden("hddPrice", post.Price.ToString())
             return;
@@ -218,19 +218,19 @@
         {
             var gallery = post.GalleryImages.FirstOrDefault(x =>
              x.AttributeValueId == attrid.Id);
-            double? price = null;
+            decimal? price = null;
             <div class="product-price-group">
                 @if (gallery != null && gallery.Price != null)
                 {
                     if (post.Price.HasValue && post.Discount.HasValue)
                     {
                         price = gallery.Price - gallery.Price * post.Discount / 100;
-                        <span class="price"> @string.Format("{0:##,### VND}", price)</span>
+                        <span class="price"> @Html.Raw((gallery.Price - gallery.Price * post.Discount / 100).FormatPrice())</span>
                     }
                     else if (post.Price.HasValue && !post.Discount.HasValue)
                     {
                         price = gallery.Price;
-                        <span class="price"> @string.Format("{0:##,### VND}", price)</span>
+                        <span class="price"> @Html.Raw(price.FormatPrice())</span>
                     }
                 }
                 else
@@ -244,11 +244,11 @@
                     <div style="" class="saleoff-price-item">
                         <span class="price-label">Tiết kiệm:</span>
                         <span id="product-discount" class="product-discount">@post.Discount%</span>
-                        <span id="span-saving-price" class="discount"> @string.Format("{0:##,### VND}", gallery.Price * post.Discount / 100)</span>
+                        <span id="span-saving-price" class="discount"> @Html.Raw((gallery.Price * post.Discount / 100).FormatPrice()) </span>
                     </div>
                     <div class="old-price-item">
                         <span class="price-label">Giá thị trường:</span>
-                        <span id="span-list-price"> @string.Format("{0:##,### VND}", gallery.Price)</span>
+                        <span id="span-list-price"> @gallery.Price.FormatPrice()</span>
                     </div>
                 }
             </div>

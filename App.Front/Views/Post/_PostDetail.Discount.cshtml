@@ -39,11 +39,11 @@
                             <div class="content_price">
                                 @if (post.Price.HasValue && post.Discount.HasValue)
                                 {
-                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price - post.Price * post.Discount / 100))
+                                    @Html.Raw((post.Price - post.Price * post.Discount / 100).FormatPrice())
                                 }
                                 else if (post.Price.HasValue && !post.Discount.HasValue)
                                 {
-                                    @Html.Raw(string.Format("{0:##,### VND}", post.Price))
+                                    @Html.Raw(post.Price.FormatPrice())
                                 }
                                 else
                                 {
@@ -51,7 +51,7 @@
                                 }
                                 @if (post.Discount.HasValue)
                                 {
-                                    <span class="price old-price">@string.Format("{0:##,### VND}", post.Price) </span>
+                                    <span class="price old-price">@post.Price.FormatPrice()) </span>
                                 }
                             </div>
                         </div>

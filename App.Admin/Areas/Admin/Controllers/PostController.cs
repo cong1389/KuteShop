@@ -519,7 +519,7 @@ namespace App.Admin.Controllers
                             }
                             var request = Request;
                             i = attributeValue.Id;
-                            var num2 = double.Parse(request[i.ToString()]);
+                            var num2 = decimal.Parse(request[i.ToString()]);
                             nullable.Price = num2;
                             _galleryService.Update(nullable);
                         }

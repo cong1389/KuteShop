@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.Hosting;
 using App.Core.Extensions;
 
 namespace App.Aplication
 {
-    public static class Utils
+	public static class Utils
 	{
 		public static string GetParameter(string param, string defaultValue)
 		{
@@ -196,13 +198,13 @@ namespace App.Aplication
 		public static string ValidateImage(this string imagePath)
 		{
 			string src = string.Empty, url = string.Empty;
-			var query = "?size=" + 250; 
+			var query = "?size=" + 250;
 			try
 			{
 				if (!string.IsNullOrEmpty(imagePath))
 				{
 					src = HttpContext.Current.Server.MapPath(imagePath);
-					
+
 					url = File.Exists(src) ? BuildUrlCore(imagePath, query, null) : BuildUrlCore(Contains.ImageNoExsits, query, null);
 				}
 				else
@@ -216,6 +218,15 @@ namespace App.Aplication
 			}
 
 			return url;
+		}
+
+		public static string FormatPrice(this decimal? amount)
+		{
+			var cultureInfo = Thread.CurrentThread.CurrentCulture;
+
+			var fmt = cultureInfo.NumberFormat;
+
+			return amount?.ToString("C", fmt);
 		}
 
 		#region Url
