@@ -49,10 +49,6 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="App.Aplication, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.Aplication\bin\Debug\App.Aplication.dll</HintPath>
-    </Reference>
     <Reference Include="App.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Framework\bin\Debug\App.Framework.dll</HintPath>
@@ -874,6 +870,7 @@
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\header.liquid" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\order.liquid" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\shipment.liquid" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -1007,6 +1004,10 @@
     <Content Include="Views\Summary\_Post.Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\App.Aplication\App.Aplication.csproj">
+      <Project>{4145f94e-d953-47db-a33e-102b26692790}</Project>
+      <Name>App.Aplication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\App.Core\App.Core.csproj">
       <Project>{22EBD28A-55C0-4D91-AB94-3B75A40584DE}</Project>
       <Name>App.Core</Name>

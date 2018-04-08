@@ -33,27 +33,27 @@ namespace App.Domain.Orders
         {
             get; set;
         }
-        public decimal UnitPriceInclTax
+        public decimal? UnitPriceInclTax
         {
             get; set;
         }
-        public decimal UnitPriceExclTax
+        public decimal? UnitPriceExclTax
         {
             get; set;
         }
-        public decimal PriceInclTax
+        public decimal? PriceInclTax
         {
             get; set;
         }
-        public decimal PriceExclTax
+        public decimal? PriceExclTax
         {
             get; set;
         }
-        public decimal DiscountAmountInclTax
+        public decimal? DiscountAmountInclTax
         {
             get; set;
         }
-        public decimal DiscountAmountExclTax
+        public decimal? DiscountAmountExclTax
         {
             get; set;
         }

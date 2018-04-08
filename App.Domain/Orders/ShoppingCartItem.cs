@@ -41,7 +41,7 @@ namespace App.Domain.Entities.Orders
         {
             get; set;
         }
-        public decimal CustomerEnteredPrice
+        public decimal? CustomerEnteredPrice
         {
             get; set;
         }

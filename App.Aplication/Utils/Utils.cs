@@ -203,7 +203,7 @@ namespace App.Aplication
 			{
 				if (!string.IsNullOrEmpty(imagePath))
 				{
-					src = HttpContext.Current.Server.MapPath(imagePath);
+					src = HttpContext.Current.Server.MapPath(string.Concat("~/", imagePath));
 
 					url = File.Exists(src) ? BuildUrlCore(imagePath, query, null) : BuildUrlCore(Contains.ImageNoExsits, query, null);
 				}
@@ -222,11 +222,39 @@ namespace App.Aplication
 
 		public static string FormatPrice(this decimal? amount)
 		{
+			const decimal NORMALIZE_COEFFICENT = 1.000000000000000000000000000000000m;
+			const int MAX_DIGITS = 5;
+
+			decimal? normalizeValue = amount / NORMALIZE_COEFFICENT;
+
+			if (normalizeValue != null)
+			{
+				var decimalBits = decimal.GetBits((decimal) normalizeValue);
+				var decimalScaleInfo = decimalBits[3];
+
+				var scaleInfoBytes = BitConverter.GetBytes(decimalScaleInfo);
+				var significantDigitsCount = (int)scaleInfoBytes[2];
+
+				var actualDigitsCount = Math.Min(significantDigitsCount, MAX_DIGITS);
+
+				
+				
+			}
+
+			var cultureInfo = Thread.CurrentThread.CurrentCulture;
+			var fmt = cultureInfo.NumberFormat;
+
+		    
+			return amount?.ToString("N", fmt);
+		}
+
+		public static string FormatPersent(this decimal? amount)
+		{
 			var cultureInfo = Thread.CurrentThread.CurrentCulture;
 
 			var fmt = cultureInfo.NumberFormat;
 
-			return amount?.ToString("C", fmt);
+			return amount?.ToString("P", fmt);
 		}
 
 		#region Url
