@@ -6,265 +6,272 @@
 
 @if (Model != null)
 {
-    <div class="columns-container">
-        <div class="container" id="columns">
-            @{
-                Html.RenderPartial("_BreadCrumb");
-            }
+	<div class="columns-container">
+		<div class="container" id="columns">
+			@{
+				Html.RenderPartial("_BreadCrumb");
+			}
 
-            <!-- row -->
-            <div class="row">
-                <!-- Left colunm -->
-                <div class="column col-xs-12 col-sm-3" id="left_column">
-                    <!-- block best sellers -->
-                    @{
-                        Html.RenderAction("PostHot", "Post");
-                    }
-                    <!-- ./block best sellers  -->
-                    <!-- block category -->
-                    <div class="block left-module">
-                        <p class="title_block">Danh mục</p>
-                        <div class="block_content">
-                            <!-- layered -->
-                            <div class="layered layered-category">
-                                <div class="layered-content">
-                                    @Html.Action("GetMenuLinkSideBar", "MenuNav", new { area = "", virtualId = Model.MenuLink.VirtualId, proAttrs = ViewBag.ProAttrs })
-                                </div>
-                            </div>
-                            <!-- ./layered -->
-                        </div>
-                    </div>
-                    <!-- ./block category  -->
-                    @{
-                        Html.RenderAction("PostDiscountBlock", "Post");
-                    }
+			<!-- row -->
+			<div class="row">
+				<!-- Left colunm -->
+				<div class="column col-xs-12 col-sm-3" id="left_column">
+					<!-- block best sellers -->
+					@{
+						Html.RenderAction("PostHot", "Post");
+					}
+					<!-- ./block best sellers  -->
+					<!-- block category -->
+					<div class="block left-module">
+						<p class="title_block">Danh mục</p>
+						<div class="block_content">
+							<!-- layered -->
+							<div class="layered layered-category">
+								<div class="layered-content">
+									@Html.Action("GetMenuLinkSideBar", "MenuNav", new { area = "", virtualId = Model.MenuLink.VirtualId, proAttrs = ViewBag.ProAttrs })
+								</div>
+							</div>
+							<!-- ./layered -->
+						</div>
+					</div>
+					<!-- ./block category  -->
+					@{
+						Html.RenderAction("PostDiscountBlock", "Post");
+					}
 
-                </div>
-                <!-- ./left colunm -->
-                <!-- Center colunm-->
-                <div class="center_column col-xs-12 col-sm-9" id="center_column">
-                    <!-- Product -->
-                    <div id="product">
-                        <form method="post" id="ProductDetailsForm" action="" crossorigin="anonymous">
-                            <div class="primary-box row">
-                                <div class="pb-left-column col-xs-12 col-sm-6">
-                                    <!-- product-imge-->
-                                    <div class="product-image text-center">
-                                        <div id="gallery" class="royalSlider rsDefault">
-                                            @if (Model.GalleryImages.IsAny())
-                                            {
-                                                foreach (var item in Model.GalleryImages)
-                                                {
-                                                    <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
-                                                        <img width="195" height="350" class="rsTmb" src="@item.ImageThumbnail.ValidateImage()" />
-                                                    </a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageBigSize)" href="@Url.Content("~/" + Model.ImageBigSize)">
-                                                    <img width="195" height="350" class="rsTmb" src="@Model.ImageSmallSize.ValidateImage()" />
-                                                </a>
-                                            }
-                                        </div>
+				</div>
+				<!-- ./left colunm -->
+				<!-- Center colunm-->
+				<div class="center_column col-xs-12 col-sm-9" id="center_column">
+					<!-- Product -->
+					<div id="product">
+						<form method="post" id="ProductDetailsForm" action="" crossorigin="anonymous">
+							<div class="primary-box row">
+								<div class="pb-left-column col-xs-12 col-sm-6">
+									<!-- product-imge-->
+									<div class="product-image text-center">
+										<div id="gallery" class="royalSlider rsDefault">
+											@if (Model.GalleryImages.IsAny())
+											{
+												foreach (var item in Model.GalleryImages)
+												{
+													<a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
+														<img width="195" height="350" class="rsTmb" src="@item.ImageThumbnail.ValidateImage()" />
+													</a>
+												}
+											}
+											else
+											{
+												<a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageBigSize)" href="@Url.Content("~/" + Model.ImageBigSize)">
+													<img width="195" height="350" class="rsTmb" src="@Model.ImageSmallSize.ValidateImage()" />
+												</a>
+											}
+										</div>
 
-                                    </div>
-                                    <!-- product-imge-->
-                                </div>
-                                <div class="pb-right-column col-xs-12 col-sm-6">
-                                    <h1 class="product-name">@Model.Title</h1>
-                                    <p class="sku">Mã sản phẩm:@Model.ProductCode</p>
-                                    <p class="sku">Nhà sản xuất:@Model.Manufacturer.Title</p>
-                                    @RenderPrice(Model)
+									</div>
+									<!-- product-imge-->
+								</div>
+								<div class="pb-right-column col-xs-12 col-sm-6">
+									<h1 class="product-name">@Model.Title</h1>
+									<p class="sku">Mã sản phẩm:@Model.ProductCode</p>
+									<p class="sku">Nhà sản xuất:@Model.Manufacturer.Title</p>
+									@RenderPrice(Model)
 
-                                    <div class="info-orther">
+									<div class="info-orther">
 
-                                        <p class="tt">
-                                            Tình trạng:
-                                            @if (Model.OutOfStock)
-                                            {
-                                                <span class="label label-danger">Hết hàng</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="label label-success">Còn hàng</span>
-                                            }
-                                        </p>
-                                    </div>
+										<p class="tt">
+											Tình trạng:
+											@if (Model.OutOfStock)
+											{
+												<span class="label label-danger">Hết hàng</span>
+											}
+											else
+											{
+												<span class="label label-success">Còn hàng</span>
+											}
+										</p>
+									</div>
 
-                                    @if (Model.MenuLink.TemplateType == (int)TemplateContent.Product)
-                                    {
-                                        int i = 0;
-                                        <div class="product-attr">
-                                            @foreach (var item in Model.AttributeValues.Select(x => x.Attribute).Distinct().ToList())
-                                            {
-                                                <div class="action product-desc">
-                                                    <label>@item.AttributeName</label>
-                                                    <div class="conten-attr">
-                                                        @foreach (var at in Model.AttributeValues.Where(x => x.AttributeId == item.Id))
-                                                        {
-                                                            string activeClass = "active";
-                                                            if (i > 0)
-                                                            {
-                                                                activeClass = string.Empty;
-                                                            }
-                                                            i += 1;
-                                                            <div class="item @activeClass">
-                                                                @if (!string.IsNullOrEmpty(at.ColorHex))
-                                                                {
-                                                                    <div class="select-item">
-                                                                        <label>
-                                                                            <input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
-                                                                            <span class="bg" style="background-color: @at.ColorHex"></span>
-                                                                            <span>@at.ValueName</span>
-                                                                        </label>
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <div class="select-item size">
-                                                                        <label>
-                                                                            <input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
-                                                                            <span>@at.ValueName</span>
-                                                                        </label>
-                                                                    </div>
-                                                                }
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    }
+									@if (Model.MenuLink.TemplateType == (int)TemplateContent.Product)
+									{
+										int i = 0;
+										<div class="product-attr">
+											@foreach (var item in Model.AttributeValues.Select(x => x.Attribute).Distinct().ToList())
+											{
+												<div class="action product-desc">
+													<label>@item.AttributeName</label>
+													<div class="conten-attr">
+														@foreach (var at in Model.AttributeValues.Where(x => x.AttributeId == item.Id))
+														{
+															string activeClass = "active";
+															if (i > 0)
+															{
+																activeClass = string.Empty;
+															}
+															i += 1;
+															<div class="item @activeClass">
+																@if (!string.IsNullOrEmpty(at.ColorHex))
+																{
+																	<div class="select-item">
+																		<label>
+																			<input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
+																			<span class="bg" style="background-color: @at.ColorHex"></span>
+																			<span>@at.ValueName</span>
+																		</label>
+																	</div>
+																}
+																else
+																{
+																	<div class="select-item size">
+																		<label>
+																			<input data-post="@Model.Id" type="checkbox" name="color" value="@at.Id" data-id="@Model.Id" />
+																			<span>@at.ValueName</span>
+																		</label>
+																	</div>
+																}
+															</div>
+														}
+													</div>
+												</div>
+											}
+										</div>
+									}
+									@if (!Model.OutOfStock)
+									{
+										<div class="action product-desc">
+											<div class="select-wrapper">
+												<label>Số lượng</label>
+												<input id="quantity" type="number" name="quantity" min="1" value="1" class="tc item-quantity">
+											</div>
+										</div>
 
-                                    <div class="action product-desc">
-                                        <div class="select-wrapper">
-                                            <label>Số lượng</label>
-                                            <input id="quantity" type="number" name="quantity" min="1" value="1" class="tc item-quantity">
-                                        </div>
-                                    </div>
+										<div class="action-cart">
+											<a href="javascript:;" class="addToCart btn-cart add-cart">Thêm vào giỏ</a>
+										</div>
+									}
+									else
+									{
+										<div class="action-cart">
+											<a href="javascript:;" class="addToCart btn-cart add-cart">Vui lòng liên hệ</a>
+										</div>
+									}
+								</div>
+							</div>
+						</form>
 
-                                    <div class="action-cart">
-                                        <a href="javascript:;" class="addToCart btn-cart add-cart">Thêm vào giỏ</a>
-                                    </div>
+						<!-- tab product -->
+						<div class="product-tab">
+							<ul class="nav-tab">
+								<li class="active">
+									<a aria-expanded="false" data-toggle="tab" href="#product-detail">Chi tiết sản phẩm</a>
+								</li>
 
-                                </div>
-                            </div>
-                        </form>
+								<li>
+									<a aria-expanded="true" data-toggle="tab" href="#information">Bình luận</a>
+								</li>
 
-                        <!-- tab product -->
-                        <div class="product-tab">
-                            <ul class="nav-tab">
-                                <li class="active">
-                                    <a aria-expanded="false" data-toggle="tab" href="#product-detail">Chi tiết sản phẩm</a>
-                                </li>
+							</ul>
+							<div class="tab-container">
+								<div id="product-detail" class="tab-panel active">
+									<div id="divAttribute"></div>
 
-                                <li>
-                                    <a aria-expanded="true" data-toggle="tab" href="#information">Bình luận</a>
-                                </li>
+									<h2>THÔNG TIN CHI TIẾT</h2>
+									@Html.Raw(Model.Description)
 
-                            </ul>
-                            <div class="tab-container">
-                                <div id="product-detail" class="tab-panel active">
-                                    <div id="divAttribute"></div>
+								</div>
 
-                                    <h2>THÔNG TIN CHI TIẾT</h2>
-                                    @Html.Raw(Model.Description)
+								<div id="information" class="tab-panel">
+									<div id="binhluan">
+										<div class="container-fluid">
 
-                                </div>
+										</div>
+									</div>
+								</div>
 
-                                <div id="information" class="tab-panel">
-                                    <div id="binhluan">
-                                        <div class="container-fluid">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- ./tab product -->
-                        <!-- box product -->
-                        @Html.Action("PostRelative", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })
-                    </div>
-                    <!-- Product -->
-                </div>
-                <!-- ./ Center colunm -->
-            </div>
-            <!-- ./row-->
-        </div>
-    </div>
+							</div>
+						</div>
+						<!-- ./tab product -->
+						<!-- box product -->
+						@Html.Action("PostRelative", "Post", new { area = "", virtualId = Model.MenuLink.VirtualId, productId = Model.Id })
+					</div>
+					<!-- Product -->
+				</div>
+				<!-- ./ Center colunm -->
+			</div>
+			<!-- ./row-->
+		</div>
+	</div>
 }
 
 @helper RenderPrice(Post post)
-    {
-        if (post.OutOfStock)
-        {
-            return;
-        }
+	{
+		if (post.OutOfStock)
+		{
+			return;
+		}
 
-        var galleryImages = post.GalleryImages;
-        if (!galleryImages.IsAny())
-        {
-            <div class="product-price-group">
-                <span class="price"> @post.Price.FormatPrice())</span>
-            </div>
-            @Html.Hidden("hddPrice", post.Price.ToString())
-            return;
-        }
+		var galleryImages = post.GalleryImages;
+		if (!galleryImages.IsAny())
+		{
+			<div class="product-price-group">
+				<span class="price"> @post.Price.FormatPrice())</span>
+			</div>
+			@Html.Hidden("hddPrice", post.Price.ToString())
+			return;
+		}
 
-        var attrid = post.AttributeValues.FirstOrDefault();
-        if (attrid != null)
-        {
-            var gallery = post.GalleryImages.FirstOrDefault(x =>
-             x.AttributeValueId == attrid.Id);
-            decimal? price = null;
-            <div class="product-price-group">
-                @if (gallery != null && gallery.Price != null)
-                {
-                    if (post.Price.HasValue && post.Discount.HasValue)
-                    {
-                        price = gallery.Price - gallery.Price * post.Discount / 100;
-                        <span class="price"> @Html.Raw((gallery.Price - gallery.Price * post.Discount / 100).FormatPrice())</span>
-                    }
-                    else if (post.Price.HasValue && !post.Discount.HasValue)
-                    {
-                        price = gallery.Price;
-                        <span class="price"> @Html.Raw(price.FormatPrice())</span>
-                    }
-                }
-                else
-                {
-                    <span class="text text-danger">@T("LienHeDatHang.Lable")</span>
-                }
-                @Html.Hidden("hddPrice", price.ToString())
+		var attrid = post.AttributeValues.FirstOrDefault();
+		if (attrid != null)
+		{
+			var gallery = post.GalleryImages.FirstOrDefault(x =>
+			 x.AttributeValueId == attrid.Id);
+			decimal? price = null;
+			<div class="product-price-group">
+				@if (gallery != null && gallery.Price != null)
+				{
+					if (post.Price.HasValue && post.Discount.HasValue)
+					{
+						price = gallery.Price - gallery.Price * post.Discount / 100;
+						<span class="price"> @Html.Raw((gallery.Price - gallery.Price * post.Discount / 100).FormatPrice())</span>
+					}
+					else if (post.Price.HasValue && !post.Discount.HasValue)
+					{
+						price = gallery.Price;
+						<span class="price"> @Html.Raw(price.FormatPrice())</span>
+					}
+				}
+				else
+				{
+					<span class="text text-danger">@T("LienHeDatHang.Lable")</span>
+				}
+				@Html.Hidden("hddPrice", price.ToString())
 
-                @if (post.Price.HasValue && post.Discount.HasValue)
-                {
-                    <div style="" class="saleoff-price-item">
-                        <span class="price-label">Tiết kiệm:</span>
-                        <span id="product-discount" class="product-discount">@post.Discount%</span>
-                        <span id="span-saving-price" class="discount"> @Html.Raw((gallery.Price * post.Discount / 100).FormatPrice()) </span>
-                    </div>
-                    <div class="old-price-item">
-                        <span class="price-label">Giá thị trường:</span>
-                        <span id="span-list-price"> @gallery.Price.FormatPrice()</span>
-                    </div>
-                }
-            </div>
-        }
+				@if (post.Price.HasValue && post.Discount.HasValue)
+				{
+					<div style="" class="saleoff-price-item">
+						<span class="price-label">Tiết kiệm:</span>
+						<span id="product-discount" class="product-discount">@post.Discount%</span>
+						<span id="span-saving-price" class="discount"> @Html.Raw((gallery.Price * post.Discount / 100).FormatPrice()) </span>
+					</div>
+					<div class="old-price-item">
+						<span class="price-label">Giá thị trường:</span>
+						<span id="span-list-price"> @gallery.Price.FormatPrice()</span>
+					</div>
+				}
+			</div>
+		}
 
 }
 
 @section stylesheets
 {
-    <link href="~/Content/royalslider/royalslider.min.css" rel="stylesheet" />
-    <link href="~/Content/royalslider/rs-default.css" rel="stylesheet" />
+	<link href="~/Content/royalslider/royalslider.min.css" rel="stylesheet" />
+	<link href="~/Content/royalslider/rs-default.css" rel="stylesheet" />
 }
 
 @section jquerys{
-    <script src="~/Scripts/royalslider/jquery.royalslider.min.js"></script>
-    <script type="text/javascript">
+	<script src="~/Scripts/royalslider/jquery.royalslider.min.js"></script>
+	<script type="text/javascript">
 
         jQuery(function() {
             'use strict';
@@ -380,27 +387,27 @@
             Haravan.addItemFromForm(formId, EGA.product.addItemSuccess);
         };
 
-    </script>
+	</script>
 }
 
 @section facebook
 {
-    @*<div id="fb-root"></div>
-        <script>
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=743590089013725&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>*@
+	@*<div id="fb-root"></div>
+		<script>
+			(function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s);
+				js.id = id;
+				js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=743590089013725&version=v2.0";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>*@
 }
 
 @section google
 {
-    @*<script src="https://apis.google.com/js/platform.js" async defer></script>*@
+	@*<script src="https://apis.google.com/js/platform.js" async defer></script>*@
 }
 
 <!---/PostDetail---->

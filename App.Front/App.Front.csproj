@@ -827,6 +827,9 @@
     <Content Include="Themes\Basic\TemplateMails\OrderPlaced.CustomerNotification.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Themes\Basic\TemplateMails\OrderPlaced.StoreOwnerNotification.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

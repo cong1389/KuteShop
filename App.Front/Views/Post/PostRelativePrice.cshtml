@@ -17,7 +17,7 @@
                                 @item.Title
                             </a>
                         </h4>
-                        <strong class="price">@($"{item.Price:##,### VND}")</strong>
+                        <strong class="price">@(item.Price.FormatPrice())</strong>
                     </div>
                 </div>
             }

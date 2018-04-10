@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MessageTemplate>
-	<To>{{ Customer.FullName }} &lt;{{ Customer.Email }}&gt;</To>
-	<Subject>Order receipt - {{ Store.Name }}</Subject>
-	<ModelTypes>Order, Order.Customer</ModelTypes>
+  <To>{{ Email.DisplayName }} &lt;{{ Email.Email }}&gt;</To>
+  <ReplyTo>{{ Customer.FullName }} &lt;{{ Customer.Email }}&gt;</ReplyTo>
+  <Subject>New order has been placed by '{{ Customer.FullName }}'</Subject>
+  <ModelTypes>Order, Order.Customer</ModelTypes>
 	<Body>
 		<![CDATA[{% extends '~/Themes/Basic/Views/Shared/EmailTemplates/master.liquid' %}
 
 {% block 'body' %}
-<h1> ccc
-  Hello 
+<h1>
+  New order has been placed,
 </h1>
-<p class='testDesc'>
-  thanks for your order at which we hereby confirm. A summary for this order can be found below.
-</p>
+
 
 <table class="w-100 mb-3">
   <thead>
@@ -62,6 +61,16 @@
                 {% endif %}
               </td>
             </tr>
+            	{% if Order.CustomerComment %}
+				    <tr>
+					    <td colspan="2">
+					      <h3 class="mt-2">Customer comment</h3>
+                	      <div class="text-sm">
+						    {{ Order.CustomerComment }}
+					      </div>  
+					    </td>
+            	    </tr>
+                {% endif %}
           </tbody>
         </table>
         

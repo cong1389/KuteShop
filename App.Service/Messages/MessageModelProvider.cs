@@ -10,20 +10,17 @@ using App.Domain.Common;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Orders;
 using App.Service.Addresses;
-using App.Service.Common;
-using App.Service.Language;
+using Domain.Entities.Customers;
 
 namespace App.Service.Messages
 {
-    public partial class MessageModelProvider : IMessageModelProvider
+	public partial class MessageModelProvider : IMessageModelProvider
     {
         private readonly IVirtualPathProvider _vpp;
-        private readonly ICommonServices _services;
 
-        public MessageModelProvider(IVirtualPathProvider vpp, ICommonServices services)
+	    public MessageModelProvider(IVirtualPathProvider vpp)
         {
             _vpp = vpp;
-            _services = services;
         }
 
         public virtual void AddGlobalModelParts(MessageContext messageContext)
@@ -44,7 +41,7 @@ namespace App.Service.Messages
             email.DisplayName = messageContext.EmailAccount.UserID; // Alias
             model["Email"] = email;
             model["Theme"] = CreateThemeModelPart(messageContext);
-            //model["Customer"] = CreateModelPart(messageContext.Customer, messageContext);
+            model["Customer"] = CreateModelPart(messageContext.Customer, messageContext);
             model["Store"] = CreateModelPart(messageContext.SystemSettings, messageContext);
         }
 
@@ -248,5 +245,30 @@ namespace App.Service.Messages
             
             return m;
         }
-    }
+
+		protected virtual object CreateModelPart(Customer part, MessageContext messageContext)
+		{
+			var m = new Dictionary<string, object>
+			{
+				["Id"] = part.Id,
+				["CustomerGuid"] = part.CustomerGuid,
+				["Username"] = part.Username,
+				["Email"] = part.Email,
+				["IsTaxExempt"] = part.IsTaxExempt,
+				["LastIpAddress"] = part.LastIpAddress,
+				["CreatedOn"] = part.CreatedOnUtc,
+				["LastLoginOn"] = part.LastLoginDateUtc,
+				["LastActivityOn"] = part.LastActivityDateUtc,
+
+				["FullName"] = part.Username,
+				
+				// Addresses
+				["BillingAddress"] = CreateModelPart(part.BillingAddress ?? new Address(), messageContext),
+				["ShippingAddress"] = part.ShippingAddress,
+			};
+			
+
+			return m;
+		}
+	}
 }

@@ -128,8 +128,13 @@ namespace App.Service.Orders
                         PostId = sc.PostId,
                         Quantity = sc.Quantity,
                         UnitPriceInclTax = sc.CustomerEnteredPrice,
+                        UnitPriceExclTax = decimal.Zero,
+                        PriceExclTax = decimal.Zero,
                         PriceInclTax = scSubTotalInclTax,
-                        Post = _postService.GetById(sc.PostId)
+                        Post = _postService.GetById(sc.PostId),
+                        ItemWeight = decimal.Zero,
+                        DiscountAmountInclTax= decimal.Zero,
+                        DiscountAmountExclTax= decimal.Zero
                     };
 
                     order.OrderItems.Add(orderItem);
@@ -147,12 +152,12 @@ namespace App.Service.Orders
 
                     //send email notifications
                     var msg = _messageFactory.SendOrderPlacedStoreOwnerNotification(order, 1);
+	                msg = _messageFactory.SendOrderPlacedCustomerNotification(order, order.CustomerLanguageId);
+
+					#endregion
 
 
-                    #endregion
-
-
-                }
+				}
             }
             catch (Exception ex)
             {

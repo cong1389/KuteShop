@@ -13,6 +13,7 @@ using App.Service.Common;
 using App.Service.Language;
 using App.Service.MailSetting;
 using App.Service.SystemApp;
+using Domain.Entities.Customers;
 
 namespace App.Service.Messages
 {
@@ -168,7 +169,20 @@ namespace App.Service.Messages
 				ctx.SystemSettings = _services.Resolve<ISystemSettingService>().Get(x => x.Status == 1);
 			}
 
-			modelParts = parts.ToArray();
+		    if (ctx.Customer == null)
+		    {
+		        // Try to move Customer from parts to MessageContext
+		        var customer = parts.OfType<Customer>().FirstOrDefault();
+		        if (customer != null)
+		        {
+		            // Exclude the found customer from parts list
+		            parts = parts.Where(x => !object.ReferenceEquals(x, customer));
+		        }
+
+		        ctx.Customer = customer ?? _services.WorkContext.CurrentCustomer;
+		    }
+
+            modelParts = parts.ToArray();
 		}
 
 		protected ServerMailSetting GetEmailAccountOfMessageTemplate(MessageTemplate messageTemplate)
