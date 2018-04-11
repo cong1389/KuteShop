@@ -17,9 +17,14 @@ namespace App.Infra.Data.Mapping
                .WithMany(o => o.OrderItems)
                .HasForeignKey(orderItem => orderItem.OrderId);
 
+            //HasRequired(orderItem => orderItem.Post)
+            //    .WithMany()
+            //    .HasForeignKey(orderItem => orderItem.PostId);
+
             HasRequired(orderItem => orderItem.Post)
                 .WithMany()
-                .HasForeignKey(orderItem => orderItem.PostId);
+                .HasForeignKey(orderItem => orderItem.PostId)
+                .WillCascadeOnDelete(true); ;
         }
     }
 }

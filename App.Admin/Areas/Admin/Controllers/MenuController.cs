@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
-using App.Domain.Entities.Language;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
 using App.Framework.Ultis;
