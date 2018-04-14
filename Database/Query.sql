@@ -9,6 +9,9 @@ select Id,ParentId,MenuName, * from MenuLink where Position=5
 select * from [Order]
 
 
-truncate table [Order]
+truncate table [OrderItem]
 
-delete from [Order]
+delete from [OrderItem]
+
+--------------
+DBCC CHECKIDENT ('[Order]', RESEED, 0);

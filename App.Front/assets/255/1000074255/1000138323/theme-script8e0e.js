@@ -393,7 +393,6 @@
 					$('#nav-top-menu').find('.vertical-menu-content').hide();
 				}
 			}
-			///
 			$('#shopping-cart-box-ontop .cart-block').appendTo('#cart-block');
 			$('#shopping-cart-box-ontop').fadeOut();
 			$('#user-info-opntop #user-info-top').appendTo('.top-header .container');

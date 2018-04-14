@@ -4,64 +4,68 @@
 
 @foreach (var product in Model.Items)
 {
-	   var selectedProduct = Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id);
+	if (product != null)
+	{
+		var selectedProduct = Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id);
 
-	<tr class="cart_item" id="row@(product.Id)">
+		<tr class="cart_item" id="row@(product.Id)">
 
-		<td class="cart-product-thumbnail">
-			<a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
-				<img src="@product.ImageSmallSize.ValidateImage()" alt="@product.Title">
-			</a>
-		</td>
-
-		<td class="cart-product-name">
-			<a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
-				@Html.Raw(product.Title)
-
-			</a>
-			<p>
-				<a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@selectedProduct.Id);">
-					<i class="icon-trash2">Xóa</i>
+			<td class="cart-product-thumbnail">
+				<a href="@Url.Action("PostDetail", "Post", new { seoUrl = product.SeoUrl, area = "" })">
+					<img src="@product.ImageSmallSize.ValidateImage()" alt="@product.Title">
 				</a>
-			</p>
-		</td>
+			</td>
 
-		<td class="cart-product-price">
-			<span class="amount">
-				@if (selectedProduct.CustomerEnteredPrice != 0)
-				{
-					@Html.Raw(selectedProduct.CustomerEnteredPrice.FormatPrice())
-					@Html.Hidden("hddPrice" + product.Id, selectedProduct.CustomerEnteredPrice)
-				}
-				else
-				{
-					@T("LienHeDatHang.Lable")
-					@Html.Hidden("hddPrice" + product.Id, 0)
-				}
+			<td class="cart-product-name">
+				<a href="@Url.Action("PostDetail", "Post", new {seoUrl = product.SeoUrl, area = ""})">
+					@Html.Raw(product.Title)
 
-			</span>
-		</td>
+				</a>
+				<p>
+					<a href="" class="remove" title="Xóa" onclick="RemoveCartItem(@selectedProduct.Id);">
+						<i class="icon-trash2">Xóa</i>
+					</a>
+				</p>
+			</td>
 
-		<td class="cart-product-quantity">
-			<div class="quantity clearfix product-quantity">
-				<input type="button" value="-" class="minus" onclick="MinusQuantity(@product.Id)">
-				<input type="text" id='product_quantity_@product.Id' min="1" name="quantity_@product.Id"
-					   value="@selectedProduct.Quantity" title="Qty" class="qty" size="4" />
-				<input type="button" value="+" class="plus" onclick="PlusQuantity(@product.Id)">
-			</div>
-		</td>
+			<td class="cart-product-price">
+				<span class="amount">
+					@if (selectedProduct.CustomerEnteredPrice != 0)
+					{
+						@Html.Raw(selectedProduct.CustomerEnteredPrice.FormatPrice())
+						@Html.Hidden("hddPrice" + product.Id, selectedProduct.CustomerEnteredPrice)
+					}
+					else
+					{
+						@T("LienHeDatHang.Lable")
+						@Html.Hidden("hddPrice" + product.Id, 0)
+					}
 
-		<td class="cart-amount">
-			<span>
-				@if (selectedProduct.CustomerEnteredPrice != 0)
-				{
-					var price = selectedProduct.CustomerEnteredPrice;
-					var quantity = selectedProduct.Quantity;
-					@Html.Raw((price * quantity).FormatPrice())
-				}
-			</span>
-		</td>
-	</tr>
+				</span>
+			</td>
+
+			<td class="cart-product-quantity">
+				<div class="quantity clearfix product-quantity">
+					<input type="button" value="-" class="minus" onclick="MinusQuantity(@product.Id)">
+					<input type="text" id='product_quantity_@product.Id' min="1" name="quantity_@product.Id"
+						   value="@selectedProduct.Quantity" title="Qty" class="qty" size="4" />
+					<input type="button" value="+" class="plus" onclick="PlusQuantity(@product.Id)">
+				</div>
+			</td>
+
+			<td class="cart-amount">
+				<span>
+					@if (selectedProduct.CustomerEnteredPrice != 0)
+					{
+						var price = selectedProduct.CustomerEnteredPrice;
+						var quantity = selectedProduct.Quantity;
+						@Html.Raw((price * quantity).FormatPrice())
+					}
+				</span>
+			</td>
+		</tr>
+	}
+
 }
 <tr style="text-align:center;">
 	<td>&#160;</td>

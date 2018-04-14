@@ -319,13 +319,13 @@ a, .user-login {
     height: 70px;
 }
 
-input[type=radio] {
+/*input[type=radio] {
     width: 1px;
     opacity: 0;
     margin: 0;
-}
+}*/
 
-.label-radio {
+/*.label-radio {
     font-weight: bold;
     background-image: url(//hstatic.net/0/global/design/imgs/radio.png);
     -webkit-touch-callout: none;
@@ -348,8 +348,8 @@ input[type=radio] {
 input[type=radio]:checked + .label-radio {
     background-position: 0 -20px;
 }
-
-.lb-method {
+*/
+/*.lb-method {
     display: block;
     width: 100%;
     line-height: 35px;
@@ -359,9 +359,9 @@ input[type=radio]:checked + .label-radio {
     padding-left: 30px;
     display: none;
     white-space: pre-line;
-}
+}*/
 
-.box-cart {
+/*.box-cart {
     border-radius: 5px;
     border: 1px solid #eee;
     padding: 10px;
@@ -392,10 +392,10 @@ input[type=radio]:checked + .label-radio {
         border-top: 0;
     }
 
-    .cart-item .price, .total-price label, .shiping-price label, .total-checkout span, .promotion-name label {
+    .cart-item .price, .total-price label, .shiping-price label, .total-checkout span, .promotion-name label, .total-checkout label {
         float: right;
         text-align: right;
-    }
+    }*/
 
 .variant-title {
     margin-top: 4px;
@@ -403,13 +403,10 @@ input[type=radio]:checked + .label-radio {
     padding-left: 20px;
 }
 
-.total-price, .promotion_saving {
+/*.total-price, .promotion_saving {
     border-top: 0;
-    font-weight: 600;
-    /* font-size: 16px; */
-    /* font-weight: bold; */
+    font-weight: 400;
     border-bottom: 1px solid #eaeaea;
-    /* padding-left: 28px; */
     text-transform: uppercase;
     padding-top: 11px;
     padding-bottom: 12px;
@@ -465,16 +462,15 @@ input[type=radio]:checked + .label-radio {
 }
 
 .total-checkout {
-    /* background: #f0f0f0; */
+  
     padding: 10px;
-    /* border-bottom-left-radius: 5px; */
-    /* border-bottom-right-radius: 5px; */
-    font-size: 12px;
+  
+    font-size: 13px;
     text-transform: uppercase;
     margin-left: -10px;
     margin-right: -10px;
     margin-bottom: -10px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .btn-checkout, .btn-submit-coupon, .continue-coupon, .cancel-coupon {
@@ -488,7 +484,6 @@ input[type=radio]:checked + .label-radio {
     margin: 20px 0;
     border-radius: 3px;
     font-size: 22px;
-    /* line-height: 1.2em; */
     font-weight: 400;
     letter-spacing: 1px;
     text-decoration: none;
@@ -504,7 +499,7 @@ input[type=radio]:checked + .label-radio {
         background-color: #3498db;
         color: #fff;
         opacity: 0.8;
-    }
+    }*/
 
 .error {
     border: 1px dashed #f88d81 !important;

@@ -778,6 +778,7 @@
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\validation\jquery.validate.unobtrusive.min.js" />
     <Content Include="Themes\Basic\Content\images\bg-selected.png" />
+    <Content Include="Themes\Basic\Content\images\ico2.png" />
     <Content Include="Themes\Basic\Content\images\loading.gif" />
     <Content Include="Themes\Basic\Content\images\price-percent.png" />
     <Content Include="Themes\Basic\Content\shared\_buttons.css">
@@ -881,6 +882,7 @@
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\order.liquid" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\shipment.liquid" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Themes\Basic\Content\shared\_checkbox-radio.scss" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

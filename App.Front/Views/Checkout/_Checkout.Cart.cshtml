@@ -4,16 +4,16 @@
 
 @if (Model != null)
 {
-	<div id="left_column">
+	<div id="left_column" class="checkout-cart">
 		<div class="block left-module">
 			<p class="title_block">Đơn hàng</p>
 			<div class="block_content">
-				<div class="checkout-cart">
+				<div class="">
 					
 					<div class="cart-items">
 						@foreach (var product in Model.Items)
 						{
-						    var selectedProduct = Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id);
+							var selectedProduct = Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id);
 
 							<div class="list_item cart-item">
 								<div class="col-sm-6">
@@ -27,11 +27,7 @@
 								<div class="col-sm-6 price">
 									@if (selectedProduct.CustomerEnteredPrice != 0)
 									{
-<<<<<<< HEAD
-										@Html.Raw(Model.ShoppingCarts.FirstOrDefault(x => x.PostId == product.Id).CustomerEnteredPrice.FormatPrice())
-=======
 										@Html.Raw(selectedProduct.CustomerEnteredPrice.FormatPrice())
->>>>>>> 58208d6011f5466a32b9cdac1f20fa9fd9fb09d3
 									}
 									else
 									{
@@ -63,7 +59,7 @@
 						</div>
 					</div>
 					<div class="total-checkout">
-						Tổng cộng <span> @Html.Raw(Model.SubTotal.FormatPrice())</span>
+						Tổng cộng <label> @Html.Raw(Model.SubTotal.FormatPrice())</label>
 					</div>
 				</div>
 			</div>

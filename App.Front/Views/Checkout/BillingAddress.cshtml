@@ -116,7 +116,7 @@
 					@Html.TextBoxFor(model => model.NewAddress.Address1, new { @class = "form-control input-sm", size = "30", placeholder = Html.DisplayPlaceHolderFor(m => m.NewAddress.Address1), required = true })
 					@Html.ValidationMessageFor(model => model.NewAddress.Address1, "", new { @class = "help-block" })
 				</div>
-				
+
 				<div class="form-selector">
 					@Html.Label("Ghi chú đơn hàng")
 					<textarea id="billing_note" placeholder="Ghi chú đơn hàng" name="billing_address[note]" rows="3" class="form-control input-sm"></textarea>
@@ -152,7 +152,7 @@
 
 		jQuery.post('@Url.Action("CartByCustomer", "Checkout")')
            .done(function (data) {
-           	jQuery("#divCart").html(data.list);
+           		jQuery("#divCart").html(data.list);
            });
 	})
 

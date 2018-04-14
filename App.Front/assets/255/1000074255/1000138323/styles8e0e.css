@@ -3747,7 +3747,7 @@ span.notify-right {
 /*--------------
 16.1 Left column
 */
-#left_column .left-module {
+/*#left_column .left-module {
     margin-bottom: 30px;
     overflow: hidden;
 }
@@ -3780,7 +3780,7 @@ span.notify-right {
 
     #left_column .block .block_content {
         padding: 15px 20px;
-    }
+    }*/
 
 .layered .layered_subtitle {
     color: #666;

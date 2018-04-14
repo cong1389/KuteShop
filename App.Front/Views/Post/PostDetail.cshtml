@@ -367,7 +367,6 @@
                     data: dataParam,
                     dataType: 'json',
                     success: function(response) {
-
                         AddItemSuccess(response);
                         CartNotification();
                     },
@@ -380,7 +379,8 @@
             });
 
         function AddItemSuccess(data) {
-            jQuery("#top-cart").html(data.list);
+        	jQuery("#top-cart").html(data.list);
+	        jQuery(".cart-block .cart-empty").remove();
         };
 
         function addItem(formId) {
