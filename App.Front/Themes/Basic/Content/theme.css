@@ -932,7 +932,11 @@ body:not(.device-touch) .social-icon i {
   font-size: 16px;
   font-weight: 400;
   margin-top: 0;
-  color: #ab6767; }
+  color: #b70017;
+  margin-bottom: 10px; }
+
+.complete .success p {
+  margin: 0 0 10px; }
 
 .goweb-account-order .user_box {
   padding: 15px 15px 15px;
@@ -978,6 +982,18 @@ body:not(.device-touch) .social-icon i {
   text-transform: uppercase;
   color: #958457;
   margin: 15px 0; }
+
+.checkout-page .box-border .form-selector {
+  padding-bottom: 25px; }
+
+.checkout-page .box-border label {
+  padding-bottom: 5px; }
+
+.checkout-page .box-border input, .checkout-page .box-border select, .checkout-page .box-border textarea {
+  border-radius: 0;
+  border-color: #eaeaea;
+  box-shadow: inherit;
+  outline: 0 none; }
 
 .conten-attr {
   overflow: hidden; }
@@ -1274,7 +1290,7 @@ div.jGrowl div.jGrowl-closer:hover {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857;
-  border-radius: 4px;
+  border-radius: 0;
   user-select: none; }
 
 .btn-default {
@@ -1298,7 +1314,8 @@ div.jGrowl div.jGrowl-closer:hover {
   border-color: #555649; }
   .btn-gray:hover, .btn-gray:focus {
     color: #fff !important;
-    text-decoration: none; }
+    text-decoration: none;
+    background: #4c311d; }
 
 .btn-loading {
   pointer-events: none;
@@ -1316,12 +1333,19 @@ div.jGrowl div.jGrowl-closer:hover {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=" 100 ")";
   filter: alpha(opacity=100); }
 
+.btn-success {
+  background: #FFF;
+  border: 1px solid #55c65e;
+  color: #48b151;
+  font-weight: normal; }
+
 .btn-blue {
   background: #00b6f0;
   color: white !important; }
   .btn-blue :hover {
     background-color: #286f94;
-    color: #fff; }
+    color: #fff;
+    border: 1px solid #000052; }
 
 .btn-social {
   cursor: pointer;
@@ -1337,7 +1361,7 @@ div.jGrowl div.jGrowl-closer:hover {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857;
-  border-radius: 4px;
+  border-radius: 0;
   user-select: none;
   width: 203px;
   font-size: 12px;
@@ -1387,7 +1411,7 @@ div.jGrowl div.jGrowl-closer:hover {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857;
-    border-radius: 4px;
+    border-radius: 0;
     user-select: none;
     width: 203px;
     font-size: 12px;

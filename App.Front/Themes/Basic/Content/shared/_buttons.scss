@@ -13,7 +13,7 @@
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857;
-    border-radius: 4px;
+    border-radius: 0;
     user-select: none;
 }
 
@@ -50,6 +50,7 @@
     &:hover, &:focus {
         color: #fff !important;
         text-decoration: none;
+        background: #4c311d;
     }
 }
 
@@ -74,6 +75,15 @@
     filter: alpha(opacity=100);
 }
 
+//btn-success
+//----------------------------------------------------------------------
+.btn-success {
+    background: #FFF;
+    border: 1px solid #55c65e;
+    color: #48b151;
+    font-weight: normal;
+}
+
 //btn-blue
 //----------------------------------------------------------------------
 .btn-blue {
@@ -83,6 +93,7 @@
     & :hover {
         background-color: $btn-blue-bg-focus;
         color: $btn-blue-color-focus;
+        border: 1px solid #000052;
     }
 }
 

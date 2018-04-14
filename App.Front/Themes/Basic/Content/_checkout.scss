@@ -311,7 +311,12 @@
             font-size: 16px;
             font-weight: 400;
             margin-top: 0;
-            color: $primary-color-1;
+            color: #b70017;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0 0 10px;
         }
     }
 }
@@ -347,5 +352,24 @@
 
     .title-page {
         @include title-page-cart();
+    }
+}
+
+.checkout-page {
+    .box-border {
+        .form-selector {
+            padding-bottom: 25px;
+        }
+
+        label {
+            padding-bottom: 5px;
+        }
+
+        input, select, textarea {
+            border-radius: 0;
+            border-color: #eaeaea;
+            box-shadow: inherit;
+            outline: 0 none;
+        }
     }
 }
