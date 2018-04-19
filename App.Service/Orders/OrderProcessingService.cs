@@ -11,7 +11,7 @@ using App.Service.Post;
 
 namespace App.Service.Orders
 {
-    public class OrderProcessingService : IOrderProcessingService
+	public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IOrderService _orderService;
         private readonly IShoppingCartItemService _shoppingCartItemService;
@@ -131,7 +131,7 @@ namespace App.Service.Orders
                         UnitPriceExclTax = decimal.Zero,
                         PriceExclTax = decimal.Zero,
                         PriceInclTax = scSubTotalInclTax,
-                        Post = _postService.GetById(sc.PostId),
+                        //Post = _postService.GetById(sc.PostId),
                         ItemWeight = decimal.Zero,
                         DiscountAmountInclTax= decimal.Zero,
                         DiscountAmountExclTax= decimal.Zero

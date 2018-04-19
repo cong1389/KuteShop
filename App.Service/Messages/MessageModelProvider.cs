@@ -64,8 +64,10 @@ namespace App.Service.Messages
                 case Order x:
                     modelPart = CreateModelPart(x, messageContext);
                     break;
-
-            }
+	            case Domain.Entities.Data.Post x:
+		            modelPart = CreateModelPart(x, messageContext);
+		            break;
+			}
 
             if (modelPart != null)
             {

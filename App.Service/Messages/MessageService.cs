@@ -144,7 +144,7 @@ namespace App.Service.Messages
 			}
 
 			var parts = modelParts?.AsEnumerable() ?? Enumerable.Empty<object>();
-
+			
 			if (ctx.MessageTemplate == null)
 			{
 				if (ctx.MessageTemplateName.IsEmpty())

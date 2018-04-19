@@ -24,7 +24,7 @@ namespace App.Infra.Data.Mapping
             HasRequired(orderItem => orderItem.Post)
                 .WithMany()
                 .HasForeignKey(orderItem => orderItem.PostId)
-                .WillCascadeOnDelete(true); ;
+                .WillCascadeOnDelete(true);
         }
     }
 }

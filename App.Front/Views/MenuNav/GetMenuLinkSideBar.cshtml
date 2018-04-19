@@ -22,20 +22,20 @@
                             {
                                 if (products.Any(x => x == child.MenuId))
                                 {
-                                    <li>
+                                    <li><span></span>
                                         <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
                                     </li>
                                 }
                                 else
                                 {
-                                    <li>
+                                    <li><span></span>
                                         <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
                                     </li>
                                 }
                             }
                             else
                             {
-                                <li>
+                                <li><span></span>
                                     <a href="@Url.Action("GetContent", "Menu", new { area = "", menu = child.SeoUrl })">@child.MenuName</a>
                                 </li>
                             }

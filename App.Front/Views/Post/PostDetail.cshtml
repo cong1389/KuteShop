@@ -214,7 +214,7 @@
 		if (!galleryImages.IsAny())
 		{
 			<div class="product-price-group">
-				<span class="price"> @post.Price.FormatPrice())</span>
+				<span class="price"> @post.Price.FormatPrice()</span>
 			</div>
 			@Html.Hidden("hddPrice", post.Price.ToString())
 			return;
