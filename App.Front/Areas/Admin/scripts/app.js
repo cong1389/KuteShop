@@ -1,4 +1,4 @@
-/**
+﻿/**
 Core script to handle the entire theme and core functions
 **/
 var App = function () {
@@ -14,14 +14,6 @@ var App = function () {
     var assetsPath = '';
     // theme layout color set
 
-    var brandColors = {
-        'blue': '#89C4F4',
-        'red': '#F3565D',
-        'green': '#1bbc9b',
-        'purple': '#9b59b6',
-        'grey': '#95a5a6',
-        'yellow': '#F8CB00'
-    };
 
     // initializes main settings
     var handleInit = function () {
@@ -638,11 +630,11 @@ var App = function () {
             return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
         }
     }
-    var handleGetParameterFromUrl =function() {
+    var handleGetParameterFromUrl = function () {
         //(function ($) {
-           
+
         //})(jQuery);
-        $.QueryString = (function(a) {
+        $.QueryString = (function (a) {
             if (a == "") return {};
             var b = {};
             for (var i = 0; i < a.length; ++i) {
@@ -654,16 +646,49 @@ var App = function () {
         })(window.location.search.substr(1).split('&'));
     }
 
-    //var handleFixedToolbar = function() {
-    //    var window_top = $(window).scrollTop();
-    //    var div_top = $('.page-content').offset().top;
-    //    if (window_top > div_top) {
-    //        $('#sticky_toolbar').addClass('toolbar_fixed');
-    //    } else {
-    //        $('#sticky_toolbar').removeClass('toolbar_fixed');
-    //    }
-    //}
-    //* END:CORE HANDLERS *//
+    //Remove characters Viet Nam
+    var handleRemoveCharactersVietNam = function (words) {
+        var str;
+        str = words;
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/^\-+|\-+$/g, "");
+
+        return str;
+    };
+
+    var handleGetFirstLetterEachWord = function (wordsInput) {
+        var words = wordsInput.split(" ");
+        var output = "";
+
+        for (i = 0 ; i < words.length; i++) {
+            var lowerWord = words[i].toLowerCase();
+            lowerWord = lowerWord.trim();
+            var capitalizedWord = lowerWord.slice(0, 1).toUpperCase();
+            output += capitalizedWord;
+        }
+
+        output[output.length - 1] = '';
+        return output;
+    };
+
+    var handleformatPostCode = function (postTitle) {
+        var postCodeWithoutUnicode = handleRemoveCharactersVietNam(postTitle);
+        var postCode = handleGetFirstLetterEachWord(postCodeWithoutUnicode);
+
+        var date = new Date();
+        var mm = (date.getMonth() + 1).toString();
+        mm = (mm[1] ? mm : "0" + mm[0]);
+        var dateWithPoint = date.getFullYear() + "." + mm + "." + date.getDate();
+
+        return postCode + dateWithPoint;
+    }
 
     return {
 
@@ -677,7 +702,7 @@ var App = function () {
             //handleExtendUnobtrusiveValidationBoostrapStyle();
             //UI Component handlers     
             //handleMaterialDesign(); // handle material design       
-           //handleUniform(); // hanfle custom radio & checkboxes
+            //handleUniform(); // hanfle custom radio & checkboxes
             //handleiCheck(); // handles custom icheck radio and checkboxes
             //handleBootstrapSwitch(); // handle bootstrap switch plugin
             handleScrollers(); // handles slim scrolling contents 
@@ -701,6 +726,7 @@ var App = function () {
             //Handle group element heights
             this.addResizeHandler(handleHeight); // handle auto calculating height on window resize
             handleGetParameterFromUrl();
+
             // Hacks
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
         },
@@ -761,7 +787,8 @@ var App = function () {
 
             $('html,body').animate({
                 scrollTop: pos
-            }, 'slow');
+            },
+                'slow');
         },
 
         initSlimScroll: function (el) {
@@ -782,7 +809,9 @@ var App = function () {
                     allowPageScroll: true, // allow page scroll when the element scroll is ended
                     size: '7px',
                     color: ($(this).attr("data-handle-color") ? $(this).attr("data-handle-color") : '#bbb'),
-                    wrapperClass: ($(this).attr("data-wrapper-class") ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
+                    wrapperClass: ($(this).attr("data-wrapper-class")
+                        ? $(this).attr("data-wrapper-class")
+                        : 'slimScrollDiv'),
                     railColor: ($(this).attr("data-rail-color") ? $(this).attr("data-rail-color") : '#eaeaea'),
                     position: isRTL ? 'left' : 'right',
                     height: height,
@@ -821,16 +850,19 @@ var App = function () {
                     }
 
                     $(this).slimScroll({
-                        wrapperClass: ($(this).attr("data-wrapper-class") ? $(this).attr("data-wrapper-class") : 'slimScrollDiv'),
+                        wrapperClass: ($(this).attr("data-wrapper-class")
+                            ? $(this).attr("data-wrapper-class")
+                            : 'slimScrollDiv'),
                         destroy: true
                     });
 
                     var the = $(this);
 
                     // reassign custom attributes
-                    $.each(attrList, function (key, value) {
-                        the.attr(key, value);
-                    });
+                    $.each(attrList,
+                        function (key, value) {
+                            the.attr(key, value);
+                        });
 
                 }
             });
@@ -846,13 +878,31 @@ var App = function () {
             options = $.extend(true, {}, options);
             var html = '';
             if (options.animate) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '">' + '<div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' + '</div>';
+                html = '<div class="loading-message ' +
+                    (options.boxed ? 'loading-message-boxed' : '') +
+                    '">' +
+                    '<div class="block-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>' +
+                    '</div>';
             } else if (options.iconOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""></div>';
+                html = '<div class="loading-message ' +
+                    (options.boxed ? 'loading-message-boxed' : '') +
+                    '"><img src="' +
+                    this.getGlobalImgPath() +
+                    'loading-spinner-grey.gif" align=""></div>';
             } else if (options.textOnly) {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                html = '<div class="loading-message ' +
+                    (options.boxed ? 'loading-message-boxed' : '') +
+                    '"><span>&nbsp;&nbsp;' +
+                    (options.message ? options.message : 'LOADING...') +
+                    '</span></div>';
             } else {
-                html = '<div class="loading-message ' + (options.boxed ? 'loading-message-boxed' : '') + '"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' + (options.message ? options.message : 'LOADING...') + '</span></div>';
+                html = '<div class="loading-message ' +
+                    (options.boxed ? 'loading-message-boxed' : '') +
+                    '"><img src="' +
+                    this.getGlobalImgPath() +
+                    'loading-spinner-grey.gif" align=""><span>&nbsp;&nbsp;' +
+                    (options.message ? options.message : 'LOADING...') +
+                    '</span></div>';
             }
 
             if (options.target) { // element blocking
@@ -911,10 +961,15 @@ var App = function () {
         startPageLoading: function (options) {
             if (options && options.animate) {
                 $('.page-spinner-bar').remove();
-                $('body').append('<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
+                $('body').append(
+                    '<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
             } else {
                 $('.page-loading').remove();
-                $('body').append('<div class="page-loading"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif"/>&nbsp;&nbsp;<span>' + (options && options.message ? options.message : 'Loading...') + '</span></div>');
+                $('body').append('<div class="page-loading"><img src="' +
+                    this.getGlobalImgPath() +
+                    'loading-spinner-grey.gif"/>&nbsp;&nbsp;<span>' +
+                    (options && options.message ? options.message : 'Loading...') +
+                    '</span></div>');
             }
         },
 
@@ -924,21 +979,33 @@ var App = function () {
 
         alert: function (options) {
 
-            options = $.extend(true, {
-                container: "", // alerts parent container(by default placed after the page breadcrumbs)
-                place: "append", // "append" or "prepend" in container 
-                type: 'success', // alert's type
-                message: "", // alert's message
-                close: true, // make alert closable
-                reset: true, // close all previouse alerts first
-                focus: true, // auto scroll to the alert after shown
-                closeInSeconds: 0, // auto close after defined seconds
-                icon: "" // put icon before the message
-            }, options);
+            options = $.extend(true,
+                {
+                    container: "", // alerts parent container(by default placed after the page breadcrumbs)
+                    place: "append", // "append" or "prepend" in container 
+                    type: 'success', // alert's type
+                    message: "", // alert's message
+                    close: true, // make alert closable
+                    reset: true, // close all previouse alerts first
+                    focus: true, // auto scroll to the alert after shown
+                    closeInSeconds: 0, // auto close after defined seconds
+                    icon: "" // put icon before the message
+                },
+                options);
 
             var id = App.getUniqueID("App_alert");
 
-            var html = '<div id="' + id + '" class="custom-alerts alert alert-' + options.type + ' fade in">' + (options.close ? '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>' : '') + (options.icon !== "" ? '<i class="fa-lg fa fa-' + options.icon + '"></i>  ' : '') + options.message + '</div>';
+            var html = '<div id="' +
+                id +
+                '" class="custom-alerts alert alert-' +
+                options.type +
+                ' fade in">' +
+                (options.close
+                    ? '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>'
+                    : '') +
+                (options.icon !== "" ? '<i class="fa-lg fa fa-' + options.icon + '"></i>  ' : '') +
+                options.message +
+                '</div>';
 
             if (options.reset) {
                 $('.custom-alerts').remove();
@@ -969,7 +1036,8 @@ var App = function () {
             if (options.closeInSeconds > 0) {
                 setTimeout(function () {
                     $('#' + id).remove();
-                }, options.closeInSeconds * 1000);
+                },
+                    options.closeInSeconds * 1000);
             }
 
             return id;
@@ -991,7 +1059,8 @@ var App = function () {
 
         //wrApper function to update/sync jquery uniform checkbox & radios
         updateUniform: function (els) {
-            $.uniform.update(els); // update the uniform checkbox & radios UI after the actual input control state changed
+            $.uniform.update(
+                els); // update the uniform checkbox & radios UI after the actual input control state changed
         },
 
         //public function to initialize the fancybox plugin
@@ -1011,7 +1080,9 @@ var App = function () {
         //public function to get a paremeter by name from URL
         getURLParameter: function (paramName) {
             var searchString = window.location.search.substring(1),
-                i, val, params = searchString.split("&");
+                i,
+                val,
+                params = searchString.split("&");
 
             for (i = 0; i < params.length; i++) {
                 val = params[i].split("=");
@@ -1111,10 +1182,10 @@ var App = function () {
         getResponsiveBreakpoint: function (size) {
             // bootstrap responsive breakpoints
             var sizes = {
-                'xs': 480,     // extra small
-                'sm': 768,     // small
-                'md': 992,     // medium
-                'lg': 1200     // large
+                'xs': 480, // extra small
+                'sm': 768, // small
+                'md': 992, // medium
+                'lg': 1200 // large
             };
 
             return sizes[size] ? sizes[size] : 0;
@@ -1126,6 +1197,18 @@ var App = function () {
             } else {
                 $('#sticky_toolbar').removeClass('toolbar_fixed').addClass("container-fluid");
             };
+        },
+
+        getFirstLetterEachWord: function (words) {
+            return handleGetFirstLetterEachWord(words);
+        },
+
+        formatPostCode: function (postTitle) {
+            return handleformatPostCode(postTitle);
+        },
+
+        removeCharactersVietNam: function (words) {
+            return handleRemoveCharactersVietNam(words);
         }
     };
 

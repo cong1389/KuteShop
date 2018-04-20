@@ -3,15 +3,7 @@
 namespace App.Domain.Entities.Data
 {
     public class PostGallery : Entity<int>
-    {      
-
-        //[ForeignKey("PostId")]
-        //public virtual Post Post
-        //{
-        //    get;
-        //    set;
-        //}
-
+    {
         public int PostId
         {
             get;
@@ -42,6 +34,12 @@ namespace App.Domain.Entities.Data
         }
 
         public string ImageMediumSize
+        {
+            get;
+            set;
+        }
+
+        public int Status
         {
             get;
             set;
