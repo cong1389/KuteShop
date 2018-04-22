@@ -76,7 +76,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.Image.FileName);
                     var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethod_WithMediumSize, ImageSize.PaymentMethod_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
                 }
@@ -170,7 +170,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.Image.FileName);
                     var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethod_WithMediumSize, ImageSize.PaymentMethod_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
                 }

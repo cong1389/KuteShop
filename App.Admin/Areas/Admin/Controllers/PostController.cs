@@ -167,7 +167,7 @@ namespace App.Admin.Controllers
                         var str7 = allKeys[i];
                         if (num <= count)
                         {
-                            if (!str7.Equals("Image"))
+                            if (!str7.Equals("ImageBigSize"))
                             {
                                 var str8 = str7.Replace("[]", "");
                                 var item = files[num];
@@ -437,7 +437,7 @@ namespace App.Admin.Controllers
                             var str7 = allKeys[i];
                             if (num <= count)
                             {
-                                if (!str7.Equals("Image"))
+                                if (!str7.Equals("ImageBigSize"))
                                 {
                                     var str8 = str7.Replace("[]", "");
                                     var item = files[num];
@@ -632,7 +632,7 @@ namespace App.Admin.Controllers
                     var str = allKeys[i];
                     if (num <= count)
                     {
-                        if (!str.Equals("Image"))
+                        if (!str.Equals("ImageBigSize"))
                         {
                             var item = files[num];
                             if (item.ContentLength > 0)

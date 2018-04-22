@@ -56,7 +56,7 @@ namespace App.FakeEntity.Menu
 		}
 
 		[Display(Name= "ImageSelect", ResourceType=typeof(FormUI))]
-		public HttpPostedFileBase Image
+		public HttpPostedFileBase ImageBigSizeFile
 		{
 			get;
 			set;
@@ -76,7 +76,7 @@ namespace App.FakeEntity.Menu
 			set;
 		}
 
-		public string ImageUrl
+		public string ImageBigSize
 		{
 			get;
 			set;

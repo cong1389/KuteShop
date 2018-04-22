@@ -150,7 +150,7 @@ namespace App.Front.Extensions
                 MenuName = entity.GetLocalized(x => x.MenuName, entity.Id),
                 SeoUrl = entity.SeoUrl,
                 OrderDisplay = entity.OrderDisplay,
-                ImageUrl = entity.ImageUrl,
+                ImageBigSize = entity.ImageBigSize,
                 Icon1 = entity.Icon1,
                 Icon2 = entity.Icon2,
                 ColorHex = entity.ColorHex,
@@ -184,7 +184,7 @@ namespace App.Front.Extensions
             destination.MenuName = entity.GetLocalized(x => x.MenuName, entity.Id);
             destination.SeoUrl = entity.SeoUrl;
             destination.OrderDisplay = entity.OrderDisplay;
-            destination.ImageUrl = entity.ImageUrl;
+            destination.ImageUrl = entity.ImageBigSize;
             destination.CurrentVirtualId = entity.CurrentVirtualId;
             destination.VirtualId = entity.VirtualId;
             destination.TemplateType = entity.TemplateType;
@@ -461,7 +461,7 @@ namespace App.Front.Extensions
             destination.MenuName = model.MenuName;
             destination.SeoUrl = model.SeoUrl;
             destination.OrderDisplay = model.OrderDisplay;
-            destination.ImageUrl = model.ImageUrl;
+            destination.ImageBigSize = model.ImageBigSize;
             destination.Icon1 = model.Icon1;
             destination.Icon2 = model.Icon2;
             destination.CurrentVirtualId = model.CurrentVirtualId;

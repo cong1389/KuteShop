@@ -27,9 +27,7 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["HeighthOrignalSize"]);
 			}
 		}
-
         
-
         public static int HeightMediumSize
 		{
 			get
@@ -53,7 +51,6 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["HeightNewsSize"]);
 			}
 		}
-
 		public static int HeightNewsSize
 		{
 			get
@@ -66,18 +63,29 @@ namespace App.Admin.Helpers
 			}
 		}
 
-		public static int HeightPostRelativeSize
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeightPostRelativeSize"]))
-				{
-					return 384;
-				}
-				return int.Parse(ConfigurationManager.AppSettings["HeightPostRelativeSize"]);
-			}
-		}
-
+	    public static int WithMediumNewsSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
+	        }
+	    }
+	    public static int WithNewsSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
+	        }
+	    }
+        
 		public static int HeightSmallSize
 		{
 			get
@@ -113,19 +121,7 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["WithBigSize"]);
 			}
 		}
-
-		public static int WithMediumNewsSize
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
-				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
-                }
-				return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
-			}
-		}
-
+        
 		public static int WithMediumSize
 		{
 			get
@@ -137,19 +133,7 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["WithMediumSize"]);
 			}
 		}
-
-		public static int WithNewsSize
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
-				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
-                }
-				return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
-			}
-		}
-
+        
 		public static int WithOrignalSize
 		{
 			get
@@ -162,18 +146,18 @@ namespace App.Admin.Helpers
 			}
 		}
 
-        public static int FlowStep_WithMediumSize
+        public static int FlowStepWithMediumSize
         {
             get
             {
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStep_WithMediumSize"]))
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStepWithMediumSize"]))
                 {
                     return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
                 }
-                return int.Parse(ConfigurationManager.AppSettings["FlowStep_WithMediumSize"]);
+                return int.Parse(ConfigurationManager.AppSettings["FlowStepWithMediumSize"]);
             }
         }
-        public static int FlowStep_HeightMediumSize
+        public static int FlowStepHeightMediumSize
         {
             get
             {
@@ -185,7 +169,7 @@ namespace App.Admin.Helpers
             }
         }
 
-        public static int Manufacture_WithMediumSize
+        public static int ManufactureWithMediumSize
         {
             get
             {
@@ -196,7 +180,7 @@ namespace App.Admin.Helpers
                 return int.Parse(ConfigurationManager.AppSettings["Manufacture_WithMediumSize"]);
             }
         }
-        public static int Manufacture_HeightMediumSize
+        public static int ManufactureHeightMediumSize
         {
             get
             {
@@ -207,9 +191,8 @@ namespace App.Admin.Helpers
                 return int.Parse(ConfigurationManager.AppSettings["Manufacture_HeightMediumSize"]);
             }
         }
-
-
-        public static int PaymentMethod_WithMediumSize
+        
+        public static int PaymentMethodWithMediumSize
         {
             get
             {
@@ -220,7 +203,7 @@ namespace App.Admin.Helpers
                 return int.Parse(ConfigurationManager.AppSettings["PaymentMethod_WithMediumSize"]);
             }
         }
-        public static int PaymentMethod_HeightMediumSize
+        public static int PaymentMethodHeightMediumSize
         {
             get
             {
@@ -232,6 +215,17 @@ namespace App.Admin.Helpers
             }
         }
 
+	    public static int HeightPostRelativeSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeightPostRelativeSize"]))
+	            {
+	                return 384;
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["HeightPostRelativeSize"]);
+	        }
+	    }
         public static int WithPostRelativeSize
 		{
 			get
@@ -255,7 +249,6 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["WithSmallSize"]);
 			}
 		}
-
 		public static int WithThumbnailSize
 		{
 			get
@@ -267,5 +260,28 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["WithThumbnailSize"]);
 			}
 		}
-	}
+
+	    public static int MenuWithBigSize
+        {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuWithBigSize"]);
+	        }
+	    }
+	    public static int MenuHeightBigSize
+        {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuHeightBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuHeightBigSize"]);
+	        }
+	    }
+    }
 }

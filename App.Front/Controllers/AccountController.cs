@@ -138,7 +138,7 @@ namespace App.Front.Controllers
 							var str4 = allKeys[i];
 							if (num <= count)
 							{
-								if (!str4.Equals("Image"))
+								if (!str4.Equals("ImageBigSize"))
 								{
 									var item = files[num];
 									if (item.ContentLength > 0)
@@ -272,7 +272,7 @@ namespace App.Front.Controllers
 							var str4 = allKeys[i];
 							if (num <= count)
 							{
-								if (!str4.Equals("Image"))
+								if (!str4.Equals("ImageBigSize"))
 								{
 									var item = files[num];
 									if (item.ContentLength > 0)

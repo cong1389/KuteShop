@@ -65,7 +65,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.Image.FileName);
                     var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName, ImageSize.Manufacture_WithMediumSize, ImageSize.Manufacture_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName);
                 }
@@ -145,7 +145,7 @@ namespace App.Admin.Controllers
 
                     var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName1, ImageSize.Manufacture_WithMediumSize, ImageSize.Manufacture_HeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName1, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName1);
                 }

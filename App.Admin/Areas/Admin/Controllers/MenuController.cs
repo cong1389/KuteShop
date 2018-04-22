@@ -27,16 +27,18 @@ namespace App.Admin.Controllers
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
 
-        private readonly ILanguageService _languageService;      
+        private readonly ILanguageService _languageService;
+        private readonly IImagePlugin _imagePlugin;
 
         public MenuController(IMenuLinkService menuLinkService, ILocalizedPropertyService localizedPropertyService
             , ILanguageService languageService
-           , ICacheManager cacheManager)
+           , ICacheManager cacheManager, IImagePlugin imagePlugin)
         {
             _menuLinkService = menuLinkService;
             _localizedPropertyService = localizedPropertyService;
             _languageService = languageService;
             _cacheManager = cacheManager;
+            _imagePlugin = imagePlugin;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CacheMenuKey);
@@ -71,6 +73,7 @@ namespace App.Admin.Controllers
                 var str = model.MenuName.NonAccent();
                 var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
                 model.SeoUrl = model.MenuName.NonAccent();
+
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
                     var menuLinkViewModel = model;
@@ -78,15 +81,23 @@ namespace App.Admin.Controllers
                     var num = bySeoUrl.Count();
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
-                if (model.Image != null && model.Image.ContentLength > 0)
+
+                var titleNonAccent = model.MenuName.NonAccent();
+                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Image.FileName);
-                    var extension = Path.GetExtension(model.Image.FileName);
-                    fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
-                    model.Image.SaveAs(str1);
-                    model.ImageUrl = string.Concat(Contains.MenuFolder, fileName);
+                    var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
+                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileName, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
+                    model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileName}";
+
+                    //var fileName = Path.GetFileName(model.ImageBigSizeFile.FileName);
+                    //fileName = string.Concat(model.MenuName.NonAccent(), extension);
+                    //var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
+                    //model.ImageBigSizeFile.SaveAs(str1);
                 }
+
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
                     var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
@@ -96,6 +107,7 @@ namespace App.Admin.Controllers
                     model.ImageIcon1.SaveAs(str2);
                     model.Icon1 = string.Concat(Contains.MenuFolder, fileName1);
                 }
+
                 if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
                 {
                     var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
@@ -249,15 +261,18 @@ namespace App.Admin.Controllers
                     var num = bySeoUrl.Count();
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
-                if (model.Image != null && model.Image.ContentLength > 0)
+
+                var fileName =Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
+                var folderName = Utils.FolderName(fileName);
+                if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Image.FileName);
-                    var extension = Path.GetExtension(model.Image.FileName);
-                    fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
-                    model.Image.SaveAs(str1);
-                    model.ImageUrl = string.Concat(Contains.MenuFolder, fileName);
+                    var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize, true);
+                    model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
+
                 if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
                 {
                     var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
@@ -344,7 +359,7 @@ namespace App.Admin.Controllers
                         MenuName = x.MenuName,
                         SeoUrl = x.SeoUrl,
                         OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageUrl,
+                        ImageUrl = x.ImageBigSize,
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId,
                         TemplateType = x.TemplateType,

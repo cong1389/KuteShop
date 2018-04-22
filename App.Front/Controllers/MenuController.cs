@@ -48,13 +48,13 @@ namespace App.Front.Controllers
             ViewBag.MetaKeyWords = menuLinkLocalized.MetaKeywords;
             ViewBag.SiteUrl = Url.Action("GetContent", "Menu", new { menu, page, area = "" });
             ViewBag.Description = menuLinkLocalized.MetaDescription;
-            ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
+            ViewBag.Image = Url.Content(string.Concat("~/", menuLinkLocalized.ImageBigSize));
 
             //((dynamic)base.ViewBag).Title = menuLinkLocalized.MetaTitle;
             //((dynamic)base.ViewBag).KeyWords = menuLinkLocalized.MetaKeywords;
             //((dynamic)base.ViewBag).SiteUrl = base.Url.Action("GetContent", "Menu", new { menu = menu, page = page, area = "" });
             //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
-            //((dynamic)base.ViewBag).Image = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageUrl));
+            //((dynamic)base.ViewBag).ImageBigSize = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageBigSize));
 
             if (menuLinkLocalized.TemplateType == 1)
             {
@@ -76,7 +76,7 @@ namespace App.Front.Controllers
 
             ViewBag.TemplateType = menuLink.TemplateType;
             ViewBag.MenuId = menuLink.Id;
-            ViewBag.ImgePath = menuLink.ImageUrl;           
+            ViewBag.ImgePath = menuLink.ImageBigSize;           
             ViewBag.VirtualId = menuLink.VirtualId;
             ViewBag.PageNumber = page;
 
@@ -88,7 +88,7 @@ namespace App.Front.Controllers
         {
             var menuLink = _menuLinkService.GetById(id);
 
-            ViewBag.ImgUrl = menuLink.ImageUrl;
+            ViewBag.ImgUrl = menuLink.ImageBigSize;
             ViewBag.TitleFix = menuLink.MenuName;
 
             var menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);

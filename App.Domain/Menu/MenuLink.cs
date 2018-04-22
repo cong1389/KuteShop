@@ -59,7 +59,7 @@ namespace App.Domain.Entities.Menu
 		}
 
 		[StringLength(250)]
-		public string ImageUrl
+		public string ImageBigSize
 		{
 			get;
 			set;

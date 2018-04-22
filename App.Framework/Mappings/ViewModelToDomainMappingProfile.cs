@@ -165,7 +165,7 @@ namespace App.Framework.Mappings
                    .ForMember(x => x.SeoUrl, map => map.MapFrom(vm => vm.SeoUrl))
                    .ForMember(x => x.VirtualSeoUrl, map => map.Condition(source => !string.IsNullOrEmpty(source.VirtualSeoUrl)))
                    .ForMember(x => x.Language, map => map.MapFrom(vm => vm.Language))
-                   .ForMember(x => x.ImageUrl, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageUrl)))
+                   .ForMember(x => x.ImageBigSize, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageBigSize)))
                    .ForMember(x => x.Icon1, map => map.Condition(source => !string.IsNullOrEmpty(source.Icon1)))
                    .ForMember(x => x.Icon2, map => map.Condition(source => !string.IsNullOrEmpty(source.Icon2)))
                     .ForMember(x => x.ColorHex, map => map.Condition(source => !string.IsNullOrEmpty(source.ColorHex)))

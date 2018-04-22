@@ -88,7 +88,7 @@ namespace App.Admin.Controllers
                         var str = allKeys[i];
                         if (num <= count)
                         {
-                            if (!str.Equals("Image"))
+                            if (!str.Equals("ImageBigSize"))
                             {
                                 var httpPostedFileBase = files[num];
                                 if (httpPostedFileBase.ContentLength > 0)
@@ -239,7 +239,7 @@ namespace App.Admin.Controllers
                         var str = allKeys[i];
                         if (num <= count)
                         {
-                            if (!str.Equals("Image"))
+                            if (!str.Equals("ImageBigSize"))
                             {
                                 var item = files[num];
                                 if (item.ContentLength > 0)

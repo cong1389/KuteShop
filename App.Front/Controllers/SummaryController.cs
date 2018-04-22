@@ -107,7 +107,7 @@ namespace App.Front.Controllers
                         MenuName = x.MenuName,
                         SeoUrl = x.SeoUrl,
                         OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageUrl,
+                        ImageUrl = x.ImageBigSize,
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId
                     };
