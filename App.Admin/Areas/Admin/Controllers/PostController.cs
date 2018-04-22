@@ -9,6 +9,7 @@ using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Gallery;
@@ -133,9 +134,9 @@ namespace App.Admin.Controllers
                     var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
                     var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize,true);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize,true);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize,true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize, true);
 
                     model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileName2}";
@@ -186,7 +187,7 @@ namespace App.Admin.Controllers
                                     _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
                                     _imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize, true);
 
-                                    galleryImageViewModel.ImageThumbnail =$"{Contains.PostFolder}{folderName}/{fileName2}";
+                                    galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileName2}";
                                     galleryImageViewModel.ImagePath = $"{Contains.PostFolder}{folderName}/{fileName1}";
 
                                     galleryImageViewModel.OrderDisplay = num;
@@ -589,7 +590,7 @@ namespace App.Admin.Controllers
             if (posts != null && posts.Any())
             {
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
-                    i => Url.Action("Index", new {page = i, keywords}));
+                    i => Url.Action("Index", new { page = i, keywords }));
 
                 ViewBag.PageInfo = pageInfo;
             }
@@ -638,7 +639,8 @@ namespace App.Admin.Controllers
                             {
                                 var postGallery = new PostGallery
                                 {
-                                    PostId = postId
+                                    PostId = postId,
+                                    Status = (int)Status.Enable
                                 };
 
                                 var fileNameNonAccent = $"{item.FileName.NonAccent()}";
@@ -670,7 +672,7 @@ namespace App.Admin.Controllers
                 }
             }
 
-            return Json(new { Result = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PostGalleryEdit(PostGalleryViewModel model)
@@ -713,26 +715,49 @@ namespace App.Admin.Controllers
 
         public ActionResult DeletePostGallery(int postId, int id)
         {
-            ActionResult actionResult;
-
             if (!Request.IsAjaxRequest())
             {
                 return Json(new { success = false });
             }
+
+            ActionResult actionResult;
             try
             {
-                var galleryImage = _postGalleryService.Get(x => x.PostId == postId && x.Id == id);
+                var postGallery = _postGalleryService.Get(x => x.PostId == postId && x.Id == id);
+                _postGalleryService.Delete(postGallery);
 
-                _postGalleryService.Delete(galleryImage);
-
-                var path1 = Server.MapPath(string.Concat("~/", galleryImage.ImageBigSize));
-                var path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageMediumSize));
-                var path3 = Server.MapPath(string.Concat("~/", galleryImage.ImageSmallSize));
+                var path1 = Server.MapPath(string.Concat("~/", postGallery.ImageBigSize));
+                var path2 = Server.MapPath(string.Concat("~/", postGallery.ImageMediumSize));
+                var path3 = Server.MapPath(string.Concat("~/", postGallery.ImageSmallSize));
 
                 System.IO.File.Delete(path1);
                 System.IO.File.Delete(path2);
                 System.IO.File.Delete(path3);
 
+                actionResult = Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                actionResult = Json(new { success = false, messages = ex.Message });
+            }
+            return actionResult;
+        }
+
+        public ActionResult PostGalleryChangeStatus(int postId, int id)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                return Json(new { success = false });
+            }
+
+            ActionResult actionResult;
+            try
+            {
+                var postGallery = _postGalleryService.Get(x => x.PostId == postId && x.Id == id);
+                var oldStatus = postGallery.Status;
+                postGallery.Status = oldStatus == (int)Status.Enable ? (int)Status.Disable : (int)Status.Enable;
+
+                _postGalleryService.Update(postGallery);
                 actionResult = Json(new { success = true });
             }
             catch (Exception ex)

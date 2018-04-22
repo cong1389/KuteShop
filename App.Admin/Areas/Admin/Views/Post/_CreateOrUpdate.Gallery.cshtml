@@ -1,4 +1,5 @@
 ﻿
+@using App.Domain.Common
 @using Resources
 @model App.FakeEntity.Post.PostViewModel
 
@@ -23,7 +24,7 @@
 	<div class="row hidden">
 		<table id="assets-data-table" class="table table-striped table-bordered table-hover" style="width:100%;"></table>
 	</div>
-	<table class="table table-striped table-bordered table-hover" id="sample_editable"></table>
+	<table class="app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover dataTable " id="sample_editable"></table>
 
 	<script type="text/javascript">
 
@@ -65,11 +66,11 @@
                             $("#uploaded_file_" + a.id + " > .status").html(a.percent + "%");
                         },
                         FileUploaded: function (e, a, t) {
-                            var t = $.parseJSON(t.response);
-                            if (t.result && "OK" == t.result) {
-                                t.id;
+                        	var response = $.parseJSON(t.response);
+                        	if (response.success && true === response.success) {
                                 $("#uploaded_file_" + a.id + " > .status").removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done');
-                            } else $("#uploaded_file_" + a.id + " > .status").removeClass("label-info").addClass("label-danger").html('<i class="fa fa-warning"></i> Failed'), App.alert({
+                            } 
+                            else $("#uploaded_file_" + a.id + " > .status").removeClass("label-info").addClass("label-danger").html('<i class="fa fa-warning"></i> Failed'), App.alert({
                                 type: "danger",
                                 message: "One of uploads failed. Please retry.",
                                 closeInSeconds: 10,
@@ -109,13 +110,14 @@
                 function t(e, t) {
                     var n = e.fnGetData(t),
                         a = $(">td", t);
-                    a[0].innerHTML = '<input type="hidden" value="' + n.Id +'" />'
+						a[0].innerHTML = '<input type="hidden" value="' + n.Id +'" />'
                         , a[1].innerHTML = '<a href="' + n.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img src= "' + n.ImageSmallSize + '" alt= "" width="80px" /></a > '
                         , a[2].innerHTML = '<input type="text" class="form-control" value="' + n.Title + '">'
                         , a[3].innerHTML = '<input type="text" class="form-control" value="' + n.OrderDisplay + '">'
-                        , a[4].innerHTML = '<a class="edit" href="">@FormUI.Save</a>|<a class="cancel" href="">@FormUI.Cancel</a>';
-	                // , a[5].innerHTML = '<a class="cancel" href="">Cancel</a>'
-                }
+                        , a[4].innerHTML = '<a class="edit" href="">@FormUI.Save</a>|<a class="cancel" href="">@FormUI.Cancel</a>'
+						, a[5].innerHTML = '<a class="delete" href="">@FormUI.Delete</a>'
+						, a[6].innerHTML = '<input class="checkboxes" type="checkbox" '+ ((n.Status  === 1) ? "checked" : "") + ' data="'+n.Id+'">';
+                };
 
                 function editGalleryItem(e, t) {
                     var n = $("input", t);
@@ -126,42 +128,54 @@
                     , e.fnUpdate(n[2].value, t, 3, !1)
                     , e.fnUpdate('<a class="edit" href="">@FormUI.Edit</a>', t, 4, !1)
                     , e.fnUpdate('<a class="delete" href="">@FormUI.Delete</a>', t, 5, !1)
-                    , e.fnDraw();
+	                , e.fnUpdate('<input class="checkboxes" type="checkbox" '+ ((dataOld.Status  === 1) ? "checked" : "") + ' data="'+dataOld.Id+'">', t, 6, !1);
+                    //, e.fnDraw();
+
                     var row = {
                         Id: n[0].value,
                         PostId: @Model.Id,
                         Title: n[1].value,
                         OrderDisplay: n[2].value
                     };
-	                
+
                     $.ajax({
                         url: '@Url.Action("PostGalleryEdit", "Post")',
                         data: JSON.stringify(row),
                         type: 'POST',
                         contentType: 'application/json; charset=utf-8',
                         success: function (data) {
-	                        
                         }
                     });
                 };
 
-                function Delete(table) {
-                    var d = table.api(!0)
-                        , a = d.rows(a)
-                        , e = a.settings()[0]
-                        , h = e.aoData[a[0][0]];
-
-                    var row = {
-                        postId:  h._aData.PostId,
-                        id: h._aData.Id
-                    };
+            	function Delete(e, t) {
+            		var n = $("input", t);
+		            var row = {
+			            postId:  @Model.Id,
+			            id:  n[0].value
+		            };
                     $.ajax({
                         url: '@Url.Action("DeletePostGallery", "Post")',
                         data: JSON.stringify(row),
                         type: 'POST',
                         contentType: 'application/json; charset=utf-8'
                     });
-                }
+                };
+
+
+            	function changeStatus(e, t) {
+            		var n = $("input", t);
+		            var row = {
+			            postId:  @Model.Id,
+			            id:  n[0].value
+		            };
+						$.ajax({
+							url: '@Url.Action("PostGalleryChangeStatus", "Post")',
+							data: JSON.stringify(row),
+							type: 'POST',
+							contentType: 'application/json; charset=utf-8'
+						});
+		           };
 
                 var a = $("#sample_editable"),
                     l = a.dataTable({
@@ -180,18 +194,15 @@
                                 "render": function (data, type, full, meta) {
                                     return '<input type="hidden" value="' + data+'" /> ';
                                 }
-                            },
-                            {
+                            },{
                                 "title": "@FormUI.Image", "data": "ImageSmallSize", "searchable": false, "width": "15%",
                                 "render": function (data, type, full, meta) {
                                     return '<a href="' + full.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img  src= "' + full.ImageSmallSize + '" alt= "" width="80px"  /></a > ';
                                 }
-                            },
-                            {
+                            },{
                                 "title": "@FormUI.Title", "data": "Title", "searchable": false
-                            },
-                            { "title": "@FormUI.OrderDisplay", "data": "OrderDisplay", "searchable": false, "width": "10%" },
-                            {
+                            },{ "title": "@FormUI.OrderDisplay", "data": "OrderDisplay", "searchable": false, "width": "10%" }
+	                        ,{
                                 "title": "@FormUI.Edit", "data": "PostId",
                                 "searchable": false,
                                 "sortable": false
@@ -199,8 +210,7 @@
                                 ,"render": function (data, type, full, meta) {
                                     return '<a class="edit" href="javascript:;"> @FormUI.Edit </a>';
                                 }
-                            },
-                            {"title": "@FormUI.Delete"
+                            },{"title": "@FormUI.Delete"
                                 , "width": "8%"
                                 , "data": "PostId"
                                 ,"searchable": false
@@ -208,7 +218,16 @@
                                 ,"render": function (data, type, full, meta) {
                                     return '<a class="delete" href="javascript:;" data="'+full.Id+'"> @FormUI.Delete </a>';
                                 }
-                            }
+                            },{
+                            	"title": "@FormUI.Status"
+	                            , "width": "8%"
+	                            , "data": "Status"
+	                            , "searchable": false
+	                            ,"sortable": false
+	                            , "render": function(data, type, full, meta) {
+	                            	return '<input class="checkboxes" type="checkbox" '+ ((full.Status  === 1) ? "checked" : "") + ' data="'+full.Id+'">';
+	                            }
+	                        }
                         ],
                         lengthMenu: [
                             [5, 15, 20, -1],
@@ -232,7 +251,7 @@
 					            if (e.preventDefault(), 0 != confirm("@MessageUI.ConfirmMessage")) {
 						            var t = $(this).parents("tr")[0];
 
-						            Delete(table);
+						            Delete(l, t);
 						            l.fnDeleteRow(t);
 					            }
 				            }),
@@ -243,15 +262,20 @@
 				            }),
 			            a.on("click", ".edit",
 				            function(a) {
-					            
 					            a.preventDefault(), o = false;
 					            var i = $(this).parents("tr")[0];
-					           
+
 					            null !== r && r !== i
 						            ? (e(l, r), t(l, i), r = i)
 						            : r === i && "@FormUI.Save" === this.innerHTML
 						            ? (editGalleryItem(l, r), r = null)
 						            : (t(l, i), r = i);
+				            }),
+			            a.on("click",".checkboxes",
+				            function() {
+				            	var t = $(this).parents("tr")[0];
+
+					            changeStatus(l, t);
 				            });
 
 	            },

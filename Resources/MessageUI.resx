@@ -136,7 +136,7 @@
     <value>Lỗi: {0}</value>
   </data>
   <data name="ErrorTypeImage" xml:space="preserve">
-    <value>Vui lòng chọn lọai hình pg,gif,png !</value>
+    <value>Vui lòng chọn lọai hình jpg,gif,png !</value>
   </data>
   <data name="MessageSaveBefore" xml:space="preserve">
     <value>Vui lòng lưu trước !</value>

@@ -6,9 +6,11 @@ GO
 
 select Id,ParentId,MenuName, * from MenuLink where Position=5
 
-select * from PostGallery
+select Status,* from PostGallery
 select * from Post
 
+update PostGallery
+set Status=1
 
 --truncate table ShoppingCartItem
 

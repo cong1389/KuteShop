@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vui lòng chọn lọai hình pg,gif,png !.
+        ///   Looks up a localized string similar to Vui lòng chọn lọai hình jpg,gif,png !.
         /// </summary>
         public static string ErrorTypeImage {
             get {

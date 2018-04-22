@@ -254,8 +254,10 @@ namespace App.Framework.Mappings
             .ForMember(x => x.ImageSmallSize, map => map.MapFrom(vm => vm.ImageSmallSize))
             .ForMember(x => x.ImageBigSize, map => map.MapFrom(vm => vm.ImageBigSize))
             .ForMember(x => x.ImageMediumSize, map => map.MapFrom(vm => vm.ImageMediumSize))
-             .ForMember(x => (object)x.PostId, map => map.MapFrom(vm => vm.PostId))
-             .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay));
+            .ForMember(x => (object)x.PostId, map => map.MapFrom(vm => vm.PostId))
+            .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+            .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
+
 
             CreateMap<NewsViewModel, News>()
                 .ForMember(x => x.Title, map => map.MapFrom(vm => vm.Title))
@@ -332,8 +334,7 @@ namespace App.Framework.Mappings
                 .ForMember(x => x.GooglePlusLink, map => map.MapFrom(vm => vm.GooglePlusLink))
                 .ForMember(x => x.TwitterLink, map => map.MapFrom(vm => vm.TwitterLink))
                 .ForMember(x => x.PinterestLink, map => map.MapFrom(vm => vm.PinterestLink))
-                .ForMember(x => x.YoutubeLink, map => map.MapFrom(vm => vm.YoutubeLink))
-                ;
+                .ForMember(x => x.YoutubeLink, map => map.MapFrom(vm => vm.YoutubeLink));
 
             CreateMap<PageBannerViewModel, PageBanner>()
                 .ForMember(x => x.PageName, map => map.MapFrom(vm => vm.PageName))
