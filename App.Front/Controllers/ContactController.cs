@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml;
 using App.Aplication;
-using App.Aplication.Filters;
+using App.Domain.Common;
 using App.Domain.GlobalSetting;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.ContactInformation;
-using App.Service.Language;
 using App.Service.MailSetting;
 using App.Service.Menu;
 using App.Service.Messages;
@@ -21,7 +18,6 @@ namespace App.Front.Controllers
     public class ContactController : FrontBaseController
     {
         private readonly IContactInfoService _contactInfoService;
-        private readonly IMenuLinkService _menuLinkService;
         private readonly ISystemSettingService _systemSettingService;
         private readonly ISendMailService _sendMailService;
 
@@ -31,7 +27,6 @@ namespace App.Front.Controllers
             , ISendMailService sendMailService)
         {
             _contactInfoService = contactInfoService;
-            _menuLinkService = menuLinkService;
             _systemSettingService = systemSettingService;
             _sendMailService = sendMailService;
         }
@@ -40,7 +35,7 @@ namespace App.Front.Controllers
         {
             //var menuLink = _menuLinkService.GetById(id);
 
-            var contactInformation = _contactInfoService.FindBy(x => x.Status == 1, true);
+            var contactInformation = _contactInfoService.FindBy(x => x.Status == (int)Status.Enable, true);
 
             if (contactInformation == null)
             {

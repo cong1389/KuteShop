@@ -12,7 +12,7 @@ namespace App.Service.Static
 {
 	public class StaticContentService : BaseService<StaticContent>, IStaticContentService
 	{
-        private const string CacheStaticcontentKey = "db.StaticContent.{0}";
+        private const string CacheKey = "db.StaticContent.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly IStaticContentRepository _staticContentRepository;
@@ -21,13 +21,12 @@ namespace App.Service.Static
 		{
 		    _staticContentRepository = staticContentRepository;
             _cacheManager = cacheManager;
-
         }
 
 		public StaticContent GetById(int id, bool isCache = true)
 		{
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheStaticcontentKey, "GetById");
+            sbKey.AppendFormat(CacheKey, "GetById");
             sbKey.Append(id);
 
             var key = sbKey.ToString();
@@ -52,7 +51,7 @@ namespace App.Service.Static
 		public IEnumerable<StaticContent> GetBySeoUrl(string seoUrl, bool isCache = true)
 		{
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheStaticcontentKey, "GetBySeoUrl");
+            sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
 
             if (seoUrl.HasValue())
             {
@@ -78,7 +77,30 @@ namespace App.Service.Static
 			return staticContents;
 		}
 
-		public IEnumerable<StaticContent> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+	    public IEnumerable<StaticContent> GetEnableOrDisables(bool enable = true, bool isCache = true)
+	    {
+	        if (!isCache)
+	        {
+	            return _staticContentRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+	        }
+
+	        var sbKey = new StringBuilder();
+	        sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+	        sbKey.Append(enable);
+
+	        var key = sbKey.ToString();
+
+	        var staticContents = _cacheManager.GetCollection<StaticContent>(key);
+	        if (staticContents == null)
+	        {
+	            staticContents = _staticContentRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+	            _cacheManager.Put(key, staticContents);
+	        }
+
+	        return staticContents;
+	    }
+
+        public IEnumerable<StaticContent> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
 		{
 			return _staticContentRepository.PagedSearchList(sortbuBuilder, page);
 		}

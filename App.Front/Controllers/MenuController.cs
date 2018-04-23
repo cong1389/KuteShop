@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
+using App.Domain.Common;
 using App.Domain.Entities.Menu;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -56,9 +57,9 @@ namespace App.Front.Controllers
             //((dynamic)base.ViewBag).Description = menuLinkLocalized.MetaDescription;
             //((dynamic)base.ViewBag).ImageBigSize = base.Url.Content(string.Concat("~/", menuLinkLocalized.ImageBigSize));
 
-            if (menuLinkLocalized.TemplateType == 1)
+            if (menuLinkLocalized.TemplateType == (int)TemplateContent.News)
             {
-                viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int> { 1 });
+                viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int> { (int)TemplateContent.News });
                 //IMenuLinkService menuLinkService = this._menuLinkService;
                 //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
             }
@@ -76,7 +77,7 @@ namespace App.Front.Controllers
 
             ViewBag.TemplateType = menuLink.TemplateType;
             ViewBag.MenuId = menuLink.Id;
-            ViewBag.ImgePath = menuLink.ImageBigSize;           
+            ViewBag.ImgePath = menuLink.ImageBigSize;
             ViewBag.VirtualId = menuLink.VirtualId;
             ViewBag.PageNumber = page;
 
@@ -95,11 +96,11 @@ namespace App.Front.Controllers
 
             if (!menuLinks.IsAny())
             {
-                return Json(new{ data = "", success = true}
+                return Json(new { data = "", success = true }
                     , JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new {data = this.RenderRazorViewToString("_PartialFixItemContent", menuLinks), success = true},
+            return Json(new { data = this.RenderRazorViewToString("_PartialFixItemContent", menuLinks), success = true },
                 JsonRequestBehavior.AllowGet);
         }
 
@@ -113,7 +114,7 @@ namespace App.Front.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new {data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true},
+            return Json(new { data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true },
                 JsonRequestBehavior.AllowGet);
         }
 
@@ -121,7 +122,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult MenuHomeTab()
         {
-            var menuLinks = _menuLinkService.GetByOption(template: new List<int> { 2 }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOption(template: new List<int> { (int)TemplateContent.Product }, isDisplayHomePage: true);
 
             return PartialView(menuLinks);
         }
@@ -237,7 +238,7 @@ namespace App.Front.Controllers
                 str = $"{strArrays[0]}/{strArrays[1]}";
             }
 
-            var menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == 6);
+            var menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == (int)TemplateContent.FixItem);
 
             return PartialView(menuLinks);
         }
@@ -249,7 +250,7 @@ namespace App.Front.Controllers
             Response.Cookies.Add(cookie);
 
             var byId = new MenuLink();
-            var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { 2 });
+            var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { (int)TemplateContent.Product });
 
             if (menuLinks.IsAny())
             {
@@ -257,7 +258,7 @@ namespace App.Front.Controllers
             }
 
             return RedirectToAction("SearchResult", "Post",
-                new {catUrl = byId?.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = ""});
+                new { catUrl = byId?.SeoUrl, parameters = conditions.Keywords.NonAccent(), area = "" });
         }
     }
 }

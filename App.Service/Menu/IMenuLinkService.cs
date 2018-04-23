@@ -32,5 +32,7 @@ namespace App.Service.Menu
                 , bool? isDisplaySearch = null
                 , int status = 1
             , bool isCache = true);
+
+        IEnumerable<MenuLink> GetEnableOrDisables(bool enable = true, bool isCache = true);
     }
 }

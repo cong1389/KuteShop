@@ -339,5 +339,28 @@ namespace App.Service.Menu
 
             return menuLinks;
         }
+
+        public IEnumerable<MenuLink> GetEnableOrDisables(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _menuLinkRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheMenuKey2, "GetEnableOrDisables");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var slideShows = _cacheManager.GetCollection<MenuLink>(key);
+            if (slideShows == null)
+            {
+                slideShows = _menuLinkRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                _cacheManager.Put(key, slideShows);
+            }
+
+            return slideShows;
+        }
     }
 }

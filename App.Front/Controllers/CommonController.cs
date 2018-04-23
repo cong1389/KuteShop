@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using App.Domain.Common;
 using App.Front.Models;
 using App.Service.Common;
 using App.Service.Language;
@@ -21,7 +22,8 @@ namespace App.Front.Controllers
         public ActionResult SetLanguage(int langid, string returnUrl = "")
         {
             var language = _language.GetById(langid);
-            if (language != null && language.Status == 1)
+
+            if (language != null && language.Status == (int)Status.Enable)
             {
                 _services.WorkContext.WorkingLanguage = language;
             }

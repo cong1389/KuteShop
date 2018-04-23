@@ -3,6 +3,7 @@ using System.Text;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.Slide;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Slide;
@@ -26,7 +27,7 @@ namespace App.Service.Slide
         {
             if (!isCache)
             {
-                return _slideShowRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                return _slideShowRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
             }
 
             var sbKey = new StringBuilder();
@@ -38,7 +39,7 @@ namespace App.Service.Slide
             var slideShows = _cacheManager.GetCollection<SlideShow>(key);
             if (slideShows == null)
             {
-                slideShows = _slideShowRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                slideShows = _slideShowRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
                 _cacheManager.Put(key, slideShows);
             }
 

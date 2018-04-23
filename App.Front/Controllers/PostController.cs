@@ -8,6 +8,7 @@ using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
@@ -68,7 +69,7 @@ namespace App.Front.Controllers
             {
                 var viewBag = ViewBag;
                 var postService = _postService;
-                Expression<Func<Post, bool>> productNews = x => x.ProductNew && x.Status == 1;
+                Expression<Func<Post, bool>> productNews = x => x.ProductNew && x.Status == (int)Status.Enable;
                 viewBag.HotCard = postService.GetTop(3, productNews, x => x.CreatedDate).ToList();
             }
             if (!string.IsNullOrEmpty(attrs))
@@ -228,7 +229,7 @@ namespace App.Front.Controllers
         public ActionResult PostForYou()
         {
             var posts = new List<Post>();
-            var top = _postService.GetTop(20, x => x.Status == 1 && x.PostType == 1, x => x.CreatedDate);
+            var top = _postService.GetTop(20, x => x.Status == (int)Status.Enable && x.PostType == 1, x => x.CreatedDate);
             if (top.IsAny())
             {
                 posts.AddRange(top);
@@ -241,12 +242,14 @@ namespace App.Front.Controllers
         public ActionResult PostLatest()
         {
             var posts = new List<Post>();
-            var top = _postService.GetTop(20, x => x.Status == 1, x => x.CreatedDate);
-            if (top.IsAny())
+            var tops = _postService.GetTop(20, x => x.Status == (int)Status.Enable, x => x.CreatedDate);
+            if (tops.IsAny())
             {
-                posts.AddRange(top);
+                posts.AddRange(tops);
             }
-            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true},
+                JsonRequestBehavior.AllowGet);
         }
 
         [ChildActionOnly]
@@ -254,11 +257,12 @@ namespace App.Front.Controllers
         public ActionResult PostSameMenu(int menuId, int postId)
         {
             var posts = new List<Post>();
-            var top = _postService.GetTop(6, x => x.Status == 1 && x.MenuId == menuId && x.Id != postId, x => x.CreatedDate);
-            if (top.IsAny())
+            var tops = _postService.GetTop(6, x => x.Status == (int)Status.Enable && x.MenuId == menuId && x.Id != postId, x => x.CreatedDate);
+            if (tops.IsAny())
             {
-                posts.AddRange(top);
+                posts.AddRange(tops);
             }
+
             return PartialView(posts);
         }
 
@@ -274,23 +278,24 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public ActionResult PostHot()
         {
-            var top = _postService.GetTop(5, x => x.Status == 1 && (x.ProductHot || x.ProductNew));
+            var tops = _postService.GetTop(5, x => x.Status == (int)Status.Enable && (x.ProductHot || x.ProductNew));
 
-            return PartialView(top);
+            return PartialView(tops);
         }
 
         [PartialCache("Medium")]
         public ActionResult PostTimeLine()
         {
-            var top = _postService.GetTop(9999, x => x.Status == 1 && x.OldOrNew);
-            return PartialView(top);
+            var tops = _postService.GetTop(9999, x => x.Status == (int)Status.Enable && x.OldOrNew);
+
+            return PartialView(tops);
         }
 
         [PartialCache("Medium")]
         public ActionResult PostHomeNew(int page, string id)
         {
             var expression = PredicateBuilder.True<Post>();
-            expression = expression.And(x => x.Status == 1);
+            expression = expression.And(x => x.Status == (int)Status.Enable);
             expression = expression.And(x => x.VirtualCategoryId.Contains(id));
             expression = expression.And(x => x.ProductHot);
             var sortBuilder = new SortBuilder
@@ -323,7 +328,7 @@ namespace App.Front.Controllers
         //[PartialCache("Long")]
         public ActionResult PostHome()
         {
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.SiderBar }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -362,9 +367,9 @@ namespace App.Front.Controllers
         [PartialCache("Medium")]
         public ActionResult PostHomeSearch(bool productHot, bool productNew, bool productOld)
         {
-            var iePost = _postService.GetTop(9999, x => x.Status == 1 && x.ProductHot);
+            var posts = _postService.GetTop(9999, x => x.Status == (int)Status.Enable && x.ProductHot);
 
-            return PartialView(iePost);
+            return PartialView(posts);
 
         }
 
@@ -372,10 +377,10 @@ namespace App.Front.Controllers
         public ActionResult PostHomeNewTab(string virtualId)
         {
             var posts = new List<Post>();
-            var top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.ProductHot, x => x.UpdatedDate);
-            if (top.IsAny())
+            var tops = _postService.GetTop(4, x => x.Status == (int)Status.Enable && x.VirtualCategoryId.Contains(virtualId) && x.ProductHot, x => x.UpdatedDate);
+            if (tops.IsAny())
             {
-                posts.AddRange(top);
+                posts.AddRange(tops);
             }
             return PartialView("_SlideProductHome",
                 from x in posts
@@ -388,7 +393,7 @@ namespace App.Front.Controllers
         public ActionResult PostHomeCareer(string virtualId)
         {
             var posts = new List<Post>();
-            var top = _postService.GetTop(4, x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId), x => x.ViewCount);
+            var top = _postService.GetTop(4, x => x.Status == (int)Status.Enable && x.VirtualCategoryId.Contains(virtualId), x => x.ViewCount);
             if (top.IsAny())
             {
                 posts.AddRange(top);
@@ -404,7 +409,9 @@ namespace App.Front.Controllers
             {
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true }, JsonRequestBehavior.AllowGet);
+
+            return Json(new {data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true},
+                JsonRequestBehavior.AllowGet);
         }
 
         [ChildActionOnly]
@@ -436,17 +443,18 @@ namespace App.Front.Controllers
             }
             var nullable5 = nullable2;
             var posts = new List<Post>();
-            var top = _postService.GetTop(4, x => x.Status == 1 && x.Price >= nullable4 && x.Price <= nullable5 && x.Id != productId, x => x.UpdatedDate);
+            var tops = _postService.GetTop(4, x => x.Status == (int)Status.Enable && x.Price >= nullable4 && x.Price <= nullable5 && x.Id != productId, x => x.UpdatedDate);
 
-            if (top == null)
+            if (tops == null)
             {
                 return HttpNotFound();
             }
 
-            if (top.IsAny())
+            if (tops.IsAny())
             {
-                posts.AddRange(top);
+                posts.AddRange(tops);
             }
+
             return PartialView(posts);
         }
 
@@ -454,15 +462,15 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult PostRelative(string virtualId, int productId)
         {
-            var iePost = _postService.GetTop(10,
-                x => x.Status == 1 && x.VirtualCategoryId.Contains(virtualId) && x.Id != productId, x => x.UpdatedDate);
+            var posts = _postService.GetTop(10,
+                x => x.Status == (int)Status.Enable && x.VirtualCategoryId.Contains(virtualId) && x.Id != productId, x => x.UpdatedDate);
 
-            if (iePost == null)
+            if (posts == null)
             {
                 return HttpNotFound();
             }
 
-            var postLocalized = iePost.Select(x => x.ToModel());
+            var postLocalized = posts.Select(x => x.ToModel());
 
             return PartialView(postLocalized);
         }
@@ -517,9 +525,10 @@ namespace App.Front.Controllers
         [PartialCache("Medium")]
         public JsonResult PostOutOfStock()
         {
-            var post = _postService.GetTop(6, x => x.Status == 1 && x.OutOfStock);
+            var post = _postService.GetTop(6, x => x.Status == (int)Status.Enable && x.OutOfStock);
 
-            var jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Footer.Product", post) }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new {success = true, list = this.RenderRazorViewToString("_Footer.Product", post)},
+                JsonRequestBehavior.AllowGet);
 
             return jsonResult;
         }
@@ -557,11 +566,11 @@ namespace App.Front.Controllers
             var menuLink = _menuLinkService.GetById(menuId);
             if (menuLink != null)
             {
-                IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
+                var ieGc = menuLink.GenericControls;
                 if (ieGc.IsAny())
                 {
                     lstValueResponse.AddRange(from item in ieGc
-                                              from gcValue in item.GenericControlValues.Where(m => m.Status == 1)
+                                              from gcValue in item.GenericControlValues.Where(m => m.Status == (int)Status.Enable)
                                               select new ControlValueItemResponse
                                               {
                                                   GenericControlValueId = gcValue.Id,

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using App.Aplication;
+using App.Domain.Common;
 using App.FakeEntity.Menu;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -57,9 +58,9 @@ namespace App.Front.Controllers.Custom
         {
             var menuNavs = new List<MenuNavViewModel>();
 
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 2 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.Footer });
 
-            if (!menuLinks.Any())
+            if (!menuLinks.IsAny())
             {
                 return PartialView(menuNavs);
             }
@@ -87,7 +88,7 @@ namespace App.Front.Controllers.Custom
         [PartialCache("Long")]
         public ActionResult TopMenu()
         {
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 1 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.Top });
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
@@ -136,7 +137,7 @@ namespace App.Front.Controllers.Custom
         public ActionResult GetTopHead()
         {
             var menuNavs = new List<MenuNavViewModel>();
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 7 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.TopHead });
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
@@ -229,7 +230,7 @@ namespace App.Front.Controllers.Custom
         public ActionResult GetMenuCategory()
         {
             var menuNavs = new List<MenuNavViewModel>();
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 1, 5 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.Top, (int)Position.SiderBar });
 
             if (menuLinks.Any())
             {
@@ -257,7 +258,7 @@ namespace App.Front.Controllers.Custom
         [ChildActionOnly]
         public ActionResult GetMenuVerticalMega()
         {
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 5 });
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.SiderBar });
 
             if (!menuLinks.Any())
             {
@@ -338,7 +339,7 @@ namespace App.Front.Controllers.Custom
         public ActionResult StickyBar()
         {
             var menuNavs = new List<MenuNavViewModel>();
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { 6 }, isDisplaySearch: true);
+            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.Middle }, isDisplaySearch: true);
 
             if (menuLinks.Any())
             {

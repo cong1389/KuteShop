@@ -19,5 +19,9 @@ namespace App.Service.News
            , bool? isVideo = null
            , int status = 1
            , bool isCache = true);
+
+        IEnumerable<Domain.Entities.Data.News> GetEnableOrDisables(bool enable = true, bool isCache = true);
+
+        Domain.Entities.Data.News GetEnableOrDisable(bool enable = true, bool isCache = true);
     }
 }

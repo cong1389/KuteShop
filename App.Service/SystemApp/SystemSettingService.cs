@@ -2,6 +2,7 @@
 using System.Text;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.GlobalSetting;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.System;
@@ -50,11 +51,11 @@ namespace App.Service.SystemApp
         {
             if (!isCache)
             {
-                return _systemSettingRepository.Get(x => x.Status == (enable ? 1 : 0));
+                return _systemSettingRepository.Get(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable));
             }
 
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisable");
             sbKey.Append(enable);
 
             var key = sbKey.ToString();
@@ -62,7 +63,7 @@ namespace App.Service.SystemApp
             var systemSetting = _cacheManager.Get<SystemSetting>(key);
             if (systemSetting == null)
             {
-                systemSetting = _systemSettingRepository.Get(x => x.Status == (enable ? 1 : 0));
+                systemSetting = _systemSettingRepository.Get(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable));
                 _cacheManager.Put(key, systemSetting);
             }
 
@@ -73,7 +74,7 @@ namespace App.Service.SystemApp
         {
             if (!isCache)
             {
-                return _systemSettingRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                return _systemSettingRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
             }
 
             var sbKey = new StringBuilder();
@@ -85,7 +86,7 @@ namespace App.Service.SystemApp
             var systemSettings = _cacheManager.GetCollection<SystemSetting>(key);
             if (systemSettings == null)
             {
-                systemSettings = _systemSettingRepository.FindBy(x => x.Status == (enable ? 1 : 0), true);
+                systemSettings = _systemSettingRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
                 _cacheManager.Put(key, systemSettings);
             }
 

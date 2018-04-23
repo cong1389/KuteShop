@@ -9,5 +9,12 @@ namespace App.Service.ContactInformation
         Domain.Entities.GlobalSetting.ContactInformation GetById(int id, bool isCache = true);
 
 		IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> PagedList(SortingPagingBuilder sortBuider, Paging page);
+
+	    Domain.Entities.GlobalSetting.ContactInformation GetTypeAddress(int typeAddress, bool isCache = true);
+
+	    IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> GetEnableOrDisables(bool enable = true,
+	        bool isCache = true);
+
+
 	}
 }

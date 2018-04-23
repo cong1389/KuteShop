@@ -3,6 +3,7 @@ using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.News;
 using App.Infra.Data.UOW.Interfaces;
@@ -11,7 +12,7 @@ namespace App.Service.News
 {
     public class NewsService : BaseService<Domain.Entities.Data.News>, INewsService
     {
-        private const string CacheNewsKey = "db.News.{0}";
+        private const string CacheKey = "db.News.{0}";
         private readonly ICacheManager _cacheManager;
 
         private readonly INewsRepository _newsRepository;
@@ -28,7 +29,7 @@ namespace App.Service.News
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheNewsKey, "GetById");
+                sbKey.AppendFormat(CacheKey, "GetById");
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();
@@ -54,7 +55,7 @@ namespace App.Service.News
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheNewsKey, "GetBySeoUrl");
+                sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
 
                 if (seoUrl.HasValue())
                 {
@@ -95,7 +96,7 @@ namespace App.Service.News
         {
             IEnumerable<Domain.Entities.Data.News> news;
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheNewsKey, "GetByOption");
+            sbKey.AppendFormat(CacheKey, "GetByOption");
 
             var expression = PredicateBuilder.True<Domain.Entities.Data.News>();
             sbKey.AppendFormat("-{0}", status);
@@ -133,6 +134,52 @@ namespace App.Service.News
             }
 
             return news;
+        }
+
+        public IEnumerable<Domain.Entities.Data.News> GetEnableOrDisables(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _newsRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisables");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var news = _cacheManager.GetCollection<Domain.Entities.Data.News>(key);
+            if (news == null)
+            {
+                news = _newsRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);
+                _cacheManager.Put(key, news);
+            }
+
+            return news;
+        }
+
+        public Domain.Entities.Data.News GetEnableOrDisable(bool enable = true, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _newsRepository.Get(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable));
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetEnableOrDisable");
+            sbKey.Append(enable);
+
+            var key = sbKey.ToString();
+
+            var newses = _cacheManager.Get<Domain.Entities.Data.News>(key);
+            if (newses == null)
+            {
+                newses = _newsRepository.Get(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable));
+                _cacheManager.Put(key, newses);
+            }
+
+            return newses;
         }
     }
 }

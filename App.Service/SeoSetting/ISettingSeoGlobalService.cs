@@ -10,5 +10,8 @@ namespace App.Service.SeoSetting
 		SettingSeoGlobal GetById(int id);
 
 		IEnumerable<SettingSeoGlobal> PagedList(SortingPagingBuilder sortBuider, Paging page);
+
+	    SettingSeoGlobal GetEnableOrDisable(bool enable = true, bool isCache = true);
+
 	}
 }
