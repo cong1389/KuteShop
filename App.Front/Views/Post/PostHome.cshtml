@@ -21,7 +21,7 @@
 				<div class="container">
 					<div class="navbar-brand" style="background: @(menuLink.ColorHex)">
 						<a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
-							<img alt="@menuLink.MenuName" src="@menuLink.Icon1.ValidateImage()" /> @menuLink.MenuName
+							<img alt="@menuLink.MenuName" src="@menuLink.ImageMediumSize.ValidateImage()" /> @menuLink.MenuName
 						</a>
 					</div>
 					<span class="toggle-menu"></span>

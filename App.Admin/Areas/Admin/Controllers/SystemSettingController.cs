@@ -50,7 +50,10 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditSystemSetting")]
         public ActionResult Create()
         {
-            var model = new SystemSettingViewModel();
+            var model = new SystemSettingViewModel
+            {
+                Status = 1
+            };
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -87,36 +90,50 @@ namespace App.Admin.Controllers
 
                 if (model.Favicon != null && model.Favicon.ContentLength > 0)
                 {
-                   // var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
                     var fileName = Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
-                    if (System.IO.File.Exists(str))
+                    if (System.IO.File.Exists(path))
                     {
-                        System.IO.File.Delete(str);
+                        System.IO.File.Delete(path);
                     }
 
-                    model.Favicon.SaveAs(str);
+                    model.Favicon.SaveAs(path);
                     model.FaviconImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
-                    //var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
                     var fileName = Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
-                    if (System.IO.File.Exists(str))
+                    if (System.IO.File.Exists(path))
                     {
-                        System.IO.File.Delete(str);
+                        System.IO.File.Delete(path);
                     }
 
-                    model.Logo.SaveAs(str);
+                    model.Logo.SaveAs(path);
                     model.LogoImage = Concat(Contains.SystemSettingFolder, fileName);
+                }
+
+                if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
+                {
+                    var extension = Path.GetExtension(model.LogoFooter.FileName);
+                    var fileName = Concat("logoFooter", extension);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+
+                    //Check and delete logo exists
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+
+                    model.LogoFooter.SaveAs(path);
+                    model.LogoFooterImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 var modelMap = Mapper.Map<SystemSettingViewModel, SystemSetting>(model);
@@ -236,52 +253,49 @@ namespace App.Admin.Controllers
 
                 if (model.Favicon != null && model.Favicon.ContentLength > 0)
                 {
-                    // var fileName = Path.GetFileName(model.Favicon.FileName);
                     var extension = Path.GetExtension(model.Favicon.FileName);
                     var fileName = Concat("favicon", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
-                    if (System.IO.File.Exists(str))
+                    if (System.IO.File.Exists(path))
                     {
-                        System.IO.File.Delete(str);
+                        System.IO.File.Delete(path);
                     }
 
-                    model.Favicon.SaveAs(str);
+                    model.Favicon.SaveAs(path);
                     model.FaviconImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.Logo != null && model.Logo.ContentLength > 0)
                 {
-                    //  var fileName = Path.GetFileName(model.Logo.FileName);
                     var extension = Path.GetExtension(model.Logo.FileName);
                     var fileName = Concat("logo", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
-                    if (System.IO.File.Exists(str))
+                    if (System.IO.File.Exists(path))
                     {
-                        System.IO.File.Delete(str);
+                        System.IO.File.Delete(path);
                     }
 
-                    model.Logo.SaveAs(str);
+                    model.Logo.SaveAs(path);
                     model.LogoImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
                 if (model.LogoFooter != null && model.LogoFooter.ContentLength > 0)
                 {
-                    //var fileName = Path.GetFileName(model.LogoFooter.FileName);
                     var extension = Path.GetExtension(model.LogoFooter.FileName);
                     var fileName = Concat("logoFooter", extension);
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
+                    var path = Path.Combine(Server.MapPath(Concat("~/", Contains.SystemSettingFolder)), fileName);
 
                     //Check and delete logo exists
-                    if (System.IO.File.Exists(str))
+                    if (System.IO.File.Exists(path))
                     {
-                        System.IO.File.Delete(str);
+                        System.IO.File.Delete(path);
                     }
 
-                    model.LogoFooter.SaveAs(str);
+                    model.LogoFooter.SaveAs(path);
                     model.LogoFooterImage = Concat(Contains.SystemSettingFolder, fileName);
                 }
 
@@ -313,6 +327,7 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
                 ExtentionUtils.Log(Concat("SystemSetting.Edit: ", ex.Message));
+
                 return View(model);
             }
         }
@@ -327,7 +342,7 @@ namespace App.Admin.Controllers
                 Keywords = keywords,
                 Sorts = new SortBuilder
                 {
-                    ColumnName = "Title",
+                    ColumnName = "CreatedDate",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };

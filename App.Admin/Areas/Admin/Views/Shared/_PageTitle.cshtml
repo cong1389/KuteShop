@@ -50,7 +50,7 @@
                                 break;
                             case "DeleteOne":
                                 <li>
-                                    <a data-command="app-batchone" command-name="deleteone" href="@Url.Action("DeleteOne",new { @id = ViewContext.RouteData.Values["id"], @returnUrl = Request["ReturnUrl"]})" class="icon-btn btn red">
+                                    <a data-command="app-batchone" command-name="deleteone" href="@Url.Action("DeleteOne",new { id = ViewContext.RouteData.Values["id"], returnUrl = Request["ReturnUrl"]})" class="icon-btn btn red">
                                         <i class="fa fa-remove"></i>
                                         <div> Xóa </div>
                                     </a>
@@ -74,7 +74,7 @@
                                 break;
                             case "EditPrint":
                                 <li>
-                                    <a data-command="app-save" href="@Url.Action("Edit",new { @id = ViewContext.RouteData.Values["id"], @returnUrl = Request["ReturnUrl"]})" class="icon-btn btn yellow-crusta">
+                                    <a data-command="app-save" href="@Url.Action("Edit",new { id = ViewContext.RouteData.Values["id"], returnUrl = Request["ReturnUrl"]})" class="icon-btn btn yellow-crusta">
                                         <i class="fa fa-edit"></i>
                                         <div> Sửa & In </div>
                                     </a>
@@ -82,7 +82,7 @@
                                 break;
                             case "Approved":
                                 <li>
-                                    <a data-command="app-batch" href="@Url.Action("Approved", new { @value = 1 })" class="icon-btn btn green">
+                                    <a data-command="app-batch" href="@Url.Action("Approved", new { value = 1 })" class="icon-btn btn green">
                                         <i class="fa fa-check-circle"></i>
                                         <div> Xác nhận </div>
                                     </a>
@@ -90,7 +90,7 @@
                                 break;
                             case "UnApproved":
                                 <li>
-                                    <a data-command="app-batch" href="@Url.Action("UnApproved", new { @value = 0 })" class="icon-btn btn red-sunglo">
+                                    <a data-command="app-batch" href="@Url.Action("UnApproved", new { value = 0 })" class="icon-btn btn red-sunglo">
                                         <i class="fa fa-expeditedssl"></i>
                                         <div> Huỷ </div>
                                     </a>

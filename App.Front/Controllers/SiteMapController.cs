@@ -77,7 +77,7 @@ namespace App.Front.Controllers
 					}
 					foreach (var galleryImage in post.GalleryImages)
 					{
-						sitemapImages.Add(new SitemapImage(string.Concat(item, galleryImage.ImagePath))
+						sitemapImages.Add(new SitemapImage(string.Concat(item, galleryImage.ImageBig))
 						{
 							Caption = post.Title,
 							Title = post.Title

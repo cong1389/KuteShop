@@ -14,7 +14,7 @@ namespace App.FakeEntity.Gallery
             set;
         }
 
-        public string ImagePath
+        public string ImageBig
         {
             get;
             set;

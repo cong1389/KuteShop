@@ -151,8 +151,8 @@ namespace App.Front.Extensions
                 SeoUrl = entity.SeoUrl,
                 OrderDisplay = entity.OrderDisplay,
                 ImageBigSize = entity.ImageBigSize,
-                Icon1 = entity.Icon1,
-                Icon2 = entity.Icon2,
+                ImageMediumSize = entity.ImageMediumSize,
+                ImageSmallSize = entity.ImageSmallSize,
                 ColorHex = entity.ColorHex,
                 CurrentVirtualId = entity.CurrentVirtualId,
                 VirtualId = entity.VirtualId,
@@ -188,8 +188,8 @@ namespace App.Front.Extensions
             destination.CurrentVirtualId = entity.CurrentVirtualId;
             destination.VirtualId = entity.VirtualId;
             destination.TemplateType = entity.TemplateType;
-            destination.IconNav = entity.Icon1;
-            destination.IconBar = entity.Icon2;
+            destination.IconNav = entity.ImageMediumSize;
+            destination.IconBar = entity.ImageSmallSize;
 
             return destination;
         }
@@ -462,8 +462,8 @@ namespace App.Front.Extensions
             destination.SeoUrl = model.SeoUrl;
             destination.OrderDisplay = model.OrderDisplay;
             destination.ImageBigSize = model.ImageBigSize;
-            destination.Icon1 = model.Icon1;
-            destination.Icon2 = model.Icon2;
+            destination.ImageMediumSize = model.ImageMediumSize;
+            destination.ImageSmallSize = model.ImageSmallSize;
             destination.CurrentVirtualId = model.CurrentVirtualId;
             destination.VirtualId = model.VirtualId;
             destination.TemplateType = model.TemplateType;

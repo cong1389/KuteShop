@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -41,7 +40,11 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Create()
         {
-            var model = new ManufacturerViewModel();
+            var model = new ManufacturerViewModel
+            {
+                OrderDisplay = 1,
+                Status = 1
+            };
 
             return View(model);
         }
@@ -56,25 +59,27 @@ namespace App.Admin.Controllers
                 if (!ModelState.IsValid)
                 {
                     ModelState.AddModelError("", MessageUI.ErrorMessage);
+
                     return View(model);
                 }
 
-                var titleNonAccent = model.Title.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
+                    var folderName = Utils.FolderName(model.Title);
                     var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+
+                    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
                 }
 
                 var manufacturer = Mapper.Map<ManufacturerViewModel, Manufacturer>(model);
-
                 _manufacturerService.Create(manufacturer);
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Manufacture)));
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.Manufacturer)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -88,6 +93,7 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("Manufacturer.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
+
                 return View(model);
             }
 
@@ -101,10 +107,11 @@ namespace App.Admin.Controllers
             {
                 if (ids.Length != 0)
                 {
-                    var flowSteps =
+                    var manufacturers =
                         from id in ids
                         select _manufacturerService.Get(x => x.Id == id);
-                    _manufacturerService.BatchDelete(flowSteps);
+
+                    _manufacturerService.BatchDelete(manufacturers);
                 }
             }
             catch (Exception ex)
@@ -133,28 +140,30 @@ namespace App.Admin.Controllers
                 if (!ModelState.IsValid)
                 {
                     ModelState.AddModelError("", MessageUI.ErrorMessage);
+
                     return View(model);
                 }
 
                 var byId = _manufacturerService.Get(x => x.Id == model.Id);
 
-                var titleNonAccent = model.Title.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
+                    var folderName = Utils.FolderName(model.Title);
                     var fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}", fileName1, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
-                    model.ImageUrl = string.Concat(Contains.ManufactureFolder, fileName1);
+                    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
                 }
 
                 var manufacturer = Mapper.Map(model, byId);
 
                 _manufacturerService.Update(manufacturer);
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Manufacture)));
+                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Manufacturer)));
                 if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
                 {
                     action = RedirectToAction("Index");
@@ -167,6 +176,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ExtentionUtils.Log(string.Concat("Manufacturer.Edit: ", ex.Message));
+
                 return View(model);
             }
 

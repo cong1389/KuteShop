@@ -151,7 +151,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			@Html.LabelFor(model => model.ImageIcon1, new { @class = "control-label col-md-3" })
+			@Html.LabelFor(model => model.ImageMediumSizeFile, new { @class = "control-label col-md-3" })
 			<div class="col-md-8">
 				<div class="fileinput fileinput-new" data-provides="fileinput">
 					<div class="input-group input-large">
@@ -162,19 +162,19 @@
 						<span class="input-group-addon btn default btn-file">
 							<span class="fileinput-new">@FormUI.SelectFile</span>
 							<span class="fileinput-exists"> @FormUI.ChangeFile </span>
-							@Html.TextBoxFor(model => model.ImageIcon1, new { type = "file" })
+							@Html.TextBoxFor(model => model.ImageMediumSizeFile, new { type = "file" })
 						</span>
 						<a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
 					</div>
 				</div>
-				@Html.ValidationMessageFor(model => model.ImageIcon1, "", new { @class = "help-block" })
+				@Html.ValidationMessageFor(model => model.ImageMediumSizeFile, "", new { @class = "help-block" })
 			</div>
 			<div class="col-md-8 col-md-offset-3">
-				<img src="@Model.Icon1.ValidateImage()" width="40px" />
+				<img src="@Model.ImageMediumSize.ValidateImage()" width="40px" />
 			</div>
 		</div>
 		<div class="form-group">
-			@Html.LabelFor(model => model.ImageIcon2, new { @class = "control-label col-md-3" })
+			@Html.LabelFor(model => model.ImageSmallSizeFile, new { @class = "control-label col-md-3" })
 			<div class="col-md-8">
 				<div class="fileinput fileinput-new" data-provides="fileinput">
 					<div class="input-group input-large">
@@ -185,22 +185,22 @@
 						<span class="input-group-addon btn default btn-file">
 							<span class="fileinput-new">@FormUI.SelectFile</span>
 							<span class="fileinput-exists"> @FormUI.ChangeFile </span>
-							@Html.TextBoxFor(model => model.ImageIcon2, new { type = "file" })
+							@Html.TextBoxFor(model => model.ImageSmallSizeFile, new { type = "file" })
 						</span>
 						<a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
 					</div>
 				</div>
-				@Html.ValidationMessageFor(model => model.ImageIcon2, "", new { @class = "help-block" })
+				@Html.ValidationMessageFor(model => model.ImageSmallSizeFile, "", new { @class = "help-block" })
 			</div>
 			<div class="col-md-8 col-md-offset-3">
-				<img src="@Model.Icon2.ValidateImage()" width="40px" />
+				<img src="@Model.ImageSmallSize.ValidateImage()" width="40px" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3", type = "number" })
 			<div class="col-md-5">
-				@Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
+				@Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control", type = "number" })
 				@Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
 			</div>
 		</div>
@@ -220,7 +220,7 @@
 						App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
 
 						<li class="@(i == 0 ? "active" : "")">
-							<a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag" /> @language.LanguageName</a>
+							<a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag.ValidateImage()" /> @language.LanguageName</a>
 						</li>
 					}
 				}

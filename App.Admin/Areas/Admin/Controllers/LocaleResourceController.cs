@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using App.Core.Caching;
 using App.Domain.Entities.Language;
@@ -54,17 +53,6 @@ namespace App.Admin.Controllers
             return View(resources);
         }
 
-        //public ActionResult Resource(int languageId)
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult Create(LocaleStringResourceViewModel model)
-        //{
-        //    var res = _services.Localization.GetByName(model.LanguageId, model.ResourceName);
-        //    return View();
-        //}
-
         public ActionResult Edit(LocaleStringResourceViewModel model)
         {
             var locale = _services.Localization.GetById(model.Id);
@@ -83,10 +71,7 @@ namespace App.Admin.Controllers
                 var localeByMap = Mapper.Map<LocaleStringResourceViewModel, LocaleStringResource>(model);
                 _localeStringResourceService.Create(localeByMap);
             }
-
-            //var resources = _services.Localization.GetByLanguageId(1);
-            //ViewBag.Localization = resources;
-
+            
             return Json(
                 new
                 {
@@ -107,8 +92,7 @@ namespace App.Admin.Controllers
 
         public ActionResult NewRow(string languageId)
         {
-            var model = new LocaleStringResource();
-            model.LanguageId = int.Parse(languageId);
+            var model = new LocaleStringResource {LanguageId = int.Parse(languageId)};
 
             var newRow = RenderRazorViewToString("_NewRow", model);
 

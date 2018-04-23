@@ -4,7 +4,7 @@
 @using App.Domain.Common
 @model IEnumerable<App.Domain.Entities.GenericControl.GenericControl>
 
-@using (Ajax.BeginForm("UpdateGenericControlValue", "GenericControl", new AjaxOptions { UpdateTargetId = "AllTweets" }, new { @id = "frmUpdate" }))
+@using (Ajax.BeginForm("UpdateGenericControlValue", "GenericControl", new AjaxOptions { UpdateTargetId = "AllTweets" }, new { id = "frmUpdate" }))
 {
     @Html.AntiForgeryToken()
 

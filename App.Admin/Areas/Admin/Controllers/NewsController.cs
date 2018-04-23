@@ -54,12 +54,15 @@ namespace App.Admin.Controllers
             //Clear cache
             _cacheManager.RemoveByPattern(CacheNewsKey);
         }
-
-
+        
         [RequiredPermisson(Roles = "CreateEditNews")]
         public ActionResult Create()
         {
-            var model = new NewsViewModel();
+            var model = new NewsViewModel
+            {
+                OrderDisplay = 1,
+                Status = 1
+            };
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -91,18 +94,19 @@ namespace App.Admin.Controllers
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = Utils.FolderName(model.Title);
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
                     var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    var fileName1 = titleNonAccent.FileNameFormat(fileExtension);
-                    var fileName2 = titleNonAccent.FileNameFormat(fileExtension);
-                    var fileName3 = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileName1 = fileNameOriginal.FileNameFormat(fileExtension);
+                    var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
+                    var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
 
                     model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
@@ -143,8 +147,9 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Post.Create: ", ex.Message));
+                ExtentionUtils.Log(string.Concat("News.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
+
                 return View(model);
             }
 
@@ -168,6 +173,7 @@ namespace App.Admin.Controllers
                     {
                         var ieLocalizedProperty
                            = _localizedPropertyService.GetByEntityId(ids[i]);
+
                         _localizedPropertyService.BatchDelete(ieLocalizedProperty);
                     }
                 }
@@ -222,23 +228,26 @@ namespace App.Admin.Controllers
                 var titleNonAccent = model.Title.NonAccent();
                 var bySeoUrl = _menuLinkService.GetListSeoUrl(titleNonAccent, false);
                 model.SeoUrl = model.Title.NonAccent();
-                    
+
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
                     var newsViewModel = model;
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = Utils.FolderName(model.Title);
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    var fileName1 = string.Concat(titleNonAccent, ".jpg");
-                    var fileName2 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
-                    var fileName3 = $"{titleNonAccent}-{Guid.NewGuid()}.jpg";
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                    var fileName1 = fileNameOriginal.FileNameFormat(fileExtension);
+                    var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
+                    var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
 
                     model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
@@ -282,8 +291,10 @@ namespace App.Admin.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
                 ExtentionUtils.Log(string.Concat("News.Edit: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -306,6 +317,7 @@ namespace App.Admin.Controllers
                 PageSize = PageSize,
                 TotalRecord = 0
             };
+
             var news = _newsService.PagedList(sortingPagingBuilder, paging);
             if (news != null && news.Any())
             {

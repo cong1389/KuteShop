@@ -515,3 +515,17 @@ C:\FreeLancer\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.cspro
 C:\FreeLancer\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CoreCompileInputs.cache
 C:\FreeLancer\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.dll
 C:\FreeLancer\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.pdb
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\PreMailer.Net.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Owin.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\AngleSharp.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\AngleSharp.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.Cookies.xml

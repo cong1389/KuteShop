@@ -41,7 +41,7 @@ namespace App.FakeEntity.GenericControl
             set;
         }
 
-        [Display(Name = "Entity", ResourceType = typeof(FormUI))]
+        [Display(Name = "MenuName", ResourceType = typeof(FormUI))]
         public int MenuId
         {
             get;
@@ -50,8 +50,7 @@ namespace App.FakeEntity.GenericControl
 
         [Display(Name = "ControlType", ResourceType = typeof(FormUI))]
         public int ControlTypeId { get; set; }
-
-        [Display(Name = "GenericControlValues", ResourceType = typeof(FormUI))]
+        
         public virtual ICollection<GenericControlValueViewModel> GenericControlValues
         {
             get;

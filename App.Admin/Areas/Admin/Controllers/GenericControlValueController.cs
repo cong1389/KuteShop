@@ -8,7 +8,6 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
 using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.Menu;
 using App.FakeEntity.GenericControl;
 using App.Framework.Ultis;
 using App.Service.GenericControl;

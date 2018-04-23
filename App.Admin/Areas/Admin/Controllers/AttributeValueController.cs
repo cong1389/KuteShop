@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,11 +10,10 @@ using App.Framework.Ultis;
 using App.Service.Attribute;
 using AutoMapper;
 using Resources;
-using Attribute = App.Domain.Entities.Attribute.Attribute;
 
 namespace App.Admin.Controllers
 {
-	public class AttributeValueController : BaseAdminController
+    public class AttributeValueController : BaseAdminController
 	{
 		private readonly IAttributeValueService _attributeValueService;
 

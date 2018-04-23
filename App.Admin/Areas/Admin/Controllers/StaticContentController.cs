@@ -34,19 +34,21 @@ namespace App.Admin.Controllers
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
+        private readonly IImagePlugin _imagePlugin;
 
         public StaticContentController(
             IStaticContentService staticContentService
             , IMenuLinkService menuLinkService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager)
+            , ICacheManager cacheManager, IImagePlugin imagePlugin)
         {
             _staticContentService = staticContentService;
             _menuLinkService = menuLinkService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _cacheManager = cacheManager;
+            _imagePlugin = imagePlugin;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CacheStaticcontentKey);
@@ -55,7 +57,10 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditStaticContent")]
         public ActionResult Create()
         {
-            var model = new StaticContentViewModel();
+            var model = new StaticContentViewModel
+            {
+                Status = 1
+            };
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -90,14 +95,24 @@ namespace App.Admin.Controllers
 
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.Image.FileName);
-                    var extension = Path.GetExtension(model.Image.FileName);
-                    fileName = fileName.FileNameFormat(extension);
+                    var folderName = Utils.FolderName(model.Title);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    var str = Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    model.Image.SaveAs(str);
-                    model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize, true);
+
+                    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
+
+                    //var fileName = Path.GetFileName(model.Image.FileName);
+                    //var extension = Path.GetExtension(model.Image.FileName);
+                    //fileName = fileName.FileNameFormat(extension);
+
+                    //var str = Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName);
+
+                    //model.Image.SaveAs(str);
+                    //model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
                 }
 
                 if (model.MenuId > 0)
@@ -132,11 +147,11 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(Concat("Post.Create: ", exception.Message));
-                ModelState.AddModelError("", exception.Message);
+                ExtentionUtils.Log(Concat("StaticContent.Create: ", ex.Message));
+                ModelState.AddModelError("", ex.Message);
+
                 return View(model);
             }
             return action;
@@ -168,11 +183,11 @@ namespace App.Admin.Controllers
                     }
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(Concat("Post.Delete: ", exception.Message));
+                ExtentionUtils.Log(Concat("StaticContent.Delete: ", ex.Message));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -224,11 +239,21 @@ namespace App.Admin.Controllers
                 }
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
-                    var extension = Path.GetExtension(model.Image.FileName);
-                    var fileName = titleNonAccent.FileNameFormat(extension);
+                    var folderName = Utils.FolderName(model.Title);
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    model.Image.SaveAs(Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName));
-                    model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize, true);
+
+                    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
+
+                    //var extension = Path.GetExtension(model.Image.FileName);
+                    //var fileName = titleNonAccent.FileNameFormat(extension);
+
+                    //model.Image.SaveAs(Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName));
+                    //model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
                 }
 
                 if (model.MenuId > 0)
@@ -266,9 +291,11 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(Concat("Post.Edit: ", ex.Message));
+                ExtentionUtils.Log(Concat("StaticContent.Edit: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -281,7 +308,7 @@ namespace App.Admin.Controllers
                 Keywords = keywords,
                 Sorts = new SortBuilder
                 {
-                    ColumnName = "Title",
+                    ColumnName = "CreatedDate",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };

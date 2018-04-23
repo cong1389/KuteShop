@@ -121,7 +121,6 @@ namespace App.Admin.Helpers
 				return int.Parse(ConfigurationManager.AppSettings["WithBigSize"]);
 			}
 		}
-        
 		public static int WithMediumSize
 		{
 			get
@@ -283,5 +282,185 @@ namespace App.Admin.Helpers
 	            return int.Parse(ConfigurationManager.AppSettings["MenuHeightBigSize"]);
 	        }
 	    }
+	    public static int MenuWithMediumSize
+        {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithMediumSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuWithMediumSize"]);
+	        }
+	    }
+	    public static int MenuHeightMediumSize
+        {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuHeightMediumSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuHeightMediumSize"]);
+	        }
+	    }
+	    public static int MenuWithSmallSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithSmallSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuWithSmallSize"]);
+	        }
+	    }
+	    public static int MenuHeightSmallSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuHeightSmallSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["MenuHeightSmallSize"]);
+	        }
+	    }
+
+	    public static int BannerWithBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BannerWithBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["BannerWithBigSize"]);
+	        }
+	    }
+	    public static int BannerHeightBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BannerHeightBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["BannerHeightBigSize"]);
+	        }
+	    }
+
+	    public static int SlideShowWithBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SlideShowWithBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["SlideShowWithBigSize"]);
+	        }
+	    }
+	    public static int SlideShowHeightBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SlideShowHeightBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["SlideShowHeightBigSize"]);
+	        }
+	    }
+
+	    public static int StaticContentWithBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["StaticContentWithBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["StaticContentWithBigSize"]);
+	        }
+	    }
+	    public static int StaticContentHeightBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["StaticContentHeightBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["StaticContentHeightBigSize"]);
+	        }
+	    }
+
+        public static int NewsWithBigSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithBigSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsWithBigSize"]);
+            }
+        }
+        public static int NewsHeightBigSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsHeightBigSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsHeightBigSize"]);
+            }
+        }
+        public static int NewsWithMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsWithMediumSize"]);
+            }
+        }
+        public static int NewsHeightMediumSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsHeightMediumSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsHeightMediumSize"]);
+            }
+        }
+        public static int NewsWithSmallSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithSmallSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsWithSmallSize"]);
+            }
+        }
+        public static int NewsHeightSmallSize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsHeightSmallSize"]))
+                {
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+                return int.Parse(ConfigurationManager.AppSettings["NewsHeightSmallSize"]);
+            }
+        }
     }
 }

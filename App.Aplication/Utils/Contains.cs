@@ -19,6 +19,19 @@ namespace App.Aplication
             }
         }
 
+        public static string SlideShowFolder
+        {
+            get
+            {
+                string item = ConfigurationManager.AppSettings["SlideShowFolder"] ?? "images/SlideShow/";
+                if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
+                {
+                    Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
+                }
+                return ConfigurationManager.AppSettings["SlideShowFolder"] ?? "images/SlideShow/";
+            }
+        }
+
         public static bool EnableSendEmai => bool.Parse(ConfigurationManager.AppSettings["EnableSendEmail"] ?? "false");
 
         public static bool EnableSendSms => bool.Parse(ConfigurationManager.AppSettings["EnableSendSMS"] ?? "false");

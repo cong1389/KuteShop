@@ -1,5 +1,6 @@
 ﻿<!--PaymentMethod; _CreateOrUpdate--->
 
+@using App.Aplication
 @using App.Domain.Common
 @using App.Service.Language
 @using Resources
@@ -46,7 +47,7 @@
             <div class="col-md-5 col-md-offset-3">
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
-                    <img src="@Url.Content("~/" + Model.ImageUrl)" width="40px" />
+                    <img src="@Model.ImageUrl.ValidateImage()" width="40px" />
                 }
             </div>
         </div>
@@ -54,7 +55,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
-                @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control", type = "number" })
                 @Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
             </div>
         </div>
@@ -67,7 +68,7 @@
                         App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
 
                         <li class="@(i == 0 ? "active" : "")">
-                            <a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag"/> @language.LanguageName</a>
+                            <a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag.ValidateImage()"/> @language.LanguageName</a>
                         </li>
                     }
                 }               
@@ -82,7 +83,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Locales[i].PaymentMethodSystemName, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
+                                    <div class="col-md-8">
                                         @Html.TextBoxFor(model => model.Locales[i].PaymentMethodSystemName, new { @class = "form-control" })
                                         @Html.ValidationMessageFor(model => model.Locales[i].PaymentMethodSystemName, "", new { @class = "help-block" })
                                     </div>
@@ -92,7 +93,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Locales[i].Description, new { @class = "control-label col-md-3" })
-                                    <div class="col-md-5">
+                                    <div class="col-md-8">
                                         @Html.TextAreaFor(model => model.Locales[i].Description, new { @class = "form-control ckeditor" })
                                         @Html.ValidationMessageFor(model => model.Locales[i].Description, "", new { @class = "help-block" })
                                     </div>
@@ -105,7 +106,7 @@
                         @Html.HiddenFor(model => model.Locales[i].LanguageId)
                     }
 
-                    @Html.HiddenFor(model => model.PaymentMethodSystemName, new { @class = "form-control", @Value = Model.Locales[0].PaymentMethodSystemName }) 
+                    @Html.HiddenFor(model => model.PaymentMethodSystemName, new { @class = "form-control", Value = Model.Locales[0].PaymentMethodSystemName }) 
 
                 }
 

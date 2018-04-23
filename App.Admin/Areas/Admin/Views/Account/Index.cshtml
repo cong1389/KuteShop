@@ -4,7 +4,7 @@
     ViewBag.Toolbar = new[] { "Create", "Edit", "Delete", "Divider", "Reset" };
 }
 @model IEnumerable<App.Domain.Entities.Account.User>
-<table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content">
+<table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover dataTable">
     <thead class="flip-content">
         <tr>
             <th class="text-center">Họ tên</th>

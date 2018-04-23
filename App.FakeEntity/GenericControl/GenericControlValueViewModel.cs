@@ -5,7 +5,8 @@ namespace App.FakeEntity.GenericControl
 {
 	public class GenericControlValueViewModel
 	{
-		public int GenericControlId
+	    [Display(Name = "GenericControl", ResourceType = typeof(FormUI))]
+        public int GenericControlId
 		{
 			get;
 			set;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,13 +9,12 @@ using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.ServerMail;
 using App.Framework.Ultis;
 using App.Service.MailSetting;
-using App.Service.Messages;
 using AutoMapper;
 using Resources;
 
 namespace App.Admin.Controllers
 {
-	public class MailSettingController : BaseAdminController
+    public class MailSettingController : BaseAdminController
     {
         private const string CacheMailsettingKey = "db.MailSetting";
         private readonly ICacheManager _cacheManager;
@@ -55,6 +53,7 @@ namespace App.Admin.Controllers
 
 			    var serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
 			    _mailSettingService.Create(serverMailSetting);
+
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.ServerMailSetting)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
 			    {
@@ -99,6 +98,7 @@ namespace App.Admin.Controllers
 		public ActionResult Edit(int id)
 		{
 			var serverMailSettingViewModel = Mapper.Map<ServerMailSetting, ServerMailSettingViewModel>(_mailSettingService.GetById(id));
+
 			return View(serverMailSettingViewModel);
 		}
 
@@ -117,6 +117,7 @@ namespace App.Admin.Controllers
 
 			    var serverMailSetting = Mapper.Map<ServerMailSettingViewModel, ServerMailSetting>(serverMail);
 			    _mailSettingService.Update(serverMailSetting);
+
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.ServerMailSetting)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
 			    {
@@ -133,6 +134,7 @@ namespace App.Admin.Controllers
 				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(serverMail);
 			}
+
 			return action;
 		}
 
@@ -161,6 +163,7 @@ namespace App.Admin.Controllers
 				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
+
 			return View(serverMailSettings);
 		}
 	}

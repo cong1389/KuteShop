@@ -22,7 +22,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
-                    @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control", type = "number" })
                     @Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
                 </div>
             </div> 

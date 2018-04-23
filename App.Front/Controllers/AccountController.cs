@@ -152,7 +152,7 @@ namespace App.Front.Controllers
 										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
 										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
 										galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
-										galleryImageViewModel.ImagePath = $"{Contains.PostFolder}/{str}/{str5}";
+										galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
 										galleryImageViewModel.OrderDisplay = num;
 										galleryImageViewModel.Status = 1;
 										galleryImageViewModel.Title = post.Title;
@@ -196,7 +196,7 @@ namespace App.Front.Controllers
 
 					var galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
 					_galleryService.Delete(galleryImage);
-					var str = Server.MapPath(string.Concat("~/", galleryImage.ImagePath));
+					var str = Server.MapPath(string.Concat("~/", galleryImage.ImageBig));
 					var str1 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
 					System.IO.File.Delete(str);
 					System.IO.File.Delete(str1);
@@ -286,7 +286,7 @@ namespace App.Front.Controllers
 										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
 										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
 										galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
-										galleryImageViewModel.ImagePath = $"{Contains.PostFolder}/{str}/{str5}";
+										galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
 										galleryImageViewModel.OrderDisplay = num;
 										galleryImageViewModel.Status = 1;
 										galleryImageViewModel.Title = postView.Title;

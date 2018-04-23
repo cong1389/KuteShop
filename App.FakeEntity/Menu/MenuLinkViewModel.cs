@@ -36,14 +36,14 @@ namespace App.FakeEntity.Menu
 		}
 
         [Display(Name = "Icon1", ResourceType = typeof(FormUI))]
-        public string Icon1
+        public string ImageMediumSize
 		{
 			get;
 			set;
 		}
 
         [Display(Name = "Icon2", ResourceType = typeof(FormUI))]
-        public string Icon2
+        public string ImageSmallSize
 		{
 			get;
 			set;
@@ -55,22 +55,22 @@ namespace App.FakeEntity.Menu
 			set;
 		}
 
-		[Display(Name= "ImageSelect", ResourceType=typeof(FormUI))]
+		[Display(Name= "ImageBigSize", ResourceType=typeof(FormUI))]
 		public HttpPostedFileBase ImageBigSizeFile
 		{
 			get;
 			set;
 		}
 
-		[Display(Name="Icon1")]
-		public HttpPostedFileBase ImageIcon1
+		[Display(Name="ImageMediumSizeFile")]
+		public HttpPostedFileBase ImageMediumSizeFile
 		{
 			get;
 			set;
 		}
 
-		[Display(Name="Icon2")]
-		public HttpPostedFileBase ImageIcon2
+		[Display(Name="ImageSmallSize")]
+		public HttpPostedFileBase ImageSmallSizeFile
 		{
 			get;
 			set;
@@ -245,14 +245,14 @@ namespace App.FakeEntity.Menu
         }
 
         [Display(Name = "Icon1", ResourceType = typeof(FormUI))]
-        public string Icon1
+        public string ImageBigSize
         {
             get;
             set;
         }
 
         [Display(Name = "Icon2", ResourceType = typeof(FormUI))]
-        public string Icon2
+        public string ImageMediumSize
         {
             get;
             set;
@@ -265,27 +265,27 @@ namespace App.FakeEntity.Menu
         }
 
         [Display(Name = "ImageSelect", ResourceType = typeof(FormUI))]
-        public HttpPostedFileBase Image
+        public HttpPostedFileBase ImageBigSizeFile
         {
             get;
             set;
         }
 
-        [Display(Name = "Icon1")]
-        public HttpPostedFileBase ImageIcon1
+        [Display(Name = "ImageMediumSizeFile")]
+        public HttpPostedFileBase ImageMediumSizeFile
         {
             get;
             set;
         }
 
-        [Display(Name = "Icon2")]
-        public HttpPostedFileBase ImageIcon2
+        [Display(Name = "ImageSmallSize")]
+        public HttpPostedFileBase ImageSmallSizeFile
         {
             get;
             set;
         }
 
-        public string ImageUrl
+        public string ImageSmallSize
         {
             get;
             set;

@@ -46,20 +46,22 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-		public string Icon1
+        [StringLength(250)]
+        public string ImageBigSize
+        {
+            get;
+            set;
+        }
+
+        [StringLength(250)]
+        public string ImageMediumSize
 		{
 			get;
 			set;
 		}
 
-		public string Icon2
-		{
-			get;
-			set;
-		}
-
-		[StringLength(250)]
-		public string ImageBigSize
+        [StringLength(250)]
+        public string ImageSmallSize
 		{
 			get;
 			set;

@@ -125,7 +125,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Accessories, new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.Accessories, new { @class = "form-control", @data_role = "tagsinput" })
+                @Html.TextBoxFor(model => model.Accessories, new { @class = "form-control", data_role = "tagsinput" })
                 @Html.ValidationMessageFor(model => model.Accessories, "", new { @class = "help-block" })
             </div>
         </div>
@@ -218,7 +218,7 @@
             {
                 <div class="col-sm-2">
                     <a href="@Url.Content("/"+item.ImagePath)" class="gallery" rel="ga">
-                        <img src="@Url.Content("/"+item.ImagePath)" style="width: 100%" />
+                        <img src="@item.ImagePath.ValidateImage()" style="width: 100%" />
                     </a>
                 </div>
             }
@@ -229,7 +229,7 @@
     <div class="form-group">
         <label class="control-label col-md-1">Ghi chú</label>
         <div class="col-md-11">
-            @Html.TextAreaFor(model => model.Note, new { @class = "form-control ckeditor", @rows = 5 })
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control ckeditor", rows = 5 })
             @Html.ValidationMessageFor(model => model.Note, "", new { @class = "help-block" })
         </div>
     </div>

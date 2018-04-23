@@ -82,7 +82,6 @@ namespace App.Admin.Controllers
                 }
 
                 var map = Mapper.Map<OrderViewModel, Order>(orderView);
-
                 _orderService.Update(map);
 
                 Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.Order)));
@@ -98,6 +97,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ExtentionUtils.Log(string.Concat("Order.Edit: ", ex.Message));
+
                 return View(orderView);
             }
             return action;
@@ -132,7 +132,7 @@ namespace App.Admin.Controllers
                 Keywords = keywords,
                 Sorts = new SortBuilder
                 {
-                    ColumnName = "Id",
+                    ColumnName = "CreatedDate",
                     ColumnOrder = SortBuilder.SortOrder.Descending
                 }
             };

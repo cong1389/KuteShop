@@ -39,19 +39,12 @@ namespace App.Admin.Controllers
         [HttpPost]
         public JsonResult GetByMenuId(int menuId, int entityId)
         {
-            IEnumerable<GenericControlValueItem> genericControlValueItem = null;
-
-            genericControlValueItem = _genericControlValueItemService.GetByOption(menuId, entity: entityId);
-
-            if (genericControlValueItem.IsAny())
-            {
-
-            }
+            var genericControlValueItem = _genericControlValueItemService.GetByOption(menuId, entityId);
 
             var jsonResult = Json(
                  new
                  {
-                     success = genericControlValueItem.Count() > 0,
+                     success = genericControlValueItem.IsAny(),
                      list = RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", genericControlValueItem)
                  },
                  JsonRequestBehavior.AllowGet);
@@ -84,14 +77,16 @@ namespace App.Admin.Controllers
                     }
                     else
                     {
-                        model = new GenericControlValueItem();
+                        model = new GenericControlValueItem
+                        {
+                            Title = item.Name,
+                            Value = item.ValueName,
+                            EntityId = entityId,
+                            GenericControlValueId = item.GenericControlValueId,
+                            Status = 1,
+                            OrderDisplay = 1
+                        };
 
-                        model.Title = item.Name;
-                        model.Value = item.ValueName;
-                        model.EntityId = entityId;
-                        model.GenericControlValueId = item.GenericControlValueId;
-                        model.Status = 1;
-                        model.OrderDisplay = 1;
 
                         _genericControlValueItemService.Create(model);
                     }

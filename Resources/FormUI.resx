@@ -487,7 +487,7 @@
     <value>Hình đại diện</value>
   </data>
   <data name="GenericControl" xml:space="preserve">
-    <value>Tạo nhóm control</value>
+    <value>Nhóm control</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Tên</value>
@@ -573,17 +573,11 @@
   <data name="MenuName" xml:space="preserve">
     <value>Tên menu</value>
   </data>
-  <data name="ImageSelect" xml:space="preserve">
-    <value>Chọn hình hình ảnh</value>
+  <data name="ImageBigSize" xml:space="preserve">
+    <value>Hình kích thước lớn nhất</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Chọn ngôn ngữ</value>
-  </data>
-  <data name="Icon1" xml:space="preserve">
-    <value>Icon 1</value>
-  </data>
-  <data name="Icon2" xml:space="preserve">
-    <value>Icon 2</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
@@ -596,9 +590,6 @@
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Hãng sản xuất</value>
-  </data>
-  <data name="Manufacture" xml:space="preserve">
-    <value>Nhà sản xuất</value>
   </data>
   <data name="PaymentMethod" xml:space="preserve">
     <value>Hình thức thanh toán</value>
@@ -617,5 +608,11 @@
   </data>
   <data name="MiddleName" xml:space="preserve">
     <value>Tên lót</value>
+  </data>
+  <data name="ImageMediumSizeFile" xml:space="preserve">
+    <value>Hình kích thước trung bình</value>
+  </data>
+  <data name="ImageSmallSize" xml:space="preserve">
+    <value>Hình kích thước nhỏ nhất</value>
   </data>
 </root>

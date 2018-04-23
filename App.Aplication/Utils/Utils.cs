@@ -137,7 +137,7 @@ namespace App.Aplication
             var rnd = new Random();
             var rndNext = rnd.Next(1, 100);
 
-            return $"{fileName.NonAccent()}{rndNext}{fileExtension}";
+            return $"{fileName.NonAccent()}.{rndNext}{fileExtension}";
         }
 
         public static string FolderName(string fileName = null)
@@ -146,11 +146,10 @@ namespace App.Aplication
 
             if (fileName != null)
             {
-                var firstChars = fileName.Split(' ').Select(s => s[0]);
                 var firstCharsa = fileName.Where((ch, index) => ch != ' ' && (index == 0 || fileName[index - 1] == ' '));
                 var firstLeter = string.Join("", firstCharsa.ToArray()).NonAccent().ToUpper();
-                result = $"{DateTime.UtcNow.Year}.{firstLeter}";
 
+                result = $"{DateTime.UtcNow.Year}.{firstLeter}";
             }
 
             return result;

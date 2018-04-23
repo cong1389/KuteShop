@@ -6,8 +6,8 @@ GO
 
 select Id,ParentId,MenuName, * from MenuLink where Position=5
 
-select Status,* from PostGallery
-select * from Post
+select Status,* from SlideShow
+select * from [Order]
 
 update PostGallery
 set Status=1

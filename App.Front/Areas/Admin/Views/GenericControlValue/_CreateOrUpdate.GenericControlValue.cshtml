@@ -4,7 +4,7 @@
 
 @if (Model.IsAny())
 {
-    using (Ajax.BeginForm("Insert", "GenericControlValueItem", new AjaxOptions { UpdateTargetId = "AllTweets" }, new { @id = "frmUpdate" }))
+    using (Ajax.BeginForm("Insert", "GenericControlValueItem", new AjaxOptions { UpdateTargetId = "AllTweets" }, new { id = "frmUpdate" }))
     {
         @Html.AntiForgeryToken()
 

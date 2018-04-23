@@ -538,7 +538,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tạo nhóm control.
+        ///   Looks up a localized string similar to Nhóm control.
         /// </summary>
         public static string GenericControl {
             get {
@@ -610,24 +610,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icon 1.
-        /// </summary>
-        public static string Icon1 {
-            get {
-                return ResourceManager.GetString("Icon1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icon 2.
-        /// </summary>
-        public static string Icon2 {
-            get {
-                return ResourceManager.GetString("Icon2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hình ảnh.
         /// </summary>
         public static string Image {
@@ -637,11 +619,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chọn hình hình ảnh.
+        ///   Looks up a localized string similar to Hình kích thước lớn nhất.
         /// </summary>
-        public static string ImageSelect {
+        public static string ImageBigSize {
             get {
-                return ResourceManager.GetString("ImageSelect", resourceCulture);
+                return ResourceManager.GetString("ImageBigSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình kích thước trung bình.
+        /// </summary>
+        public static string ImageMediumSizeFile {
+            get {
+                return ResourceManager.GetString("ImageMediumSizeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình kích thước nhỏ nhất.
+        /// </summary>
+        public static string ImageSmallSize {
+            get {
+                return ResourceManager.GetString("ImageSmallSize", resourceCulture);
             }
         }
         
@@ -777,15 +777,6 @@ namespace Resources {
         public static string MaintanceSite {
             get {
                 return ResourceManager.GetString("MaintanceSite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nhà sản xuất.
-        /// </summary>
-        public static string Manufacture {
-            get {
-                return ResourceManager.GetString("Manufacture", resourceCulture);
             }
         }
         

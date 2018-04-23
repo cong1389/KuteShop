@@ -37,7 +37,12 @@ namespace App.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            var model = new LanguageFormViewModel
+            {
+                Status = 1
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -55,11 +60,14 @@ namespace App.Admin.Controllers
 
                 if (model.File != null && model.File.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.File.FileName);
-                    var extension = Path.GetExtension(model.File.FileName);
-                    //image = string.Concat(image.NonAccent(), extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
-                    model.File.SaveAs(str);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.File.FileName);
+                    var fileExtension = Path.GetExtension(model.File.FileName);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+                    //var fileName = Path.GetFileNameWithoutExtension(model.File.FileName);
+                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+
+                    model.File.SaveAs(path);
                     model.Flag = string.Concat(Contains.FolderLanguage, fileName);
                 }
 
@@ -109,11 +117,15 @@ namespace App.Admin.Controllers
 
                 if (model.File != null && model.File.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(model.File.FileName);
-                    var extension = Path.GetExtension(model.File.FileName);
-                    //fileName = string.Concat(empty.NonAccent(), extension);
-                    var str = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
-                    model.File.SaveAs(str);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.File.FileName);
+                    var fileExtension = Path.GetExtension(model.File.FileName);
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+                    //var fileName = Path.GetFileNameWithoutExtension(model.File.FileName);
+                
+                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+
+                    model.File.SaveAs(path);
                     model.Flag = string.Concat(Contains.FolderLanguage, fileName);
                 }
 
@@ -130,12 +142,13 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Language.Edit: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("Language.Edit: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -151,11 +164,11 @@ namespace App.Admin.Controllers
                     _langService.BatchDelete(language);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Banner.Delete: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("Language.Delete: ", ex.Message));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -177,12 +190,14 @@ namespace App.Admin.Controllers
                 PageSize = PageSize,
                 TotalRecord = 0
             };
+
             var languages = _langService.PagedList(sortingPagingBuilder, paging);
-            if (languages != null && languages.Any())
+            if (languages.IsAny())
             {
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
+
             return View(languages);
         }
 

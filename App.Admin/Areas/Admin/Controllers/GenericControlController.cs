@@ -59,7 +59,7 @@ namespace App.Admin.Controllers
         {
             var model = new GenericControlViewModel
             {
-                OrderDisplay = 0,
+                OrderDisplay = 1,
                 Status = 1
             };
 

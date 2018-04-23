@@ -147,7 +147,7 @@ namespace App.Admin.Controllers
 				Keywords = keywords,
 				Sorts = new SortBuilder
 				{
-					ColumnName = "PageName",
+					ColumnName = "Position",
 					ColumnOrder = SortBuilder.SortOrder.Descending
 				}
 			};

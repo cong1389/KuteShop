@@ -49,7 +49,11 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
         public ActionResult Create()
         {
-            var model = new PaymentMethodViewModel();
+            var model = new PaymentMethodViewModel
+            {
+                Status = 1,
+                OrderDisplay = 1
+            };
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -70,11 +74,12 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                var titleNonAccent = model.PaymentMethodSystemName.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
                     var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 
@@ -105,6 +110,7 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("PaymentMethod.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
+
                 return View(model);
             }
 
@@ -164,11 +170,15 @@ namespace App.Admin.Controllers
 
                 var byId = _paymentMethodService.Get(x => x.Id == model.Id);
 
-                var titleNonAccent = model.PaymentMethodSystemName.NonAccent();
                 if (model.Image != null && model.Image.ContentLength > 0)
                 {
                     var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+
+                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+                    //var fileExtension = Path.GetExtension(model.Image.FileName);
+                    //var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
                     _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 

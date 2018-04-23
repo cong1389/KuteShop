@@ -97,7 +97,7 @@ namespace App.FakeEntity.News
 		}
 
 		[Display(Name="OrderDisplay", ResourceType=typeof(FormUI))]
-		public string OrderDisplay
+		public int OrderDisplay
 		{
 			get;
 			set;
@@ -278,7 +278,7 @@ namespace App.FakeEntity.News
         }
 
         [Display(Name = "OrderDisplay", ResourceType = typeof(FormUI))]
-        public string OrderDisplay
+        public int OrderDisplay
         {
             get;
             set;

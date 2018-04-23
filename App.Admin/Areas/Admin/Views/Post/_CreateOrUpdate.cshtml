@@ -51,7 +51,7 @@
 							<div class="form-group">
 								@Html.LabelFor(model => model.OrderDisplay, new { @class = "control-label col-md-2" })
 								<div class="col-md-5">
-									@Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control", value = "0", type = "number" })
+									@Html.TextBoxFor(model => model.OrderDisplay, new { @class = "form-control", type = "number" })
 									@Html.ValidationMessageFor(model => model.OrderDisplay, "", new { @class = "help-block" })
 								</div>
 							</div>
@@ -129,7 +129,7 @@
 									@Html.ValidationMessageFor(model => model.Image, "", new { @class = "help-block" })
 									@if (!string.IsNullOrEmpty(Model.ImageSmallSize))
 									{
-										<img src="@Url.Content("~/" + Model.ImageSmallSize)" width="40px" />
+										<img src="@Model.ImageSmallSize.ValidateImage()" width="40px" />
 									}
 								</div>
 							</div>
@@ -169,7 +169,7 @@
 									App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
 
 									<li class="@(i == 0 ? "active" : "")">
-										<a href="#tab_paneSub@(i + 1)" data-toggle="tab"><img src="@language.Flag" /> @language.LanguageName</a>
+										<a href="#tab_paneSub@(i + 1)" data-toggle="tab"><img src="@language.Flag.ValidateImage()" /> @language.LanguageName</a>
 									</li>
 								}
 							}
@@ -247,38 +247,6 @@
 												@Html.TextAreaFor(model => model.Locales[i].MetaDescription, new { @class = "form-control" })
 												@Html.ValidationMessageFor(model => model.Locales[i].MetaDescription, "", new { @class = "help-block" })
 											</div>
-										</div>
-
-										<div class="row">
-											@*<div class="col-md-6">
-													<div class="form-group">
-														@Html.LabelFor(model => model.Locales[i].MetaTitle, new { @class = "control-label col-md-2" })
-														<div class="col-md-10">
-															@Html.TextBoxFor(model => model.Locales[i].MetaTitle, new { @class = "form-control" })
-															@Html.ValidationMessageFor(model => model.Locales[i].MetaTitle, "", new { @class = "help-block" })
-														</div>
-													</div>
-												</div>*@
-											<!--/span-->
-											@*<div class="col-md-6">
-													<div class="form-group">
-														@Html.LabelFor(model => model.Locales[i].MetaKeywords, new { @class = "control-label col-md-2" })
-														<div class="col-md-10">
-															@Html.TextBoxFor(model => model.Locales[i].MetaKeywords, new { @class = "form-control" })
-															@Html.ValidationMessageFor(model => model.Locales[i].MetaKeywords, "", new { @class = "help-block" })
-														</div>
-													</div>
-												</div>*@
-											<!--/span-->
-											@*<div class="col-md-6">
-													<div class="form-group">
-														@Html.LabelFor(model => model.Locales[i].MetaDescription, new { @class = "control-label col-md-2 " })
-														<div class="col-md-10">
-															@Html.TextBoxFor(model => model.Locales[i].MetaDescription, new { @class = "form-control" })
-															@Html.ValidationMessageFor(model => model.Locales[i].MetaDescription, "", new { @class = "help-block" })
-														</div>
-													</div>
-												</div>*@
 										</div>
 									</div>
 
@@ -388,8 +356,8 @@
 								{
 									<div id="@item.Id" class="col-sm-4 col-md-2">
 										<div class="thumbnail" style="text-align: right">
-											<a class="gallery" href="@Url.Content("~/" + item.ImagePath)">
-												<img src="@Url.Content("~/" + item.ImagePath)" style="height: 150px; width: 100%;">
+											<a class="gallery" href="@Url.Content("~/" + item.ImageBig)">
+												<img src="@item.ImageBig.ValidateImage()" style="height: 150px; width: 100%;">
 											</a>
 											<div class="caption">
 												<a data-id="@Model.Id" gallery-id="@item.Id" href="javascript:;" class="del_gallery btn btn-sm red">

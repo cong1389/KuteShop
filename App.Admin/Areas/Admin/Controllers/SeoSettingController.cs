@@ -27,7 +27,7 @@ namespace App.Admin.Controllers
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.Clear();
+            _cacheManager.RemoveByPattern(CacheSettingseoglobalKey);
         }
 
         public ActionResult Create()
@@ -63,6 +63,7 @@ namespace App.Admin.Controllers
 			    }
 			    var settingSeoGlobal1 = Mapper.Map<SettingSeoGlobalViewModel, SettingSeoGlobal>(seoSetting);
 			    _settingSeoGlobal.Create(settingSeoGlobal1);
+
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.SettingSeoGlobal)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
 			    {

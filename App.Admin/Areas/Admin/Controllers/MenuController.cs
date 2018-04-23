@@ -47,7 +47,11 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditMenu")]
         public ActionResult Create()
         {
-            var model = new MenuLinkViewModel();
+            var model = new MenuLinkViewModel
+            {
+                OrderDisplay = 1,
+                Status = 1
+            };
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -70,8 +74,8 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                var str = model.MenuName.NonAccent();
-                var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
+                var menuName = model.MenuName.NonAccent();
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(menuName);
                 model.SeoUrl = model.MenuName.NonAccent();
 
                 if (bySeoUrl.Any(x => x.Id != model.Id))
@@ -82,54 +86,49 @@ namespace App.Admin.Controllers
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
 
-                var titleNonAccent = model.MenuName.NonAccent();
-                var folderName = $"{DateTime.UtcNow:ddMMyyyy}";
+                var folderName = Utils.FolderName(model.MenuName);
                 if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
-                    var fileName = titleNonAccent.FileNameFormat(fileExtension);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileName, ImageSize.WithBigSize, ImageSize.HeightBigSize, true);
-                    model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileName}";
-
-                    //var fileName = Path.GetFileName(model.ImageBigSizeFile.FileName);
-                    //fileName = string.Concat(model.MenuName.NonAccent(), extension);
-                    //var str1 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName);
-                    //model.ImageBigSizeFile.SaveAs(str1);
+                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize, true);
+                    model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
-                if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
+                if (model.ImageMediumSizeFile != null && model.ImageMediumSizeFile.ContentLength > 0)
                 {
-                    var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
-                    var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
-                    fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName1);
-                    model.ImageIcon1.SaveAs(str2);
-                    model.Icon1 = string.Concat(Contains.MenuFolder, fileName1);
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageMediumSizeFile.FileName);
+                    var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize, true);
+                    model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
-                if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
+                if (model.ImageSmallSizeFile != null && model.ImageSmallSizeFile.ContentLength > 0)
                 {
-                    var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
-                    var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
-                    fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName2);
-                    model.ImageIcon2.SaveAs(str3);
-                    model.Icon2 = string.Concat(Contains.MenuFolder, fileName2);
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageSmallSizeFile.FileName);
+                    var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize, true);
+                    model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
+
+                var guid = Guid.NewGuid().ToString();
                 if (model.ParentId.HasValue)
                 {
-                    var str4 = Guid.NewGuid().ToString();
-                    model.CurrentVirtualId = str4;
+                    model.CurrentVirtualId = guid;
                     var byId = _menuLinkService.GetById(model.ParentId.Value);
-                    model.VirtualId = $"{byId.VirtualId}/{str4}";
+                    model.VirtualId = $"{byId.VirtualId}/{guid}";
                     model.VirtualSeoUrl = $"{byId.SeoUrl}/{model.SeoUrl}";
                 }
                 else
                 {
-                    var str5 = Guid.NewGuid().ToString();
-                    model.VirtualId = str5;
-                    model.CurrentVirtualId = str5;
+                    model.VirtualId = guid;
+                    model.CurrentVirtualId = guid;
                 }
 
                 var modelMap = Mapper.Map<MenuLinkViewModel, MenuLink>(model);
@@ -155,10 +154,10 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("MenuLink.Create: ", ex.Message));
+
                 return View(model);
             }
             return action;
@@ -189,7 +188,7 @@ namespace App.Admin.Controllers
             {
                 ExtentionUtils.Log(string.Concat("MenuLink.Delete: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
-               
+
             }
             return RedirectToAction("Index");
         }
@@ -207,7 +206,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ExtentionUtils.Log(string.Concat("MenuLink.DeleteById: ", ex.Message));
-              
+
                 Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.ErrorMessageWithFormat, ex.Message)));
 
             }
@@ -251,8 +250,9 @@ namespace App.Admin.Controllers
                 }
 
                 var byId = _menuLinkService.GetById(model.Id);
-                var str = model.MenuName.NonAccent();
-                var bySeoUrl = _menuLinkService.GetListSeoUrl(str);
+                var menuName = model.MenuName.NonAccent();
+
+                var bySeoUrl = _menuLinkService.GetListSeoUrl(menuName);
                 model.SeoUrl = model.MenuName.NonAccent();
                 if (bySeoUrl.Any(x => x.Id != model.Id))
                 {
@@ -262,10 +262,10 @@ namespace App.Admin.Controllers
                     menuLinkViewModel.SeoUrl = string.Concat(seoUrl, "-", num.ToString());
                 }
 
-                var fileName =Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
-                var folderName = Utils.FolderName(fileName);
+                var folderName = Utils.FolderName(model.MenuName);
                 if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
@@ -273,37 +273,35 @@ namespace App.Admin.Controllers
                     model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
-                if (model.ImageIcon1 != null && model.ImageIcon1.ContentLength > 0)
+                if (model.ImageMediumSizeFile != null && model.ImageMediumSizeFile.ContentLength > 0)
                 {
-                    var fileName1 = Path.GetFileName(model.ImageIcon1.FileName);
-                    var extension1 = Path.GetExtension(model.ImageIcon1.FileName);
-                    fileName1 = string.Concat(string.Concat(model.MenuName, "-icon").NonAccent(), extension1);
-                    var str2 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName1);
-                    model.ImageIcon1.SaveAs(str2);
-                    model.Icon1 = string.Concat(Contains.MenuFolder, fileName1);
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageMediumSizeFile.FileName);
+                    var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize, true);
+                    model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
-                if (model.ImageIcon2 != null && model.ImageIcon2.ContentLength > 0)
+                if (model.ImageSmallSizeFile != null && model.ImageSmallSizeFile.ContentLength > 0)
                 {
-                    var fileName2 = Path.GetFileName(model.ImageIcon2.FileName);
-                    var extension2 = Path.GetExtension(model.ImageIcon2.FileName);
-                    fileName2 = string.Concat(string.Concat(model.MenuName, "-iconbar").NonAccent(), extension2);
-                    var str3 = Path.Combine(Server.MapPath(string.Concat("~/", Contains.MenuFolder)), fileName2);
-                    model.ImageIcon2.SaveAs(str3);
-                    model.Icon2 = string.Concat(Contains.MenuFolder, fileName2);
+                    var fileName = Path.GetFileNameWithoutExtension(model.ImageSmallSizeFile.FileName);
+                    var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
+                    var fileNameFormat = fileName.FileNameFormat(fileExtension);
+
+                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize, true);
+                    model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
+
                 var parentId = model.ParentId;
                 if (!parentId.HasValue)
                 {
-                    parentId = null;
-                    model.ParentId = parentId;
+                    model.ParentId = null;
                     model.VirtualId = byId.CurrentVirtualId;
                     model.VirtualSeoUrl = null;
                 }
                 else
                 {
-                    var menuLinkService = _menuLinkService;
-                    parentId = model.ParentId;
-                    var byId1 = menuLinkService.GetById(parentId.Value);
+                    var byId1 = _menuLinkService.GetById(parentId.Value);
                     model.VirtualId = $"{byId1.VirtualId}/{byId.CurrentVirtualId}";
                     model.VirtualSeoUrl = $"{byId1.SeoUrl}/{model.SeoUrl}";
                 }
@@ -332,9 +330,9 @@ namespace App.Admin.Controllers
                 }
             }
             catch (Exception ex)
-            {              
+            {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("MailSetting.Create: ", ex.Message));
+                ExtentionUtils.Log(string.Concat("MenuLink.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -363,43 +361,44 @@ namespace App.Admin.Controllers
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId,
                         TemplateType = x.TemplateType,
-                        IconNav = x.Icon1,
-                        IconBar = x.Icon2                        
+                        IconNav = x.ImageMediumSize,
+                        IconBar = x.ImageSmallSize
                     };
                 lstMenuNav = CreateMenuNav(null, menuNav);
             }
+
             return View(lstMenuNav);
         }
 
         private List<MenuNavViewModel> CreateMenuNav(int? parentId, IEnumerable<MenuNavViewModel> source)
         {
             var ieMenuNavViewModel = (from x in source
-                                                         orderby x.OrderDisplay descending
-                                                         select x).Where(x =>
-                                                         {
-                                                             var nullable1 = x.ParentId;
-                                                             var nullable = parentId;
-                                                             if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
-                                                             {
-                                                                 return false;
-                                                             }
-                                                             return nullable1.HasValue == nullable.HasValue;
-                                                         }).Select(x => new MenuNavViewModel
-            {
-                                                             MenuId = x.MenuId,
-                                                             ParentId = x.ParentId,
-                                                             MenuName = x.MenuName,
-                                                             SeoUrl = x.SeoUrl,
-                                                             OrderDisplay = x.OrderDisplay,
-                                                             ImageUrl = x.ImageUrl,
-                                                             CurrentVirtualId = x.CurrentVirtualId,
-                                                             VirtualId = x.VirtualId,
-                                                             TemplateType = x.TemplateType,
-                                                             OtherLink = x.OtherLink,
-                                                             IconNav = x.IconNav,
-                                                             IconBar = x.IconBar,
-                                                             ChildNavMenu = CreateMenuNav(x.MenuId, source)
-                                                         }).ToList();
+                                      orderby x.OrderDisplay descending
+                                      select x).Where(x =>
+                                      {
+                                          var nullable1 = x.ParentId;
+                                          var nullable = parentId;
+                                          if (nullable1.GetValueOrDefault() != nullable.GetValueOrDefault())
+                                          {
+                                              return false;
+                                          }
+                                          return nullable1.HasValue == nullable.HasValue;
+                                      }).Select(x => new MenuNavViewModel
+                                      {
+                                          MenuId = x.MenuId,
+                                          ParentId = x.ParentId,
+                                          MenuName = x.MenuName,
+                                          SeoUrl = x.SeoUrl,
+                                          OrderDisplay = x.OrderDisplay,
+                                          ImageUrl = x.ImageUrl,
+                                          CurrentVirtualId = x.CurrentVirtualId,
+                                          VirtualId = x.VirtualId,
+                                          TemplateType = x.TemplateType,
+                                          OtherLink = x.OtherLink,
+                                          IconNav = x.IconNav,
+                                          IconBar = x.IconBar,
+                                          ChildNavMenu = CreateMenuNav(x.MenuId, source)
+                                      }).ToList();
 
             return ieMenuNavViewModel;
         }

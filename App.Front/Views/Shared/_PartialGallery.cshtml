@@ -4,7 +4,7 @@
 {
    foreach (var item in Model)
    {
-    <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImagePath)" href="@Url.Content("~/" + item.ImagePath)">
+    <a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImageBig)" href="@Url.Content("~/" + item.ImageBig)">
         <img width="195" height="350" class="rsTmb" src="@item.ImageThumbnail.ValidateImage()" />
     </a>
    }

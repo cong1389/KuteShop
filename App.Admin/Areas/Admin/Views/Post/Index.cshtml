@@ -6,7 +6,7 @@
     ViewBag.Title = FormUI.Post;
     ViewBag.Toolbar = new[] { "Create", "Edit", "Delete", "Divider", "Reset" };
 }
-<table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover">
+<table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover dataTable">
     <thead class="flip-content">
         <tr>
             <th class="text-center"> @FormUI.Image</th>
@@ -29,7 +29,7 @@
             {
                 <tr>
                     <td>
-                        <img alt="@item.MetaTitle" src="@Url.Content("~/" + item.ImageSmallSize)" width="80px" />
+                        <img alt="@item.MetaTitle" src="@item.ImageSmallSize.ValidateImage()" width="80px" />
                     </td>
                     <td>
                         <a class="highlight0" href="@Url.Action("Edit", new {id = item.Id, ReturnUrl = Request.Url.PathAndQuery})">@item.Title</a>
