@@ -101,7 +101,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
 
                     model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
 
@@ -117,7 +117,7 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
+                    var menuLink = _menuLinkService.GetMenu(model.MenuId, false);
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);
                     model.VirtualCategoryId = menuLink.VirtualId;
                 }
@@ -245,7 +245,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
 
                     model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
 
@@ -258,7 +258,7 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
+                    var menuLink = _menuLinkService.GetMenu(model.MenuId, false);
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);
                     model.VirtualCategoryId = menuLink.VirtualId;
                 }

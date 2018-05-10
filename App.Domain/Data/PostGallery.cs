@@ -45,6 +45,8 @@ namespace App.Domain.Entities.Data
             set;
         }
 
+        public int IsAvatar { get; set; }
+
         public PostGallery()
         {
         }

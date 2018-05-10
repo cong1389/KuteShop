@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using App.Aplication;
 using App.Core.Caching;
 using App.Domain.Entities.Data;
 using App.Infra.Data.Common;
@@ -70,8 +72,22 @@ namespace App.Service.Post
             {
                 postGallery = _galleryRepository.FindBy(x => x.PostId == postId);
             }
-            
+
             return postGallery;
+        }
+
+        public int GetMaxOrderDiplay(int postId)
+        {
+            var postGallery = _galleryRepository.FindBy(x => x.PostId == postId);
+
+            if (postGallery.IsAny())
+            {
+                int maxOrder = postGallery.OrderByDescending(x => x.OrderDisplay).FirstOrDefault().OrderDisplay;
+
+                return maxOrder + 1;
+            }
+
+            return 0;
         }
     }
 }

@@ -7,6 +7,7 @@ using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.Ads;
 using App.FakeEntity.Ads;
 using App.Framework.Ultis;
@@ -49,8 +50,8 @@ namespace App.Admin.Controllers
         {
             var model = new BannerViewModel
             {
-                OrderDisplay = 1,
-                Status = 1
+                OrderDisplay = (int)Status.Enable,
+                Status = (int)Status.Enable
             };
 
             return View(model);
@@ -78,7 +79,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
 
                     model.ImgPath = $"{Contains.AdsFolder}{folderName}/{fileName}";
                 }
@@ -158,7 +159,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
 
                     model.ImgPath = $"{Contains.AdsFolder}{folderName}/{fileName}";
                     //var fileName = Path.GetFileName(model.Image.FileName);
@@ -225,10 +226,10 @@ namespace App.Admin.Controllers
         {
             if (filterContext.RouteData.Values["action"].Equals("create") || filterContext.RouteData.Values["action"].Equals("edit"))
             {
-                var menuLinks = _menuLinkService.FindBy(x => x.Status == 1 && x.TemplateType != 5, true);
+                var menuLinks = _menuLinkService.FindBy(x => x.Status == (int)Status.Enable, true);
                 ViewBag.MenuList = menuLinks;
 
-                var pageBanners = _pageBannerService.FindBy(x => x.Status == 1);
+                var pageBanners = _pageBannerService.FindBy(x => x.Status == (int)Status.Enable);
                 ViewBag.PageBanners = pageBanners;
             }
         }

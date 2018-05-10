@@ -184,12 +184,12 @@ namespace App.Front.Extensions
             destination.MenuName = entity.GetLocalized(x => x.MenuName, entity.Id);
             destination.SeoUrl = entity.SeoUrl;
             destination.OrderDisplay = entity.OrderDisplay;
-            destination.ImageUrl = entity.ImageBigSize;
+            destination.ImageBigSize = entity.ImageBigSize;
             destination.CurrentVirtualId = entity.CurrentVirtualId;
             destination.VirtualId = entity.VirtualId;
             destination.TemplateType = entity.TemplateType;
-            destination.IconNav = entity.ImageMediumSize;
-            destination.IconBar = entity.ImageSmallSize;
+            destination.ImageMediumSize = entity.ImageMediumSize;
+            destination.ImageSmallSize = entity.ImageSmallSize;
 
             return destination;
         }

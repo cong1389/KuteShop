@@ -115,7 +115,7 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    var byId = _menuLinkService.GetById(model.MenuId, false);
+                    var byId = _menuLinkService.GetMenu(model.MenuId, false);
                     model.VirtualCatUrl = byId.VirtualSeoUrl;
                     model.VirtualCategoryId = byId.VirtualId;
                 }
@@ -256,7 +256,7 @@ namespace App.Admin.Controllers
 
                 if (model.MenuId > 0)
                 {
-                    var menuLink = _menuLinkService.GetById(model.MenuId, false);
+                    var menuLink = _menuLinkService.GetMenu(model.MenuId, false);
                     model.VirtualCatUrl = menuLink.VirtualSeoUrl;
                     model.VirtualCategoryId = menuLink.VirtualId;
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);

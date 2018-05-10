@@ -180,7 +180,6 @@ namespace App.Framework.Mappings
                     map => map.MapFrom(vm => vm.OrderDisplay)).ForMember(
                     x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
-
             CreateMap<AttributeViewModel, Attribute>()
                 .ForMember(x => x.AttributeName, map => map.MapFrom(vm => vm.AttributeName))
                 .ForMember(x => (object)x.Id, map
@@ -212,7 +211,7 @@ namespace App.Framework.Mappings
                     .ForMember(dest => dest.MetaDescription, opt => opt.MapFrom(src => src.MetaDescription))
                     .ForMember(dest => dest.MetaKeywords, opt => opt.MapFrom(src => src.MetaKeywords))
                     .ForMember(dest => (object)dest.MenuId, opt => opt.MapFrom(src => (int)src.MenuId))
-                .ForMember(dest => (object)dest.ManufacturerId, opt => opt.MapFrom(src => src.ManufacturerId))
+                    .ForMember(dest => (object)dest.ManufacturerId, opt => opt.MapFrom(src => src.ManufacturerId))
                     .ForMember(dest => dest.TechInfo, opt => opt.MapFrom(src => src.TechInfo))
                     .ForMember(dest => (object)dest.PostType, opt => opt.MapFrom(src => src.PostType))
                     .ForMember(dest => (object)dest.OldOrNew, opt => opt.MapFrom(src => src.OldOrNew))
@@ -236,10 +235,6 @@ namespace App.Framework.Mappings
                     .ForMember(dest => dest.ImageSmallSize, opt => opt.Condition(source => !string.IsNullOrEmpty(source.ImageSmallSize)))
                     .ForMember(dest => (object)dest.StartDate, opt => opt.MapFrom(src => src.StartDate))
                     .ForMember(dest => (object)dest.EndDate, opt => opt.MapFrom(src => src.EndDate))
-
-                    //.ForMember(dest => dest.AttributeValues, opt => opt.Condition((PostViewModel source) => source.AttributeValues.IsAny<AttributeValueViewModel>()))
-                    //.ForMember(dest => dest.PostGallerys, opt => opt.Condition((PostViewModel source) => source.PostGallerys.IsAny<PostGalleryViewModel>()))
-
                     .ForMember(dest => dest.VirtualCategoryId, opt => opt.Condition(source => !string.IsNullOrEmpty(source.VirtualCategoryId)))
                     .ForMember(dest => dest.AttributeValues, opt => opt.Ignore())
                     .ForMember(dest => dest.GalleryImages, opt => opt.Ignore())
@@ -250,13 +245,14 @@ namespace App.Framework.Mappings
 
 
             CreateMap<PostGalleryViewModel, PostGallery>()
-            .ForMember(x => x.Title, map => map.MapFrom(vm => vm.Title))
-            .ForMember(x => x.ImageSmallSize, map => map.MapFrom(vm => vm.ImageSmallSize))
-            .ForMember(x => x.ImageBigSize, map => map.MapFrom(vm => vm.ImageBigSize))
-            .ForMember(x => x.ImageMediumSize, map => map.MapFrom(vm => vm.ImageMediumSize))
-            .ForMember(x => (object)x.PostId, map => map.MapFrom(vm => vm.PostId))
-            .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
-            .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
+                .ForMember(x => x.Title, map => map.MapFrom(vm => vm.Title))
+                .ForMember(x => x.ImageSmallSize, map => map.MapFrom(vm => vm.ImageSmallSize))
+                .ForMember(x => x.ImageBigSize, map => map.MapFrom(vm => vm.ImageBigSize))
+                .ForMember(x => x.ImageMediumSize, map => map.MapFrom(vm => vm.ImageMediumSize))
+                .ForMember(x => x.PostId, map => map.MapFrom(vm => vm.PostId))
+                .ForMember(x => x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+                .ForMember(x => x.Status, map => map.MapFrom(vm => vm.Status))
+                .ForMember(x => x.IsAvatar, map => map.MapFrom(vm => vm.IsAvatar));
 
 
             CreateMap<NewsViewModel, News>()

@@ -1,4 +1,5 @@
-﻿@using App.Domain.Common
+﻿@using App.Aplication
+@using App.Domain.Common
 @using Resources
 @model IEnumerable<App.Domain.Entities.GenericControl.GenericControlValue>
 @{
@@ -8,8 +9,8 @@
 <table id="@ViewContext.RouteData.Values["controller"]" class="app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover dataTable">
     <thead class="flip-content">
         <tr>
-            <th class="text-center"> @FormUI.GenericControl </th>
-            <th class="text-center"> @FormUI.Name </th>
+			<th class="text-center"> @FormUI.Name </th>
+            <th class="text-center"> @FormUI.GenericControl  </th>
             <th class="text-center"> @FormUI.OrderDisplay </th>
             <th class="text-center"> @FormUI.Status </th>
             <th class="text-center">
@@ -18,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Any())
+        @if (Model.IsAny())
         {
             foreach (var item in Model)
             {

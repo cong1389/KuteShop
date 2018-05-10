@@ -7,6 +7,7 @@ using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utils;
+using App.Domain.Common;
 using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
 using App.Framework.Ultis;
@@ -20,7 +21,6 @@ namespace App.Admin.Controllers
     public class GenericControlValueController : BaseAdminController
     {
         private const string CacheGenericcontrolvalueKey = "db.GenericControlValue";
-        private readonly ICacheManager _cacheManager;
 
         private readonly IGenericControlValueService _genericControlValueService;
         private readonly IGenericControlService _genericControlService;
@@ -34,16 +34,21 @@ namespace App.Admin.Controllers
             _genericControlValueService = genericControlValueService;
             _genericControlService = genericControlService;
             _menuLinkService = menuLinkService;
-            _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CacheGenericcontrolvalueKey);
+            cacheManager.RemoveByPattern(CacheGenericcontrolvalueKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditGenericControlValue")]
         public ActionResult Create()
         {
-            return View();
+            var model = new GenericControlValueViewModel
+            {
+                OrderDisplay = 1,
+                Status = (int)Status.Enable
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -72,12 +77,13 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Create: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("GenericControlValue.Create: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -86,19 +92,20 @@ namespace App.Admin.Controllers
         {
             try
             {
-                if (ids.Length != 0)
+                if (ids.IsAny())
                 {
                     var genericControlValues =
                         from id in ids
                         select _genericControlValueService.GetById(int.Parse(id));
+
                     _genericControlValueService.BatchDelete(genericControlValues);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Delete: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("GenericControlValue.Delete: ", ex.Message));
             }
+
             return RedirectToAction("Index");
         }
 
@@ -106,9 +113,6 @@ namespace App.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var genericControlValueViewModel = Mapper.Map<GenericControlValue, GenericControlValueViewModel>(_genericControlValueService.GetById(id));
-
-            //_genericControlValueService.GetById(Id)
-
 
             return View(genericControlValueViewModel);
         }
@@ -141,12 +145,13 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Edit: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("GenericControlValue.Edit: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -171,7 +176,7 @@ namespace App.Admin.Controllers
             };
             var list = _genericControlValueService.PagedList(sortingPagingBuilder, paging).ToList();
             list.ForEach(item => item.GenericControl = _genericControlService.GetById(item.GenericControlId));
-            if (list != null && list.Any())
+            if (list.IsAny())
             {
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
@@ -193,25 +198,24 @@ namespace App.Admin.Controllers
         {
             var lstValueResponse = new List<ControlValueItemResponse>();
 
-            var menuLink = _menuLinkService.GetById(menuId);
+            var menuLink = _menuLinkService.GetMenu(menuId);
             if (menuLink != null)
             {
-                IEnumerable<GenericControl> ieGc = menuLink.GenericControls;
-                if (ieGc.IsAny())
+                var genericControls = menuLink.GenericControls;
+                if (genericControls.IsAny())
                 {
-                    foreach (var item in ieGc)
+                    foreach (var item in genericControls)
                     {
-                        var gCvDefault = item.GenericControlValues.Where(m => m.Status == 1);
-                        //if (gCVDefault.IsAny())
-                        //    break;                       
+                        var genericControlValues = item.GenericControlValues.Where(m => m.Status == 1);           
 
-                        foreach (var gcValue in gCvDefault)
+                        foreach (var gcValue in genericControlValues)
                         {
-                            var objValueResponse = new ControlValueItemResponse();
-
-                            objValueResponse.GenericControlValueId = gcValue.Id;
-                            objValueResponse.Name = gcValue.ValueName;
-                            objValueResponse.ValueName = gcValue.GetValueItem(entityId);
+                            var objValueResponse = new ControlValueItemResponse
+                            {
+                                GenericControlValueId = gcValue.Id,
+                                Name = gcValue.ValueName,
+                                ValueName = gcValue.GetValueItem(entityId)
+                            };
 
                             lstValueResponse.Add(objValueResponse);
                         }
@@ -222,7 +226,7 @@ namespace App.Admin.Controllers
             var jsonResult = Json(
                  new
                  {
-                     success = lstValueResponse.Count() > 0,
+                     success = lstValueResponse.Count > 0,
                      list = RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", lstValueResponse)
                  },
                  JsonRequestBehavior.AllowGet);

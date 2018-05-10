@@ -615,4 +615,7 @@
   <data name="ImageSmallSize" xml:space="preserve">
     <value>Hình kích thước nhỏ nhất</value>
   </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Hình đại diện</value>
+  </data>
 </root>

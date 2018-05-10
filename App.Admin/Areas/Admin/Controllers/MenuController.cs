@@ -93,7 +93,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
                     model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -103,7 +103,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
                     model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -113,7 +113,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
                     model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -121,7 +121,7 @@ namespace App.Admin.Controllers
                 if (model.ParentId.HasValue)
                 {
                     model.CurrentVirtualId = guid;
-                    var byId = _menuLinkService.GetById(model.ParentId.Value);
+                    var byId = _menuLinkService.GetMenu(model.ParentId.Value);
                     model.VirtualId = $"{byId.VirtualId}/{guid}";
                     model.VirtualSeoUrl = $"{byId.SeoUrl}/{model.SeoUrl}";
                 }
@@ -172,7 +172,7 @@ namespace App.Admin.Controllers
                 {
                     var menuLinks =
                         from id in ids
-                        select _menuLinkService.GetById(int.Parse(id));
+                        select _menuLinkService.GetMenu(int.Parse(id));
                     _menuLinkService.BatchDelete(menuLinks);
 
                     //Delete localize
@@ -199,7 +199,7 @@ namespace App.Admin.Controllers
         {
             try
             {
-                var menuLink = _menuLinkService.GetById(id);
+                var menuLink = _menuLinkService.GetMenu(id);
 
                 _menuLinkService.Delete(menuLink);
             }
@@ -216,7 +216,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditMenu")]
         public ActionResult Edit(int id)
         {
-            var modelMap = Mapper.Map<MenuLink, MenuLinkViewModel>(_menuLinkService.GetById(id));
+            var modelMap = Mapper.Map<MenuLink, MenuLinkViewModel>(_menuLinkService.GetMenu(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -249,7 +249,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                var byId = _menuLinkService.GetById(model.Id);
+                var byId = _menuLinkService.GetMenu(model.Id);
                 var menuName = model.MenuName.NonAccent();
 
                 var bySeoUrl = _menuLinkService.GetListSeoUrl(menuName);
@@ -269,7 +269,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
                     model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -279,7 +279,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
                     model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
                 if (model.ImageSmallSizeFile != null && model.ImageSmallSizeFile.ContentLength > 0)
@@ -288,7 +288,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize, true);
+                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
                     model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -301,7 +301,7 @@ namespace App.Admin.Controllers
                 }
                 else
                 {
-                    var byId1 = _menuLinkService.GetById(parentId.Value);
+                    var byId1 = _menuLinkService.GetMenu(parentId.Value);
                     model.VirtualId = $"{byId1.VirtualId}/{byId.CurrentVirtualId}";
                     model.VirtualSeoUrl = $"{byId1.SeoUrl}/{model.SeoUrl}";
                 }
@@ -357,12 +357,12 @@ namespace App.Admin.Controllers
                         MenuName = x.MenuName,
                         SeoUrl = x.SeoUrl,
                         OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageBigSize,
+                        ImageBigSize = x.ImageBigSize,
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId,
                         TemplateType = x.TemplateType,
-                        IconNav = x.ImageMediumSize,
-                        IconBar = x.ImageSmallSize
+                        ImageMediumSize = x.ImageMediumSize,
+                        ImageSmallSize = x.ImageSmallSize
                     };
                 lstMenuNav = CreateMenuNav(null, menuNav);
             }
@@ -390,13 +390,13 @@ namespace App.Admin.Controllers
                                           MenuName = x.MenuName,
                                           SeoUrl = x.SeoUrl,
                                           OrderDisplay = x.OrderDisplay,
-                                          ImageUrl = x.ImageUrl,
+                                          ImageBigSize = x.ImageBigSize,
                                           CurrentVirtualId = x.CurrentVirtualId,
                                           VirtualId = x.VirtualId,
                                           TemplateType = x.TemplateType,
                                           OtherLink = x.OtherLink,
-                                          IconNav = x.IconNav,
-                                          IconBar = x.IconBar,
+                                          ImageMediumSize = x.ImageMediumSize,
+                                          ImageSmallSize = x.ImageSmallSize,
                                           ChildNavMenu = CreateMenuNav(x.MenuId, source)
                                       }).ToList();
 

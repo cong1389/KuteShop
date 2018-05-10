@@ -21,9 +21,6 @@ namespace App.Front.Controllers
 {
     public class SummaryController : FrontBaseController
     {
-        private const string CacheSettingsystemKey = "db.SettingSystem.{0}";
-        private const string CacheSettingseoglobalKey = "db.SettingSeoGlobal.{0}";
-        private readonly ICacheManager _cacheManager;
         private readonly IMenuLinkService _menuLinkService;
 
         private readonly IProvinceService _provinceService;
@@ -35,13 +32,15 @@ namespace App.Front.Controllers
         private readonly IContactInfoService _contactInfoService;
 
         private readonly ISettingSeoGlobalService _settingSeoGlobal;
+        private readonly IPostService _postService;
+        private readonly IStaticContentService _staticContentService;
 
         public SummaryController(IMenuLinkService menuLinkService
             , IProvinceService provinceService, IDistrictService districtService, ISystemSettingService systemSettingService
             , IContactInfoService contactInfoService
             , ISettingSeoGlobalService settingSeoGlobal
             , IWorkContext workContext
-            , ICacheManager cacheManager)
+            , ICacheManager cacheManager, IPostService postService, IStaticContentService staticContentService)
         {
             _menuLinkService = menuLinkService;
             _provinceService = provinceService;
@@ -49,7 +48,8 @@ namespace App.Front.Controllers
             _systemSettingService = systemSettingService;
             _contactInfoService = contactInfoService;
             _settingSeoGlobal = settingSeoGlobal;
-            _cacheManager = cacheManager;
+            _postService = postService;
+            _staticContentService = staticContentService;
         }
 
         [PartialCache("Long")]
@@ -74,7 +74,7 @@ namespace App.Front.Controllers
                     MenuName = x.MenuName,
                     SeoUrl = x.SeoUrl,
                     OrderDisplay = x.OrderDisplay,
-                    ImageUrl = x.ImageUrl,
+                    ImageBigSize = x.ImageBigSize,
                     CurrentVirtualId = x.CurrentVirtualId,
                     VirtualId = x.VirtualId,
                     ChildNavMenu = CreateMenuNav(x.MenuId, source)
@@ -85,7 +85,6 @@ namespace App.Front.Controllers
         public ActionResult GetAddressInfo()
         {
             var contactInformation = _contactInfoService.GetTypeAddress((int)TypeAdress.Current);
-            //var contactInformation = _contactInfoService.Get(x => x.Status == 1 && x.Type == 1, true);
 
             var contactInformationLocalize = contactInformation.ToModel();
 
@@ -109,7 +108,7 @@ namespace App.Front.Controllers
                         MenuName = x.MenuName,
                         SeoUrl = x.SeoUrl,
                         OrderDisplay = x.OrderDisplay,
-                        ImageUrl = x.ImageBigSize,
+                        ImageBigSize = x.ImageBigSize,
                         CurrentVirtualId = x.CurrentVirtualId,
                         VirtualId = x.VirtualId
                     };

@@ -10,5 +10,6 @@ namespace App.Service.Post
 
         IEnumerable<PostGallery> GetByPostId(int postId, bool isCache = true);
 
+        int GetMaxOrderDiplay(int postId);
     }
 }

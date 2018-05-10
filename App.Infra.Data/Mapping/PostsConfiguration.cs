@@ -9,11 +9,15 @@ namespace App.Infra.Data.Mapping
         public PostsConfiguration()
         {
             ToTable("Post");
-            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
+            HasKey(x => x.Id).Property(x => x.Id)
+                .HasColumnName("Id").HasColumnType("int")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)
+                .IsRequired();
 
             HasRequired(o => o.Manufacturer)
                 .WithMany(c => c.Posts)
-                .HasForeignKey(o => o.ManufacturerId);
+                .HasForeignKey(o => o.ManufacturerId)
+                .WillCascadeOnDelete(true);
 
             HasRequired(x => x.MenuLink)
                 .WithMany(x => x.Posts)

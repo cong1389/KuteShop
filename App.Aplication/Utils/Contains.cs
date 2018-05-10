@@ -103,16 +103,16 @@ namespace App.Aplication
             }
         }
 
-        public static string FlowStepFolder
+        public static string ManufacturerFolder
         {
             get
             {
-                string item = ConfigurationManager.AppSettings["FlowStepFolder"] ?? "images/flowstep/";
+                string item = ConfigurationManager.AppSettings["ManufacturerFolder"] ?? "images/Manufacturer/";
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", item))))
                 {
                     Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", item)));
                 }
-                return ConfigurationManager.AppSettings["FlowStepFolder"] ?? "images/flowstep/";
+                return ConfigurationManager.AppSettings["ManufacturerFolder"] ?? "images/Manufacturer/";
             }
         }
 

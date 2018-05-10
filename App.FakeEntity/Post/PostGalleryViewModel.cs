@@ -49,5 +49,7 @@
             get;
             set;
         }
+
+        public int IsAvatar { get; set; }
     }
 }

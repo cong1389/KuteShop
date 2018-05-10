@@ -13,7 +13,6 @@ namespace App.Service.Menu
             {
                 if (id == 0)
                 {
-                    result = false;
                 }
 
                 var genericControlService = DependencyResolver.Current.GetService<IGenericControlService>();

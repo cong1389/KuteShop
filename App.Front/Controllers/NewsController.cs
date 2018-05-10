@@ -217,7 +217,7 @@ namespace App.Front.Controllers
                 ViewBag.KeyWords = newsLocalized.MetaKeywords;
                 ViewBag.SiteUrl = Url.Action("NewsDetail", "News", new {seoUrl, area = "" });
                 ViewBag.Description = newsLocalized.MetaDescription;
-                ViewBag.Image = Url.Content(string.Concat("~/", newsLocalized.ImageMediumSize));
+                ViewBag.Image = Url.Content(string.Concat("~/", newsLocalized.ImageBigSize));
                 ViewBag.MenuId = newsLocalized.MenuId;
                 ViewBag.VirtualId = newsLocalized.VirtualCategoryId;
 

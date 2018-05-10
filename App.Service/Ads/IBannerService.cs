@@ -9,6 +9,11 @@ namespace App.Service.Ads
     {
         Banner GetById(int id, bool isCache = true);
 
+        Banner GetBanner(int? menuId = null, int status = 1, List<int> position = null, bool isCache = true);
+
+        IEnumerable<Banner> GetBanners(int? menuId = null, int status = 1, List<int> position = null,
+            bool isCache = true);
+
         IEnumerable<Banner> PagedList(SortingPagingBuilder sortBuider, Paging page);
     }
 }

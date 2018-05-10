@@ -27,26 +27,24 @@ namespace App.Admin.Controllers
         private const string CacheGenericcontrolKey = "db.GenericControl";
         private readonly ICacheManager _cacheManager;
 
-        private readonly IGenericControlService _genericControlService;
+        private readonly IGenericControlService _gCService;
 
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
 
-        private readonly IGenericControlValueService _genericControlValueService;
         private readonly IMenuLinkService _menuLinkService;
 
-        public GenericControlController(IGenericControlService genericControlService
+        public GenericControlController(IGenericControlService gCService
               , ILanguageService languageService
              , ILocalizedPropertyService localizedPropertyService
             , IGenericControlValueService genericControlValueService
             , IMenuLinkService menuLinkService
             , ICacheManager cacheManager)
         {
-            _genericControlService = genericControlService;
+            _gCService = gCService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _genericControlValueService = genericControlValueService;
             _menuLinkService = menuLinkService;
             _cacheManager = cacheManager;
 
@@ -85,7 +83,7 @@ namespace App.Admin.Controllers
                 }
 
                 var modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
-                _genericControlService.Create(modelMap);
+                _gCService.Create(modelMap);
 
                 //Update Localized   
                 foreach (var localized in model.Locales)
@@ -104,12 +102,13 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -118,34 +117,36 @@ namespace App.Admin.Controllers
         {
             try
             {
-                if (ids.Length != 0)
+                if (ids.IsAny())
                 {
                     var genericControls =
                         from id in ids
-                        select _genericControlService.GetById(int.Parse(id));
-                    _genericControlService.BatchDelete(genericControls);
+                        select _gCService.GetById(int.Parse(id));
+
+                    _gCService.BatchDelete(genericControls);
 
                     //Delete localize
                     for (var i = 0; i < ids.Length; i++)
                     {
-                        var ieLocalizedProperty
+                        var localizedProperties
                            = _localizedPropertyService.GetByEntityId(int.Parse(ids[i]));
-                        _localizedPropertyService.BatchDelete(ieLocalizedProperty);
+
+                        _localizedPropertyService.BatchDelete(localizedProperties);
                     }
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("ServerGenericControl.Delete: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("ServerGenericControl.Delete: ", ex.Message));
             }
+
             return RedirectToAction("Index");
         }
 
         [RequiredPermisson(Roles = "CreateEditGenericControl")]
         public ActionResult Edit(int id)
         {
-            var modelMap = Mapper.Map<GenericControl, GenericControlViewModel>(_genericControlService.GetById(id));
+            var modelMap = Mapper.Map<GenericControl, GenericControlViewModel>(_gCService.GetById(id));
             
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -168,16 +169,17 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                          .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
+
                     return View(model);
                 }
 
-                var objGenericControl = _genericControlService.GetById(model.Id);
+                var objGenericControl = _gCService.GetById(model.Id);
 
-                var lstMenuLink = new List<MenuLink>();
-                var lstMenuId = new List<int>();
+                var menuLinks = new List<MenuLink>();
+                var menuIds = new List<int>();
 
                 var menuLink = Request["MenuLink"];
                 if (!string.IsNullOrEmpty(menuLink))
@@ -185,26 +187,25 @@ namespace App.Admin.Controllers
                     foreach (var item in menuLink.Split(',').ToList())
                     {
                         var menuId = int.Parse(item);
-                        lstMenuId.Add(menuId);
+                        menuIds.Add(menuId);
 
-                        lstMenuLink.Add(_menuLinkService.GetById(menuId,false));
+                        menuLinks.Add(_menuLinkService.GetMenu(menuId,false));
                     }
 
-                    if (lstMenuId.IsAny())
+                    if (menuIds.IsAny())
                     {
                         (from x in objGenericControl.MenuLinks
-                                where !lstMenuId.Contains(x.Id)
+                                where !menuIds.Contains(x.Id)
                                 select x).ToList()
                             .ForEach(m =>
                                 objGenericControl.MenuLinks.Remove(m)
                             );
                     }
                 }
-                objGenericControl.MenuLinks = lstMenuLink;
+                objGenericControl.MenuLinks = menuLinks;
                     
                 var modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
-                _genericControlService.Update(objGenericControl);
-
+                _gCService.Update(objGenericControl);
 
                 //Update Localized   
                 foreach (var localized in model.Locales)
@@ -223,12 +224,13 @@ namespace App.Admin.Controllers
                     action = Redirect(returnUrl);
                 }
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                var exception = exception1;
-                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", exception.Message));
+                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", ex.Message));
+
                 return View(model);
             }
+
             return action;
         }
 
@@ -251,69 +253,46 @@ namespace App.Admin.Controllers
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            var genericControls = _genericControlService.PagedList(sortingPagingBuilder, paging);
+
+            var genericControls = _gCService.PagedList(sortingPagingBuilder, paging);
+
             if (genericControls != null && genericControls.Any())
             {
                 var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
+
             return View(genericControls);
-        }
-
-
-        public JsonResult GetGenericControlByMenuId(int menuId)
-        {
-            IEnumerable<GenericControl> ieGenericControls = null;
-            try
-            {
-                ieGenericControls = _genericControlService.GetByMenuId(menuId);
-
-                //if (ieGenericControls.Count() == 0)
-                //    return null;
-
-                //int genericControlId = ieGenericControls.FirstOrDefault().Id;
-
-                //genericControlValue = _genericControlValueService.FindBy((GenericControlValue x) => x.GenericControlId == genericControlId && x.Status == 1, false);
-
-            }
-            catch 
-            {
-
-            }
-
-            var jsonResult = Json(
-                new
-                {
-                    success = ieGenericControls.Count(),
-                    list = RenderRazorViewToString("_CreateOrUpdate.GenericControl", ieGenericControls)
-                },
-                JsonRequestBehavior.AllowGet);
-
-            return jsonResult;
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (filterContext.RouteData.Values["action"].Equals("create"))
             {
-                var lstMenuLink = _menuLinkService.GetAll();
+                var menuLinks = _menuLinkService.GetAll();
 
-                //var menuLinkViewModel = new MenuLinkViewModel();
-                //var model = lstMenuLink.Select(m =>
-                //{
-                //    return m.ToModel(menuLinkViewModel);
-                //});
+                var model = from x in menuLinks
+                    select new MenuLinkViewModel
+                    {
+                        Id = x.Id,
+                        ParentId = x.ParentId,
+                        Status = x.Status,
+                        TypeMenu = x.TypeMenu,
+                        Position = x.Position,
+                        MenuName = x.MenuName,
+                        VirtualId = x.VirtualId
+                    };
 
-                //ViewBag.MenuLink = model;
+                ViewBag.GCMenuLink = model;
             }
 
             if (filterContext.RouteData.Values["action"].Equals("edit"))
             {
                 var id = int.Parse(filterContext.RouteData.Values["id"].ToString());
 
-                var lstMenuLink = _menuLinkService.GetAll();
+                var menuLinks = _menuLinkService.GetAll();
 
-                var model = from x in lstMenuLink
+                var model = from x in menuLinks
                                                        select new MenuLinkViewModel
                                                        {
                                                            Id = x.Id,

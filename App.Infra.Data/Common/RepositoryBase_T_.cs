@@ -17,7 +17,7 @@ namespace App.Infra.Data.Common
 
         private Context.AppContext _dataContext;
 
-        protected Context.AppContext DbContext
+        private Context.AppContext DbContext
         {
             get
             {
@@ -33,7 +33,7 @@ namespace App.Infra.Data.Common
             }
         }
 
-        protected IDbFactory DbFactory
+        private IDbFactory DbFactory
         {
             get;
         }

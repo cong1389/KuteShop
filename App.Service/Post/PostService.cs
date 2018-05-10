@@ -110,7 +110,8 @@ namespace App.Service.Post
             return _postRepository.PagedSearchListByMenu(sortBuider, page);
         }
 
-        public IEnumerable<Domain.Entities.Data.Post> GetBySort(Expression<Func<Domain.Entities.Data.Post, bool>> expression, SortBuilder sortBuilder, Paging paging)
+        public IEnumerable<Domain.Entities.Data.Post> GetBySort(
+            Expression<Func<Domain.Entities.Data.Post, bool>> expression, SortBuilder sortBuilder, Paging paging)
         {
             return FindAndSort(expression, sortBuilder, paging);
         }

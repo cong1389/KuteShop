@@ -17,19 +17,19 @@ namespace App.FakeEntity.Menu
             set;
         }
 
-        public string IconBar
+        public string ImageSmallSize
         {
             get;
             set;
         }
 
-        public string IconNav
+        public string ImageMediumSize
         {
             get;
             set;
         }
 
-        public string ImageUrl
+        public string ImageBigSize
         {
             get;
             set;

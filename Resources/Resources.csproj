@@ -42,12 +42,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ModelValidationResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ModelValidationResources.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="MessageUI.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>MessageUI.resx</DependentUpon>
@@ -60,16 +54,6 @@
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="IdentityValidateResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IdentityValidateResource.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="ModelValidationResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ModelValidationResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="MessageUI.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MessageUI.Designer.cs</LastGenOutput>
@@ -78,10 +62,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FormUI.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IdentityValidateResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IdentityValidateResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

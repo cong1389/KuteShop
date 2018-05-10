@@ -7,7 +7,7 @@ namespace App.Service.Menu
 {
     public interface IMenuLinkService : IBaseService<MenuLink>
     {
-        MenuLink GetById(int id, bool isCache = true);
+        MenuLink GetMenu(int id, bool isCache = true);
 
         IEnumerable<MenuLink> GetListSeoUrl(string seoUrl, bool isCache = true);
 
@@ -31,6 +31,7 @@ namespace App.Service.Menu
                 , bool? isDisplayHomePage = null
                 , bool? isDisplaySearch = null
                 , int status = 1
+            , int? id = null
             , bool isCache = true);
 
         IEnumerable<MenuLink> GetEnableOrDisables(bool enable = true, bool isCache = true);

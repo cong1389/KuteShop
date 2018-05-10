@@ -18,7 +18,7 @@ namespace App.Admin.Controllers
 {
     public class ManufacturerController : BaseAdminController
     {
-        private const string CacheFlowstepKey = "db.Manufacturer";
+        private const string Cache = "db.Manufacturer";
         private readonly ICacheManager _cacheManager;
 
         private readonly IManufacturerService _manufacturerService;
@@ -33,7 +33,7 @@ namespace App.Admin.Controllers
             _cacheManager = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CacheFlowstepKey);
+            _cacheManager.RemoveByPattern(Cache);
 
         }
 

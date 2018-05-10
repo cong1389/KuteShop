@@ -84,7 +84,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
 
                     model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
 
@@ -199,7 +199,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize, true);
+                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
 
                     model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
 

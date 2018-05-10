@@ -145,26 +145,26 @@ namespace App.Admin.Helpers
 			}
 		}
 
-        public static int FlowStepWithMediumSize
+        public static int ManufacturerWithMediumSize
         {
             get
             {
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStepWithMediumSize"]))
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["ManufacturerWithMediumSize"]))
                 {
                     return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
                 }
-                return int.Parse(ConfigurationManager.AppSettings["FlowStepWithMediumSize"]);
+                return int.Parse(ConfigurationManager.AppSettings["ManufacturerWithMediumSize"]);
             }
         }
-        public static int FlowStepHeightMediumSize
+        public static int ManufacturerHeightMediumSize
         {
             get
             {
-                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]))
+                if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["ManufacturerHeightMediumSize"]))
                 {
                     return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
                 }
-                return int.Parse(ConfigurationManager.AppSettings["FlowStep_HeightMediumSize"]);
+                return int.Parse(ConfigurationManager.AppSettings["ManufacturerHeightMediumSize"]);
             }
         }
 
@@ -462,5 +462,72 @@ namespace App.Admin.Helpers
                 return int.Parse(ConfigurationManager.AppSettings["NewsHeightSmallSize"]);
             }
         }
+
+	    public static int PostGalleryWithBigSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithBigSize"]);
+	        }
+	    }
+	    public static int PostGalleryHeightBigSize
+        {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightBigSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightBigSize"]);
+	        }
+	    }
+	    public static int PostGalleryWithMediumSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithMediumSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithMediumSize"]);
+	        }
+	    }
+	    public static int PostGalleryHeightMediumSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightMediumSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightMediumSize"]);
+	        }
+	    }
+	    public static int PostGalleryWithSmallSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithSmallSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithSmallSize"]);
+	        }
+	    }
+	    public static int PostGalleryHeightSmallSize
+	    {
+	        get
+	        {
+	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightSmallSize"]))
+	            {
+	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	            }
+	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightSmallSize"]);
+	        }
+	    }
     }
 }

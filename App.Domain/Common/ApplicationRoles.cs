@@ -4,9 +4,9 @@ namespace App.Domain.Common
 	{
 		public const string ViewManufacturer = "ViewManufacturer";
 
-		public const string CreateEditFlowStep = "CreateEditFlowStep";
+		public const string CreateEditManufacturer = "CreateEditManufacturer";
 
-		public const string DeleteFlowStep = "CreateEditFlowStep";
+		public const string DeleteManufacturer = "CreateEditManufacturer";
 
 		public const string ViewAccount = "ViewAccount";
 

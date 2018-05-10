@@ -174,7 +174,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ValidateEntity\FlowStepValidator.cs">
+    <Compile Include="ValidateEntity\ManufacturerValidator.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

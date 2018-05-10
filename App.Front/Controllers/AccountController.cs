@@ -121,7 +121,7 @@ namespace App.Front.Controllers
 					{
 						var menuLinkService = _menuLinkService;
 						menuId = post.MenuId;
-						var byId = menuLinkService.GetById(menuId.Value);
+						var byId = menuLinkService.GetMenu(menuId.Value);
 						post.VirtualCatUrl = byId.VirtualSeoUrl;
 						post.VirtualCategoryId = byId.VirtualId;
 					}
@@ -257,7 +257,7 @@ namespace App.Front.Controllers
 					{
 						var menuLinkService = _menuLinkService;
 						menuId = postView.MenuId;
-						var menuLink = menuLinkService.GetById(menuId.Value);
+						var menuLink = menuLinkService.GetMenu(menuId.Value);
 						postView.VirtualCatUrl = menuLink.VirtualSeoUrl;
 						postView.VirtualCategoryId = menuLink.VirtualId;
 					}

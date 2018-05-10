@@ -13,7 +13,7 @@ namespace App.Aplication
         {
             try
             {
-                Image image = Image.FromStream(imageFile.InputStream);
+                var image = Image.FromStream(imageFile.InputStream);
                 //if (!width.HasValue)
                 //{
                 //	width = image.Width;
@@ -22,31 +22,30 @@ namespace App.Aplication
                 //{
                 //	height = new int?(image.Height);
                 //}
-                KalikoImage kalikoImage = new KalikoImage(image);
+                var kalikoImage = new KalikoImage(image);
 
-                kalikoImage.Resize(width, height);
+                //kalikoImage.Resize(width, height);
 
-                //KalikoImage kalikoImage1 = kalikoImage.Scale(new CropScaling(width, height));
-                //KalikoImage kalikoImage1 = kalikoImage.Scale(new FitScaling(width.Value, height.Value));
+                var imgCrop = kalikoImage.Scale(new CropScaling(width, height));
+
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath))))
                 {
                     Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath)));
                 }
-                string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
+                var path = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
-                    kalikoImage.SaveJpg(str, 99);
+                    imgCrop.SaveJpg(path, 99,true);
                 }
                 else
                 {
-                    kalikoImage.SavePng(str);
+                    imgCrop.SavePng(path);
                 }
                 kalikoImage.Dispose();
-                //kalikoImage.Dispose();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                throw new Exception(exception.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -54,7 +53,7 @@ namespace App.Aplication
         {
             try
             {
-                Image image = Image.FromFile(HttpContext.Current.Server.MapPath(string.Concat("~/", inPutFilePath)));
+                var image = Image.FromFile(HttpContext.Current.Server.MapPath(string.Concat("~/", inPutFilePath)));
                 //if (!width.HasValue)
                 //{
                 //	width = new int?(image.Width);
@@ -63,14 +62,14 @@ namespace App.Aplication
                 //{
                 //	height = new int?(image.Height);
                 //}
-                KalikoImage kalikoImage = new KalikoImage(image);
-                KalikoImage kalikoImage1 = kalikoImage.Scale(new FitScaling(width, height));
+                var kalikoImage = new KalikoImage(image);
+                var kalikoImage1 = kalikoImage.Scale(new FitScaling(width, height));
                 //KalikoImage kalikoImage1 = kalikoImage.Scale(new FitScaling(width.Value, height.Value));
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath))))
                 {
                     Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath)));
                 }
-                string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
+                var str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
                     kalikoImage1.SaveJpg(str, 99);
@@ -100,7 +99,7 @@ namespace App.Aplication
                 //{
                 //	height = new int?(image.Height);
                 //}
-                KalikoImage kalikoImage = new KalikoImage(image);
+                var kalikoImage = new KalikoImage(image);
 
                 kalikoImage.Resize(width, height);
                 //KalikoImage kalikoImage1 = kalikoImage.Scale(new FitScaling(width, height));
@@ -109,7 +108,7 @@ namespace App.Aplication
                 {
                     Directory.CreateDirectory(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath)));
                 }
-                string str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
+                var str = HttpContext.Current.Server.MapPath(string.Concat("~/", Path.Combine(outPutFilePath, outPuthFileName)));
                 if (!pngFormat)
                 {
                     kalikoImage.SaveJpg(str, 99);

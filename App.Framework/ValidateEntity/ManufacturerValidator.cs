@@ -7,9 +7,9 @@ using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class FlowStepValidator : AbstractValidator<ManufacturerViewModel>
+	public class ManufacturerValidator : AbstractValidator<ManufacturerViewModel>
 	{
-		public FlowStepValidator()
+		public ManufacturerValidator()
 		{
 			RuleFor(x => x.Title).NotEmpty().WithMessage("Vui lòng nhập tiêu đề.");
 			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Hình ảnh không đúng định dạng");

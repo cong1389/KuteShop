@@ -529,3 +529,4 @@ D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\AngleSharp.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\EntityFramework.xml

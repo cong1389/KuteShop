@@ -9,6 +9,8 @@ namespace App.Service.Orders
 	{
 		OrderItem GetById(int id);
 
-		IEnumerable<OrderItem> PagedList(SortingPagingBuilder sortBuider, Paging page);
+	    OrderItem GetByPostId(int postId);
+
+        IEnumerable<OrderItem> PagedList(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

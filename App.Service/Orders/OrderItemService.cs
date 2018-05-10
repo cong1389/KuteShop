@@ -21,9 +21,14 @@ namespace App.Service.Orders
 			return _orderItemRepository.GetById(id);
 		}
 
-		public IEnumerable<OrderItem> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
-		{
-			return _orderItemRepository.PagedSearchList(sortbuBuilder, page);
-		}
-	}
+        public OrderItem GetByPostId(int postId)
+        {
+            return _orderItemRepository.Get(x => x.PostId == postId);
+        }
+
+        public IEnumerable<OrderItem> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+        {
+            return _orderItemRepository.PagedSearchList(sortbuBuilder, page);
+        }
+    }
 }

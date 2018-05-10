@@ -17,7 +17,7 @@ namespace App.Framework.ValidateEntity
 			RuleFor(x => x.Image).Must(IsValidFileType).WithMessage("Ảnh không đúng định dạng.");
 		}
 
-		public static bool IsValidFileType(HttpPostedFileBase file)
+	    private static bool IsValidFileType(HttpPostedFileBase file)
 		{
 		    if (file == null || file.ContentLength <= 0) return true;
 

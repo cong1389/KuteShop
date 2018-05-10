@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
@@ -17,6 +16,7 @@ using App.Front.Extensions;
 using App.Front.Models;
 using App.Front.Models.Posts;
 using App.Service.Common;
+using App.Service.ContactInformation;
 using App.Service.Gallery;
 using App.Service.GenericControl;
 using App.Service.Language;
@@ -33,6 +33,7 @@ namespace App.Front.Controllers
         private readonly IMenuLinkService _menuLinkService;
 
         private readonly IGalleryService _galleryService;
+        private readonly IContactInfoService _contactInfoService;
 
         public PostController(
             IPostService postService
@@ -40,11 +41,12 @@ namespace App.Front.Controllers
             , IGalleryService galleryService
              , IWorkContext workContext
             , IGenericControlService genericControlService
-            , ICacheManager cacheManager)
+            , ICacheManager cacheManager, IContactInfoService contactInfoService)
         {
             _postService = postService;
             _menuLinkService = menuLinkService;
             _galleryService = galleryService;
+            _contactInfoService = contactInfoService;
         }
 
         //[PartialCache("Short")]
@@ -219,7 +221,7 @@ namespace App.Front.Controllers
             ViewBag.KeyWords = postLocalized.MetaKeywords;
             ViewBag.SiteUrl = Url.Action("PostDetail", "Post", new { seoUrl, area = "" });
             ViewBag.Description = postLocalized.MetaTitle;
-            ViewBag.Image = Url.Content(string.Concat("~/", postLocalized.ImageMediumSize));
+            ViewBag.Image = Url.Content(string.Concat("~/", postLocalized.ImageBigSize));
             ViewBag.MenuId = postLocalized.MenuId;
 
             return View(postLocalized);
@@ -521,18 +523,6 @@ namespace App.Front.Controllers
             return View(posts);
         }
 
-        //Hien thi san pham footer
-        [PartialCache("Medium")]
-        public JsonResult PostOutOfStock()
-        {
-            var post = _postService.GetTop(6, x => x.Status == (int)Status.Enable && x.OutOfStock);
-
-            var jsonResult = Json(new {success = true, list = this.RenderRazorViewToString("_Footer.Product", post)},
-                JsonRequestBehavior.AllowGet);
-
-            return jsonResult;
-        }
-
         #region Post discount
 
         [ChildActionOnly]
@@ -561,15 +551,15 @@ namespace App.Front.Controllers
         [HttpPost]
         public JsonResult GetByMenuId(int menuId, int entityId)
         {
-            var lstValueResponse = new List<ControlValueItemResponse>();
+            var valueItemResponses = new List<ControlValueItemResponse>();
 
-            var menuLink = _menuLinkService.GetById(menuId);
+            var menuLink = _menuLinkService.GetMenu(menuId);
             if (menuLink != null)
             {
-                var ieGc = menuLink.GenericControls;
-                if (ieGc.IsAny())
+                var genericControls = menuLink.GenericControls;
+                if (genericControls.IsAny())
                 {
-                    lstValueResponse.AddRange(from item in ieGc
+                    valueItemResponses.AddRange(from item in genericControls
                                               from gcValue in item.GenericControlValues.Where(m => m.Status == (int)Status.Enable)
                                               select new ControlValueItemResponse
                                               {
@@ -583,8 +573,8 @@ namespace App.Front.Controllers
             var jsonResult = Json(
                 new
                 {
-                    success = lstValueResponse.Any(),
-                    list = this.RenderRazorViewToString("_PostDetail.Attribute", lstValueResponse)
+                    success = valueItemResponses.Any(),
+                    list = this.RenderRazorViewToString("_PostDetail.Attribute", valueItemResponses)
                 },
                 JsonRequestBehavior.AllowGet);
 
@@ -592,5 +582,25 @@ namespace App.Front.Controllers
         }
 
         #endregion
+
+
+        [PartialCache("Long")]
+        public JsonResult GetContactAddress()
+        {
+            var contactInformation = _contactInfoService.GetTypeAddress((int)TypeAdress.Current);
+
+            var contactInformationLocalize = contactInformation.ToModel();
+
+            var jsonResult =
+                Json(
+                    new
+                    {
+                        success = true,
+                        list = this.RenderRazorViewToString("_PostDetail.Address", contactInformationLocalize)
+                    }, JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+
+        }
     }
 }

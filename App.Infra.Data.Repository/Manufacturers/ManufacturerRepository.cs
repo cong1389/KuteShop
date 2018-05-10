@@ -15,11 +15,12 @@ namespace App.Infra.Data.Repository.Manufacturers
 
 		protected override IOrderedQueryable<Manufacturer> GetDefaultOrder(IQueryable<Manufacturer> query)
 		{
-			var flowSteps = 
+			var manufacturers = 
 				from p in query
 				orderby p.Id
 				select p;
-			return flowSteps;
+
+			return manufacturers;
 		}
 
 		public IEnumerable<Manufacturer> PagedList(Paging page)

@@ -17,17 +17,14 @@ namespace App.Service.Menu
         private readonly ICacheManager _cacheManager;
         private readonly IMenuLinkRepository _menuLinkRepository;
 
-        private readonly IUnitOfWork _unitOfWork;
-
         public MenuLinkService(IUnitOfWork unitOfWork, IMenuLinkRepository menuLinkRepository
             , ICacheManager cacheManager) : base(unitOfWork, menuLinkRepository)
         {
-            _unitOfWork = unitOfWork;
             _menuLinkRepository = menuLinkRepository;
             _cacheManager = cacheManager;
         }
 
-        public MenuLink GetById(int id, bool isCache = true)
+        public MenuLink GetMenu(int id, bool isCache = true)
         {
             MenuLink menuLink;
             if (isCache)
@@ -78,7 +75,7 @@ namespace App.Service.Menu
                 menuLinks = _menuLinkRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
 
             }
-            
+
             return menuLinks;
         }
 
@@ -210,11 +207,6 @@ namespace App.Service.Menu
             return _menuLinkRepository.PagedSearchList(sortbuBuilder, page);
         }
 
-        public int Save()
-        {
-            return _unitOfWork.Commit();
-        }
-
         public IEnumerable<MenuLink> GetByTemplateType(int templateType, bool @readonly = false, bool isCache = true)
         {
             IEnumerable<MenuLink> menuLinks;
@@ -237,10 +229,6 @@ namespace App.Service.Menu
             return menuLinks;
         }
 
-        /// <summary>
-        /// Get nhiều param
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<MenuLink> GetByOption(List<int> position = null
             , List<int> template = null
             , string virtualId = null
@@ -249,6 +237,7 @@ namespace App.Service.Menu
             , bool? isDisplayHomePage = null
             , bool? isDisplaySearch = null
             , int status = 1
+            , int? id = null
             , bool isCache = true)
         {
 
@@ -320,6 +309,12 @@ namespace App.Service.Menu
                 expression = expression.And(x => x.DisplayOnSearch == isDisplaySearch);
             }
 
+            if (id != null)
+            {
+                sbKey.AppendFormat("-{0}", id);
+                expression = expression.And(x => x.Id == id);
+            }
+
             IEnumerable<MenuLink> menuLinks;
             if (isCache)
             {
@@ -335,7 +330,7 @@ namespace App.Service.Menu
             else
             {
                 menuLinks = FindBy(expression);
-            }            
+            }
 
             return menuLinks;
         }
