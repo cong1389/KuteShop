@@ -1,4 +1,5 @@
-﻿@using Resources
+﻿@using App.Aplication
+@using Resources
 @using App.Framework.Ultis
 @model IEnumerable<App.FakeEntity.Menu.MenuNavViewModel>
 @{
@@ -6,7 +7,7 @@
     ViewBag.Toolbar = new[] { "Create"};
 }
 
-@if (Model.Any())
+@if (Model.IsAny())
 {
     <div id="tree_1" class="tree-demo">
         <ul>

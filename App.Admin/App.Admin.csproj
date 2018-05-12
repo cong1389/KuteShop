@@ -214,6 +214,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\assets\jstree\dist\jstree.min.js" />
+    <Content Include="Areas\Admin\assets\jstree\dist\themes\default\32px.png" />
+    <Content Include="Areas\Admin\assets\jstree\dist\themes\default\style.min.css" />
+    <Content Include="Areas\Admin\assets\jstree\ui-tree.min.js" />
     <Content Include="Areas\Admin\scripts\angular-plugins\datatables\smart-table.js" />
     <Content Include="Areas\Admin\scripts\angular-plugins\datatables\smart-table.min.js" />
     <Content Include="Areas\Admin\scripts\angular\angular-animate.min.js" />
