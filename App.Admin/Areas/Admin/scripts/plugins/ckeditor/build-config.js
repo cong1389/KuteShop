@@ -25,23 +25,23 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono',
-	preset: 'full',
+	skin: "moono",
+	preset: "full",
 	ignore: [
-		'.bender',
-		'.DS_Store',
-		'.gitignore',
-		'.gitattributes',
-		'.idea',
-		'.mailmap',
-		'bender.js',
-		'bender-err.log',
-		'bender-out.log',
-		'dev',
-		'node_modules',
-		'package.json',
-		'README.md',
-		'tests'
+		".bender",
+		".DS_Store",
+		".gitignore",
+		".gitattributes",
+		".idea",
+		".mailmap",
+		"bender.js",
+		"bender-err.log",
+		"bender-out.log",
+		"dev",
+		"node_modules",
+		"package.json",
+		"README.md",
+		"tests"
 	],
 	plugins : {
 		'a11yhelp' : 1,

@@ -30,10 +30,12 @@ namespace App.Front
         }
 
         private static void ConfigureViewEngines()
-        { // Remove all view engines
+        { 
+            // Remove all view engines
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
-            
+
+            //Add Custom C# Razor View Engine  
+            //ViewEngines.Engines.Add(new RazorViewEngine());
             ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
         }
 

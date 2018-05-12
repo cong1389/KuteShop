@@ -7,36 +7,70 @@ namespace App.Front
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+            //jquery
+            bundles.Add(new ScriptBundle("~/bundles/script_jquery").Include(
+                        "~/Scripts/jquery-{version}.js"
+                        , "~/Scripts/jquery.validate*"));
+            bundles.Add(new StyleBundle("~/bundles/content_jquery").Include(
+                "~/Content/jquery-ui.css"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //bootstrap
+            bundles.Add(new StyleBundle("~/bundles/content_bootstrap").Include(
+                "~/Content/bootstrap.css"
+               , "~/Content/font-awesome.*"));
+            bundles.Add(new ScriptBundle("~/bundles/script_bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             //fancybox
-            bundles.Add(new ScriptBundle("~/bundles/Scriptsfancybox").Include(
-                "~/Scripts/jquery.fancybox.*"));
-            bundles.Add(new StyleBundle("~/bundles/Contentfancybox").Include(
+            bundles.Add(new StyleBundle("~/bundles/content_fancybox").Include(
                 "~/Content/jquery.fancybox.*"));
+            bundles.Add(new ScriptBundle("~/bundles/script_fancybox").Include(
+                "~/Scripts/jquery.fancybox.*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            //Slide
+            bundles.Add(new StyleBundle("~/bundles/content_bxslider").Include(
+                "~/Content/bxslider/css/jquery.bxslider*"));
+            bundles.Add(new ScriptBundle("~/bundles/script_bxslider").Include(
+                "~/Content/bxslider/js/jquery.bxslider*"));
 
-            bundles.Add(new StyleBundle("~/bundles/Themes").Include(
-                     "~/Themes/Basic/Content/theme.min.css"));
+            //Carousel
+            bundles.Add(new StyleBundle("~/bundles/content_carousel").Include(
+                "~/Content/owl.carousel*"));
+            bundles.Add(new ScriptBundle("~/bundles/script_carousel").Include(
+                "~/Scripts/owl.carousel*"));
 
-            // Code removed for clarity.
-            BundleTable.EnableOptimizations = true;
+            //Modernizr
+            bundles.Add(new ScriptBundle("~/bundles/script_modernizr").Include(
+                "~/Scripts/modernizr*"));
+
+            //Cookie
+            bundles.Add(new ScriptBundle("~/bundles/script_cookie").Include(
+                "~/Scripts/jquery.cookie*"));
+
+            //Animate
+            bundles.Add(new StyleBundle("~/bundles/content_animate").Include(
+                "~/Content/animate*"));
+
+            //Theme
+            bundles.Add(new StyleBundle("~/bundles/content_theme").Include(
+                "~/Themes/Basic/Content/theme.min.css"));
+            bundles.Add(new ScriptBundle("~/bundles/script_theme").Include(
+                "~/Themes/Basic/Scripts/goweb*"));
+
+            //TODO
+            //BundleTable.EnableOptimizations = true;
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
+        BundleTable.EnableOptimizations = true;
+#endif
+
         }
     }
 }

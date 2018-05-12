@@ -6,37 +6,37 @@
 //            '<li ng-repeat="page in pages" ng-class="{active: page==currentPage}"><a href="javascript: void(0);" ng-click="selectPage(page)">{{page}} -{{totalItemCount}}</a></li>' +
 //            '<li><a ng-click="selectPage(numPages)"><i class="fa fa-angle-double-right"></i></a></li></ul>
 (function (ng, undefined) {
-    'use strict';
+    "use strict";
 
-    ng.module('smart-table', []).run(['$templateCache', function ($templateCache) {
-        $templateCache.put('template/smart-table/pagination.html',
+    ng.module("smart-table", []).run(["$templateCache", function ($templateCache) {
+        $templateCache.put("template/smart-table/pagination.html",
             '<nav ng-if="numPages && pages.length >= 2" class="paged-div">' +
-             '<div class="page-number"><span>' + Resources.Page + ' </span><page-select></page-select> ' + Resources.PageOf + ' {{numPages}}</div>' +
-            '<div class="label-pagelink">{{((currentPage -1) * stItemsByPage )+ 1 }} - {{stItemsByPage * currentPage}} ' + Resources.PageOf + ' {{totalItemCount}}</div>' +
+             '<div class="page-number"><span>' + Resources.Page + " </span><page-select></page-select> " + Resources.PageOf + " {{numPages}}</div>" +
+            '<div class="label-pagelink">{{((currentPage -1) * stItemsByPage )+ 1 }} - {{stItemsByPage * currentPage}} ' + Resources.PageOf + " {{totalItemCount}}</div>" +
            '<ul class="pagelink">' +
             '<li ng-class="{disabled: currentPage == 1}"><a ng-click="selectPage(currentPage-1)"><i class="fa fa-angle-left"></i></a></li>' +
             '<li ng-class="{disabled: currentPage == numPages}"><a ng-click="selectPage(currentPage+1)"><i class="fa fa-angle-right"></i></a></li></ul></nav>');
     }]);
 
 
-    ng.module('smart-table')
-      .constant('stConfig', {
+    ng.module("smart-table")
+      .constant("stConfig", {
           pagination: {
-              template: 'template/smart-table/pagination.html',
+              template: "template/smart-table/pagination.html",
               itemsByPage: 10,
               displayedPages: 5
           },
           search: {
               delay: 400, // ms
-              inputEvent: 'input'
+              inputEvent: "input"
           },
           select: {
-              mode: 'single',
-              selectedClass: 'st-selected'
+              mode: "single",
+              selectedClass: "st-selected"
           },
           sort: {
-              ascentClass: 'st-sort-ascent',
-              descentClass: 'st-sort-descent',
+              ascentClass: "st-sort-ascent",
+              descentClass: "st-sort-descent",
               descendingFirst: false,
               skipNatural: false,
               delay: 300
@@ -45,14 +45,14 @@
               delay: 100 //ms
           }
       });
-    ng.module('smart-table')
-      .controller('stTableController', ['$scope', '$parse', '$filter', '$attrs', function StTableController($scope, $parse, $filter, $attrs) {
+    ng.module("smart-table")
+      .controller("stTableController", ["$scope", "$parse", "$filter", "$attrs", function StTableController($scope, $parse, $filter, $attrs) {
           var propertyName = $attrs.stTable;
           var displayGetter = $parse(propertyName);
           var displaySetter = displayGetter.assign;
           var safeGetter;
-          var orderBy = $filter('orderBy');
-          var filter = $filter('filter');
+          var orderBy = $filter("orderBy");
+          var filter = $filter("filter");
           var safeCopy = copyRefs(displayGetter($scope));
           var tableState = {
               sort: {},
@@ -79,10 +79,10 @@
           }
 
           function deepDelete(object, path) {
-              if (path.indexOf('.') != -1) {
-                  var partials = path.split('.');
+              if (path.indexOf(".") != -1) {
+                  var partials = path.split(".");
                   var key = partials.pop();
-                  var parentPath = partials.join('.');
+                  var parentPath = partials.join(".");
                   var parentObject = $parse(parentPath)(object)
                   delete parentObject[key];
                   if (Object.keys(parentObject).length == 0) {
@@ -147,7 +147,7 @@
            */
           this.search = function search(input, predicate) {
               var predicateObject = tableState.search.predicateObject || {};
-              var prop = predicate ? predicate : '$';
+              var prop = predicate ? predicate : "$";
 
               input = ng.isString(input) ? input.trim() : input;
               $parse(prop).assign(predicateObject, input);
@@ -188,7 +188,7 @@
               var rows = copyRefs(displayGetter($scope));
               var index = rows.indexOf(row);
               if (index !== -1) {
-                  if (mode === 'single') {
+                  if (mode === "single") {
                       row.isSelected = row.isSelected !== true;
                       if (lastSelected) {
                           lastSelected.isSelected = false;
@@ -248,10 +248,10 @@
               pipeAfterSafeCopy = false;
           };
       }])
-      .directive('stTable', function () {
+      .directive("stTable", function () {
           return {
-              restrict: 'A',
-              controller: 'stTableController',
+              restrict: "A",
+              controller: "stTableController",
               link: function (scope, element, attr, ctrl) {
 
                   if (attr.stSetFilter) {
@@ -265,17 +265,17 @@
           };
       });
 
-    ng.module('smart-table')
-      .directive('stSearch', ['stConfig', '$timeout', '$parse', function (stConfig, $timeout, $parse) {
+    ng.module("smart-table")
+      .directive("stSearch", ["stConfig", "$timeout", "$parse", function (stConfig, $timeout, $parse) {
           return {
-              require: '^stTable',
+              require: "^stTable",
               link: function (scope, element, attr, ctrl) {
                   var tableCtrl = ctrl;
                   var promise = null;
                   var throttle = attr.stDelay || stConfig.search.delay;
                   var event = attr.stInputEvent || stConfig.search.inputEvent;
 
-                  attr.$observe('stSearch', function (newValue, oldValue) {
+                  attr.$observe("stSearch", function (newValue, oldValue) {
                       var input = element[0].value;
                       if (newValue !== oldValue && input) {
                           ctrl.tableState().search = {};
@@ -287,9 +287,9 @@
                   scope.$watch(function () {
                       return ctrl.tableState().search;
                   }, function (newValue, oldValue) {
-                      var predicateExpression = attr.stSearch || '$';
+                      var predicateExpression = attr.stSearch || "$";
                       if (newValue.predicateObject && $parse(predicateExpression)(newValue.predicateObject) !== element[0].value) {
-                          element[0].value = $parse(predicateExpression)(newValue.predicateObject) || '';
+                          element[0].value = $parse(predicateExpression)(newValue.predicateObject) || "";
                       }
                   }, true);
 
@@ -301,7 +301,7 @@
                       }
 
                       promise = $timeout(function () {
-                          tableCtrl.search(evt.target.value, attr.stSearch || '');
+                          tableCtrl.search(evt.target.value, attr.stSearch || "");
                           promise = null;
                       }, throttle);
                   });
@@ -309,23 +309,23 @@
           };
       }]);
 
-    ng.module('smart-table')
-      .directive('stSelectRow', ['stConfig', function (stConfig) {
+    ng.module("smart-table")
+      .directive("stSelectRow", ["stConfig", function (stConfig) {
           return {
-              restrict: 'A',
-              require: '^stTable',
+              restrict: "A",
+              require: "^stTable",
               scope: {
-                  row: '=stSelectRow'
+                  row: "=stSelectRow"
               },
               link: function (scope, element, attr, ctrl) {
                   var mode = attr.stSelectMode || stConfig.select.mode;
-                  element.bind('click', function () {
+                  element.bind("click", function () {
                       scope.$apply(function () {
                           ctrl.select(scope.row, mode);
                       });
                   });
 
-                  scope.$watch('row.isSelected', function (newValue) {
+                  scope.$watch("row.isSelected", function (newValue) {
                       if (newValue === true) {
                           element.addClass(stConfig.select.selectedClass);
                       } else {
@@ -336,11 +336,11 @@
           };
       }]);
 
-    ng.module('smart-table')
-      .directive('stSort', ['stConfig', '$parse', '$timeout', function (stConfig, $parse, $timeout) {
+    ng.module("smart-table")
+      .directive("stSort", ["stConfig", "$parse", "$timeout", function (stConfig, $parse, $timeout) {
           return {
-              restrict: 'A',
-              require: '^stTable',
+              restrict: "A",
+              require: "^stTable",
               link: function (scope, element, attr, ctrl) {
 
                   var predicate = attr.stSort;
@@ -388,14 +388,14 @@
                       }
                   }
 
-                  element.bind('click', function sortClick() {
+                  element.bind("click", function sortClick() {
                       if (predicate) {
                           scope.$apply(sort);
                       }
                   });
 
                   if (sortDefault) {
-                      index = sortDefault === 'reverse' ? 1 : 0;
+                      index = sortDefault === "reverse" ? 1 : 0;
                       sort();
                   }
 
@@ -419,15 +419,15 @@
           };
       }]);
 
-    ng.module('smart-table')
-      .directive('stPagination', ['stConfig', function (stConfig) {
+    ng.module("smart-table")
+      .directive("stPagination", ["stConfig", function (stConfig) {
           return {
-              restrict: 'EA',
-              require: '^stTable',
+              restrict: "EA",
+              require: "^stTable",
               scope: {
-                  stItemsByPage: '=?',
-                  stDisplayedPages: '=?',
-                  stPageChange: '&'
+                  stItemsByPage: "=?",
+                  stDisplayedPages: "=?",
+                  stPageChange: "&"
               },
               templateUrl: function (element, attrs) {
                   if (attrs.stTemplate) {
@@ -478,13 +478,13 @@
                   }, redraw, true);
 
                   //scope --> table state  (--> view)
-                  scope.$watch('stItemsByPage', function (newValue, oldValue) {
+                  scope.$watch("stItemsByPage", function (newValue, oldValue) {
                       if (newValue !== oldValue) {
                           scope.selectPage(1);
                       }
                   });
 
-                  scope.$watch('stDisplayedPages', redraw);
+                  scope.$watch("stDisplayedPages", redraw);
 
                   //view -> table state
                   scope.selectPage = function (page) {
@@ -500,12 +500,12 @@
           };
       }]);
 
-    ng.module('smart-table')
-      .directive('stPipe', ['stConfig', '$timeout', function (config, $timeout) {
+    ng.module("smart-table")
+      .directive("stPipe", ["stConfig", "$timeout", function (config, $timeout) {
           return {
-              require: 'stTable',
+              require: "stTable",
               scope: {
-                  stPipe: '='
+                  stPipe: "="
               },
               link: {
 

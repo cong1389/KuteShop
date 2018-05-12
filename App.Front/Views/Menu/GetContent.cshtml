@@ -9,13 +9,13 @@ else
 {
     if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.Product)
     {
-        @section jquerys{
+        @section renderJQuery{
             <script src="~/Scripts/pricerange/bootstrap-slider.js"></script>
         }
-        @section scripts{
+        @section renderScripts{
             <script src="~/Scripts/range-price.min.js"></script>
         }
-        @section stylesheets{
+        @section renderStyles{
             <link href="~/Content/pricerange/slider.css" rel="stylesheet" />
         }
 

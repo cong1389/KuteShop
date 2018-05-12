@@ -1,6 +1,6 @@
 ﻿$(document).ready(function(){
 
-    $('#filer_input_multiple').filer({
+    $("#filer_input_multiple").filer({
 		showThumbs: true,
 		addMore: true, 
 		allowDuplicates: false,
@@ -65,10 +65,10 @@
 			canvasImage: true,
 			removeConfirmation: true,
 			_selectors: {
-				list: '.jFiler-items-list',
-				item: '.jFiler-item',
-				progressBar: '.bar',
-				remove: '.jFiler-item-trash-action'
+				list: ".jFiler-items-list",
+				item: ".jFiler-item",
+				progressBar: ".bar",
+				remove: ".jFiler-item-trash-action"
 			}
 		},
 		dragDrop: {

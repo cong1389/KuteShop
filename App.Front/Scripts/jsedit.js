@@ -186,7 +186,7 @@ var feature = (function () {
             "</div>";
         debugger;
         if (!!$.prototype.fancybox) {
-           
+
             $.fancybox(msg,
                 {
                     'autoDimensions': false,
@@ -199,14 +199,15 @@ var feature = (function () {
         }
         return false;
     }
-
+    
     return {
         init: function () {
-
+           
         },
         fancyMsgBox: function (title, msg) {
             fancyMsgBox(title, msg);
         }
+
     }
 
 })();

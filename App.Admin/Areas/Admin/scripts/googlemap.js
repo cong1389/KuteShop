@@ -19,7 +19,7 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
 
         var marker = new google.maps.Marker({
@@ -48,7 +48,7 @@
     }
 
     function showAddress() {
-        if (lat == '' && lng == '') {
+        if (lat == "" && lng == "") {
             map.overlayMapTypes.setAt(0, null);
             var myLatlng = new google.maps.LatLng(10.777662144173254, 106.67312622070312);
             var mapOptions = {
@@ -56,7 +56,7 @@
                 center: myLatlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
-            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
             var marker = new google.maps.Marker({
                 position: myLatlng,
@@ -92,7 +92,7 @@
                 center: myLatlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
-            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
             // var image = '<%=ResolveUrl("~/AdminCP/images/icons/hotel_marker.png")%>';
 
             var marker = new google.maps.Marker({
@@ -103,7 +103,7 @@
                 animation: google.maps.Animation.DROP
             });
 
-            google.maps.event.addListener(marker, 'click', function () {
+            google.maps.event.addListener(marker, "click", function () {
                 infowindow.open(map, marker);
             });
         }
@@ -158,8 +158,8 @@
         });
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
-    google.maps.event.addDomListener(window, 'load', showAddress);
+    google.maps.event.addDomListener(window, "load", initialize);
+    google.maps.event.addDomListener(window, "load", showAddress);
 });
 
 function LocationFinishedClose() {

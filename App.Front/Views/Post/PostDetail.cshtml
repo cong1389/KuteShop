@@ -56,14 +56,14 @@
 												foreach (var item in Model.GalleryImages)
 												{
 													<a class="rsImg" data-rsBigImg="@Url.Content("~/" + item.ImageBig)" href="@Url.Content("~/" + item.ImageBig)">
-														<img width="195" height="350" class="rsTmb" src="@item.ImageThumbnail.ValidateImage()" />
+														<img height="350" class="rsTmb" src="@item.ImageBig.ValidateImage()" />
 													</a>
 												}
 											}
 											else
 											{
-												<a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageBigSize)" href="@Url.Content("~/" + Model.ImageBigSize)">
-													<img width="195" height="350" class="rsTmb" src="@Model.ImageSmallSize.ValidateImage()" />
+												<a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageMediumSize)" href="@Url.Content("~/" + Model.ImageMediumSize)">
+													<img width="195" height="350" class="rsTmb" src="@Model.ImageMediumSize.ValidateImage()" alt="@Model.Title"/>
 												</a>
 											}
 										</div>
@@ -263,13 +263,13 @@
 
 }
 
-@section stylesheets
+@section renderStyles
 {
 	<link href="~/Content/royalslider/royalslider.min.css" rel="stylesheet" />
 	<link href="~/Content/royalslider/rs-default.css" rel="stylesheet" />
 }
 
-@section jquerys{
+@section renderJQuery{
 	<script src="~/Scripts/royalslider/jquery.royalslider.min.js"></script>
 	<script type="text/javascript">
 

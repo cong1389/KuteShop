@@ -104,10 +104,10 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 
 	var nfLocales = new Hashtable();
 	
-	var nfLocalesLikeUS = [ 'ae','au','ca','cn','eg','gb','hk','il','in','jp','sk','th','tw','us' ];
-	var nfLocalesLikeDE = [ 'at','br','de','dk','es','gr','it','nl','pt','tr','vn' ];
-	var nfLocalesLikeFR = [ 'cz','fi','fr','ru','se','pl' ];
-	var nfLocalesLikeCH = [ 'ch' ];
+	var nfLocalesLikeUS = [ "ae","au","ca","cn","eg","gb","hk","il","in","jp","sk","th","tw","us" ];
+	var nfLocalesLikeDE = [ "at","br","de","dk","es","gr","it","nl","pt","tr","vn" ];
+	var nfLocalesLikeFR = [ "cz","fi","fr","ru","se","pl" ];
+	var nfLocalesLikeCH = [ "ch" ];
 	
 	var nfLocaleFormatting = [ [".", ","], [",", "."], [",", " "], [".", "'"] ]; 
 	var nfAllLocales = [ nfLocalesLikeUS, nfLocalesLikeDE, nfLocalesLikeFR, nfLocalesLikeCH ]
@@ -140,10 +140,10 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
          if (isFullLocale == false) {
 	         // Extract and convert to lower-case any language code from a real 'locale' formatted string, if not use as-is
 	         // (To prevent locale format like : "fr_FR", "en_US", "de_DE", "fr_FR", "en-US", "de-DE")
-	         if (locale.indexOf('_') != -1)
-				locale = locale.split('_')[1].toLowerCase();
-			 else if (locale.indexOf('-') != -1)
-				locale = locale.split('-')[1].toLowerCase();
+	         if (locale.indexOf("_") != -1)
+				locale = locale.split("_")[1].toLowerCase();
+			 else if (locale.indexOf("-") != -1)
+				locale = locale.split("-")[1].toLowerCase();
 		}
 
 		 // hashtable lookup to match locale with codes
@@ -229,7 +229,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 			if (validFormat.indexOf(options.format.charAt(i)) == -1) 
 				prefix = prefix + options.format.charAt(i);
 			else 
-				if (i == 0 && options.format.charAt(i) == '-') {
+				if (i == 0 && options.format.charAt(i) == "-") {
 					negativeInFront = true;
 					continue;
 				}
@@ -293,7 +293,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 				number = new Number(number.toFixed(decimalFormat.length));
 			else {
 				var numStr = number.toString();
-				numStr = numStr.substring(0, numStr.lastIndexOf('.') + decimalFormat.length + 1);
+				numStr = numStr.substring(0, numStr.lastIndexOf(".") + decimalFormat.length + 1);
 				number = new Number(numStr);
 			}
 			
@@ -302,12 +302,12 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 			decimalString = decimalString.substring(decimalString.lastIndexOf(".") + 1);
 			
 			for (var i = 0; i < decimalFormat.length; i++) {
-				if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) != '0') {
+				if (decimalFormat.charAt(i) == "#" && decimalString.charAt(i) != "0") {
                 	decimalPortion += decimalString.charAt(i);
 					continue;
-				} else if (decimalFormat.charAt(i) == '#' && decimalString.charAt(i) == '0') {
+				} else if (decimalFormat.charAt(i) == "#" && decimalString.charAt(i) == "0") {
 					var notParsed = decimalString.substring(i);
-					if (notParsed.match('[1-9]')) {
+					if (notParsed.match("[1-9]")) {
 						decimalPortion += decimalString.charAt(i);
 						continue;
 					} else
@@ -330,7 +330,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 			onesFormat = options.format.substring(0, options.format.indexOf("."));
 
 		var onePortion = "";
-		if (!(ones == 0 && onesFormat.substr(onesFormat.length - 1) == '#') || forcedToZero) {
+		if (!(ones == 0 && onesFormat.substr(onesFormat.length - 1) == "#") || forcedToZero) {
 			// find how many digits are in the group
 			var oneText = new String(Math.abs(ones));
 			var groupLength = 9999;
@@ -348,7 +348,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 			
 			// account for any pre-data padding
 			if (onesFormat.length > onePortion.length) {
-				var padStart = onesFormat.indexOf('0');
+				var padStart = onesFormat.indexOf("0");
 				if (padStart != -1) {
 					var padLen = onesFormat.length - padStart;
 					
@@ -357,7 +357,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 					while (onePortion.length < padLen) {
 						var padChar = onesFormat.charAt(pos);
 						// replace with real group char if needed
-						if (padChar == ',')
+						if (padChar == ",")
 							padChar = group;
 						onePortion = padChar + onePortion;
 						pos--;
@@ -366,8 +366,8 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 			}
 		}
 		
-		if (!onePortion && onesFormat.indexOf('0', onesFormat.length - 1) !== -1)
-   			onePortion = '0';
+		if (!onePortion && onesFormat.indexOf("0", onesFormat.length - 1) !== -1)
+   			onePortion = "0";
 
 		returnString = onePortion + returnString;
 
@@ -441,7 +441,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 		
 		// now we need to convert it into a number
 		while (numberString.indexOf(group)>-1)
-			numberString = numberString.replace(group,'');
+			numberString = numberString.replace(group,"");
 		numberString = numberString.replace(dec,".").replace(neg,"-");
 		var validText = "";
 		var hasPercent = false;
@@ -454,7 +454,7 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
 		var number = new Number(validText);
 		if (hasPercent) {
 			number = number / 100;
-			var decimalPos = validText.indexOf('.');
+			var decimalPos = validText.indexOf(".");
 			if (decimalPos != -1) {
 				var decimalPoints = validText.length - decimalPos - 1;
 				number = number.toFixed(decimalPoints + 2);
@@ -494,14 +494,14 @@ var Hashtable = (function () { var w = "undefined", f = "function", k = "string"
     	if (decimalPlaces > 0) {
     		var dp = value.indexOf(".");
     		if (dp == -1) {
-    			value += '.';
+    			value += ".";
     			dp = 0;
     		} else {
     			dp = value.length - (dp + 1);
     		}
     		
     		while (dp < decimalPlaces) {
-    			value += '0';
+    			value += "0";
     			dp++;
     		}
     	}

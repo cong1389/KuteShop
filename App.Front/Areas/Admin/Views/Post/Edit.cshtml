@@ -1,8 +1,4 @@
-﻿@using App.Domain.Common
-@using App.Framework.Ultis
-@using App.Aplication
-@using Resources
-@using Attribute = App.Domain.Entities.Attribute.Attribute
+﻿@using Resources
 @model App.FakeEntity.Post.PostViewModel
 
 @{
@@ -79,6 +75,11 @@
             $("#Locales_0__Title").change(function () {
                 var title = $("#Locales_0__Title").val();
                 if (title != "") {
+
+                	//Fill product code
+                	var postCode = App.formatPostCode(title);
+                	$("#Locales_0__ProductCode").val(postCode);
+                	$("#ProductCode").val(postCode);
 
                      //Copy value từ tên sản phẩm bỏ vào group SEO
                     $("#Locales_0__MetaTitle").val(title);

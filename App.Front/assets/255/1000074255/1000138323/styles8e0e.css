@@ -684,8 +684,8 @@ img.alignright {
 }
 
 .container {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .loader {
@@ -1691,6 +1691,7 @@ span.notify-right {
         padding-right: 20px;
         letter-spacing: 1px;
         overflow: hidden;
+		margin-top: 0px;
     }
 
         .box-vertical-megamenus .title .btn-open-mobile > .fa {

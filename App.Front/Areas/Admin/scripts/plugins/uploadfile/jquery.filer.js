@@ -10,7 +10,7 @@
     $.fn.filer = function(q) {
         return this.each(function(t, r) {
             var s = $(r),
-                b = '.jFiler',
+                b = ".jFiler",
                 p = $(),
                 o = $(),
                 l = $(),
@@ -20,7 +20,7 @@
                 f = {
                     init: function() {
                         s.wrap('<div class="jFiler"></div>');
-                        f._set('props');
+                        f._set("props");
                         s.prop("jFiler").boxEl = p = s.closest(b);
                         f._changeInput();
                     },
@@ -30,10 +30,10 @@
                         }
                         s.on({
                             "focus": function() {
-                                o.addClass('focused');
+                                o.addClass("focused");
                             },
                             "blur": function() {
-                                o.removeClass('focused');
+                                o.removeClass("focused");
                             },
                             "change": f._onChange
                         });
@@ -82,7 +82,7 @@
                             sl.push(elem);
                             s = elem;
                             f._bindInput();
-                            f._set('props');
+                            f._set("props");
                         }
                         s.click()
                     },
@@ -99,7 +99,7 @@
                                         break;
                                     case "extensions":
                                         n[d[k]] = s.attr(j)
-                                            .replace(/ /g, '')
+                                            .replace(/ /g, "")
                                             .split(",");
                                         break;
                                     case "uploadUrl":
@@ -123,7 +123,7 @@
                         f._applyAttrSettings();
                         n.beforeRender != null && typeof n.beforeRender == "function" ? n.beforeRender(p, s) : null;
                         if (n.theme) {
-                            p.addClass('jFiler-theme-' + n.theme);
+                            p.addClass("jFiler-theme-" + n.theme);
                         }
                         if (s.get(0)
                             .tagName.toLowerCase() != "input" && s.get(0)
@@ -193,7 +193,7 @@
                         if (!n.uploadFile && !n.addMore) {
                             f._reset();
                         }
-                        f._set('feedback', (f._itFl && f._itFl.length > 0 ? f._itFl.length + ' ' + n.captions.feedback2 : n.captions.feedback));
+                        f._set("feedback", (f._itFl && f._itFl.length > 0 ? f._itFl.length + " " + n.captions.feedback2 : n.captions.feedback));
                         n.onEmpty != null && typeof n.onEmpty == "function" ? n.onEmpty(p, o, s) : null
                     },
                     _reset: function(a) {
@@ -211,12 +211,12 @@
                                 }
                                 f._bindInput();
                             }
-                            f._set('input', '');
+                            f._set("input", "");
                         }
                         f._itFl = [];
                         f._itFc = null;
                         f._ajFc = 0;
-                        f._set('props');
+                        f._set("props");
                         s.prop("jFiler")
                             .files_list = f._itFl;
                         s.prop("jFiler")
@@ -232,16 +232,16 @@
                     },
                     _set: function(element, value) {
                         switch (element) {
-                            case 'input':
+                            case "input":
                                 s.val(value);
                                 break;
-                            case 'feedback':
+                            case "feedback":
                                 if (o.length > 0) {
-                                    o.find('.jFiler-input-caption span')
+                                    o.find(".jFiler-input-caption span")
                                         .html(value);
                                 }
                                 break;
-                            case 'props':
+                            case "props":
                                 if (!s.prop("jFiler")) {
                                     s.prop("jFiler", {
                                         options: n,
@@ -363,7 +363,7 @@
                                 ext = name.indexOf(".") != -1 ? name.split(".")
                                 .pop()
                                 .toLowerCase() : "",
-                                progressBar = n.uploadFile ? '<div class="jFiler-jProgressBar">' + n.templates.progressBar + '</div>' : '',
+                                progressBar = n.uploadFile ? '<div class="jFiler-jProgressBar">' + n.templates.progressBar + "</div>" : "",
                                 opts = {
                                     id: id,
                                     name: name,
@@ -404,22 +404,22 @@
                             return f._assets.textParse((opts._appended ? n.templates.itemAppend : n.templates.item), opts);
                         },
                         renderFile: function(file, html, opts) {
-                            if (html.find('.jFiler-item-thumb-image')
+                            if (html.find(".jFiler-item-thumb-image")
                                 .length == 0) {
                                 return false;
                             }
                             if (file.file && opts.type == "image") {
                                 var g = '<img src="' + file.file + '" draggable="false" />',
-                                    m = html.find('.jFiler-item-thumb-image.fi-loading');
+                                    m = html.find(".jFiler-item-thumb-image.fi-loading");
                                 $(g)
                                     .error(function() {
                                         g = f._thumbCreator.generateIcon(opts);
-                                        html.addClass('jFiler-no-thumbnail');
-                                        m.removeClass('fi-loading')
+                                        html.addClass("jFiler-no-thumbnail");
+                                        m.removeClass("fi-loading")
                                             .html(g);
                                     })
                                     .load(function() {
-                                        m.removeClass('fi-loading')
+                                        m.removeClass("fi-loading")
                                             .html(g);
                                     });
                                 return true;
@@ -427,10 +427,10 @@
                             if (window.File && window.FileList && window.FileReader && opts.type == "image" && opts.size < 1e+7) {
                                 var y = new FileReader;
                                 y.onload = function(e) {
-                                    var m = html.find('.jFiler-item-thumb-image.fi-loading');
+                                    var m = html.find(".jFiler-item-thumb-image.fi-loading");
                                     if (n.templates.canvasImage) {
-                                        var canvas = document.createElement('canvas'),
-                                            context = canvas.getContext('2d'),
+                                        var canvas = document.createElement("canvas"),
+                                            context = canvas.getContext("2d"),
                                             img = new Image();
 
                                         img.onload = function() {
@@ -451,8 +451,8 @@
                                                     y = img.height < canvas.height ? canvas.height / 2 - img.height / 2 : 0
                                                 context.drawImage(img, x, y, img.width, img.height);
                                             } else {
-                                                var oc = document.createElement('canvas'),
-                                                    octx = oc.getContext('2d');
+                                                var oc = document.createElement("canvas"),
+                                                    octx = oc.getContext("2d");
                                                 oc.width = img.width * 0.5;
                                                 oc.height = img.height * 0.5;
                                                 octx.fillStyle = "#fff";
@@ -462,24 +462,24 @@
 
                                                 context.drawImage(oc, optimalWidth > canvas.width ? optimalWidth - canvas.width : 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, optimalWidth, optimalHeight);
                                             }
-                                            m.removeClass('fi-loading').html('<img src="' + canvas.toDataURL("image/png") + '" draggable="false" />');
+                                            m.removeClass("fi-loading").html('<img src="' + canvas.toDataURL("image/png") + '" draggable="false" />');
                                         }
                                         img.onerror = function() {
-                                            html.addClass('jFiler-no-thumbnail');
-                                            m.removeClass('fi-loading')
+                                            html.addClass("jFiler-no-thumbnail");
+                                            m.removeClass("fi-loading")
                                                 .html(f._thumbCreator.generateIcon(opts));
                                         }
                                         img.src = e.target.result;
                                     } else {
-                                        m.removeClass('fi-loading').html('<img src="' + e.target.result + '" draggable="false" />');
+                                        m.removeClass("fi-loading").html('<img src="' + e.target.result + '" draggable="false" />');
                                     }
                                 }
                                 y.readAsDataURL(file);
                             } else {
                                 var g = f._thumbCreator.generateIcon(opts),
-                                    m = html.find('.jFiler-item-thumb-image.fi-loading');
-                                html.addClass('jFiler-no-thumbnail');
-                                m.removeClass('fi-loading')
+                                    m = html.find(".jFiler-item-thumb-image.fi-loading");
+                                html.addClass("jFiler-no-thumbnail");
+                                m.removeClass("fi-loading")
                                     .html(g);
                             }
                         },
@@ -509,15 +509,15 @@
                                 m[1] = (obj.extension && obj.extension.length > 0 ? "." + obj.extension : "");
                                 m[2] = 1
                             }
-                            var el = '<span class="jFiler-icon-file ' + m[0] + '">' + m[1] + '</span>';
+                            var el = '<span class="jFiler-icon-file ' + m[0] + '">' + m[1] + "</span>";
                             if (m[2] == 1) {
                                 var c = f._assets.text2Color(obj.extension);
                                 if (c) {
                                     var j = $(el)
                                         .appendTo("body");
 
-                                    j.css('background-color', f._assets.text2Color(obj.extension));
-                                    el = j.prop('outerHTML');
+                                    j.css("background-color", f._assets.text2Color(obj.extension));
+                                    el = j.prop("outerHTML");
                                     j.remove();
                                 }
                             }
@@ -533,13 +533,13 @@
                                 } else {
                                     var appendTo = p;
                                 }
-                                appendTo.find('.jFiler-items')
+                                appendTo.find(".jFiler-items")
                                     .remove();
                                 l = $('<div class="jFiler-items jFiler-row"></div>');
                                 s.prop("jFiler").listEl = l;
                                 l.append(f._assets.textParse(n.templates.box))
                                     .appendTo(appendTo);
-                                l.on('click', n.templates._selectors.remove, function(e) {
+                                l.on("click", n.templates._selectors.remove, function(e) {
                                     e.preventDefault();
                                     var m = [params ? params.remove.event : e, params ? params.remove.el : $(this).closest(n.templates._selectors.item)],
                                         c = function(a) {
@@ -563,7 +563,7 @@
                         var c = f._itFl[i],
                             el = c.html,
                             formData = new FormData();
-                        formData.append(s.attr('name'), c.file, (c.file.name ? c.file.name : false));
+                        formData.append(s.attr("name"), c.file, (c.file.name ? c.file.name : false));
                         if (n.uploadFile.data != null && $.isPlainObject(typeof(n.uploadFile.data) == "function" ? n.uploadFile.data(c.file) : n.uploadFile.data)) {
                             for (var k in n.uploadFile.data) {
                                 formData.append(k, n.uploadFile.data[k])
@@ -625,7 +625,7 @@
                                 var t = Math.round(e.loaded * 100 / e.total)
                                     .toString();
                                 n.uploadFile.onProgress != null && typeof n.uploadFile.onProgress == "function" ? n.uploadFile.onProgress(t, el, l, p, o, s) : null;
-                                el.find('.jFiler-jProgressBar')
+                                el.find(".jFiler-jProgressBar")
                                     .find(n.templates._selectors.progressBar)
                                     .css("width", t + "%")
                             }
@@ -634,8 +634,8 @@
                     _dragDrop: {
                         dragEnter: function(e) {
                             clearTimeout(f._dragDrop._drt);
-                            n.dragDrop.dragContainer.addClass('dragged');
-                            f._set('feedback', n.captions.drop);
+                            n.dragDrop.dragContainer.addClass("dragged");
+                            f._set("feedback", n.captions.drop);
                             n.dragDrop.dragEnter != null && typeof n.dragDrop.dragEnter == "function" ? n.dragDrop.dragEnter(e, o, s, p) : null;
                         },
                         dragLeave: function(e) {
@@ -645,15 +645,15 @@
                                     f._dragDrop.dragLeave(e);
                                     return false;
                                 }
-                                n.dragDrop.dragContainer.removeClass('dragged');
-                                f._set('feedback', n.captions.feedback);
+                                n.dragDrop.dragContainer.removeClass("dragged");
+                                f._set("feedback", n.captions.feedback);
                                 n.dragDrop.dragLeave != null && typeof n.dragDrop.dragLeave == "function" ? n.dragDrop.dragLeave(e, o, s, p) : null;
                             }, 100, e);
                         },
                         drop: function(e) {
                             clearTimeout(f._dragDrop._drt);
-                            n.dragDrop.dragContainer.removeClass('dragged');
-                            f._set('feedback', n.captions.feedback);
+                            n.dragDrop.dragContainer.removeClass("dragged");
+                            f._set("feedback", n.captions.feedback);
                             if (e && e.originalEvent && e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files && e.originalEvent.dataTransfer.files.length > 0) {
                                 f._onChange(e, e.originalEvent.dataTransfer.files);
                             }
@@ -685,7 +685,7 @@
                         }
                         var items = (fromDrop ? e.originalEvent.dataTransfer.items : e.originalEvent.clipboardData.items),
                             b64toBlob = function(b64Data, contentType, sliceSize) {
-                                contentType = contentType || '';
+                                contentType = contentType || "";
                                 sliceSize = sliceSize || 512;
                                 var byteCharacters = atob(b64Data);
                                 var byteArrays = [];
@@ -710,14 +710,14 @@
                                         try {
                                             window.atob(e.originalEvent.dataTransfer.getData("text/uri-list")
                                                 .toString()
-                                                .split(',')[1]);
+                                                .split(",")[1]);
                                         } catch (e) {
                                             return;
                                         }
                                     }
                                     var blob = (fromDrop ? b64toBlob(e.originalEvent.dataTransfer.getData("text/uri-list")
                                         .toString()
-                                        .split(',')[1], "image/png") : items[i].getAsFile());
+                                        .split(",")[1], "image/png") : items[i].getAsFile());
                                     blob.name = Math.random()
                                         .toString(36)
                                         .substring(5);
@@ -760,7 +760,7 @@
                                 .files == "undefined" || s.get(0)
                                 .files.length == 0) {
                                 if (!n.uploadFile && !n.addMore) {
-                                    f._set('input', '');
+                                    f._set("input", "");
                                     f._clear();
                                 }
                                 return false
@@ -769,7 +769,7 @@
                                 .files;
                         } else {
                             if (!d || d.length == 0) {
-                                f._set('input', '');
+                                f._set("input", "");
                                 f._clear();
                                 return false
                             }
@@ -781,7 +781,7 @@
                         s.prop("jFiler")
                             .files = f.files;
                         if (!f._filesCheck() || (n.beforeSelect != null && typeof n.beforeSelect == "function" ? !n.beforeSelect(f.files, l, p, o, s) : false)) {
-                            f._set('input', '');
+                            f._set("input", "");
                             f._clear();
                             if (n.addMore && sl.length > 0) {
                                 f._unbindInput(true);
@@ -792,7 +792,7 @@
                             }
                             return false
                         }
-                        f._set('feedback', f.files.length + f._itFl.length + ' ' + n.captions.feedback2);
+                        f._set("feedback", f.files.length + f._itFl.length + " " + n.captions.feedback2);
                         if (n.showThumbs) {
                             f._thumbCreator._box();
                         } else {
@@ -907,7 +907,7 @@
                                     f._reset();
                                     f._clear();
                                 } else {
-                                    f._set('feedback', f._itFl.length + ' ' + n.captions.feedback2);
+                                    f._set("feedback", f._itFl.length + " " + n.captions.feedback2);
                                 }
                                 el.fadeOut("fast", function() {
                                     $(this)
@@ -916,11 +916,11 @@
                             };
 
                         var attrId = el.get(0)
-                            .jfiler_id || el.attr('data-jfiler-index'),
+                            .jfiler_id || el.attr("data-jfiler-index"),
                             id = null;
 
                         for (var key in f._itFl) {
-                            if (key === 'length' || !f._itFl.hasOwnProperty(key)) continue;
+                            if (key === "length" || !f._itFl.hasOwnProperty(key)) continue;
                             if (f._itFl[key].id == attrId) {
                                 id = key;
                             }
@@ -954,12 +954,12 @@
                     },
                     _assets: {
                         bytesToSize: function(bytes) {
-                            if (bytes == 0) return '0 Byte';
+                            if (bytes == 0) return "0 Byte";
                             var k = 1000;
-                            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                            var sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
                             var i = Math.floor(Math.log(bytes) / Math.log(k));
                             return (bytes / Math.pow(k, i))
-                                .toPrecision(3) + ' ' + sizes[i];
+                                .toPrecision(3) + " " + sizes[i];
                         },
                         hasAttr: function(attr, el) {
                             var el = (!el ? s : el),
@@ -973,21 +973,21 @@
                         getIcon: function(ext, type) {
                             var types = ["audio", "image", "text", "video"];
                             if ($.inArray(type, types) > -1) {
-                                return '<i class="icon-jfi-file-' + type + ' jfi-file-ext-' + ext + '"></i>';
+                                return '<i class="icon-jfi-file-' + type + " jfi-file-ext-" + ext + '"></i>';
                             }
-                            return '<i class="icon-jfi-file-o jfi-file-type-' + type + ' jfi-file-ext-' + ext + '"></i>';
+                            return '<i class="icon-jfi-file-o jfi-file-type-' + type + " jfi-file-ext-" + ext + '"></i>';
                         },
                         textParse: function(text, opts) {
                             opts = $.extend({}, {
                                 limit: n.limit,
                                 maxSize: n.maxSize,
                                 fileMaxSize: n.fileMaxSize,
-                                extensions: n.extensions ? n.extensions.join(',') : null,
+                                extensions: n.extensions ? n.extensions.join(",") : null,
                             }, (opts && $.isPlainObject(opts) ? opts : {}), n.options);
                             switch (typeof(text)) {
                                 case "string":
                                     return text.replace(/\{\{fi-(.*?)\}\}/g, function(match, a) {
-                                        a = a.replace(/ /g, '');
+                                        a = a.replace(/ /g, "");
                                         if (a.match(/(.*?)\|limitTo\:(\d+)/)) {
                                             return a.replace(/(.*?)\|limitTo\:(\d+)/, function(match, a, b) {
                                                 var a = (opts[a] ? opts[a] : ""),
@@ -1054,7 +1054,7 @@
         changeInput: true,
         showThumbs: false,
         appendTo: null,
-        theme: 'default',
+        theme: "default",
         templates: {
             box: '<ul class="jFiler-items-list jFiler-items-default"></ul>',
             item: '<li class="jFiler-item"><div class="jFiler-item-container"><div class="jFiler-item-inner"><div class="jFiler-item-icon pull-left">{{fi-icon}}</div><div class="jFiler-item-info pull-left"><div class="jFiler-item-title" title="{{fi-name}}">{{fi-name | limitTo:30}}</div><div class="jFiler-item-others"><span>size: {{fi-size2}}</span><span>type: {{fi-extension}}</span><span class="jFiler-item-status">{{fi-progressBar}}</span></div><div class="jFiler-item-assets"><ul class="list-inline"><li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li></ul></div></div></div></div></li>',
@@ -1064,10 +1064,10 @@
             removeConfirmation: true,
             canvasImage: true,
             _selectors: {
-                list: '.jFiler-items-list',
-                item: '.jFiler-item',
-                progressBar: '.bar',
-                remove: '.jFiler-item-trash-action'
+                list: ".jFiler-items-list",
+                item: ".jFiler-item",
+                progressBar: ".bar",
+                remove: ".jFiler-item-trash-action"
             }
         },
         files: null,

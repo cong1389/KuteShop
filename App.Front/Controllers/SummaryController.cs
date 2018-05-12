@@ -14,7 +14,9 @@ using App.Service.Common;
 using App.Service.ContactInformation;
 using App.Service.Locations;
 using App.Service.Menu;
+using App.Service.Post;
 using App.Service.SeoSetting;
+using App.Service.Static;
 using App.Service.SystemApp;
 
 namespace App.Front.Controllers
@@ -358,5 +360,30 @@ namespace App.Front.Controllers
         }
 
         #endregion
+
+        //Hien thi san pham footer
+        [PartialCache("Medium")]
+        public JsonResult PostOutOfStock()
+        {
+            var post = _postService.GetTop(6, x => x.Status == (int)Status.Enable && x.OutOfStock);
+
+            var jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Footer.Product", post) },
+                JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+        }
+
+        [PartialCache("Long")]
+        public JsonResult GetIntro(int menuId)
+        {
+            var staticContent = _staticContentService.Get(x => x.Id == menuId, true);
+
+            var staticContentLocalized = staticContent.ToModel();
+
+            var jsonResult = Json(new { success = true, list = this.RenderRazorViewToString("_Footer.Intro", staticContentLocalized) },
+                JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+        }
     }
 }

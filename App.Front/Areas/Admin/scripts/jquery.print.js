@@ -35,7 +35,7 @@
                 frameWindow.focus();
                 try {
                     // Fix for IE11 - printng the whole page instead of the iframe content
-                    if (!frameWindow.document.execCommand('print', false, null)) {
+                    if (!frameWindow.document.execCommand("print", false, null)) {
                         // document.execCommand returns false if it failed -http://stackoverflow.com/a/21336448/937891
                         frameWindow.print();
                     }
@@ -57,7 +57,7 @@
         if (iframeCount === 0) {
             // Create a new iFrame if none is given
             $iframe = $('<iframe height="0" width="0" border="0" wmode="Opaque"/>')
-                .prependTo('body')
+                .prependTo("body")
                 .css({
                     "position": "absolute",
                     "top": -999,
@@ -85,7 +85,7 @@
                 try {
                     options.deferred.resolve();
                 } catch (err) {
-                    console.warn('Error notifying deferred', err);
+                    console.warn("Error notifying deferred", err);
                 }
             });
     }
@@ -98,7 +98,7 @@
                 try {
                     options.deferred.resolve();
                 } catch (err) {
-                    console.warn('Error notifying deferred', err);
+                    console.warn("Error notifying deferred", err);
                 }
             });
     }
@@ -153,7 +153,7 @@
             deferred: $.Deferred(),
             timeout: 250,
             title: null,
-            doctype: '<!doctype html>'
+            doctype: "<!doctype html>"
         };
         // Merge with user-options
         options = $.extend({}, defaults, (options || {}));
@@ -220,9 +220,9 @@
         var content = copy.html();
         // Notify with generated markup & cloned elements - useful for logging, etc
         try {
-            options.deferred.notify('generated_markup', content, copy);
+            options.deferred.notify("generated_markup", content, copy);
         } catch (err) {
-            console.warn('Error notifying deferred', err);
+            console.warn("Error notifying deferred", err);
         }
         // Destroy the copy
         copy.remove();

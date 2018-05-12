@@ -31,8 +31,7 @@
 
     @{Html.RenderPartial("_StyleSheet");}
 
-    @RenderSection("stylesheets", false)
-    @RenderSection("styles", false)
+    @RenderSection("renderStyles", false)
 
     @{Html.RenderPartial("_Scripts"); }
 
@@ -215,8 +214,8 @@
     </div>
     <!-- /.modal -->
 
-    @RenderSection("jquerys", false)
-    @RenderSection("scripts", false)
+    @RenderSection("renderJQuery", false)
+    @RenderSection("renderScripts", false)
     @RenderSection("google", false)
     @RenderSection("facebook", false)
 
