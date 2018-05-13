@@ -229,7 +229,7 @@ namespace App.Service.Menu
             return menuLinks;
         }
 
-        public IEnumerable<MenuLink> GetByOption(List<int> position = null
+        public IEnumerable<MenuLink> GetByOptions(List<int> position = null
             , List<int> template = null
             , string virtualId = null
             , string seoUrl = null

@@ -24,7 +24,7 @@
 
                     <td>@item.ShippingStatus</td>
 
-                    <td>@string.Format("{0:##,### VNĐ}", item.OrderTotal)</td>
+                    <td>@item.OrderTotal.FormatPrice()</td>
                 </tr>
             }
         </table>

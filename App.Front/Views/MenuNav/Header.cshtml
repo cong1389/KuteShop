@@ -2,7 +2,7 @@
 
 <div id="header" class="header">
 
-    @{Html.RenderAction("GetTopHead", "MenuNav", new { area = "" });}
+    @{Html.RenderAction("TopHead", "MenuNav", new { area = "" });}
 
     <!-- MAIN HEADER -->
     <div class="container main-header">
@@ -24,8 +24,8 @@
     <div id="nav-top-menu" class="nav-top-menu">
         <div class="container">
             <div class="row">
-                @Html.Action("GetMenuVerticalMega", "MenuNav", new { area = "" })
-                @Html.Action("GetTopMenu", "MenuNav", new { area = "" })
+                @Html.Action("MenuVerticalMega", "MenuNav", new { area = "" })
+                @Html.Action("TopMenu", "MenuNav", new { area = "" })
             </div>
             <!-- userinfo on top-->
             <div id="form-search-opntop">

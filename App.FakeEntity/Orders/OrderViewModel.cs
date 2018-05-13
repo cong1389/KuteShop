@@ -120,7 +120,7 @@ namespace App.FakeEntity.Orders
         {
             get; set;
         }
-        public decimal OrderTotal
+        public decimal? OrderTotal
         {
             get; set;
         }

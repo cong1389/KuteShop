@@ -14,6 +14,7 @@ using App.FakeEntity.News;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Media;
 using App.Service.Menu;
 using App.Service.News;
 using AutoMapper;
@@ -30,7 +31,7 @@ namespace App.Admin.Controllers
 
         private readonly INewsService _newsService;
 
-        private readonly IImagePlugin _imagePlugin;
+        private readonly IImageService _imageService;
 
         private readonly ILanguageService _languageService;
 
@@ -39,14 +40,14 @@ namespace App.Admin.Controllers
         public NewsController(
             INewsService newsService
             , IMenuLinkService menuLinkService
-            , IImagePlugin imagePlugin
+            , IImageService imageService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
             , ICacheManager cacheManager)
         {
             _newsService = newsService;
             _menuLinkService = menuLinkService;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _cacheManager = cacheManager;
@@ -104,9 +105,9 @@ namespace App.Admin.Controllers
                     var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
                     var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
 
                     model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
@@ -245,9 +246,9 @@ namespace App.Admin.Controllers
                     var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
                     var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
 
                     model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
                     model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";

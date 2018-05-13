@@ -49,8 +49,8 @@ namespace App.Front
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             app.UseGoogleAuthentication(
-                "264629127668-pp28sk9b98o9hdvagvqimm1to2qjpejf.apps.googleusercontent.com",
-                clientSecret: "OE3P6-4o0zVCd-k8QQ415oVn");
+                "34554057736-s8tbm06iemdbsas0i8osrvu3du3jjk6k.apps.googleusercontent.com",
+                clientSecret: "xga3DkrBRSJOLSMd18AJMTOW");
 
             // Uncomment the following lines to enable logging in
             // with third party login providers

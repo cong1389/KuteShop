@@ -44,6 +44,9 @@
       <HintPath>..\packages\HtmlAgilityPack.1.5.2-beta6\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ImageProcessor, Version=2.6.1.19, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.6.1.19\lib\net452\ImageProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="Kaliko.ImageLibrary">
       <HintPath>..\lib\Kaliko.ImageLibrary.dll</HintPath>
     </Reference>
@@ -80,8 +83,6 @@
   <ItemGroup>
     <Compile Include="FileUtil\ExcelUtil.cs" />
     <Compile Include="Filters\FormValueRequiredAttribute.cs" />
-    <Compile Include="ImagePlugin\IImagePlugin.cs" />
-    <Compile Include="ImagePlugin\ImagePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

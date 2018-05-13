@@ -12,6 +12,7 @@ using App.FakeEntity.Menu;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Media;
 using App.Service.Menu;
 using AutoMapper;
 using Resources;
@@ -27,16 +28,17 @@ namespace App.Admin.Controllers
         private readonly ILocalizedPropertyService _localizedPropertyService;
 
         private readonly ILanguageService _languageService;
-        private readonly IImagePlugin _imagePlugin;
+        private readonly IImageService _imageService;
 
         public MenuController(IMenuLinkService menuLinkService, ILocalizedPropertyService localizedPropertyService
             , ILanguageService languageService
-           , ICacheManager cacheManager, IImagePlugin imagePlugin)
+           , ICacheManager cacheManager
+            , IImageService imageService)
         {
             _menuLinkService = menuLinkService;
             _localizedPropertyService = localizedPropertyService;
             _languageService = languageService;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
 
             //Clear cache
             cacheManager.RemoveByPattern(CacheMenuKey);
@@ -91,7 +93,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
+                    _imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
                     model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -101,7 +103,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
                     model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -111,7 +113,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
+                    _imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
                     model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -267,7 +269,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageBigSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
+                    _imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithBigSize, ImageSize.MenuHeightBigSize);
                     model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 
@@ -277,7 +279,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithMediumSize, ImageSize.MenuHeightMediumSize);
                     model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
                 if (model.ImageSmallSizeFile != null && model.ImageSmallSizeFile.ContentLength > 0)
@@ -286,7 +288,7 @@ namespace App.Admin.Controllers
                     var fileExtension = Path.GetExtension(model.ImageSmallSizeFile.FileName);
                     var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
+                    _imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, ImageSize.MenuWithSmallSize, ImageSize.MenuHeightSmallSize);
                     model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
                 }
 

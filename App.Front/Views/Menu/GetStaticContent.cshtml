@@ -3,8 +3,7 @@
 @model App.Domain.Entities.Data.StaticContent
 @if (Model != null)
 {
-    @*@Html.Action("BannerTop", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title })*@
-
+	Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.MenuId, title = ViewBag.Title });
 
     if (ViewBag.TemplateType == (int)TemplateContent.FixItem)
     {

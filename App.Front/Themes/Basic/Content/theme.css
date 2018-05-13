@@ -699,6 +699,9 @@ body:not(.device-touch) .social-icon i {
   padding-left: 5px;
   padding-top: 2px; }
 
+.post-detail__social {
+  float: left; }
+
 .goweb-cart {
   font-family: Open Sans; }
   .goweb-cart .cart-product-quantity {
@@ -1204,10 +1207,10 @@ body:not(.device-touch) .social-icon i {
     text-align: center; }
   .conten-attr .active .bg {
     border: #e42127 solid 3px;
-    background: url(../Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right; }
+    background: url(/Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right; }
   .conten-attr .active .size span {
     border-color: #e42127 !important;
-    background: url(../Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right;
+    background: url(/Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right;
     top: 0px;
     padding-left: 0;
     text-align: center !important; }

@@ -139,7 +139,7 @@ namespace App.Front.Controllers
             }
 
             //Get menu category filter
-            var menuCategoryFilter = _menuLinkService.GetByOption(virtualId: virtualCategoryId);
+            var menuCategoryFilter = _menuLinkService.GetByOptions(virtualId: virtualCategoryId);
 
             if (menuCategoryFilter.IsAny())
             {
@@ -195,34 +195,37 @@ namespace App.Front.Controllers
                 return HttpNotFound();
             }
 
-            var postLocalized = post.ToModel();
-
-            var viewCount = post;
-            viewCount.ViewCount = viewCount.ViewCount + 1;
-            _postService.Update(post);
-
-            var categories = post.VirtualCategoryId.Split('/');
-            var breadCrumbs = new List<BreadCrumb>();
-            breadCrumbs.AddRange(categories.Select(str => _menuLinkService.GetByCurrentVirtualId(str))
-                .Select(menuLink => new BreadCrumb
-                {
-                    Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id),
-                    Current = false,
-                    Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
-                }));
-            breadCrumbs.Add(new BreadCrumb
+            Post postLocalized;
             {
-                Current = true,
-                Title = postLocalized.Title
-            });
+                postLocalized = post.ToModel();
 
-            ViewBag.BreadCrumb = breadCrumbs;
-            ViewBag.Title = postLocalized.Title;
-            ViewBag.KeyWords = postLocalized.MetaKeywords;
-            ViewBag.SiteUrl = Url.Action("PostDetail", "Post", new { seoUrl, area = "" });
-            ViewBag.Description = postLocalized.MetaTitle;
-            ViewBag.Image = Url.Content(string.Concat("~/", postLocalized.ImageBigSize));
-            ViewBag.MenuId = postLocalized.MenuId;
+                var viewCount = post;
+                viewCount.ViewCount = viewCount.ViewCount + 1;
+                _postService.Update(post);
+
+                var categories = post.VirtualCategoryId.Split('/');
+                var breadCrumbs = new List<BreadCrumb>();
+                breadCrumbs.AddRange(categories.Select(str => _menuLinkService.GetByCurrentVirtualId(str))
+                    .Select(menuLink => new BreadCrumb
+                    {
+                        Title = menuLink.GetLocalized(x => x.MenuName, menuLink.Id),
+                        Current = false,
+                        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
+                    }));
+                breadCrumbs.Add(new BreadCrumb
+                {
+                    Current = true,
+                    Title = postLocalized.Title
+                });
+
+                ViewBag.BreadCrumb = breadCrumbs;
+                ViewBag.Title = postLocalized.Title;
+                ViewBag.KeyWords = postLocalized.MetaKeywords;
+                ViewBag.SiteUrl = Url.Action("PostDetail", "Post", new { seoUrl, area = "" });
+                ViewBag.Description = postLocalized.MetaTitle;
+                ViewBag.Image = Url.Content(string.Concat("~/", postLocalized.ImageBigSize));
+                ViewBag.MenuId = postLocalized.MenuId;
+            }
 
             return View(postLocalized);
         }
@@ -250,7 +253,7 @@ namespace App.Front.Controllers
                 posts.AddRange(tops);
             }
 
-            return Json(new {data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true},
+            return Json(new { data = this.RenderRazorViewToString("_PartialPostItems", posts), success = true },
                 JsonRequestBehavior.AllowGet);
         }
 
@@ -330,7 +333,7 @@ namespace App.Front.Controllers
         //[PartialCache("Long")]
         public ActionResult PostHome()
         {
-            var menuLinks = _menuLinkService.GetByOption(new List<int> { (int)Position.SiderBar }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.SiderBar }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -412,7 +415,7 @@ namespace App.Front.Controllers
                 return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new {data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true},
+            return Json(new { data = this.RenderRazorViewToString("_PartialGallery", galleryImages), success = true },
                 JsonRequestBehavior.AllowGet);
         }
 
@@ -560,13 +563,13 @@ namespace App.Front.Controllers
                 if (genericControls.IsAny())
                 {
                     valueItemResponses.AddRange(from item in genericControls
-                                              from gcValue in item.GenericControlValues.Where(m => m.Status == (int)Status.Enable)
-                                              select new ControlValueItemResponse
-                                              {
-                                                  GenericControlValueId = gcValue.Id,
-                                                  Name = gcValue.ValueName,
-                                                  ValueName = gcValue.GetValueItem(entityId)
-                                              });
+                                                from gcValue in item.GenericControlValues.Where(m => m.Status == (int)Status.Enable)
+                                                select new ControlValueItemResponse
+                                                {
+                                                    GenericControlValueId = gcValue.Id,
+                                                    Name = gcValue.ValueName,
+                                                    ValueName = gcValue.GetValueItem(entityId)
+                                                });
                 }
             }
 

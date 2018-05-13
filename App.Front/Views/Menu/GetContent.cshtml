@@ -24,7 +24,7 @@ else
 
     if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.News)
     {
-        @Html.Action("GetNewsByCategory", "News", new { virtualCategoryId = ViewBag.VirtualId, menuId = ViewBag.MenuId, title = ViewBag.Title, page = ViewBag.PageNumber, area = "" })
+        @Html.Action("NewsCategories", "News", new { virtualCategoryId = ViewBag.VirtualId, menuId = ViewBag.MenuId, title = ViewBag.Title, page = ViewBag.PageNumber, area = "" })
     }
 
     if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.SaleOff)

@@ -23,6 +23,7 @@ using App.Service.LocalizedProperty;
 using App.Service.Locations;
 using App.Service.MailSetting;
 using App.Service.Manufacturers;
+using App.Service.Media;
 using App.Service.Menu;
 using App.Service.Messages;
 using App.Service.News;
@@ -86,8 +87,6 @@ namespace App.Framework.Ioc
             builder.RegisterType<RoleService>().As<IRoleService>().InstancePerRequest();
             builder.RegisterType<UserStoreService>().As<IUserStoreService>().InstancePerRequest();
             builder.RegisterType<SendMailService>().As<ISendMailService>().InstancePerRequest();
-
-            builder.RegisterType<ImagePlugin>().As<IImagePlugin>().InstancePerRequest();
            
             builder.RegisterType<BrandService>().As<IBrandService>().InstancePerRequest();
 
@@ -131,6 +130,8 @@ namespace App.Framework.Ioc
             builder.RegisterType<MessageModelProvider>().As<IMessageModelProvider>().InstancePerRequest();
             builder.RegisterType<DefaultTemplateManager>().As<ITemplateManager>().InstancePerRequest();
 
-        }
+	        builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
+
+		}
     }
 }

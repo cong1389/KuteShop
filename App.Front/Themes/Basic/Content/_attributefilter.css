@@ -4,10 +4,10 @@
     text-align: center; }
   .conten-attr .active .bg {
     border: #e42127 solid 3px;
-    background: url(../Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right; }
+    background: url(/Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right; }
   .conten-attr .active .size span {
     border-color: #e42127 !important;
-    background: url(../Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right;
+    background: url(/Themes/Basic/Content/images/bg-selected.png) no-repeat bottom right;
     top: 0px;
     padding-left: 0;
     text-align: center !important; }

@@ -13,9 +13,9 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="row">
-                        @Html.Action("GetFooterLink", "MenuNav", new { area = "" })
-                    </div>
+	                <div class="row">
+						@{Html.RenderAction("FooterLink", "MenuNav", new { area = "" });}
+	                </div>
                 </div>
                 <div class="col-md-3">
                     <div id="contact-box">

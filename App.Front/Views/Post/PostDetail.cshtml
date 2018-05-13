@@ -6,7 +6,7 @@
 
 @if (Model != null)
 {
-	<div class="columns-container">
+	<div class="post-detail columns-container">
 		<div class="container" id="columns">
 			@{
 				Html.RenderPartial("_BreadCrumb");
@@ -28,7 +28,7 @@
 							<!-- layered -->
 							<div class="layered layered-category">
 								<div class="layered-content">
-									@Html.Action("GetMenuLinkSideBar", "MenuNav", new { area = "", virtualId = Model.MenuLink.VirtualId, proAttrs = ViewBag.ProAttrs })
+									@Html.Action("MenuLinkSideBar", "MenuNav", new { area = "", virtualId = Model.MenuLink.VirtualId, proAttrs = ViewBag.ProAttrs })
 								</div>
 							</div>
 							<!-- ./layered -->
@@ -63,7 +63,7 @@
 											else
 											{
 												<a class="rsImg" data-rsBigImg="@Url.Content("~/" + Model.ImageMediumSize)" href="@Url.Content("~/" + Model.ImageMediumSize)">
-													<img width="195" height="350" class="rsTmb" src="@Model.ImageMediumSize.ValidateImage()" alt="@Model.Title"/>
+													<img width="195" height="350" class="rsTmb" src="@Model.ImageMediumSize.ValidateImage()" alt="@Model.Title" />
 												</a>
 											}
 										</div>
@@ -145,16 +145,26 @@
 											</div>
 										</div>
 
-										<div class="action-cart">
-											<a href="javascript:;" class="addToCart btn-cart add-cart">Thêm vào giỏ</a>
+										<div class="form-action">
+											<div class="button-group"><a href="javascript:;" class="addToCart btn-add-cart">Thêm vào giỏ</a></div>
 										</div>
 									}
 									else
 									{
-										<div class="action-cart">
-											<a href="javascript:;" class="addToCart btn-cart add-cart">Vui lòng liên hệ</a>
+										<div class="form-action">
+											<div class="button-group"><a href="javascript:;" class="addToCart btn-add-cart">Vui lòng liên hệ</a></div>
 										</div>
 									}
+									<div class="action product-desc">
+										<div class="sendtofriend-print">
+											<div class="post-detail__social">
+												@{Html.RenderPartial("Socials/_Social.FB_Share");}
+											</div>
+											<div class="post-detail__social">
+												@{Html.RenderPartial("Socials/_Social.FB_like");}
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</form>
@@ -183,7 +193,7 @@
 								<div id="information" class="tab-panel">
 									<div id="binhluan">
 										<div class="container-fluid">
-
+											@{Html.RenderPartial("Socials/_Social.FB_Comment");}
 										</div>
 									</div>
 								</div>
@@ -251,11 +261,17 @@
 					<div style="" class="saleoff-price-item">
 						<span class="price-label">Tiết kiệm:</span>
 						<span id="product-discount" class="product-discount">@post.Discount%</span>
-						<span id="span-saving-price" class="discount"> @Html.Raw((gallery.Price * post.Discount / 100).FormatPrice()) </span>
-					</div>
-					<div class="old-price-item">
-						<span class="price-label">Giá thị trường:</span>
-						<span id="span-list-price"> @gallery.Price.FormatPrice()</span>
+						<span id="span-saving-price" class="discount">
+							@if (gallery != null)
+							{
+								@Html.Raw((gallery.Price * post.Discount / 100).FormatPrice())
+								@:</span>
+								@:</div>
+								@:<div class="old-price-item">
+								<span class="price-label">Giá thị trường:</span>
+								@:<span id="span-list-price"> @gallery.Price.FormatPrice()
+							}
+						</span>
 					</div>
 				}
 			</div>

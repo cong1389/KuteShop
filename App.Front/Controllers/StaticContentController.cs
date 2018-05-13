@@ -16,12 +16,6 @@ namespace App.Front.Controllers
             _staticContentService = staticContentService;
         }
 
-        // GET: StaticContent
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [ChildActionOnly]
         public ActionResult GetSlogan(int menuId)
         {

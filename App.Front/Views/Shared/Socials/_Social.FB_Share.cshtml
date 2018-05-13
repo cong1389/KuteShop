@@ -1,11 +1,19 @@
 ﻿<!---_Social.FB_Share-->
-<div class="sbutton">
-    <div id="fb">
-        <a href="@string.Format("https://www.facebook.com/sharer/sharer.php?u={0}", @Request.Url.AbsoluteUri)"
-           onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"
-           target="_blank" alt="Share on Facebook" style="width: 45px;">
-            <img src="/Areas/Admin/images/Socials/fb.png">
-        </a>
-    </div>
-</div>
+<div id="divFBShare"></div>
+
+<script>
+
+	jQuery(document).ready(function () {
+		var url = window.location.href;
+
+		//FB like
+		var fbLikeCode = '<div class="fb-share-button" data-href="' + url + '" data-layout="button_count"' +
+			' data-size="small" data-mobile-iframe="true">' +
+			'<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=' + url + ';src=sdkpreparse" ' +
+			'class="fb-xfbml-parse-ignore">Share</a></div>';
+
+		jQuery('#divFBShare').html(fbLikeCode);
+	});
+</script>
+
 <!---_Social.FB_Share-->

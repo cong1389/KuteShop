@@ -15,14 +15,9 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult BannerHomeProduct()
+        public ActionResult BannerProductHome()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.HomeProduct });
-
-            //var banners = _bannerService.FindBy(
-            //    x => x.Status == 1 && x.PageBanner.Position == 10 &&
-            //         (!x.FromDate.HasValue || DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //         (!x.ToDate.HasValue || DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
 
             return PartialView(banners);
         }
@@ -44,24 +39,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult BannerTopOfNewsPage(int? menuId, string title)
-        {
-            var banner = _bannerService.GetBanner(menuId, (int)Status.Enable, new List<int> { (int)Position.Top });
-
-            //var banners = _bannerService.Get(x =>
-            //    x.MenuId == menuId && x.Status == 1 && x.PageBanner.Position == 1 &&
-            //    (!x.FromDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //    (!x.ToDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
-
-            ViewBag.Title = title;
-
-            return PartialView(banner);
-        }
-
-        [ChildActionOnly]
-        public ActionResult GetBannerBootom()
+        public ActionResult BannerBottom()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Bottom });
 
@@ -76,7 +54,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerFooter()
+        public ActionResult BannerFooter()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Footer });
 
@@ -91,7 +69,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerLeft()
+        public ActionResult BannerLeft()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Left });
 
@@ -106,7 +84,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerMiddle(int? menuId)
+        public ActionResult BannerMiddle(int? menuId)
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Middle });
 
@@ -121,7 +99,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerOnMenu()
+        public ActionResult BannerOnMenu()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.OnMenu });
 
@@ -136,7 +114,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerRight()
+        public ActionResult BannerRight()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Right });
 
@@ -151,7 +129,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult GetBannerSideBar(int? menuId)
+        public ActionResult BannerSideBar(int? menuId)
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.SiderBar });
 

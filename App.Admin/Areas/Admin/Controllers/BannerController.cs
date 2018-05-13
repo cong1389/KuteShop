@@ -12,6 +12,7 @@ using App.Domain.Entities.Ads;
 using App.FakeEntity.Ads;
 using App.Framework.Ultis;
 using App.Service.Ads;
+using App.Service.Media;
 using App.Service.Menu;
 using AutoMapper;
 using Resources;
@@ -26,20 +27,21 @@ namespace App.Admin.Controllers
         private readonly IMenuLinkService _menuLinkService;
 
         private readonly IBannerService _bannerService;
+        private readonly IImageService _imageService;
 
         private readonly IPageBannerService _pageBannerService;
-        private readonly IImagePlugin _imagePlugin;
 
         public BannerController(IBannerService bannerService
             , IMenuLinkService menuLinkService
             , IPageBannerService pageBannerService
-            , ICacheManager cacheManager, IImagePlugin imagePlugin)
+            , ICacheManager cacheManager
+            , IImageService imageService)
         {
             _bannerService = bannerService;
             _menuLinkService = menuLinkService;
             _pageBannerService = pageBannerService;
             _cacheManager = cacheManager;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CacheBannerKey);
@@ -79,7 +81,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
 
                     model.ImgPath = $"{Contains.AdsFolder}{folderName}/{fileName}";
                 }
@@ -159,7 +161,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, ImageSize.BannerWithBigSize, ImageSize.BannerHeightBigSize);
 
                     model.ImgPath = $"{Contains.AdsFolder}{folderName}/{fileName}";
                     //var fileName = Path.GetFileName(model.Image.FileName);

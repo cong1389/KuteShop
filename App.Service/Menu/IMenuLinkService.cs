@@ -23,7 +23,7 @@ namespace App.Service.Menu
 
         IEnumerable<MenuLink> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
-        IEnumerable<MenuLink> GetByOption(List<int> position = null
+        IEnumerable<MenuLink> GetByOptions(List<int> position = null
                 , List<int> template = null
                 , string virtualId = null
                 , string seoUrl = null

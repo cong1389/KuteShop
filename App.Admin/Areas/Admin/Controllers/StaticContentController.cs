@@ -14,6 +14,7 @@ using App.FakeEntity.Static;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Media;
 using App.Service.Menu;
 using App.Service.Static;
 using AutoMapper;
@@ -34,21 +35,21 @@ namespace App.Admin.Controllers
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
-        private readonly IImagePlugin _imagePlugin;
+        private readonly IImageService _imageService;
 
         public StaticContentController(
             IStaticContentService staticContentService
             , IMenuLinkService menuLinkService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager, IImagePlugin imagePlugin)
+            , ICacheManager cacheManager, IImageService imageService)
         {
             _staticContentService = staticContentService;
             _menuLinkService = menuLinkService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _cacheManager = cacheManager;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CacheStaticcontentKey);
@@ -101,7 +102,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
 
                     model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
 
@@ -245,7 +246,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
 
                     model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
 

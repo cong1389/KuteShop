@@ -11,6 +11,7 @@ using App.Domain.Entities.Data;
 using App.FakeEntity.Manufacturers;
 using App.Framework.Ultis;
 using App.Service.Manufacturers;
+using App.Service.Media;
 using AutoMapper;
 using Resources;
 
@@ -22,15 +23,15 @@ namespace App.Admin.Controllers
         private readonly ICacheManager _cacheManager;
 
         private readonly IManufacturerService _manufacturerService;
+        private readonly IImageService _imageService;
 
-        private readonly IImagePlugin _imagePlugin;
-
-        public ManufacturerController(IManufacturerService manufacturerService, IImagePlugin imagePlugin
-            , ICacheManager cacheManager)
+        public ManufacturerController(IManufacturerService manufacturerService
+            , ICacheManager cacheManager
+            , IImageService imageService)
         {
             _manufacturerService = manufacturerService;
-            _imagePlugin = imagePlugin;
             _cacheManager = cacheManager;
+            _imageService = imageService;
 
             //Clear cache
             _cacheManager.RemoveByPattern(Cache);
@@ -71,7 +72,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
                     model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
                 }
@@ -154,7 +155,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
                     model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
                 }

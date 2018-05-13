@@ -12,6 +12,7 @@ using App.FakeEntity.Repairs;
 using App.Framework.Ultis;
 using App.Service.Attribute;
 using App.Service.Brandes;
+using App.Service.Media;
 using App.Service.Menu;
 using App.Service.Repair;
 using App.Service.Repairs;
@@ -26,24 +27,22 @@ namespace App.Admin.Controllers
 
         private readonly IRepairGalleryService _galleryService;
 
-        private readonly IImagePlugin _imagePlugin;
-
         private readonly IRepairService _repairService;
 
         private readonly IRepairItemService _repairItemService;
-
+        private readonly IImageService _imageService;
 
         public RepairController(IRepairService repairService, IMenuLinkService menuLinkService,
-            IAttributeValueService attributeValueService, IRepairGalleryService galleryService
-            , IImagePlugin imagePlugin, IBrandService brandService, IRepairItemService repairItemService
-            , ICacheManager cacheManager)
+            IAttributeValueService attributeValueService, IRepairGalleryService galleryService, IBrandService brandService, IRepairItemService repairItemService
+            , ICacheManager cacheManager
+            , IImageService imageService)
             : base(cacheManager)
         {
             _repairService = repairService;
             _galleryService = galleryService;
-            _imagePlugin = imagePlugin;
             _brandService = brandService;
             _repairItemService = repairItemService;
+            _imageService = imageService;
         }
 
         [RequiredPermisson(Roles = "CreateEditRepair")]
@@ -98,7 +97,7 @@ namespace App.Admin.Controllers
                                         RepairId = repair.Id
                                     };
                                     var str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
-                                    _imagePlugin.CropAndResizeImage(httpPostedFileBase,
+                                    _imageService.CropAndResizeImage(httpPostedFileBase,
                                         $"{Contains.MenuFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                     repairGalleryViewModel.ImagePath =
                                         $"{Contains.MenuFolder}{repair.RepairCode}/{str1}";
@@ -249,7 +248,7 @@ namespace App.Admin.Controllers
                                         RepairId = repairView.Id
                                     };
                                     var str1 = $"{repairView.RepairCode}-{Guid.NewGuid()}.jpg";
-                                    _imagePlugin.CropAndResizeImage(item,
+                                    _imageService.CropAndResizeImage(item,
                                         $"{Contains.MenuFolder}{repairView.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
                                     repairGalleryViewModel.ImagePath =
                                         $"{Contains.MenuFolder}{repairView.RepairCode}/{str1}";

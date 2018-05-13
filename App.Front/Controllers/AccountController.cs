@@ -17,6 +17,7 @@ using App.Front.Models;
 using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.Locations;
+using App.Service.Media;
 using App.Service.Menu;
 using App.Service.Orders;
 using App.Service.Post;
@@ -38,7 +39,7 @@ namespace App.Front.Controllers
 
 		private readonly IGalleryService _galleryService;
 
-		private readonly IImagePlugin _imagePlugin;
+		private readonly IImageService _imageService;
 
 		private readonly IOrderService _orderService;
 		private readonly IWorkContext _workContext;
@@ -46,7 +47,7 @@ namespace App.Front.Controllers
 		public AccountController(UserManager<IdentityUser, Guid> userManager
 			, IPostService postService, IGalleryService galleryService, IProvinceService provinceService
 			, IMenuLinkService menuLinkService
-			, IDistrictService districtService, IImagePlugin imagePlugin
+			, IDistrictService districtService, IImageService imageService
 			, IOrderService orderService
 			, IIdentityMessageService emailService
 			, IWorkContext workContext) : base(userManager, emailService)
@@ -55,7 +56,7 @@ namespace App.Front.Controllers
 			_galleryService = galleryService;
 			_menuLinkService = menuLinkService;
 			_districtService = districtService;
-			_imagePlugin = imagePlugin;
+			_imageService = imageService;
 			_orderService = orderService;
 			_workContext = workContext;
 		}
@@ -108,9 +109,9 @@ namespace App.Front.Controllers
 						var str1 = $"{str}-{Utils.GetTime()}";
 						var str2 = $"{str}-{Utils.GetTime()}";
 						var str3 = $"{str}-{Utils.GetTime()}";
-						_imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-						_imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-						_imagePlugin.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+						_imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+						_imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+						_imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
 						post.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
 						post.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
 						post.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
@@ -149,8 +150,8 @@ namespace App.Front.Controllers
 										};
 										var str5 = $"{str}-{Utils.GetTime()}";
 										var str6 = $"{str}-{Utils.GetTime()}";
-										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
 										galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
 										galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
 										galleryImageViewModel.OrderDisplay = num;
@@ -244,9 +245,9 @@ namespace App.Front.Controllers
 						var str1 = $"{str}-{Utils.GetTime()}";
 						var str2 = $"{str}-{Utils.GetTime()}";
 						var str3 = $"{str}-{Utils.GetTime()}";
-						_imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-						_imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-						_imagePlugin.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+						_imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+						_imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+						_imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
 						postView.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
 						postView.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
 						postView.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
@@ -283,8 +284,8 @@ namespace App.Front.Controllers
 										};
 										var str5 = $"{str}-{Utils.GetTime()}";
 										var str6 = $"{str}-{Utils.GetTime()}";
-										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-										_imagePlugin.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
 										galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
 										galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
 										galleryImageViewModel.OrderDisplay = num;

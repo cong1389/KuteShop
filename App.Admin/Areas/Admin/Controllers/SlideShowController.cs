@@ -12,6 +12,7 @@ using App.FakeEntity.Slide;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Media;
 using App.Service.Slide;
 using AutoMapper;
 using Resources;
@@ -28,19 +29,19 @@ namespace App.Admin.Controllers
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
-        private readonly IImagePlugin _imagePlugin;
+        private readonly IImageService _imageService;
 
         public SlideShowController(
             ISlideShowService slideShowService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager, IImagePlugin imagePlugin)
+            , ICacheManager cacheManager, IImageService imageService)
         {
             _slideShowService = slideShowService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _cacheManager = cacheManager;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
 
             //Clear cache
             _cacheManager.RemoveByPattern(CacheSlideshowKey);
@@ -84,7 +85,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
 
                     model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
 
@@ -199,7 +200,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
 
                     model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
 

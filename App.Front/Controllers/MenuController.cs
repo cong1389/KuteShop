@@ -59,7 +59,7 @@ namespace App.Front.Controllers
 
             if (menuLinkLocalized.TemplateType == (int)TemplateContent.News)
             {
-                viewBag.MenuList = _menuLinkService.GetByOption(template: new List<int> { (int)TemplateContent.News });
+                viewBag.MenuList = _menuLinkService.GetByOptions(template: new List<int> { (int)TemplateContent.News });
                 //IMenuLinkService menuLinkService = this._menuLinkService;
                 //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
             }
@@ -91,7 +91,7 @@ namespace App.Front.Controllers
             ViewBag.ImgUrl = menuLink.ImageBigSize;
             ViewBag.TitleFix = menuLink.MenuName;
 
-            var menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOptions(parentId: new List<int> { id }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -106,7 +106,7 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetLeftFixItem(int id)
         {
-            var menuLinks = _menuLinkService.GetByOption(parentId: new List<int> { id }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOptions(parentId: new List<int> { id }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -115,15 +115,6 @@ namespace App.Front.Controllers
 
             return Json(new { data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true },
                 JsonRequestBehavior.AllowGet);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult MenuHomeTab()
-        {
-            var menuLinks = _menuLinkService.GetByOption(template: new List<int> { (int)TemplateContent.Product }, isDisplayHomePage: true);
-
-            return PartialView(menuLinks);
         }
 
         [ChildActionOnly]
@@ -185,7 +176,7 @@ namespace App.Front.Controllers
             //Convert to localized
             var staticContentLocalized = staticContent.ToModel();
 
-            var menuLinks = _menuLinkService.GetByOption(id: menuId);
+            var menuLinks = _menuLinkService.GetByOptions(id: menuId);
             //var menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1);
 
             //Convert to localized
@@ -235,7 +226,7 @@ namespace App.Front.Controllers
                 virtualId = $"{strArrays[0]}/{strArrays[1]}";
             }
 
-            var menuLinks = _menuLinkService.GetByOption(template: new List<int> { (int)TemplateContent.FixItem }, virtualId: virtualId);
+            var menuLinks = _menuLinkService.GetByOptions(template: new List<int> { (int)TemplateContent.FixItem }, virtualId: virtualId);
 
             //var menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == (int)TemplateContent.FixItem);
 
@@ -249,7 +240,7 @@ namespace App.Front.Controllers
             Response.Cookies.Add(cookie);
 
             var byId = new MenuLink();
-            var menuLinks = _menuLinkService.GetByOption(isDisplayHomePage: true, template: new List<int> { (int)TemplateContent.Product });
+            var menuLinks = _menuLinkService.GetByOptions(isDisplayHomePage: true, template: new List<int> { (int)TemplateContent.Product });
 
             if (menuLinks.IsAny())
             {

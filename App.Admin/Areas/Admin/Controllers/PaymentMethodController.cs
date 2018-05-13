@@ -12,6 +12,7 @@ using App.FakeEntity.Payments;
 using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
+using App.Service.Media;
 using App.Service.PaymentMethodes;
 using AutoMapper;
 using Resources;
@@ -25,18 +26,18 @@ namespace App.Admin.Controllers
 
         private readonly IPaymentMethodService _paymentMethodService;
 
-        private readonly IImagePlugin _imagePlugin;
+        private readonly IImageService _imageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
         private readonly ILanguageService _languageService;
 
-        public PaymentMethodController(IPaymentMethodService paymentMethodService, IImagePlugin imagePlugin
+        public PaymentMethodController(IPaymentMethodService paymentMethodService, IImageService imageService
             , ICacheManager cacheManager
             , ILocalizedPropertyService localizedPropertyService
             , ILanguageService languageService)
         {
             _paymentMethodService = paymentMethodService;
-            _imagePlugin = imagePlugin;
+            _imageService = imageService;
             _cacheManager = cacheManager;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
@@ -81,7 +82,7 @@ namespace App.Admin.Controllers
 
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
                 }
@@ -180,7 +181,7 @@ namespace App.Admin.Controllers
                     //var fileExtension = Path.GetExtension(model.Image.FileName);
                     //var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                    _imagePlugin.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
+                    _imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
 
                     model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
                 }
