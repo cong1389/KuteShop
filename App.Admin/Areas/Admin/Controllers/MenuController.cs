@@ -21,7 +21,6 @@ namespace App.Admin.Controllers
     public class MenuController : BaseAdminController
     {
         private const string CacheMenuKey = "db.MenuLink";
-        private readonly ICacheManager _cacheManager;
 
         private readonly IMenuLinkService _menuLinkService;
 
@@ -37,11 +36,10 @@ namespace App.Admin.Controllers
             _menuLinkService = menuLinkService;
             _localizedPropertyService = localizedPropertyService;
             _languageService = languageService;
-            _cacheManager = cacheManager;
             _imagePlugin = imagePlugin;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CacheMenuKey);
+            cacheManager.RemoveByPattern(CacheMenuKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditMenu")]
@@ -68,7 +66,7 @@ namespace App.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var messages = String.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
+                    var messages = string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors)
                                                             .Select(v => v.ErrorMessage + " " + v.Exception));
                     ModelState.AddModelError("", messages);
                     return View(model);
@@ -373,7 +371,7 @@ namespace App.Admin.Controllers
         private List<MenuNavViewModel> CreateMenuNav(int? parentId, IEnumerable<MenuNavViewModel> source)
         {
             var ieMenuNavViewModel = (from x in source
-                                      orderby x.OrderDisplay descending
+                                      orderby x.OrderDisplay
                                       select x).Where(x =>
                                       {
                                           var nullable1 = x.ParentId;
@@ -409,6 +407,60 @@ namespace App.Admin.Controllers
             {
                 ViewBag.MenuList = _menuLinkService.GetAll();
             }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeOrder(int id, int newPosition, int newParentId)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                return Json(new { success = false });
+            }
+
+            ActionResult actionResult;
+            try
+            {
+                var menuLink = _menuLinkService.GetMenu(id);
+                menuLink.OrderDisplay = newPosition;
+
+                var newParentIdNullable = newParentId == 0 ? (int?) null : newParentId;
+                menuLink.ParentId = menuLink.ParentId == newParentIdNullable ? menuLink.ParentId : newParentIdNullable;
+
+                _menuLinkService.Update(menuLink);
+
+                actionResult = Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                actionResult = Json(new { success = false, messages = ex.Message });
+            }
+
+            return actionResult;
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAsContext(int id)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                return Json(new { success = false });
+            }
+
+            ActionResult actionResult;
+            try
+            {
+                var menuLink = _menuLinkService.GetMenu(id);
+
+                _menuLinkService.Delete(menuLink);
+
+                actionResult = Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                actionResult = Json(new { success = false, messages = ex.Message });
+            }
+
+            return actionResult;
         }
     }
 }
