@@ -988,7 +988,6 @@
     <Content Include="Views\Manufacturer\ManufacturerHome.cshtml" />
     <Content Include="Views\Summary\_Footer.Intro.cshtml" />
     <Content Include="Views\Summary\_Footer.Product.cshtml" />
-    <Content Include="Themes\Basic\Content\_breadcrumb.scss" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -1005,6 +1004,7 @@
     <Content Include="Views\Shared\Socials\_Social.GooglePlus_Share.cshtml" />
     <Content Include="Views\Shared\Socials\_Social.Twitter_Share.cshtml" />
     <Content Include="Views\Shared\Socials\_Social.FB_Comment.cshtml" />
+    <Content Include="Themes\Basic\Content\shared\_layout.scss" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

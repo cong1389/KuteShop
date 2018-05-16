@@ -1,11 +1,11 @@
 ﻿@using Resources
 @using App.Domain.Entities.Language
 @using App.Aplication.WebGrid
-@model IEnumerable<App.Domain.Entities.Language.LocaleStringResource>
+@model IEnumerable<LocaleStringResource>
 
 @{
     ViewBag.Title = FormUI.LanguageManagement;
-    var grid = new WebGrid((IEnumerable<App.Domain.Entities.Language.LocaleStringResource>)ViewBag.Localization, rowsPerPage: 50, canPage: true);
+    var grid = new WebGrid((IEnumerable<LocaleStringResource>)ViewBag.Localization, rowsPerPage: 50);
 }
 
 <div class="navbar navbar-default" role="search">
@@ -101,117 +101,113 @@
 
 <script>
 
-    $(function () {
-        try {
-            var dir = $('#dir').val();
-            var col = $('#col').val();
-            var header = $("th a[href*=" + col + "]");
-            if (dir == "Ascending") {
-                header.text(header.text() + "  ▲")
-            }
-            if (dir == "Descending") {
-                header.text(header.text() + "  ▼");
-            }
+	$(function() {
+		try {
+			var dir = $('#dir').val();
+			var col = $('#col').val();
+			var header = $("th a[href*=" + col + "]");
+			if (dir == "Ascending") {
+				header.text(header.text() + "  ▲");
+			}
+			if (dir == "Descending") {
+				header.text(header.text() + "  ▼");
+			}
 
-        } catch (e) {
+		} catch (e) {
 
-        }
+		}
 
-        var webGridHubClient = $.connection.webGridHub;
+		$(".edit-button").on("click",
+			function() {
+				var row = $(this).closest("tr");
+				$(".record-toolbar li", row).toggleClass("hide");
+				$("input, select, textarea", row).toggleClass("hide");
+				$("td", row).each(function() {
+					var cell = $(this, row);
+					var cellValue = $(".cell-value", cell);
+					if (cellValue.length > 0) {
+						$("input", cell).val(cellValue.text());
+					}
+				});
+				$(".cell-value", row).toggleClass("hide");
+			});
 
-        //webGridHubClient.client.recordSaved = function () {
-        //    alert("Record Saved.");
-        //};
+		$(".cancel-button").on("click",
+			function() {
+				var row = $(this).closest("tr");
+				$(".record-toolbar li", row).toggleClass("hide");
+				$(".cell-value", row).toggleClass("hide");
+				$("input, select, textarea", row).toggleClass("hide");
+			});
 
-        $(".edit-button").on("click", function () {
-            var row = $(this).closest("tr");
-            $(".record-toolbar li", row).toggleClass("hide");
-            $("input, select, textarea", row).toggleClass("hide");
-            $("td", row).each(function () {
-                var cell = $(this, row);
-                var cellValue = $(".cell-value", cell);
-                if (cellValue.length > 0) {
-                    $("input", cell).val(cellValue.text());
-                }
-            });
-            $(".cell-value", row).toggleClass("hide");
-        });
+		$(".save-button").on("click",
+			function() {
+				var row = $(this).closest("tr");
+				var record = getRecord(row);
 
-        $(".cancel-button").on("click", function () {
-            var row = $(this).closest("tr");
-            $(".record-toolbar li", row).toggleClass("hide");
-            $(".cell-value", row).toggleClass("hide");
-            $("input, select, textarea", row).toggleClass("hide");
-        });
+				$.ajax({
+					url: '/admin/localeresource/edit',
+					data: JSON.stringify(record),
+					type: 'POST',
+					contentType: 'application/json; charset=utf-8',
+					success: function() {
+						tr.find('.edit-mode, .display-mode').toggle();
+						alert('Record updated Successfully!!');
+					}
+				});
 
-        $(".save-button").on("click", function () {
-            var row = $(this).closest("tr");
-            var record = getRecord(row);
+				//webGridHubClient.server.saveRecord(record);
+				$("td", row).each(function() {
+					var cell = $(this, row);
+					var inputValue = $("input", cell);
+					$(".cell-value", cell).text(inputValue.val());
+				});
+				$(".record-toolbar li", row).toggleClass("hide");
+				$("input, select, textarea", row).toggleClass("hide");
+				$(".cell-value", row).toggleClass("hide");
+			});
 
-            $.ajax({
-                url: '/admin/localeresource/edit',
-                data: JSON.stringify(record),
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    tr.find('.edit-mode, .display-mode').toggle();
-                    alert('Record updated Successfully!!');
-                }
-            });
+		//isCreate: nếu isCreate ==1: set id = '' để insert
+		function getRecord(row) {
+			return {
+				id: row.find("#hddId").val(),
+				resourceName: row.find(":nth-child(2)").find("input").val(),
+				resourceValue: row.find(":nth-child(3)").find("input").val(),
+				languageId: row.find('#hddLanguageId').val(),
+				isFromPlugin: row.find('#hddIsFromPlugin').val()
+			};
+		};
 
-            //webGridHubClient.server.saveRecord(record);
-            $("td", row).each(function () {
-                var cell = $(this, row);
-                var inputValue = $("input", cell);
-                $(".cell-value", cell).text(inputValue.val());
-            });
-            $(".record-toolbar li", row).toggleClass("hide");
-            $("input, select, textarea", row).toggleClass("hide");
-            $(".cell-value", row).toggleClass("hide");
-        });
+		$.connection.hub.start();
 
-        //isCreate: nếu isCreate ==1: set id = '' để insert
-        function getRecord(row) {
-            return {
-                id: row.find("#hddId").val(),
-                resourceName: row.find(':nth-child(2)').find("input").val(),
-                resourceValue: row.find(':nth-child(3)').find("input").val(),
-                languageId: row.find('#hddLanguageId').val(),
-                isFromPlugin: row.find('#hddIsFromPlugin').val(),
-            };
-        };
+	});
 
-        $.connection.hub.start();
+	$("#hypCreate").on("click",
+		function() {
+			var grd = document.getElementById('grid');
 
-    })
+			var newRow = grd.rows[grd.rows.length - 1].cloneNode(true);
 
-    $("#hypCreate").on("click", function () {
-        var grd = document.getElementById('grid');
+			//var id = $(newRow).find(':nth-child(1)').find("input:hidden").val();
 
-        var tbod = grd.rows[0].parentNode;
-        var newRow = grd.rows[grd.rows.length - 1].cloneNode(true);
+			// tbod.appendChild(newRow);
+			// return false;
 
-        //var id = $(newRow).find(':nth-child(1)').find("input:hidden").val();
-        var toolbar = $(newRow).find(':nth-child(1)').find(".record-toolbar").attr("value", "-1");
+			//cell.appendChild(element);
+			var data = {
+				"languageId": @ViewBag.LanguageSelected
+			};
 
-        // tbod.appendChild(newRow);
-        // return false;
-
-        //cell.appendChild(element);
-        var data = {
-            "languageId": @ViewBag.LanguageSelected
-            };
-
-        $.ajax({
-            url: '@Url.Action("NewRow", "LocaleResource")',
-            data: data,
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                $("#grid tbody:last").append(response.data);
-            }
-        });
-    })
+			$.ajax({
+				url: '@Url.Action("NewRow", "LocaleResource")',
+				data: data,
+				type: 'GET',
+				contentType: 'application/json; charset=utf-8',
+				success: function(response) {
+					$("#grid tbody:last").append(response.data);
+				}
+			});
+		});
 
     $(".remove-button").on("click", function () {
         var row = $(this).closest("tr");
@@ -225,7 +221,7 @@
             data: data,
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
-            success: function (data) {
+            success: function () {
                 location.reload();
             }
         });

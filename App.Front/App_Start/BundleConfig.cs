@@ -64,12 +64,12 @@ namespace App.Front
                 "~/Themes/Basic/Scripts/goweb*"));
 
             //TODO
-            //BundleTable.EnableOptimizations = true;
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#else
-        BundleTable.EnableOptimizations = true;
-#endif
+            BundleTable.EnableOptimizations = true;
+//#if DEBUG
+//            BundleTable.EnableOptimizations = false;
+//#else
+//        BundleTable.EnableOptimizations = true;
+//#endif
 
         }
     }

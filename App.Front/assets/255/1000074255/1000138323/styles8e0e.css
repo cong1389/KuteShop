@@ -1261,105 +1261,6 @@ img.alignright {
 /*-----------------
 [ 3.2 Top header]
 */
-.top-header {
-    background: #f6f6f6;
-}
-
-    .top-header .nav-top-links,
-    .top-header .language,
-    .top-header .currency,
-    .top-header .user-info,
-    .top-header .support-link,
-    .top-header .top-bar-social {
-        width: auto;
-        display: inline-block;
-        line-height: 34px;
-    }
-
-        .top-header .top-bar-social .fa {
-            line-height: inherit;
-        }
-
-        .top-header .top-bar-social a {
-            border: none;
-            padding: 0;
-            color: #999;
-            font-size: 14px;
-        }
-
-    .top-header .support-link {
-        float: right;
-    }
-
-    .top-header img {
-        display: inline-block;
-        vertical-align: middle;
-        margin-top: -3px;
-        margin-right: 5px;
-    }
-
-    .top-header a {
-        border-right: 1px solid #e0e0e0;
-        padding-right: 10px;
-        margin-left: 10px;
-    }
-
-        .top-header a.first-item {
-            margin-left: 0;
-        }
-
-        .top-header a.current-open:after {
-            content: "\f107";
-            font-family: "FontAwesome";
-            font-size: 17px;
-            vertical-align: 0;
-            padding-left: 15px;
-            font-weight: bold;
-        }
-
-    .top-header .dropdown {
-        width: auto;
-        display: inline-block;
-    }
-
-    .top-header .dropdown-menu {
-        border-radius: 0;
-        border: none;
-        top: 100%;
-        left: 0;
-        border-top: 2px solid #ff3366;
-        transition: all 0.4s ease-out 0s;
-        -webkit-transition: all 0.4s ease-out 0s;
-        -o-transition: all 0.4s ease-out 0s;
-        -ms-transition: all 0.4s ease-out 0s;
-        opacity: 0;
-        display: block;
-        transform: translateY(50px);
-        -webkit-transform: translateY(50px);
-        -o-transform: translateY(50px);
-        -ms-transform: translateY(50px);
-        -khtml-transform: translateY(50px);
-        z-index: 0;
-        visibility: hidden;
-    }
-
-    .top-header .dropdown.open > .dropdown-menu {
-        transform: translateY(0px);
-        -webkit-transform: translateY(0px);
-        -o-transform: translateY(0px);
-        -ms-transform: translateY(0px);
-        -khtml-transform: translateY(0px);
-        opacity: 1;
-        z-index: 2;
-        visibility: inherit;
-    }
-
-    .top-header .dropdown-menu a {
-        border: none;
-        margin: 0;
-        padding: 0;
-        padding: 5px 10px;
-    }
 /*-----------------
 [ 3.3 Main header]
 */
@@ -3506,27 +3407,6 @@ span.notify-right {
         line-height: 1.5;
     }
 /** #introduce-box **/
-#introduce-box {
-    margin-top: 40px;
-}
-
-.introduce-title {
-    text-transform: uppercase;
-    font-size: 16px;
-    list-style: none;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.introduce-list li {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.introduce-list {
-    padding-left: 16px;
-    list-style: inherit;
-}
 /** contact-box **/
 #mail-box {
     margin-bottom: 20px;
@@ -3649,42 +3529,6 @@ span.notify-right {
 }*/
 
 /** #footer-menu-box **/
-#footer {
-    background: #eaeaea;
-}
-
-#footer-menu-box {
-    border-top: 1px solid #E1E1E1;
-    margin-top: 10px;
-    padding-top: 20px;
-    margin-bottom: 20px;
-}
-
-.footer-menu-list {
-    list-style: none;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-    .footer-menu-list li {
-        display: inline;
-        padding: 0 7px 0 5px;
-        border-right: 1px solid #0066cc;
-    }
-
-        .footer-menu-list li:last-child {
-            border-right: none;
-        }
-
-        .footer-menu-list li a {
-            color: #0066cc;
-        }
-
-            .footer-menu-list li a:hover {
-                text-decoration: underline;
-                transition: all 0.3s;
-            }
-
 .scroll_top {
     width: 34px;
     height: 34px;
@@ -3715,27 +3559,6 @@ span.notify-right {
     }
 
 
-/*------------------
-[15. Breadcrumb]
-*/
-.breadcrumb {
-    background: none;
-    padding: 0;
-    margin: 0;
-    padding-bottom: 17px;
-    line-height: normal;
-}
-
-    .breadcrumb .navigation-pipe:before {
-        content: "\f105";
-        font-size: 14px;
-        display: inline-block;
-        text-align: right;
-        width: 6px;
-        color: #666;
-        font-family: "FontAwesome";
-        padding: 0 15px;
-    }
 
 /*------------------
 [16. Columns]
@@ -8905,7 +8728,6 @@ div#layout-page .content-page {
         position: absolute;
         left: 50%;
         margin-left: -28px;
-        //background-color: rgba(0, 0, 0, 0.5);
         background-color: transparent;
         border-radius: 6px;
         height: 56px;
@@ -8915,7 +8737,6 @@ div#layout-page .content-page {
     }
 
         #custom-preloader .custom-loader img {
-            //opacity: 1;
             vertical-align: middle;
             width: 100%;
             height: 100%;

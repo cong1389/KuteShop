@@ -1482,6 +1482,158 @@ div.jGrowl div.jGrowl-closer:hover {
 .-premailer-pmail {
   background-color: red; }
 
+/*
+   Header
+*/
+.gw-top-header {
+  background: #f6f6f6; }
+  .gw-top-header img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -3px;
+    margin-right: 5px; }
+  .gw-top-header a {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 10px;
+    margin-left: 10px; }
+  .gw-top-header a.first-item {
+    margin-left: 0; }
+  .gw-top-header a.current-open:after {
+    content: "\f107";
+    font-family: "FontAwesome";
+    font-size: 17px;
+    vertical-align: 0;
+    padding-left: 15px;
+    font-weight: bold; }
+  .gw-top-header .dropdown {
+    width: auto;
+    display: inline-block; }
+  .gw-top-header .dropdown-menu {
+    border-radius: 0;
+    border: none;
+    top: 100%;
+    left: 0;
+    border-top: 2px solid #ff3366;
+    transition: all 0.4s ease-out 0s;
+    -webkit-transition: all 0.4s ease-out 0s;
+    -o-transition: all 0.4s ease-out 0s;
+    -ms-transition: all 0.4s ease-out 0s;
+    opacity: 0;
+    display: block;
+    transform: translateY(50px);
+    -webkit-transform: translateY(50px);
+    -o-transform: translateY(50px);
+    -ms-transform: translateY(50px);
+    -khtml-transform: translateY(50px);
+    z-index: 0;
+    visibility: hidden; }
+  .gw-top-header .dropdown.open > .dropdown-menu {
+    transform: translateY(0px);
+    -webkit-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -khtml-transform: translateY(0px);
+    opacity: 1;
+    z-index: 2;
+    visibility: inherit; }
+  .gw-top-header .dropdown-menu a {
+    border: none;
+    margin: 0;
+    padding: 0;
+    padding: 5px 10px; }
+  .gw-top-header .nav-top-links, .gw-top-header .language, .gw-top-header .currency, .gw-top-header .user-info, .gw-top-header .support-link, .gw-top-header .top-bar-social {
+    width: auto;
+    display: inline-block;
+    line-height: 34px; }
+  .gw-top-header .top-bar-social a {
+    border: none;
+    padding: 0;
+    color: #999;
+    font-size: 14px; }
+  .gw-top-header .top-bar-social .fa {
+    line-height: inherit; }
+  .gw-top-header .top-bar-social a {
+    border: none;
+    padding: 0;
+    color: #999;
+    font-size: 14px; }
+
+/*
+    Breadcrumb
+*/
+.gw-breadcrumb .breadcrumb {
+  background: none;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 17px;
+  line-height: normal; }
+  .gw-breadcrumb .breadcrumb > li {
+    display: inline-block; }
+  .gw-breadcrumb .breadcrumb a, .gw-breadcrumb .breadcrumb > li + li:before, .gw-breadcrumb .breadcrumb > .active, .gw-breadcrumb .breadcrumb li:last-child {
+    color: #667; }
+  .gw-breadcrumb .breadcrumb > li + li:before {
+    padding: 0 0px;
+    content: "/\00a0"; }
+
+/*
+    Footer
+*/
+.gw-footer {
+  background: #eaeaea; }
+  .gw-footer__introduce-box {
+    margin-top: 40px; }
+    .gw-footer__introduce-box--introduce-title {
+      text-transform: uppercase;
+      font-size: 16px;
+      list-style: none;
+      font-weight: bold;
+      margin-bottom: 8px; }
+    .gw-footer__introduce-box--introduce-list {
+      padding-left: 16px;
+      list-style: inherit; }
+      .gw-footer__introduce-box--introduce-list li {
+        padding-top: 2px;
+        padding-bottom: 2px; }
+    .gw-footer__introduce-box--mail-box {
+      margin-bottom: 20px; }
+      .gw-footer__introduce-box--mail-box input {
+        height: 30px;
+        background: #fff;
+        width: 100%;
+        padding-left: 10px; }
+      .gw-footer__introduce-box--mail-box .btn {
+        font-weight: bold;
+        color: #ffffff;
+        height: 30px;
+        border-radius: 0;
+        background: #ff3366;
+        border: none;
+        outline: none; }
+        .gw-footer__introduce-box--mail-box .btn :hover {
+          color: #ffffff;
+          background: #6b6540 !important;
+          transition: 0.3s; }
+  .gw-footer__menu-box {
+    border-top: 1px solid #E1E1E1;
+    margin-top: 10px;
+    padding-top: 20px;
+    margin-bottom: 20px; }
+  .gw-footer .footer-menu-list {
+    list-style: none;
+    text-align: center;
+    margin-bottom: 5px; }
+    .gw-footer .footer-menu-list li {
+      display: inline;
+      padding: 0 7px 0 5px;
+      border-right: 1px solid #0066cc; }
+      .gw-footer .footer-menu-list li a {
+        color: #0066cc; }
+        .gw-footer .footer-menu-list li a :hover {
+          text-decoration: underline;
+          transition: all 0.3s; }
+      .gw-footer .footer-menu-list li :last-child {
+        border-right: none; }
+
 .btn {
   cursor: pointer;
   display: inline-block;

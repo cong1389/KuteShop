@@ -2,10 +2,10 @@
 @model App.Domain.Entities.GlobalSetting.ContactInformation
 @if (Model != null)
 {
-    <footer id="footer">
+    <footer id="footer" class="gw-footer">
         <div class="container">
             <!-- introduce-box -->
-            <div id="introduce-box" class="row">
+            <div id="introduce-box" class="row gw-footer__introduce-box">
                 <div class="col-md-3">
                     <div id="address-box">
                         <div id="divFooterLogo"></div>
@@ -19,11 +19,11 @@
                 </div>
                 <div class="col-md-3">
                     <div id="contact-box">
-                        <div class="introduce-title">Đăng ký nhận tin</div>
-                        <form accept-charset='UTF-8' action='https://kute-shop.myharavan.com/account/contact' class='contact-form' method='post'>
+                        <div class="gw-footer__introduce-box--introduce-title">Đăng ký nhận tin</div>
+                        <form accept-charset='UTF-8' action='#' class='contact-form' method='post'>
                             <input name='form_type' type='hidden' value='customer'>
                             <input name='utf8' type='hidden' value='✓'>
-                            <div class="input-group" id="mail-box">
+                            <div class="input-group gw-footer__introduce-box--mail-box" id="">
                                 <input type="hidden" id="contact_tags" name="contact[tags]" value="khách hàng tiềm năng, bản tin" />
                                 <input name="contact[email]" type="email" placeholder="Đăng ký email" required="required" />
                                 <span class="input-group-btn">
@@ -32,7 +32,7 @@
                             </div>
                             <!-- /input-group -->
                         </form>
-                        <div class="introduce-title">Liên kết</div>
+                        <div class="gw-footer__introduce-box--introduce-title">Liên kết</div>
                         <div class="social-link">
                             @{Html.RenderPartial("Socials/_Social.FB_Link");}
                             @{Html.RenderPartial("Socials/_Social.GooglePlus_Link");}
@@ -49,7 +49,7 @@
             <!-- /#trademark-box -->
             <div id="divFooterAddress"></div>
 
-            <div id="footer-menu-box">
+            <div id="footer-menu-box" class="gw-footer__menu-box">
                 <p class="text-center">Copyrights © 2015 KuteShop. All Rights Reserved. Designed by KuteThemes.com</p>
             </div>
         </div>
