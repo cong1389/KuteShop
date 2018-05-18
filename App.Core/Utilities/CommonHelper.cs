@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web.Hosting;
 using App.Core.Extensions;
 
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
 	public class CommonHelper
 	{

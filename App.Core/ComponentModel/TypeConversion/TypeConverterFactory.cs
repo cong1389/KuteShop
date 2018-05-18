@@ -1,28 +1,24 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Extensions;
-using App.Domain.Email;
 
 namespace App.Core.ComponentModel.TypeConversion
 {
-   public class TypeConverterFactory
+    public class TypeConverterFactory
 	{
 		private static readonly ConcurrentDictionary<Type, ITypeConverter> _typeConverters = new ConcurrentDictionary<Type, ITypeConverter>();
 
-		static TypeConverterFactory()
-		{
-			CreateDefaultConverters();
-		}
+		//static TypeConverterFactory()
+		//{
+		//	CreateDefaultConverters();
+		//}
 
-		private static void CreateDefaultConverters()
-		{
-			_typeConverters.TryAdd(typeof(EmailAddress), new EmailAddressConverter());
-		}
+		//private static void CreateDefaultConverters()
+		//{
+		//	_typeConverters.TryAdd(typeof(EmailAddress), new EmailAddressConverter());
+		//}
 		
 	    public static void RegisterConverter<T>(ITypeConverter typeConverter)
 	    {

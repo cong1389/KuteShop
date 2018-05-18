@@ -261,6 +261,8 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Settings\ISettingService.cs" />
+    <Compile Include="Settings\SettingService.cs" />
     <Compile Include="Static\IStaticContentService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

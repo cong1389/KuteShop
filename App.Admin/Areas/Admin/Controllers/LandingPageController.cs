@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Aplication.FileUtil;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Framework.Ultis;
 using App.Service.Other;
 using Resources;

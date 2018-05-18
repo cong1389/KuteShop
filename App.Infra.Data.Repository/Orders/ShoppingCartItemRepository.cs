@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Orders;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;

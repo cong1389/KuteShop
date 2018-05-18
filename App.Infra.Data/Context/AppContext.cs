@@ -22,6 +22,7 @@ using App.Domain.Entities.Menu;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
+using App.Domain.Entities.Setting;
 using App.Domain.Entities.Slide;
 using App.Domain.Orders;
 using App.Domain.Shippings;
@@ -264,7 +265,13 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public AppContext() : base("AppConnect")
+	    public virtual IDbSet<Setting> Setting
+	    {
+		    get;
+		    set;
+	    }
+
+		public AppContext() : base("AppConnect")
         {
             Configuration.LazyLoadingEnabled = true;
             Configuration.ProxyCreationEnabled = true;

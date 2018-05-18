@@ -65,7 +65,6 @@
     <Compile Include="ComponentModel\HybridExpando.cs" />
     <Compile Include="ComponentModel\PropertyBag.cs" />
     <Compile Include="ComponentModel\SerializationUtils.cs" />
-    <Compile Include="ComponentModel\TypeConversion\EmailAddressConverter.cs" />
     <Compile Include="ComponentModel\TypeConversion\EnumerableConverter.cs" />
     <Compile Include="ComponentModel\TypeConversion\ITypeConverter.cs" />
     <Compile Include="ComponentModel\TypeConversion\ITypeConverterExtensions.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="ComponentModel\TypeConversion\TypeConverterAdapter.cs" />
     <Compile Include="ComponentModel\TypeConversion\TypeConverterBase.cs" />
     <Compile Include="ComponentModel\TypeConversion\TypeConverterFactory.cs" />
+    <Compile Include="Configuration\ISettings.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\ConversionExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
@@ -88,6 +88,8 @@
     <Compile Include="Localization\LocalizedString.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\NullLocalizer.cs" />
+    <Compile Include="Messages\MessageTemplate.cs" />
+    <Compile Include="Messages\MessageTemplateNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -96,9 +98,9 @@
     <Compile Include="Templating\ITemplateManager.cs" />
     <Compile Include="Templating\ITemplate.cs" />
     <Compile Include="Templating\ITemplateEngine.cs" />
-    <Compile Include="Utils\CommonHelper.cs" />
-    <Compile Include="Utils\MessageTemplateConverter.cs" />
-    <Compile Include="Utils\SortBuilder.cs">
+    <Compile Include="Utilities\CommonHelper.cs" />
+    <Compile Include="Utilities\MessageTemplateConverter.cs" />
+    <Compile Include="Utilities\SortBuilder.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -106,7 +108,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\SortingPagingBuilder.cs">
+    <Compile Include="Utilities\SortingPagingBuilder.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -114,7 +116,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\ExpressionOrderBy.cs">
+    <Compile Include="Utilities\ExpressionOrderBy.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -130,23 +132,23 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\PaginationSet_T_.cs">
+    <Compile Include="Utilities\PaginationSet_T_.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\PredicateBuilder.cs">
+    <Compile Include="Utilities\PredicateBuilder.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\Paging.cs">
+    <Compile Include="Utilities\Paging.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\PredicateExtention.cs">
+    <Compile Include="Utilities\PredicateExtention.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\DbFieldMapAttribute.cs">
+    <Compile Include="Utilities\DbFieldMapAttribute.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -154,12 +156,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\App.Domain\App.Domain.csproj">
-      <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
-      <Name>App.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

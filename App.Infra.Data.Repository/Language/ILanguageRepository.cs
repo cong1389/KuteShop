@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Language

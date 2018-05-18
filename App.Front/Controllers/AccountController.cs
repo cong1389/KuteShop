@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Aplication.Extensions;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.Gallery;

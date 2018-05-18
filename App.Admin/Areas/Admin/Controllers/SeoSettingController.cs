@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using App.Aplication;
 using App.Core.Caching;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.SeoGlobal;
 using App.Framework.Ultis;

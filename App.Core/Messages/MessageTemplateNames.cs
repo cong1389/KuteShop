@@ -1,4 +1,4 @@
-﻿namespace App.Domain.Messages
+﻿namespace App.Core.Messages
 {
 	public class MessageTemplateNames
     {

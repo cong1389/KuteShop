@@ -69,6 +69,7 @@
     <Compile Include="Orders\ShoppingCartItemViewModel.cs" />
     <Compile Include="Payments\PaymentMethodViewModel.cs" />
     <Compile Include="Post\PostGalleryViewModel.cs" />
+    <Compile Include="Settings\Setting.cs" />
     <Compile Include="Shippings\ShippingMethodViewModel.cs" />
     <Compile Include="User\ChangePasswordViewModel.cs" />
     <Compile Include="User\LoginViewModel.cs" />

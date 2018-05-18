@@ -1,10 +1,10 @@
-﻿using System;
+﻿using App.Core.Messages;
+using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using App.Domain.Messages;
 
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
 	public static class MessageTemplateConverter
 	{

@@ -1,5 +1,4 @@
-﻿using App.Aplication;
-using App.AsyncService.Post;
+﻿using App.AsyncService.Post;
 using App.Core.IO.VirtualPath;
 using App.Core.Templating;
 using App.Domain.Interfaces.Services;
@@ -34,6 +33,7 @@ using App.Service.Post;
 using App.Service.Repair;
 using App.Service.Repairs;
 using App.Service.SeoSetting;
+using App.Service.Settings;
 using App.Service.ShippingMethodes;
 using App.Service.Slide;
 using App.Service.Static;
@@ -42,7 +42,7 @@ using Autofac;
 
 namespace App.Framework.Ioc
 {
-    public class ServiceModule : Module
+	public class ServiceModule : Module
     {
         /// <summary>
         /// Đăng ký AutoFac
@@ -131,6 +131,7 @@ namespace App.Framework.Ioc
             builder.RegisterType<DefaultTemplateManager>().As<ITemplateManager>().InstancePerRequest();
 
 	        builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
+	        builder.RegisterType<SettingService>().As<ISettingService>().InstancePerRequest();
 
 		}
     }

@@ -25,6 +25,7 @@ using App.Infra.Data.Repository.PaymentMethodes;
 using App.Infra.Data.Repository.Post;
 using App.Infra.Data.Repository.Repairs;
 using App.Infra.Data.Repository.SeoSetting;
+using App.Infra.Data.Repository.Settings;
 using App.Infra.Data.Repository.ShippingMethods;
 using App.Infra.Data.Repository.Slide;
 using App.Infra.Data.Repository.Static;
@@ -98,7 +99,9 @@ namespace App.Framework.Ioc
             builder.RegisterType<OrderRepository>().As<IOrderRepository>().InstancePerRequest();
             builder.RegisterType<OrderItemRepository>().As<IOrderItemRepository>().InstancePerRequest();
 
-        }
+	        builder.RegisterType<SettingRepository>().As<ISettingRepository>().InstancePerRequest();
+
+		}
     }
 
 }

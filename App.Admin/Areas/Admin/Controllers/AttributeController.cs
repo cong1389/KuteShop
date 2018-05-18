@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.FakeEntity.Attribute;
 using App.Framework.Ultis;
 using App.Service.Attribute;

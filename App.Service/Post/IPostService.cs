@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Interfaces.Services;
 
 namespace App.Service.Post

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Globalization;
-using App.Core.Extensions;
-using App.Domain.Email;
 
 namespace App.Core.ComponentModel.TypeConversion
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
     [AttributeUsage(AttributeTargets.Property)]
 	public class DbFieldMapAttribute : Attribute

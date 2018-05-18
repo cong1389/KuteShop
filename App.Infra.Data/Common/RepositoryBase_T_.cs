@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using App.Core.Common;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Interfaces.Repository;
 using App.Infra.Data.DbFactory;
 

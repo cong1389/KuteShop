@@ -7,7 +7,7 @@ using App.Admin.Helpers;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Caching;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.GenericControl;

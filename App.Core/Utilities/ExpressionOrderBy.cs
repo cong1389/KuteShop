@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
     public static class ExpressionOrderBy
 	{

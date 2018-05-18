@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Interfaces.Services;
 
 namespace App.Service.LocaleStringResource

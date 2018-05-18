@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace App.Domain.Messages
+namespace App.Core.Messages
 {
     public class MessageTemplate
     {

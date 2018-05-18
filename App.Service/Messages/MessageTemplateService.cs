@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Caching;
-using App.Domain.Messages;
+﻿using App.Core.Caching;
 
 namespace App.Service.Messages
 {
-   public class MessageTemplateService
+	public class MessageTemplateService
     {
         private const string MESSAGETEMPLATES_BY_NAME_KEY = "SmartStore.messagetemplate.name-{0}-{1}";
         private readonly IRequestCache _requestCache;

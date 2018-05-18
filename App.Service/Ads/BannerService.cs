@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Text;
 using App.Aplication;
 using App.Core.Caching;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Ads;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Ads;

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.LocaleStringResource;
 using App.Infra.Data.UOW.Interfaces;

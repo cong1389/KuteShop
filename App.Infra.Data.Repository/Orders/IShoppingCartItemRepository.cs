@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Orders;
 using App.Domain.Interfaces.Repository;
 

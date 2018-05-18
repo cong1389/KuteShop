@@ -37,7 +37,7 @@ namespace App.Core.ComponentModel.TypeConversion
         {
             return type == typeof(string) || (SystemConverter != null && SystemConverter.CanConvertTo(type));
         }
-
+		
         public virtual object ConvertFrom(CultureInfo culture, object value)
         {
             if (SystemConverter != null)

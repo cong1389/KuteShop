@@ -1,9 +1,9 @@
-﻿using App.Domain.Messages;
+﻿using App.Core.Messages;
 using App.Domain.Orders;
 
 namespace App.Service.Messages
 {
-    public static class OrderMessageFactoryExtensions
+	public static class OrderMessageFactoryExtensions
     {
         public static CreateMessageResult SendOrderPlacedStoreOwnerNotification(this IMessageService factory, Order order, int languageId = 0)
         {

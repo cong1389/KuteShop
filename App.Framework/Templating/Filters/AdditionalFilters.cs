@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using App.Core.Extensions;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Framework.Templating.Liquid;
 using App.Service.Addresses;
 using App.Service.Common;

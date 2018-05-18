@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Reflection;
 using System.Collections;
 using App.Core.Extensions;
-using App.Core.Utils;
+using App.Core.Utilities;
 
 namespace App.Core.ComponentModel
 {

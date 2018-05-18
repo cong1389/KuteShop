@@ -1,13 +1,13 @@
-﻿using System;
-using System.Globalization;
-using App.Core.Localization;
+﻿using App.Core.Localization;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Messages;
 using Domain.Entities.Customers;
+using System;
+using System.Globalization;
+using App.Core.Messages;
 
 namespace App.Service.Messages
 {
-    public class MessageContext
+	public class MessageContext
     {
 	    private IFormatProvider _formatProvider;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
     public static class PredicateBuilder
 	{

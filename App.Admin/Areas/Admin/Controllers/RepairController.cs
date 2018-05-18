@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Repairs;
 using App.Framework.Ultis;

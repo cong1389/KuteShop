@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using App.Core.Common;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Interfaces.Repository;
 using App.Domain.Interfaces.Services;
 using App.Infra.Data.UOW.Interfaces;

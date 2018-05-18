@@ -1,4 +1,4 @@
-namespace App.Core.Utils
+namespace App.Core.Utilities
 {
     public class Paging
 	{

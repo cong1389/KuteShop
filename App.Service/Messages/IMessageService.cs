@@ -1,5 +1,4 @@
-﻿using App.Domain.Messages;
-
+﻿
 namespace App.Service.Messages
 {
 	public class CreateMessageResult

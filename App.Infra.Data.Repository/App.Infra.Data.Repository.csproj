@@ -104,6 +104,8 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Settings\ISettingRepository.cs" />
+    <Compile Include="Settings\SettingRepository.cs" />
     <Compile Include="System\ISystemSettingRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

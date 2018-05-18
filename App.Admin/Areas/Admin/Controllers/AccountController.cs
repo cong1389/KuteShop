@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
 using App.Framework.Ultis;

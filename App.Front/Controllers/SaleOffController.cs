@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using App.Aplication;
-using App.Core.Utils;
+using App.Core.Utilities;
 using App.Framework.Ultis;
 using App.Service.News;
 
