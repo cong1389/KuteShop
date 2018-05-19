@@ -29,13 +29,13 @@ using App.Service.Post;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;
+using static System.IO.File;
 
 namespace App.Admin.Controllers
 {
 	public class PostController : BaseAdminUploadController
 	{
 		private const string CachePostKey = "db.Post";
-		private readonly ICacheManager _cacheManager;
 
 		private readonly IAttributeValueService _attributeValueService;
 
@@ -85,13 +85,12 @@ namespace App.Admin.Controllers
 			_languageService = languageService;
 			_localizedPropertyService = localizedPropertyService;
 			_postGalleryService = postGalleryService;
-			_cacheManager = cacheManager;
 			_manufacturerService = manufacturerService;
 			_orderItemService = orderItemService;
 			_settingService = settingService;
 
 			//Clear cache
-			_cacheManager.RemoveByPattern(CachePostKey);
+			cacheManager.RemoveByPattern(CachePostKey);
 		}
 
 		[RequiredPermisson(Roles = "CreatePost")]
@@ -134,25 +133,25 @@ namespace App.Admin.Controllers
 					var postViewModel = model;
 					postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
 				}
+				
+				PostImageHandler(model);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//	var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+				//	var fileExtension = Path.GetExtension(model.Image.FileName);
 
-				var folderName = Utils.FolderName(model.Title);
-				if (model.Image != null && model.Image.ContentLength > 0)
-				{
-					var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-					var fileExtension = Path.GetExtension(model.Image.FileName);
+				//	var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
+				//	var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
+				//	var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
 
-					var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
-					var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
-					var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
+				//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, ImageSize.WidthBigSize, ImageSize.HeightBigSize);
+				//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, ImageSize.WidthMediumSize, ImageSize.HeightMediumSize);
+				//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
 
-					_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-					_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-					_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
-
-					model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
-					model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
-					model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
-				}
+				//	model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
+				//	model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
+				//	model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
+				//}
 
 				var menuId = model.MenuId;
 				var i = 0;
@@ -166,61 +165,62 @@ namespace App.Admin.Controllers
 				}
 
 				//Gallery image
-				var files = Request.Files;
-				var galleryImages = new List<GalleryImage>();
-				if (files.Count > 0)
-				{
-					var count = files.Count - 1;
-					var num = 0;
-					var allKeys = files.AllKeys;
-					for (i = 0; i < allKeys.Length; i++)
-					{
-						var str7 = allKeys[i];
-						if (num <= count)
-						{
-							if (!str7.Equals("Image"))
-							{
-								var str8 = str7.Replace("[]", "");
-								var item = files[num];
-								if (item.ContentLength > 0)
-								{
-									var item1 = Request[str8];
-									var galleryImageViewModel = new GalleryImageViewModel
-									{
-										PostId = model.Id,
-										AttributeValueId = int.Parse(str8)
-									};
+				var galleryImages = PostImageAttributeHandler(model);
+				//var files = Request.Files;
+				//var galleryImages = new List<GalleryImage>();
+				//if (files.Count > 0)
+				//{
+				//	var count = files.Count - 1;
+				//	var num = 0;
+				//	var allKeys = files.AllKeys;
+				//	for (i = 0; i < allKeys.Length; i++)
+				//	{
+				//		var str7 = allKeys[i];
+				//		if (num <= count)
+				//		{
+				//			if (!str7.Equals("Image"))
+				//			{
+				//				var str8 = str7.Replace("[]", "");
+				//				var item = files[num];
+				//				if (item.ContentLength > 0)
+				//				{
+				//					var item1 = Request[str8];
+				//					var galleryImageViewModel = new GalleryImageViewModel
+				//					{
+				//						PostId = model.Id,
+				//						AttributeValueId = int.Parse(str8)
+				//					};
 
-									var fileNameOriginal = Path.GetFileNameWithoutExtension(item.FileName);
-									var fileExtension = Path.GetExtension(item.FileName);
+				//					var fileNameOriginal = Path.GetFileNameWithoutExtension(item.FileName);
+				//					var fileExtension = Path.GetExtension(item.FileName);
 
-									var fileName1 = $"attr.{ fileNameOriginal}".FileNameFormat(fileExtension);
-									var fileName2 = $"attr.{ fileNameOriginal}".FileNameFormat(fileExtension);
+				//					var fileName1 = $"attr.{ fileNameOriginal}".FileNameFormat(fileExtension);
+				//					var fileName2 = $"attr.{ fileNameOriginal}".FileNameFormat(fileExtension);
 
-									_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-									_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+				//					_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WidthBigSize, ImageSize.HeightBigSize);
+				//					_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
 
-									galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileName1}";
-									galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileName2}";
+				//					galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileName1}";
+				//					galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileName2}";
 
-									galleryImageViewModel.OrderDisplay = num;
-									galleryImageViewModel.Status = 1;
-									galleryImageViewModel.Title = model.Title;
-									galleryImageViewModel.Price = double.Parse(item1);
+				//					galleryImageViewModel.OrderDisplay = num;
+				//					galleryImageViewModel.Status = 1;
+				//					galleryImageViewModel.Title = model.Title;
+				//					galleryImageViewModel.Price = double.Parse(item1);
 
-									galleryImages.Add(Mapper.Map<GalleryImage>(galleryImageViewModel));
-								}
-								num++;
-							}
-							else
-							{
-								num++;
-							}
-						}
-					}
-				}
+				//					galleryImages.Add(Mapper.Map<GalleryImage>(galleryImageViewModel));
+				//				}
+				//				num++;
+				//			}
+				//			else
+				//			{
+				//				num++;
+				//			}
+				//		}
+				//	}
+				//}
 
-				//Attribute
+				//AttributeValue
 				var attributeValues = new List<AttributeValue>();
 				var item2 = Request["Values"];
 				if (!string.IsNullOrEmpty(item2))
@@ -345,11 +345,18 @@ namespace App.Admin.Controllers
 				var galleryImage = _galleryService.Get(x => x.PostId == postId && x.Id == galleryId);
 				_galleryService.Delete(galleryImage);
 
-				var path1 = Server.MapPath(string.Concat("~/", galleryImage.ImageBig));
-				var path2 = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
+				var imgPathBg = Server.MapPath(string.Concat("~/", galleryImage.ImageBig));
+				var imgPathThm = Server.MapPath(string.Concat("~/", galleryImage.ImageThumbnail));
 
-				System.IO.File.Delete(path1);
-				System.IO.File.Delete(path2);
+				if (Exists(imgPathBg))
+				{
+					System.IO.File.Delete(imgPathBg);
+				}
+
+				if (Exists(imgPathThm))
+				{
+					System.IO.File.Delete(imgPathThm);
+				}
 
 				actionResult = Json(new { success = true });
 			}
@@ -419,32 +426,36 @@ namespace App.Admin.Controllers
 						postViewModel.SeoUrl = string.Concat(postViewModel.SeoUrl, "-", bySeoUrl.Count());
 					}
 
-					var folderName = Utils.FolderName(model.Title);
-					if (model.Image != null && model.Image.ContentLength > 0)
-					{
-						var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-						var fileExtension = Path.GetExtension(model.Image.FileName);
+					PostImageHandler(model);
 
-						var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
-						var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
-						var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
+					//var folderName = Utils.FolderName(model.Title);
+					//if (model.Image != null && model.Image.ContentLength > 0)
+					//{
+					//	var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+					//	var fileExtension = Path.GetExtension(model.Image.FileName);
 
-						var sizeWidthBg = _settingService.GetSetting("Post.WithBigSize", ImageSize.WithBigSize);
-						var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeightBigSize);
-						//var sizeWidthMd = _settingService.GetSetting("Post.WithBigSize", ImageSize.WithBigSize);
-						//var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeightBigSize);
+					//	var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
+					//	var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
+					//	var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
 
-						_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
-						_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-						_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+					//	var sizeWidthBg = _settingService.GetSetting("Post.WidthBigSize", ImageSize.WidthBigSize);
+					//	var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeightBigSize);
+					//	var sizeWidthMd = _settingService.GetSetting("Post.WidthMediumSize", ImageSize.WidthMediumSize);
+					//	var sizeHeightMd = _settingService.GetSetting("Post.HeightMediumSize", ImageSize.HeightMediumSize);
+					//	var sizeWidthSm = _settingService.GetSetting("Post.WithSmallSize", ImageSize.WithSmallSize);
+					//	var sizeHeightSm = _settingService.GetSetting("Post.HeightSmallSize", ImageSize.HeightSmallSize);
 
-						model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
-						model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
-						model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
-					}
+					//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+					//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+					//	_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+
+					//	model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
+					//	model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
+					//	model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
+					//}
+
 					var menuId = model.MenuId;
-					var i = 0;
-					if (menuId.GetValueOrDefault() > i && menuId.HasValue)
+					if (menuId.GetValueOrDefault() > 0 && menuId.HasValue)
 					{
 						var menuLinkService = _menuLinkService;
 						menuId = model.MenuId;
@@ -454,68 +465,71 @@ namespace App.Admin.Controllers
 					}
 
 					//GalleryImage
-					var files = Request.Files;
-					var lstGalleryImages = new List<GalleryImage>();
-					if (files.Count > 0)
+					var galleryImages = PostImageAttributeHandler(model);
+					if (galleryImages.IsAny())
 					{
-						var count = files.Count - 1;
-						var num = 0;
-
-						var allKeys = files.AllKeys;
-						for (i = 0; i < allKeys.Length; i++)
-						{
-							var str7 = allKeys[i];
-							if (num <= count)
-							{
-								if (!str7.Equals("Image"))
-								{
-									var str8 = str7.Replace("[]", "");
-									var item = files[num];
-									if (item.ContentLength > 0)
-									{
-										var item1 = Request[str8];
-										var galleryImageViewModel = new GalleryImageViewModel
-										{
-											PostId = model.Id,
-											AttributeValueId = int.Parse(str8)
-										};
-
-										var fileNameOrginal = Path.GetFileNameWithoutExtension(item.FileName);
-										var fileExtension = Path.GetExtension(item.FileName);
-
-										var fileName1 = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
-										var fileName2 = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
-
-										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WithBigSize, ImageSize.WithBigSize);
-										_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
-
-										galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileName1}";
-										galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileName2}";
-
-
-										galleryImageViewModel.OrderDisplay = num;
-										galleryImageViewModel.Status = 1;
-										galleryImageViewModel.Title = model.Title;
-										galleryImageViewModel.Price = double.Parse(item1);
-
-										lstGalleryImages.Add(Mapper.Map<GalleryImage>(galleryImageViewModel));
-									}
-									num++;
-								}
-								else
-								{
-									num++;
-								}
-							}
-						}
+						byId.GalleryImages = galleryImages;
 					}
-					if (lstGalleryImages.IsAny())
-					{
-						byId.GalleryImages = lstGalleryImages;
-					}
+					//int i;
+					//var files = Request.Files;
+					//var lstGalleryImages = new List<GalleryImage>();
+					//if (files.Count > 0)
+					//{
+					//	var count = files.Count - 1;
+					//	var num = 0;
+
+					//	var allKeys = files.AllKeys;
+					//	for (i = 0; i < allKeys.Length; i++)
+					//	{
+					//		var str7 = allKeys[i];
+					//		if (num <= count)
+					//		{
+					//			if (!str7.Equals("Image"))
+					//			{
+					//				var str8 = str7.Replace("[]", "");
+					//				var item = files[num];
+					//				if (item.ContentLength > 0)
+					//				{
+					//					var item1 = Request[str8];
+					//					var galleryImageViewModel = new GalleryImageViewModel
+					//					{
+					//						PostId = model.Id,
+					//						AttributeValueId = int.Parse(str8)
+					//					};
+
+					//					var fileNameOrginal = Path.GetFileNameWithoutExtension(item.FileName);
+					//					var fileExtension = Path.GetExtension(item.FileName);
+
+					//					var fileName1 = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
+					//					var fileName2 = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
+
+					//					_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName1, ImageSize.WidthBigSize, ImageSize.WidthBigSize);
+					//					_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileName2, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+
+					//					galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileName1}";
+					//					galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileName2}";
+
+
+					//					galleryImageViewModel.OrderDisplay = num;
+					//					galleryImageViewModel.Status = 1;
+					//					galleryImageViewModel.Title = model.Title;
+					//					galleryImageViewModel.Price = double.Parse(item1);
+
+					//					lstGalleryImages.Add(Mapper.Map<GalleryImage>(galleryImageViewModel));
+					//				}
+					//				num++;
+					//			}
+					//			else
+					//			{
+					//				num++;
+					//			}
+					//		}
+					//	}
+					//}
+
 
 					//AttributeValue
-					var lstAttributeValues = new List<AttributeValue>();
+					var attributeValues = new List<AttributeValue>();
 					var nums = new List<int>();
 					var item2 = Request["Values"];
 					if (!string.IsNullOrEmpty(item2))
@@ -524,7 +538,7 @@ namespace App.Admin.Controllers
 						{
 							var num1 = int.Parse(list);
 							nums.Add(num1);
-							lstAttributeValues.Add(_attributeValueService.GetById(num1, false));
+							attributeValues.Add(_attributeValueService.GetById(num1, false));
 						}
 
 						if (nums.IsAny())
@@ -536,15 +550,15 @@ namespace App.Admin.Controllers
 						}
 					}
 
-					byId.AttributeValues = lstAttributeValues;
+					byId.AttributeValues = attributeValues;
 
 					var modelMap = Mapper.Map(model, byId);
 					_postService.Update(byId);
 
 					//Update GalleryImage
-					if (lstAttributeValues.IsAny())
+					if (attributeValues.IsAny())
 					{
-						foreach (var attributeValue in lstAttributeValues)
+						foreach (var attributeValue in attributeValues)
 						{
 							var nullable = _galleryService.Get(x => x.AttributeValueId == attributeValue.Id && x.PostId == model.Id);
 							if (nullable == null)
@@ -552,7 +566,7 @@ namespace App.Admin.Controllers
 								continue;
 							}
 							var request = Request;
-							i = attributeValue.Id;
+							int i = attributeValue.Id;
 							var num2 = decimal.Parse(request[i.ToString()]);
 							nullable.Price = num2;
 							_galleryService.Update(nullable);
@@ -689,21 +703,22 @@ namespace App.Admin.Controllers
 								var fileNameMd = $"slide.{ titleOriginal}".FileNameFormat(fileExtension);
 								var fileNameSm = $"slide.{ titleOriginal}".FileNameFormat(fileExtension);
 
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, ImageSize.PostGalleryWithBigSize, ImageSize.PostGalleryHeightBigSize);
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameMd, ImageSize.PostGalleryWithMediumSize, ImageSize.PostGalleryHeightMediumSize);
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameSm, ImageSize.PostGalleryWithSmallSize, ImageSize.PostGalleryHeightSmallSize);
+								var sizeWidthBg = _settingService.GetSetting("Post.GalleryWidthBigSize", ImageSize.WidthDefaultSize);
+								var sizeHeightBg = _settingService.GetSetting("Post.GalleryHeightBigSize", ImageSize.HeighthDefaultSize);
+								var sizeWidthMd = _settingService.GetSetting("Post.GalleryWidthMediumSize", ImageSize.WidthDefaultSize);
+								var sizeHeightMd = _settingService.GetSetting("Post.GalleryHeightMediumSize", ImageSize.HeighthDefaultSize);
+								var sizeWidthSm = _settingService.GetSetting("Post.GalleryWidthSmallSize", ImageSize.WidthDefaultSize);
+								var sizeHeightSm = _settingService.GetSetting("Post.GalleryHeightSmallSize", ImageSize.HeighthDefaultSize);
+
+								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
 
 								postGallery.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
 								postGallery.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
 								postGallery.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
 
 								_postGalleryService.Create(postGallery);
-
-								////Update first image is avatar
-								//byId.ImageBigSize = fileNameBg;
-								//byId.ImageMediumSize = fileNameMd;
-								//byId.ImageSmallSize = fileNameSm;
-								//_postService.Update(byId);
 							}
 							num++;
 						}
@@ -774,9 +789,18 @@ namespace App.Admin.Controllers
 				var imgPathMd = Server.MapPath(string.Concat("~/", postGallery.ImageMediumSize));
 				var imgPathSm = Server.MapPath(string.Concat("~/", postGallery.ImageSmallSize));
 
-				System.IO.File.Delete(imgPathBg);
-				System.IO.File.Delete(imgPathMd);
-				System.IO.File.Delete(imgPathSm);
+				if (Exists(imgPathBg))
+				{
+					System.IO.File.Delete(imgPathBg);
+				}
+				if (Exists(imgPathMd))
+				{
+					System.IO.File.Delete(imgPathMd);
+				}
+				if (Exists(imgPathSm))
+				{
+					System.IO.File.Delete(imgPathSm);
+				}
 
 				actionResult = Json(new { success = true });
 			}
@@ -883,5 +907,102 @@ namespace App.Admin.Controllers
 		}
 
 		#endregion
+
+		private void PostImageHandler(PostViewModel model)
+		{
+			var folderName = Utils.FolderName(model.Title);
+			if (model.Image != null && model.Image.ContentLength > 0)
+			{
+				var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+				var fileExtension = Path.GetExtension(model.Image.FileName);
+
+				var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
+				var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
+				var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
+
+				var sizeWidthBg = _settingService.GetSetting("Post.WidthBigSize", ImageSize.WidthDefaultSize);
+				var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeighthDefaultSize);
+				var sizeWidthMd = _settingService.GetSetting("Post.WidthMediumSize", ImageSize.WidthDefaultSize);
+				var sizeHeightMd = _settingService.GetSetting("Post.HeightMediumSize", ImageSize.HeighthDefaultSize);
+				var sizeWidthSm = _settingService.GetSetting("Post.WidthSmallSize", ImageSize.WidthDefaultSize);
+				var sizeHeightSm = _settingService.GetSetting("Post.HeightSmallSize", ImageSize.HeighthDefaultSize);
+
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+
+				model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
+				model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
+				model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
+			}
+		}
+
+		private List<GalleryImage> PostImageAttributeHandler(PostViewModel model)
+		{
+			var folderName = Utils.FolderName(model.Title);
+
+			var files = Request.Files;
+			var lstGalleryImages = new List<GalleryImage>();
+			if (files.Count > 0)
+			{
+				var count = files.Count - 1;
+				var num = 0;
+
+				var allKeys = files.AllKeys;
+				int i;
+				for (i = 0; i < allKeys.Length; i++)
+				{
+					var str7 = allKeys[i];
+					if (num <= count)
+					{
+						if (!str7.Equals("Image"))
+						{
+							var str8 = str7.Replace("[]", "");
+							var item = files[num];
+							if (item.ContentLength > 0)
+							{
+								var item1 = Request[str8];
+								var galleryImageViewModel = new GalleryImageViewModel
+								{
+									PostId = model.Id,
+									AttributeValueId = int.Parse(str8)
+								};
+
+								var fileNameOrginal = Path.GetFileNameWithoutExtension(item.FileName);
+								var fileExtension = Path.GetExtension(item.FileName);
+
+								var fileNameBg = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
+								var fileNameThum = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
+
+								var sizeWidthBg = _settingService.GetSetting("Post.AttributeWithBigSize", ImageSize.WidthDefaultSize);
+								var sizeHeighthBg = _settingService.GetSetting("Post.AttributeHeightBigSize", ImageSize.HeighthDefaultSize);
+								var sizeWidthThum = _settingService.GetSetting("Post.AttributeWidthThumSize", ImageSize.WidthDefaultSize);
+								var sizeHeightThum = _settingService.GetSetting("Post.AttributeHeightThumSize", ImageSize.HeighthDefaultSize);
+
+								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeighthBg);
+								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameThum, sizeWidthThum, sizeHeightThum);
+
+								galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
+								galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileNameThum}";
+
+								galleryImageViewModel.OrderDisplay = num;
+								galleryImageViewModel.Status = 1;
+								galleryImageViewModel.Title = model.Title;
+								galleryImageViewModel.Price = double.Parse(item1);
+
+								lstGalleryImages.Add(Mapper.Map<GalleryImage>(galleryImageViewModel));
+							}
+							num++;
+						}
+						else
+						{
+							num++;
+						}
+					}
+				}
+			}
+
+			return lstGalleryImages;
+		}
 	}
 }

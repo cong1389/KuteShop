@@ -689,12 +689,7 @@ var App = function () {
 
         return postCode + dateWithPoint;
     }
-
-    var handleBaseUrl = function () {
-        var port = (window.location.port) ? ":" + window.location.port : "";
-        return window.location.protocol + "//" + window.location.hostname + port + "/";
-    }
-
+    
     var handleNotific8 = function (header, msg) {
         $.notific8("zindex", 11500);
         $.notific8(msg, {
@@ -1227,11 +1222,7 @@ var App = function () {
         removeCharactersVietNam: function (words) {
             return handleRemoveCharactersVietNam(words);
         },
-
-        getBaseurl: function () {
-            return handleBaseUrl();
-        },
-
+        
         notific8: function(header, msg) {
             handleNotific8(header, msg);
         }

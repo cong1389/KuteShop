@@ -4,31 +4,43 @@ namespace App.Admin.Helpers
 {
     public static class ImageSize
 	{
+		public static int WidthDefaultSize
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WidthDefaultSize"]))
+				{
+					return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
+				}
+				return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
+			}
+		}
+
+		public static int HeighthDefaultSize
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeighthDefaultSize"]))
+				{
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                }
+				return int.Parse(ConfigurationManager.AppSettings["HeighthDefaultSize"]);
+			}
+		}
+
 		public static int HeightBigSize
 		{
 			get
 			{
 				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeightBigSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
-                }
+					return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+				}
 				return int.Parse(ConfigurationManager.AppSettings["HeightBigSize"]);
 			}
 		}
 
-		public static int HeighthOrignalSize
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeighthOrignalSize"]))
-				{
-                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
-                }
-				return int.Parse(ConfigurationManager.AppSettings["HeighthOrignalSize"]);
-			}
-		}
-        
-        public static int HeightMediumSize
+		public static int HeightMediumSize
 		{
 			get
 			{
@@ -69,7 +81,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
 	        }
@@ -80,7 +92,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithNewsSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["WithNewsSize"]);
 	        }
@@ -110,40 +122,30 @@ namespace App.Admin.Helpers
 			}
 		}
 
-		public static int WithBigSize
+		public static int WidthBigSize
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithBigSize"]))
+				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WidthBigSize"]))
 				{
-					return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+					return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 				}
-				return int.Parse(ConfigurationManager.AppSettings["WithBigSize"]);
+				return int.Parse(ConfigurationManager.AppSettings["WidthBigSize"]);
 			}
 		}
-		public static int WithMediumSize
+		public static int WidthMediumSize
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithMediumSize"]))
+				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WidthMediumSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
-				return int.Parse(ConfigurationManager.AppSettings["WithMediumSize"]);
+				return int.Parse(ConfigurationManager.AppSettings["WidthMediumSize"]);
 			}
 		}
         
-		public static int WithOrignalSize
-		{
-			get
-			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithOrignalSize"]))
-				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
-                }
-				return int.Parse(ConfigurationManager.AppSettings["WithOrignalSize"]);
-			}
-		}
+		
 
         public static int ManufacturerWithMediumSize
         {
@@ -151,7 +153,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["ManufacturerWithMediumSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["ManufacturerWithMediumSize"]);
             }
@@ -174,7 +176,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["Manufacture_WithMediumSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["Manufacture_WithMediumSize"]);
             }
@@ -197,7 +199,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PaymentMethod_WithMediumSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["PaymentMethod_WithMediumSize"]);
             }
@@ -231,7 +233,7 @@ namespace App.Admin.Helpers
 			{
 				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithPostRelativeSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
 				return int.Parse(ConfigurationManager.AppSettings["WithPostRelativeSize"]);
 			}
@@ -243,7 +245,7 @@ namespace App.Admin.Helpers
 			{
 				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithSmallSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
 				return int.Parse(ConfigurationManager.AppSettings["WithSmallSize"]);
 			}
@@ -254,7 +256,7 @@ namespace App.Admin.Helpers
 			{
 				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["WithThumbnailSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
 				return int.Parse(ConfigurationManager.AppSettings["WithThumbnailSize"]);
 			}
@@ -266,7 +268,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
 	            return int.Parse(ConfigurationManager.AppSettings["MenuWithBigSize"]);
 	        }
@@ -288,7 +290,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithMediumSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["MenuWithMediumSize"]);
 	        }
@@ -310,7 +312,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["MenuWithSmallSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["MenuWithSmallSize"]);
 	        }
@@ -333,7 +335,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BannerWithBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["BannerWithBigSize"]);
 	        }
@@ -356,7 +358,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SlideShowWithBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["SlideShowWithBigSize"]);
 	        }
@@ -379,7 +381,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["StaticContentWithBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["StaticContentWithBigSize"]);
 	        }
@@ -402,7 +404,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithBigSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["NewsWithBigSize"]);
             }
@@ -424,7 +426,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithMediumSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["NewsWithMediumSize"]);
             }
@@ -446,7 +448,7 @@ namespace App.Admin.Helpers
             {
                 if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["NewsWithSmallSize"]))
                 {
-                    return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
                 }
                 return int.Parse(ConfigurationManager.AppSettings["NewsWithSmallSize"]);
             }
@@ -469,7 +471,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithBigSize"]);
 	        }
@@ -480,7 +482,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightBigSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightBigSize"]);
 	        }
@@ -491,7 +493,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithMediumSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithMediumSize"]);
 	        }
@@ -502,7 +504,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightMediumSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightMediumSize"]);
 	        }
@@ -513,7 +515,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryWithSmallSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryWithSmallSize"]);
 	        }
@@ -524,7 +526,7 @@ namespace App.Admin.Helpers
 	        {
 	            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["PostGalleryHeightSmallSize"]))
 	            {
-	                return int.Parse(ConfigurationManager.AppSettings["WithDefaultSize"]);
+	                return int.Parse(ConfigurationManager.AppSettings["WidthDefaultSize"]);
 	            }
 	            return int.Parse(ConfigurationManager.AppSettings["PostGalleryHeightSmallSize"]);
 	        }

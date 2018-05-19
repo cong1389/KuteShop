@@ -257,6 +257,7 @@
     <Content Include="Areas\Admin\content\plugins\uploafile\jquery.filer.css" />
     <Content Include="Areas\Admin\content\plugins\uploafile\themes\jquery.filer-dragdropbox.css" />
     <Content Include="Areas\Admin\scripts\app.core.min.js" />
+    <Content Include="Areas\Admin\scripts\app.js" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Banner\_CreateOrUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\PaymentMethod\Index.cshtml" />

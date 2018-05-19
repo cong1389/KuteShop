@@ -14,6 +14,22 @@
 			<a class="btn btn-default btn-sm" id="hypCreate"><i class="fa fa-plus"></i>@FormUI.CreateNew</a>
 		</li>
 	</ul>
+	<div class="col-sm-5">
+		<div class="form-body">
+			<div class="form-group">
+
+				<div class="col-md-11">
+					<div class="form-group">
+						<input id="txtSearch" dir="@Url.Action("Index")"  type="text" name="search" class="form-control" value="@ViewBag.keywords" placeholder="@FormUI.Search"/>
+					</div>
+				</div>
+				<div class="control-label col-md-1">
+					<button type="submit" value="Search" class="btn btn-success" onclick="searchForSetting();">@FormUI.Search</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </div>
 
 @using (Html.BeginForm("CreateOrSave", "Setting", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
@@ -62,6 +78,9 @@
 <script src="/signalr/hubs"></script>
 
 <script>
+	function searchForSetting() {
+		window.location = '@Url.Action("Index", "Setting")?keywords=' + $('#txtSearch').val();
+	}
 
 	$(function() {
 		try {
@@ -78,6 +97,20 @@
 		} catch (e) {
 
 		}
+
+		$("#txtSearch").focus();
+		$("#txtSearch").keypress(function (event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode === 13) {
+				var url = $(this).attr("dir");
+				var keywords = $(this).val();
+				App.blockUI({
+					target: "body",
+					boxed: true
+				});
+				window.location.href = url + "?keywords=" + keywords;
+			}
+		});
 
 		$(".edit-button").on("click",
 			function() {
@@ -136,8 +169,8 @@
 		function getRecord(row) {
 			return {
 				id: row.find("#hddId").val(),
-				name: row.find(":nth-child(2)").find("input").val(),
-				value: row.find(":nth-child(3)").find("input").val()
+				name: row.find(":nth-child(2)").find("input").val().trim(),
+				value: row.find(":nth-child(3)").find("input").val().trim()
 			};
 		};
 

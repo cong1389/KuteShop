@@ -17,6 +17,7 @@ using App.Service.LocalizedProperty;
 using App.Service.Media;
 using App.Service.Menu;
 using App.Service.News;
+using App.Service.Settings;
 using AutoMapper;
 using Resources;
 
@@ -25,9 +26,8 @@ namespace App.Admin.Controllers
     public class NewsController : BaseAdminController
     {
         private const string CacheNewsKey = "db.News";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IMenuLinkService _menuLinkService;
+	    private readonly IMenuLinkService _menuLinkService;
 
         private readonly INewsService _newsService;
 
@@ -36,24 +36,25 @@ namespace App.Admin.Controllers
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
+	    private readonly ISettingService _settingService;
 
-        public NewsController(
+		public NewsController(
             INewsService newsService
             , IMenuLinkService menuLinkService
             , IImageService imageService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager)
+            , ICacheManager cacheManager, ISettingService settingService)
         {
-            _newsService = newsService;
+	        _newsService = newsService;
             _menuLinkService = menuLinkService;
             _imageService = imageService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _cacheManager = cacheManager;
+	        _settingService = settingService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheNewsKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheNewsKey);
         }
         
         [RequiredPermisson(Roles = "CreateEditNews")]
@@ -95,26 +96,9 @@ namespace App.Admin.Controllers
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                var folderName = Utils.FolderName(model.Title);
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
+                ImageHandler(model);
 
-                    var fileName1 = fileNameOriginal.FileNameFormat(fileExtension);
-                    var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
-                    var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
-
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
-
-                    model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
-                    model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
-                    model.ImageSmallSize = $"{Contains.NewsFolder}{folderName}/{fileName3}";
-                }
-
-                if (model.MenuId > 0)
+	            if (model.MenuId > 0)
                 {
                     var byId = _menuLinkService.GetMenu(model.MenuId, false);
                     model.VirtualCatUrl = byId.VirtualSeoUrl;
@@ -157,7 +141,36 @@ namespace App.Admin.Controllers
             return action;
         }
 
-        [RequiredPermisson(Roles = "DeleteNews")]
+	    private void ImageHandler(NewsViewModel model)
+	    {
+		    var folderName = Utils.FolderName(model.Title);
+		    if (model.Image != null && model.Image.ContentLength > 0)
+		    {
+			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+			    var fileExtension = Path.GetExtension(model.Image.FileName);
+
+			    var fileNameBg = fileNameOriginal.FileNameFormat(fileExtension);
+			    var fileNameMd = fileNameOriginal.FileNameFormat(fileExtension);
+			    var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
+
+			    var sizeWidthBg = _settingService.GetSetting("News.WidthBigSize", ImageSize.WidthDefaultSize);
+			    var sizeHeightBg = _settingService.GetSetting("News.HeightBigSize", ImageSize.HeighthDefaultSize);
+			    var sizeWidthMd = _settingService.GetSetting("News.WidthMediumSize", ImageSize.WidthDefaultSize);
+			    var sizeHeightMd = _settingService.GetSetting("News.HeightMediumSize", ImageSize.HeighthDefaultSize);
+			    var sizeWidthSm = _settingService.GetSetting("News.WidthSmallSize", ImageSize.WidthDefaultSize);
+			    var sizeHeightSm = _settingService.GetSetting("News.HeightSmallSize", ImageSize.HeighthDefaultSize);
+
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameBg,sizeWidthBg, sizeHeightBg);
+			    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+			    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+
+			    model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileNameBg}";
+			    model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileNameMd}";
+			    model.ImageSmallSize = $"{Contains.NewsFolder}{folderName}/{fileNameSm}";
+		    }
+	    }
+
+	    [RequiredPermisson(Roles = "DeleteNews")]
         public ActionResult Delete(int[] ids)
         {
             try
@@ -236,26 +249,28 @@ namespace App.Admin.Controllers
                     newsViewModel.SeoUrl = string.Concat(newsViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                var folderName = Utils.FolderName(model.Title);
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
+	            ImageHandler(model);
 
-                    var fileName1 = fileNameOriginal.FileNameFormat(fileExtension);
-                    var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
-                    var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
+				//var folderName = Utils.FolderName(model.Title);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+				//    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
+				//    var fileName1 = fileNameOriginal.FileNameFormat(fileExtension);
+				//    var fileName2 = fileNameOriginal.FileNameFormat(fileExtension);
+				//    var fileName3 = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
-                    model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
-                    model.ImageSmallSize = $"{Contains.NewsFolder}{folderName}/{fileName3}";
-                }
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName1, ImageSize.NewsWithBigSize, ImageSize.NewsHeightBigSize);
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName2, ImageSize.NewsWithMediumSize, ImageSize.NewsHeightMediumSize);
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileName3, ImageSize.NewsWithSmallSize, ImageSize.NewsHeightSmallSize);
 
-                if (model.MenuId > 0)
+				//    model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileName1}";
+				//    model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileName2}";
+				//    model.ImageSmallSize = $"{Contains.NewsFolder}{folderName}/{fileName3}";
+				//}
+
+				if (model.MenuId > 0)
                 {
                     var menuLink = _menuLinkService.GetMenu(model.MenuId, false);
                     model.VirtualCatUrl = menuLink.VirtualSeoUrl;

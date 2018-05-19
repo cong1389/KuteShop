@@ -13,6 +13,7 @@ using App.Framework.Ultis;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
+using App.Service.Settings;
 using App.Service.Slide;
 using AutoMapper;
 using Resources;
@@ -22,29 +23,29 @@ namespace App.Admin.Controllers
     public class SlideShowController : BaseAdminController
     {
         private const string CacheSlideshowKey = "db.SlideShow";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly ISlideShowService _slideShowService;
+	    private readonly ISlideShowService _slideShowService;
 
         private readonly ILanguageService _languageService;
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
         private readonly IImageService _imageService;
+	    private readonly ISettingService _settingService;
 
-        public SlideShowController(
+		public SlideShowController(
             ISlideShowService slideShowService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager, IImageService imageService)
+            , ICacheManager cacheManager, IImageService imageService, ISettingService settingService)
         {
-            _slideShowService = slideShowService;
+	        _slideShowService = slideShowService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _cacheManager = cacheManager;
-            _imageService = imageService;
+	        _imageService = imageService;
+	        _settingService = settingService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheSlideshowKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheSlideshowKey);
 
         }
 
@@ -77,27 +78,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
-
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
-
-                    model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
-
-                    //var fileExtension = Path.GetExtension(model.Image.FileName);
-
-                    //var fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
-
-                    //var imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
-
-                    //model.ImgPath = $"{Contains.AdsFolder}/{fileName}";
-                    //model.Image.SaveAs(imageServerPath);
-                }
+                ImageHandler(model);
 
                 var modelMap = Mapper.Map<SlideShowViewModel, SlideShow>(model);
                 _slideShowService.Create(modelMap);
@@ -130,7 +111,26 @@ namespace App.Admin.Controllers
             return action;
         }
 
-        public ActionResult Delete(int[] ids)
+	    private void ImageHandler(SlideShowViewModel model)
+	    {
+		    if (model.Image != null && model.Image.ContentLength > 0)
+		    {
+			    var folderName = Utils.FolderName(model.Title);
+			    var fileExtension = Path.GetExtension(model.Image.FileName);
+			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+
+			    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+			    var sizeWidthBg = _settingService.GetSetting("SlideShow.WidthBigSize", ImageSize.WidthDefaultSize);
+			    var sizeHeighthBg = _settingService.GetSetting("SlideShow.HeightBigSize", ImageSize.HeighthDefaultSize);
+
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName,sizeWidthBg, sizeHeighthBg);
+
+			    model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
+		    }
+	    }
+
+	    public ActionResult Delete(int[] ids)
         {
             try
             {
@@ -192,29 +192,31 @@ namespace App.Admin.Controllers
 
                 var slideShow = _slideShowService.Get(x => x.Id == model.Id);
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+	            ImageHandler(model);
 
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//    var folderName = Utils.FolderName(model.Title);
+				//    var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
+				//    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName, ImageSize.SlideShowWithBigSize, ImageSize.SlideShowHeightBigSize);
 
-                    //var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
 
-                    //var fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
+				//    //var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    //var imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
+				//    //var fileName = model.Title.NonAccent().FileNameFormat(fileExtension);
 
-                    //model.ImgPath = $"{Contains.AdsFolder}/{fileName}";
-                    //model.Image.SaveAs(imageServerPath);
-                }
+				//    //var imageServerPath = Path.Combine(Server.MapPath(string.Concat("~/", Contains.AdsFolder)), fileName);
 
-                var modelMap = Mapper.Map(model, slideShow);
+				//    //model.ImgPath = $"{Contains.AdsFolder}/{fileName}";
+				//    //model.Image.SaveAs(imageServerPath);
+				//}
+
+				var modelMap = Mapper.Map(model, slideShow);
                 _slideShowService.Update(modelMap);
 
                 //Update Localized   
@@ -276,5 +278,6 @@ namespace App.Admin.Controllers
 
             return View(slideShows);
         }
+
     }
 }

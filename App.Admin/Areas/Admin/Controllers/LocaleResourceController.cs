@@ -39,7 +39,8 @@ namespace App.Admin.Controllers
         public ActionResult Index(int languageId, int page = 1, string keywords = "")
         {
             var resources = _services.Localization.GetByLanguageId(languageId);
-            resources = resources.Where(m => m.ResourceName.Contains(keywords) || m.ResourceValue.Contains(keywords));
+	        keywords = keywords.ToLower().Trim();
+			resources = resources.Where(m => m.ResourceName.ToLower().Contains(keywords) || m.ResourceValue.ToLower().Contains(keywords));
             ViewBag.Localization = resources.OrderByDescending(m => m.CreatedDate);
 
             //Lưu lại languageId, keywork để k bị mất value text ở view
@@ -53,7 +54,7 @@ namespace App.Admin.Controllers
         }
 
 	    [HttpPost]
-		public ActionResult Edit(LocaleStringResourceViewModel model)
+		public ActionResult CreateOrSave(LocaleStringResourceViewModel model)
         {
             var locale = _services.Localization.GetById(model.Id);
 

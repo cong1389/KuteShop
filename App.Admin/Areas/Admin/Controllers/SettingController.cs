@@ -26,7 +26,10 @@ namespace App.Admin.Controllers
 		public ActionResult Index(int page = 1, string keywords = "")
 		{
 			var settings = _settingService.GetAll();
+			keywords = keywords.ToLower().Trim();
+			settings = settings.Where(x => x.Name.ToLower().Contains(keywords) || x.Value.Contains(keywords));
 
+			ViewBag.keywords = keywords;
 			ViewBag.Settings = settings.OrderBy(x => x.Name);
 
 			return View(settings);

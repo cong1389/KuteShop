@@ -98,7 +98,7 @@ namespace App.Admin.Controllers
                                     };
                                     var str1 = $"{repair.RepairCode}-{Guid.NewGuid()}.jpg";
                                     _imageService.CropAndResizeImage(httpPostedFileBase,
-                                        $"{Contains.MenuFolder}{repair.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                        $"{Contains.MenuFolder}{repair.RepairCode}/", str1, ImageSize.WidthBigSize, ImageSize.WidthBigSize);
                                     repairGalleryViewModel.ImagePath =
                                         $"{Contains.MenuFolder}{repair.RepairCode}/{str1}";
                                     repairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));
@@ -249,7 +249,7 @@ namespace App.Admin.Controllers
                                     };
                                     var str1 = $"{repairView.RepairCode}-{Guid.NewGuid()}.jpg";
                                     _imageService.CropAndResizeImage(item,
-                                        $"{Contains.MenuFolder}{repairView.RepairCode}/", str1, ImageSize.WithBigSize, ImageSize.WithBigSize);
+                                        $"{Contains.MenuFolder}{repairView.RepairCode}/", str1, ImageSize.WidthBigSize, ImageSize.WidthBigSize);
                                     repairGalleryViewModel.ImagePath =
                                         $"{Contains.MenuFolder}{repairView.RepairCode}/{str1}";
                                     lstRepairGalleries.Add(Mapper.Map<RepairGallery>(repairGalleryViewModel));

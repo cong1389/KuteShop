@@ -21,10 +21,10 @@
 				<div class="col-md-6">
 
 					@Html.DropDownList("drpLanguage", new SelectList(ViewBag.AllLanguage, "Id", "LanguageName", ViewBag.LanguageSelected != null ? ViewBag.LanguageSelected : 1)
-							 , new { @class = "form-control", onChange = "drpLanguage_change();" })
+							 , new { @class = "form-control", onChange = "searchForLocale();" })
 
 					<script>
-                        function drpLanguage_change() {
+                        function searchForLocale() {
                             window.location = '@Url.Action("Index", "LocaleResource")?languageId=' + $("#drpLanguage").val() + '&keywords=' + $('#txtSearch').val();
                         }
 					</script>
@@ -40,11 +40,11 @@
 
 				<div class="col-md-11">
 					<div class="form-group">
-						<input id="txtSearch" type="text" name="search" class="form-control" value="@ViewBag.keywords" />
+						<input id="txtSearch" dir="@Url.Action("Index")" type="text" name="search" class="form-control" value="@ViewBag.keywords" placeholder="@FormUI.Search" />
 					</div>
 				</div>
 				<div class="control-label col-md-1">
-					<button type="submit" value="Search" class="btn btn-success" onclick="drpLanguage_change();">@FormUI.Search</button>
+					<button type="submit" value="Search" class="btn btn-success" onclick="searchForLocale();">@FormUI.Search</button>
 				</div>
 
 			</div>
@@ -53,7 +53,7 @@
 
 </div>
 
-@using (Html.BeginForm("Edit", "LocaleResource", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateOrSave", "LocaleResource", FormMethod.Post, new { data_container = ViewContext.RouteData.Values["controller"], enctype = "multipart/form-data" }))
 {
 	@MvcHtmlString.Create(
 				grid.GetHtml(
@@ -69,28 +69,28 @@
 
 						grid.Column(null, null,
 							format: @<text><input id="hddId" name="hddId" type="hidden" value="@item.Value.Id" />
-								<input id="hddLanguageId" name="hddLanguageId" type="hidden" value="@item.Value.LanguageId" />
-								<input id="hddIsFromPlugin" name="hddIsFromPlugin" type="hidden" value="@item.Value.IsFromPlugin" /></text>
-													),
+									<input id="hddLanguageId" name="hddLanguageId" type="hidden" value="@item.Value.LanguageId" />
+									<input id="hddIsFromPlugin" name="hddIsFromPlugin" type="hidden" value="@item.Value.IsFromPlugin" /></text>
+																						),
 
-												grid.Column("ResourceName",
-													format: item
-														=> Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceName
-															, "ResourceName", ((LocaleStringResource)item.Value).Id.ToString()))
+																					grid.Column("Resource Name",
+																						format: item
+																							=> Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceName
+																								, "ResourceName", ((LocaleStringResource)item.Value).Id.ToString()))
 
-												, grid.Column("ResourceValue",
-													format: item
-														=> Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceValue
-															, "ResourceValue", ((LocaleStringResource)item.Value).Id.ToString()))
+																					, grid.Column("Resource Value",
+																						format: item
+																							=> Html.EditableTextBox(((LocaleStringResource)item.Value).ResourceValue
+																								, "ResourceValue", ((LocaleStringResource)item.Value).Id.ToString()))
 
-												, grid.Column("Options",
-													format: item => Html.DisplayRecordOptions(), canSort: false, style: "colOption")
+																					, grid.Column("Options",
+																						format: item => Html.DisplayRecordOptions(), canSort: false, style: "colOption")
 
-												)
-											)
-											.ToString()
-											.Replace("{CheckBoxHeading}", "<div class='text-center'><input type='checkbox' id='allBox'/></div>")
-										)
+																					)
+																				)
+																				.ToString()
+																				.Replace("{CheckBoxHeading}", "<div class='text-center'><input type='checkbox' id='allBox'/></div>")
+																			)
 }
 
 @Html.Hidden("dir", grid.SortDirection)
@@ -116,6 +116,20 @@
 		} catch (e) {
 
 		}
+
+		$("#txtSearch").focus();
+		$("#txtSearch").keypress(function (event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode === 13) {
+				var url = $(this).attr("dir");
+				var keywords = $(this).val();
+				App.blockUI({
+					target: "body",
+					boxed: true
+				});
+				window.location.href = url + "?languageId="+$("#drpLanguage").val() +"&keywords=" + keywords;
+			}
+		});
 
 		$(".edit-button").on("click",
 			function() {
@@ -146,7 +160,7 @@
 				var record = getRecord(row);
 
 				$.ajax({
-					url: '/admin/localeresource/edit',
+					url: '@Url.Action("CreateOrSave","LocaleResource")',
 					data: JSON.stringify(record),
 					type: 'POST',
 					contentType: 'application/json; charset=utf-8',

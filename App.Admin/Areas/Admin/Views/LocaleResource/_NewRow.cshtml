@@ -36,7 +36,7 @@
         var record = getRecord(row);
 
 		$.ajax({
-			url: '/admin/localeresource/edit',
+			url: '@Url.Action("CreateOrSave","LocaleResource")',
 			data: JSON.stringify(record),
 			type: 'POST',
 			contentType: 'application/json; charset=utf-8',
