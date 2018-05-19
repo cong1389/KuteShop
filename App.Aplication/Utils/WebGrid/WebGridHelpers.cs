@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Resources;
 
 namespace App.Aplication.WebGrid
 {
@@ -31,9 +32,9 @@ namespace App.Aplication.WebGrid
             var uniqueId = $"{formatName}_{id}";
 
             var input = helper.TextBox(uniqueId,
-                value, new { @class = "hide input-sm" });
+                value, new { @class = "hide input-sm form-control" });
 
-            var result = String.Concat(
+            var result = string.Concat(
                 span.ToString(TagRenderMode.Normal),
                 input.ToHtmlString()
                 );
@@ -55,12 +56,91 @@ namespace App.Aplication.WebGrid
             var input = helper.TextBox(uniqueId, value.ToString("yyyy-MM-dd"),
                 new { type = "date", @class = "hide input-sm" });
 
-            var result = String.Concat(
+            var result = string.Concat(
                 span.ToString(TagRenderMode.Normal),
                 input.ToHtmlString()
                 );
             return MvcHtmlString.Create(result);
         }
 
-    }
+		public static MvcHtmlString DisplayRecordOptions(this HtmlHelper helper)
+		{
+			// Text Display
+			var toolbar = new TagBuilder("ul");
+			toolbar.AddCssClass("record-toolbar");
+
+			var result = string.Concat(
+				GetEditButton().ToString(TagRenderMode.Normal),
+				GetSaveButton().ToString(TagRenderMode.Normal),
+				GetCancelButton().ToString(TagRenderMode.Normal),
+				GetRemoveButton().ToString(TagRenderMode.Normal)
+				);
+
+			toolbar.InnerHtml = result;
+
+			return MvcHtmlString.Create(toolbar.ToString(TagRenderMode.Normal));
+		}
+
+		private static TagBuilder GetEditButton()
+		{
+			var editButton = new TagBuilder("li")
+			{
+				InnerHtml = $"{GetIcon("edit")} {FormUI.Edit}"
+
+			};
+
+			editButton.AddCssClass("edit-button btn btn-default btn-sm");
+			editButton.Attributes.Add("title", FormUI.Edit);
+
+			return editButton;
+		}
+
+		private static TagBuilder GetCancelButton()
+		{
+			var cancelButton = new TagBuilder("li")
+			{
+				InnerHtml = $"{GetIcon("ban")} {FormUI.Cancel}"
+			};
+
+			cancelButton.AddCssClass("cancel-button hide btn btn-default btn-sm");
+			cancelButton.Attributes.Add("title", FormUI.Cancel);
+
+			return cancelButton;
+		}
+
+		private static TagBuilder GetSaveButton()
+		{
+			var saveButton = new TagBuilder("li")
+			{
+				InnerHtml = $"{GetIcon("save")} {FormUI.Save}"
+			};
+
+			saveButton.AddCssClass("save-button hide btn btn-default btn-sm");
+			saveButton.Attributes.Add("title", FormUI.Save);
+
+			return saveButton;
+		}
+
+		private static TagBuilder GetRemoveButton()
+		{
+			var removeButton = new TagBuilder("li")
+			{
+				InnerHtml = $"{GetIcon("trash-o")} {FormUI.Delete}"
+			};
+
+			removeButton.AddCssClass("remove-button btn btn-default btn-sm");
+			removeButton.Attributes.Add("title", FormUI.Delete);
+
+			return removeButton;
+		}
+
+		private static string GetIcon(string iconName)
+		{
+			var icon = new TagBuilder("i");
+			icon.AddCssClass($"fa fa-{iconName}");
+
+			return icon.ToString(TagRenderMode.Normal);
+		}
+
+	}
 }

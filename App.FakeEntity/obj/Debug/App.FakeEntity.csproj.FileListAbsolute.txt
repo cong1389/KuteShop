@@ -403,7 +403,6 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.pdb
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\App.Service.dll
-D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojResolveAssemblyReference.cache
 D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CoreCompileInputs.cache
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\App.FakeEntity.dll.config
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\App.FakeEntity.dll
@@ -530,3 +529,6 @@ D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\AngleSharp.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Owin.Security.Cookies.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\EntityFramework.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\EntityFramework.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojAssemblyReference.cache
+D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CopyComplete

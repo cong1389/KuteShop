@@ -1,20 +1,9 @@
-use SmartStoreV303
+use SmartStore
 go
+
+select * from Setting where name like '%Facebook%'
 
 use KuteShop
 GO
-
-select Id,ParentId,MenuName, * from MenuLink where Position=5
-
-select Status,* from SlideShow
-select * from [Order]
-
-update PostGallery
-set Status=1
-
---truncate table ShoppingCartItem
-
---delete from Customer where userName is null
-
-----------------
---DBCC CHECKIDENT ('[Order]', RESEED, 0);
+select * from LocaleStringResource
+select * from Setting

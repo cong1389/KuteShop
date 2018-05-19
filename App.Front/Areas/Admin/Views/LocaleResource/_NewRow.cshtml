@@ -1,4 +1,5 @@
-﻿@model App.Domain.Entities.Language.LocaleStringResource
+﻿@using Resources
+@model App.Domain.Entities.Language.LocaleStringResource
 
 <tr>
     <td>
@@ -15,15 +16,15 @@
    
     <td>
         <ul class="record-toolbar">
-            <li class="edit-button btn btn-default btn-sm hide" title="Edit Record">
-                <i class="glyphicon glyphicon-edit"></i>
-            </li>
-            <li class="btnAddRecord btn btn-default btn-sm" title="Save Record">
-                <i class="glyphicon glyphicon-floppy-disk"></i>
-            </li>
-            <li class="btnCancel btn btn-default btn-sm" title="Cancel Editing">
-                <i class="glyphicon glyphicon-ban-circle"></i>
-            </li>
+	        <li class="edit-button btn btn-default btn-sm hide" title="@FormUI.Edit">
+		        <i class="fa fa-edit"></i>@FormUI.Edit
+	        </li>
+	        <li class="btnAddRecord btn btn-default btn-sm" title="@FormUI.Save">
+		        <i class="fa fa-save"></i>@FormUI.Save
+	        </li>
+	        <li class="btnCancel btn btn-default btn-sm" title="@FormUI.Cancel">
+		        <i class="fa fa-ban"></i>@FormUI.Cancel
+	        </li>
         </ul>
     </td>    
 </tr>
@@ -34,23 +35,19 @@
         var row = $(this).closest("tr");
         var record = getRecord(row);
 
-        $.ajax({
-            url: '/admin/localeresource/edit',
-            data: JSON.stringify(record),
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                location.reload();
-                tr.find('.edit-mode, .display-mode').toggle();               
-            },
-            error: function (request, status, error)
-            {
-                alert(request.responseText);
-            }
-        }).done(function () {
-            alert("Successfully Saved");
-            location.reload();      // refresh the page
-        });
+		$.ajax({
+			url: '/admin/localeresource/edit',
+			data: JSON.stringify(record),
+			type: 'POST',
+			contentType: 'application/json; charset=utf-8',
+			success: function (response) {
+				location.reload();
+				tr.find('.edit-mode, .display-mode').toggle();
+			},
+			error: function (request, status, error) {
+				AppCore.handleMessage(request.responseText);
+			}
+		});
 
         //webGridHubClient.server.saveRecord(record);
         $("td", row).each(function () {

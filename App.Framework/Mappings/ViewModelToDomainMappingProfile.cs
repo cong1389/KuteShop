@@ -13,6 +13,7 @@ using App.Domain.Entities.Menu;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
+using App.Domain.Entities.Setting;
 using App.Domain.Entities.Slide;
 using App.Domain.Orders;
 using App.Domain.Shippings;
@@ -35,6 +36,7 @@ using App.FakeEntity.Post;
 using App.FakeEntity.Repairs;
 using App.FakeEntity.SeoGlobal;
 using App.FakeEntity.ServerMail;
+using App.FakeEntity.Setting;
 using App.FakeEntity.Shippings;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
@@ -545,6 +547,11 @@ namespace App.Framework.Mappings
           .ForMember(x => x.OrderId, map => map.MapFrom(vm => vm.OrderId))
           .ForMember(x => x.OrderItemGuid, map => map.MapFrom(vm => vm.OrderItemGuid))
           .ForMember(x => x.PostId, map => map.MapFrom(vm => vm.PostId));
-        }
+
+	        CreateMap<SettingViewModel, Setting>()
+		        .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
+		        .ForMember(x => x.Value, map => map.MapFrom(vm => vm.Value))
+		        .ForMember(x => x.StoreId, map => map.MapFrom(vm => vm.StoreId));
+		}
     }
 }

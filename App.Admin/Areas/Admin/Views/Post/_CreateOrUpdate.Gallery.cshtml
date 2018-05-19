@@ -118,20 +118,20 @@
 					, a[1].innerHTML = '<a href="' + n.ImageSmallSize + '" class="fancybox-button" data-rel="fancybox-button"><img src= "' + n.ImageSmallSize + '" alt= "" width="80px" /></a > '
 					, a[2].innerHTML = '<input type="text" class="form-control" value="' + n.Title + '">'
 					, a[3].innerHTML = '<i class="fa fa-arrows"></i>'
-					, a[4].innerHTML = '<a class="edit btn btn-outline btn-sm green" href="">@FormUI.Save</a>|<a class="cancel btn btn-outline btn-sm green" href="">@FormUI.Cancel</a>';
+					, a[4].innerHTML = '<a class="edit btn btn-default btn-sm " href="">@FormUI.Save</a>|<a class="cancel btn btn-default btn-sm " href="">@FormUI.Cancel</a>';
 					@*, a[5].innerHTML = '<a href="javascript:;" class="delete btn btn-default btn-sm"><span class="md-click-circle md-click-animate" style="height: 100px; width: 100px; top: -37px; left: -21.5px;"></span><i class="fa fa-trash-o"></i> @FormUI.Delete </a>'
 					, a[6].innerHTML = '<input class="checkboxes" type="checkbox" '+ ((n.Status  === 1) ? "checked" : "") + ' data="'+n.Id+'">'
 					, a[7].innerHTML = '<input class="isAvatar" type="radio" name="avatar" '+ ((n.IsAvatar  === 1) ? "checked" : "") + ' data="'+n.Id+'">';*@
 				};
 
-				function editGalleryItem(e, t) {
+				function editGallery(e, t) {
 					var n = $("input", t);
 					var dataOld = e.fnGetData(t);
 					e.fnUpdate(n[0].value, t, 0, false)
                     ,e.fnUpdate(dataOld.ImageSmallSize, t, 1, false)
                     , e.fnUpdate(n[1].value, t, 2, false)
 					, e.fnUpdate('<i class="fa fa-arrows"></i>', t, 3, false)
-                    , e.fnUpdate('<a class="edit btn btn-outline btn-sm blue" href=""><i class="fa fa-edit"></i>@FormUI.Edit</a>', t, 4, false);
+                    , e.fnUpdate('<a class="edit btn btn-default btn-sm " href=""><i class="fa fa-edit"></i>@FormUI.Edit</a>', t, 4, false);
 					@* , e.fnUpdate('<a href="javascript:;" class="delete btn btn-default btn-sm"><span class="md-click-circle md-click-animate" style="height: 100px; width: 100px; top: -37px; left: -21.5px;"></span><i class="fa fa-trash-o"></i> @FormUI.Delete </a>', t, 5, false)
 	                , e.fnUpdate('<input class="checkboxes" type="checkbox" '+ ((dataOld.Status  === 1) ? "checked" : "") + ' data="'+dataOld.Id+'">', t, 6, false)
                 	, e.fnUpdate('<input class="isAvatar" type="radio" name="avatar" '+ ((dataOld.IsAvatar  === 1) ? "checked" : "") + ' data="'+dataOld.Id+'">', t, 7, false);*@
@@ -153,7 +153,8 @@
 					});
 				};
 
-				function Delete(e, t) {
+				function deleteGallery(e, t) {
+					var deferred = $.Deferred();
 					var n = $("input", t);
 					var row = {
 						postId:  @Model.Id,
@@ -163,8 +164,15 @@
 						url: '@Url.Action("DeletePostGallery", "Post")',
 						data: JSON.stringify(row),
 						type: 'POST',
-						contentType: 'application/json; charset=utf-8'
+						contentType: 'application/json; charset=utf-8',
+						success: function(data) {
+							deferred.resolve(data);
+						},
+						error: function() {
+							deferred.reject('error');
+						}
 					});
+					return deferred;
 				};
 
 				function changeStatus(e, t) {
@@ -260,7 +268,7 @@
 	                        	"sortable": false
                                 ,"width": "100px"
                                 ,"render": function (data, type, full, meta) {
-                                	return '<a class="edit btn btn-outline btn-sm blue" href="javascript:;"><i class="fa fa-edit"></i> @FormUI.Edit </a>';
+                                	return '<a class="edit btn btn-default btn-sm " href="javascript:;"><i class="fa fa-edit"></i> @FormUI.Edit </a>';
                                 }
 	                        },{"title": "@FormUI.Delete"
                                 , "width": "40px"
@@ -281,83 +289,85 @@
 	                            }
 	                        },{
 	                        	"title": "@FormUI.Avatar",
-	                        	"width": "90px",
-	                        	"data": "Status",
-	                        	"searchable": false,
-	                        	"sortable": false,
-	                        	"render": function(data, type, full, meta) {
-	                        		return '<input class="isAvatar" type="radio" name="avatar" ' +
-										((full.IsAvatar === 1) ? "checked" : "") +
-										' data="' +
-										full.Id +
-										'">';
-	                        	}
-	                        }, {
-	                        	"title": "Copy địa chỉ",
-	                        	"width": "350px",
-	                        	"data": "Status",
-	                        	"searchable": false,
-	                        	"sortable": false,
-	                        	"render": function(data, type, full, meta) {
-	                        		return '<a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
-										App.getBaseurl() +
-										full.ImageBigSize +
-										'"><i class="icon-note"></i> Big size</a> ' +
-										'<a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
-										App.getBaseurl() +
-										full.ImageMediumSize +
-										'"><i class="icon-note"></i> Medium size</a>' +
-										' <a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
-										App.getBaseurl() +
-										full.ImageSmallSize +
-										'"><i class="icon-note"></i> Small size</a>';
-	                        	}
-	                        }
-                    	],
-                    	lengthMenu: [
-							[5, 15, 20, -1],
-							[5, 15, 20, "All"]
-                    	],
-                    	pageLength: 20,
-                    	language: { lengthMenu: " _MENU_ records" },
-                    	rowReorder: {selector: '.reorder'}
-                    	,columnDefs: [
-                    	    { orderable: true, className: 'reorder', targets: [3] }
-                    		, { orderable: false, targets: '_all' }
-                    		//,{ "Class": "hidden", "targets": [0] }
-                    	]
-                    	//,order: [[3, "desc"]]
+									"width": "90px",
+									"data": "Status",
+									"searchable": false,
+									"sortable": false,
+									"render": function(data, type, full, meta) {
+										return '<input class="isAvatar" type="radio" name="avatar" ' +
+											((full.IsAvatar === 1) ? "checked" : "") +
+											' data="' +
+											full.Id +
+											'">';
+									}
+								}, {
+									"title": "Copy địa chỉ",
+									"width": "350px",
+									"data": "Status",
+									"searchable": false,
+									"sortable": false,
+									"render": function(data, type, full, meta) {
+										return '<a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
+											App.getBaseurl() +
+											full.ImageBigSize +
+											'"><i class="icon-note"></i> Big size</a> ' +
+											'<a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
+											App.getBaseurl() +
+											full.ImageMediumSize +
+											'"><i class="icon-note"></i> Medium size</a>' +
+											' <a href="javascript:;" class="btn bg-clipboard btn-default btn-sm" data-clipboard-action="copy" data-clipboard-text="' +
+											App.getBaseurl() +
+											full.ImageSmallSize +
+											'"><i class="icon-note"></i> Small size</a>';
+									}
+								}
+							],
+							lengthMenu: [
+								[5, 15, 20, -1],
+								[5, 15, 20, "All"]
+							],
+							pageLength: 20,
+							language: { lengthMenu: " _MENU_ records" },
+							rowReorder: { selector: '.reorder' },
+							columnDefs: [
+								{ orderable: true, className: 'reorder', targets: [3] }, { orderable: false, targets: '_all' }
+								//,{ "Class": "hidden", "targets": [0] }
+							]
+							//,order: [[3, "desc"]]
 
-                    }),
-			            r = ($("#sample_editable_12_wrapper"), null),
-			            o = false;
-				l.on("row-reorder.dt",function(dragEvent, data, nodes) {
-					for (var i = 0, ien = data.length ; i < ien ; i++) {
+						}),
+						r = ($("#sample_editable_12_wrapper"), null),
+						o = false;
+					l.on("row-reorder.dt",
+						function(dragEvent, data, nodes) {
+							for (var i = 0, ien = data.length; i < ien; i++) {
 
-						var rowData = table.fnGetData(data[i].node);
-						var id=	rowData.Id;
-						var newPosition = data[i].newPosition;
+								var rowData = table.fnGetData(data[i].node);
+								var id = rowData.Id;
+								var newPosition = data[i].newPosition;
 
-						changeOrder(id, newPosition);
-						l.api().ajax.reload();
-					};
-				});
-				table = l,
-					a.on("click",
-						".delete",
-						function(e) {
-							if (e.preventDefault(), 0 !== confirm("@MessageUI.ConfirmMessage")) {
-								var t = $(this).parents("tr")[0];
-
-								Delete(l, t);
-								l.fnDeleteRow(t);
-							}
+								changeOrder(id, newPosition);
+								l.api().ajax.reload();
+							};
+						});
+					table = l,
+						a.on("click",
+							".delete",
+						function (e) {
+							var t = $(this).parents("tr")[0];
+								AppCore.handleConfirm(function() {
+									$.when(deleteGallery(l, t)).done(function () {
+										l.fnDeleteRow(t);
+										App.unblockUI("body");
+									});
+									
+								},'@MessageUI.ConfirmMessage');
 						}),
 					a.on("click",
 						".cancel",
 						function(t) {
 							table.api().ajax.reload();
-							t.preventDefault(), o ? (l.fnDeleteRow(r), r = null, o = !1) : (e(l, r), r = null);
+							t.preventDefault(), o ? (l.fnDeleteRow(r), r = null, o = false) : (e(l, r), r = null);
 						}),
 					a.on("click",
 						".edit",
@@ -368,7 +378,7 @@
 							null !== r && r !== i
 								? (e(l, r), t(l, i), r = i)
 								: r === i && "@FormUI.Save" === this.innerHTML
-								? (editGalleryItem(l, r), r = null)
+								? (editGallery(l, r), r = null)
 								: (t(l, i), r = i);
 						}),
 					a.on("click",

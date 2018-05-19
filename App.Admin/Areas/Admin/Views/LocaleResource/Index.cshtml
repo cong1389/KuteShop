@@ -60,7 +60,7 @@
 					htmlAttributes: new
 					{
 						id = "grid",
-						@class = "table table-bordered table-striped table-condensed"
+						@class = "app-grid table table-color table-bordered table-striped table-condensed flip-content table-hover dataTable"
 					},
 					emptyRowCellValue: "No Records Found",
 					headerStyle: "grid-header",
@@ -106,7 +106,7 @@
 			var dir = $('#dir').val();
 			var col = $('#col').val();
 			var header = $("th a[href*=" + col + "]");
-			if (dir == "Ascending") {
+			if (dir === "Ascending") {
 				header.text(header.text() + "  ▲");
 			}
 			if (dir === "Descending") {
@@ -152,7 +152,6 @@
 					contentType: 'application/json; charset=utf-8',
 					success: function() {
 						tr.find('.edit-mode, .display-mode').toggle();
-						alert('Record updated Successfully!!');
 					}
 				});
 
@@ -189,10 +188,14 @@
 			$.ajax({
 				url: '@Url.Action("NewRow", "LocaleResource")',
 				data: data,
-				type: 'GET',
+				type: "POST",
 				contentType: 'application/json; charset=utf-8',
 				success: function(response) {
-					$("#grid tbody tr:first").before(response.data);
+					if ($("#grid tbody").length > 0) {
+						$("#grid tbody").before(response.data);
+					} else {
+						$("#grid tbody tr:first").before(response.data);
+					}
 				}
 			});
 		});

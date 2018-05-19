@@ -1,22 +1,21 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using App.Core.Caching;
+﻿using App.Core.Caching;
 using App.Domain.Entities.Language;
 using App.FakeEntity.Language;
 using App.Service.Common;
 using App.Service.Language;
 using App.Service.LocaleStringResource;
 using AutoMapper;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-    public class LocaleResourceController : BaseAdminController
+	public class LocaleResourceController : BaseAdminController
     {
         private const string CacheLanguageKey = "db.Language";
         private const string CacheLocalstringresourceKey = "db.LocaleStringResource";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly ILanguageService _langService;
+	    private readonly ILanguageService _langService;
 
         private readonly ILocaleStringResourceService _localeStringResourceService;
 
@@ -27,14 +26,14 @@ namespace App.Admin.Controllers
             , ILanguageService langService
              , ICacheManager cacheManager)
         {
-            _langService = langService;
+	        _langService = langService;
             _services = services;
             _localeStringResourceService = localeStringResourceService;
-            _cacheManager = cacheManager;
+            var cacheManager1 = cacheManager;
 
             //Clear cache
-            _cacheManager.RemoveByPattern(CacheLanguageKey);
-            _cacheManager.RemoveByPattern(CacheLocalstringresourceKey);
+            cacheManager1.RemoveByPattern(CacheLanguageKey);
+            cacheManager1.RemoveByPattern(CacheLocalstringresourceKey);
         }
 
         public ActionResult Index(int languageId, int page = 1, string keywords = "")
@@ -53,7 +52,8 @@ namespace App.Admin.Controllers
             return View(resources);
         }
 
-        public ActionResult Edit(LocaleStringResourceViewModel model)
+	    [HttpPost]
+		public ActionResult Edit(LocaleStringResourceViewModel model)
         {
             var locale = _services.Localization.GetById(model.Id);
 
@@ -80,9 +80,9 @@ namespace App.Admin.Controllers
                 , JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
-            var locale = _services.Localization.GetById(int.Parse(id));
+            var locale = _services.Localization.GetById(id);
             _services.Localization.Delete(locale);
 
             return Json(
@@ -90,9 +90,10 @@ namespace App.Admin.Controllers
                 , JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult NewRow(string languageId)
+	    [HttpPost]
+		public ActionResult NewRow(int languageId)
         {
-            var model = new LocaleStringResource {LanguageId = int.Parse(languageId)};
+            var model = new LocaleStringResource {LanguageId = languageId };
 
             var newRow = RenderRazorViewToString("_NewRow", model);
 

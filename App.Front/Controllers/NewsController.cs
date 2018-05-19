@@ -235,19 +235,19 @@ namespace App.Front.Controllers
         /// <returns></returns>       
         public ActionResult NewsTimeLine()
         {
-            var ieNews = _newsService.GetAll();
+            var news = _newsService.GetAll();
 
-            if (ieNews == null)
+            if (news == null)
             {
                 return HttpNotFound();
             }
 
-            var ieNewsGroup = ieNews.GroupBy(l => l.CreatedDate.Year + 12 + l.CreatedDate.Month)
+            var newsGroup = news.GroupBy(l => l.CreatedDate.Year + 12 + l.CreatedDate.Month)
                 .Select(g => g.First().ToModel()).ToList();
 
-            ViewBag.NewsGroup = ieNewsGroup;
+            ViewBag.NewsGroup = newsGroup;
 
-            return PartialView(ieNewsGroup);
+            return PartialView(newsGroup);
         }
     }
 }

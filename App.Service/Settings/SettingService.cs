@@ -1,17 +1,17 @@
-using System;
-using System.Collections;
 using App.Core.Caching;
+using App.Core.ComponentModel;
+using App.Core.ComponentModel.TypeConversion;
+using App.Core.Configuration;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Entities.Setting;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Settings;
 using App.Infra.Data.UOW.Interfaces;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using App.Core.ComponentModel;
-using App.Core.ComponentModel.TypeConversion;
-using App.Core.Configuration;
-using App.Core.Extensions;
 
 namespace App.Service.Settings
 {
@@ -29,13 +29,13 @@ namespace App.Service.Settings
 		}
 
 		public T LoadSetting<T>() where T : ISettings, new()
-        {
+		{
 			return (T)LoadSettingCore(typeof(T));
 		}
 
 		protected virtual ISettings LoadSettingCore(Type settingType)
 		{
-		    var settings = (ISettings)Activator.CreateInstance(settingType);
+			var settings = (ISettings)Activator.CreateInstance(settingType);
 
 			var prefix = settingType.Name;
 
@@ -49,7 +49,7 @@ namespace App.Service.Settings
 
 				var key = prefix + "." + prop.Name;
 				// load by store
-				string setting = GetSettingByKey<string>(key,loadSharedValueIfNotFound: true);
+				string setting = GetSetting<string>(key, loadSharedValueIfNotFound: true);
 
 				if (setting == null)
 				{
@@ -93,8 +93,8 @@ namespace App.Service.Settings
 		public virtual void SetSetting<T>(string key, T value, bool cache = true)
 		{
 			var str = value.Convert<string>();
-			
-			var setting = GetSetting(key);
+
+			var setting = GetSetting(name: key);
 			if (setting != null)
 			{
 				// Update
@@ -119,45 +119,52 @@ namespace App.Service.Settings
 
 		}
 
-		public Setting GetSetting(string name, bool isCache = true)
+		public Setting GetSetting(int? id = null, string name = null, bool isCache = true)
 		{
-			Setting locale;
+			var expression = PredicateBuilder.True<Setting>();
+			var sbKey = new StringBuilder();
+			sbKey.AppendFormat(CacheKey, "GetSetting");
 
+			if (id != null)
+			{
+				sbKey.AppendFormat("-{0}", id);
+				expression = expression.And(x => x.Id == id);
+			}
+
+			if (!string.IsNullOrEmpty(name))
+			{
+				sbKey.AppendFormat("-{0}", name);
+				expression = expression.And(x => x.Name == name);
+			}
+
+			Setting setting;
 			if (isCache)
 			{
-				var sbKey = new StringBuilder();
-				sbKey.AppendFormat(CacheKey, "GetByName");
-
-				if (!string.IsNullOrEmpty(name))
-				{
-					sbKey.AppendFormat("-{0}", name);
-				}
-
 				var key = sbKey.ToString();
-				locale = _cacheManager.Get<Setting>(key);
-				if (locale == null)
+				setting = _cacheManager.Get<Setting>(key);
+				if (setting == null)
 				{
-					locale = _settingRepository.Get(x => x.Name == name);
-					_cacheManager.Put(key, locale);
+					setting = _settingRepository.Get(expression);
+					_cacheManager.Put(key, setting);
 				}
 			}
 			else
 			{
-				locale = _settingRepository.Get(x => x.Name == name);
+				setting = _settingRepository.Get(expression);
 			}
 
-			return locale;
+			return setting;
 		}
 
-		public virtual T GetSettingByKey<T>(
+		public virtual T GetSetting<T>(
 			string key,
 			T defaultValue = default(T),
 			int storeId = 0,
 			bool loadSharedValueIfNotFound = false)
 		{
-			var settings = GetSetting(key);
+			var setting = GetSetting(name: key);
 
-			return settings.Value.Convert<T>();
+			return setting != null ? setting.Value.Convert<T>() : defaultValue;
 		}
 
 		public IEnumerable<Setting> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
