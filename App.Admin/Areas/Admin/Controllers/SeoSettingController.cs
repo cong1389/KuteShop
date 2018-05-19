@@ -18,16 +18,14 @@ namespace App.Admin.Controllers
 	public class SeoSettingController : BaseAdminController
     {
         private const string CacheSettingseoglobalKey = "db.SettingSeoGlobal.{0}";
-        private readonly ICacheManager _cacheManager;
-        private readonly ISettingSeoGlobalService _settingSeoGlobal;
+	    private readonly ISettingSeoGlobalService _settingSeoGlobal;
 
 		public SeoSettingController(ISettingSeoGlobalService settingSeoGlobal, ICacheManager cacheManager)
 		{
-            _settingSeoGlobal = settingSeoGlobal;
-            _cacheManager = cacheManager;
+			_settingSeoGlobal = settingSeoGlobal;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheSettingseoglobalKey);
+			//Clear cache
+            cacheManager.RemoveByPattern(CacheSettingseoglobalKey);
         }
 
         public ActionResult Create()

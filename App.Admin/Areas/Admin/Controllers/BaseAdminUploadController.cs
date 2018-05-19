@@ -9,9 +9,7 @@ namespace App.Admin.Controllers
 {
     public class BaseAdminUploadController : Controller
     {
-        private readonly ICacheManager _cacheManager;
-
-        protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
+	    protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService, IList<TLocalizedPropertyViewModelLocal> locales) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
             AddLocales(languageService, locales, null);
         }
@@ -30,31 +28,17 @@ namespace App.Admin.Controllers
             }
         }
 
-        public int PageSize
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"] ?? "10");
-            }
-        }
+        public int PageSize => int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"] ?? "10");
 
-        protected string Key
+	    protected string Key
         {
-            get
-            {
-                return ViewData["Key"].ToString();
-            }
-            set
-            {
-                ViewData["Key"] = value;
-            }
-        }
+            get => ViewData["Key"].ToString();
+		    set => ViewData["Key"] = value;
+	    }
 
         public BaseAdminUploadController(ICacheManager cacheManager)
         {
-            _cacheManager = cacheManager;
-
-            _cacheManager.Clear();
+	        cacheManager.Clear();
             //ICacheManager ICacheManager = DependencyResolver.Current.GetService<ICacheManager>();
         }
     }

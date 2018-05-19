@@ -284,6 +284,7 @@
     <Content Include="Areas\Admin\content\plugins\uploafile\jquery.filer-icons\jquery-filer.eot" />
     <Content Include="Areas\Admin\content\plugins\uploafile\jquery.filer-icons\jquery-filer.ttf" />
     <Content Include="Areas\Admin\content\plugins\uploafile\jquery.filer-icons\jquery-filer.woff" />
+    <Content Include="Areas\Admin\Views\GenericControlValue\_CreateOrUpdate.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Admin_Front.pubxml" />
     <None Include="Web.config" />

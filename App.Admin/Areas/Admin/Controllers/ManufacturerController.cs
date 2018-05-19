@@ -12,6 +12,7 @@ using App.FakeEntity.Manufacturers;
 using App.Framework.Ultis;
 using App.Service.Manufacturers;
 using App.Service.Media;
+using App.Service.Settings;
 using AutoMapper;
 using Resources;
 
@@ -20,21 +21,21 @@ namespace App.Admin.Controllers
     public class ManufacturerController : BaseAdminController
     {
         private const string Cache = "db.Manufacturer";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IManufacturerService _manufacturerService;
+	    private readonly IManufacturerService _manufacturerService;
         private readonly IImageService _imageService;
+	    private readonly ISettingService _settingService;
 
-        public ManufacturerController(IManufacturerService manufacturerService
+		public ManufacturerController(IManufacturerService manufacturerService
             , ICacheManager cacheManager
-            , IImageService imageService)
+            , IImageService imageService, ISettingService settingService)
         {
-            _manufacturerService = manufacturerService;
-            _cacheManager = cacheManager;
-            _imageService = imageService;
+	        _manufacturerService = manufacturerService;
+	        _imageService = imageService;
+	        _settingService = settingService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(Cache);
+	        //Clear cache
+            cacheManager.RemoveByPattern(Cache);
 
         }
 
@@ -64,18 +65,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
-
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
-
-                    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
-                }
+                ImageHandler(model);
 
                 var manufacturer = Mapper.Map<ManufacturerViewModel, Manufacturer>(model);
                 _manufacturerService.Create(manufacturer);
@@ -101,7 +91,27 @@ namespace App.Admin.Controllers
             return action;
         }
 
-        [RequiredPermisson(Roles = "CreateEditManufacture")]
+	    private void ImageHandler(ManufacturerViewModel model)
+	    {
+		    if (model.Image != null && model.Image.ContentLength > 0)
+		    {
+			    var folderName = Utils.FolderName(model.Title);
+			    var fileExtension = Path.GetExtension(model.Image.FileName);
+			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+
+			    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+			    var sizeWidthBg = _settingService.GetSetting("Manufacture.WidthBigSize", ImageSize.WidthDefaultSize);
+			    var sizeHeighthBg = _settingService.GetSetting("Manufacture.HeightBigSize", ImageSize.HeighthDefaultSize);
+
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName,
+					sizeWidthBg, sizeHeighthBg);
+
+			    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
+		    }
+	    }
+
+	    [RequiredPermisson(Roles = "CreateEditManufacture")]
         public ActionResult Delete(int[] ids)
         {
             try
@@ -147,20 +157,22 @@ namespace App.Admin.Controllers
 
                 var byId = _manufacturerService.Get(x => x.Id == model.Id);
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+	            ImageHandler(model);
 
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//    var folderName = Utils.FolderName(model.Title);
+				//    var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
+				//    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
-                }
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName, ImageSize.ManufactureWithMediumSize, ImageSize.ManufactureHeightMediumSize);
 
-                var manufacturer = Mapper.Map(model, byId);
+				//    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
+				//}
+
+				var manufacturer = Mapper.Map(model, byId);
 
                 _manufacturerService.Update(manufacturer);
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication;
+﻿using App.Aplication;
 using App.Core.Caching;
 using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
@@ -10,30 +6,27 @@ using App.Framework.Ultis;
 using App.Service.GenericControl;
 using App.Service.Menu;
 using Newtonsoft.Json;
+using System;
+using System.Web.Mvc;
+using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {
-    public class GenericControlValueItemController : BaseAdminController
+	public class GenericControlValueItemController : BaseAdminController
     {
         private const string CacheGenericcontrolvalueitemKey = "db.GenericControlValueItem";
 
         private readonly IGenericControlValueItemService _genericControlValueItemService;
-        private readonly IGenericControlValueService _genericControlValueService;
-        private readonly IMenuLinkService _menuLinkService;
-        private readonly ICacheManager _cacheManager;
 
-        public GenericControlValueItemController(IGenericControlValueItemService genericControlValueItemService
+	    public GenericControlValueItemController(IGenericControlValueItemService genericControlValueItemService
             , IGenericControlValueService genericControlValueService
             , IMenuLinkService menuLinkService
             , ICacheManager cacheManager)
         {
-            _genericControlValueItemService = genericControlValueItemService;
-            _genericControlValueService = genericControlValueService;
-            _menuLinkService = menuLinkService;
-            _cacheManager = cacheManager;
+	        _genericControlValueItemService = genericControlValueItemService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheGenericcontrolvalueitemKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheGenericcontrolvalueitemKey);
         }
 
         [HttpPost]
@@ -45,7 +38,7 @@ namespace App.Admin.Controllers
                  new
                  {
                      success = genericControlValueItem.IsAny(),
-                     list = RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", genericControlValueItem)
+                     list = this.RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", genericControlValueItem)
                  },
                  JsonRequestBehavior.AllowGet);
 

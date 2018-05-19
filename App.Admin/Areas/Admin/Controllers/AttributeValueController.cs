@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Attribute;
 using App.FakeEntity.Attribute;
@@ -15,14 +16,19 @@ namespace App.Admin.Controllers
 {
     public class AttributeValueController : BaseAdminController
 	{
+		private const string Cache = "db.AttributeValue";
+
 		private readonly IAttributeValueService _attributeValueService;
 
 		private readonly IAttributeService _attributeService;
 
-		public AttributeValueController(IAttributeValueService attributeValueService, IAttributeService attributeService)
+		public AttributeValueController(IAttributeValueService attributeValueService, IAttributeService attributeService, ICacheManager cacheManager)
 		{
 			_attributeValueService = attributeValueService;
 			_attributeService = attributeService;
+
+			//Clear cache
+			cacheManager.RemoveByPattern(Cache);
 		}
 
 		[RequiredPermisson(Roles="CreateEditDistrict")]
@@ -108,6 +114,7 @@ namespace App.Admin.Controllers
 
 			    var attributeValue1 = Mapper.Map<AttributeValueViewModel, AttributeValue>(attributeValue);
 			    _attributeValueService.Update(attributeValue1);
+
 			    Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.AttributeValue)));
 			    if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
 			    {

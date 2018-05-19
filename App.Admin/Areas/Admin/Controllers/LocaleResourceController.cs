@@ -7,6 +7,7 @@ using App.Service.LocaleStringResource;
 using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
+using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {
@@ -96,7 +97,7 @@ namespace App.Admin.Controllers
         {
             var model = new LocaleStringResource {LanguageId = languageId };
 
-            var newRow = RenderRazorViewToString("_NewRow", model);
+            var newRow = this.RenderRazorViewToString("_NewRow", model);
 
             return Json(new { data = newRow, success = true }, JsonRequestBehavior.AllowGet);
         }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
+using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
@@ -227,7 +228,7 @@ namespace App.Admin.Controllers
                  new
                  {
                      success = lstValueResponse.Count > 0,
-                     list = RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", lstValueResponse)
+                     list = this.RenderRazorViewToString("_CreateOrUpdate.GenericControlValue", lstValueResponse)
                  },
                  JsonRequestBehavior.AllowGet);
 

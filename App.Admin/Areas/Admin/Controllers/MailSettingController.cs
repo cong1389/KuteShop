@@ -17,18 +17,16 @@ namespace App.Admin.Controllers
     public class MailSettingController : BaseAdminController
     {
         private const string CacheMailsettingKey = "db.MailSetting";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IMailSettingService _mailSettingService;
+	    private readonly IMailSettingService _mailSettingService;
 
 		public MailSettingController(IMailSettingService mailSettingService
             , ICacheManager cacheManager)
 		{
 			_mailSettingService = mailSettingService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheMailsettingKey);
+			//Clear cache
+            cacheManager.RemoveByPattern(CacheMailsettingKey);
 
         }
 

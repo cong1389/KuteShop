@@ -11,18 +11,16 @@ namespace App.Admin.Controllers
 	public class CategoryController : BaseAdminController
 	{
         private const string CacheCategoryKey = "db.Category";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IMenuLinkService _menuLinkService;
+		private readonly IMenuLinkService _menuLinkService;
 
 		public CategoryController(IMenuLinkService menuLinkService
              , ICacheManager cacheManager)
 		{
 			_menuLinkService = menuLinkService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheCategoryKey);
+			//Clear cache
+            cacheManager.RemoveByPattern(CacheCategoryKey);
         }
 
         private List<MenuNav> CreateMenuNav(int? parentId, IEnumerable<MenuNav> source)

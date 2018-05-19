@@ -23,9 +23,8 @@ namespace App.Admin.Controllers
     public class ContactInformationController : BaseAdminController
     {
         private const string CacheContactinfoKey = "db.ContactInfo";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IContactInfoService _contactInfoService;
+	    private readonly IContactInfoService _contactInfoService;
 
         private readonly IProvinceService _provinceService;
 
@@ -41,14 +40,13 @@ namespace App.Admin.Controllers
             , ICacheManager cacheManager
             )
         {
-            _contactInfoService = contactInfoService;
+	        _contactInfoService = contactInfoService;
             _provinceService = provinceService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheContactinfoKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheContactinfoKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditContactInformation")]

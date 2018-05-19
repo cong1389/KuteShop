@@ -16,6 +16,7 @@ using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
 using App.Service.Menu;
+using App.Service.Settings;
 using App.Service.Static;
 using AutoMapper;
 using Resources;
@@ -26,9 +27,8 @@ namespace App.Admin.Controllers
     public class StaticContentController : BaseAdminController
     {
         private const string CacheStaticcontentKey = "db.StaticContent";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IMenuLinkService _menuLinkService;
+	    private readonly IMenuLinkService _menuLinkService;
 
         private readonly IStaticContentService _staticContentService;
 
@@ -36,23 +36,25 @@ namespace App.Admin.Controllers
 
         private readonly ILocalizedPropertyService _localizedPropertyService;
         private readonly IImageService _imageService;
+	    private readonly ISettingService _settingService;
 
-        public StaticContentController(
+
+		public StaticContentController(
             IStaticContentService staticContentService
             , IMenuLinkService menuLinkService
             , ILanguageService languageService
             , ILocalizedPropertyService localizedPropertyService
-            , ICacheManager cacheManager, IImageService imageService)
+            , ICacheManager cacheManager, IImageService imageService, ISettingService settingService)
         {
-            _staticContentService = staticContentService;
+	        _staticContentService = staticContentService;
             _menuLinkService = menuLinkService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _cacheManager = cacheManager;
-            _imageService = imageService;
+	        _imageService = imageService;
+	        _settingService = settingService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheStaticcontentKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheStaticcontentKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditStaticContent")]
@@ -94,27 +96,7 @@ namespace App.Admin.Controllers
                     staticContentViewModel.SeoUrl = Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
-
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
-
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
-
-                    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
-
-                    //var fileName = Path.GetFileName(model.Image.FileName);
-                    //var extension = Path.GetExtension(model.Image.FileName);
-                    //fileName = fileName.FileNameFormat(extension);
-
-                    //var str = Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName);
-
-                    //model.Image.SaveAs(str);
-                    //model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
-                }
+                ImageHandler(model);
 
                 if (model.MenuId > 0)
                 {
@@ -158,7 +140,27 @@ namespace App.Admin.Controllers
             return action;
         }
 
-        [RequiredPermisson(Roles = "DeleteStaticContent")]
+	    private void ImageHandler(StaticContentViewModel model)
+	    {
+		    if (model.Image != null && model.Image.ContentLength > 0)
+		    {
+			    var folderName = Utils.FolderName(model.Title);
+			    var fileExtension = Path.GetExtension(model.Image.FileName);
+			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+
+			    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+
+			    var sizeWidthBg = _settingService.GetSetting("StaticContent.WidthBigSize", ImageSize.WidthDefaultSize);
+			    var sizeHeighthBg = _settingService.GetSetting("StaticContent.HeightBigSize", ImageSize.HeighthDefaultSize);
+
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName,
+					sizeWidthBg, sizeHeighthBg);
+
+			    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
+		    }
+	    }
+
+	    [RequiredPermisson(Roles = "DeleteStaticContent")]
         public ActionResult Delete(string[] ids)
         {
             try
@@ -238,26 +240,29 @@ namespace App.Admin.Controllers
                     var staticContentViewModel = model;
                     staticContentViewModel.SeoUrl = Concat(staticContentViewModel.SeoUrl, "-", bySeoUrl.Count());
                 }
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var folderName = Utils.FolderName(model.Title);
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+	            ImageHandler(model);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//    var folderName = Utils.FolderName(model.Title);
+				//    var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
+				//    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                    //var extension = Path.GetExtension(model.Image.FileName);
-                    //var fileName = titleNonAccent.FileNameFormat(extension);
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName, ImageSize.StaticContentWithBigSize, ImageSize.StaticContentHeightBigSize);
 
-                    //model.Image.SaveAs(Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName));
-                    //model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
-                }
+				//    model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
 
-                if (model.MenuId > 0)
+				//    //var extension = Path.GetExtension(model.Image.FileName);
+				//    //var fileName = titleNonAccent.FileNameFormat(extension);
+
+				//    //model.Image.SaveAs(Path.Combine(Server.MapPath(Concat("~/", Contains.StaticContentFolder)), fileName));
+				//    //model.ImagePath = Concat(Contains.StaticContentFolder, fileName);
+				//}
+
+				if (model.MenuId > 0)
                 {
                     var menuLink = _menuLinkService.GetMenu(model.MenuId, false);
                     model.MenuLink = Mapper.Map<MenuLink, MenuLinkViewModel>(menuLink);

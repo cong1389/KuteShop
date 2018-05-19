@@ -17,18 +17,16 @@ namespace App.Admin.Controllers
     public class AttributeController : BaseAdminController
     {
         private const string CacheAttributeKey = "db.Attribute";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IAttributeService _attributeService;
+	    private readonly IAttributeService _attributeService;
 
 		public AttributeController(IAttributeService attributeService
              , ICacheManager cacheManager)
 		{
-            _attributeService = attributeService;
-            _cacheManager = cacheManager;
+			_attributeService = attributeService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheAttributeKey);
+			//Clear cache
+            cacheManager.RemoveByPattern(CacheAttributeKey);
         }
 
 		[RequiredPermisson(Roles="CreateEditAttribute")]

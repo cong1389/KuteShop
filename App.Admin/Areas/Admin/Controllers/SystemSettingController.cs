@@ -22,9 +22,8 @@ namespace App.Admin.Controllers
     public class SystemSettingController : BaseAdminController
     {
         private const string CacheSystemsettingKey = "db.SystemSetting";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly ISystemSettingService _systemSettingService;
+	    private readonly ISystemSettingService _systemSettingService;
 
         private readonly ILanguageService _languageService;
 
@@ -37,13 +36,12 @@ namespace App.Admin.Controllers
              , ICacheManager cacheManager
             )
         {
-            _systemSettingService = systemSettingService;
+	        _systemSettingService = systemSettingService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheSystemsettingKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheSystemsettingKey);
 
         }
 

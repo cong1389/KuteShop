@@ -17,18 +17,16 @@ namespace App.Admin.Controllers
 	public class PageBannerController : BaseAdminController
     {
         private const string CachePagebannerKey = "db.PageBanner";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IPageBannerService _pageBannerService;
+	    private readonly IPageBannerService _pageBannerService;
 
 		public PageBannerController(IPageBannerService pageBannerService
             , ICacheManager cacheManager)
 		{
 			_pageBannerService = pageBannerService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CachePagebannerKey);
+			//Clear cache
+            cacheManager.RemoveByPattern(CachePagebannerKey);
 
         }
 

@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
-using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.GenericControl;
@@ -19,15 +13,19 @@ using App.Service.LocalizedProperty;
 using App.Service.Menu;
 using AutoMapper;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-    public class GenericControlController : BaseAdminController
+	public class GenericControlController : BaseAdminController
     {
         private const string CacheGenericcontrolKey = "db.GenericControl";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly IGenericControlService _gCService;
+	    private readonly IGenericControlService _gCService;
 
         private readonly ILanguageService _languageService;
 
@@ -42,14 +40,13 @@ namespace App.Admin.Controllers
             , IMenuLinkService menuLinkService
             , ICacheManager cacheManager)
         {
-            _gCService = gCService;
+	        _gCService = gCService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _menuLinkService = menuLinkService;
-            _cacheManager = cacheManager;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheGenericcontrolKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheGenericcontrolKey);
         }
 
         [RequiredPermisson(Roles = "CreateEditGenericControl")]

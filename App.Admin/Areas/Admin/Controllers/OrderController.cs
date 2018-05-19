@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
+using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Orders;
 using App.FakeEntity.Orders;
@@ -14,13 +15,18 @@ using Resources;
 namespace App.Admin.Controllers
 {
 	public class OrderController : BaseAdminController
-    {
-        private readonly IOrderService _orderService;
+	{
+		private const string Cache = "db.Order";
 
-        public OrderController(IOrderService orderService)
+		private readonly IOrderService _orderService;
+
+        public OrderController(IOrderService orderService, ICacheManager cacheManager)
         {
             _orderService = orderService;
-        }
+
+	        //Clear cache
+	        cacheManager.RemoveByPattern(Cache);
+		}
 
         public ActionResult Edit(int id)
         {

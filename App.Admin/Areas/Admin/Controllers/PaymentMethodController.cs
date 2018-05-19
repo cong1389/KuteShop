@@ -14,237 +14,249 @@ using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
 using App.Service.PaymentMethodes;
+using App.Service.Settings;
 using AutoMapper;
 using Resources;
 
 namespace App.Admin.Controllers
 {
-    public class PaymentMethodController : BaseAdminController
-    {
-        private const string CachePaymentMethod = "db.PaymentMethod";
-        private readonly ICacheManager _cacheManager;
+	public class PaymentMethodController : BaseAdminController
+	{
+		private const string CachePaymentMethod = "db.PaymentMethod";
 
-        private readonly IPaymentMethodService _paymentMethodService;
+		private readonly IPaymentMethodService _paymentMethodService;
 
-        private readonly IImageService _imageService;
+		private readonly IImageService _imageService;
 
-        private readonly ILocalizedPropertyService _localizedPropertyService;
-        private readonly ILanguageService _languageService;
+		private readonly ILocalizedPropertyService _localizedPropertyService;
+		private readonly ILanguageService _languageService;
+		private readonly ISettingService _settingService;
 
-        public PaymentMethodController(IPaymentMethodService paymentMethodService, IImageService imageService
-            , ICacheManager cacheManager
-            , ILocalizedPropertyService localizedPropertyService
-            , ILanguageService languageService)
-        {
-            _paymentMethodService = paymentMethodService;
-            _imageService = imageService;
-            _cacheManager = cacheManager;
-            _languageService = languageService;
-            _localizedPropertyService = localizedPropertyService;
+		public PaymentMethodController(IPaymentMethodService paymentMethodService, IImageService imageService
+			, ICacheManager cacheManager
+			, ILocalizedPropertyService localizedPropertyService
+			, ILanguageService languageService, ISettingService settingService)
+		{
+			_paymentMethodService = paymentMethodService;
+			_imageService = imageService;
+			_languageService = languageService;
+			_settingService = settingService;
+			_localizedPropertyService = localizedPropertyService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CachePaymentMethod);
+			//Clear cache
+			cacheManager.RemoveByPattern(CachePaymentMethod);
 
-        }
+		}
 
-        [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
-        public ActionResult Create()
-        {
-            var model = new PaymentMethodViewModel
-            {
-                Status = 1,
-                OrderDisplay = 1
-            };
+		[RequiredPermisson(Roles = "CreateEditPaymentMethod")]
+		public ActionResult Create()
+		{
+			var model = new PaymentMethodViewModel
+			{
+				Status = 1,
+				OrderDisplay = 1
+			};
 
-            //Add locales to model
-            AddLocales(_languageService, model.Locales);
+			//Add locales to model
+			AddLocales(_languageService, model.Locales);
 
-            return View(model);
-        }
+			return View(model);
+		}
 
-        [HttpPost]
-        [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
-        public ActionResult Create(PaymentMethodViewModel model, string returnUrl)
-        {
-            ActionResult action;
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return View(model);
-                }
+		[HttpPost]
+		[RequiredPermisson(Roles = "CreateEditPaymentMethod")]
+		public ActionResult Create(PaymentMethodViewModel model, string returnUrl)
+		{
+			ActionResult action;
+			try
+			{
+				if (!ModelState.IsValid)
+				{
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(model);
+				}
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+				ImageHandler(model);
 
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+				var modelMap = Mapper.Map<PaymentMethodViewModel, PaymentMethod>(model);
+				_paymentMethodService.Create(modelMap);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
+				//Update Localized   
+				foreach (var localized in model.Locales)
+				{
+					_localizedPropertyService.SaveLocalizedValue(modelMap, x => x.PaymentMethodSystemName, localized.PaymentMethodSystemName, localized.LanguageId);
+					_localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
+				}
 
-                    model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
-                }
+				Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.PaymentMethod)));
+				if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+				{
+					action = RedirectToAction("Index");
+				}
+				else
+				{
+					action = Redirect(returnUrl);
+				}
+			}
+			catch (Exception ex)
+			{
+				ExtentionUtils.Log(string.Concat("PaymentMethod.Create: ", ex.Message));
+				ModelState.AddModelError("", ex.Message);
 
-                var modelMap = Mapper.Map<PaymentMethodViewModel, PaymentMethod>(model);
-                _paymentMethodService.Create(modelMap);
+				return View(model);
+			}
 
-                //Update Localized   
-                foreach (var localized in model.Locales)
-                {
-                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.PaymentMethodSystemName, localized.PaymentMethodSystemName, localized.LanguageId);
-                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
-                }
+			return action;
+		}
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.CreateSuccess, FormUI.PaymentMethod)));
-                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
-                {
-                    action = RedirectToAction("Index");
-                }
-                else
-                {
-                    action = Redirect(returnUrl);
-                }
-            }
-            catch (Exception ex)
-            {
-                ExtentionUtils.Log(string.Concat("PaymentMethod.Create: ", ex.Message));
-                ModelState.AddModelError("", ex.Message);
+		private void ImageHandler(PaymentMethodViewModel model)
+		{
+			if (model.Image != null && model.Image.ContentLength > 0)
+			{
+				var folderName = Utils.FolderName(model.PaymentMethodSystemName);
+				var fileExtension = Path.GetExtension(model.Image.FileName);
+				var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                return View(model);
-            }
+				var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-            return action;
-        }
+				var sizeWidthBg = _settingService.GetSetting("PaymentMethod.WidthBigSize", ImageSize.WidthDefaultSize);
+				var sizeHeighthBg = _settingService.GetSetting("PaymentMethod.HeightBigSize", ImageSize.HeighthDefaultSize);
 
-        [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
-        public ActionResult Delete(int[] ids)
-        {
-            try
-            {
-                if (ids.Length != 0)
-                {
-                    var paymentMethod =
-                        from id in ids
-                        select _paymentMethodService.Get(x => x.Id == id);
-                    _paymentMethodService.BatchDelete(paymentMethod);
-                }
-            }
-            catch (Exception ex)
-            {
-                ExtentionUtils.Log(string.Concat("PaymentMethod.Delete: ", ex.Message));
-            }
+				_imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}{folderName}/", fileName, sizeWidthBg, sizeHeighthBg);
 
-            return RedirectToAction("Index");
-        }
+				model.ImageUrl = $"{Contains.PaymentMethodFolder}{folderName}/{fileName}";// string.Concat(Contains.PaymentMethodFolder, fileName);
+			}
+		}
 
-        [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
-        public ActionResult Edit(int id)
-        {
-            var modelMap = Mapper.Map<PaymentMethod, PaymentMethodViewModel>(_paymentMethodService.Get(x => x.Id == id));
+		[RequiredPermisson(Roles = "CreateEditPaymentMethod")]
+		public ActionResult Delete(int[] ids)
+		{
+			try
+			{
+				if (ids.Length != 0)
+				{
+					var paymentMethod =
+						from id in ids
+						select _paymentMethodService.Get(x => x.Id == id);
+					_paymentMethodService.BatchDelete(paymentMethod);
+				}
+			}
+			catch (Exception ex)
+			{
+				ExtentionUtils.Log(string.Concat("PaymentMethod.Delete: ", ex.Message));
+			}
 
-            //Add Locales to model
-            AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
-            {
-                locale.Id = modelMap.Id;
-                locale.LocalesId = modelMap.Id;
-                locale.PaymentMethodSystemName = modelMap.GetLocalized(x => x.PaymentMethodSystemName, id, languageId, false, false);
-                locale.Description = modelMap.GetLocalized(x => x.Description, id, languageId, false, false);
-            });
+			return RedirectToAction("Index");
+		}
 
-            return View(modelMap);
-        }
+		[RequiredPermisson(Roles = "CreateEditPaymentMethod")]
+		public ActionResult Edit(int id)
+		{
+			var modelMap = Mapper.Map<PaymentMethod, PaymentMethodViewModel>(_paymentMethodService.Get(x => x.Id == id));
 
-        [HttpPost]
-        [RequiredPermisson(Roles = "CreateEditPaymentMethod")]
-        public ActionResult Edit(PaymentMethodViewModel model, string returnUrl)
-        {
-            ActionResult action;
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", MessageUI.ErrorMessage);
-                    return View(model);
-                }
+			//Add Locales to model
+			AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
+			{
+				locale.Id = modelMap.Id;
+				locale.LocalesId = modelMap.Id;
+				locale.PaymentMethodSystemName = modelMap.GetLocalized(x => x.PaymentMethodSystemName, id, languageId, false, false);
+				locale.Description = modelMap.GetLocalized(x => x.Description, id, languageId, false, false);
+			});
 
-                var byId = _paymentMethodService.Get(x => x.Id == model.Id);
+			return View(modelMap);
+		}
 
-                if (model.Image != null && model.Image.ContentLength > 0)
-                {
-                    var fileExtension = Path.GetExtension(model.Image.FileName);
-                    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
+		[HttpPost]
+		[RequiredPermisson(Roles = "CreateEditPaymentMethod")]
+		public ActionResult Edit(PaymentMethodViewModel model, string returnUrl)
+		{
+			ActionResult action;
+			try
+			{
+				if (!ModelState.IsValid)
+				{
+					ModelState.AddModelError("", MessageUI.ErrorMessage);
+					return View(model);
+				}
 
-                    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
+				var byId = _paymentMethodService.Get(x => x.Id == model.Id);
 
-                    //var fileExtension = Path.GetExtension(model.Image.FileName);
-                    //var fileName = titleNonAccent.FileNameFormat(fileExtension);
+				ImageHandler(model);
 
-                    _imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
+				//if (model.Image != null && model.Image.ContentLength > 0)
+				//{
+				//    var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
-                    model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
-                }
+				//    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
-                var modelMap = Mapper.Map(model, byId);
-                _paymentMethodService.Update(modelMap);
+				//    //var fileExtension = Path.GetExtension(model.Image.FileName);
+				//    //var fileName = titleNonAccent.FileNameFormat(fileExtension);
 
-                //Update Localized   
-                foreach (var localized in model.Locales)
-                {
-                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.PaymentMethodSystemName, localized.PaymentMethodSystemName, localized.LanguageId);
-                    _localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
-                }
+				//    _imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}", fileName, ImageSize.PaymentMethodWithMediumSize, ImageSize.PaymentMethodHeightMediumSize);
+
+				//    model.ImageUrl = string.Concat(Contains.PaymentMethodFolder, fileName);
+				//}
+
+				var modelMap = Mapper.Map(model, byId);
+				_paymentMethodService.Update(modelMap);
+
+				//Update Localized   
+				foreach (var localized in model.Locales)
+				{
+					_localizedPropertyService.SaveLocalizedValue(modelMap, x => x.PaymentMethodSystemName, localized.PaymentMethodSystemName, localized.LanguageId);
+					_localizedPropertyService.SaveLocalizedValue(modelMap, x => x.Description, localized.Description, localized.LanguageId);
+				}
 
 
-                Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.PaymentMethod)));
-                if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
-                {
-                    action = RedirectToAction("Index");
-                }
-                else
-                {
-                    action = Redirect(returnUrl);
-                }
-            }
-            catch (Exception ex)
-            {
-                ExtentionUtils.Log(string.Concat("PaymentMethod.Edit: ", ex.Message));
-                return View(model);
-            }
+				Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.UpdateSuccess, FormUI.PaymentMethod)));
+				if (!Url.IsLocalUrl(returnUrl) || returnUrl.Length <= 1 || !returnUrl.StartsWith("/") || returnUrl.StartsWith("//") || returnUrl.StartsWith("/\\"))
+				{
+					action = RedirectToAction("Index");
+				}
+				else
+				{
+					action = Redirect(returnUrl);
+				}
+			}
+			catch (Exception ex)
+			{
+				ExtentionUtils.Log(string.Concat("PaymentMethod.Edit: ", ex.Message));
+				return View(model);
+			}
 
-            return action;
-        }
+			return action;
+		}
 
-        [RequiredPermisson(Roles = "ViewPaymentMethod")]
-        public ActionResult Index(int page = 1, string keywords = "")
-        {
-            ViewBag.Keywords = keywords;
+		[RequiredPermisson(Roles = "ViewPaymentMethod")]
+		public ActionResult Index(int page = 1, string keywords = "")
+		{
+			ViewBag.Keywords = keywords;
 
-            var sortingPagingBuilder = new SortingPagingBuilder
-            {
-                Keywords = keywords,
-                Sorts = new SortBuilder
-                {
-                    ColumnName = "CreatedDate",
-                    ColumnOrder = SortBuilder.SortOrder.Descending
-                }
-            };
-            var paging = new Paging
-            {
-                PageNumber = page,
-                PageSize = PageSize,
-                TotalRecord = 0
-            };
+			var sortingPagingBuilder = new SortingPagingBuilder
+			{
+				Keywords = keywords,
+				Sorts = new SortBuilder
+				{
+					ColumnName = "CreatedDate",
+					ColumnOrder = SortBuilder.SortOrder.Descending
+				}
+			};
+			var paging = new Paging
+			{
+				PageNumber = page,
+				PageSize = PageSize,
+				TotalRecord = 0
+			};
 
-            var manufacturers = _paymentMethodService.PagedList(sortingPagingBuilder, paging);
-            if (manufacturers.IsAny())
-            {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
-                ViewBag.PageInfo = pageInfo;
-            }
+			var manufacturers = _paymentMethodService.PagedList(sortingPagingBuilder, paging);
+			if (manufacturers.IsAny())
+			{
+				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				ViewBag.PageInfo = pageInfo;
+			}
 
-            return View(manufacturers);
-        }
-    }
+			return View(manufacturers);
+		}
+	}
 }

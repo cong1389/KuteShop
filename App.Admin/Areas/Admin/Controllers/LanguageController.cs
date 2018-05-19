@@ -19,18 +19,16 @@ namespace App.Admin.Controllers
     {
         #region Language
         private const string CacheLanguageKey = "db.Language";
-        private readonly ICacheManager _cacheManager;
 
-        private readonly ILanguageService _langService;
+	    private readonly ILanguageService _langService;
         
         public LanguageController(ILanguageService langService
             , ICacheManager cacheManager)
         {
-            _langService = langService;
-            _cacheManager = cacheManager;
+	        _langService = langService;
 
-            //Clear cache
-            _cacheManager.RemoveByPattern(CacheLanguageKey);
+	        //Clear cache
+            cacheManager.RemoveByPattern(CacheLanguageKey);
 
         }
 

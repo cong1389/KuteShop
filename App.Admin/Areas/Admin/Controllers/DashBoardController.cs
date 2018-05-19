@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Aplication.Extensions;
 using App.Domain.Entities.Data;
 using App.Service.News;
 using App.Service.Post;
@@ -32,7 +33,7 @@ namespace App.Admin.Controllers
                 orderby x.CreatedDate descending
                 select x);
 
-            var jsonResult = Json(new {list = RenderRazorViewToString("_DashBoardNews", news)},
+            var jsonResult = Json(new {list = this.RenderRazorViewToString("_DashBoardNews", news)},
                 JsonRequestBehavior.AllowGet);
 
             return jsonResult;
@@ -49,7 +50,7 @@ namespace App.Admin.Controllers
                 orderby x.CreatedDate descending
                 select x);
             
-            var jsonResult = Json(new {success = true, list = RenderRazorViewToString("_DashBoardPost", posts)},
+            var jsonResult = Json(new {success = true, list = this.RenderRazorViewToString("_DashBoardPost", posts)},
                 JsonRequestBehavior.AllowGet);
 
             return jsonResult;
