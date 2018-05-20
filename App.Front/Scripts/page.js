@@ -202,7 +202,7 @@ function formAjax(element) {
     var $form = $(element);
     var options = {
         beforeSend: function () {
-            debugger;
+            
             $(".ajax-loading").show();
         },
         dataType: 'json',

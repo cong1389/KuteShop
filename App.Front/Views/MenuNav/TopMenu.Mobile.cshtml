@@ -1,33 +1,53 @@
 ﻿<!---TopMenu.Mobile-->
+@using App.Aplication
 @using App.FakeEntity.Menu
 @model IEnumerable<MenuNavViewModel>
 
-<a href="#menu-toggle" class="btn btn-default hidden-lg hidden-md" id="menu-toggle"><i></i></a>
-<!-- Page Content -->
-<div id="menu_xs" class='hidden-lg hidden-md'>
-    
-     @{Html.RenderAction("SearchMenuMobile", "SearchBox", new { area = "" });}
+@if (Model != null)
+{
+	<div id="main-menu" class="col-sm-9 main-menu">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand" href="#">MENU</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+					<ul class="nav navbar-nav">
+						@{
+							var i = 0;
+							foreach (var lv1 in Model)
+							{
+								var clasActive = i == 0 ? "active" : "";
+								var clasDropdown = lv1.ChildNavMenu.IsAny() ? "dropdown" : "";
+								<li class="@clasActive @clasDropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#@(lv1.OtherLink = lv1.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""}))" title="@lv1.MenuName">@lv1.MenuName</a>
+									@if (lv1.ChildNavMenu.IsAny())
+									{
+										<ul class="dropdown-menu container-fluid">
+											<li class="block-container">
+												<ul class="block">
+													@foreach (var lv2 in lv1.ChildNavMenu)
+													{
+														<li class="link_container"><a href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))" title="@lv2.MenuName">@lv2.MenuName</a></li>
 
-    <ul class="sidebar-nav unstyled noleftpadding">
-        @foreach (MenuNavViewModel item in Model)
-            {
-            <li class=''>
-                <a href="@(item.OtherLink = item.OtherLink !=null? item.OtherLink : Url.Action("GetContent", "Menu", new {menu = item.SeoUrl , area = ""}) )" title="@item.MenuName" class='menu'>@item.MenuName<span>+</span></a>
-                <ul>
-                    @foreach (var lv1 in item.ChildNavMenu)
-                    {
-                        <li class=''>
-                            <a class='sub-menu' href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})">
-                                <div>
-                                    @lv1.MenuName
-                                </div>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </li>
-        }
-    </ul>
-</div>
+													}
+												</ul>
+											</li>
+										</ul>
+									}
+								</li>
+								i++;
+							}
+
+						}
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+	</div>
+}
 
 <!---/TopMenu.Mobile-->

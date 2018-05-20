@@ -734,8 +734,8 @@
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
-    <Content Include="Content\owl.carousel.css" />
-    <Content Include="Content\owl.theme.css" />
+    <Content Include="Content\owl.carousel.min.css" />
+    <Content Include="Content\owl.theme.default.css" />
     <Content Include="Content\pricerange\slider.css" />
     <Content Include="Content\reset.min.css" />
     <Content Include="Content\royalslider\blank.gif" />
@@ -752,6 +752,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\css3-animate-it.js" />
@@ -822,9 +823,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -851,7 +850,9 @@
     <Content Include="Scripts\jsedit.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\owl.carousel.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\page.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -907,6 +908,12 @@
     <Content Include="Themes\Basic\Content\_checkout.min.css">
       <DependentUpon>_checkout.css</DependentUpon>
     </Content>
+    <Content Include="Themes\Basic\Content\_post - Copy.css">
+      <DependentUpon>_contact.scss</DependentUpon>
+    </Content>
+    <Content Include="Themes\Basic\Content\_post - Copy.min.css">
+      <DependentUpon>_post - Copy.css</DependentUpon>
+    </Content>
     <Content Include="Themes\Basic\Content\_post.css">
       <DependentUpon>_post.scss</DependentUpon>
     </Content>
@@ -960,7 +967,7 @@
     <Content Include="Views\Post\PostDiscountSlide.cshtml" />
     <Content Include="Themes\Basic\Content\_post.scss" />
     <Content Include="Views\Post\_PostDetail.Discount.cshtml" />
-    <Content Include="Themes\Basic\Content\_modal.scss" />
+    <Content Include="Themes\Basic\Content\shared\_modal.scss" />
     <Content Include="Views\MenuNav\TopHead.cshtml" />
     <Content Include="Views\MenuNav\MenuNavNews.cshtml" />
     <Content Include="Views\Post\_PostCategory.Post.cshtml" />
@@ -976,7 +983,7 @@
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
-    <Content Include="Themes\Basic\Content\_message.scss" />
+    <Content Include="Themes\Basic\Content\shared\_message.scss" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\master.liquid" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\address.liquid" />
     <Content Include="Themes\Basic\Views\Shared\EmailTemplates\footer.liquid" />
@@ -1005,6 +1012,8 @@
     <Content Include="Views\Shared\Socials\_Social.Twitter_Share.cshtml" />
     <Content Include="Views\Shared\Socials\_Social.FB_Comment.cshtml" />
     <Content Include="Themes\Basic\Content\shared\_layout.scss" />
+    <Content Include="Themes\Basic\Content\_contact.scss" />
+    <Content Include="Views\MenuNav\MenuVerticalMega.Mobile.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

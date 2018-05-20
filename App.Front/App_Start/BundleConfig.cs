@@ -16,16 +16,15 @@ namespace App.Front
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            //            "~/Scripts/modernizr-*"));
 
-            //bootstrap
+            ////bootstrap
             bundles.Add(new StyleBundle("~/bundles/content_bootstrap").Include(
                 "~/Content/bootstrap.css"
                , "~/Content/font-awesome.*"));
             bundles.Add(new ScriptBundle("~/bundles/script_bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js"));
 
             //fancybox
             bundles.Add(new StyleBundle("~/bundles/content_fancybox").Include(
@@ -41,9 +40,9 @@ namespace App.Front
 
             //Carousel
             bundles.Add(new StyleBundle("~/bundles/content_carousel").Include(
-                "~/Content/owl.carousel*"));
+                "~/Content/owl.*"));
             bundles.Add(new ScriptBundle("~/bundles/script_carousel").Include(
-                "~/Scripts/owl.carousel*"));
+                "~/Scripts/owl.*"));
 
             //Modernizr
             bundles.Add(new ScriptBundle("~/bundles/script_modernizr").Include(

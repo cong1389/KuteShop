@@ -76,7 +76,7 @@ namespace App.Front.Controllers
             return MenuNavExtensions.MenuNavsViewModels(null, menuNav);
         }
         
-        [PartialCache("Long")]
+        //[PartialCache("Long")]
         [ChildActionOnly]
         public ActionResult TopMenu()
         {

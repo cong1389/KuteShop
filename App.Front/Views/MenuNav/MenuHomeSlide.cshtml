@@ -4,7 +4,7 @@
 
 @if (Model.IsAny())
 {
-    <ul class="owl-intab owl-carousel" data-loop="true" data-items="1" data-autoplay="true" data-dots="false" data-nav="true">
+    <ul class="gw-post-category__slide owl-intab owl-carousel owl-theme owl-loaded">
         @foreach (var item in Model)
         {
             if (!string.IsNullOrEmpty(item.ImageMediumSize))

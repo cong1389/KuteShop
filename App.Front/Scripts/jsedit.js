@@ -178,13 +178,13 @@ var feature = (function () {
 
     var fancyMsgBox = function (title, msg) {
         if (title) {
-            msg = "<h2 class='fancybox-skin__title'>" + title + "</h2><p>" + msg + "</p>";
+            msg = "<div class='fancybox-skin__title'>" + title + "</div><p>" + msg + "</p>";
         }
         msg +=
             '<div class="fancybox-skin__content">' +
             '<input class="button" type="button" value="OK" onclick="$.fancybox.close();" />' +
             "</div>";
-        debugger;
+        
         if (!!$.prototype.fancybox) {
 
             $.fancybox(msg,

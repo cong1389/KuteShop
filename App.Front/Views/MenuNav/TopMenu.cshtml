@@ -1,38 +1,53 @@
 ﻿<!----TopMenu ---->
+@using App.Aplication
 @using App.FakeEntity.Menu
 @model IEnumerable<MenuNavViewModel>
 
 @if (Model != null)
 {
-    <div id="main-menu-new" class="col-sm-12 col-md-9 main-menu">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#new-menu" aria-expanded="false" aria-controls="navbar">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="#">MENU</a>
-                </div>
-                <div id="new-menu" class="navbar-collapse collapse">
-                    <ul class="t-menu nav">
+	<div id="main-menu" class="col-md-9 main-menu">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#new-menu" aria-expanded="false" aria-controls="navbar">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand" href="#">MENU</a>
+				</div>
+				<div id="new-menu" class="navbar-collapse collapse">
+					<ul class="navbar-nav nav">
 
-                        @{
-                            int i = 0;
-                            foreach (MenuNavViewModel item in Model)
-                            {
-                                string clasActive = i == 0 ? "active" : "";
-                                <li class="@clasActive">
-                                    <a class="current" href="@(item.OtherLink = item.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""}))" title="@item.MenuName" target="_self">
-                                        @item.MenuName
-                                    </a>
-                                </li>
-                                i++;
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+						@{
+							var i = 0;
+							foreach (var lv1 in Model)
+							{
+								<li class="@(i == 0 ? "active" : "") @(lv1.ChildNavMenu.IsAny() ? "dropdown" : "")">
+									<a class="" data-toggle="dropdown" href="@(lv1.OtherLink = lv1.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""}))" title="@lv1.MenuName" target="_self">
+										@lv1.MenuName
+									</a>
+									@if (lv1.ChildNavMenu.IsAny())
+									{
+										<ul class="dropdown-menu container-fluid">
+											<li class="block-container">
+												<ul class="block">
+													@foreach (var lv2 in lv1.ChildNavMenu)
+													{
+														<li class="link_container"><a href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))" title="@lv2.MenuName">@lv2.MenuName</a></li>
+													}
+												</ul>
+											</li>
+										</ul>
+									}
+
+								</li>
+
+								i++;
+							}
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
 }
 <!----/TopMenu ---->
