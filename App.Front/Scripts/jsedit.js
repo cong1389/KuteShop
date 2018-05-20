@@ -81,7 +81,7 @@ var quickViewProduct = function (purl) {
             $(".image-zoom").html(p_zoom);
             modal.find(".p-url").attr("href", product.url);
             if (product.images.length == 0) {
-                modal.find(".p-product-image-feature").attr("src", "/assets/0/0/global/noDefaultImage6_large.gif");
+                modal.find(".p-product-image-feature").attr("src", "/assets/global/noDefaultImage6_large.gif");
             } else {
                 $("#p-sliderproduct").remove();
                 $(".image-zoom").append("<div id='p-sliderproduct' class='flexslider'>");

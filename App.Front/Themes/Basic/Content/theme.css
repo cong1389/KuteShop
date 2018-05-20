@@ -710,6 +710,10 @@ body:not(.device-touch) .social-icon i {
 
 .gw-contact-shop {
   margin-top: 20px; }
+  .gw-contact-shop .content-page {
+    background: #fff !important;
+    max-width: 100%;
+    line-height: 1.5; }
   .gw-contact-shop h1 {
     font-size: 30px;
     font-weight: bold;
@@ -1643,10 +1647,6 @@ img.alignleft {
 
 img.alignright {
   margin: 0 0 15px 20px; }
-
-.container {
-  padding-left: 0 !important;
-  padding-right: 0 !important; }
 
 .loader {
   position: fixed;
