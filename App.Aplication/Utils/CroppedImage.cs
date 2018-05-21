@@ -9,85 +9,86 @@ using System.Web;
 namespace App.Aplication
 {
     public static class CroppedImage
-	{
-		public static string SaveCroppedImage(HttpPostedFileBase imageFile, string filePath, string fileName, int? width = null, int? height = null)
-		{
+    {
+        public static string SaveCroppedImage(HttpPostedFileBase imageFile, string filePath, string fileName, int? width = null, int? height = null)
+        {
             Image image = Image.FromStream(imageFile.InputStream);
             Guid guid = ImageFormat.Jpeg.Guid;
-			string lower = Path.GetExtension(imageFile.FileName)?.ToLower();
-			if (lower != null && (lower.Equals(".jpeg") || lower.Equals(".jpg")))
-			{
-				guid = ImageFormat.Jpeg.Guid;
-			}
-			if (lower != null && lower.Equals(".png"))
-			{
-				guid = ImageFormat.Png.Guid;
-			}
-			if (lower != null && lower.Equals(".gif"))
-			{
-				guid = ImageFormat.Gif.Guid;
-			}
-			if (lower != null && lower.Equals(".bmp"))
-			{
-				guid = ImageFormat.Bmp.Guid;
-			}
-			if (lower != null && lower.Equals(".tiff"))
-			{
-				guid = ImageFormat.Tiff.Guid;
-			}
-			ImageCodecInfo imageCodecInfo = ImageCodecInfo.GetImageEncoders().First(codecInfo => codecInfo.FormatID == guid);
-			Image image1 = image;
-			Bitmap bitmap = null;
+            string lower = Path.GetExtension(imageFile.FileName)?.ToLower();
+            if (lower != null && (lower.Equals(".jpeg") || lower.Equals(".jpg")))
+            {
+                guid = ImageFormat.Jpeg.Guid;
+            }
+            if (lower != null && lower.Equals(".png"))
+            {
+                guid = ImageFormat.Png.Guid;
+            }
+            if (lower != null && lower.Equals(".gif"))
+            {
+                guid = ImageFormat.Gif.Guid;
+            }
+            if (lower != null && lower.Equals(".bmp"))
+            {
+                guid = ImageFormat.Bmp.Guid;
+            }
+            if (lower != null && lower.Equals(".tiff"))
+            {
+                guid = ImageFormat.Tiff.Guid;
+            }
+            ImageCodecInfo imageCodecInfo = ImageCodecInfo.GetImageEncoders().First(codecInfo => codecInfo.FormatID == guid);
+            
             string result;
             try
             {
                 int num = 0;
                 int num1 = 0;
-                int value = 1;
-                int value1 = 1;
-                value1 = height.Value;
-                value = width.Value;
-                bitmap = new Bitmap(value, value1);
-                double num2 = value1 / (double)value;
-                double num3 = value / (double)value1;
+                var heightOrigin = height.Value;
+                var widthOrigin = width.Value;
+
+                double heightOfWidth = heightOrigin / (double)widthOrigin;
+                double widthOfHeight = widthOrigin / (double)heightOrigin;
+
                 if (image.Width <= image.Height)
                 {
-                    value1 = (int)Math.Round(image.Width * num2);
-                    if (value1 >= image.Height)
+                    heightOrigin = (int)Math.Round(image.Width * heightOfWidth);
+                    if (heightOrigin >= image.Height)
                     {
-                        value = (int)Math.Round(image.Width * (image.Height / (double)value1));
-                        value1 = image.Height;
-                        num = (image.Width - value) / 2;
+                        widthOrigin = (int)Math.Round(image.Width * (image.Height / (double)heightOrigin));
+                        heightOrigin = image.Height;
+                        num = (image.Width - widthOrigin) / 2;
                     }
                     else
                     {
-                        value = image.Width;
-                        num1 = (image.Height - value1) / 2;
+                        widthOrigin = image.Width;
+                        num1 = (image.Height - heightOrigin) / 2;
                     }
                 }
                 else
                 {
-                    value = (int)Math.Round(image.Height * num3);
-                    if (value >= image.Width)
+                    widthOrigin = (int)Math.Round(image.Height * widthOfHeight);
+                    if (widthOrigin >= image.Width)
                     {
-                        value1 = (int)Math.Round(image.Height * (image.Width / (double)value));
-                        value = image.Width;
-                        num1 = (image.Height - value1) / 2;
+                        heightOrigin = (int)Math.Round(image.Height * (image.Width / (double)widthOrigin));
+                        widthOrigin = image.Width;
+                        num1 = (image.Height - heightOrigin) / 2;
                     }
                     else
                     {
-                        value1 = image.Height;
-                        num = (image.Width - value) / 2;
+                        heightOrigin = image.Height;
+                        num = (image.Width - widthOrigin) / 2;
                     }
                 }
+
+                Bitmap bitmap = new Bitmap(widthOrigin, heightOrigin);
                 using (Graphics graphic = Graphics.FromImage(bitmap))
                 {
                     graphic.SmoothingMode = SmoothingMode.HighQuality;
                     graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
                     graphic.CompositingQuality = CompositingQuality.HighQuality;
                     graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    graphic.DrawImage(image, new Rectangle(0, 0, bitmap.Width, bitmap.Height), new Rectangle(num, num1, value, value1), GraphicsUnit.Pixel);
+                    graphic.DrawImage(image, new Rectangle(0, 0, bitmap.Width, bitmap.Height), new Rectangle(num, num1, widthOrigin, heightOrigin), GraphicsUnit.Pixel);
                 }
+                Image image1 = image;
                 image1 = bitmap;
                 using (EncoderParameters encoderParameter = new EncoderParameters(1))
                 {
@@ -109,11 +110,11 @@ namespace App.Aplication
             }
             catch (Exception ex)
             {
-                bitmap?.Dispose();
+                
                 throw new Exception(string.Concat("Error First: ", ex.Message));
             }
 
             return result;
-		}
-	}
+        }
+    }
 }

@@ -14,19 +14,51 @@ namespace App.Service.Media
             try
             {
                 var image = Image.FromStream(imageFile.InputStream);
-                //if (!width.HasValue)
-                //{
-                //	width = image.Width;
-                //}
-                //if (!height.HasValue)
-                //{
-                //	height = new int?(image.Height);
-                //}
+
+                int num = 0;
+                int num1 = 0;
+                var heightOrigin = height;
+                var widthOrigin = width;
+
+                double heightOfWidth = heightOrigin / (double)widthOrigin;
+                double widthOfHeight = widthOrigin / (double)heightOrigin;
+
+                if (image.Width <= image.Height)
+                {
+                    heightOrigin = (int)Math.Round(image.Width * heightOfWidth);
+                    if (heightOrigin >= image.Height)
+                    {
+                        widthOrigin = (int)Math.Round(image.Width * (image.Height / (double)heightOrigin));
+                        heightOrigin = image.Height;
+                        num = (image.Width - widthOrigin) / 2;
+                    }
+                    else
+                    {
+                        widthOrigin = image.Width;
+                        num1 = (image.Height - heightOrigin) / 2;
+                    }
+                }
+                else
+                {
+                    widthOrigin = (int)Math.Round(image.Height * widthOfHeight);
+                    if (widthOrigin >= image.Width)
+                    {
+                        heightOrigin = (int)Math.Round(image.Height * (image.Width / (double)widthOrigin));
+                        widthOrigin = image.Width;
+                        num1 = (image.Height - heightOrigin) / 2;
+                    }
+                    else
+                    {
+                        heightOrigin = image.Height;
+                        num = (image.Width - widthOrigin) / 2;
+                    }
+                }
+
                 var kalikoImage = new KalikoImage(image);
 
                 //kalikoImage.Resize(width, height);
 
-                var imgCrop = kalikoImage.Scale(new FitScaling(width, height));
+                var imgCrop = kalikoImage.Scale(new FitScaling(widthOrigin, heightOrigin));
 
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath))))
                 {
@@ -63,7 +95,7 @@ namespace App.Service.Media
                 //	height = new int?(image.Height);
                 //}
                 var kalikoImage = new KalikoImage(image);
-                var kalikoImage1 = kalikoImage.Scale(new FitScaling(width, height));
+                var kalikoImage1 = kalikoImage.Scale(new PadScaling(width, height, Color.Transparent));
                 //KalikoImage kalikoImage1 = kalikoImage.Scale(new FitScaling(width.Value, height.Value));
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath))))
                 {

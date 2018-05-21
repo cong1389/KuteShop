@@ -160,11 +160,15 @@ namespace App.Admin.Controllers
 			    var sizeWidthSm = _settingService.GetSetting("News.WidthSmallSize", ImageSize.WidthDefaultSize);
 			    var sizeHeightSm = _settingService.GetSetting("News.HeightSmallSize", ImageSize.HeighthDefaultSize);
 
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameBg,sizeWidthBg, sizeHeightBg);
-			    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
-			    _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+		        //CroppedImage.SaveCroppedImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+		        //CroppedImage.SaveCroppedImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+		        //CroppedImage.SaveCroppedImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
 
-			    model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileNameBg}";
+                _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+                _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+                _imageService.CropAndResizeImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+
+                model.ImageBigSize = $"{Contains.NewsFolder}{folderName}/{fileNameBg}";
 			    model.ImageMediumSize = $"{Contains.NewsFolder}{folderName}/{fileNameMd}";
 			    model.ImageSmallSize = $"{Contains.NewsFolder}{folderName}/{fileNameSm}";
 		    }

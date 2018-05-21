@@ -20,10 +20,7 @@ namespace App.Admin.Controllers
             {
                 var locale = Activator.CreateInstance<TLocalizedPropertyViewModelLocal>();
                 locale.LanguageId = language.Id;
-                if (configure != null)
-                {
-                    configure.Invoke(locale, locale.LanguageId);
-                }
+                configure?.Invoke(locale, locale.LanguageId);
                 locales.Add(locale);
             }
         }
