@@ -56,7 +56,7 @@ namespace App.Service.Media
 
                 var kalikoImage = new KalikoImage(image);
 
-                //kalikoImage.Resize(width, height);
+                kalikoImage.Resize(width, height);
 
                 var imgCrop = kalikoImage.Scale(new FitScaling(widthOrigin, heightOrigin));
 

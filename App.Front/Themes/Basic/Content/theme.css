@@ -1822,7 +1822,8 @@ img.alignright {
     Footer
 */
 .gw-footer {
-  background: #eaeaea; }
+  background: #eaeaea;
+  margin-top: 60px; }
   .gw-footer__introduce-box {
     margin-top: 40px; }
     .gw-footer__introduce-box--introduce-title {

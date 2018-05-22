@@ -2654,13 +2654,6 @@ span.notify-right{
 }
 
 
-/*
-[14. footer]
-*/
-#footer {
-    background: #eee;
-}
-
 /** add-box **/
 #address-list .tit-name{
     float: left;
@@ -2769,68 +2762,6 @@ span.notify-right{
 .trademark-list li:last-child{
     border-right: 0;
     padding-right: 0;
-}
-.social-link a:hover{
-  opacity: 0.8;
-}
-.social-link .fa{
-    width: 30px;
-    height: 30px;
-    color: #fff;
-    line-height: 30px;
-    text-align: center;
-}
-.social-link .fa-facebook{
-    background: #415a99;
-}
-
-.social-link .fa-pinterest-p{
-    background: #cb222a;
-}
-.social-link .fa-vk{
-    background: #5b7fa6;
-}
-
-.social-link .fa-twitter{
-    background: #00caff;
-}
-
-.social-link .fa-google-plus{
-    background: #da4735;
-}
-
-/** #footer-menu-box **/
-#footer{
-  background: #eaeaea;
-}
-#footer-menu-box {
-    border-top: 1px solid #E1E1E1;
-    margin-top: 10px;
-    padding-top: 20px;
-    margin-bottom: 20px;
-}
-
-.footer-menu-list{
-    list-style: none;
-    text-align: center;
-    margin-bottom: 5px;
-}
-.footer-menu-list li{
-    display: inline;
-    padding: 0 7px 0 5px;
-    border-right: 1px solid #0066cc;
-}
-.footer-menu-list li:last-child{
-    border-right: none;
-}
-
-.footer-menu-list li a{
-    color: #0066cc;
-}
-
-.footer-menu-list li a:hover{
-    text-decoration: underline;
-    transition: all 0.3s;
 }
 .scroll_top{
     width: 34px;
