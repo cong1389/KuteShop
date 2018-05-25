@@ -147,7 +147,7 @@ namespace App.Admin.Controllers
 				var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
 				var sizeWidthBg = _settingService.GetSetting("Menu.WidthBigSize", ImageSize.WidthDefaultSize);
-				var sizeHeighthBg = _settingService.GetSetting("Menu.HeightBigSize", ImageSize.HeighthDefaultSize);
+				var sizeHeighthBg = _settingService.GetSetting("Menu.HeightBigSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
 					sizeWidthBg, sizeHeighthBg);
@@ -161,7 +161,7 @@ namespace App.Admin.Controllers
 				var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
 				var sizeWidthMd = _settingService.GetSetting("Menu.WidthMediumSize", ImageSize.WidthDefaultSize);
-				var sizeHeighthMd = _settingService.GetSetting("Menu.HeightMediumSize", ImageSize.HeighthDefaultSize);
+				var sizeHeighthMd = _settingService.GetSetting("Menu.HeightMediumSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, sizeWidthMd, sizeHeighthMd);
 				model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
@@ -174,7 +174,7 @@ namespace App.Admin.Controllers
 				var fileNameFormat = fileName.FileNameFormat(fileExtension);
 
 				var sizeWidthSm = _settingService.GetSetting("Menu.WidthSmallSize", ImageSize.WidthDefaultSize);
-				var sizeHeighthSm = _settingService.GetSetting("Menu.HeightSmallSize", ImageSize.HeighthDefaultSize);
+				var sizeHeighthSm = _settingService.GetSetting("Menu.HeightSmallSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
 					sizeWidthSm, sizeHeighthSm);

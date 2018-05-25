@@ -81,9 +81,9 @@ namespace App.Service.Settings
 					// Set property
 					fastProp.SetValue(settings, value);
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
-					var msg = "Could not convert setting '{0}' to type '{1}'".FormatInvariant(key, prop.PropertyType.Name);
+				    "Could not convert setting '{0}' to type '{1}'".FormatInvariant(key, prop.PropertyType.Name);
 				}
 			}
 

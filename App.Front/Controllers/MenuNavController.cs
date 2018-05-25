@@ -280,7 +280,7 @@ namespace App.Front.Controllers
             var menuNavs = MenuNavExtensions.MenuNavsViewModels(null, navViewModels);
             //var menuNavs = CreateMenuNav(null, menuNav);
 
-            ViewBag.ProIds = proAttrs;
+            ViewBag.ProAttrs = proAttrs;
 
             return PartialView(menuNavs);
         }

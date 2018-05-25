@@ -16,6 +16,8 @@ namespace App.Service.Static
 
         IEnumerable<StaticContent> PagedList(SortingPagingBuilder sortBuider, Paging page);
 
+        IEnumerable<StaticContent> GetStaticContents(int menuId, int status, bool isCache = true);
+
         IEnumerable<StaticContent> PagedListByMenu(SortingPagingBuilder sortBuider, Paging page);
 
         IEnumerable<StaticContent> GetEnableOrDisables(bool enable = true, bool isCache = true);

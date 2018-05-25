@@ -16,15 +16,15 @@ namespace App.Admin.Helpers
 			}
 		}
 
-		public static int HeighthDefaultSize
+		public static int HeightDefaultSize
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeighthDefaultSize"]))
+				if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["HeightDefaultSize"]))
 				{
-                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaulSize"]);
+                    return int.Parse(ConfigurationManager.AppSettings["HeightDefaultSize"]);
                 }
-				return int.Parse(ConfigurationManager.AppSettings["HeighthDefaultSize"]);
+				return int.Parse(ConfigurationManager.AppSettings["HeightDefaultSize"]);
 			}
 		}
 

@@ -26,7 +26,6 @@ namespace App.Front.Controllers
         public NewsController(
             INewsService newsService
             , IMenuLinkService menuLinkService
-            , IStaticContentService staticContentService
             , IWorkContext workContext)
         {
             _newsService = newsService;

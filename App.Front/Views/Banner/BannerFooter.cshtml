@@ -3,10 +3,10 @@
 @if (Model.IsAny())
 {
     <div class="footer-banner">
-        @foreach (var banner in Model)
+        @foreach (var item in Model)
         {
-            <a href="@banner.WebsiteLink" target="@banner.Target" rel="nofollow">
-                <img src="@banner.ImgPath.ValidateImage()"/>
+            <a href="@item.WebsiteLink" target="@item.Target" rel="nofollow">
+                <img src="@item.ImgPath.ValidateImage()" alt="@item.Title" width="@item.Width" height="@item.Height"/>
             </a>
         }
     </div>

@@ -398,7 +398,6 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\System.Web.Razor.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\System.Web.WebPages.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\EPPlus.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\System.Web.WebPages.Deployment.xml
-D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojResolveAssemblyReference.cache
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CoreCompileInputs.cache
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.pdb
@@ -532,3 +531,5 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\EntityFramework.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\EntityFramework.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojAssemblyReference.cache
 D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CopyComplete
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojAssemblyReference.cache
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CopyComplete

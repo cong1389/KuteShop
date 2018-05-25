@@ -122,7 +122,7 @@ namespace App.Admin.Controllers
 			    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
 			    var sizeWidthBg = _settingService.GetSetting("SlideShow.WidthBigSize", ImageSize.WidthDefaultSize);
-			    var sizeHeighthBg = _settingService.GetSetting("SlideShow.HeightBigSize", ImageSize.HeighthDefaultSize);
+			    var sizeHeighthBg = _settingService.GetSetting("SlideShow.HeightBigSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName,sizeWidthBg, sizeHeighthBg);
 

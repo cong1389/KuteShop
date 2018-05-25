@@ -154,11 +154,11 @@ namespace App.Admin.Controllers
 			    var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
 
 			    var sizeWidthBg = _settingService.GetSetting("News.WidthBigSize", ImageSize.WidthDefaultSize);
-			    var sizeHeightBg = _settingService.GetSetting("News.HeightBigSize", ImageSize.HeighthDefaultSize);
+			    var sizeHeightBg = _settingService.GetSetting("News.HeightBigSize", ImageSize.HeightDefaultSize);
 			    var sizeWidthMd = _settingService.GetSetting("News.WidthMediumSize", ImageSize.WidthDefaultSize);
-			    var sizeHeightMd = _settingService.GetSetting("News.HeightMediumSize", ImageSize.HeighthDefaultSize);
+			    var sizeHeightMd = _settingService.GetSetting("News.HeightMediumSize", ImageSize.HeightDefaultSize);
 			    var sizeWidthSm = _settingService.GetSetting("News.WidthSmallSize", ImageSize.WidthDefaultSize);
-			    var sizeHeightSm = _settingService.GetSetting("News.HeightSmallSize", ImageSize.HeighthDefaultSize);
+			    var sizeHeightSm = _settingService.GetSetting("News.HeightSmallSize", ImageSize.HeightDefaultSize);
 
 		        //CroppedImage.SaveCroppedImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
 		        //CroppedImage.SaveCroppedImage(model.Image, $"{Contains.NewsFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);

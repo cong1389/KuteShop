@@ -1308,7 +1308,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\SearchBox\SearchMenuMobile.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Messages\_MessageEmtyData.cshtml" />
@@ -1377,6 +1376,7 @@
     <Content Include="Themes\Basic\Content\shared\_layout.scss" />
     <Content Include="Themes\Basic\Content\_contact.scss" />
     <Content Include="Views\MenuNav\MenuVerticalMega.Mobile.cshtml" />
+    <Content Include="Views\StaticContent\Services.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -1404,7 +1404,7 @@
     <Content Include="Views\Banner\BannerMiddle.cshtml" />
     <Content Include="Views\Banner\BannerOnMenu.cshtml" />
     <Content Include="Views\Banner\BannerRight.cshtml" />
-    <Content Include="Views\Banner\GetBannerSideBar.cshtml" />
+    <Content Include="Views\Banner\BannerSideBar.cshtml" />
     <Content Include="Views\Checkout\BillingAddress.cshtml" />
     <Content Include="Views\Checkout\Confirm.cshtml" />
     <Content Include="Views\Checkout\PaymentMethod.cshtml" />
@@ -1444,8 +1444,8 @@
     <Content Include="Views\Post\_PostDetail.Attribute.cshtml" />
     <Content Include="Views\Profile\GetProfileCategory.cshtml" />
     <Content Include="Views\SaleOff\GetSaleOffByCategory.cshtml" />
-    <Content Include="Views\SearchBox\GetAttributeSearchBox.cshtml" />
-    <Content Include="Views\SearchBox\SearchBoxSideBar.cshtml" />
+    <Content Include="Views\SearchBox\SearchAttribute.cshtml" />
+    <Content Include="Views\SearchBox\SearchSideBar.cshtml" />
     <Content Include="Views\SearchBox\SearchMenu.cshtml" />
     <Content Include="Views\Shared\ChoiceTemplates\Choice.CheckRadio.cshtml" />
     <Content Include="Views\Shared\ChoiceTemplates\Choice.cshtml" />
@@ -1478,9 +1478,6 @@
     <Content Include="Views\ShoppingCart\_Order.Notification.cshtml" />
     <Content Include="Views\ShoppingCart\_Order.TopCart.cshtml" />
     <Content Include="Views\SlideShow\SlideShowHome.cshtml" />
-    <Content Include="Views\StaticContent\GetHomeIntro.cshtml" />
-    <Content Include="Views\StaticContent\GetSlogan.cshtml" />
-    <Content Include="Views\StaticContent\PostDetailPolices.cshtml" />
     <Content Include="Views\Summary\Footer.cshtml" />
     <Content Include="Views\Summary\GetAddressInfo.cshtml" />
     <Content Include="Views\Summary\GetContactHeader.cshtml" />

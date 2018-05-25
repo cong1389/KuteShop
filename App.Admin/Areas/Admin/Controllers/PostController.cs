@@ -704,11 +704,11 @@ namespace App.Admin.Controllers
 								var fileNameSm = $"slide.{ titleOriginal}".FileNameFormat(fileExtension);
 
 								var sizeWidthBg = _settingService.GetSetting("Post.GalleryWidthBigSize", ImageSize.WidthDefaultSize);
-								var sizeHeightBg = _settingService.GetSetting("Post.GalleryHeightBigSize", ImageSize.HeighthDefaultSize);
+								var sizeHeightBg = _settingService.GetSetting("Post.GalleryHeightBigSize", ImageSize.HeightDefaultSize);
 								var sizeWidthMd = _settingService.GetSetting("Post.GalleryWidthMediumSize", ImageSize.WidthDefaultSize);
-								var sizeHeightMd = _settingService.GetSetting("Post.GalleryHeightMediumSize", ImageSize.HeighthDefaultSize);
+								var sizeHeightMd = _settingService.GetSetting("Post.GalleryHeightMediumSize", ImageSize.HeightDefaultSize);
 								var sizeWidthSm = _settingService.GetSetting("Post.GalleryWidthSmallSize", ImageSize.WidthDefaultSize);
-								var sizeHeightSm = _settingService.GetSetting("Post.GalleryHeightSmallSize", ImageSize.HeighthDefaultSize);
+								var sizeHeightSm = _settingService.GetSetting("Post.GalleryHeightSmallSize", ImageSize.HeightDefaultSize);
 
 								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
 								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
@@ -921,11 +921,11 @@ namespace App.Admin.Controllers
 				var fileNameSm = fileNameOriginal.FileNameFormat(fileExtension);
 
 				var sizeWidthBg = _settingService.GetSetting("Post.WidthBigSize", ImageSize.WidthDefaultSize);
-				var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeighthDefaultSize);
+				var sizeHeightBg = _settingService.GetSetting("Post.HeightBigSize", ImageSize.HeightDefaultSize);
 				var sizeWidthMd = _settingService.GetSetting("Post.WidthMediumSize", ImageSize.WidthDefaultSize);
-				var sizeHeightMd = _settingService.GetSetting("Post.HeightMediumSize", ImageSize.HeighthDefaultSize);
+				var sizeHeightMd = _settingService.GetSetting("Post.HeightMediumSize", ImageSize.HeightDefaultSize);
 				var sizeWidthSm = _settingService.GetSetting("Post.WidthSmallSize", ImageSize.WidthDefaultSize);
-				var sizeHeightSm = _settingService.GetSetting("Post.HeightSmallSize", ImageSize.HeighthDefaultSize);
+				var sizeHeightSm = _settingService.GetSetting("Post.HeightSmallSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
@@ -975,9 +975,9 @@ namespace App.Admin.Controllers
 								var fileNameThum = $"attr.{ fileNameOrginal}".FileNameFormat(fileExtension);
 
 								var sizeWidthBg = _settingService.GetSetting("Post.AttributeWithBigSize", ImageSize.WidthDefaultSize);
-								var sizeHeighthBg = _settingService.GetSetting("Post.AttributeHeightBigSize", ImageSize.HeighthDefaultSize);
+								var sizeHeighthBg = _settingService.GetSetting("Post.AttributeHeightBigSize", ImageSize.HeightDefaultSize);
 								var sizeWidthThum = _settingService.GetSetting("Post.AttributeWidthThumSize", ImageSize.WidthDefaultSize);
-								var sizeHeightThum = _settingService.GetSetting("Post.AttributeHeightThumSize", ImageSize.HeighthDefaultSize);
+								var sizeHeightThum = _settingService.GetSetting("Post.AttributeHeightThumSize", ImageSize.HeightDefaultSize);
 
 								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeighthBg);
 								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameThum, sizeWidthThum, sizeHeightThum);

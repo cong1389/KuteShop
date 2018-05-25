@@ -14,7 +14,7 @@
                 </a>
                 @if (lv1.ChildNavMenu.IsAny())
                 {
-                    var products = (List<int>)ViewBag.ProIds;
+                    var products = (List<int>)ViewBag.proAttrs;
                     <ul class="tree-menu" style="display: block;">
                         @foreach (var child in lv1.ChildNavMenu)
                         {

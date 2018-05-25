@@ -120,7 +120,7 @@ namespace App.Admin.Controllers
 				var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
 				var sizeWidthBg = _settingService.GetSetting("PaymentMethod.WidthBigSize", ImageSize.WidthDefaultSize);
-				var sizeHeighthBg = _settingService.GetSetting("PaymentMethod.HeightBigSize", ImageSize.HeighthDefaultSize);
+				var sizeHeighthBg = _settingService.GetSetting("PaymentMethod.HeightBigSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.PaymentMethodFolder}{folderName}/", fileName, sizeWidthBg, sizeHeighthBg);
 

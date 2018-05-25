@@ -85,6 +85,7 @@ namespace App.Service.Static
                 var sbKey = new StringBuilder();
                 sbKey.AppendFormat(CacheKey, "GetStaticContent");
                 sbKey.Append(menuId);
+                sbKey.Append(status);
 
                 var key = sbKey.ToString();
 
@@ -121,6 +122,30 @@ namespace App.Service.Static
             if (staticContents == null)
             {
                 staticContents = _staticContentRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
+                _cacheManager.Put(key, staticContents);
+            }
+
+            return staticContents;
+        }
+
+        public IEnumerable<StaticContent> GetStaticContents(int menuId, int status, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _staticContentRepository.FindBy(x => x.MenuId == menuId && x.Status == (int)Status.Enable);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetStaticContents");
+            sbKey.AppendFormat("-{0}", menuId);
+            sbKey.AppendFormat("-{0}", status);
+
+            var key = sbKey.ToString();
+
+            var staticContents = _cacheManager.GetCollection<StaticContent>(key);
+            if (staticContents == null)
+            {
+                staticContents = _staticContentRepository.FindBy(x => x.MenuId == menuId && x.Status == (int)Status.Enable);
                 _cacheManager.Put(key, staticContents);
             }
 

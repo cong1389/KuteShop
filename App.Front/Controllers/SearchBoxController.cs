@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
+using App.Domain.Common;
 using App.Front.Models;
 using App.Service.Attribute;
 
@@ -21,24 +22,17 @@ namespace App.Front.Controllers
             return PartialView(seachConditions);
         }
 
-        public ActionResult SearchMenuMobile()
-        {
-            var seachConditions = new SeachConditions();
-
-            return PartialView(seachConditions);
-        }
-
-        public ActionResult GetAttributeSearchBox(List<int> attributes = null)
+        public ActionResult SearchAttribute(List<int> attributes = null)
         {
             ViewBag.Attributes = attributes;
 
-            var ieAttributes = _attributeService.FindBy(x => x.Status == 1);
+            var attrs = _attributeService.FindBy(x => x.Status == (int)Status.Enable);
 
-            return PartialView(ieAttributes);
+            return PartialView(attrs);
         }
 
-        public ActionResult SearchBoxSideBar(int? productOld, int? productNew, List<int> attributes = null,
-            List<double> prices = null, List<int> proAttrs = null, string virtualId = null)
+        public ActionResult SearchSideBar(int? productOld, int? productNew, List<int> attributes = null,
+            List<decimal> prices = null, List<int> proAttrs = null, string virtualId = null)
         {
             ViewBag.Attributes = attributes;
             ViewBag.ProAttrs = proAttrs;

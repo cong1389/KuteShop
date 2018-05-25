@@ -1,7 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using App.Domain.Common;
+using App.Domain.Entities.Data;
 using App.Front.Extensions;
+using App.Front.Models;
 using App.Service.Menu;
 using App.Service.Static;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -9,56 +14,32 @@ namespace App.Front.Controllers
     {
         private readonly IStaticContentService _staticContentService;
 
-        public StaticContentController(IStaticContentService staticContentService            
+        public StaticContentController(IStaticContentService staticContentService
             , IMenuLinkService menuLinkService
             )
         {
             _staticContentService = staticContentService;
         }
 
+        //[PartialCache("Long")]
         [ChildActionOnly]
-        public ActionResult GetSlogan(int menuId)
+        public ActionResult Services(int menuId)
         {
-            var staticContent = _staticContentService.Get(x => x.Id == menuId, true);
+            var staticContents = PrepareStaticContents(menuId);
 
-            if (staticContent == null)
+            if (staticContents == null)
             {
                 return HttpNotFound();
             }
 
-            var staticContentLocalized = staticContent.ToModel();
-
-            return PartialView(staticContentLocalized);
+            return PartialView(staticContents);
         }
 
-        [ChildActionOnly]
-        public ActionResult PostDetailPolices(int menuId)
+        private IEnumerable<StaticContent> PrepareStaticContents(int menuId)
         {
-            var staticContent = _staticContentService.Get(x => x.Id == menuId, true);
+            var staticContents = _staticContentService.GetStaticContents(menuId, (int)Status.Enable);
 
-            if (staticContent == null)
-            {
-                return HttpNotFound();
-            }
-
-            var staticContentLocalized = staticContent.ToModel();
-
-            return PartialView(staticContentLocalized);
-        }
-
-        [ChildActionOnly]
-        public ActionResult GetHomeIntro(int menuId)
-        {
-            var staticContent = _staticContentService.Get(x => x.Id == menuId, true);
-
-            if (staticContent == null)
-            {
-                return HttpNotFound();
-            }
-
-            var staticContentLocalized = staticContent.ToModel();
-
-            return PartialView(staticContentLocalized);
+            return staticContents.Select(x => x.ToModel());
         }
     }
 }

@@ -5,21 +5,19 @@
 @if (Model.IsAny())
 {
     int index = 0;
-    <!-- Baner bottom -->
     <div class="row banner-bottom">
 
-        @foreach (var banner in Model)
+        @foreach (var item in Model)
         {
             index++;
             <div class="col-sm-6 @(index % 2 > 0 ? "item-left" : "item-right") ">
                 <div class="banner-boder-zoom">
-                    <a href="@banner.WebsiteLink" title="@banner.WebsiteLink">
-                        <img alt="@banner.Title" class="img-responsive" src="@banner.ImgPath.ValidateImage()" />
+                    <a href="@item.WebsiteLink" title="@item.WebsiteLink" target="_blank">
+                        <img alt="@item.Title" class="img-responsive" src="@item.ImgPath.ValidateImage()" width="@item.Width" height="@item.Height"/>
                     </a>
                 </div>
             </div>
         }
     </div>
-    <!-- end banner bottom -->
 }
 <!----/BannerProductHome-->

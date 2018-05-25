@@ -8,7 +8,7 @@
     <div class="container main-header">
         <div class="row">
             <div class="col-xs-12 col-sm-3 logo">
-                @Html.Action("GetLogo", "Summary", new { area = "" })
+                @{ Html.RenderAction("GetLogo", "Summary", new {area = ""});}
             </div>
             <div class="col-xs-7 col-sm-7 header-search-box">
                 @{Html.RenderAction("SearchMenu", "SearchBox", new { area = "" });}
@@ -24,8 +24,8 @@
     <div id="nav-top-menu" class="nav-top-menu">
         <div class="container">
             <div class="row">
-                @Html.Action("MenuVerticalMega", "MenuNav", new { area = "" })
-                @Html.Action("TopMenu", "MenuNav", new { area = "" })
+                @{Html.RenderAction("MenuVerticalMega", "MenuNav", new { area = "" });}
+                @{ Html.RenderAction("TopMenu", "MenuNav", new {area = ""});}
             </div>
             <!-- userinfo on top-->
             <div id="form-search-opntop">

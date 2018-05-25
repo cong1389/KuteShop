@@ -1874,7 +1874,8 @@ img.alignright {
         color: #0066cc; }
         .gw-footer .footer-menu-list li a :hover {
           text-decoration: underline;
-          transition: all 0.3s; }
+          transition: all 0.3s;
+          color: #4c311d; }
       .gw-footer .footer-menu-list li :last-child {
         border-right: none; }
 

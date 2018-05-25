@@ -111,7 +111,7 @@ namespace App.Admin.Controllers
 				var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
 				var sizeWidthBg = _settingService.GetSetting("Banner.WidthBigSize", ImageSize.WidthDefaultSize);
-				var sizeHeighthBg = _settingService.GetSetting("Banner.HeightBigSize", ImageSize.HeighthDefaultSize);
+				var sizeHeighthBg = _settingService.GetSetting("Banner.HeightBigSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.AdsFolder}{folderName}/", fileName, sizeWidthBg, sizeHeighthBg);
 

@@ -102,7 +102,7 @@ namespace App.Admin.Controllers
 			    var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
 			    var sizeWidthBg = _settingService.GetSetting("Manufacture.WidthBigSize", ImageSize.WidthDefaultSize);
-			    var sizeHeighthBg = _settingService.GetSetting("Manufacture.HeightBigSize", ImageSize.HeighthDefaultSize);
+			    var sizeHeighthBg = _settingService.GetSetting("Manufacture.HeightBigSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName,
 					sizeWidthBg, sizeHeighthBg);

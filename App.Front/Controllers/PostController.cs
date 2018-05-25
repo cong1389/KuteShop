@@ -55,7 +55,7 @@ namespace App.Front.Controllers
             , int? productOld, int? productNew)
         {
             var expression = PredicateBuilder.True<Post>();
-            expression = expression.And(x => x.Status == 1);
+            expression = expression.And(x => x.Status == (int)Status.Enable);
             var sortBuilder = new SortBuilder
             {
                 ColumnName = "CreatedDate",
@@ -67,13 +67,13 @@ namespace App.Front.Controllers
                 PageSize = PageSize,
                 TotalRecord = 0
             };
-            if (page == 1)
-            {
-                var viewBag = ViewBag;
-                var postService = _postService;
-                Expression<Func<Post, bool>> productNews = x => x.ProductNew && x.Status == (int)Status.Enable;
-                viewBag.HotCard = postService.GetTop(3, productNews, x => x.CreatedDate).ToList();
-            }
+            //if (page == 1)
+            //{
+            //    var viewBag = ViewBag;
+            //    var postService = _postService;
+            //    Expression<Func<Post, bool>> productNews = x => x.ProductNew && x.Status == (int)Status.Enable;
+            //    viewBag.HotCard = postService.GetTop(3, productNews, x => x.CreatedDate).ToList();
+            //}
             if (!string.IsNullOrEmpty(attrs))
             {
                 var strArrays = attrs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -85,28 +85,32 @@ namespace App.Front.Controllers
             }
             if (!string.IsNullOrEmpty(prices))
             {
-                var nums = (
+                var priceQuery = (
                     from s in prices.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     select decimal.Parse(s)).ToList();
-                var item = nums[0];
-                var num = nums[1];
-                expression = expression.And(x => x.Price >= item && x.Price <= num);
-                ViewBag.Prices = nums;
+                var fromPrice = priceQuery[0];
+                var toPrice = priceQuery[1];
+                expression = expression.And(x => x.Price >= fromPrice && x.Price <= toPrice);
+
+                ViewBag.Prices = priceQuery;
             }
             if (!string.IsNullOrEmpty(proattrs))
             {
-                var strArrays1 = proattrs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                var list1 = (
-                    from s in strArrays1
+                var attributes = proattrs.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                var attributeQuery = (
+                    from s in attributes
                     select int.Parse(s)).ToList();
-                expression = expression.And(x => list1.Contains(x.Id));
-                ViewBag.ProAttributes = list1;
+                expression = expression.And(x => attributeQuery.Contains(x.Id));
+
+                ViewBag.ProAttributes = attributeQuery;
             }
+
             if (!string.IsNullOrEmpty(keywords))
             {
                 expression = expression.And(x => x.Title.Contains(keywords));
             }
             expression = expression.And(x => x.VirtualCategoryId.Contains(virtualCategoryId));
+
             if (productNew.HasValue)
             {
                 expression = expression.And(x => !x.OldOrNew);
@@ -368,7 +372,6 @@ namespace App.Front.Controllers
             return PartialView(categoryPost);
         }
 
-        //Get product SearchHome
         [PartialCache("Medium")]
         public ActionResult PostHomeSearch(bool productHot, bool productNew, bool productOld)
         {
