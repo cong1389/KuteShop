@@ -34,7 +34,7 @@ namespace App.Front.Extensions
                                      ImageMediumSize = x.ImageMediumSize,
                                      ImageSmallSize = x.ImageSmallSize,
                                      ChildNavMenu = MenuNavsViewModels(x.MenuId, source)
-                                 }).ToList();
+                                 }).OrderBy(x => x.OrderDisplay).ToList();
 
             return navViewModels;
         }

@@ -104,24 +104,35 @@ namespace App.Service.Static
             return staticContent;
         }
 
-        public IEnumerable<StaticContent> GetBySeoUrl(string seoUrl, bool isCache = true)
+        public IEnumerable<StaticContent> GetBySeoUrls(string seoUrl, int? status = null, bool isCache = true)
         {
+            var expression = PredicateBuilder.True<StaticContent>();
+
+            if (status != null)
+            {
+                expression = expression.And(x => x.Status == status);
+            }
+            if (!string.IsNullOrEmpty(seoUrl))
+            {
+                expression = expression.And(x => x.SeoUrl.Equals(seoUrl));
+            }
+
             if (!isCache)
             {
-                return _staticContentRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
+                return _staticContentRepository.FindBy(expression);
             }
 
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
-
+            sbKey.AppendFormat(CacheKey, "GetBySeoUrls");
             sbKey.AppendFormat("-{0}", seoUrl);
+            sbKey.Append(status);
 
             var key = sbKey.ToString();
 
             var staticContents = _cacheManager.GetCollection<StaticContent>(key);
             if (staticContents == null)
             {
-                staticContents = _staticContentRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
+                staticContents = _staticContentRepository.FindBy(expression);
                 _cacheManager.Put(key, staticContents);
             }
 
@@ -146,6 +157,30 @@ namespace App.Service.Static
             if (staticContents == null)
             {
                 staticContents = _staticContentRepository.FindBy(x => x.MenuId == menuId && x.Status == (int)Status.Enable);
+                _cacheManager.Put(key, staticContents);
+            }
+
+            return staticContents;
+        }
+
+        public IEnumerable<StaticContent> GetStaticContents(string virtualCategoryId, int status, bool isCache = true)
+        {
+            if (!isCache)
+            {
+                return _staticContentRepository.FindBy(x => x.VirtualCategoryId.Contains(virtualCategoryId) && x.Status == (int)Status.Enable);
+            }
+
+            var sbKey = new StringBuilder();
+            sbKey.AppendFormat(CacheKey, "GetStaticContents");
+            sbKey.AppendFormat("-{0}", virtualCategoryId);
+            sbKey.AppendFormat("-{0}", status);
+
+            var key = sbKey.ToString();
+
+            var staticContents = _cacheManager.GetCollection<StaticContent>(key);
+            if (staticContents == null)
+            {
+                staticContents = _staticContentRepository.FindBy(x => x.VirtualCategoryId.Contains(virtualCategoryId) && x.Status == (int)Status.Enable);
                 _cacheManager.Put(key, staticContents);
             }
 

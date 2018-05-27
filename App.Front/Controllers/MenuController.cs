@@ -34,8 +34,6 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContent(string menu, int page)
         {
-            var viewBag = ViewBag;
-
             var menuLink = _menuLinkService.GetBySeoUrl(menu);
 
             if (menuLink == null)
@@ -59,7 +57,7 @@ namespace App.Front.Controllers
 
             if (menuLinkLocalized.TemplateType == (int)TemplateContent.News)
             {
-                viewBag.MenuList = _menuLinkService.GetByOptions(template: new List<int> { (int)TemplateContent.News });
+                ViewBag.MenuList = _menuLinkService.GetByOptions(template: new List<int> { (int)TemplateContent.News });
                 //IMenuLinkService menuLinkService = this._menuLinkService;
                 //viewBag.MenuList = _menuLinkService.FindBy((MenuLink x) => x.TemplateType == 1, false);
             }
@@ -167,19 +165,20 @@ namespace App.Front.Controllers
 
         public ActionResult GetStaticContentParent(int menuId, string title, string virtualId)
         {
+            var staticContent = _staticContentService.GetStaticContent(menuId, (int)Status.Enable);
+
+            if (staticContent == null)
+            {
+                return HttpNotFound();
+            }
+
             var breadCrumbs = new List<BreadCrumb>();
             var virtualIds = virtualId.Split('/');
-
-            var staticContent = _staticContentService.GetStaticContent(menuId, (int)Status.Enable);
-            //var staticContent = _staticContentService.Get(x => x.MenuId == menuId && x.Status == 1);
 
             //Convert to localized
             var staticContentLocalized = staticContent.ToModel();
 
             var menuLinks = _menuLinkService.GetByOptions(id: menuId);
-            //var menuLinks = _menuLinkService.FindBy(x => x.Id == menuId && x.Status == 1);
-
-            //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
 
             if (menuLinks.IsAny())
@@ -191,7 +190,6 @@ namespace App.Front.Controllers
             {
                 var viruId = virtualIds[i];
                 var menuLink = _menuLinkService.GetByMenuName(viruId, title);
-                //var menuLink = _menuLinkService.Get(x => x.CurrentVirtualId.Equals(viruId) && !x.MenuName.Equals(title));
                 if (menuLink != null)
                 {
                     breadCrumbs.Add(new BreadCrumb
@@ -214,23 +212,6 @@ namespace App.Front.Controllers
             ViewBag.Title = staticContentLocalized.Title;
 
             return PartialView(staticContentLocalized);
-        }
-
-        [ChildActionOnly]
-        public ActionResult GetStaticHot(string virtualId)
-        {
-            var strArrays = virtualId.Split('/');
-
-            if (strArrays.Length >= 3)
-            {
-                virtualId = $"{strArrays[0]}/{strArrays[1]}";
-            }
-
-            var menuLinks = _menuLinkService.GetByOptions(template: new List<int> { (int)TemplateContent.FixItem }, virtualId: virtualId);
-
-            //var menuLinks = _menuLinkService.FindBy(x => x.VirtualId.Contains(str) && x.TemplateType == (int)TemplateContent.FixItem);
-
-            return PartialView(menuLinks);
         }
 
         public ActionResult Search(SeachConditions conditions)

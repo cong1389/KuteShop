@@ -74,6 +74,11 @@ namespace App.Front
             routes.MapRoute("Default", "{controller}/{action}/{id}"
               , new { controller = "Home", action = "Index", id = UrlParameter.Optional }
               , new[] { "App.Front.Controllers" });
+
+            //routes.MapRoute(null, "{id}-cttstct.html",
+            //  new { controller = "StaticContent", action = "ContentDetail", id = UrlParameter.Optional },
+            //  new[] { "App.Front.Controllers" });
+
         }
         
     }

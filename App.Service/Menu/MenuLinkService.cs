@@ -85,7 +85,7 @@ namespace App.Service.Menu
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheMenuKey, "GetBySeoUrl");
+                sbKey.AppendFormat(CacheMenuKey, "GetBySeoUrls");
 
                 if (seoUrl.HasValue())
                 {

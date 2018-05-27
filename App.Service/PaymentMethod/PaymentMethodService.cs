@@ -52,7 +52,7 @@ namespace App.Service.PaymentMethodes
         public PaymentMethod GetById(int id)
         {
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CachePaymentMethodKey, "GetBySeoUrl");
+            sbKey.AppendFormat(CachePaymentMethodKey, "GetBySeoUrls");
             sbKey.AppendFormat("-{0}", id);
 
             var key = sbKey.ToString();

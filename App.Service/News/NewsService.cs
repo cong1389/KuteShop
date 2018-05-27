@@ -55,7 +55,7 @@ namespace App.Service.News
             if (isCache)
             {
                 var sbKey = new StringBuilder();
-                sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
+                sbKey.AppendFormat(CacheKey, "GetBySeoUrls");
 
                 if (seoUrl.HasValue())
                 {

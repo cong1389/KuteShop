@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication;
+﻿using App.Aplication;
 using App.Domain.Common;
 using App.FakeEntity.Menu;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Menu;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -49,56 +49,28 @@ namespace App.Front.Controllers
 
             return PartialView(menuNavs);
         }
-        
-        public List<MenuNavViewModel> TopMenuNavs()
-        {
-            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.Top });
 
-            //Convert to localized
-            menuLinks = menuLinks.Select(x => x.ToModel());
-
-            var menuNav = menuLinks.Select(x => new MenuNavViewModel
-            {
-                MenuId = x.Id,
-                ParentId = x.ParentId,
-                MenuName = x.MenuName,
-                SeoUrl = x.SeoUrl,
-                OtherLink = x.SourceLink,
-                OrderDisplay = x.OrderDisplay,
-                ImageBigSize = x.ImageBigSize,
-                CurrentVirtualId = x.CurrentVirtualId,
-                VirtualId = x.VirtualId,
-                TemplateType = x.TemplateType,
-                ImageMediumSize = x.ImageMediumSize,
-                ImageSmallSize = x.ImageSmallSize
-            });
-
-            return MenuNavExtensions.MenuNavsViewModels(null, menuNav);
-        }
-        
-        //[PartialCache("Long")]
+        [PartialCache("Long")]
         [ChildActionOnly]
         public ActionResult TopMenu()
         {
-            var menuNavs = TopMenuNavs();
+            var menuNavs = PrepareTopMenuNavs();
 
             return PartialView(menuNavs);
         }
 
         [ChildActionOnly]
-        //[PartialCache("Long")]
+        [PartialCache("Long")]
         public ActionResult TopHead()
         {
-            var menuNavs = new List<MenuNavViewModel>();
             var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.TopHead });
+            if (!menuLinks.IsAny())
+            {
+                return HttpNotFound();
+            }
 
             //Convert to localized
             menuLinks = menuLinks.Select(x => x.ToModel());
-
-            if (!menuLinks.Any())
-            {
-                return PartialView(menuNavs);
-            }
 
             var menuNav = menuLinks.Select(x => new MenuNavViewModel
             {
@@ -117,7 +89,36 @@ namespace App.Front.Controllers
 
             return PartialView(menuNav);
         }
-        
+
+        public List<MenuNavViewModel> PrepareTopMenuNavs()
+        {
+            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.Top });
+            if (!menuLinks.IsAny())
+            {
+                return new List<MenuNavViewModel>();
+            }
+            //Convert to localized
+            menuLinks = menuLinks.Select(x => x.ToModel());
+
+            var menuNav = menuLinks.Select(x => new MenuNavViewModel
+            {
+                MenuId = x.Id,
+                ParentId = x.ParentId,
+                MenuName = x.MenuName,
+                SeoUrl = x.SeoUrl,
+                OtherLink = x.SourceLink,
+                OrderDisplay = x.OrderDisplay,
+                CurrentVirtualId = x.CurrentVirtualId,
+                VirtualId = x.VirtualId,
+                TemplateType = x.TemplateType,
+                ImageBigSize = x.ImageBigSize,
+                ImageMediumSize = x.ImageMediumSize,
+                ImageSmallSize = x.ImageSmallSize
+            });
+
+            return MenuNavExtensions.MenuNavsViewModels(null, menuNav);
+        }
+
         [ChildActionOnly]
         public PartialViewResult MenuNavLeft(string virtualId)
         {
@@ -157,7 +158,7 @@ namespace App.Front.Controllers
             }
 
             //Convert to localized
-            menuLinks = menuLinks.Where(x => x.ParentId != null).Select(x => x.ToModel());
+            menuLinks = menuLinks.Where(x => x.ParentId != null).Select(x => x.ToModel()).OrderBy(x => x.OrderDisplay);
 
             var navViewModels = menuLinks.Select(x => new MenuNavViewModel
             {
@@ -178,42 +179,9 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Long")]
-        public ActionResult MenuCategory()
-        {
-            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.Top, (int)Position.SiderBar });
-
-            var menuNavs = new List<MenuNavViewModel>();
-            if (menuLinks.IsAny())
-            {
-                var navViewModels =
-                    from x in menuLinks
-                    select new MenuNavViewModel
-                    {
-                        MenuId = x.Id,
-                        ParentId = x.ParentId,
-                        MenuName = x.MenuName,
-                        SeoUrl = x.SeoUrl,
-                        OrderDisplay = x.OrderDisplay,
-                        ImageBigSize = x.ImageBigSize,
-                        CurrentVirtualId = x.CurrentVirtualId,
-                        VirtualId = x.VirtualId,
-                        TemplateType = x.TemplateType,
-                        ImageMediumSize = x.ImageMediumSize,
-                        ImageSmallSize = x.ImageSmallSize
-                    };
-                menuNavs = MenuNavExtensions.MenuNavsViewModels(null, navViewModels);
-                //menuNavs = CreateMenuNav(null, menuNav);
-            }
-
-            return PartialView(menuNavs);
-        }
-
-        [ChildActionOnly]
         public ActionResult MenuVerticalMega()
         {
             var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.SiderBar });
-
             if (!menuLinks.IsAny())
             {
                 return HttpNotFound();
@@ -284,43 +252,18 @@ namespace App.Front.Controllers
 
             return PartialView(menuNavs);
         }
-        
+
         [ChildActionOnly]
         public ActionResult Header()
         {
             return PartialView();
         }
-
-        [PartialCache("Long")]
-        public ActionResult StickyBar()
+        
+        public ActionResult Services(string virtualId)
         {
-            var menuNavs = new List<MenuNavViewModel>();
-            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.Middle }, isDisplaySearch: true);
+            var menuLinks = PrepareMenuNavBase(virtualId);
 
-            if (menuLinks.IsAny())
-            {
-                var navViewModels =
-                    from x in menuLinks
-                    select new MenuNavViewModel
-                    {
-                        MenuId = x.Id,
-                        ParentId = x.ParentId,
-                        MenuName = x.MenuName,
-                        SeoUrl = x.SeoUrl,
-                        OrderDisplay = x.OrderDisplay,
-                        ImageBigSize = x.ImageBigSize,
-                        CurrentVirtualId = x.CurrentVirtualId,
-                        VirtualId = x.VirtualId,
-                        TemplateType = x.TemplateType,
-                        ImageMediumSize = x.ImageMediumSize,
-                        ImageSmallSize = x.ImageSmallSize
-                    };
-
-                 menuNavs = MenuNavExtensions.MenuNavsViewModels(null, navViewModels);
-                //menuNavs = CreateMenuNav(null, menuNav);
-            }
-
-            return PartialView(menuNavs);
+            return PartialView(menuLinks);
         }
     }
 

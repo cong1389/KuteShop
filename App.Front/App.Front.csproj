@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>App.Front</RootNamespace>
     <AssemblyName>App.Front</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -1376,7 +1376,9 @@
     <Content Include="Themes\Basic\Content\shared\_layout.scss" />
     <Content Include="Themes\Basic\Content\_contact.scss" />
     <Content Include="Views\MenuNav\MenuVerticalMega.Mobile.cshtml" />
-    <Content Include="Views\StaticContent\Services.cshtml" />
+    <Content Include="Views\StaticContent\Contents.cshtml" />
+    <Content Include="Views\StaticContent\ContentDetail.cshtml" />
+    <Content Include="Views\MenuNav\Services.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -1415,7 +1417,6 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\FlowForm.cshtml" />
     <Content Include="Views\MenuNav\FooterLink.cshtml" />
-    <Content Include="Views\MenuNav\MenuCategory.cshtml" />
     <Content Include="Views\MenuNav\MenuLinkSideBar.cshtml" />
     <Content Include="Views\MenuNav\TopMenu.cshtml" />
     <Content Include="Views\MenuNav\TopMenu.Mobile.cshtml" />
@@ -1425,7 +1426,6 @@
     <Content Include="Views\Menu\GetContent.cshtml" />
     <Content Include="Views\Menu\GetStaticContent.cshtml" />
     <Content Include="Views\Menu\GetStaticContentParent.cshtml" />
-    <Content Include="Views\Menu\GetStaticHot.cshtml" />
     <Content Include="Views\News\BreadCrumNews.cshtml" />
     <Content Include="Views\News\NewsHome.cshtml" />
     <Content Include="Views\News\NewsCategories.cshtml" />

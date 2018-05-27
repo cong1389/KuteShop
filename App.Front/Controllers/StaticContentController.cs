@@ -21,25 +21,32 @@ namespace App.Front.Controllers
             _staticContentService = staticContentService;
         }
 
+        public ActionResult ContentDetail(int id)
+        {
+            var staticContent = _staticContentService.GetById(id);
+
+            if (staticContent == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(staticContent);
+        }
+
         //[PartialCache("Long")]
         [ChildActionOnly]
-        public ActionResult Services(int menuId)
+        public ActionResult Contents(string virtualCategoryId)
         {
-            var staticContents = PrepareStaticContents(menuId);
+            var staticContents = _staticContentService.GetStaticContents(virtualCategoryId, (int)Status.Enable);
 
             if (staticContents == null)
             {
                 return HttpNotFound();
             }
 
+            staticContents = staticContents.Select(x => x.ToModel());
+
             return PartialView(staticContents);
-        }
-
-        private IEnumerable<StaticContent> PrepareStaticContents(int menuId)
-        {
-            var staticContents = _staticContentService.GetStaticContents(menuId, (int)Status.Enable);
-
-            return staticContents.Select(x => x.ToModel());
         }
     }
 }

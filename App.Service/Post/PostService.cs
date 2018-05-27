@@ -82,7 +82,7 @@ namespace App.Service.Post
         public Domain.Entities.Data.Post GetBySeoUrl(string seoUrl, bool @readonly = false)
         {
             var sbKey = new StringBuilder();
-            sbKey.AppendFormat(CacheKey, "GetBySeoUrl");
+            sbKey.AppendFormat(CacheKey, "GetBySeoUrls");
 
             if (seoUrl.HasValue())
             {

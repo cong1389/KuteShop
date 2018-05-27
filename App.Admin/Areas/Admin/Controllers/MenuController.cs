@@ -139,7 +139,8 @@ namespace App.Admin.Controllers
 
 		private void ImageHandler(MenuLinkViewModel model)
 		{
-			var folderName = Utils.FolderName(model.MenuName);
+		    var isPng = _settingService.GetSetting("Menu.pngFormat", 0);
+            var folderName = Utils.FolderName(model.MenuName);
 			if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
 			{
 				var fileName = Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
@@ -148,13 +149,14 @@ namespace App.Admin.Controllers
 
 				var sizeWidthBg = _settingService.GetSetting("Menu.WidthBigSize", ImageSize.WidthDefaultSize);
 				var sizeHeighthBg = _settingService.GetSetting("Menu.HeightBigSize", ImageSize.HeightDefaultSize);
+              
 
-				_imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
-					sizeWidthBg, sizeHeighthBg);
+                _imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
+					sizeWidthBg, sizeHeighthBg, isPng != 0);
 				model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
 			}
 
-			if (model.ImageMediumSizeFile != null && model.ImageMediumSizeFile.ContentLength > 0)
+            if (model.ImageMediumSizeFile != null && model.ImageMediumSizeFile.ContentLength > 0)
 			{
 				var fileName = Path.GetFileNameWithoutExtension(model.ImageMediumSizeFile.FileName);
 				var fileExtension = Path.GetExtension(model.ImageMediumSizeFile.FileName);
@@ -163,7 +165,7 @@ namespace App.Admin.Controllers
 				var sizeWidthMd = _settingService.GetSetting("Menu.WidthMediumSize", ImageSize.WidthDefaultSize);
 				var sizeHeighthMd = _settingService.GetSetting("Menu.HeightMediumSize", ImageSize.HeightDefaultSize);
 
-				_imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, sizeWidthMd, sizeHeighthMd);
+                _imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, sizeWidthMd, sizeHeighthMd, isPng != 0);
 				model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
 			}
 
@@ -177,7 +179,7 @@ namespace App.Admin.Controllers
 				var sizeHeighthSm = _settingService.GetSetting("Menu.HeightSmallSize", ImageSize.HeightDefaultSize);
 
 				_imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
-					sizeWidthSm, sizeHeighthSm);
+					sizeWidthSm, sizeHeighthSm, isPng != 0);
 				model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
 			}
 		}

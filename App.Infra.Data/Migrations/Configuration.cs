@@ -1,10 +1,10 @@
-using System;
-using System.Data.Entity.Migrations;
-using System.Linq;
 using App.Core.Extensions;
 using App.Domain.Common;
 using App.Domain.Entities.Account;
-using App.Infra.Data.Context;
+using System;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using AppContext = App.Infra.Data.Context.AppContext;
 
 namespace App.Infra.Data.Migrations
 {

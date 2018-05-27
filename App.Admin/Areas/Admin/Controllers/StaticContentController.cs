@@ -87,7 +87,7 @@ namespace App.Admin.Controllers
                 }
 
                 var titleNonAccent = model.Title.NonAccent();
-                var bySeoUrl = _staticContentService.GetBySeoUrl(titleNonAccent, false);
+                var bySeoUrl = _staticContentService.GetBySeoUrls(titleNonAccent, isCache: false);
                 model.SeoUrl = model.Title.NonAccent();
 
                 if (bySeoUrl.Any(x => x.Id != model.Id))
