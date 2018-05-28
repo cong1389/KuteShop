@@ -30,7 +30,8 @@ namespace App.Front.Controllers
             _systemSettingService = systemSettingService;
             _sendMailService = sendMailService;
         }
-        
+
+        [PartialCache("Long")]
         public ActionResult ContactUs()
         {
             //var menuLink = _menuLinkService.GetById(id);
@@ -43,20 +44,7 @@ namespace App.Front.Controllers
             }
 
             var contactInformationLocalize = contactInformation.Select(x => x.ToModel());
-
-            //var breadCrumbs = new List<BreadCrumb>();
-            //if (menuLink != null)
-            //{
-            //    breadCrumbs.Add(new BreadCrumb
-            //    {
-            //        Title = menuLink.GetLocalized(m => m.MenuName, menuLink.Id),
-            //        Current = false,
-            //        Url = Url.Action("GetContent", "Menu", new { area = "", menu = menuLink.SeoUrl })
-            //    });
-            //    ViewBag.MenuId = menuLink.Id;
-            //}
-            //ViewBag.BreadCrumb = breadCrumbs;
-
+            
             //ViewBag.Title = title;
             ViewBag.Contact = contactInformationLocalize;
 

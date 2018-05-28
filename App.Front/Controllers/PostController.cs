@@ -49,7 +49,7 @@ namespace App.Front.Controllers
             _contactInfoService = contactInfoService;
         }
 
-        //[PartialCache("Short")]
+        [PartialCache("Short","*")]
         public ActionResult PostCategories(string virtualCategoryId, int page, string title, string attrs,
             string prices, string proattrs, string keywords
             , int? productOld, int? productNew)
@@ -189,7 +189,7 @@ namespace App.Front.Controllers
             return PartialView(postLocalized);
         }
 
-        [PartialCache("Medium")]
+        [PartialCache("Medium","*")]
         public ActionResult PostDetail(string seoUrl)
         {
             var post = _postService.GetBySeoUrl(seoUrl);
@@ -262,7 +262,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Short","*")]
         public ActionResult PostSameMenu(int menuId, int postId)
         {
             var posts = new List<Post>();
@@ -300,7 +300,7 @@ namespace App.Front.Controllers
             return PartialView(tops);
         }
 
-        [PartialCache("Medium")]
+        [PartialCache("Long","*")]
         public ActionResult PostHomeNew(int page, string id)
         {
             var expression = PredicateBuilder.True<Post>();
@@ -334,7 +334,7 @@ namespace App.Front.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //[PartialCache("Long")]
+        [PartialCache("Long")]
         public ActionResult PostHome()
         {
             var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.SiderBar }, isDisplayHomePage: true);
@@ -372,7 +372,7 @@ namespace App.Front.Controllers
             return PartialView(categoryPost);
         }
 
-        [PartialCache("Medium")]
+        [PartialCache("Medium","*")]
         public ActionResult PostHomeSearch(bool productHot, bool productNew, bool productOld)
         {
             var posts = _postService.GetTop(9999, x => x.Status == (int)Status.Enable && x.ProductHot);
@@ -380,35 +380,7 @@ namespace App.Front.Controllers
             return PartialView(posts);
 
         }
-
-        [ChildActionOnly]
-        public ActionResult PostHomeNewTab(string virtualId)
-        {
-            var posts = new List<Post>();
-            var tops = _postService.GetTop(4, x => x.Status == (int)Status.Enable && x.VirtualCategoryId.Contains(virtualId) && x.ProductHot, x => x.UpdatedDate);
-            if (tops.IsAny())
-            {
-                posts.AddRange(tops);
-            }
-            return PartialView("_SlideProductHome",
-                from x in posts
-                orderby x.OrderDisplay descending
-                select x);
-        }
-
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ActionResult PostHomeCareer(string virtualId)
-        {
-            var posts = new List<Post>();
-            var top = _postService.GetTop(4, x => x.Status == (int)Status.Enable && x.VirtualCategoryId.Contains(virtualId), x => x.ViewCount);
-            if (top.IsAny())
-            {
-                posts.AddRange(top);
-            }
-            return PartialView(posts);
-        }
-
+        
         public ActionResult GetGallery(int postId, int typeId)
         {
             var galleryImages = _galleryService.GetByOption(typeId, postId);
@@ -423,7 +395,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Short","*")]
         public ActionResult PostRelativePrice(decimal? price, int productId)
         {
             decimal nullable1 = decimal.Zero;
@@ -467,7 +439,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Short","*")]
         public ActionResult PostRelative(string virtualId, int productId)
         {
             var posts = _postService.GetTop(10,
@@ -588,25 +560,5 @@ namespace App.Front.Controllers
         }
 
         #endregion
-
-
-        [PartialCache("Long")]
-        public JsonResult GetContactAddress()
-        {
-            var contactInformation = _contactInfoService.GetTypeAddress((int)TypeAdress.Current);
-
-            var contactInformationLocalize = contactInformation.ToModel();
-
-            var jsonResult =
-                Json(
-                    new
-                    {
-                        success = true,
-                        list = this.RenderRazorViewToString("_PostDetail.Address", contactInformationLocalize)
-                    }, JsonRequestBehavior.AllowGet);
-
-            return jsonResult;
-
-        }
     }
 }

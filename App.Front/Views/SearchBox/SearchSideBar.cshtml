@@ -18,7 +18,6 @@
 <div class="block left-module">
 	<p class="title_block">Bộ lọc sản phẩm</p>
 	<div class="block_content">
-		<!-- layered -->
 		<div class="layered layered-filter-price">
 			<!-- filter price -->
 
@@ -31,10 +30,10 @@
 				@{
 					decimal fromPrice = 50000;
 					decimal toPrice = 50000000;
-					if (ViewBag.Prices != null)
-					{
-						var prices = (List<decimal>)ViewBag.Prices;
+					var prices = (List<decimal>)ViewBag.Prices;
 
+					if (prices.IsAny())
+					{
 						fromPrice = prices.FirstOrDefault();
 						toPrice = prices.LastOrDefault();
 					}

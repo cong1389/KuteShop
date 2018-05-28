@@ -1,10 +1,12 @@
 ﻿use SmartStore
 go
 
-select * from Setting where name like '%Facebook%'
+select * from ShippingMethod
 
 use KuteShop
 GO
+
+select * from Setting where name like '%Shipping%'
 
 select  * from MenuLink where MenuName like N'%Dịch vụ%'
 

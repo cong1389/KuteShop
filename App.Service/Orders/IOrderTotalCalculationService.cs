@@ -5,6 +5,6 @@ namespace App.Service.Orders
 {
     public interface IOrderTotalCalculationService
     {
-        decimal GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart);
+        decimal GetShoppingCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart);
     }
 }

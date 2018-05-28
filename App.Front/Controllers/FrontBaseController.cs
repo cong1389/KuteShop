@@ -17,7 +17,7 @@ namespace App.Front.Controllers
             AddLocales(languageService, locales, null);
         }
 
-        [PartialCache("Long")]
+        [PartialCache("Long","*")]
         protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService,
             IList<TLocalizedPropertyViewModelLocal> locales, Action<TLocalizedPropertyViewModelLocal, int> configure)
             where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal

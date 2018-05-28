@@ -151,7 +151,7 @@ namespace App.Service.Orders
 
         public decimal GetCurrentCartSubTotal(IOrderedEnumerable<ShoppingCartItem> cart)
         {
-            return _orderTotalCalculationService.GetCurrentCartSubTotal(cart);
+            return _orderTotalCalculationService.GetShoppingCartSubTotal(cart);
         }
 
         public virtual void DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem, bool resetCheckoutData = true,

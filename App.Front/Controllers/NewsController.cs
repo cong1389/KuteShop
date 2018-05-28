@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication;
+﻿using App.Aplication;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
@@ -13,7 +10,9 @@ using App.Service.Common;
 using App.Service.Language;
 using App.Service.Menu;
 using App.Service.News;
-using App.Service.Static;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -25,15 +24,14 @@ namespace App.Front.Controllers
 
         public NewsController(
             INewsService newsService
-            , IMenuLinkService menuLinkService
-            , IWorkContext workContext)
+            , IMenuLinkService menuLinkService)
         {
             _newsService = newsService;
             _menuLinkService = menuLinkService;
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Long","*")]
         public ActionResult BreadCrumNews(string virtualId)
         {
             ViewBag.VirtualId = virtualId;
@@ -60,6 +58,7 @@ namespace App.Front.Controllers
             return PartialView(iePost);
         }
 
+        [PartialCache("Long", "*")]
         public ActionResult NewsCategories(string virtualCategoryId, int? menuId, string title, int page, int? month, int? year)
         {
             var sortBuilder = new SortBuilder
@@ -146,7 +145,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Long","*")]
         public ActionResult NewsRelative(string virtualId, int newsId)
         {
             var news = new List<News>();
@@ -161,6 +160,7 @@ namespace App.Front.Controllers
             return PartialView(news);
         }
 
+        [PartialCache("Long")]
         [ChildActionOnly]
         public ActionResult GetVideoSlide()
         {
@@ -174,7 +174,7 @@ namespace App.Front.Controllers
             return PartialView(news);
         }
 
-        [OutputCache(CacheProfile = "Medium")]
+        [PartialCache("Long", "*")]
         public ActionResult NewsDetail(string seoUrl)
         {
             var breadCrumbs = new List<BreadCrumb>();
@@ -232,6 +232,7 @@ namespace App.Front.Controllers
         /// Lấy tất cả bài viết nhóm theo tháng, năm.
         /// </summary>
         /// <returns></returns>       
+        [PartialCache("Long", "*")]
         public ActionResult NewsTimeLine()
         {
             var news = _newsService.GetAll();

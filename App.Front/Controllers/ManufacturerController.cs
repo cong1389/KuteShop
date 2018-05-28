@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using App.Domain.Common;
+using App.Front.Models;
 using App.Service.Manufacturers;
 
 namespace App.Front.Controllers
@@ -11,11 +13,12 @@ namespace App.Front.Controllers
             _manufacturerService = manufacturerService;
         }
 
+        [PartialCache("Long")]
         public ActionResult ManufacturerHome()
         {
-            var flowSteps = _manufacturerService.FindBy(x => x.Status == 1);
+            var manufacturers = _manufacturerService.FindBy(x => x.Status == (int)Status.Enable);
 
-            return PartialView(flowSteps);
+            return PartialView(manufacturers);
         }
 
     }

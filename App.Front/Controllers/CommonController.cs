@@ -18,7 +18,7 @@ namespace App.Front.Controllers
             _language = language;
         }
 
-        [PartialCache("Medium")]
+        [PartialCache("Medium","*")]
         public ActionResult SetLanguage(int langid, string returnUrl = "")
         {
             var language = _language.GetById(langid);

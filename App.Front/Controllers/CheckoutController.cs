@@ -364,7 +364,7 @@ namespace App.Front.Controllers
         /// Get Cart theo khách hàng
         /// </summary>
         /// <returns></returns>
-        private MiniShoppingCartModel GetCartByCustomer()
+        private MiniShoppingCartModel PrepareMiniShoppingCartModel()
         {
             //Get Cart by customer
             var cart = _workContext.CurrentCustomer.GetCartItems();
@@ -396,7 +396,7 @@ namespace App.Front.Controllers
         /// <returns></returns>
         public JsonResult CartByCustomer()
         {
-            var miniCart = GetCartByCustomer();
+            var miniCart = PrepareMiniShoppingCartModel();
 
             var jsonResult =
                 Json(new {success = true, list = this.RenderRazorViewToString("_Checkout.Cart", miniCart)},

@@ -119,6 +119,7 @@ namespace App.Front.Controllers
             return MenuNavExtensions.MenuNavsViewModels(null, menuNav);
         }
 
+        [PartialCache("Long","*")]
         [ChildActionOnly]
         public PartialViewResult MenuNavLeft(string virtualId)
         {
@@ -127,6 +128,7 @@ namespace App.Front.Controllers
             return PartialView(ieMenuNav);
         }
 
+        [PartialCache("Long", "*")]
         [ChildActionOnly]
         public PartialViewResult MenuNavNews(string virtualId)
         {
@@ -135,6 +137,7 @@ namespace App.Front.Controllers
             return PartialView(navViewModels);
         }
 
+        [PartialCache("Long", "*")]
         [ChildActionOnly]
         public PartialViewResult MenuHomeSlide(string virtualId)
         {
@@ -143,6 +146,7 @@ namespace App.Front.Controllers
             return PartialView(ieMenuNav);
         }
 
+        [PartialCache("Long", "*")]
         [NonAction]
         private IEnumerable<MenuNavViewModel> PrepareMenuNavBase(string virtualId)
         {
@@ -178,6 +182,7 @@ namespace App.Front.Controllers
 
         }
 
+        [PartialCache("Long", "*")]
         [ChildActionOnly]
         public ActionResult MenuVerticalMega()
         {
@@ -210,6 +215,7 @@ namespace App.Front.Controllers
             return PartialView(menuNavs);
         }
 
+        [PartialCache("Long", "*")]
         [ChildActionOnly]
         public ActionResult MenuLinkSideBar(string virtualId, List<int> proAttrs = null)
         {
@@ -253,12 +259,14 @@ namespace App.Front.Controllers
             return PartialView(menuNavs);
         }
 
+        [PartialCache("Long", "*")]
         [ChildActionOnly]
         public ActionResult Header()
         {
             return PartialView();
         }
-        
+
+        [PartialCache("Long", "*")]
         public ActionResult Services(string virtualId)
         {
             var menuLinks = PrepareMenuNavBase(virtualId);

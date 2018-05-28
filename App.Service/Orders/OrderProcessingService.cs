@@ -85,7 +85,7 @@ namespace App.Service.Orders
                     CustomerTaxDisplayTypeId = 0, //Draft code
                     CustomerIp = "172.0.0.0", //Draft code
                     OrderSubtotalInclTax = 0, //Draft code
-                    OrderSubtotalExclTax = _orderTotalCalculationService.GetCurrentCartSubTotal(cart), //Draft code
+                    OrderSubtotalExclTax = _orderTotalCalculationService.GetShoppingCartSubTotal(cart), //Draft code
                     OrderSubTotalDiscountInclTax = decimal.Zero, //Draft code
                     OrderSubTotalDiscountExclTax = decimal.Zero,//Draft code
                     OrderShippingInclTax = decimal.Zero,//Draft code

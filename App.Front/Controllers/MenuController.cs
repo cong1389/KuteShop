@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Domain.Common;
@@ -31,7 +33,7 @@ namespace App.Front.Controllers
             _staticContentService = staticContentService;
         }
 
-        [PartialCache("Short")]
+        [PartialCache("Short", "*")]
         public ActionResult GetContent(string menu, int page)
         {
             var menuLink = _menuLinkService.GetBySeoUrl(menu);

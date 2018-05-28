@@ -200,6 +200,7 @@
     <Compile Include="Areas\Admin\Controllers\SecurityController.cs" />
     <Compile Include="Areas\Admin\Controllers\SeoSettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShippingMethodController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideShowController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaticContentController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemSettingController.cs" />

@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Domain.Common;
@@ -18,6 +13,10 @@ using App.Service.Post;
 using App.Service.SeoSetting;
 using App.Service.Static;
 using App.Service.SystemApp;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -54,7 +53,7 @@ namespace App.Front.Controllers
             _staticContentService = staticContentService;
         }
 
-        [PartialCache("Long")]
+        [PartialCache("Long", "*")]
         private List<MenuNavViewModel> CreateMenuNav(int? parentId, IEnumerable<MenuNavViewModel> source)
         {
             return (
@@ -182,6 +181,7 @@ namespace App.Front.Controllers
             return PartialView(contactInformationLocalize);
         }
 
+        [PartialCache("Long")]
         public ActionResult GetLogo()
         {
             var systemSetting = GetSystemSettingEnableOrDisableBase();
@@ -192,7 +192,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Long")]
         public ActionResult GetMetaTagsSeo()
         {
             var settingSeoGlobal = GetSettingSeoData();
@@ -200,6 +200,8 @@ namespace App.Front.Controllers
             return PartialView(settingSeoGlobal);
         }
 
+        [ChildActionOnly]
+        [PartialCache("Long")]
         public ActionResult GetMeta()
         {
             var systemSetting = _systemSettingService.GetEnableOrDisable();
@@ -238,7 +240,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short")]
+        [PartialCache("Long")]
         public ActionResult ScriptSippet()
         {
             var settingSeoGlobal = GetSettingSeoData();

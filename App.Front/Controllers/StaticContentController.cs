@@ -1,10 +1,8 @@
 ﻿using App.Domain.Common;
-using App.Domain.Entities.Data;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Menu;
 using App.Service.Static;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -33,7 +31,7 @@ namespace App.Front.Controllers
             return PartialView(staticContent);
         }
 
-        //[PartialCache("Long")]
+        [PartialCache("Long","*")]
         [ChildActionOnly]
         public ActionResult Contents(string virtualCategoryId)
         {
