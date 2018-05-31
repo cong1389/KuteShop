@@ -1,10 +1,10 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
-using App.Core.Extensions;
 using static System.String;
 
 namespace App.Core.Caching

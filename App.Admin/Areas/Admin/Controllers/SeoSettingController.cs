@@ -1,21 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.SeoGlobal;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.SeoSetting;
 using AutoMapper;
 using Resources;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class SeoSettingController : BaseAdminController
+    public class SeoSettingController : BaseAdminController
     {
         private const string CacheSettingseoglobalKey = "db.SettingSeoGlobal.{0}";
 	    private readonly ISettingSeoGlobalService _settingSeoGlobal;

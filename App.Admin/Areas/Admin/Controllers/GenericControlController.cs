@@ -6,7 +6,7 @@ using App.Domain.Entities.GenericControl;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.GenericControl;
 using App.FakeEntity.Menu;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.GenericControl;
 using App.Service.Language;
 using App.Service.LocalizedProperty;

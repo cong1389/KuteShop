@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication;
+﻿using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
@@ -11,7 +7,7 @@ using App.FakeEntity.Gallery;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
 using App.FakeEntity.User;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
@@ -25,10 +21,14 @@ using AutoMapper;
 using Domain.Entities.Customers;
 using Microsoft.AspNet.Identity;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
-	[FrontAuthorize]
+    [FrontAuthorize]
 	public class AccountController : BaseAccessUserController
 	{
 		private readonly IPostService _postService;

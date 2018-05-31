@@ -1,17 +1,14 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using App.Framework.Templating.Liquid.Drops;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Extensions;
-using App.Framework.Templating.Liquid.Drops;
 
 namespace App.Framework.Templating.Liquid
 {
     internal static class LiquidUtil
     {
-        private static readonly IDictionary<Type, Func<object, object>> _typeWrapperCache
+        private static readonly IDictionary<Type, Func<object, object>> TypeWrapperCache
             = new Dictionary<Type, Func<object, object>>();
 
         internal static object CreateSafeObject(object value)
@@ -28,9 +25,9 @@ namespace App.Framework.Templating.Liquid
 
             var valueType = value.GetType();
 
-            if (!_typeWrapperCache.TryGetValue(valueType, out var fn))
+            if (!TypeWrapperCache.TryGetValue(valueType, out var fn))
             {
-                if (value is IDictionary<string, object> dict)
+                if (value is IDictionary<string, object>)
                 {
                     fn = x => new DictionaryDrop((IDictionary<string, object>)x);
                 }
@@ -52,7 +49,7 @@ namespace App.Framework.Templating.Liquid
                 //    fn = x => new ObjectDrop(x);
                 //}
 
-                _typeWrapperCache[valueType] = fn;
+                TypeWrapperCache[valueType] = fn;
             }
 
             return fn?.Invoke(value) ?? value;

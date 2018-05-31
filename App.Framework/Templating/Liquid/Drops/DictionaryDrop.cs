@@ -14,9 +14,7 @@ namespace App.Framework.Templating.Liquid.Drops
 
         public override bool ContainsKey(object key)
         {
-            return key is string s
-                ? _inner.ContainsKey(s)
-                : false;
+            return key is string s && _inner.ContainsKey(s);
         }
 
         protected override object InvokeMember(string name)

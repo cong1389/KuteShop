@@ -9,9 +9,7 @@ namespace App.Core.Extensions
             if (other == null)
                 return;
 
-            var list = initial as List<T>;
-
-            if (list != null)
+            if (initial is List<T> list)
             {
                 list.AddRange(other);
                 return;

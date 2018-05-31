@@ -11,7 +11,7 @@ using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.GenericControl;
 using App.Service.Menu;
 using AutoMapper;

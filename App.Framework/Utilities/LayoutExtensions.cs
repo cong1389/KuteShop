@@ -1,7 +1,7 @@
 using System.Text;
 using System.Web.Mvc;
 
-namespace App.Framework.Ultis
+namespace App.Framework.Utilities
 {
     public static class LayoutExtensions
     {

@@ -9,7 +9,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Manufacturers;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Manufacturers;
 using App.Service.Media;
 using App.Service.Settings;

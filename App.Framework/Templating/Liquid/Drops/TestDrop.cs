@@ -1,12 +1,12 @@
-﻿using System;
-using App.Core.Common;
+﻿using App.Core.Common;
 using App.Core.Extensions;
 using App.Core.Templating;
 using DotLiquid;
+using System;
 
 namespace App.Framework.Templating.Liquid.Drops
 {
-	internal class TestDrop : ITestModel, ILiquidizable, IIndexable, ISafeObject
+    internal class TestDrop : ITestModel, ILiquidizable, IIndexable, ISafeObject
 	{
 		private readonly BaseEntity _entity;
 		private readonly Type _type;

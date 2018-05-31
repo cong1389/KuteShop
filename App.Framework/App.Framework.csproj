@@ -59,14 +59,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data.RepositoryAsync\bin\Debug\App.Infra.Data.RepositoryAsync.dll</HintPath>
     </Reference>
-    <Reference Include="App.Utils">
-      <HintPath>..\App.Utils\bin\Debug\App.Utils.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="DotLiquid, Version=2.0.254.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
@@ -82,9 +78,6 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Drawing" />
@@ -106,8 +99,6 @@
     <Reference Include="App.AsyncService">
       <HintPath>.\App.FrameworkReferences\App.AsyncService.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Templating\Filters\AdditionalFilters.cs" />
@@ -207,7 +198,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ultis\ExtentionUtils.cs">
+    <Compile Include="Utilities\ExtentionUtils.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -231,7 +222,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ultis\PermissonApplication.cs">
+    <Compile Include="Utilities\PermissonApplication.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -239,11 +230,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ultis\Helper.cs">
+    <Compile Include="Utilities\Helper.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ultis\LayoutExtensions.cs">
+    <Compile Include="Utilities\LayoutExtensions.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

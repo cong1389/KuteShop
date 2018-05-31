@@ -1,3 +1,4 @@
+using App.Domain.Common;
 using App.Service.Language;
 using System;
 using System.Collections.Generic;
@@ -18,40 +19,16 @@ namespace App.Admin.Controllers
 	        IList<TLocalizedPropertyViewModelLocal> locales, Action<TLocalizedPropertyViewModelLocal, int> configure)
 	        where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal
         {
-            foreach (var language in languageService.FindBy(x => x.Status == 1))
+            foreach (var language in languageService.FindBy(x => x.Status == (int)Status.Enable))
             {
                 var locale = Activator.CreateInstance<TLocalizedPropertyViewModelLocal>();
                 locale.LanguageId = language.Id;
-                if (configure != null)
-                {
-                    configure.Invoke(locale, locale.LanguageId);
-                }
-                locales.Add(locale);
+	            configure?.Invoke(locale, locale.LanguageId);
+	            locales.Add(locale);
             }
         }
 
         public int PageSize => int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"] ?? "10");
 
-		//protected string RenderRazorViewToString(string viewName, object model)
-		//{
-		//	var str=string.Empty;
-  //          try
-  //          {
-  //              ViewData.Model = model;
-  //              using (var stringWriter = new StringWriter())
-  //              {
-  //                  var viewEngineResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-  //                  var viewContext = new ViewContext(ControllerContext, viewEngineResult.View, ViewData, TempData, stringWriter);
-  //                  viewEngineResult.View.Render(viewContext, stringWriter);
-  //                  viewEngineResult.ViewEngine.ReleaseView(ControllerContext, viewEngineResult.View);
-  //                  str = stringWriter.GetStringBuilder().ToString();
-  //              }
-  //          }
-  //          catch
-  //          {
-  //          }
-
-		//	return str;
-		//}
 	}
 }

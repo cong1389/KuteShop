@@ -1,13 +1,9 @@
-﻿using System;
+﻿using DotLiquid;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DotLiquid;
 
 namespace App.Framework.Templating.Liquid.Drops
 {
-	internal interface ISafeObject
+    internal interface ISafeObject
 	{
 		object GetWrappedObject();
 	}
@@ -32,15 +28,9 @@ namespace App.Framework.Templating.Liquid.Drops
 
 		public abstract bool ContainsKey(object key);
 
-		public object this[object key]
-		{
-			get
-			{
-				return (key is string s) ? GetOrCreateSafeObject(s) : null;
-			}
-		}
+		public object this[object key] => (key is string s) ? GetOrCreateSafeObject(s) : null;
 
-		protected abstract object InvokeMember(string name);
+	    protected abstract object InvokeMember(string name);
 
 		public object ToLiquid()
 		{

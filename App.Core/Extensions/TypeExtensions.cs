@@ -136,7 +136,7 @@ namespace App.Core.Extensions
 				if (d.IsClass && d.IsSealed && d.Attributes.HasFlag(TypeAttributes.NotPublic))
 				{
 					var attributes = d.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false);
-					if (attributes != null && attributes.Length > 0)
+					if (attributes.Length > 0)
 					{
 						//WOW! We have an anonymous type!!!
 						return true;
@@ -159,8 +159,7 @@ namespace App.Core.Extensions
 
 		public static bool IsSubClass(this Type type, Type check)
 		{
-			Type implementingType;
-			return IsSubClass(type, check, out implementingType);
+		    return IsSubClass(type, check, out _);
 		}
 
 		public static bool IsSubClass(this Type type, Type check, out Type implementingType)

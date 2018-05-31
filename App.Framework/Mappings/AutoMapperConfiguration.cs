@@ -10,18 +10,6 @@ namespace App.Framework.Mappings
                 cfg.AddProfile<DomainToViewModelMappingProfile>();
                 cfg.AddProfile<ViewModelToDomainMappingProfile>();
             });
-
-
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile<DomainToViewModelMappingProfile>();
-            //    cfg.AddProfile<ViewModelToDomainMappingProfile>();
-            //});
-
-   //         Mapper.Initialize((IMapperConfiguration x) => {
-			//	x.AddProfile<DomainToViewModelMappingProfile>();
-			//	x.AddProfile<ViewModelToDomainMappingProfile>();
-			//});
 		}
 	}
 }

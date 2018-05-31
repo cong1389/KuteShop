@@ -1,16 +1,14 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Extensions;
 
 namespace App.Core.Localization
 {
     public static class LocalizationHelper
     {
-        private readonly static HashSet<string> _cultureCodes =
+        private static readonly HashSet<string> CultureCodes =
             new HashSet<string>(
                 CultureInfo.GetCultures(CultureTypes.NeutralCultures | CultureTypes.SpecificCultures | CultureTypes.UserCustomCulture)
                 .Select(x => x.IetfLanguageTag)
@@ -18,7 +16,7 @@ namespace App.Core.Localization
 
         public static bool IsValidCultureCode(string locale)
         {
-            return locale.HasValue() && _cultureCodes.Contains(locale);
+            return locale.HasValue() && CultureCodes.Contains(locale);
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace App.Core.Localization
         /// <returns>Parent cultures</returns>
         public static IEnumerable<CultureInfo> EnumerateParentCultures(string locale)
         {
-            if (locale.IsEmpty() || !_cultureCodes.Contains(locale))
+            if (locale.IsEmpty() || !CultureCodes.Contains(locale))
             {
                 return Enumerable.Empty<CultureInfo>();
             }
@@ -62,11 +60,13 @@ namespace App.Core.Localization
                 if (locale.HasValue())
                 {
                     var info = CultureInfo.GetCultureInfoByIetfLanguageTag(locale);
-                    if (info != null)
-                        return info.NativeName;
+                    return info.NativeName;
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return null;
         }
@@ -78,11 +78,13 @@ namespace App.Core.Localization
                 if (locale.HasValue())
                 {
                     var info = new RegionInfo(locale);
-                    if (info != null)
-                        return info.CurrencySymbol;
+                    return info.CurrencySymbol;
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return null;
         }

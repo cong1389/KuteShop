@@ -8,7 +8,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Language;
 using App.FakeEntity.Language;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Language;
 using AutoMapper;
 using Resources;

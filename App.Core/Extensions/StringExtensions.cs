@@ -1,11 +1,11 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
-using HtmlAgilityPack;
 
 namespace App.Core.Extensions
 {
@@ -133,7 +133,7 @@ namespace App.Core.Extensions
 		    {
 			    separator = "|";
 
-			    if (value.IndexOf(separator) < 0)
+			    if (value.IndexOf(separator, StringComparison.Ordinal) < 0)
 			    {
 				    if (value.IndexOf(';') > -1)
 				    {
@@ -143,14 +143,14 @@ namespace App.Core.Extensions
 				    {
 					    separator = ",";
 				    }
-				    else if (value.IndexOf(Environment.NewLine) > -1)
+				    else if (value.IndexOf(Environment.NewLine, StringComparison.Ordinal) > -1)
 				    {
 					    separator = Environment.NewLine;
 				    }
 			    }
 		    }
 
-		    return value.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+		    return value.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 	    }
 	}
 }

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using App.Core.Extensions;
 
 namespace App.Core.Utilities
 {
-	public class CommonHelper
+    public class CommonHelper
 	{
 		public static bool IsTruthy(object value)
 		{
@@ -20,7 +20,7 @@ namespace App.Core.Utilities
 				case string x:
 					return x.HasValue();
 				case bool x:
-					return x == true;
+					return x;
 				case DateTime x:
 					return x > DateTime.MinValue;
 				case TimeSpan x:
@@ -49,16 +49,14 @@ namespace App.Core.Utilities
 	        {
 	            return HostingEnvironment.MapPath(path);
 	        }
-	        else
-	        {
-	            // not hosted. For example, running in unit tests or EF tooling
-	            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-	            path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
 
-	            var testPath = Path.Combine(baseDirectory, path);
+	        // not hosted. For example, running in unit tests or EF tooling
+	        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+	        path = path.Replace("~/", "").TrimStart('/').Replace('/', '\\');
 
-	            return testPath;
-	        }
-        }
+	        var testPath = Path.Combine(baseDirectory, path);
+
+	        return testPath;
+	    }
     }
 }

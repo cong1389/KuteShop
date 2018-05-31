@@ -9,19 +9,22 @@ namespace App.Core.Utilities
 	{
 		private static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string property, string methodName)
 		{
-			string[] strArrays = property.Split('.');
-			Type propertyType = typeof(T);
-			ParameterExpression parameterExpression = Expression.Parameter(propertyType, "x");
+			var strArrays = property.Split('.');
+			var propertyType = typeof(T);
+			var parameterExpression = Expression.Parameter(propertyType, "x");
 			Expression expression = parameterExpression;
-			string[] strArrays1 = strArrays;
-			for (int i = 0; i < strArrays1.Length; i++)
+			//var strArrays1 = strArrays;
+
+			for (var i = 0; i < strArrays.Length; i++)
 			{
-				PropertyInfo propertyInfo = propertyType.GetProperty(strArrays1[i]);
+				var propertyInfo = propertyType.GetProperty(strArrays[i]);
 				expression = Expression.Property(expression, propertyInfo);
 				propertyType = propertyInfo.PropertyType;
 			}
-			Type type = typeof(Func<,>).MakeGenericType(typeof(T), propertyType);
-			LambdaExpression lambdaExpression = Expression.Lambda(type, expression, parameterExpression);
+
+			var type = typeof(Func<,>).MakeGenericType(typeof(T), propertyType);
+			var lambdaExpression = Expression.Lambda(type, expression, parameterExpression);
+
 			return (IOrderedQueryable<T>) typeof(Queryable).GetMethods()
 			    .Single(method =>
 			        method.Name == methodName && method.IsGenericMethodDefinition && method.GetGenericArguments().Length == 2 &&

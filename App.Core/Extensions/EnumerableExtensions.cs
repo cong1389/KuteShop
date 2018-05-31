@@ -15,18 +15,18 @@ namespace App.Core.Extensions
 
         private static class DefaultReadOnlyCollection<T>
         {
-            private static ReadOnlyCollection<T> defaultCollection;
+            private static ReadOnlyCollection<T> _defaultCollection;
 
             [SuppressMessage("ReSharper", "ConvertIfStatementToNullCoalescingExpression")]
             internal static ReadOnlyCollection<T> Empty
             {
                 get
                 {
-                    if (defaultCollection == null)
+                    if (_defaultCollection == null)
                     {
-                        defaultCollection = new ReadOnlyCollection<T>(new T[0]);
+                        _defaultCollection = new ReadOnlyCollection<T>(new T[0]);
                     }
-                    return defaultCollection;
+                    return _defaultCollection;
                 }
             }
         }
@@ -111,14 +111,12 @@ namespace App.Core.Extensions
             if (source == null || !source.Any())
                 return DefaultReadOnlyCollection<T>.Empty;
 
-            var readOnly = source as ReadOnlyCollection<T>;
-            if (readOnly != null)
+            if (source is ReadOnlyCollection<T> readOnly)
             {
                 return readOnly;
             }
 
-            var list = source as List<T>;
-            if (list != null)
+            if (source is List<T> list)
             {
                 return list.AsReadOnly();
             }
@@ -136,7 +134,7 @@ namespace App.Core.Extensions
             this IEnumerable<TSource> source,
              Func<TSource, TKey> keySelector)
         {
-            return source.ToDictionarySafe(keySelector, new Func<TSource, TSource>(src => src), null);
+            return source.ToDictionarySafe(keySelector, src => src, null);
         }
 
         /// <summary>
@@ -151,7 +149,7 @@ namespace App.Core.Extensions
              Func<TSource, TKey> keySelector,
              IEqualityComparer<TKey> comparer)
         {
-            return source.ToDictionarySafe(keySelector, new Func<TSource, TSource>(src => src), comparer);
+            return source.ToDictionarySafe(keySelector, src => src, comparer);
         }
 
         /// <summary>

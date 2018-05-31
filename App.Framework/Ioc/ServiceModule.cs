@@ -42,7 +42,7 @@ using Autofac;
 
 namespace App.Framework.Ioc
 {
-	public class ServiceModule : Module
+    public class ServiceModule : Module
     {
         /// <summary>
         /// Đăng ký AutoFac

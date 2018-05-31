@@ -1,12 +1,10 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Extensions;
 
 namespace App.Core.ComponentModel.TypeConversion
 {
@@ -110,7 +108,7 @@ namespace App.Core.ComponentModel.TypeConversion
 
             if (value is IConvertible)
             {
-                var result2 = (new object[] { value })
+                var result2 = (new[] { value })
                     .Select(x => Convert.ChangeType(value, typeof(T)))
                     .Cast<T>();
 

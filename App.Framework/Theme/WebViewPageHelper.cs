@@ -17,7 +17,10 @@ namespace App.Framework.Theme
 
         public void Initialize(ViewContext viewContext)
         {
-            if (_initialized) return;
+            if (_initialized)
+            {
+                return;
+            }
 
             viewContext.GetMasterControllerContext();
             _initialized = true;

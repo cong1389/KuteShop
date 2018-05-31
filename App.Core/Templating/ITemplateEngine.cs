@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Common;
+﻿using App.Core.Common;
+using System;
 
 namespace App.Core.Templating
 {
-	public interface ITemplateEngine
+    public interface ITemplateEngine
 	{
 		/// <summary>
 		/// Compiles a template for faster rendering

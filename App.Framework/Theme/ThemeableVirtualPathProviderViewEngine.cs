@@ -44,13 +44,14 @@ namespace App.Framework.Theme
             bool flag;
             if (FileExtensions != null)
             {
-                string str = GetExtensionThunk(virtualPath).TrimStart('.');
+                var str = GetExtensionThunk(virtualPath).TrimStart('.');
                 flag = FileExtensions.Contains(str, StringComparer.OrdinalIgnoreCase);
             }
             else
             {
                 flag = true;
             }
+
             return flag;
         }
 
@@ -64,9 +65,11 @@ namespace App.Framework.Theme
             {
                 throw new ArgumentException("Partial view name cannot be null or empty.", "partialViewName");
             }
-            string requiredString = controllerContext.RouteData.GetRequiredString("controller");
-            string path = GetPath(controllerContext, PartialViewLocationFormats, AreaPartialViewLocationFormats, "PartialViewLocationFormats", partialViewName, requiredString, "Partial", useCache, out var strArrays);
+
+            var requiredString = controllerContext.RouteData.GetRequiredString("controller");
+            var path = GetPath(controllerContext, PartialViewLocationFormats, AreaPartialViewLocationFormats, "PartialViewLocationFormats", partialViewName, requiredString, "Partial", useCache, out var strArrays);
             var viewEngineResult = !string.IsNullOrEmpty(path) ? new ViewEngineResult(CreatePartialView(controllerContext, path), this) : new ViewEngineResult(strArrays);
+
             return viewEngineResult;
         }
 
@@ -81,9 +84,11 @@ namespace App.Framework.Theme
             {
                 throw new ArgumentException("View name cannot be null or empty.", "viewName");
             }
-            string requiredString = controllerContext.RouteData.GetRequiredString("controller");
-            string path = GetPath(controllerContext, ViewLocationFormats, AreaViewLocationFormats, "ViewLocationFormats", viewName, requiredString, "View", useCache, out var strArrays);
-            string str = GetPath(controllerContext, MasterLocationFormats, AreaMasterLocationFormats, "MasterLocationFormats", masterName, requiredString, "Master", useCache, out var strArrays1);
+
+            var requiredString = controllerContext.RouteData.GetRequiredString("controller");
+            var path = GetPath(controllerContext, ViewLocationFormats, AreaViewLocationFormats, "ViewLocationFormats", viewName, requiredString, "View", useCache, out var strArrays);
+            var str = GetPath(controllerContext, MasterLocationFormats, AreaMasterLocationFormats, "MasterLocationFormats", masterName, requiredString, "Master", useCache, out var strArrays1);
+
             if (string.IsNullOrEmpty(path))
             {
                 flag = true;
@@ -93,6 +98,7 @@ namespace App.Framework.Theme
                 flag = string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(masterName);
             }
             var viewEngineResult = !flag ? new ViewEngineResult(CreateView(controllerContext, path, str), this) : new ViewEngineResult(strArrays.Union(strArrays1));
+
             return viewEngineResult;
         }
 
@@ -131,16 +137,16 @@ namespace App.Framework.Theme
             searchedLocations = EmptyLocations;
             if (!string.IsNullOrEmpty(name))
             {
-                string areaName = GetAreaName(controllerContext.RouteData);
+                var areaName = GetAreaName(controllerContext.RouteData);
                 if (!string.IsNullOrEmpty(areaName) && areaName.Equals("admin", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    List<string> list = areaLocations.ToList();
+                    var list = areaLocations.ToList();
                     list.Insert(0, "~/Areas/Admin/Views/{1}/{0}.cshtml");
                     list.Insert(0, "~/Areas/Admin/Views/Shared/{0}.cshtml");
                     areaLocations = list.ToArray();
                 }
-                bool flag = !string.IsNullOrEmpty(areaName);
-                string[] strArrays1 = locations;
+                var flag = !string.IsNullOrEmpty(areaName);
+                var strArrays1 = locations;
                 string[] strArrays;
                 if (flag)
                 {
@@ -150,22 +156,22 @@ namespace App.Framework.Theme
                 {
                     strArrays = null;
                 }
-                List<ViewLocation> viewLocations = GetViewLocations(strArrays1, strArrays);
+                var viewLocations = GetViewLocations(strArrays1, strArrays);
                 if (viewLocations.Count == 0)
                 {
                     throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Properties cannot be null or empty - {0}", locationsPropertyName));
                 }
-                bool flag1 = IsSpecificPath(name);
-                string str = CreateCacheKey(cacheKeyPrefix, name, flag1 ? string.Empty : controllerName, areaName);
+                var flag1 = IsSpecificPath(name);
+                var str = CreateCacheKey(cacheKeyPrefix, name, flag1 ? string.Empty : controllerName, areaName);
                 if (!useCache)
                 {
                     empty = flag1 ? GetPathFromSpecificName(controllerContext, name, str, ref searchedLocations) : GetPathFromGeneralName(controllerContext, viewLocations, name, controllerName, areaName, str, ref searchedLocations);
                 }
                 else
                 {
-                    foreach (IDisplayMode availableDisplayModesForContext in DisplayModeProvider.GetAvailableDisplayModesForContext(controllerContext.HttpContext, controllerContext.DisplayMode))
+                    foreach (var availableDisplayModesForContext in DisplayModeProvider.GetAvailableDisplayModesForContext(controllerContext.HttpContext, controllerContext.DisplayMode))
                     {
-                        string viewLocation = ViewLocationCache.GetViewLocation(controllerContext.HttpContext, AppendDisplayModeToCacheKey(str, availableDisplayModesForContext.DisplayModeId));
+                        var viewLocation = ViewLocationCache.GetViewLocation(controllerContext.HttpContext, AppendDisplayModeToCacheKey(str, availableDisplayModesForContext.DisplayModeId));
                         if (viewLocation == null)
                         {
                         }
@@ -194,21 +200,21 @@ namespace App.Framework.Theme
             Func<string, bool> func;
             Func<string, bool> func1 = null;
             Func<string, bool> func2 = null;
-            string empty = string.Empty;
+            var empty = string.Empty;
             searchedLocations = new string[locations.Count];
-            int num = 0;
+            var num = 0;
             while (num < locations.Count)
             {
-                ViewLocation item = locations[num];
+                var item = locations[num];
                 var str = item.Format(name, controllerName, areaName);
                 if (!File.Exists(HttpContext.Current.Server.MapPath(str)))
                 {
                     str = item.Format(name, controllerName, areaName);
                 }
-                DisplayModeProvider displayModeProvider = DisplayModeProvider;
-                string str1 = str;
-                HttpContextBase httpContext = controllerContext.HttpContext; 
-                Func<string, bool> func3 = func1;
+                var displayModeProvider = DisplayModeProvider;
+                var str1 = str;
+                var httpContext = controllerContext.HttpContext; 
+                var func3 = func1;
                 if (func3 == null)
                 {
                     Func<string, bool> func4 = path => FileExists(controllerContext, path);
@@ -216,7 +222,7 @@ namespace App.Framework.Theme
                     func1 = func4;
                     func3 = func;
                 }
-                DisplayInfo displayInfoForVirtualPath = displayModeProvider.GetDisplayInfoForVirtualPath(str1, httpContext, func3, controllerContext.DisplayMode);
+                var displayInfoForVirtualPath = displayModeProvider.GetDisplayInfoForVirtualPath(str1, httpContext, func3, controllerContext.DisplayMode);
                 if (displayInfoForVirtualPath == null)
                 {
                     searchedLocations[num] = str;
@@ -224,7 +230,7 @@ namespace App.Framework.Theme
                 }
                 else
                 {
-                    string filePath = displayInfoForVirtualPath.FilePath;
+                    var filePath = displayInfoForVirtualPath.FilePath;
                     searchedLocations = EmptyLocations;
                     empty = filePath;
                     ViewLocationCache.InsertViewLocation(controllerContext.HttpContext, AppendDisplayModeToCacheKey(cacheKey, displayInfoForVirtualPath.DisplayMode.DisplayModeId), empty);
@@ -232,14 +238,14 @@ namespace App.Framework.Theme
                     {
                         controllerContext.DisplayMode = displayInfoForVirtualPath.DisplayMode;
                     }
-                    foreach (IDisplayMode mode in DisplayModeProvider.Modes)
+                    foreach (var mode in DisplayModeProvider.Modes)
                     {
                         if (mode.DisplayModeId != displayInfoForVirtualPath.DisplayMode.DisplayModeId)
                         {
-                            IDisplayMode displayMode = mode;
-                            HttpContextBase httpContextBase = controllerContext.HttpContext;
-                            string str2 = str;
-                            Func<string, bool> func5 = func2;
+                            var displayMode = mode;
+                            var httpContextBase = controllerContext.HttpContext;
+                            var str2 = str;
+                            var func5 = func2;
                             if (func5 == null)
                             {
                                 Func<string, bool> func6 = path => FileExists(controllerContext, path);
@@ -247,8 +253,8 @@ namespace App.Framework.Theme
                                 func2 = func6;
                                 func5 = func;
                             }
-                            DisplayInfo displayInfo = displayMode.GetDisplayInfo(httpContextBase, str2, func5);
-                            string empty1 = string.Empty;
+                            var displayInfo = displayMode.GetDisplayInfo(httpContextBase, str2, func5);
+                            var empty1 = string.Empty;
                             if (displayInfo?.FilePath != null)
                             {
                                 empty1 = displayInfo.FilePath;
@@ -264,7 +270,7 @@ namespace App.Framework.Theme
 
         protected virtual string GetPathFromSpecificName(ControllerContext controllerContext, string name, string cacheKey, ref string[] searchedLocations)
         {
-            string empty = name;
+            var empty = name;
             if (!FilePathIsSupported(name) || !FileExists(controllerContext, name))
             {
                 empty = string.Empty;
@@ -276,19 +282,19 @@ namespace App.Framework.Theme
 
         protected virtual List<ViewLocation> GetViewLocations(string[] viewLocationFormats, string[] areaViewLocationFormats)
         {
-            List<ViewLocation> viewLocations = new List<ViewLocation>();
+            var viewLocations = new List<ViewLocation>();
             if (areaViewLocationFormats != null)
             {
-                string[] strArrays = areaViewLocationFormats;
-                for (int i = 0; i < strArrays.Length; i++)
+                var strArrays = areaViewLocationFormats;
+                for (var i = 0; i < strArrays.Length; i++)
                 {
                     viewLocations.Add(new AreaAwareViewLocation(strArrays[i]));
                 }
             }
             if (viewLocationFormats != null)
             {
-                string[] strArrays1 = viewLocationFormats;
-                for (int j = 0; j < strArrays1.Length; j++)
+                var strArrays1 = viewLocationFormats;
+                for (var j = 0; j < strArrays1.Length; j++)
                 {
                     viewLocations.Add(new ViewLocation(strArrays1[j]));
                 }
@@ -298,7 +304,7 @@ namespace App.Framework.Theme
 
         protected virtual bool IsSpecificPath(string name)
         {
-            char chr = name[0];
+            var chr = name[0];
             return chr == '~' || chr == '/';
         }
 

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Utilities;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Account;
 
 namespace App.Admin.Controllers

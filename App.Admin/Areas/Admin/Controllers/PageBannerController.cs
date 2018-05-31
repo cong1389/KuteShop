@@ -3,7 +3,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Ads;
 using App.FakeEntity.Ads;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Ads;
 using AutoMapper;
 using Resources;
@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class PageBannerController : BaseAdminController
+    public class PageBannerController : BaseAdminController
     {
         private const string CachePagebannerKey = "db.PageBanner";
 

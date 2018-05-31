@@ -66,7 +66,9 @@ namespace App.Core.Localization
         public override bool Equals(object obj)
         {
             if (obj == null || obj.GetType() != GetType())
+            {
                 return false;
+            }
 
             var that = (LocalizedString)obj;
             return string.Equals(_localized, that._localized);

@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Security;
 
-namespace App.Framework.Ultis
+namespace App.Framework.Utilities
 {
     public static class ExtentionUtils
 	{

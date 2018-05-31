@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace App.Core.Templating
 {
-	public interface ITemplateManager
+    public interface ITemplateManager
 	{
 		ConcurrentDictionary<string, ITemplate> All();
 		bool Contains(string name);

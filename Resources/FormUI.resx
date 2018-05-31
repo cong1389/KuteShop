@@ -621,4 +621,7 @@
   <data name="Setting" xml:space="preserve">
     <value>Cài đặt</value>
   </data>
+  <data name="ShippingMethod" xml:space="preserve">
+    <value>Phương thức vận chuyển</value>
+  </data>
 </root>
