@@ -91,10 +91,13 @@
     <Compile Include="Localization\NullLocalizer.cs" />
     <Compile Include="Messages\MessageTemplate.cs" />
     <Compile Include="Messages\MessageTemplateNames.cs" />
+    <Compile Include="Plugins\PluginDescriptor.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SmartStoreVersion.cs" />
     <Compile Include="Templating\DefaultTemplateManager.cs" />
     <Compile Include="Templating\ITemplateManager.cs" />
     <Compile Include="Templating\ITemplate.cs" />
