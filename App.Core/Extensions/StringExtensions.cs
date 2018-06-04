@@ -27,7 +27,7 @@ namespace App.Core.Extensions
             return RemoveHtml(source);
         }
 
-        public static string RemoveHtml(this string source)
+        private static string RemoveHtml(this string source)
         {
             if (source.IsEmpty())
                 return string.Empty;
@@ -63,7 +63,7 @@ namespace App.Core.Extensions
         #endregion
 
         [DebuggerStepThrough]
-        public static string HtmlDecode(this string value)
+        private static string HtmlDecode(this string value)
         {
             return HttpUtility.HtmlDecode(value);
         }
@@ -152,5 +152,41 @@ namespace App.Core.Extensions
 
 		    return value.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 	    }
-	}
+        
+        [DebuggerStepThrough]
+        public static string FormatWith(this string format, params object[] args)
+        {
+            return FormatWith(format, CultureInfo.CurrentCulture, args);
+        }
+
+        [DebuggerStepThrough]
+        private static string FormatWith(this string format, IFormatProvider provider, params object[] args)
+        {
+            return string.Format(provider, format, args);
+        }
+
+        /// <summary>
+        /// Formats a string to the current culture.
+        /// </summary>
+        /// <param name="format">The format string.</param>
+        /// <param name="objects">The objects.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static string FormatCurrent(this string format, params object[] objects)
+        {
+            return string.Format(CultureInfo.CurrentCulture, format, objects);
+        }
+
+        /// <summary>
+        /// Ensure that a string starts with a string.
+        /// </summary>
+        /// <param name="value">The target string</param>
+        /// <param name="startsWith">The string the target string should start with</param>
+        /// <returns>The resulting string</returns>
+        [DebuggerStepThrough]
+        public static string EnsureStartsWith(this string value, string startsWith)
+        {
+            return value.StartsWith(startsWith) ? value : (startsWith + value);
+        }
+    }
 }

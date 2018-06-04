@@ -1,14 +1,12 @@
-﻿using System;
+﻿using App.Core.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using App.Core.Extensions;
 
 namespace App.Core.Plugins
 {
@@ -41,7 +39,7 @@ namespace App.Core.Plugins
         /// <summary>
         /// The physical path of the runtime plugin
         /// </summary>
-		public string PhysicalPath { get; set; }
+        private string PhysicalPath { get; set; }
 
         /// <summary>
         /// The virtual path of the runtime plugin
@@ -237,10 +235,43 @@ namespace App.Core.Plugins
 
                 return _resourceRootKey;
             }
-            set
-            {
-                _resourceRootKey = value;
-            }
+            set => _resourceRootKey = value;
+        }
+
+        //public T Instance<T>() where T : class, IPlugin
+        //{
+        //    object instance;
+        //    if (!EngineContext.Current.ContainerManager.TryResolve(PluginType, null, out instance))
+        //    {
+        //        // Not registered
+        //        instance = EngineContext.Current.ContainerManager.ResolveUnregistered(PluginType);
+        //    }
+
+        //    var typedInstance = instance as T;
+        //    if (typedInstance != null)
+        //        typedInstance.PluginDescriptor = this;
+
+        //    return typedInstance;
+        //}
+
+        //public IPlugin Instance()
+        //{
+        //    return Instance<IPlugin>();
+        //}
+
+        [SuppressMessage("ReSharper", "StringCompareToIsCultureSpecific")]
+        public int CompareTo(PluginDescriptor other)
+        {
+            if (DisplayOrder != other.DisplayOrder)
+                return DisplayOrder.CompareTo(other.DisplayOrder);
+            else if (FriendlyName != null)
+                return FriendlyName.CompareTo(other.FriendlyName);
+            return 0;
+        }
+
+        public string GetSettingKey(string name)
+        {
+            return "PluginSetting.{0}.{1}".FormatWith(SystemName, name);
         }
 
         public override string ToString()
@@ -250,8 +281,7 @@ namespace App.Core.Plugins
 
         public override bool Equals(object obj)
         {
-            var other = obj as PluginDescriptor;
-            return other != null &&
+            return obj is PluginDescriptor other &&
                 SystemName != null &&
                 SystemName.Equals(other.SystemName);
         }

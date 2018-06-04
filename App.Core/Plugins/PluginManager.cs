@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Compilation;
 using App.Core.Extensions;
+using App.Core.Packaging;
 using App.Core.Plugins;
 using App.Core.Utilities;
 
@@ -28,7 +29,7 @@ namespace App.Core.Plugins
         private static readonly string _pluginsPath = "~/Plugins";
         private static DirectoryInfo _shadowCopyDir;
         private static readonly ConcurrentDictionary<string, PluginDescriptor> _referencedPlugins = new ConcurrentDictionary<string, PluginDescriptor>(StringComparer.OrdinalIgnoreCase);
-        private static HashSet<Assembly> _inactiveAssemblies = new HashSet<Assembly>();
+        private static readonly HashSet<Assembly> _inactiveAssemblies = new HashSet<Assembly>();
 
         /// <summary>
         /// Returns the virtual path of the plugins folder relative to the application
