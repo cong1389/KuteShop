@@ -9,7 +9,7 @@ namespace App.Core.Utilities
 	{
 		public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
 		{
-			Expression<Func<T, bool>> expression =
+			var expression =
 			    first.Compose(second, Expression.AndAlso);
 
 		    return expression;
@@ -17,10 +17,10 @@ namespace App.Core.Utilities
 
 		private static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second, Func<Expression, Expression, Expression> merge)
 		{
-			Dictionary<ParameterExpression, ParameterExpression> dictionary = first.Parameters
+			var dictionary = first.Parameters
 			    .Select((f, i) => new {f, s = second.Parameters[i]}).ToDictionary(p => p.s, p => p.f);
-			Expression expression = ParameterRebinder.ReplaceParameters(dictionary, second.Body);
-			Expression<T> expression1 = Expression.Lambda<T>(merge(first.Body, expression), first.Parameters);
+			var expression = ParameterRebinder.ReplaceParameters(dictionary, second.Body);
+			var expression1 = Expression.Lambda<T>(merge(first.Body, expression), first.Parameters);
 
 		    return expression1;
 		}
@@ -37,7 +37,7 @@ namespace App.Core.Utilities
 
 		public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression)
 		{
-			UnaryExpression unaryExpression = Expression.Not(expression.Body);
+			var unaryExpression = Expression.Not(expression.Body);
 			return Expression.Lambda<Func<T, bool>>(unaryExpression, expression.Parameters);
 		}
 

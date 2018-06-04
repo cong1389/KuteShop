@@ -9,7 +9,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.System;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.SystemApp;

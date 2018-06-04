@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Core.Templating
 {
-	public partial class DefaultTemplateManager : ITemplateManager
+    public partial class DefaultTemplateManager : ITemplateManager
 	{
 		private readonly ConcurrentDictionary<string, ITemplate> _templates;
 		private readonly ITemplateEngine _engine;

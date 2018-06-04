@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Web;
-using App.Core.Common;
+﻿using App.Core.Common;
 using App.Core.Extensions;
 using App.Core.IO.VirtualPath;
-using App.Core.Localization;
 using App.Core.Templating;
 using App.Framework.Templating.Filters;
-using App.Framework.Templating.Liquid.Drops;
 using DotLiquid;
 using DotLiquid.FileSystems;
 using DotLiquid.NamingConventions;
+using System;
+using System.IO;
+using System.Web;
 
 namespace App.Framework.Templating.Liquid
 {

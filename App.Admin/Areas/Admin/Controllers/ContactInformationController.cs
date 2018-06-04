@@ -1,22 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Entities.Language;
-using App.Domain.Entities.Location;
 using App.FakeEntity.ContactInformation;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.ContactInformation;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Locations;
 using AutoMapper;
 using Resources;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

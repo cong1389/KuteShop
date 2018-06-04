@@ -49,7 +49,6 @@
     <Reference Include="EntityFramework">
       <HintPath>.\App.Infra.DataReferences\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />

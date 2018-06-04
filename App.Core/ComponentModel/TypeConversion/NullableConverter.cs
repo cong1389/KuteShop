@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace App.Core.ComponentModel.TypeConversion
 {
-	[SuppressMessage("ReSharper", "TryCastAlwaysSucceeds")]
+    [SuppressMessage("ReSharper", "TryCastAlwaysSucceeds")]
     public class NullableConverter : TypeConverterBase
 	{
         private readonly bool _underlyingTypeIsConvertible;
@@ -44,7 +44,7 @@ namespace App.Core.ComponentModel.TypeConversion
 
         public override bool CanConvertFrom(Type type)
         {
-            if (type == this.UnderlyingType)
+            if (type == UnderlyingType)
             {
                 return true;
             }
@@ -66,7 +66,7 @@ namespace App.Core.ComponentModel.TypeConversion
         {
             //Console.WriteLine("NullableConverter can convert to {0}: {1}".FormatInvariant(type.Name, UnderlyingTypeConverter.CanConvertTo(type)));
 
-            if (type == this.UnderlyingType)
+            if (type == UnderlyingType)
             {
                 return true;
             }
@@ -76,7 +76,7 @@ namespace App.Core.ComponentModel.TypeConversion
 
         public override object ConvertFrom(CultureInfo culture, object value)
         {
-            if ((value == null) || (value.GetType() == this.UnderlyingType))
+            if ((value == null) || (value.GetType() == UnderlyingType))
             {
                 return value;
             }
@@ -97,7 +97,7 @@ namespace App.Core.ComponentModel.TypeConversion
 
         public override object ConvertTo(CultureInfo culture, string format, object value, Type to)
         {
-            if ((to == this.UnderlyingType) && this.NullableType.IsInstanceOfType(value))
+            if ((to == UnderlyingType) && NullableType.IsInstanceOfType(value))
             {
                 return value;
             }

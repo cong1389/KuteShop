@@ -602,8 +602,8 @@ namespace App.Core.ComponentModel
                 : base(type, propertyName)
             {
             }
-            public Type Type { get { return base.Item1; } }
-            public string PropertyName { get { return base.Item2; } }
+            public Type Type { get { return Item1; } }
+            public string PropertyName { get { return Item2; } }
         }
     }
 }

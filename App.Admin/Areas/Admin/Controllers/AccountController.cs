@@ -7,7 +7,7 @@ using App.Admin.Helpers;
 using App.Core.Utilities;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Account;
 using AutoMapper;
 using Microsoft.AspNet.Identity;

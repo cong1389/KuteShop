@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using App.Admin.Helpers;
+﻿using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Repairs;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Attribute;
 using App.Service.Brandes;
 using App.Service.Media;
@@ -18,6 +13,11 @@ using App.Service.Repair;
 using App.Service.Repairs;
 using AutoMapper;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

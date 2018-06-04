@@ -3,7 +3,7 @@ using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;

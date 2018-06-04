@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Hosting;
-using App.Core.Templating;
+﻿using App.Core.Templating;
 using App.Framework.Templating.Liquid.Drops;
 using DotLiquid;
+using System;
+using System.Collections.Generic;
+using System.Web.Hosting;
 
 namespace App.Framework.Templating.Liquid
 {
-	internal class LiquidTemplate : ITemplate
+    internal class LiquidTemplate : ITemplate
     {
 		public Template Template
 		{

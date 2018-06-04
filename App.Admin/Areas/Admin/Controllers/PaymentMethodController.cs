@@ -1,15 +1,10 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Payments;
 using App.FakeEntity.Payments;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
@@ -17,10 +12,15 @@ using App.Service.PaymentMethodes;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;
+using System;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class PaymentMethodController : BaseAdminController
+    public class PaymentMethodController : BaseAdminController
 	{
 		private const string CachePaymentMethod = "db.PaymentMethod";
 

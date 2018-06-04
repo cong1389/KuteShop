@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using App.Core.Extensions;
-using App.Core.Utilities;
-using App.Framework.Templating.Liquid;
+﻿using App.Framework.Templating.Liquid;
 using App.Service.Addresses;
-using App.Service.Common;
 using DotLiquid;
 using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Framework.Templating.Filters
 {
-	public static class AdditionalFilters
+    public static class AdditionalFilters
 	{
 		private static LiquidTemplateEngine GetEngine()
 		{
@@ -74,26 +68,17 @@ namespace App.Framework.Templating.Filters
 
 		public static IEnumerable Uniq(IEnumerable input)
 		{
-			if (input == null)
-				return null;
-
-			return input.Cast<object>().Distinct();
+		    return input?.Cast<object>().Distinct();
 		}
 
 		public static IEnumerable Compact(IEnumerable input)
 		{
-			if (input == null)
-				return null;
-
-			return input.Cast<object>().Where(x => x != null);
+		    return input?.Cast<object>().Where(x => x != null);
 		}
 
 		public static IEnumerable Reverse(IEnumerable input)
 		{
-			if (input == null)
-				return null;
-
-			return input.Cast<object>().Reverse();
+		    return input?.Cast<object>().Reverse();
 		}
 
 		#endregion
@@ -106,12 +91,12 @@ namespace App.Framework.Templating.Filters
 
 		public static string ScriptTag(string input)
 		{
-			return String.Format("<script src=\"{0}\"></script>", input);
+			return $"<script src=\"{input}\"></script>";
 		}
 
 		public static string StylesheetTag(string input)
 		{
-			return String.Format("<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />", input);
+			return $"<link href=\"{input}\" rel=\"stylesheet\" type=\"text/css\" media=\"all\" />";
 		}
 
 		public static string ImgTag(string input, string alt = "", string css = "")
@@ -121,7 +106,7 @@ namespace App.Framework.Templating.Filters
 
 		private static string GetImageTag(string src, string alt, string css)
 		{
-			return String.Format("<img src=\"{0}\" alt=\"{1}\" class=\"{2}\" />", src, alt, css);
+			return $"<img src=\"{src}\" alt=\"{alt}\" class=\"{css}\" />";
 		}
 
 		#endregion

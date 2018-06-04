@@ -11,7 +11,7 @@ using App.Domain.Entities.Data;
 using App.Domain.Entities.Menu;
 using App.FakeEntity.Menu;
 using App.FakeEntity.Static;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;

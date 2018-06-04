@@ -1,20 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Utilities;
 using App.Domain.Entities.Location;
 using App.FakeEntity.Location;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.Locations;
 using AutoMapper;
 using Resources;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class ProvinceController : BaseAdminController
+    public class ProvinceController : BaseAdminController
 	{
 		private readonly IProvinceService _provinceService;
 

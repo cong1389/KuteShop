@@ -1,16 +1,16 @@
-using System;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.ServerMail;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.MailSetting;
 using AutoMapper;
 using Resources;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

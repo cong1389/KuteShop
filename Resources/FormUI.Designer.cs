@@ -1285,6 +1285,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phương thức vận chuyển.
+        /// </summary>
+        public static string ShippingMethod {
+            get {
+                return ResourceManager.GetString("ShippingMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã cửa hàng.
         /// </summary>
         public static string ShopId {

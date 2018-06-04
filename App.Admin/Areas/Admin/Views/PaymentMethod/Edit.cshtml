@@ -21,7 +21,7 @@
         function CopyValue() {
             $("#Locales_0__PaymentMethodSystemName").change(function() {
                 var name = $("#Locales_0__PaymentMethodSystemName").val();
-                if (name != "") {
+                if (name !== "") {
                     $("#PaymentMethodSystemName").val(name);
                 }
             });

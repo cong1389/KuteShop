@@ -24,11 +24,11 @@ namespace App.Core.Utilities
 			Expression<Func<TDbType, bool>> expression;
 		    if (searchCriterionPropertyInfo.GetValue(searchCriteria) is bool value)
 			{
-				ParameterExpression parameterExpression = Expression.Parameter(dbType, "x");
-				MemberExpression memberExpression = Expression.MakeMemberAccess(parameterExpression, dbFieldMemberInfo);
+				var parameterExpression = Expression.Parameter(dbType, "x");
+				var memberExpression = Expression.MakeMemberAccess(parameterExpression, dbFieldMemberInfo);
 				Expression[] expressionArray = { Expression.Constant(value) };
-				MethodCallExpression methodCallExpression = Expression.Call(memberExpression, BooleanEqualsMethod, expressionArray);
-				Expression<Func<TDbType, bool>> expression1 = Expression.Lambda(methodCallExpression, parameterExpression) as Expression<Func<TDbType, bool>>;
+				var methodCallExpression = Expression.Call(memberExpression, BooleanEqualsMethod, expressionArray);
+				var expression1 = Expression.Lambda(methodCallExpression, parameterExpression) as Expression<Func<TDbType, bool>>;
 				expression = predicate.And(expression1);
 			}
 			else
@@ -41,14 +41,14 @@ namespace App.Core.Utilities
 		private static Expression<Func<TDbType, bool>> ApplyStringCriterion<TDbType, TSearchCriteria>(TSearchCriteria searchCriteria, PropertyInfo searchCriterionPropertyInfo, Type dbType, MemberInfo dbFieldMemberInfo, Expression<Func<TDbType, bool>> predicate)
 		{
 			Expression<Func<TDbType, bool>> expression;
-			string value = searchCriterionPropertyInfo.GetValue(searchCriteria) as string;
+			var value = searchCriterionPropertyInfo.GetValue(searchCriteria) as string;
 			if (!string.IsNullOrWhiteSpace(value))
 			{
-				ParameterExpression parameterExpression = Expression.Parameter(dbType, "x");
-				MemberExpression memberExpression = Expression.MakeMemberAccess(parameterExpression, dbFieldMemberInfo);
+				var parameterExpression = Expression.Parameter(dbType, "x");
+				var memberExpression = Expression.MakeMemberAccess(parameterExpression, dbFieldMemberInfo);
 				Expression[] expressionArray = { Expression.Constant(value) };
-				MethodCallExpression methodCallExpression = Expression.Call(memberExpression, StringContainsMethod, expressionArray);
-				Expression<Func<TDbType, bool>> expression1 = Expression.Lambda(methodCallExpression, parameterExpression) as Expression<Func<TDbType, bool>>;
+				var methodCallExpression = Expression.Call(memberExpression, StringContainsMethod, expressionArray);
+				var expression1 = Expression.Lambda(methodCallExpression, parameterExpression) as Expression<Func<TDbType, bool>>;
 				expression = predicate.And(expression1);
 			}
 			else
@@ -60,14 +60,14 @@ namespace App.Core.Utilities
 
 		public static Expression<Func<TDbType, bool>> BuildPredicate<TDbType, TSearchCriteria>(TSearchCriteria searchCriteria)
 		{
-			Expression<Func<TDbType, bool>> expression = PredicateBuilder.True<TDbType>();
-			PropertyInfo[] properties = searchCriteria.GetType().GetProperties();
-			for (int i = 0; i < properties.Length; i++)
+			var expression = PredicateBuilder.True<TDbType>();
+			var properties = searchCriteria.GetType().GetProperties();
+			for (var i = 0; i < properties.Length; i++)
 			{
-				PropertyInfo propertyInfo = properties[i];
-				string dbFieldName = GetDbFieldName(propertyInfo);
-				Type type = typeof(TDbType);
-				MemberInfo memberInfo = type.GetMember(dbFieldName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public).Single();
+				var propertyInfo = properties[i];
+				var dbFieldName = GetDbFieldName(propertyInfo);
+				var type = typeof(TDbType);
+				var memberInfo = type.GetMember(dbFieldName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public).Single();
 				if (propertyInfo.PropertyType == typeof(string))
 				{
 					expression = ApplyStringCriterion(searchCriteria, propertyInfo, type, memberInfo, expression);
@@ -82,7 +82,7 @@ namespace App.Core.Utilities
 
 		private static string GetDbFieldName(PropertyInfo propertyInfo)
 		{
-			object obj = propertyInfo.GetCustomAttributes(typeof(DbFieldMapAttribute), false).FirstOrDefault();
+			var obj = propertyInfo.GetCustomAttributes(typeof(DbFieldMapAttribute), false).FirstOrDefault();
 			return obj != null ? ((DbFieldMapAttribute)obj).Field : propertyInfo.Name;
 		}
 	}

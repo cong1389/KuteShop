@@ -171,9 +171,9 @@ namespace App.Core.ComponentModel
 		/// prefixed with three underscores.
 		/// </summary>
 		/// <param name="writer"></param>
-		public void WriteXml(System.Xml.XmlWriter writer)
+		public void WriteXml(XmlWriter writer)
 		{
-			foreach (string key in this.Keys)
+			foreach (string key in Keys)
 			{
 				TValue value = this[key];
 
@@ -239,9 +239,9 @@ namespace App.Core.ComponentModel
 		/// Reads the custom serialized format
 		/// </summary>
 		/// <param name="reader"></param>
-		public void ReadXml(System.Xml.XmlReader reader)
+		public void ReadXml(XmlReader reader)
 		{
-			this.Clear();
+			Clear();
 			while (reader.Read())
 			{
 				if (reader.NodeType == XmlNodeType.Element && reader.Name == "key")
@@ -279,7 +279,7 @@ namespace App.Core.ComponentModel
 					else
 						value = (TValue)reader.ReadElementContentAs(TypeUtils.MapXmlTypeToType(xmlType), null);
 
-					this.Add(name, value);
+					Add(name, value);
 				}
 			}
 		}
@@ -302,17 +302,17 @@ namespace App.Core.ComponentModel
 		/// <returns>true or false</returns>
 		public bool FromXml(string xml)
 		{
-			this.Clear();
+			Clear();
 
 			// if xml string is empty we return an empty dictionary                        
 			if (string.IsNullOrEmpty(xml))
 				return true;
 
-			if (SerializationUtils.DeSerializeObject(xml, this.GetType()) is PropertyBag<TValue> result)
+			if (SerializationUtils.DeSerializeObject(xml, GetType()) is PropertyBag<TValue> result)
 			{
 				foreach (var item in result)
 				{
-					this.Add(item.Key, item.Value);
+					Add(item.Key, item.Value);
 				}
 			}
 			else

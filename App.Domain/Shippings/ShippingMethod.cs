@@ -12,7 +12,7 @@ namespace App.Domain.Shippings
         {
             get; set;
         }
-        public int DisplayOrder
+        public int OrderDisplay
         {
             get; set;
         }
@@ -21,7 +21,13 @@ namespace App.Domain.Shippings
             get; set;
         }
 
-        public ShippingMethod()
+	    public int Status
+	    {
+		    get; set;
+	    }
+
+
+		public ShippingMethod()
         {
         }
     }

@@ -118,14 +118,14 @@ namespace App.Core.ComponentModel
 
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            foreach (var kvp in this.Properties.Keys)
+            foreach (var kvp in Properties.Keys)
             {
                 yield return kvp;
             }
 
             foreach (var kvp in GetInstanceProperties())
             {
-                if (!this.Properties.ContainsKey(kvp.Key))
+                if (!Properties.ContainsKey(kvp.Key))
                 {
                     yield return kvp.Key;
                 }
@@ -358,7 +358,7 @@ namespace App.Core.ComponentModel
         /// <returns></returns>
         public IEnumerable<KeyValuePair<string, object>> GetProperties(bool includeInstanceProperties = false)
         {
-            foreach (var kvp in this.Properties)
+            foreach (var kvp in Properties)
             {
                 yield return kvp;
             }
@@ -367,7 +367,7 @@ namespace App.Core.ComponentModel
             {
                 foreach (var prop in GetInstanceProperties().Values)
                 {
-                    if (!this.Properties.ContainsKey(prop.Name))
+                    if (!Properties.ContainsKey(prop.Name))
                     {
                         yield return new KeyValuePair<string, object>(prop.Name, prop.GetValue(_instance));
                     }
@@ -407,7 +407,7 @@ namespace App.Core.ComponentModel
         /// <returns></returns>
         public bool Contains(KeyValuePair<string, object> item, bool includeInstanceProperties = false)
         {
-            return this.Contains(item.Key, includeInstanceProperties);
+            return Contains(item.Key, includeInstanceProperties);
         }
 
         /// <summary>
@@ -498,7 +498,7 @@ namespace App.Core.ComponentModel
         {
             value = null;
 
-            if (this.Contains(key, true))
+            if (Contains(key, true))
             {
                 value = this[key];
                 return true;

@@ -44,7 +44,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data\bin\Debug\App.Infra.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="App.Core">

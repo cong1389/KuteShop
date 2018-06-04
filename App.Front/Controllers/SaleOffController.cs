@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using App.Aplication;
 using App.Core.Utilities;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.News;
 
 namespace App.Front.Controllers

@@ -2,7 +2,7 @@
 using App.Core.Caching;
 using App.Domain.Entities.GenericControl;
 using App.FakeEntity.GenericControl;
-using App.Framework.Ultis;
+using App.Framework.Utilities;
 using App.Service.GenericControl;
 using App.Service.Menu;
 using Newtonsoft.Json;
