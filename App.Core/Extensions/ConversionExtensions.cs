@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -91,6 +92,19 @@ namespace App.Core.Extensions
 			}
 
 			throw null;
+		}
+
+		[DebuggerStepThrough]
+		public static Version ToVersion(this string value, Version defaultVersion = null)
+		{
+			try
+			{
+				return new Version(value);
+			}
+			catch
+			{
+				return defaultVersion ?? new Version("1.0");
+			}
 		}
 	}
 }

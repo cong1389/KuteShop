@@ -36,10 +36,10 @@ namespace App.Core.Plugins
         /// </summary>
         public string PluginFileName { get; set; }
 
-        /// <summary>
-        /// The physical path of the runtime plugin
-        /// </summary>
-        private string PhysicalPath { get; set; }
+		/// <summary>
+		/// The physical path of the runtime plugin
+		/// </summary>
+		public string PhysicalPath { get; set; }
 
         /// <summary>
         /// The virtual path of the runtime plugin
@@ -227,7 +227,7 @@ namespace App.Core.Plugins
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                        // ex.Dump();
                     }

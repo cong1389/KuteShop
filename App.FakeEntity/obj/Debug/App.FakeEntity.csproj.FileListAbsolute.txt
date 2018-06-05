@@ -533,3 +533,6 @@ D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojAs
 D:\Project\Practice\kute\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CopyComplete
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csprojAssemblyReference.cache
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\obj\Debug\App.FakeEntity.csproj.CopyComplete
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\NuGet.Core.dll
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\System.Data.SqlServerCe.dll
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Microsoft.Web.XmlTransform.dll

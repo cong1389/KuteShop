@@ -11,12 +11,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Compilation;
+using App.Core.Data;
 using App.Core.Extensions;
 using App.Core.Packaging;
 using App.Core.Plugins;
 using App.Core.Utilities;
+using App.Core.Utilities.Threading;
 
-[assembly: PreApplicationStartMethod(typeof(PluginManager), "Initialize")]
+[assembly: PreApplicationStartMethod(typeof(App.Core.Plugins.PluginManager), "Initialize")]
 
 namespace App.Core.Plugins
 {
@@ -85,10 +87,10 @@ namespace App.Core.Plugins
             using (var updater = new AppUpdater())
             {
                 // update from NuGet package, if it exists and is valid
-                if (updater.TryUpdateFromPackage())
-                {
-                    // [...]
-                }
+                //if (updater.TryUpdateFromPackage())
+                //{
+                //    // [...]
+                //}
 
                 // execute migrations
                 updater.ExecuteMigrations();
@@ -99,7 +101,7 @@ namespace App.Core.Plugins
             SetNativeDllPath();
             //SetPrivateEnvPath();
 
-            DynamicModuleUtility.RegisterModule(typeof(AutofacRequestLifetimeHttpModule));
+            //DynamicModuleUtility.RegisterModule(typeof(AutofacRequestLifetimeHttpModule));
 
             #region Plugins
 
@@ -244,12 +246,12 @@ namespace App.Core.Plugins
             // Some validation
             if (descriptor.SystemName.IsEmpty())
             {
-                throw new SmartException("The plugin descriptor '{0}' does not define a plugin system name. Try assigning the plugin a unique name and recompile.".FormatInvariant(descriptionFile.FullName));
+                //throw new SmartException("The plugin descriptor '{0}' does not define a plugin system name. Try assigning the plugin a unique name and recompile.".FormatInvariant(descriptionFile.FullName));
             }
 
             if (descriptor.PluginFileName.IsEmpty())
             {
-                throw new SmartException("The plugin descriptor '{0}' does not define a plugin assembly file name. Try assigning the plugin a file name and recompile.".FormatInvariant(descriptionFile.FullName));
+               // throw new SmartException("The plugin descriptor '{0}' does not define a plugin assembly file name. Try assigning the plugin a file name and recompile.".FormatInvariant(descriptionFile.FullName));
             }
 
             descriptor.VirtualPath = _pluginsPath + "/" + descriptor.FolderName;
@@ -278,7 +280,7 @@ namespace App.Core.Plugins
 
             if (descriptor.OriginalAssemblyFile == null)
             {
-                throw new SmartException("The main assembly '{0}' for plugin '{1}' could not be found.".FormatInvariant(descriptor.PluginFileName, descriptor.SystemName));
+               // throw new SmartException("The main assembly '{0}' for plugin '{1}' could not be found.".FormatInvariant(descriptor.PluginFileName, descriptor.SystemName));
             }
 
             // Load all other referenced local assemblies now
@@ -328,15 +330,15 @@ namespace App.Core.Plugins
         {
             msg = "Error loading plugin '{0}'".FormatInvariant(plugin.SystemName) + Environment.NewLine + msg;
 
-            var fail = new SmartException(msg, ex);
-            Debug.WriteLine(fail.Message);
+            //var fail = new SmartException(msg, ex);
+            //Debug.WriteLine(fail.Message);
 
             if (plugin.ReferencedAssembly != null)
             {
                 _inactiveAssemblies.Add(plugin.ReferencedAssembly);
             }
 
-            plugin.ActivationException = fail;
+            //plugin.ActivationException = fail;
             incompatiblePlugins.Add(plugin.SystemName);
         }
 
@@ -346,8 +348,6 @@ namespace App.Core.Plugins
         /// <param name="systemName">Plugin system name</param>
         public static void MarkPluginAsInstalled(string systemName)
         {
-            Guard.NotEmpty(systemName, nameof(systemName));
-
             var installedPluginSystemNames = GetInstalledPluginNames();
 
             bool installed = installedPluginSystemNames.Contains(systemName);
@@ -365,8 +365,6 @@ namespace App.Core.Plugins
         /// <param name="systemName">Plugin system name</param>
         public static void MarkPluginAsUninstalled(string systemName)
         {
-            Guard.NotEmpty(systemName, nameof(systemName));
-
             var installedPluginSystemNames = GetInstalledPluginNames();
             bool installed = installedPluginSystemNames.Contains(systemName);
             if (installed)
@@ -415,8 +413,6 @@ namespace App.Core.Plugins
         /// <returns><c>true</c> when the plugin is assumed to be compatible</returns>
         public static bool IsAssumedCompatible(PluginDescriptor descriptor)
         {
-            Guard.NotNull(descriptor, nameof(descriptor));
-
             return IsAssumedCompatible(descriptor.MinAppVersion);
         }
 
@@ -433,8 +429,6 @@ namespace App.Core.Plugins
         /// <returns><c>true</c> when the extension's version is assumed to be compatible</returns>
         public static bool IsAssumedCompatible(Version minAppVersion)
         {
-            Guard.NotNull(minAppVersion, nameof(minAppVersion));
-
             if (SmartStoreVersion.Version == minAppVersion)
             {
                 return true;
@@ -474,7 +468,6 @@ namespace App.Core.Plugins
         /// <returns><c>true</c> if the plugin exists, <c>false</c> otherwise</returns>
         public static bool PluginExists(string systemName)
         {
-            Guard.NotEmpty(systemName, nameof(systemName));
             return _referencedPlugins.ContainsKey(systemName);
         }
 

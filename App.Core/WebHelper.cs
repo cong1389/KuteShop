@@ -28,14 +28,9 @@ namespace App.Core
         private static ConcurrentDictionary<int, string> s_safeLocalHostNames = new ConcurrentDictionary<int, string>();
 
         private readonly HttpContextBase _httpContext;
-        private bool? _isCurrentConnectionSecured;
-        private string _storeHost;
-        private string _storeHostSsl;
-        private string _ipAddress;
-        private bool? _appPathPossiblyAppended;
-        private bool? _appPathPossiblyAppendedSsl;
+	    private string _ipAddress;
 
-        public WebHelper(HttpContextBase httpContext)
+	    public WebHelper(HttpContextBase httpContext)
         {
             this._httpContext = httpContext;
         }

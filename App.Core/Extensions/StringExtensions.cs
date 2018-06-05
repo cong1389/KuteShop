@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace App.Core.Extensions
@@ -188,5 +190,51 @@ namespace App.Core.Extensions
         {
             return value.StartsWith(startsWith) ? value : (startsWith + value);
         }
-    }
+
+        [DebuggerStepThrough]
+        public static string ToSafe(this string value, string defaultValue = null)
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+            return (defaultValue ?? String.Empty);
+        }
+
+        [DebuggerStepThrough]
+        public static string ToValidPath(this string input, string replacement = "-")
+        {
+            return input.ToValidPathInternal(true, replacement);
+        }
+
+        private static string ToValidPathInternal(this string input, bool isPath, string replacement)
+        {
+            var result = input.ToSafe();
+
+            var invalidChars = new HashSet<char>(isPath ? Path.GetInvalidPathChars() : Path.GetInvalidFileNameChars());
+
+            var sb = new StringBuilder();
+            foreach (var c in input)
+            {
+                if (invalidChars.Contains(c))
+                {
+                    sb.Append(replacement ?? "-");
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+                result = result.Replace(c.ToString(), replacement ?? "-");
+            }
+
+            return sb.ToString();
+        }
+
+	    [DebuggerStepThrough]
+	    public static bool IsMatch(this string input, string pattern, RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
+	    {
+		    return Regex.IsMatch(input, pattern, options);
+	    }
+
+	}
 }
