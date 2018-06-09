@@ -172,6 +172,7 @@
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\PageBannerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PluginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Areas\Admin\Controllers\PrintController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProvinceController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Areas\Admin\Controllers\SystemSettingController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\UtilityController.cs" />
+    <Compile Include="Areas\Admin\Extensions\MappingExtensions.cs" />
     <Compile Include="Areas\Admin\Helpers\AuthorizeCustom.cs" />
     <Compile Include="Areas\Admin\Helpers\CalculateTime.cs" />
     <Compile Include="Areas\Admin\Helpers\Common.cs" />
@@ -193,6 +195,9 @@
     <Compile Include="Areas\Admin\Helpers\LandingPageExport.cs" />
     <Compile Include="Areas\Admin\Helpers\MenuNav.cs" />
     <Compile Include="Areas\Admin\Helpers\RequiredPermisson.cs" />
+    <Compile Include="Areas\Admin\Model\LocalPluginsModel.cs" />
+    <Compile Include="Areas\Admin\Model\ModelBase.cs" />
+    <Compile Include="Areas\Admin\Model\PluginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +282,7 @@
     <Content Include="Areas\Admin\Views\ShippingMethod\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ShippingMethod\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ShippingMethod\_CreateOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Plugin\Index.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Admin_Front.pubxml" />
     <None Include="Web.config" />

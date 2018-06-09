@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
+using App.Core.Infrastructure;
 
 namespace App.Core.Plugins
 {
@@ -238,28 +239,28 @@ namespace App.Core.Plugins
             set => _resourceRootKey = value;
         }
 
-        //public T Instance<T>() where T : class, IPlugin
-        //{
-        //    object instance;
-        //    if (!EngineContext.Current.ContainerManager.TryResolve(PluginType, null, out instance))
-        //    {
-        //        // Not registered
-        //        instance = EngineContext.Current.ContainerManager.ResolveUnregistered(PluginType);
-        //    }
+		//public T Instance<T>() where T : class, IPlugin
+		//{
+		//	object instance;
+		//	if (!EngineContext.Current.ContainerManager.TryResolve(PluginType, null, out instance))
+		//	{
+		//		// Not registered
+		//		instance = EngineContext.Current.ContainerManager.ResolveUnregistered(PluginType);
+		//	}
 
-        //    var typedInstance = instance as T;
-        //    if (typedInstance != null)
-        //        typedInstance.PluginDescriptor = this;
+		//	var typedInstance = instance as T;
+		//	if (typedInstance != null)
+		//		typedInstance.PluginDescriptor = this;
 
-        //    return typedInstance;
-        //}
+		//	return typedInstance;
+		//}
 
-        //public IPlugin Instance()
-        //{
-        //    return Instance<IPlugin>();
-        //}
+		//public IPlugin Instance()
+		//{
+		//    return Instance<IPlugin>();
+		//}
 
-        [SuppressMessage("ReSharper", "StringCompareToIsCultureSpecific")]
+		[SuppressMessage("ReSharper", "StringCompareToIsCultureSpecific")]
         public int CompareTo(PluginDescriptor other)
         {
             if (DisplayOrder != other.DisplayOrder)
@@ -289,6 +290,25 @@ namespace App.Core.Plugins
         public override int GetHashCode()
         {
             return SystemName.GetHashCode();
+        }
+        public IPlugin Instance()
+        {
+            return Instance<IPlugin>();
+        }
+        public T Instance<T>() where T : class, IPlugin
+        {
+            object instance;
+            if (!EngineContext.Current.ContainerManager.TryResolve(PluginType, null, out instance))
+            {
+                // Not registered
+                instance = EngineContext.Current.ContainerManager.ResolveUnregistered(PluginType);
+            }
+
+            var typedInstance = instance as T;
+            if (typedInstance != null)
+                typedInstance.PluginDescriptor = this;
+
+            return typedInstance;
         }
     }
 }

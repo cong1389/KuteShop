@@ -1,4 +1,9 @@
-﻿using System;
+﻿using App.Core.Data;
+using App.Core.Extensions;
+using App.Core.Packaging;
+using App.Core.Utilities;
+using App.Core.Utilities.Threading;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,17 +11,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Compilation;
-using App.Core.Data;
-using App.Core.Extensions;
-using App.Core.Packaging;
-using App.Core.Plugins;
-using App.Core.Utilities;
-using App.Core.Utilities.Threading;
 
 [assembly: PreApplicationStartMethod(typeof(App.Core.Plugins.PluginManager), "Initialize")]
 
@@ -28,7 +25,7 @@ namespace App.Core.Plugins
         private static extern bool SetDllDirectory(string lpPathName);
 
         private static readonly ReaderWriterLockSlim Locker = new ReaderWriterLockSlim();
-        private static readonly string _pluginsPath = "~/Plugins";
+        private static readonly string _pluginsPath = "~/Areas/Admin/Plugins";
         private static DirectoryInfo _shadowCopyDir;
         private static readonly ConcurrentDictionary<string, PluginDescriptor> _referencedPlugins = new ConcurrentDictionary<string, PluginDescriptor>(StringComparer.OrdinalIgnoreCase);
         private static readonly HashSet<Assembly> _inactiveAssemblies = new HashSet<Assembly>();
@@ -36,21 +33,15 @@ namespace App.Core.Plugins
         /// <summary>
         /// Returns the virtual path of the plugins folder relative to the application
         /// </summary>
-        public static string PluginsLocation
-        {
-            get { return _pluginsPath; }
-        }
+        public static string PluginsLocation => _pluginsPath;
 
-        /// <summary> 
+	    /// <summary> 
         /// Returns a collection of all referenced plugin assemblies that have been shadow copied
         /// </summary>
         public static IEnumerable<PluginDescriptor> ReferencedPlugins
         {
-            get
-            {
-                return _referencedPlugins.Values;
-            }
-            // for unit testing purposes
+            get => _referencedPlugins.Values;
+		    // for unit testing purposes
             internal set
             {
                 foreach (var x in value)
@@ -516,7 +507,7 @@ namespace App.Core.Plugins
 		/// <returns>Reference to the shadow copied Assembly</returns>
         private static Assembly Probe(FileInfo plugin, bool performShadowCopy)
         {
-            if (plugin.Directory == null || plugin.Directory.Parent == null)
+            if (plugin.Directory?.Parent == null)
             {
                 throw new InvalidOperationException("The plugin directory for the " + plugin.Name +
                                                     " file exists in a folder outside of the allowed SmartStore folder hierarchy");

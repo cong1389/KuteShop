@@ -1,5 +1,6 @@
 ﻿using App.AsyncService.Post;
 using App.Core.IO.VirtualPath;
+using App.Core.Plugins;
 using App.Core.Templating;
 using App.Domain.Interfaces.Services;
 using App.Framework.Templating.Liquid;
@@ -133,6 +134,8 @@ namespace App.Framework.Ioc
 	        builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
 	        builder.RegisterType<SettingService>().As<ISettingService>().InstancePerRequest();
 
-		}
+            builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
+
+        }
     }
 }

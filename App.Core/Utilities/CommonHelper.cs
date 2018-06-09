@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
@@ -57,6 +58,18 @@ namespace App.Core.Utilities
 	        var testPath = Path.Combine(baseDirectory, path);
 
 	        return testPath;
+	    }
+
+	    public static T GetAppSetting<T>(string key, T defValue = default(T))
+	    {
+	        var setting = ConfigurationManager.AppSettings[key];
+
+	        if (setting == null)
+	        {
+	            return defValue;
+	        }
+
+	        return setting.Convert<T>();
 	    }
     }
 }
