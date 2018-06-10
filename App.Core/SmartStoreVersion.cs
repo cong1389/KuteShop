@@ -47,10 +47,10 @@ namespace App.Core
 
         static SmartStoreVersion()
         {
-            s_breakingChangesHistory.Reverse();
+			s_breakingChangesHistory.Reverse();
 
-            // get informational version
-            var infoVersionAttr = Assembly.GetExecutingAssembly().GetAttribute<AssemblyInformationalVersionAttribute>(false);
+			// get informational version
+			var infoVersionAttr = Assembly.GetExecutingAssembly().GetAttribute<AssemblyInformationalVersionAttribute>(false);
             if (infoVersionAttr != null)
             {
                 s_infoVersion = new Version(infoVersionAttr.InformationalVersion);

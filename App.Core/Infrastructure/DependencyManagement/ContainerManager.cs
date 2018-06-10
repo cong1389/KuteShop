@@ -118,7 +118,7 @@ namespace App.Core.Infrastructure.DependencyManagement
 			    instances = instances2;
 			    return true;
 		    }
-		    catch (Exception ex)
+		    catch (Exception)
 		    {
 			    return false;
 		    }

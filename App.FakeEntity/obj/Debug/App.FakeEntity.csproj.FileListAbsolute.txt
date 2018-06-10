@@ -540,3 +540,10 @@ D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Newtonsoft.Json.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Newtonsoft.Json.xml
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Autofac.dll
 D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Autofac.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\NuGet.Core.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Autofac.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Newtonsoft.Json.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\System.Data.SqlServerCe.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Microsoft.Web.XmlTransform.dll
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Autofac.xml
+D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Newtonsoft.Json.xml

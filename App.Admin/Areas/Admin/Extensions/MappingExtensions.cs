@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using App.Admin.Areas.Admin.Model;
-using App.Core.Plugins;
+﻿using App.Core.Plugins;
+using App.FakeEntity.Plugins;
 using AutoMapper;
 
 namespace App.Admin.Areas.Admin.Extensions
 {
-    public static class MappingExtensions
+	public static class MappingExtensions
     {
         public static PluginModel ToModel(this PluginDescriptor entity)
         {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using App.Core.Collections;
+using App.FakeEntity.Plugins;
 
-namespace App.Admin.Areas.Admin.Model
+namespace App.Admin.Areas.Model.Plugins
 {
-	public class LocalPluginsModel : ModelBase
+	public class LocalPluginsModel// : ModelBase
 	{
 
 		public LocalPluginsModel()

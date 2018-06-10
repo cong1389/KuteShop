@@ -19,17 +19,17 @@ namespace App.Core.Plugins
 
         public PluginDescriptor()
         {
-            this.Version = new Version("1.0");
-            this.MinAppVersion = SmartStoreVersion.Version;
+            Version = new Version("1.0");
+            MinAppVersion = SmartStoreVersion.Version;
         }
 
         // Unit tests
         public PluginDescriptor(Assembly referencedAssembly, FileInfo originalAssemblyFile, Type pluginType)
             : this()
         {
-            this.ReferencedAssembly = referencedAssembly;
-            this.OriginalAssemblyFile = originalAssemblyFile;
-            this.PluginType = pluginType;
+            ReferencedAssembly = referencedAssembly;
+            OriginalAssemblyFile = originalAssemblyFile;
+            PluginType = pluginType;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace App.Core.Plugins
                 {
                     // "null" means we haven't checked yet!
                     var filesToCheck = new[] { "branding.png", "branding.gif", "branding.jpg", "branding.jpeg" };
-                    var dir = this.PhysicalPath;
+                    var dir = PhysicalPath;
                     foreach (var file in filesToCheck)
                     {
                         if (File.Exists(Path.Combine(dir, "Content", file)))

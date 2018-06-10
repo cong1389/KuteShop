@@ -1,4 +1,4 @@
-﻿using System;
+﻿	using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -222,14 +222,6 @@ namespace App.Core.Extensions
 			return wrappedType;
 		}
 
-		/// <summary>
-		/// Returns single attribute from the type
-		/// </summary>
-		/// <typeparam name="TAttribute">Attribute to use</typeparam>
-		/// <param name="target">Attribute provider</param>
-		///<param name="inherits"><see cref="MemberInfo.GetCustomAttributes(Type,bool)"/></param>
-		/// <returns><em>Null</em> if the attribute is not found</returns>
-		/// <exception cref="InvalidOperationException">If there are 2 or more attributes</exception>
 		public static TAttribute GetAttribute<TAttribute>(this ICustomAttributeProvider target, bool inherits) where TAttribute : Attribute
 		{
 			if (target.IsDefined(typeof(TAttribute), inherits))

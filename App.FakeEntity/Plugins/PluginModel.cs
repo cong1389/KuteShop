@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using App.Service.Language;
 
-namespace App.Admin.Areas.Admin.Model
+namespace App.FakeEntity.Plugins
 {
-    public class PluginModel : ModelBase
+    public class PluginModel// : ModelBase
     {
         public PluginModel()
         {

@@ -195,9 +195,7 @@
     <Compile Include="Areas\Admin\Helpers\LandingPageExport.cs" />
     <Compile Include="Areas\Admin\Helpers\MenuNav.cs" />
     <Compile Include="Areas\Admin\Helpers\RequiredPermisson.cs" />
-    <Compile Include="Areas\Admin\Model\LocalPluginsModel.cs" />
-    <Compile Include="Areas\Admin\Model\ModelBase.cs" />
-    <Compile Include="Areas\Admin\Model\PluginModel.cs" />
+    <Compile Include="Areas\Admin\Model\Plugins\LocalPluginsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

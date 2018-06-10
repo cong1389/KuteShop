@@ -63,6 +63,7 @@
     <Compile Include="Menu\MenuNavViewModel.cs" />
     <Compile Include="Orders\OrderItemViewModel.cs" />
     <Compile Include="Orders\OrderViewModel.cs" />
+    <Compile Include="Plugins\PluginModel.cs" />
     <Compile Include="Repairs\RepairGalleryViewModel.cs" />
     <Compile Include="Repairs\RepairItemViewModel.cs" />
     <Compile Include="Repairs\RepairViewModel.cs" />

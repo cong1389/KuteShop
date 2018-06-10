@@ -43,6 +43,8 @@ using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
 using System.Linq;
+using App.Core.Plugins;
+using App.FakeEntity.Plugins;
 
 namespace App.Framework.Mappings
 {
@@ -553,6 +555,12 @@ namespace App.Framework.Mappings
 				.ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
 				.ForMember(x => x.Value, map => map.MapFrom(vm => vm.Value))
 				.ForMember(x => x.StoreId, map => map.MapFrom(vm => vm.StoreId));
+
+			//plugins
+			CreateMap<PluginDescriptor, PluginModel>()
+				.ForMember(dest => dest.ConfigurationUrl, mo => mo.Ignore())
+				.ForMember(dest => dest.SelectedStoreIds, mo => mo.Ignore())
+				.ForMember(dest => dest.IconUrl, mo => mo.Ignore());
 		}
 	}
 }

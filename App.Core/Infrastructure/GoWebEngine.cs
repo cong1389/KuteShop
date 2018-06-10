@@ -15,10 +15,7 @@ namespace App.Core.Infrastructure
 	{
 	    private ContainerManager _containerManager;
 
-        public ContainerManager ContainerManager
-	    {
-	        get { return _containerManager; }
-	    }
+        public ContainerManager ContainerManager => _containerManager;
 
 		public void Initialize()
 		{

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using App.Admin.Areas.Admin.Extensions;
-using App.Admin.Areas.Admin.Model;
-using App.Admin.Controllers;
+﻿using App.Admin.Areas.Admin.Extensions;
+using App.Admin.Areas.Model.Plugins;
 using App.Core.Extensions;
 using App.Core.Plugins;
+using App.FakeEntity.Plugins;
 using App.Service.Common;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace App.Admin.Controllers
 {
-    public class PluginController : BaseAdminController
+	public class PluginController : BaseAdminController
 	{
         private readonly IPluginFinder _pluginFinder;
 	    private readonly ICommonServices _services;
