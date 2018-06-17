@@ -47,7 +47,7 @@ namespace App.Core.Infrastructure
 				return Activator.CreateInstance(engineType) as IEngine;
 			}
 
-			return null;
+		    return new GoWebEngine();
 		}
 
 		public static IEngine Current

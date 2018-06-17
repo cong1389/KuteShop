@@ -1,10 +1,9 @@
 using App.Core.Common;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace App.Domain.Entities.GlobalSetting
 {
-	public class SystemSetting : AuditableEntity<int>
+    public class SystemSetting : AuditableEntity<int>
 	{
 		public string Description
 		{
@@ -26,7 +25,6 @@ namespace App.Domain.Entities.GlobalSetting
 		}
 
 		[StringLength(3000)]
-        [AllowHtml]
 		public string FooterContent
 		{
 			get;
