@@ -17,7 +17,7 @@ namespace App.Core.Infrastructure
 
         public void Initialize()
         {
-            //RegisterDependencies();
+            RegisterDependencies();
 
             //if (DataSettings.DatabaseIsInstalled())
             //{
@@ -52,11 +52,11 @@ namespace App.Core.Infrastructure
             var dependencyResolver = new AutofacDependencyResolver(container, lifetimeScopeProvider);
             builder.RegisterInstance(dependencyResolver);
             DependencyResolver.SetResolver(dependencyResolver);
-            
+
 #pragma warning disable 612, 618
             builder.Update(container);
 #pragma warning restore 612, 618
-            
+
             // Register dependencies provided by other assemblies
             builder = new ContainerBuilder();
             var registrarTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();

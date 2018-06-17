@@ -255,11 +255,6 @@ namespace App.Core.Plugins
 		//	return typedInstance;
 		//}
 
-		//public IPlugin Instance()
-		//{
-		//    return Instance<IPlugin>();
-		//}
-
 		[SuppressMessage("ReSharper", "StringCompareToIsCultureSpecific")]
         public int CompareTo(PluginDescriptor other)
         {
