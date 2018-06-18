@@ -11,7 +11,12 @@ namespace SmartStore.Shout.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return View(Test());
+        }
+
+        public int Test()
+        {
+            return 100;;
         }
     }
 }
