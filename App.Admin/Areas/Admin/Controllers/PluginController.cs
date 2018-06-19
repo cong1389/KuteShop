@@ -106,8 +106,24 @@ namespace App.Admin.Controllers
 		{
 			try
 			{
-				IEnumerable<PluginDescriptor> descriptors = null;
-				if (!string.IsNullOrEmpty(pluginToInstall))
+			    int tasksCount = 0;
+                IEnumerable<PluginDescriptor> descriptors;
+
+                // Uninstall first
+			    if (!string.IsNullOrEmpty(pluginsToUninstall))
+                {
+			        descriptors = _pluginFinder.GetPluginDescriptors(false).Where(x => pluginsToUninstall.Contains(x.SystemName));
+			        foreach (var d in descriptors)
+			        {
+			            if (d.Installed)
+			            {
+			                d.Instance().Uninstall();
+			                tasksCount++;
+			            }
+			        }
+			    }
+
+                if (!string.IsNullOrEmpty(pluginToInstall))
 				{
 					descriptors = _pluginFinder.GetPluginDescriptors(false).Where(x => pluginToInstall.Contains(x.SystemName));
 					foreach (var d in descriptors)
@@ -115,9 +131,15 @@ namespace App.Admin.Controllers
 						if (!d.Installed)
 						{
 							d.Instance().Install();
-						}
+						    tasksCount++;
+                        }
 					}
 				}
+
+			    if (tasksCount >0)
+			    {
+			        _services.WebHelper.RestartAppDomain(aggressive: true);
+                }
 			}
 			catch (Exception e)
 			{

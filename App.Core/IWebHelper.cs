@@ -12,5 +12,7 @@ namespace App.Core
         string ModifyQueryString(string url, string queryStringModification, string anchor);
         string RemoveQueryString(string url, string queryString);
         T QueryString<T>(string name);
+
+        void RestartAppDomain(bool makeRedirect = false, string redirectUrl = "", bool aggressive = false);
     }
 }

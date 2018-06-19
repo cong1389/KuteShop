@@ -25,7 +25,7 @@ namespace App.Core.Plugins
         private static extern bool SetDllDirectory(string lpPathName);
 
         private static readonly ReaderWriterLockSlim Locker = new ReaderWriterLockSlim();
-        private static readonly string _pluginsPath = "~/Areas/Admin/Plugins";
+        private static readonly string _pluginsPath = "~/Plugins";
         private static DirectoryInfo _shadowCopyDir;
         private static readonly ConcurrentDictionary<string, PluginDescriptor> _referencedPlugins = new ConcurrentDictionary<string, PluginDescriptor>(StringComparer.OrdinalIgnoreCase);
         private static readonly HashSet<Assembly> _inactiveAssemblies = new HashSet<Assembly>();

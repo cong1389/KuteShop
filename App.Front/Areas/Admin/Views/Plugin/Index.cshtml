@@ -67,7 +67,7 @@
 			<td class="table-download">
 				@if (plugin.Installed)
 				{
-					<button type="button" attr-data="1" id="btn_upload" class="btn green">
+					<button type="button" attr-data="1" id="unplugins-form" class="btn green">
 						Gỏ bỏ
 					</button>
 				}
@@ -83,7 +83,6 @@
 }
 <script>
 	$("#plugins-form").on('click', function (e) {
-		debugger;
 
 		var el = $(this),
 			systemName = el.closest(".module-item").data("system-name"),
@@ -98,6 +97,24 @@
             });;
 
         });
+    });
+
+	$("#unplugins-form").on('click', function (e) {
+	    debugger;
+
+	    var el = $(this),
+	        systemName = el.closest(".module-item").data("system-name"),
+	        dropdown = null;
+
+	    $.post('@Url.Action("ExecuteTask", "Plugin")', { "pluginToInstall": null, "pluginsToUninstall": systemName }, function () {
+	        App.blockUI({
+	            target: '#divAttribute',
+	            boxed: true
+	        }).done(function (data) {
+	            debugger;
+	        });;
+
+	    });
 	});
 </script>
 <!---/Plugin-->

@@ -9,10 +9,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
+using App.Core.Data;
 using App.Core.Extensions;
+using App.Core.Infrastructure;
 using App.Core.Utilities;
 
 namespace App.Core
@@ -22,17 +25,22 @@ namespace App.Core
         private static object s_lock = new object();
         private static bool? s_optimizedCompilationsEnabled;
         private static AspNetHostingPermissionLevel? s_trustLevel;
-        private static readonly Regex s_staticExts = new Regex(@"(.*?)\.(css|js|png|jpg|jpeg|gif|webp|liquid|bmp|html|htm|xml|pdf|doc|xls|rar|zip|7z|ico|eot|svg|ttf|woff|woff2|otf)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex s_staticExts = new Regex(@"(.*?)\.(css|js|png|jpg|jpeg|gif|webp|scss|less|liquid|bmp|html|htm|xml|pdf|doc|xls|rar|zip|7z|ico|eot|svg|ttf|woff|otf|axd|ashx)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex s_htmlPathPattern = new Regex(@"(?<=(?:href|src)=(?:""|'))(?!https?://)(?<url>[^(?:""|')]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
         private static readonly Regex s_cssPathPattern = new Regex(@"url\('(?<url>.+)'\)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
         private static ConcurrentDictionary<int, string> s_safeLocalHostNames = new ConcurrentDictionary<int, string>();
 
         private readonly HttpContextBase _httpContext;
-	    private string _ipAddress;
+        private bool? _isCurrentConnectionSecured;
+        private string _storeHost;
+        private string _storeHostSsl;
+        private string _ipAddress;
+        private bool? _appPathPossiblyAppended;
+        private bool? _appPathPossiblyAppendedSsl;
 
-	    public WebHelper(HttpContextBase httpContext)
+        public WebHelper()
         {
-            this._httpContext = httpContext;
+            _httpContext = new HttpContextWrapper(HttpContext.Current);
         }
 
         public virtual string GetUrlReferrer()
@@ -542,6 +550,39 @@ namespace App.Core
             }
 
             return false;
+        }
+
+        public virtual void RestartAppDomain(bool makeRedirect = false, string redirectUrl = "", bool aggressive = false)
+        {
+            HttpRuntime.UnloadAppDomain();
+
+            if (aggressive)
+            {
+                // When plugins are (un)installed, 'aggressive' is always true.
+                if (OptimizedCompilationsEnabled)
+                {
+                    // Very hackish:
+                    // If optimizedCompilations is on per web.config, touching top-level resources
+                    // like global.asax or bin folder is meaningless, 'cause ASP.NET skips these for
+                    // hash calculation. This way we can throw in plugins like crazy without invalidating
+                    // ASP.NET temp files, which boosts app startup performance dramatically.
+                    // Unfortunately, MVC keeps a controller cache file in the temp files folder, which NEVER
+                    // gets nuked, unless the 'compilation' element in web.config is changed.
+                    // We MUST delete this file in order to ensure that it gets re-created with our new controller types in it.
+                    DeleteMvcTypeCacheFiles();
+                }
+                else
+                {
+                    // Without optimizedCompilations, touching anything in the bin folder nukes ASP.NET temp folder completely,
+                    // including compiled views, MVC cache files etc.
+                    TryWriteBinFolder();
+                }
+            }
+            else
+            {
+                // without this, MVC may fail resolving controllers for newly installed plugins after IIS restart
+                Thread.Sleep(250);
+            }
         }
     }
 }

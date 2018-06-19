@@ -549,3 +549,5 @@ D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Autofac.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Newtonsoft.Json.xml
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Autofac.Integration.Mvc.dll
 D:\Project\Practice\kute\Source\App.FakeEntity\bin\Debug\Autofac.Integration.Mvc.xml
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Autofac.Integration.Mvc.dll
+D:\FreeLance\2018\KuteShop\Source\App.FakeEntity\bin\Debug\Autofac.Integration.Mvc.xml

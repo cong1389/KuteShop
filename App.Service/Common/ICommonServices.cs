@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using App.Core;
 using App.Core.Caching;
 using App.Service.Customers;
 using App.Service.LocaleStringResource;
@@ -21,6 +22,8 @@ namespace App.Service.Common
         {
             get;
         }
+
+        IWebHelper WebHelper { get; }
     }
 
     public static class ICommonServicesExtensions

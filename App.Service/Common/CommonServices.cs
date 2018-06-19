@@ -1,6 +1,7 @@
-﻿using System;
+﻿using App.Core;
 using App.Core.Caching;
 using App.Service.LocaleStringResource;
+using System;
 
 namespace App.Service.Common
 {
@@ -12,11 +13,14 @@ namespace App.Service.Common
 
         private readonly Lazy<ICacheManager> _cacheManager;
 
-        public CommonServices(Lazy<IWorkContext> workContext, Lazy<ILocaleStringResourceService> localization, Lazy<ICacheManager> cacheManager)
+        private readonly Lazy<IWebHelper> _webHelper;
+
+        public CommonServices(Lazy<IWorkContext> workContext, Lazy<ILocaleStringResourceService> localization, Lazy<ICacheManager> cacheManager, Lazy<IWebHelper> webHelper)
         {
             _workContext = workContext;
             _localization = localization;
             _cacheManager = cacheManager;
+            _webHelper = webHelper;
         }
 
         public IWorkContext WorkContext => _workContext.Value;
@@ -24,5 +28,7 @@ namespace App.Service.Common
         public ILocaleStringResourceService Localization => _localization.Value;
 
         public ICacheManager Cache => _cacheManager.Value;
+
+        public IWebHelper WebHelper => _webHelper.Value;
     }
 }

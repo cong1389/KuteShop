@@ -73,6 +73,7 @@ namespace App.Core.Infrastructure
                     try
                     {
                         types = a.GetTypes();
+                        var aaddd = a.DefinedTypes.Select(t => t.AsType());
                     }
                     catch
                     {

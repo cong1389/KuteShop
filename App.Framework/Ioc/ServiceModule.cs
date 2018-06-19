@@ -1,4 +1,5 @@
 ﻿using App.AsyncService.Post;
+using App.Core;
 using App.Core.IO.VirtualPath;
 using App.Core.Plugins;
 using App.Core.Templating;
@@ -135,6 +136,7 @@ namespace App.Framework.Ioc
 	        builder.RegisterType<SettingService>().As<ISettingService>().InstancePerRequest();
 
             builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
+            builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerRequest();
 
         }
     }
