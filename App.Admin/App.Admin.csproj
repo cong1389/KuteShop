@@ -349,7 +349,6 @@
     <Content Include="Areas\Admin\Views\Manufacturer\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturer\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Manufacturer\_CreateOrUpdate.cshtml" />
-    <Content Include="Areas\Admin\Views\GenericControlValueItem\_CreateOrUpdate.GenericControlValueItem.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValue\Create.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValue\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\GenericControlValue\Index.cshtml" />
@@ -439,7 +438,9 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\GenericControlValueItem\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

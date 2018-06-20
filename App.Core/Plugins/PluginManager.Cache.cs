@@ -217,7 +217,8 @@ namespace App.Core.Plugins
             }
             catch (UnauthorizedAccessException)
             {
-                throw new UnauthorizedAccessException(string.Format("Access to the path '{0}' is denied, ensure that read, write and modify permissions are allowed.", Path.GetDirectoryName(newName)));
+                throw new UnauthorizedAccessException(
+                    $"Access to the path '{Path.GetDirectoryName(newName)}' is denied, ensure that read, write and modify permissions are allowed.");
             }
             catch (IOException)
             {

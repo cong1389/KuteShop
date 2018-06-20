@@ -1,12 +1,10 @@
-﻿using System;
+﻿using App.Core.Data;
+using App.Core.Extensions;
+using App.Core.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Data;
-using App.Core.Extensions;
-using App.Core.Utilities;
 
 namespace App.Core.Plugins
 {
@@ -20,8 +18,7 @@ namespace App.Core.Plugins
             }
         }
 
-        internal readonly static string[] KnownGroups = new string[]
-        {
+        internal static readonly string[] KnownGroups = {
             "Admin",
             "Marketing",
             "Payment",
@@ -43,9 +40,9 @@ namespace App.Core.Plugins
             "Performance",
             "Misc"
         };
-        public readonly static IComparer<string> KnownGroupComparer = new GroupComparer();
+        public static readonly IComparer<string> KnownGroupComparer = new GroupComparer();
 
-        public readonly static string InstalledPluginsFilePath;
+        public static readonly string InstalledPluginsFilePath;
 
         static PluginFileParser()
         {
@@ -85,14 +82,11 @@ namespace App.Core.Plugins
 
         public static void SaveInstalledPluginsFile(ICollection<string> pluginSystemNames, string filePath = null)
         {
-            if (pluginSystemNames == null || pluginSystemNames.Count == 0)
-                return;
-
             filePath = filePath ?? InstalledPluginsFilePath;
 
-            string result = "";
+            var result = "";
             foreach (var sn in pluginSystemNames)
-                result += string.Format("{0}{1}", sn, Environment.NewLine);
+                result += $"{sn}{Environment.NewLine}";
 
             File.WriteAllText(filePath, result);
         }
@@ -173,8 +167,7 @@ namespace App.Core.Plugins
                         break;
                     case "DisplayOrder":
                         {
-                            int displayOrder;
-                            int.TryParse(value, out displayOrder);
+                            int.TryParse(value, out var displayOrder);
                             descriptor.DisplayOrder = displayOrder;
                         }
                         break;

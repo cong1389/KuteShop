@@ -7,6 +7,7 @@ using App.Core.Plugins;
 using App.FakeEntity.Plugins;
 using App.Service.Common;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -101,11 +102,12 @@ namespace App.Admin.Controllers
 			return model;
 		}
 
-		[HttpPost]
-		public ActionResult ExecuteTask(string pluginToInstall, string pluginsToUninstall)
+	    [HttpPost]
+        public JsonResult ExecuteTask(string pluginToInstall, string pluginsToUninstall)
 		{
 			try
 			{
+
 			    int tasksCount = 0;
                 IEnumerable<PluginDescriptor> descriptors;
 
@@ -147,7 +149,10 @@ namespace App.Admin.Controllers
 				throw;
 			}
 
-			return RedirectToAction("Index");
-		}
+		    var jsonResult = Json(new { success = true, list = ""},
+		        JsonRequestBehavior.AllowGet);
+
+		    return jsonResult;
+        }
 	}
 }

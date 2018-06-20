@@ -129,7 +129,7 @@
 									@Html.ValidationMessageFor(model => model.Image, "", new { @class = "help-block" })
 									@if (!string.IsNullOrEmpty(Model.ImageSmallSize))
 									{
-										<img src="@Model.ImageSmallSize.ValidateImage()" width="40px"  id="postAvatar"/>
+										<img src="@Model.ImageSmallSize.ValidateImage()" width="40"  id="postAvatar"/>
 									}
 								</div>
 							</div>
@@ -407,8 +407,7 @@
                         target: '#divAttribute',
                         boxed: true
                     });
-            })
-            .done(function (data) {
+            }).done(function (data) {
                 $("#divAttribute").html(data.list);
             });
     })

@@ -226,10 +226,10 @@ namespace App.Core.Utilities
                 return beginDigit.ToString();
             }
 
-            string pattern = string.Format("[{0}-{1}]", beginDigit, endDigit);
+            string pattern = $"[{beginDigit}-{endDigit}]";
             if (count > 1)
             {
-                pattern += string.Format("{{{0}}}", count);
+                pattern += $"{{{count}}}";
             }
 
             return pattern;

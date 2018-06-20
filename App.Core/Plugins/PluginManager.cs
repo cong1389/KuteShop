@@ -543,7 +543,8 @@ namespace App.Core.Plugins
             }
             catch (UnauthorizedAccessException)
             {
-                throw new UnauthorizedAccessException(string.Format("Access to the path '{0}' is denied, ensure that read, write and modify permissions are allowed.", probedPlugin.Directory.FullName));
+                throw new UnauthorizedAccessException(
+                    $"Access to the path '{probedPlugin.Directory.FullName}' is denied, ensure that read, write and modify permissions are allowed.");
             }
             catch (IOException)
             {
@@ -560,7 +561,8 @@ namespace App.Core.Plugins
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    throw new UnauthorizedAccessException(string.Format("Access to the path '{0}' is denied, ensure that read, write and modify permissions are allowed.", probedPlugin.Directory.FullName));
+                    throw new UnauthorizedAccessException(
+                        $"Access to the path '{probedPlugin.Directory.FullName}' is denied, ensure that read, write and modify permissions are allowed.");
                 }
                 catch (IOException exc)
                 {

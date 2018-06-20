@@ -22,21 +22,15 @@ namespace App.Core
 {
     public partial class WebHelper : IWebHelper
     {
-        private static object s_lock = new object();
-        private static bool? s_optimizedCompilationsEnabled;
-        private static AspNetHostingPermissionLevel? s_trustLevel;
-        private static readonly Regex s_staticExts = new Regex(@"(.*?)\.(css|js|png|jpg|jpeg|gif|webp|scss|less|liquid|bmp|html|htm|xml|pdf|doc|xls|rar|zip|7z|ico|eot|svg|ttf|woff|otf|axd|ashx)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex s_htmlPathPattern = new Regex(@"(?<=(?:href|src)=(?:""|'))(?!https?://)(?<url>[^(?:""|')]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
-        private static readonly Regex s_cssPathPattern = new Regex(@"url\('(?<url>.+)'\)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
-        private static ConcurrentDictionary<int, string> s_safeLocalHostNames = new ConcurrentDictionary<int, string>();
+        private static bool? _sOptimizedCompilationsEnabled;
+        private static AspNetHostingPermissionLevel? _sTrustLevel;
+        private static readonly Regex SStaticExts = new Regex(@"(.*?)\.(css|js|png|jpg|jpeg|gif|webp|scss|less|liquid|bmp|html|htm|xml|pdf|doc|xls|rar|zip|7z|ico|eot|svg|ttf|woff|otf|axd|ashx)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex SHtmlPathPattern = new Regex(@"(?<=(?:href|src)=(?:""|'))(?!https?://)(?<url>[^(?:""|')]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex SCssPathPattern = new Regex(@"url\('(?<url>.+)'\)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly ConcurrentDictionary<int, string> _sSafeLocalHostNames = new ConcurrentDictionary<int, string>();
 
         private readonly HttpContextBase _httpContext;
-        private bool? _isCurrentConnectionSecured;
-        private string _storeHost;
-        private string _storeHostSsl;
         private string _ipAddress;
-        private bool? _appPathPossiblyAppended;
-        private bool? _appPathPossiblyAppendedSsl;
 
         public WebHelper()
         {
@@ -47,9 +41,7 @@ namespace App.Core
         {
             string referrerUrl = null;
 
-            if (_httpContext != null &&
-                _httpContext.Request != null &&
-                _httpContext.Request.UrlReferrer != null)
+            if (_httpContext?.Request != null && _httpContext.Request.UrlReferrer != null)
                 referrerUrl = _httpContext.Request.UrlReferrer.ToString();
 
             return referrerUrl.EmptyNull();
@@ -155,12 +147,12 @@ namespace App.Core
 
         public static bool IsStaticResourceRequested(HttpRequest request)
         {
-            return s_staticExts.IsMatch(request.Path);
+            return SStaticExts.IsMatch(request.Path);
         }
 
         private static bool IsStaticResourceRequested(HttpRequestBase request)
         {
-            return s_staticExts.IsMatch(request.Path);
+            return SStaticExts.IsMatch(request.Path);
         }
 
         protected virtual string MapPath(string path)
@@ -237,9 +229,9 @@ namespace App.Core
                 File.Delete(Path.Combine(userCacheDir, "MVC-ControllerTypeCache.xml"));
                 File.Delete(Path.Combine(userCacheDir, "MVC-AreaRegistrationTypeCache.xml"));
             }
-            catch
+            catch (Exception)
             {
-
+                // ignored
             }
         }
 
@@ -267,13 +259,13 @@ namespace App.Core
         {
             get
             {
-                if (!s_optimizedCompilationsEnabled.HasValue)
+                if (!_sOptimizedCompilationsEnabled.HasValue)
                 {
                     var section = (CompilationSection)ConfigurationManager.GetSection("system.web/compilation");
-                    s_optimizedCompilationsEnabled = section.OptimizeCompilations;
+                    _sOptimizedCompilationsEnabled = section.OptimizeCompilations;
                 }
 
-                return s_optimizedCompilationsEnabled.Value;
+                return _sOptimizedCompilationsEnabled.Value;
             }
         }
 
@@ -283,10 +275,10 @@ namespace App.Core
         /// <returns>The current trust level.</returns>
         public static AspNetHostingPermissionLevel GetTrustLevel()
         {
-            if (!s_trustLevel.HasValue)
+            if (!_sTrustLevel.HasValue)
             {
                 // set minimum
-                s_trustLevel = AspNetHostingPermissionLevel.None;
+                _sTrustLevel = AspNetHostingPermissionLevel.None;
 
                 // determine maximum
                 foreach (AspNetHostingPermissionLevel trustLevel in
@@ -301,7 +293,7 @@ namespace App.Core
                     try
                     {
                         new AspNetHostingPermission(trustLevel).Demand();
-                        s_trustLevel = trustLevel;
+                        _sTrustLevel = trustLevel;
                         break; //we've set the highest permission we can
                     }
                     catch (System.Security.SecurityException)
@@ -310,7 +302,7 @@ namespace App.Core
                     }
                 }
             }
-            return s_trustLevel.Value;
+            return _sTrustLevel.Value;
         }
 
         /// <summary>
@@ -344,7 +336,7 @@ namespace App.Core
         /// </remarks>
         public static string MakeAllUrlsAbsolute(string html, string protocol, string host)
         {
-            string baseUrl = string.Format("{0}://{1}", protocol, host.TrimEnd('/'));
+            string baseUrl = $"{protocol}://{host.TrimEnd('/')}";
 
             MatchEvaluator evaluator = (match) =>
             {
@@ -352,8 +344,8 @@ namespace App.Core
                 return "{0}{1}".FormatCurrent(baseUrl, url.EnsureStartsWith("/"));
             };
 
-            html = s_htmlPathPattern.Replace(html, evaluator);
-            html = s_cssPathPattern.Replace(html, evaluator);
+            html = SHtmlPathPattern.Replace(html, evaluator);
+            html = SCssPathPattern.Replace(html, evaluator);
 
             return html;
         }
@@ -379,7 +371,7 @@ namespace App.Core
                 url = VirtualPathUtility.ToAbsolute(url);
             }
 
-            url = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, url);
+            url = $"{request.Url.Scheme}://{request.Url.Authority}{url}";
             return url;
         }
 
@@ -463,10 +455,8 @@ namespace App.Core
 
             if (!requestUri.Host.Equals(safeHostName, StringComparison.OrdinalIgnoreCase))
             {
-                var url = String.Format("{0}://{1}{2}",
-                    requestUri.Scheme,
-                    requestUri.IsDefaultPort ? safeHostName : safeHostName + ":" + requestUri.Port,
-                    requestUri.PathAndQuery);
+                var url =
+                    $"{requestUri.Scheme}://{(requestUri.IsDefaultPort ? safeHostName : safeHostName + ":" + requestUri.Port)}{requestUri.PathAndQuery}";
                 uri = new Uri(url);
             }
 
@@ -480,7 +470,7 @@ namespace App.Core
 
         private static string GetSafeLocalHostName(Uri requestUri)
         {
-            return s_safeLocalHostNames.GetOrAdd(requestUri.Port, (port) =>
+            return _sSafeLocalHostNames.GetOrAdd(requestUri.Port, (port) =>
             {
                 // first try original host
                 if (TestHost(requestUri, requestUri.Host, 5000))
@@ -519,9 +509,8 @@ namespace App.Core
 
         private static bool TestHost(Uri originalUri, string host, int timeout)
         {
-            var url = string.Format("{0}://{1}/taskscheduler/noop",
-                originalUri.Scheme,
-                originalUri.IsDefaultPort ? host : host + ":" + originalUri.Port);
+            var url =
+                $"{originalUri.Scheme}://{(originalUri.IsDefaultPort ? host : host + ":" + originalUri.Port)}/taskscheduler/noop";
             var uri = new Uri(url);
 
             var request = WebRequest.CreateHttp(uri);
