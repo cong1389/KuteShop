@@ -107,8 +107,7 @@ namespace App.Admin.Controllers
 		{
 			try
 			{
-
-			    int tasksCount = 0;
+			    var tasksCount = 0;
                 IEnumerable<PluginDescriptor> descriptors;
 
                 // Uninstall first

@@ -1,16 +1,15 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Web.Compilation;
-using System.Web.Mvc;
 using App.Framework.FluentValidation;
 using App.Framework.Ioc;
 using App.Framework.Mappings;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
 using FluentValidation.Mvc;
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Web.Compilation;
+using System.Web.Mvc;
 
 public class Bootstrapper
 {
@@ -28,12 +27,7 @@ public class Bootstrapper
 
         return container;
     });
-
-    //public static ContainerBuilder GetConfiguredContainer()
-    //{
-    //    return containerBuilder.Value;
-    //}
-
+    
     private static void SetAutofacContainer(ContainerBuilder containerBuilder)
     {
         //ContainerBuilder containerBuilder = new ContainerBuilder();
@@ -44,7 +38,7 @@ public class Bootstrapper
 
         containerBuilder.RegisterControllers(array);
         containerBuilder.RegisterAssemblyModules(array);
-        containerBuilder.RegisterApiControllers(array);
+        //containerBuilder.RegisterApiControllers(array);
         containerBuilder.RegisterFilterProvider();
         containerBuilder.RegisterSource(new ViewRegistrationSource());
         containerBuilder.RegisterModule(new EFModule());

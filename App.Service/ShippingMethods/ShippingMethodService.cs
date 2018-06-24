@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using App.Core.Plugins.Providers;
 using App.Core.Utilities;
 using App.Domain.Shippings;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.ShippingMethods;
 using App.Infra.Data.UOW.Interfaces;
+using App.Service.ShippingMethods;
 
 namespace App.Service.ShippingMethodes
 {
@@ -11,13 +13,17 @@ namespace App.Service.ShippingMethodes
 	{
 		private readonly IShippingMethodRepository _shippingMethodRepository;
 
-	    public ShippingMethodService(IUnitOfWork unitOfWork, IShippingMethodRepository shippingMethodRepository) : base(unitOfWork, shippingMethodRepository)
+		private readonly IProviderManager _providerManager;
+
+		public ShippingMethodService(IUnitOfWork unitOfWork, IShippingMethodRepository shippingMethodRepository, IProviderManager providerManager) : base(unitOfWork, shippingMethodRepository)
 		{
-		    _shippingMethodRepository = shippingMethodRepository;
+			_shippingMethodRepository = shippingMethodRepository;
+			_providerManager = providerManager;
 		}
 
 		public ShippingMethod GetById(int id)
 		{
+			_providerManager.GetAllProviders<IShippingRateComputationMethod>();
 			return _shippingMethodRepository.GetById(id);
 		}
 

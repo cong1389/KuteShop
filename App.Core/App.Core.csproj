@@ -60,6 +60,7 @@
       <HintPath>..\packages\NuGet.Core.2.14.0\lib\net40-Client\NuGet.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -160,6 +161,9 @@
     <Compile Include="Plugins\PluginFileParser.cs" />
     <Compile Include="Plugins\PluginFinder.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Providers\IProvider.cs" />
+    <Compile Include="Plugins\Providers\IProviderManager.cs" />
+    <Compile Include="Plugins\Providers\ProviderMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

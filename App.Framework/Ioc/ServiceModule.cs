@@ -2,8 +2,10 @@
 using App.Core;
 using App.Core.IO.VirtualPath;
 using App.Core.Plugins;
+using App.Core.Plugins.Providers;
 using App.Core.Templating;
 using App.Domain.Interfaces.Services;
+using App.Framework.Plugins;
 using App.Framework.Templating.Liquid;
 using App.Infra.Data.Common;
 using App.SeoSitemap;
@@ -137,6 +139,7 @@ namespace App.Framework.Ioc
 
             builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerRequest();
+            builder.RegisterType<ProviderManager>().As<IProviderManager>().InstancePerRequest();
 
         }
     }
