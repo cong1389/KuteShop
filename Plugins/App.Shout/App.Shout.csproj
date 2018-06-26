@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\App.Front\Plugins\App.Shout\</OutputPath>
+    <OutputPath>..\..\Presentation\App.Front\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -126,15 +126,13 @@
     <Folder Include="Views\ShoutDemo\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\App.Core\App.Core.csproj">
+    <ProjectReference Include="..\..\Libraries\App.Core\App.Core.csproj">
       <Project>{22EBD28A-55C0-4D91-AB94-3B75A40584DE}</Project>
       <Name>App.Core</Name>
-      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\App.Service\App.Service.csproj">
+    <ProjectReference Include="..\..\Libraries\App.Service\App.Service.csproj">
       <Project>{66967DF3-D493-4C60-ADE9-B3F616F83B8D}</Project>
       <Name>App.Service</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
