@@ -37,4 +37,25 @@
     &__social {
         float: left;
     }
+
+    .product-info-detailed {
+        .nav > li > a {
+            display: block;
+            line-height: 46px;
+            padding: 0 25px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333333;
+            text-transform: uppercase;
+            background-color: #e2e2e2;
+        }
+
+        .nav > li .active > a {
+            background-color: #fff;
+            margin-bottom: -1px;
+            border: 1px solid #eeeeee;
+            border-bottom: none;
+            z-index: 100;
+        }
+    }
 }

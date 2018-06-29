@@ -3951,7 +3951,7 @@ span.notify-right{
   z-index: 100;
   position: relative;
 }
-.product-tab .nav-tab>li{
+/*.product-tab .nav-tab>li{
   height: 50px;
   line-height: 50px;
   float: left;
@@ -3963,7 +3963,7 @@ span.notify-right{
   text-align: center;
   margin-right: 8px;
   font-weight: bold;
-}
+}*/
 .product-tab .nav-tab>li:last-child{
   margin-right: 0;
 }

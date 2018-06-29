@@ -50,7 +50,8 @@
 
         
         // Tab
-        $(document).on('click','.block-tab-products .nav-tab a',function(){
+        $(document).on('click', '.block-tab-products .nav-tab a', function () {
+            debugger;
             var time =0;
             var id = $(this).attr('href');
             $(id).find('.products-style8 .product').each(function(i){

@@ -702,6 +702,23 @@ body:not(.device-touch) .social-icon i {
 .post-detail__social {
   float: left; }
 
+.post-detail .product-info-detailed .nav > li > a {
+  display: block;
+  line-height: 46px;
+  padding: 0 25px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  text-transform: uppercase;
+  background-color: #e2e2e2; }
+
+.post-detail .product-info-detailed .nav > li .active > a {
+  background-color: #fff;
+  margin-bottom: -1px;
+  border: 1px solid #eeeeee;
+  border-bottom: none;
+  z-index: 100; }
+
 .gw-contact-shop input, .gw-contact-shop select, .gw-contact-shop textarea {
   border-radius: 0;
   border-color: #958457;
