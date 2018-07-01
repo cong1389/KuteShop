@@ -46,6 +46,8 @@ namespace App.Front
             routes.MapRoute(null, "quan-huyen", new { controller = "Summary", action = "GetDistrictByProvinceId" }, new[] { "App.Front.Controllers" });
             routes.MapRoute("tim-kiem", "tim-kiem", new { controller = "Menu", action = "Search" }, new[] { "App.Front.Controllers" });
 
+            routes.MapRoute(null, "under-construction.html", new { controller = "Home", action = "UnderConstruction" }, new[] { "App.Front.Controllers" });
+
             routes.MapRoute(null, "cart", new { controller = "ShoppingCart", action = "Cart" }, new[] { "App.Front.Controllers" });
 
             routes.MapRoute(null, "{seoUrl}-cttps.html", new { controller = "Post", action = "PostDetail", seoUrl = UrlParameter.Optional }, new[] { "App.Front.Controllers" });

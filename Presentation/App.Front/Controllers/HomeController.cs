@@ -17,7 +17,12 @@ namespace App.Front.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult UnderConstruction()
+        {
+            return View();
+        }
+
         [OutputCache(CacheProfile = "Medium")]
         public ActionResult Index()
         {
@@ -33,10 +38,15 @@ namespace App.Front.Controllers
                 ViewBag.Description = systemSettingLocalize.Description;
                 ViewBag.Image = Url.Content(string.Concat("~/", systemSettingLocalize.LogoImage));
                 ViewBag.Favicon = Url.Content(string.Concat("~/", systemSettingLocalize.FaviconImage));
+
+                if (systemSettingLocalize.MaintanceSite)
+                {
+                    return RedirectToAction("UnderConstruction");
+                }
             }
-            
+
             return View();
         }
-        
+
     }
 }

@@ -45,9 +45,20 @@
                 nav: true,
                 loop: true,
                 autoplay: true,
-                items:1
+                items: 1
             }
         );
+
+        //$('.gw-news-relative').owlCarousel(
+        //    {
+        //        dots: false,
+        //        nav: true,
+        //        loop: true,
+        //        autoplay: true,
+        //        items: 1
+        //    }
+        //);
+
         $(".gw-post-discount,.gw-news-home").each(function (index, el) {
             var config = $(this).data();
             config.nav = true;
@@ -410,6 +421,7 @@
             $(this).toggleClass('active');
             $(this).closest('.block-tab-category').find('.tab-cat').toggleClass('show');
         });
+
         //testimonial-carousel
         if ($('.testimonial-carousel').length > 0) {
             var owl = $('.testimonial-carousel');

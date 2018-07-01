@@ -21,6 +21,13 @@
     overflow: hidden;
     min-height: 110px;
 }
+
+@mixin old-price() {
+    text-decoration: line-through;
+    margin-left: 11px;
+    color: #666;
+    font-size: 12px;
+}
 ///////////////////////////////End Common////////////////////////////
 
 .goweb-cart {
@@ -260,10 +267,30 @@
 }
 
 #left_column {
+    .old-price {
+        @include old-price();
+    }
+
     .left-module {
         margin-bottom: 30px;
         overflow: hidden;
 
+        .product-name {
+            font-size: 15px;
+        }
+
+        .product-price {
+            font-size: 12px;
+            color: #000;
+            font-weight: bold;
+            background: #feca57;
+            padding: 7px 35px;
+            border-radius: 15px;
+        }
+
+        .best-sell li {
+            border-bottom: 1px solid #eaeaea;
+        }
 
         .layered {
             .layered_subtitle {
@@ -323,7 +350,29 @@
         }
 
         .block_content {
-            padding: 10px;
+            padding: 15px 20px;
+
+            .tree-menu li {
+                line-height: 24px;
+                list-style: none;
+
+                > span:before {
+                    content: "\f105";
+                    font-size: 14px;
+                    display: inline-block;
+                    text-align: right;
+                    color: #666;
+                    font-family: "FontAwesome";
+                    padding-right: 12px;
+                    color: #ccc;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                :hover > a {
+                    color: #ff3366;
+                }
+            }
         }
     }
 

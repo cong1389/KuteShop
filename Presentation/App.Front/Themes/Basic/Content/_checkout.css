@@ -188,9 +188,26 @@
     margin-right: 1em;
     float: left; } }
 
+#left_column .old-price, .checkout-cart .old-price {
+  text-decoration: line-through;
+  margin-left: 11px;
+  color: #666;
+  font-size: 12px; }
+
 #left_column .left-module, .checkout-cart .left-module {
   margin-bottom: 30px;
   overflow: hidden; }
+  #left_column .left-module .product-name, .checkout-cart .left-module .product-name {
+    font-size: 15px; }
+  #left_column .left-module .product-price, .checkout-cart .left-module .product-price {
+    font-size: 12px;
+    color: #000;
+    font-weight: bold;
+    background: #feca57;
+    padding: 7px 35px;
+    border-radius: 15px; }
+  #left_column .left-module .best-sell li, .checkout-cart .left-module .best-sell li {
+    border-bottom: 1px solid #eaeaea; }
   #left_column .left-module .layered .layered_subtitle, .checkout-cart .left-module .layered .layered_subtitle {
     color: #666;
     font-size: 16px;
@@ -228,7 +245,23 @@
     padding-top: 11px;
     padding-bottom: 12px; }
   #left_column .block .block_content, .checkout-cart .block .block_content {
-    padding: 10px; }
+    padding: 15px 20px; }
+    #left_column .block .block_content .tree-menu li, .checkout-cart .block .block_content .tree-menu li {
+      line-height: 24px;
+      list-style: none; }
+      #left_column .block .block_content .tree-menu li > span:before, .checkout-cart .block .block_content .tree-menu li > span:before {
+        content: "\f105";
+        font-size: 14px;
+        display: inline-block;
+        text-align: right;
+        color: #666;
+        font-family: "FontAwesome";
+        padding-right: 12px;
+        color: #ccc;
+        font-weight: bold;
+        cursor: pointer; }
+      #left_column .block .block_content .tree-menu li :hover > a, .checkout-cart .block .block_content .tree-menu li :hover > a {
+        color: #ff3366; }
 
 #left_column .cart-items, .checkout-cart .cart-items, #left_column .total-price, .checkout-cart .total-price, #left_column .promotion-name, .checkout-cart .promotion-name {
   border-bottom: 1px solid #eee; }

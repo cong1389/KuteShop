@@ -76,7 +76,9 @@ a {
         text-decoration: none;
     }
 }
-
+ul, ol {
+    list-style: none;
+}
 .fa {
     line-height: inherit;
 }
@@ -84,7 +86,10 @@ a {
 .bold {
     font-weight: bold;
 }
-
+#columns {
+    padding-top: 16px;
+    padding-bottom: 30px;
+}
 .alignleft {
     float: left;
 }
@@ -167,7 +172,7 @@ img {
     //fonts
     $font_0: FontAwesome;
 
-   
+
 
     img {
         display: inline-block;
@@ -469,7 +474,8 @@ img {
 
 
         a, > li + li:before, > .active, li:last-child {
-            color: $text-color
+            color: $text-color;
+            font-weight: normal;
         }
 
         > li + li:before {
