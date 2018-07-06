@@ -11,12 +11,12 @@ using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {
-	public class LocaleResourceController : BaseAdminController
+    public class LocaleResourceController : BaseAdminController
     {
         private const string CacheLanguageKey = "db.Language";
         private const string CacheLocalstringresourceKey = "db.LocaleStringResource";
 
-	    private readonly ILanguageService _langService;
+        private readonly ILanguageService _langService;
 
         private readonly ILocaleStringResourceService _localeStringResourceService;
 
@@ -27,7 +27,7 @@ namespace App.Admin.Controllers
             , ILanguageService langService
              , ICacheManager cacheManager)
         {
-	        _langService = langService;
+            _langService = langService;
             _services = services;
             _localeStringResourceService = localeStringResourceService;
             var cacheManager1 = cacheManager;
@@ -40,8 +40,8 @@ namespace App.Admin.Controllers
         public ActionResult Index(int languageId, int page = 1, string keywords = "")
         {
             var resources = _services.Localization.GetByLanguageId(languageId);
-	        keywords = keywords.ToLower().Trim();
-			resources = resources.Where(m => m.ResourceName.ToLower().Contains(keywords) || m.ResourceValue.ToLower().Contains(keywords));
+            keywords = keywords.ToLower().Trim();
+            resources = resources.Where(m => m.ResourceName.ToLower().Contains(keywords) || m.ResourceValue.ToLower().Contains(keywords));
             ViewBag.Localization = resources.OrderByDescending(m => m.CreatedDate);
 
             //Lưu lại languageId, keywork để k bị mất value text ở view
@@ -54,8 +54,8 @@ namespace App.Admin.Controllers
             return View(resources);
         }
 
-	    [HttpPost]
-		public ActionResult CreateOrSave(LocaleStringResourceViewModel model)
+        [HttpPost]
+        public ActionResult CreateOrSave(LocaleStringResourceViewModel model)
         {
             var locale = _services.Localization.GetById(model.Id);
 
@@ -73,7 +73,7 @@ namespace App.Admin.Controllers
                 var localeByMap = Mapper.Map<LocaleStringResourceViewModel, LocaleStringResource>(model);
                 _localeStringResourceService.Create(localeByMap);
             }
-            
+
             return Json(
                 new
                 {
@@ -92,10 +92,10 @@ namespace App.Admin.Controllers
                 , JsonRequestBehavior.AllowGet);
         }
 
-	    [HttpPost]
-		public ActionResult NewRow(int languageId)
+        [HttpPost]
+        public ActionResult NewRow(int languageId)
         {
-            var model = new LocaleStringResource {LanguageId = languageId };
+            var model = new LocaleStringResource { LanguageId = languageId };
 
             var newRow = this.RenderRazorViewToString("_NewRow", model);
 

@@ -1069,6 +1069,7 @@
     <Content Include="Themes\Basic\Content\images\ico2.png" />
     <Content Include="Themes\Basic\Content\images\loading.gif" />
     <Content Include="Themes\Basic\Content\images\price-percent.png" />
+    <Content Include="Themes\Basic\Content\images\s1.png" />
     <Content Include="Themes\Basic\Content\shared\_buttons.css">
       <DependentUpon>_buttons.scss</DependentUpon>
     </Content>
