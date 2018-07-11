@@ -34,8 +34,6 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public ActionResult ContactUs()
         {
-            //var menuLink = _menuLinkService.GetById(id);
-
             var contactInformation = _contactInfoService.FindBy(x => x.Status == (int)Status.Enable, true);
 
             if (contactInformation == null)

@@ -170,6 +170,7 @@ function handleSuccess(msg) {
 
 $(function () {
     $("#btn-send-contact").click(function (e) {
+        debugger;
         var fromId = "#form-send-Contact";
         formAjax(fromId);
         return false;

@@ -719,6 +719,74 @@ body:not(.device-touch) .social-icon i {
   border-bottom: none;
   z-index: 100; }
 
+.gw-news .blog-posts .post-item {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-bottom: 1px solid #eaeaea;
+  border-top: 1px solid #eaeaea;
+  margin-top: -1px;
+  list-style: none; }
+  .gw-news .blog-posts .post-item .entry-meta-data {
+    padding: 5px 0;
+    color: #666;
+    font-size: 13px; }
+    .gw-news .blog-posts .post-item .entry-meta-data span {
+      margin-right: 5px; }
+  .gw-news .blog-posts .post-item .entry-excerpt {
+    text-align: justify; }
+  .gw-news .blog-posts .post-item _Footer .Intro .entry-more {
+    margin-top: 15px; }
+    .gw-news .blog-posts .post-item _Footer .Intro .entry-more a {
+      border: 1px solid #eaeaea;
+      padding: 10px 12px;
+      background: #eee; }
+
+.gw-news .image-hover2 a {
+  position: relative;
+  display: table;
+  width: 100%; }
+
+.gw-news .image-hover2 a:after {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  content: "";
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  z-index: 1; }
+
+.gw-news .image-hover2 a:hover:after {
+  visibility: visible;
+  opacity: 0.8;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1); }
+
+.gw-news-detail .page-heading {
+  font-size: 16px;
+  font-weight: bold;
+  height: 41px;
+  border-bottom: 1px solid #eaeaea;
+  line-height: 40px;
+  position: relative; }
+
+.gw-news-detail .entry-meta-data {
+  padding: 10px 0;
+  color: #666; }
+
 .gw-contact-shop input, .gw-contact-shop select, .gw-contact-shop textarea {
   border-radius: 0;
   border-color: #958457;
@@ -752,7 +820,7 @@ body:not(.device-touch) .social-icon i {
   .gw-contact-shop .page-subheading {
     padding-left: 0;
     border: none;
-    margin: 14px 0 30px;
+    margin: 14px 0 14px;
     text-transform: uppercase;
     font-size: 18px;
     color: #667; }
@@ -1622,7 +1690,6 @@ div.jGrowl div.jGrowl-closer:hover {
   width: 100%; }
   .gw-msg-empty .service-item {
     padding-left: 35px;
-    border-right: 1px solid #ccc;
     overflow: hidden; }
     .gw-msg-empty .service-item :last-child {
       border-right: none; }

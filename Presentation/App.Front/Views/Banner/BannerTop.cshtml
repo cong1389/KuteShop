@@ -3,25 +3,11 @@
 @model IEnumerable<App.Domain.Entities.Ads.Banner>
 @if (Model.IsAny())
 {
-    <ul class="gw-post-discount product-list owl-carousel">
+    <ul class="gw-banner-top owl-carousel">
         @foreach (var item in Model)
         {
             <li>
-                <section id="title-wrapper" style="background-image: url('@(Url.Content("~/" + item.ImgPath))');">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="title-holder">
-                                    <div class="title-holder-cell text-left">
-                                        <h2 class="page-title">
-                                            <span class="text-uppercase">@ViewBag.Title</span>
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <img src="@(Url.Content(item.ImgPath.ValidateImage()))" alt="category-slider">
             </li>
         }
     </ul>

@@ -10,7 +10,9 @@ namespace App.Front
             //jquery
             bundles.Add(new ScriptBundle("~/bundles/script_jquery").Include(
                         "~/Scripts/jquery-{version}.js"
-                        , "~/Scripts/jquery.validate*"));
+                        , "~/Scripts/jquery.validate*"
+                        , "~/Scripts/jquery.unobtrusive*"
+                        , "~/Scripts/jquery.form*"));
             bundles.Add(new StyleBundle("~/bundles/content_jquery").Include(
                 "~/Content/jquery-ui.css"));
 
@@ -64,11 +66,11 @@ namespace App.Front
 
             //TODO
             BundleTable.EnableOptimizations = true;
-//#if DEBUG
-//            BundleTable.EnableOptimizations = false;
-//#else
-//        BundleTable.EnableOptimizations = true;
-//#endif
+            //#if DEBUG
+            //            BundleTable.EnableOptimizations = false;
+            //#else
+            //        BundleTable.EnableOptimizations = true;
+            //#endif
 
         }
     }

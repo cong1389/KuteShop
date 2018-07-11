@@ -83,44 +83,10 @@ namespace App.Front.Controllers
             return View();
         }
 
-        [PartialCache("Short")]
-        public ActionResult GetFixItemContent(int id)
-        {
-            var menuLink = _menuLinkService.GetMenu(id);
-
-            ViewBag.ImgUrl = menuLink.ImageBigSize;
-            ViewBag.TitleFix = menuLink.MenuName;
-
-            var menuLinks = _menuLinkService.GetByOptions(parentId: new List<int> { id }, isDisplayHomePage: true);
-
-            if (!menuLinks.IsAny())
-            {
-                return Json(new { data = "", success = true }
-                    , JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { data = this.RenderRazorViewToString("_PartialFixItemContent", menuLinks), success = true },
-                JsonRequestBehavior.AllowGet);
-        }
-
-        [PartialCache("Short")]
-        public ActionResult GetLeftFixItem(int id)
-        {
-            var menuLinks = _menuLinkService.GetByOptions(parentId: new List<int> { id }, isDisplayHomePage: true);
-
-            if (!menuLinks.IsAny())
-            {
-                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { data = this.RenderRazorViewToString("_PartialLeftFixItemHome", menuLinks), success = true },
-                JsonRequestBehavior.AllowGet);
-        }
-
         [ChildActionOnly]
         public ActionResult GetStaticContent(int menuId, string virtualId, string title)
         {
-            var staticContent = PrepairStaticContent(menuId, virtualId, title);
+            var staticContent = PrepareStaticContent(menuId, virtualId, title);
 
             return PartialView(staticContent);
         }
@@ -128,12 +94,12 @@ namespace App.Front.Controllers
         [ChildActionOnly]
         public ActionResult GetFixContent(int menuId, string virtualId, string title)
         {
-            var staticContent = PrepairStaticContent(menuId, virtualId, title);
+            var staticContent = PrepareStaticContent(menuId, virtualId, title);
 
             return PartialView(staticContent);
         }
 
-        private App.Domain.Entities.Data.StaticContent PrepairStaticContent(int menuId, string virtualId, string title)
+        private App.Domain.Entities.Data.StaticContent PrepareStaticContent(int menuId, string virtualId, string title)
         {
             var breadCrumbs = new List<BreadCrumb>();
             var virtualIds = virtualId.Split('/');
