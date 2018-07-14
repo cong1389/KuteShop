@@ -107,6 +107,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\External\IExternalAuthenticationMethod.cs" />
+    <Compile Include="Authentication\External\IOpenAuthenticationService.cs" />
+    <Compile Include="Authentication\External\OpenAuthenticationService.cs" />
     <Compile Include="Media\IImageService.cs" />
     <Compile Include="Media\ImageService.cs" />
     <Compile Include="Messages\Events.cs" />
@@ -374,6 +377,7 @@
       <Name>App.Infra.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" /> -->
   <!-- <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild"> -->

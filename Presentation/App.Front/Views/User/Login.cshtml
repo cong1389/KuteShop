@@ -39,7 +39,11 @@
 
                             <button class="button"><i class="fa fa-user"></i> Đăng nhập</button>
                         }
-
+                        
+                        
+                        @{
+                            Html.RenderAction("ExternalMethods", "ExternalAuthentication");
+                        }
                     </div>
 
                 </div>

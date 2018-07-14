@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Front.Models
 {
@@ -18,7 +19,8 @@ namespace App.Front.Models
 		}
 
         [DisplayName("Tên của bạn")]
-		public string FullName
+        [Required(ErrorMessage = "Vui lòng nhập tên.")]
+        public string FullName
 		{
 			get;
 			set;

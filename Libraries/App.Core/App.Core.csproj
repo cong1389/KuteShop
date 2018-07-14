@@ -120,6 +120,7 @@
     <Compile Include="ComponentModel\TypeConversion\TypeConverterAdapter.cs" />
     <Compile Include="ComponentModel\TypeConversion\TypeConverterBase.cs" />
     <Compile Include="ComponentModel\TypeConversion\TypeConverterFactory.cs" />
+    <Compile Include="Configuration\ExternalAuthenticationSettings.cs" />
     <Compile Include="Configuration\ISettings.cs" />
     <Compile Include="Data\DataSettings.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Providers\IProvider.cs" />
     <Compile Include="Plugins\Providers\IProviderManager.cs" />
+    <Compile Include="Plugins\Providers\IUserEditable.cs" />
     <Compile Include="Plugins\Providers\ProviderMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>

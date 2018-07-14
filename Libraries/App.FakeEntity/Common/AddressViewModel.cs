@@ -12,7 +12,6 @@ namespace App.FakeEntity.Common
         }
 
         [Display(Name = "FirstName", ResourceType = typeof(FormUI))]
-        [Required(ErrorMessage = "Vui lòng nhập tên.")]
         [StringLength(150, ErrorMessage = "{0} phải có íth nhất {2} ký tự.", MinimumLength = 1)]
         public string FirstName
         {

@@ -26,7 +26,9 @@ namespace App.Front
                 "~/Content/bootstrap.css"
                , "~/Content/font-awesome.*"));
             bundles.Add(new ScriptBundle("~/bundles/script_bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+               // "~/Scripts/popper.js"
+                "~/Scripts/bootstrap.js"
+                ));
 
             //fancybox
             bundles.Add(new StyleBundle("~/bundles/content_fancybox").Include(

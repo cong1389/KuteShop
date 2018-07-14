@@ -34,9 +34,13 @@
                             {
                                 @Html.ValidationSummary()
                                 <div class="form-group">
+                                    @Html.TextBoxFor(model => model.FullName, new { @class = "form-control input-lg", required = true, autocapitalize = "words", placeholder = Html.DisplayPlaceHolderFor(m => m.FullName) })
+                                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "help-block" })
+                                </div>
+                                <div class="form-group">
                                     @Html.LabelFor(mode => Model.FullName, new { @class = "sr-only" })
                                     @Html.TextBoxFor(model => model.FullName, new { @class = "form-control input-lg", required = true, autocapitalize = "words", placeholder = Html.DisplayPlaceHolderFor(m => m.FullName) })
-
+                                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "help-block" })
                                 </div>
                                 <div class="form-group">
                                     @Html.LabelFor(mode => Model.Email, new { @class = "sr-only" })

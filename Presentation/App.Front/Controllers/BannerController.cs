@@ -26,13 +26,7 @@ namespace App.Front.Controllers
         public ActionResult BannerTop(int? menuId, string title)
         {
             var banners = _bannerService.GetBanners(menuId, (int)Status.Enable, new List<int> { (int)Position.Top });
-            //var banners = _bannerService.FindBy(x =>
-            //    x.MenuId == menuId && x.Status == 1 && x.PageBanner.Position == 1 &&
-            //    (!x.FromDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //    (!x.ToDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
-
+           
             ViewBag.Title = title;
 
             return PartialView(banners);
@@ -43,13 +37,6 @@ namespace App.Front.Controllers
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Bottom });
 
-            //var banners = _bannerService.FindBy(x =>
-            //    x.PageBanner.Position == 9 && x.Status == 1 &&
-            //    (!x.FromDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //    (!x.ToDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
-
             return PartialView(banners);
         }
 
@@ -58,13 +45,6 @@ namespace App.Front.Controllers
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Footer });
 
-            //var banners = _bannerService.FindBy(x =>
-            //    x.PageBanner.Position == 2 && x.Status == 1 &&
-            //    (!x.FromDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //    (!x.ToDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
-
             return PartialView(banners);
         }
 
@@ -72,13 +52,6 @@ namespace App.Front.Controllers
         public ActionResult BannerLeft()
         {
             var banners = _bannerService.GetBanners(status: (int)Status.Enable, position: new List<int> { (int)Position.Left });
-
-            //var banners = _bannerService.FindBy(x =>
-            //    x.PageBanner.Position == 3 && x.Status == 1 &&
-            //    (!x.FromDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) >= 0) &&
-            //    (!x.ToDate.HasValue ||
-            //     DbFunctions.DiffHours(x.ToDate.Value, DateTimeOffset.UtcNow.Offset) <= 0));
 
             return PartialView(banners);
         }

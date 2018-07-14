@@ -15,7 +15,7 @@ using System.Text;
 
 namespace App.Service.Settings
 {
-	public class SettingService : BaseService<Setting>, ISettingService
+    public class SettingService : BaseService<Setting>, ISettingService
 	{
 		private const string CacheKey = "db.Setting.{0}";
 		private readonly ICacheManager _cacheManager;

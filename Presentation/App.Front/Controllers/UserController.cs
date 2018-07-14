@@ -275,6 +275,7 @@ namespace App.Front.Controllers
             }
 
             ViewBag.ReturnUrl = returnUrl;
+
             return View(model);
         }
 

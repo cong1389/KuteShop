@@ -1705,7 +1705,7 @@ div.jGrowl div.jGrowl-closer:hover {
   display: inline-block;
   line-height: 34px; }
 
-.top-header .user-info, .top-header .support-link, .top-header .top-bar-social, .gw-slide .header-top-right .homeslider .bx-controls-direction .bx-prev, .gw-slide .header-top-right .homeslider .bx-controls-direction .bx-next {
+.top-header .support-link, .top-header .top-bar-social, .gw-slide .header-top-right .homeslider .bx-controls-direction .bx-prev, .gw-slide .header-top-right .homeslider .bx-controls-direction .bx-next {
   background: #958457;
   text-indent: 0 !important;
   color: #fff;
@@ -1812,7 +1812,10 @@ img.alignright {
    Header
 */
 .top-header {
-  background: #f6f6f6; }
+  background: #f6f6f6;
+  /*.user-info {
+        @extend %slide__button-direction;
+    }*/ }
   .top-header img {
     display: inline-block;
     vertical-align: middle;

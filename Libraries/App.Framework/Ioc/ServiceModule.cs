@@ -1,5 +1,6 @@
 ﻿using App.AsyncService.Post;
 using App.Core;
+using App.Core.Configuration;
 using App.Core.IO.VirtualPath;
 using App.Core.Plugins;
 using App.Core.Plugins.Providers;
@@ -13,6 +14,7 @@ using App.Service.Account;
 using App.Service.Addresses;
 using App.Service.Ads;
 using App.Service.Attribute;
+using App.Service.Authentication.External;
 using App.Service.Brandes;
 using App.Service.Common;
 using App.Service.ContactInformation;
@@ -140,6 +142,10 @@ namespace App.Framework.Ioc
             builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerRequest();
             builder.RegisterType<ProviderManager>().As<IProviderManager>().InstancePerRequest();
+
+            builder.RegisterType<ExternalAuthenticationSettings>().As<ISettings>().InstancePerRequest();
+            builder.RegisterType<OpenAuthenticationService>().As<IOpenAuthenticationService>().InstancePerRequest();
+           
 
         }
     }
