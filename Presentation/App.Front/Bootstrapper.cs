@@ -22,8 +22,6 @@ public class Bootstrapper
     {
         var container = new ContainerBuilder();
         SetAutofacContainer(container);
-        AutoMapperConfiguration.Configure();
-        FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
 
         return container;
     });

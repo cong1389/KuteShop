@@ -119,6 +119,9 @@
   <ItemGroup>
     <Compile Include="Plugins\PluginMediator.cs" />
     <Compile Include="Plugins\ProviderManager.cs" />
+    <Compile Include="Routing\IRouteProvider.cs" />
+    <Compile Include="Routing\IRoutePublisher.cs" />
+    <Compile Include="Routing\RoutePublisher.cs" />
     <Compile Include="Templating\Filters\AdditionalFilters.cs" />
     <Compile Include="Templating\Liquid\Drops\DictionaryDrop.cs" />
     <Compile Include="Templating\Liquid\Drops\EnumerableWrapper.cs" />

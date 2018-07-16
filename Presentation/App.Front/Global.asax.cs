@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using App.Aplication;
+using App.Core.Infrastructure;
+using App.Framework.FluentValidation;
+using App.Framework.Mappings;
+using App.Framework.Routing;
 using App.Framework.Theme;
+using FluentValidation.Mvc;
 
 namespace App.Front
 {
@@ -12,42 +17,33 @@ namespace App.Front
         protected void Application_Start()
         {
             // Initialize engine context
-            //var engine = EngineContext.Initialize(false);
+            EngineContext.Initialize(false);
 
             Bootstrapper.Run();
 
-            ConfigureViewEngines();
+            // Remove all view engines
+            ViewEngines.Engines.Clear();
+
+            // register our themeable razor view engine we use
+            ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
 
             ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
             ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
 
+            // Fluent validation
+            FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            // register AutoMapper class maps
+            AutoMapperConfiguration.Configure();
         }
 
-        private static void ConfigureAntiForgeryTokens()
+        private static void RegisterRoutes(RouteCollection routes, IEngine engine)
         {
-            AntiForgeryConfig.CookieName = "f";
+            // register routes (core, admin, plugins, etc)
+            var routePublisher = engine.Resolve<RoutePublisher>();
+            routePublisher.RegisterRoutes(routes);
         }
-
-        private static void ConfigureViewEngines()
-        { 
-            // Remove all view engines
-            ViewEngines.Engines.Clear();
-
-            //Add Custom C# Razor View Engine  
-            //ViewEngines.Engines.Add(new RazorViewEngine());
-            ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
-        }
-
-        //public void AnonymousIdentification_Creating(object sender, AnonymousIdentificationEventArgs args)
-        //{
-        //    try
-        //    {
-        //        //var customerService = DependencyResolver.Current.GetService<ICustomerService>();
-        //        //var customer = customerService.GetByGuid(args.AnonymousID.ToString());
-        //        args.AnonymousID = Guid.NewGuid().ToString();
-        //    }
-        //    catch { }
-        //}
     }
 }

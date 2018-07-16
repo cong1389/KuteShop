@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App.Core.Extensions;
 
 namespace App.Core.Infrastructure
 {
@@ -79,6 +80,15 @@ namespace App.Core.Infrastructure
 #pragma warning restore 612, 618
 
             return _containerManager;
+        }
+
+        public T Resolve<T>(string name = null) where T : class
+        {
+            if (name.HasValue())
+            {
+                return ContainerManager.ResolveNamed<T>(name);
+            }
+            return ContainerManager.Resolve<T>();
         }
 
     }

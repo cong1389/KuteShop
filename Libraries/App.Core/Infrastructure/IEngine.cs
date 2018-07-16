@@ -11,5 +11,6 @@ namespace App.Core.Infrastructure
     {
         ContainerManager ContainerManager { get; }
         void Initialize();
+        T Resolve<T>(string name = null) where T : class;
     }
 }

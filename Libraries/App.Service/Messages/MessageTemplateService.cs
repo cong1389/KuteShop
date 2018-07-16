@@ -4,7 +4,7 @@ namespace App.Service.Messages
 {
 	public class MessageTemplateService
     {
-        private const string MESSAGETEMPLATES_BY_NAME_KEY = "SmartStore.messagetemplate.name-{0}-{1}";
+        private const string MESSAGETEMPLATES_BY_NAME_KEY = "App.messagetemplate.name-{0}-{1}";
         private readonly IRequestCache _requestCache;
 
         public MessageTemplateService(IRequestCache requestCache)

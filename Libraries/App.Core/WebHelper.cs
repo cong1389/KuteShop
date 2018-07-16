@@ -463,7 +463,7 @@ namespace App.Core
             var request = WebRequest.CreateHttp(uri);
             request.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
             request.ServicePoint.Expect100Continue = false;
-            request.UserAgent = "SmartStore.NET {0}".FormatInvariant(SmartStoreVersion.CurrentFullVersion);
+            request.UserAgent = "App.NET {0}".FormatInvariant(SmartStoreVersion.CurrentFullVersion);
 
             return request;
         }
@@ -516,7 +516,7 @@ namespace App.Core
             var request = WebRequest.CreateHttp(uri);
             request.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
             request.ServicePoint.Expect100Continue = false;
-            request.UserAgent = "SmartStore.NET";
+            request.UserAgent = "App.NET";
             request.Timeout = timeout;
 
             HttpWebResponse response = null;

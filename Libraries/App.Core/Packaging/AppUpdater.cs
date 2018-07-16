@@ -43,7 +43,7 @@ namespace App.Core.Packaging
             if (!Directory.Exists(dir))
                 return null;
 
-            var files = Directory.GetFiles(dir, "SmartStore.*.nupkg", SearchOption.TopDirectoryOnly);
+            var files = Directory.GetFiles(dir, "App.*.nupkg", SearchOption.TopDirectoryOnly);
 
             // TODO: allow more than one package in folder and return newest
             if (files.Length == 0 || files.Length > 1)
@@ -67,7 +67,7 @@ namespace App.Core.Packaging
 
         private bool ValidatePackage(IPackage package)
         {
-            if (package.Id != "SmartStore")
+            if (package.Id != "App")
                 return false;
 
             var currentVersion = new SemanticVersion(SmartStoreVersion.Version);
@@ -84,7 +84,7 @@ namespace App.Core.Packaging
         {
             var source = new DirectoryInfo(CommonHelper.MapPath("~/"));
 
-            var tempPath = CommonHelper.MapPath("~/App_Data/_Backup/App/SmartStore");
+            var tempPath = CommonHelper.MapPath("~/App_Data/_Backup/App/App");
             string localTempPath = null;
             for (int i = 0; i < 50; i++)
             {
@@ -156,11 +156,11 @@ namespace App.Core.Packaging
             // Move InstalledPlugins.txt
             File.Move(Path.Combine(appDataDir, "InstalledPlugins.txt"), Path.Combine(tenantDir.FullName, "InstalledPlugins.txt"));
 
-            // Move SmartStore.db.sdf
-            var path = Path.Combine(appDataDir, "SmartStore.db.sdf");
+            // Move App.db.sdf
+            var path = Path.Combine(appDataDir, "App.db.sdf");
             if (File.Exists(path))
             {
-                File.Move(path, Path.Combine(tenantDir.FullName, "SmartStore.db.sdf"));
+                File.Move(path, Path.Combine(tenantDir.FullName, "App.db.sdf"));
             }
 
             Func<string, string, bool> moveTenantFolder = (sourceFolder, targetFolder) =>

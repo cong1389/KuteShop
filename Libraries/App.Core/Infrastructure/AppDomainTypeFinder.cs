@@ -12,7 +12,7 @@ using NuGet;
 namespace App.Core.Infrastructure
 {
     /// <summary>
-    /// A class that finds types needed by SmartStore by looping assemblies in the 
+    /// A class that finds types needed by App by looping assemblies in the 
     /// currently executing AppDomain. Only assemblies whose names matches
     /// certain patterns are investigated and an optional list of assemblies
     /// referenced by <see cref="CustomAssemblyNames"/> are always investigated.
@@ -44,7 +44,7 @@ namespace App.Core.Infrastructure
         }
 
         /// <summary>
-		/// Gets or sets wether SmartStore should iterate assemblies in the app domain when loading SmartStore types. Loading patterns are applied when loading these assemblies.
+		/// Gets or sets wether App should iterate assemblies in the app domain when loading App types. Loading patterns are applied when loading these assemblies.
 		/// </summary>
         public bool LoadAppDomainAssemblies
         {
@@ -192,7 +192,7 @@ namespace App.Core.Infrastructure
         /// Checks whether an assembly is one of the shipped system or 3rd party assemblies that don't need to be investigated.
         /// </summary>
         /// <param name="assembly">The assembly to check.</param>
-        /// <returns>True if the assembly should be loaded into SmartStore.</returns>
+        /// <returns>True if the assembly should be loaded into App.</returns>
         public virtual bool Matches(Assembly assembly)
         {
             var name = assembly.FullName;
@@ -203,15 +203,15 @@ namespace App.Core.Infrastructure
                 return false;
             }
 
-            // Check if the passed assembly starts with "SmartStore."
-            if (name.StartsWith("SmartStore.", StringComparison.OrdinalIgnoreCase))
+            // Check if the passed assembly starts with "App."
+            if (name.StartsWith("App.", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            // Check if any of the referenced assemblies of the passed assembly start with "SmartStore."
-            // In this case it's obviously a SmartStore plugin.
-            if (assembly.GetReferencedAssemblies().Any(x => x.FullName.StartsWith("SmartStore.", StringComparison.OrdinalIgnoreCase)))
+            // Check if any of the referenced assemblies of the passed assembly start with "App."
+            // In this case it's obviously a App plugin.
+            if (assembly.GetReferencedAssemblies().Any(x => x.FullName.StartsWith("App.", StringComparison.OrdinalIgnoreCase)))
             {
                 return true;
             }

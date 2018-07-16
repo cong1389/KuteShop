@@ -21,7 +21,7 @@ namespace App.Core.Caching
 
         public MemoryCacheManager()
         {
-            _cache = new MemoryCache("SmartStore");
+            _cache = new MemoryCache("App");
         }
 
         public bool IsDistributedCache => false;

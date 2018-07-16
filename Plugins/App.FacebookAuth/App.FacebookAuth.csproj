@@ -151,6 +151,11 @@
       <Name>App.Core</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\App.Framework\App.Framework.csproj">
+      <Project>{D57A5702-7595-4360-A5E0-BDB36BBA8A25}</Project>
+      <Name>App.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\App.Service\App.Service.csproj">
       <Project>{66967DF3-D493-4C60-ADE9-B3F616F83B8D}</Project>
       <Name>App.Service</Name>

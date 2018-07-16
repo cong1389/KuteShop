@@ -41,7 +41,7 @@ namespace App.Core.Infrastructure
 
 				if (!typeof(IEngine).IsAssignableFrom(engineType))
 				{
-					throw new ConfigurationErrorsException("The type '" + engineType + "' doesn't implement 'SmartStore.Core.Infrastructure.IEngine' and cannot be configured in /configuration/appSettings/add[@key=sm:EngineType] for that purpose.");
+					throw new ConfigurationErrorsException("The type '" + engineType + "' doesn't implement 'App.Core.Infrastructure.IEngine' and cannot be configured in /configuration/appSettings/add[@key=sm:EngineType] for that purpose.");
 				}
 
 				return Activator.CreateInstance(engineType) as IEngine;

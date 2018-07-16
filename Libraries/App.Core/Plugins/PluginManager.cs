@@ -72,7 +72,7 @@ namespace App.Core.Plugins
             var isFullTrust = WebHelper.GetTrustLevel() == AspNetHostingPermissionLevel.Unrestricted;
             if (!isFullTrust)
             {
-                throw new ApplicationException("SmartStore.NET requires Full Trust mode. Please enable Full Trust for your web site or contact your hosting provider.");
+                throw new ApplicationException("App.NET requires Full Trust mode. Please enable Full Trust for your web site or contact your hosting provider.");
             }
 
             using (var updater = new AppUpdater())
@@ -510,7 +510,7 @@ namespace App.Core.Plugins
             if (plugin.Directory?.Parent == null)
             {
                 throw new InvalidOperationException("The plugin directory for the " + plugin.Name +
-                                                    " file exists in a folder outside of the allowed SmartStore folder hierarchy");
+                                                    " file exists in a folder outside of the allowed App folder hierarchy");
             }
 
             var probedPlugin = InitializeFullTrust(plugin, performShadowCopy);

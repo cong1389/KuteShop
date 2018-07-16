@@ -139,13 +139,18 @@ namespace App.Framework.Ioc
 	        builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
 	        builder.RegisterType<SettingService>().As<ISettingService>().InstancePerRequest();
 
-            builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
+            //builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerRequest();
             builder.RegisterType<WebHelper>().As<IWebHelper>().InstancePerRequest();
             builder.RegisterType<ProviderManager>().As<IProviderManager>().InstancePerRequest();
 
             builder.RegisterType<ExternalAuthenticationSettings>().As<ISettings>().InstancePerRequest();
             builder.RegisterType<OpenAuthenticationService>().As<IOpenAuthenticationService>().InstancePerRequest();
-           
+
+            // plugins
+            var pluginFinder = new PluginFinder();
+            builder.RegisterInstance(pluginFinder).As<IPluginFinder>().SingleInstance();
+            builder.RegisterType<PluginMediator>();
+
 
         }
     }

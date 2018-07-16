@@ -7,15 +7,15 @@ namespace App.Core.Infrastructure
 {
     /// <summary>
     /// Classes implementing this interface provide information about types 
-    /// to various services in the SmartStore engine.
+    /// to various services in the App engine.
     /// </summary>
     public interface ITypeFinder
     {
         ///// <summary>
-        ///// Gets all SmartStore specific assemblies (core & all plugins)
+        ///// Gets all App specific assemblies (core & all plugins)
         ///// </summary>
         ///// <param name="ignoreInactivePlugins">Indicates whether uninstalled plugin's assemblies should be ignored</param>
-        ///// <returns>A list of assemblies that should be loaded by the SmartStore factory.</returns>
+        ///// <returns>A list of assemblies that should be loaded by the App factory.</returns>
         IEnumerable<Assembly> GetAssemblies(bool ignoreInactivePlugins = false);
         IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true);
     }
