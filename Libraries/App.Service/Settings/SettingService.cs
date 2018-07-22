@@ -33,7 +33,7 @@ namespace App.Service.Settings
 			return (T)LoadSettingCore(typeof(T));
 		}
 
-		protected virtual ISettings LoadSettingCore(Type settingType)
+        protected virtual ISettings LoadSettingCore(Type settingType)
 		{
 			var settings = (ISettings)Activator.CreateInstance(settingType);
 

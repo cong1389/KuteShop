@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using App.Aplication;
+using App.Core.Data;
 using App.Core.Infrastructure;
 using App.Framework.FluentValidation;
 using App.Framework.Mappings;
@@ -16,27 +17,49 @@ namespace App.Front
     {
         protected void Application_Start()
         {
+            bool installed = DataSettings.DatabaseIsInstalled();
+
+            if (installed)
+            {
+                // Remove all view engines
+                ViewEngines.Engines.Clear();
+            }
             // Initialize engine context
             EngineContext.Initialize(false);
-
-            Bootstrapper.Run();
-
-            // Remove all view engines
-            ViewEngines.Engines.Clear();
-
-            // register our themeable razor view engine we use
-            ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
 
             ModelBinders.Binders.Add(typeof(DateTime), new DateTimeModelBinder());
             ModelBinders.Binders.Add(typeof(DateTime?), new DateTimeModelBinder());
 
+            // Register MVC areas
+            AreaRegistration.RegisterAllAreas();
+
+            //Bootstrapper.Run();
+
             // Fluent validation
             FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
+            if (installed)
+            {
+                // register our themeable razor view engine we use
+                ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
+
+                // Global filters
+                RegisterGlobalFilters();
+
+                RegisterClassMaps();
+            }
+        }
+
+        public static void RegisterClassMaps()
+        {
             // register AutoMapper class maps
             AutoMapperConfiguration.Configure();
+        }
+
+        public static void RegisterGlobalFilters()
+        {
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
 
         private static void RegisterRoutes(RouteCollection routes, IEngine engine)

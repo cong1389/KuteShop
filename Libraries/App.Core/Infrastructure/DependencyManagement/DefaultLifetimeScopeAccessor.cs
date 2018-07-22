@@ -48,7 +48,10 @@ namespace App.Core.Infrastructure.DependencyManagement
 					_state.RemoveState();
 				}
 			}
-			catch { }
+		    catch
+		    {
+		        // ignored
+		    }
 		}
 
 		public ILifetimeScope GetLifetimeScope(Action<ContainerBuilder> configurationAction)

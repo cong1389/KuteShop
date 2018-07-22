@@ -107,9 +107,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\External\AuthorizationResult.cs" />
+    <Compile Include="Authentication\External\AuthorizeState.cs" />
     <Compile Include="Authentication\External\IExternalAuthenticationMethod.cs" />
+    <Compile Include="Authentication\External\IExternalProviderAuthorizer.cs" />
     <Compile Include="Authentication\External\IOpenAuthenticationService.cs" />
     <Compile Include="Authentication\External\OpenAuthenticationService.cs" />
+    <Compile Include="Authentication\External\OpenAuthenticationStatus.cs" />
+    <Compile Include="Common\ICommonServicesExtensions.cs" />
     <Compile Include="Media\IImageService.cs" />
     <Compile Include="Media\ImageService.cs" />
     <Compile Include="Messages\Events.cs" />

@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using App.Core;
+﻿using App.Core;
 using App.Core.Caching;
 using App.Service.Customers;
 using App.Service.LocaleStringResource;
+using App.Service.Settings;
 
 namespace App.Service.Common
 {
@@ -23,14 +23,8 @@ namespace App.Service.Common
             get;
         }
 
-        IWebHelper WebHelper { get; }
-    }
+        ISettingService Settings { get; }
 
-    public static class ICommonServicesExtensions
-    {
-        public static TService Resolve<TService>(this ICommonServices services)
-        {
-            return DependencyResolver.Current.GetService<TService>();
-        }
+        IWebHelper WebHelper { get; }
     }
 }

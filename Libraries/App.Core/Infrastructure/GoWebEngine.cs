@@ -5,7 +5,9 @@ using Autofac.Integration.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using App.Core.Data;
 using App.Core.Extensions;
 
 namespace App.Core.Infrastructure
@@ -22,7 +24,7 @@ namespace App.Core.Infrastructure
 
             //if (DataSettings.DatabaseIsInstalled())
             //{
-            //    RunStartupTasks();
+            RunStartupTasks();
             //}
         }
 
@@ -89,6 +91,36 @@ namespace App.Core.Infrastructure
                 return ContainerManager.ResolveNamed<T>(name);
             }
             return ContainerManager.Resolve<T>();
+        }
+
+        protected virtual void RunStartupTasks()
+        {
+            var typeFinder = _containerManager.Resolve<ITypeFinder>();
+            var startUpTaskTypes = typeFinder.FindClassesOfType<IStartupTask>(ignoreInactivePlugins: true);
+            var startUpTasks = new List<IStartupTask>();
+
+            foreach (var startUpTaskType in startUpTaskTypes)
+            {
+                startUpTasks.Add((IStartupTask)Activator.CreateInstance(startUpTaskType));
+            }
+
+            // execute tasks async grouped by order
+            var groupedTasks = startUpTasks.OrderBy(st => st.Order).ToLookup(x => x.Order);
+            foreach (var tasks in groupedTasks)
+            {
+                Parallel.ForEach(tasks, task =>
+                {
+                    try
+                    {
+                        //Logger.DebugFormat("Executing startup task '{0}'", task.GetType().FullName);
+                        task.Execute();
+                    }
+                    catch (Exception)
+                    {
+                        //Logger.ErrorFormat(ex, "Error while executing startup task '{0}'", task.GetType().FullName);
+                    }
+                });
+            }
         }
 
     }

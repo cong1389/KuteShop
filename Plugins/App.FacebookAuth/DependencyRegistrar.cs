@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using App.Core.Infrastructure;
+﻿using App.Core.Infrastructure;
 using App.Core.Infrastructure.DependencyManagement;
+using App.FacebookAuth.Core;
 using Autofac;
 
 namespace App.FacebookAuth
@@ -11,7 +9,7 @@ namespace App.FacebookAuth
     {
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, bool isActiveModule)
         {
-           // builder.RegisterType<FacebookProviderAuthorizer>().As<IOAuthProviderFacebookAuthorizer>().InstancePerRequest();
+            builder.RegisterType<FacebookProviderAuthorizer>().As<IOAuthProviderFacebookAuthorizer>().InstancePerRequest();
         }
 
         public int Order => 1;

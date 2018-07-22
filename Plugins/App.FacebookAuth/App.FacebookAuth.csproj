@@ -124,8 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ExternalAuthFacebookController.cs" />
+    <Compile Include="Core\FacebookProviderAuthorizer.cs" />
+    <Compile Include="Core\IOAuthProviderFacebookAuthorizer.cs" />
     <Compile Include="DependencyRegistrar.cs" />
     <Compile Include="FacebookExternalAuthMethod.cs" />
+    <Compile Include="FacebookExternalAuthSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteProvider.cs" />
   </ItemGroup>
@@ -150,6 +153,10 @@
       <Project>{22EBD28A-55C0-4D91-AB94-3B75A40584DE}</Project>
       <Name>App.Core</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\App.Domain\App.Domain.csproj">
+      <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
+      <Name>App.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\App.Framework\App.Framework.csproj">
       <Project>{D57A5702-7595-4360-A5E0-BDB36BBA8A25}</Project>

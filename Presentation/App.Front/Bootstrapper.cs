@@ -29,23 +29,23 @@ public class Bootstrapper
     private static void SetAutofacContainer(ContainerBuilder containerBuilder)
     {
         //ContainerBuilder containerBuilder = new ContainerBuilder();
-        Assembly[] array = (
-            from Assembly p in BuildManager.GetReferencedAssemblies()
-            where p.ManifestModule.Name.StartsWith("App.")
-            select p).ToArray();
+        //Assembly[] array = (
+        //    from Assembly p in BuildManager.GetReferencedAssemblies()
+        //    where p.ManifestModule.Name.StartsWith("App.")
+        //    select p).ToArray();
 
-        containerBuilder.RegisterControllers(array);
-        containerBuilder.RegisterAssemblyModules(array);
+        //containerBuilder.RegisterControllers(array);
+        //containerBuilder.RegisterAssemblyModules(array);
         //containerBuilder.RegisterApiControllers(array);
         containerBuilder.RegisterFilterProvider();
         containerBuilder.RegisterSource(new ViewRegistrationSource());
-        containerBuilder.RegisterModule(new EFModule());
-        containerBuilder.RegisterModule(new RepositoryModule());
-        containerBuilder.RegisterModule(new IdentityModule());
-        containerBuilder.RegisterModule(new ServiceModule());
+        //containerBuilder.RegisterModule(new EFModule());
+        //containerBuilder.RegisterModule(new RepositoryModule());
+        //containerBuilder.RegisterModule(new IdentityModule());
+        //containerBuilder.RegisterModule(new ServiceModule());
 
-        IContainer container = containerBuilder.Build(ContainerBuildOptions.IgnoreStartableComponents);
-        //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-        DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        //IContainer container = containerBuilder.Build(ContainerBuildOptions.IgnoreStartableComponents);
+        ////GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+        //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
     }
 }

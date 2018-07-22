@@ -184,14 +184,7 @@ namespace App.Core.Infrastructure.DependencyManagement
             return scope ?? _container;
         }
 
-        public ILifetimeScopeAccessor ScopeAccessor
-        {
-            get
-            {
-                return _container.Resolve<ILifetimeScopeAccessor>();
-            }
-        }
-
+        public ILifetimeScopeAccessor ScopeAccessor => _container.Resolve<ILifetimeScopeAccessor>();
     }
 
     public static class ContainerManagerExtensions

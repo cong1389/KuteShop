@@ -1,15 +1,13 @@
-﻿using System;
+﻿using App.Core.Data;
+using App.Core.Extensions;
+using App.Core.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using App.Core.Data;
-using App.Core.Extensions;
-using App.Core.Plugins;
-using App.Core.Utilities;
 
 namespace App.Core.Plugins
 {
@@ -135,10 +133,7 @@ namespace App.Core.Plugins
 
             foreach (var p in plugins)
             {
-                if (p.ReferencedLocalAssemblyFiles != null)
-                {
-                    p.ReferencedLocalAssemblyFiles.Each(x => list.Add(x.Name));
-                }
+                p.ReferencedLocalAssemblyFiles?.Each(x => list.Add(x.Name));
 
                 if (p.OriginalAssemblyFile != null)
                 {
@@ -174,10 +169,7 @@ namespace App.Core.Plugins
                     hashCombiner.Add(p.OriginalAssemblyFile);
                 }
 
-                if (p.ReferencedLocalAssemblyFiles != null)
-                {
-                    p.ReferencedLocalAssemblyFiles.Each(x => hashCombiner.Add(x));
-                }
+                p.ReferencedLocalAssemblyFiles?.Each(x => hashCombiner.Add(x));
 
                 hashCombiner.Add(Path.Combine(p.PhysicalPath, "Description.txt"));
                 hashCombiner.Add(Path.Combine(p.PhysicalPath, "web.config"));
@@ -206,7 +198,10 @@ namespace App.Core.Plugins
                 f.Delete();
                 return true;
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             // If the file doesn't delete, then create the .delete file for it, hopefully the BuildManager will clean up next time
             var newName = GetNewDeleteName(f);
@@ -231,7 +226,10 @@ namespace App.Core.Plugins
             {
                 (new StreamWriter(newName)).Close();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             Debug.WriteLine("Stale plugin " + f.FullName + " failed to cleanup successfully. A .delete file has been created for it");
 
@@ -314,15 +312,17 @@ namespace App.Core.Plugins
                 // Now try to remove the .delete file
                 f.Delete();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return true;
         }
 
         internal static int ConvertPluginsHash(string val)
         {
-            int outVal;
-            if (Int32.TryParse(val, NumberStyles.Integer, CultureInfo.InvariantCulture, out outVal))
+            if (int.TryParse(val, NumberStyles.Integer, CultureInfo.InvariantCulture, out var outVal))
             {
                 return outVal;
             }
