@@ -1,2 +1,2 @@
-App.Shout
 App.FacebookAuth
+App.Shout

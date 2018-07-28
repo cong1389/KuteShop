@@ -162,10 +162,14 @@
     <Compile Include="Packaging\FolderUpdater.cs" />
     <Compile Include="Packaging\PackageInfo.cs" />
     <Compile Include="Plugins\BasePlugin.cs" />
+    <Compile Include="Plugins\DependentWidgetsAttribute.cs" />
+    <Compile Include="Plugins\DisplayOrderAttribute.cs" />
+    <Compile Include="Plugins\FriendlyNameAttribute.cs" />
     <Compile Include="Plugins\IConfigurable.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginFinder.cs" />
     <Compile Include="Plugins\IPreApplicationStart.cs" />
+    <Compile Include="Plugins\IsHiddenAttribute.cs" />
     <Compile Include="Plugins\PluginDescriptor.cs" />
     <Compile Include="Plugins\PluginFileParser.cs" />
     <Compile Include="Plugins\PluginFinder.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="Plugins\Providers\IProviderManager.cs" />
     <Compile Include="Plugins\Providers\IUserEditable.cs" />
     <Compile Include="Plugins\Providers\ProviderMetadata.cs" />
+    <Compile Include="Plugins\SystemNameAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -186,6 +191,7 @@
     <Compile Include="Utilities\ActionDisposable.cs" />
     <Compile Include="Utilities\CommonHelper.cs" />
     <Compile Include="Utilities\HashCodeCombiner.cs" />
+    <Compile Include="Utilities\Inflector.cs" />
     <Compile Include="Utilities\MessageTemplateConverter.cs" />
     <Compile Include="Utilities\SortBuilder.cs">
       <AutoGen>false</AutoGen>

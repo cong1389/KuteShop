@@ -8,13 +8,13 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0E05B9DD-F312-4389-84A9-4F11A0B48DF7}</ProjectGuid>
+    <ProjectGuid>{1E03A43D-0723-4165-887C-02B4D7F67BE9}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>App.FacebookAuth</RootNamespace>
-    <AssemblyName>App.FacebookAuth</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>App.GoogleAnalytics</RootNamespace>
+    <AssemblyName>App.GoogleAnalytics</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -24,15 +24,18 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Presentation\App.Front\Plugins\App.FacebookAuth\</OutputPath>
+    <OutputPath>..\..\Presentation\App.Front\Plugins\App.GoogleAnalytics\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,43 +47,64 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Microsoft.CSharp">
       <Private>False</Private>
     </Reference>
-    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.7.6.0\lib\net45\FluentValidation.dll</HintPath>
+    <Reference Include="SmartStore.Core">
+      <HintPath>..\..\lib\SmartStore.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FluentValidation.Mvc, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.Mvc5.7.6.0\lib\net45\FluentValidation.Mvc.dll</HintPath>
+    <Reference Include="SmartStore.Data">
+      <HintPath>..\..\lib\SmartStore.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SmartStore.Services">
+      <HintPath>..\..\lib\SmartStore.Services.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
+    <Reference Include="SmartStore.Web.Framework">
+      <HintPath>..\..\lib\SmartStore.Web.Framework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -117,27 +141,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\icon.png" />
     <Content Include="Description.txt" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Localization\resources.de-de.xml" />
+    <Content Include="Localization\resources.en-us.xml" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ExternalAuthFacebookController.cs" />
-    <Compile Include="Core\FacebookProviderAuthorizer.cs" />
-    <Compile Include="Core\IOAuthProviderFacebookAuthorizer.cs" />
-    <Compile Include="DependencyRegistrar.cs" />
-    <Compile Include="FacebookExternalAuthMethod.cs" />
-    <Compile Include="FacebookExternalAuthSettings.cs" />
+    <Compile Include="Controllers\WidgetsGoogleAnalyticsController.cs" />
+    <Compile Include="GoogleAnalyticPlugin.cs" />
+    <Compile Include="GoogleAnalyticsSettings.cs" />
+    <Compile Include="Models\ConfigurationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RouteProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\WidgetsGoogleAnalytics\Configure.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\ExternalAuthFacebook\PublicInfo.cshtml" />
-    <Content Include="Views\ExternalAuthFacebook\Configure.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,28 +168,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Providers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\App.Core\App.Core.csproj">
-      <Project>{22EBD28A-55C0-4D91-AB94-3B75A40584DE}</Project>
-      <Name>App.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\App.Domain\App.Domain.csproj">
-      <Project>{396FF6DF-0F55-4C8F-9B2F-233F439DA8F6}</Project>
-      <Name>App.Domain</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\App.Framework\App.Framework.csproj">
-      <Project>{D57A5702-7595-4360-A5E0-BDB36BBA8A25}</Project>
-      <Name>App.Framework</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\App.Service\App.Service.csproj">
-      <Project>{66967DF3-D493-4C60-ADE9-B3F616F83B8D}</Project>
-      <Name>App.Service</Name>
+    <ProjectReference Include="..\..\Presentation\App.Front\App.Front.csproj">
+      <Project>{5E341B3D-FF3D-4EB9-80E3-2222A6E5DF60}</Project>
+      <Name>App.Front</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -184,9 +187,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>65293</DevelopmentServerPort>
+          <DevelopmentServerPort>61963</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:65293/</IISUrl>
+          <IISUrl>http://localhost:61963/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

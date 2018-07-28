@@ -1,0 +1,9 @@
+﻿FriendlyName: Google Analytics
+SystemName: App.GoogleAnalytics
+Group: Analytics
+Version: 1.0.0.0
+MinAppVersion: 1.0.0.0
+DisplayOrder: 1
+FileName: App.GoogleAnalytics.dll
+ResourceRootKey: Plugins.Widgets.GoogleAnalytics
+Url: http://community.smartstore.com/marketplace/file/25-google-analytics/

@@ -3,11 +3,13 @@ using App.Core.Caching;
 using App.Service.LocaleStringResource;
 using System;
 using App.Service.Settings;
+using Autofac;
 
 namespace App.Service.Common
 {
     public class CommonServices : ICommonServices
     {
+        private readonly IComponentContext _container;
         private readonly Lazy<IWorkContext> _workContext;
         private readonly Lazy<ILocaleStringResourceService> _localization;
         private readonly Lazy<ICacheManager> _cacheManager;
@@ -33,5 +35,7 @@ namespace App.Service.Common
         public IWebHelper WebHelper => _webHelper.Value;
 
         public ISettingService Settings => _settings.Value;
+
+        public IComponentContext Container => _container;
     }
 }

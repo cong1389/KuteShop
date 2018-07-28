@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using App.Admin.Areas.Admin.Extensions;
+﻿using App.Admin.Areas.Admin.Extensions;
 using App.Admin.Areas.Model.Plugins;
 using App.Core.Extensions;
 using App.Core.Plugins;
 using App.FakeEntity.Plugins;
 using App.Service.Common;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace App.Admin.Controllers
 {
-	public class PluginController : BaseAdminController
+    public class PluginController : BaseAdminController
 	{
 		private readonly IPluginFinder _pluginFinder;
 		private readonly ICommonServices _services;
@@ -86,10 +85,7 @@ namespace App.Admin.Controllers
 					{
 						var configurable = pluginDescriptor.Instance() as IConfigurable;
 
-						string actionName;
-						string controllerName;
-						RouteValueDictionary routeValues;
-						configurable.GetConfigurationRoute(out actionName, out controllerName, out routeValues);
+					    configurable.GetConfigurationRoute(out var actionName, out var controllerName, out _);
 
 						if (actionName.HasValue() && controllerName.HasValue())
 						{

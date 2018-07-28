@@ -23,10 +23,14 @@ namespace App.FacebookAuth.Controllers
             _services = services;
         }
 
-        // GET: ExternalAuthFacebook
-        public ActionResult Index()
+        public ActionResult Login(string returnUrl)
         {
             return View();
+        }
+
+        public ActionResult Configure(FacebookExternalAuthSettings settings)
+        {
+            return View(settings);
         }
 
         [ChildActionOnly]

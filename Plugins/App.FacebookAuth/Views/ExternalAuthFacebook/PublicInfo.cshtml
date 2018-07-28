@@ -1,0 +1,9 @@
+﻿@{
+    Layout = "";
+}
+
+<a class="btn btn-primary btn-icon btn-lg btn-extauth btn-brand-facebook" data-toggle="tooltip" 
+   href="@Url.RouteUrl("App.FacebookAuth", new { ReturnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"], action = "Login" })">
+    <i class="fa fa-fw fa-lg fa-facebook"></i>
+</a>
+

@@ -37,10 +37,9 @@ namespace App.Front
 
             // Fluent validation
             FluentValidationModelValidatorProvider.Configure(provider => provider.ValidatorFactory = new FluentValidationConfig());
-
-
-            if (installed)
-            {
+            
+            //if (installed)
+            //{
                 // register our themeable razor view engine we use
                 ViewEngines.Engines.Add(new ThemeableRazorViewEngine());
 
@@ -48,7 +47,7 @@ namespace App.Front
                 RegisterGlobalFilters();
 
                 RegisterClassMaps();
-            }
+            //}
         }
 
         public static void RegisterClassMaps()

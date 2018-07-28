@@ -65,13 +65,13 @@
             <td class="table-download">
                 @if (plugin.Installed)
                 {
-                    <button type="button" attr-data="1" id="unplugins-form" class="btn default ">
+                    <button type="button" attr-data="1" id="unplugins-form" class="btn default unplugins-form">
                         Gỏ bỏ
                     </button>
                 }
                 else
                 {
-                    <button type="button" attr-data="1" id="plugins-form" class="btn green">
+                    <button type="button" attr-data="1" id="plugins-form" class="btn green plugins-form">
                         Cài đặt
                     </button>
                 }
@@ -80,7 +80,7 @@
     }
 }
 <script>
-	$("#plugins-form").on('click', function (e) {
+	$(".plugins-form").on('click', function (e) {
 
 		var el = $(this),
 			systemName = el.closest(".module-item").data("system-name");
@@ -88,7 +88,7 @@
 	    excuteTask(systemName,null);
     });
 
-	$("#unplugins-form").on('click', function (e) {
+	$(".unplugins-form").on('click', function (e) {
 
 	    var el = $(this),
 	        systemName = el.closest(".module-item").data("system-name");
