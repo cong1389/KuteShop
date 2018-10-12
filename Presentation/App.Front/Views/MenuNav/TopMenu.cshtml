@@ -32,7 +32,24 @@
 												<ul class="block">
 													@foreach (var lv2 in lv1.ChildNavMenu)
 													{
-														<li class="link_container"><a href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))" title="@lv2.MenuName">@lv2.MenuName</a></li>
+													    <li class="link_container">
+													        <a href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))" title="@lv2.MenuName">@lv2.MenuName</a>
+													        @if (lv2.ChildNavMenu.IsAny())
+													        {
+													            <ul class="dropdown-menu container-fluid">
+													                <li class="block-container">
+													                    <ul class="block">
+													                        @foreach (var lv3 in lv1.ChildNavMenu)
+													                        {
+													                            <li class="link_container">
+													                                <a href="@(lv3.OtherLink = lv3.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv3.SeoUrl, area = ""}))" title="@lv3.MenuName">@lv3.MenuName</a>
+													                            </li>
+													                        }
+													                    </ul>
+													                </li>
+													            </ul>
+													        }
+													    </li>
 													}
 												</ul>
 											</li>
