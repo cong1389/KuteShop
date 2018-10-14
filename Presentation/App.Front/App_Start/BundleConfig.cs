@@ -66,6 +66,10 @@ namespace App.Front
             bundles.Add(new ScriptBundle("~/bundles/script_theme").Include(
                 "~/Themes/Basic/Scripts/goweb.*"));
 
+            //Angular
+            bundles.Add(new ScriptBundle("~/bundles/script_angular").Include(
+               "~/Scripts/angular.*"));
+
             //TODO
             BundleTable.EnableOptimizations = true;
             //#if DEBUG

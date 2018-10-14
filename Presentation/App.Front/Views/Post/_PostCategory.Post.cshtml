@@ -40,7 +40,7 @@
 				<div class="product-container">
 					<div class="left-block">
 						<a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})" title="@post.Title">
-							<img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
+							<img class="img-responsive" alt="@post.Title" src="@(post.ImageMediumSize.ValidateImage())?size=400" />
 						</a>
 						@if (post.Discount.HasValue && !post.OutOfStock)
 						{

@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.FacebookAuth", "Plugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.GoogleAnalytics", "Plugins\App.GoogleAnalytics\App.GoogleAnalytics.csproj", "{1E03A43D-0723-4165-887C-02B4D7F67BE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Api", "App.Api\App.Api.csproj", "{A1AC12A7-F300-4818-A542-B7F8F512C7AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,14 @@ Global
 		{1E03A43D-0723-4165-887C-02B4D7F67BE9}.PluginDev|Any CPU.Build.0 = Release|Any CPU
 		{1E03A43D-0723-4165-887C-02B4D7F67BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E03A43D-0723-4165-887C-02B4D7F67BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.EFMigrations|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.EFMigrations|Any CPU.Build.0 = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.PluginDev|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.PluginDev|Any CPU.Build.0 = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AC12A7-F300-4818-A542-B7F8F512C7AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
