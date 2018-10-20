@@ -4,12 +4,12 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.PositionMenuLink
 {
-    public interface IPositionMenuLinkRepository : IRepositoryBase<Domain.Entities.Menu.PositionMenuLink>
+    public interface IPositionMenuLinkRepository : IRepositoryBase<Domain.Menu.PositionMenuLink>
 	{
-		Domain.Entities.Menu.PositionMenuLink GetById(int id);
+		Domain.Menu.PositionMenuLink GetById(int id);
 
-		IEnumerable<Domain.Entities.Menu.PositionMenuLink> PagedList(Paging page);
+		IEnumerable<Domain.Menu.PositionMenuLink> PagedList(Paging page);
 
-		IEnumerable<Domain.Entities.Menu.PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<Domain.Menu.PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

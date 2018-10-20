@@ -4,8 +4,8 @@ using App.Domain.Interfaces.Services;
 
 namespace App.Service.PositionMenuLink
 {
-    public interface IPositionMenuLinkService : IBaseService<Domain.Entities.Menu.PositionMenuLink>
+    public interface IPositionMenuLinkService : IBaseService<App.Domain.Menu.PositionMenuLink>
     {
-        Domain.Entities.Menu.PositionMenuLink GetById(int id, bool isCache = true);
+        App.Domain.Menu.PositionMenuLink GetById(int id, bool isCache = true);
     }
 }

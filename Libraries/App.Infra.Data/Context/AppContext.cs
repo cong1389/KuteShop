@@ -93,7 +93,7 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public virtual IDbSet<PositionMenuLink> PositionMenuLinks
+        public virtual IDbSet<Domain.Menu.PositionMenuLink> PositionMenuLinks
         {
             get;
             set;

@@ -305,7 +305,7 @@ namespace App.Admin.Controllers
                 }
 
                 //Get PositionMenuLink selected
-                var positionMenuLinks = new List<PositionMenuLink>();
+                var positionMenuLinks = new List<Domain.Menu.PositionMenuLink>();
                 var positionIds = new List<int>();
 
                 var position = Request["Position"];

@@ -177,7 +177,7 @@ namespace App.Framework.Mappings
                    .ForMember(x => x.ParentMenu, map => map.Ignore())
                    .ForMember(x => x.GenericControls, map => map.Condition(source => source.GenericControls.Any()));
 
-            CreateMap<PositionMenuLinkViewModel, PositionMenuLink>()
+            CreateMap<PositionMenuLinkViewModel, Domain.Menu.PositionMenuLink>()
                 .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
                  .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));

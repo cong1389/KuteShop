@@ -8,7 +8,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.PositionMenuLink
 {
-    public class PositionMenuLinkService : BaseService<Domain.Entities.Menu.PositionMenuLink>, IPositionMenuLinkService
+    public class PositionMenuLinkService : BaseService<Domain.Menu.PositionMenuLink>, IPositionMenuLinkService
     {
         private const string CacheGenericcontrolKey = "db.PositionMenuLink.{0}";
         private readonly ICacheManager _cacheManager;
@@ -22,9 +22,9 @@ namespace App.Service.PositionMenuLink
             _cacheManager = cacheManager;
         }
 
-        public Domain.Entities.Menu.PositionMenuLink GetById(int id, bool isCache = true)
+        public Domain.Menu.PositionMenuLink GetById(int id, bool isCache = true)
         {
-            Domain.Entities.Menu.PositionMenuLink genericControl;
+            Domain.Menu.PositionMenuLink genericControl;
 
             if (isCache)
             {
@@ -33,7 +33,7 @@ namespace App.Service.PositionMenuLink
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();
-                genericControl = _cacheManager.Get<Domain.Entities.Menu.PositionMenuLink>(key);
+                genericControl = _cacheManager.Get<Domain.Menu.PositionMenuLink>(key);
                 if (genericControl == null)
                 {
                     genericControl = _attributeRepository.GetById(id);

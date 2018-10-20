@@ -1,10 +1,9 @@
-﻿using App.Domain.Entities.Menu;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace App.Infra.Data.Mapping
 {
-    public class PositionMenuLinkConfiguration : EntityTypeConfiguration<PositionMenuLink>
+    public class PositionMenuLinkConfiguration : EntityTypeConfiguration<Domain.Menu.PositionMenuLink>
     {
         public PositionMenuLinkConfiguration()
         {

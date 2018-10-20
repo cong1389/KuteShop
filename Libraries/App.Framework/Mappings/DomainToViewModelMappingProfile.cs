@@ -52,7 +52,7 @@ namespace App.Framework.Mappings
             CreateMap<ContactInformation, ContactInformationViewModel>();
             CreateMap<SystemSetting, SystemSettingViewModel>();
             CreateMap<MenuLink, MenuLinkViewModel>();
-            CreateMap<PositionMenuLink, PositionMenuLinkViewModel>();
+            CreateMap<Domain.Menu.PositionMenuLink, PositionMenuLinkViewModel>();
             CreateMap<Province, ProvinceViewModel>();
             CreateMap<District, DistrictViewModel>();
 

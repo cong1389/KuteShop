@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-using System.Linq;
 using App.Core.Utilities;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace App.Infra.Data.Repository.PositionMenuLink
 {
-    public class PositionMenuLinkRepository : RepositoryBase<Domain.Entities.Menu.PositionMenuLink>, IPositionMenuLinkRepository
+    public class PositionMenuLinkRepository : RepositoryBase<Domain.Menu.PositionMenuLink>, IPositionMenuLinkRepository
     {
         public PositionMenuLinkRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
 
-        public Domain.Entities.Menu.PositionMenuLink GetById(int id)
+        public Domain.Menu.PositionMenuLink GetById(int id)
         {
             var positionMenuLink = FindBy(x => x.Id == id).FirstOrDefault();
             return positionMenuLink;
         }
 
-        protected override IOrderedQueryable<Domain.Entities.Menu.PositionMenuLink> GetDefaultOrder(IQueryable<Domain.Entities.Menu.PositionMenuLink> query)
+        protected override IOrderedQueryable<Domain.Menu.PositionMenuLink> GetDefaultOrder(IQueryable<Domain.Menu.PositionMenuLink> query)
         {
             var PositionMenuLinks =
                 from p in query
@@ -27,14 +27,14 @@ namespace App.Infra.Data.Repository.PositionMenuLink
             return PositionMenuLinks;
         }
 
-        public IEnumerable<Domain.Entities.Menu.PositionMenuLink> PagedList(Paging page)
+        public IEnumerable<Domain.Menu.PositionMenuLink> PagedList(Paging page)
         {
             return GetAllPagedList(page).ToList();
         }
 
-        public IEnumerable<Domain.Entities.Menu.PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+        public IEnumerable<Domain.Menu.PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
         {
-            var expression = PredicateBuilder.True<Domain.Entities.Menu.PositionMenuLink>();
+            var expression = PredicateBuilder.True<Domain.Menu.PositionMenuLink>();
             if (!string.IsNullOrEmpty(sortBuider.Keywords))
             {
                 expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()));

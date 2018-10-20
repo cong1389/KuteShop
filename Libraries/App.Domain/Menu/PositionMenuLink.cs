@@ -1,7 +1,8 @@
 ﻿using App.Core.Common;
+using App.Domain.Entities.Menu;
 using System.Collections.Generic;
 
-namespace App.Domain.Entities.Menu
+namespace App.Domain.Menu
 {
     public class PositionMenuLink : AuditableEntity<int>
     {
@@ -23,8 +24,8 @@ namespace App.Domain.Entities.Menu
         }
 
         public PositionMenuLink()
-		{
-		    
+        {
+
         }
-	}
+    }
 }
