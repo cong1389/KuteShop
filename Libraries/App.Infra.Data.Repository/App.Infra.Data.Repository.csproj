@@ -59,6 +59,8 @@
     <Compile Include="Caching\IDbCache.cs" />
     <Compile Include="GenericControl\GenericControlValueItemRepository.cs" />
     <Compile Include="GenericControl\IGenericControlValueItemRepository.cs" />
+    <Compile Include="Menu\IPositionMenuLinkRepository.cs" />
+    <Compile Include="Menu\PositionMenuLinkRepository.cs" />
     <Compile Include="Orders\OrderItemRepository.cs" />
     <Compile Include="Orders\IOrderItemRepository.cs" />
     <Compile Include="Orders\OrderRepository.cs" />

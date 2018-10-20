@@ -77,6 +77,7 @@
     <Compile Include="GenericAttribute\GenericAttributeViewModel.cs" />
     <Compile Include="Language\LocaleStringResourceViewModel.cs" />
     <Compile Include="Language\LanguageFormViewModel.cs" />
+    <Compile Include="Menu\PositionMenuLinkViewModel.cs" />
     <Compile Include="Menu\MenuNavViewModel.cs" />
     <Compile Include="Orders\OrderItemViewModel.cs" />
     <Compile Include="Orders\OrderViewModel.cs" />

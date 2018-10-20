@@ -122,6 +122,9 @@
     <Compile Include="Common\ICommonServicesExtensions.cs" />
     <Compile Include="Media\IImageService.cs" />
     <Compile Include="Media\ImageService.cs" />
+    <Compile Include="Menu\IPositionMenuLinkService.cs" />
+    <Compile Include="Menu\PositionMenuLinkExtensions.cs" />
+    <Compile Include="Menu\PositionMenuLinkService.cs" />
     <Compile Include="Messages\Events.cs" />
     <Compile Include="Messages\IMessageModelProvider.cs" />
     <Compile Include="Messages\IMessageService.cs" />

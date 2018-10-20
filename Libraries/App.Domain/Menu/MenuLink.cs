@@ -201,9 +201,15 @@ namespace App.Domain.Entities.Menu
 	        get; set;
 	    }
 
+        public virtual ICollection<PositionMenuLink> PositionMenuLinks
+        {
+            get; set;
+        }
+
         public MenuLink()
 		{
 		    GenericControls = new List<GenericControl.GenericControl>();
+            PositionMenuLinks = new List<PositionMenuLink>();
         }
 	}
 }

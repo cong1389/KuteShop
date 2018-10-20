@@ -54,6 +54,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapping\PositionMenuLinkConfiguration.cs" />
     <Compile Include="Mapping\GenericControlValueItemConfiguration.cs" />
     <Compile Include="Mapping\OrderItemConfiguration.cs" />
     <Compile Include="Mapping\OrderConfiguration.cs" />

@@ -93,6 +93,12 @@ namespace App.Infra.Data.Context
             set;
         }
 
+        public virtual IDbSet<PositionMenuLink> PositionMenuLinks
+        {
+            get;
+            set;
+        }
+
         public virtual IDbSet<News> News
         {
             get;
@@ -351,6 +357,7 @@ namespace App.Infra.Data.Context
             modelBuilder.Configurations.Add(new ExternalLoginConfiguration());
             modelBuilder.Configurations.Add(new ClaimConfiguration());
             modelBuilder.Configurations.Add(new MenuLinkConfiguration());
+            modelBuilder.Configurations.Add(new PositionMenuLinkConfiguration());
             modelBuilder.Configurations.Add(new BannerConfiguration());
             modelBuilder.Configurations.Add(new ContactInformationConfiguration());
             modelBuilder.Configurations.Add(new LandingPageConfiguration());

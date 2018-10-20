@@ -201,6 +201,13 @@ namespace App.FakeEntity.Menu
             set;
         }
 
+        [Display(Name = "Position", ResourceType = typeof(FormUI))]
+        public int PositionId
+        {
+            get;
+            set;
+        }
+
         public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
         public IList<MenuLinkLocalesViewModel> Locales { get; set; }
 
@@ -401,6 +408,14 @@ namespace App.FakeEntity.Menu
             get;
             set;
         }
+
+        [Display(Name = "Position", ResourceType = typeof(FormUI))]
+        public int PositionId
+        {
+            get;
+            set;
+        }
+
         public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
     }
 }

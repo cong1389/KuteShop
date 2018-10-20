@@ -35,6 +35,7 @@ using App.Service.News;
 using App.Service.Orders;
 using App.Service.Other;
 using App.Service.PaymentMethodes;
+using App.Service.PositionMenuLink;
 using App.Service.Post;
 using App.Service.Repair;
 using App.Service.Repairs;
@@ -64,6 +65,7 @@ namespace App.Framework.Ioc
             builder.RegisterType<ContactInfoService>().As<IContactInfoService>().InstancePerRequest();
             builder.RegisterType<SystemSettingService>().As<ISystemSettingService>().InstancePerRequest();
             builder.RegisterType<MenuLinkService>().As<IMenuLinkService>().InstancePerRequest();
+            builder.RegisterType<PositionMenuLinkService>().As<IPositionMenuLinkService>().InstancePerRequest();
             builder.RegisterType<ProvinceService>().As<IProvinceService>().InstancePerRequest();
             builder.RegisterType<DistrictService>().As<IDistrictService>().InstancePerRequest();
 

@@ -22,6 +22,7 @@ using App.Infra.Data.Repository.Orderes;
 using App.Infra.Data.Repository.Orders;
 using App.Infra.Data.Repository.Other;
 using App.Infra.Data.Repository.PaymentMethodes;
+using App.Infra.Data.Repository.PositionMenuLink;
 using App.Infra.Data.Repository.Post;
 using App.Infra.Data.Repository.Repairs;
 using App.Infra.Data.Repository.SeoSetting;
@@ -46,6 +47,7 @@ namespace App.Framework.Ioc
             builder.RegisterType<ContactInfoRepository>().As<IContactInfoRepository>().InstancePerRequest();
             builder.RegisterType<SystemSettingRepository>().As<ISystemSettingRepository>().InstancePerRequest();
             builder.RegisterType<MenuLinkRepository>().As<IMenuLinkRepository>().InstancePerRequest();
+            builder.RegisterType<PositionMenuLinkRepository>().As<IPositionMenuLinkRepository>().InstancePerRequest();
             builder.RegisterType<ProvinceRepository>().As<IProvinceRepository>().InstancePerRequest();
             builder.RegisterType<DistrictRepository>().As<IDistrictRepository>().InstancePerRequest();
 

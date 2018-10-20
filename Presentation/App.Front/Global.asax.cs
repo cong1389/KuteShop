@@ -21,7 +21,7 @@ namespace App.Front
 
             if (installed)
             {
-                // Remove all view engines
+                //Remove all view engines
                 ViewEngines.Engines.Clear();
             }
             // Initialize engine context

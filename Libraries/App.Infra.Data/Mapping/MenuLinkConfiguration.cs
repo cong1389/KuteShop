@@ -23,6 +23,14 @@ namespace App.Infra.Data.Mapping
                   x.MapRightKey("GenericControlId");
               });
 
+            HasMany(x => x.PositionMenuLinks)
+             .WithMany(x => x.MenuLinks)
+             .Map(x => {
+                 x.ToTable("MenuLinkWithPosition");
+                 x.MapLeftKey("MenuLinkId");
+                 x.MapRightKey("PositionId");
+             });
+
         }
 	}
 }
