@@ -15,12 +15,6 @@ namespace App.Domain.Entities.Menu
 			set;
 		}
 
-        //public virtual ICollection<App.Domain.Entities.GenericControl.GenericControl> _genericControl
-        //{
-        //    get;
-        //    set;
-        //}
-
         [StringLength(250)]
 		public string CurrentVirtualId
 		{
@@ -121,12 +115,6 @@ namespace App.Domain.Entities.Menu
 		}
 
 		public MenuLink ParentMenu
-		{
-			get;
-			set;
-		}
-
-		public int Position
 		{
 			get;
 			set;

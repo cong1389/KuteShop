@@ -147,7 +147,7 @@ namespace App.Front.Extensions
                 ParentId = entity.ParentId,
                 Status = entity.Status,
                 TypeMenu = entity.TypeMenu,
-                Position = entity.Position,
+                PositionMenuLinks = entity.PositionMenuLinks,
                 MenuName = entity.GetLocalized(x => x.MenuName, entity.Id),
                 SeoUrl = entity.SeoUrl,
                 OrderDisplay = entity.OrderDisplay,
@@ -458,7 +458,7 @@ namespace App.Front.Extensions
             destination.ParentId = model.ParentId;
             destination.Status = model.Status;
             destination.TypeMenu = model.TypeMenu;
-            destination.Position = model.Position;
+            destination.PositionMenuLinks = model.PositionMenuLinks;
             destination.MenuName = model.MenuName;
             destination.SeoUrl = model.SeoUrl;
             destination.OrderDisplay = model.OrderDisplay;

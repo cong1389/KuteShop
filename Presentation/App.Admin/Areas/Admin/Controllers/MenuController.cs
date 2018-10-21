@@ -8,7 +8,6 @@ using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
 using App.Service.Menu;
-using App.Service.PositionMenuLink;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;
@@ -199,6 +198,7 @@ namespace App.Admin.Controllers
                     var menuLinks =
                         from id in ids
                         select _menuLinkService.GetMenu(int.Parse(id));
+
                     _menuLinkService.BatchDelete(menuLinks);
 
                     //Delete localize

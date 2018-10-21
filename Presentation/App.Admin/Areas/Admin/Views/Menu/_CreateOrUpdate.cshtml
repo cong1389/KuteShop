@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PositionId, new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.PositionMenuLinks, new { @class = "control-label col-md-3" })
             <div class="col-md-5">
 
                 <div class="input-group select2-bootstrap-prepend">
@@ -47,35 +47,10 @@
                         }
                     </select>
                 </div>
+                 @Html.ValidationMessageFor(model => model.PositionMenuLinks, "", new { @class = "help-block" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Position, new { @class = "control-label col-md-3" })
-            <div class="col-md-8">
-                <div class="radio-list">
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.Top, new { @checked = "checked" }) @Position.Top.ToString()
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.TopHead) @Position.TopHead.ToString()
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.Footer) @Position.Footer.ToString()
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.SiderBar) @Position.SiderBar.ToString()
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.Right) @Position.Right.ToString()
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(x => x.Position, (int)Position.Left) @Position.Left.ToString()
-                    </label>
-                </div>
-                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "help-block" })
-            </div>
-        </div>
+        
         <div class="form-group">
             @Html.LabelFor(model => model.TypeMenu, new { @class = "control-label col-md-3" })
             <div class="col-md-8">

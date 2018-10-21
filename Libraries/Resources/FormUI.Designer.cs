@@ -1051,11 +1051,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vị trí.
+        ///   Looks up a localized string similar to Vị trí menu.
         /// </summary>
-        public static string Position {
+        public static string PositionMenu {
             get {
-                return ResourceManager.GetString("Position", resourceCulture);
+                return ResourceManager.GetString("PositionMenu", resourceCulture);
             }
         }
         

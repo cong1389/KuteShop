@@ -21,11 +21,11 @@ using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class GenericControlController : BaseAdminController
+    public class GenericControlController : BaseAdminController
     {
         private const string CacheGenericcontrolKey = "db.GenericControl";
 
-	    private readonly IGenericControlService _gCService;
+        private readonly IGenericControlService _gCService;
 
         private readonly ILanguageService _languageService;
 
@@ -40,12 +40,12 @@ namespace App.Admin.Controllers
             , IMenuLinkService menuLinkService
             , ICacheManager cacheManager)
         {
-	        _gCService = gCService;
+            _gCService = gCService;
             _languageService = languageService;
             _localizedPropertyService = localizedPropertyService;
             _menuLinkService = menuLinkService;
 
-	        //Clear cache
+            //Clear cache
             cacheManager.RemoveByPattern(CacheGenericcontrolKey);
         }
 
@@ -116,6 +116,9 @@ namespace App.Admin.Controllers
             {
                 if (ids.IsAny())
                 {
+                    var idTest = from id in ids select id;
+                    var aa = idTest.FirstOrDefault();
+
                     var genericControls =
                         from id in ids
                         select _gCService.GetById(int.Parse(id));
@@ -134,7 +137,8 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("ServerGenericControl.Delete: ", ex.Message));
+                ExtentionUtils.Log(string.Concat("GenericControl --> Delete: ", ex.Message));
+                ModelState.AddModelError("", ex.Message);
             }
 
             return RedirectToAction("Index");
@@ -144,7 +148,7 @@ namespace App.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var modelMap = Mapper.Map<GenericControl, GenericControlViewModel>(_gCService.GetById(id));
-            
+
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
             {
@@ -186,21 +190,21 @@ namespace App.Admin.Controllers
                         var menuId = int.Parse(item);
                         menuIds.Add(menuId);
 
-                        menuLinks.Add(_menuLinkService.GetMenu(menuId,false));
+                        menuLinks.Add(_menuLinkService.GetMenu(menuId, false));
                     }
 
                     if (menuIds.IsAny())
                     {
                         (from x in objGenericControl.MenuLinks
-                                where !menuIds.Contains(x.Id)
-                                select x).ToList()
+                         where !menuIds.Contains(x.Id)
+                         select x).ToList()
                             .ForEach(m =>
                                 objGenericControl.MenuLinks.Remove(m)
                             );
                     }
                 }
                 objGenericControl.MenuLinks = menuLinks;
-                    
+
                 var modelMap = Mapper.Map<GenericControlViewModel, GenericControl>(model);
                 _gCService.Update(objGenericControl);
 
@@ -269,16 +273,15 @@ namespace App.Admin.Controllers
                 var menuLinks = _menuLinkService.GetAll();
 
                 var model = from x in menuLinks
-                    select new MenuLinkViewModel
-                    {
-                        Id = x.Id,
-                        ParentId = x.ParentId,
-                        Status = x.Status,
-                        TypeMenu = x.TypeMenu,
-                        Position = x.Position,
-                        MenuName = x.MenuName,
-                        VirtualId = x.VirtualId
-                    };
+                            select new MenuLinkViewModel
+                            {
+                                Id = x.Id,
+                                ParentId = x.ParentId,
+                                Status = x.Status,
+                                TypeMenu = x.TypeMenu,
+                                MenuName = x.MenuName,
+                                VirtualId = x.VirtualId
+                            };
 
                 ViewBag.GCMenuLink = model;
             }
@@ -290,17 +293,16 @@ namespace App.Admin.Controllers
                 var menuLinks = _menuLinkService.GetAll();
 
                 var model = from x in menuLinks
-                                                       select new MenuLinkViewModel
-                                                       {
-                                                           Id = x.Id,
-                                                           ParentId = x.ParentId,
-                                                           Status = x.Status,
-                                                           TypeMenu = x.TypeMenu,
-                                                           Position = x.Position,
-                                                           MenuName = x.MenuName,
-                                                           VirtualId = x.VirtualId,
-                                                           Selected = x.SelectedMenu(id)
-                                                       };
+                            select new MenuLinkViewModel
+                            {
+                                Id = x.Id,
+                                ParentId = x.ParentId,
+                                Status = x.Status,
+                                TypeMenu = x.TypeMenu,
+                                MenuName = x.MenuName,
+                                VirtualId = x.VirtualId,
+                                Selected = x.SelectedMenu(id)
+                            };
 
                 ViewBag.GCMenuLink = model;
             }

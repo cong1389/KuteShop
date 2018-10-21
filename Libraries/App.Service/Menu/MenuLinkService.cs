@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using App.Aplication;
 using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utilities;
@@ -229,7 +231,7 @@ namespace App.Service.Menu
             return menuLinks;
         }
 
-        public IEnumerable<MenuLink> GetByOptions(List<int> position = null
+        public IEnumerable<MenuLink> GetByOptions(List<int> positions = null
             , List<int> template = null
             , string virtualId = null
             , string seoUrl = null
@@ -248,13 +250,17 @@ namespace App.Service.Menu
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
-            if (position != null && !position.IsNullOrEmpty())
+            if (positions.IsAny())
             {
                 var i = 0;
-                foreach (var pos in position)
+                foreach (var pos in positions)
                 {
                     sbKey.AppendFormat("-{0}", pos);
-                    expression = i == 0 ? expression.And(x => x.Position == pos) : expression.Or(x => x.Position == pos);
+
+                    expression = i == 0 ? expression.And(x => x.PositionMenuLinks.Any(p => p.Id == pos))
+                        : expression.Or(x => x.PositionMenuLinks.Any(p => p.Id == pos));
+
+                    //expression = i == 0 ? expression.And(x => x.Position == pos) : expression.Or(x => x.Position == pos);
                     i++;
                 }
             }

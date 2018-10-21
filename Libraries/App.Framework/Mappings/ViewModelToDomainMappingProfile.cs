@@ -161,7 +161,6 @@ namespace App.Framework.Mappings
                    .ForMember(x => x.CurrentVirtualId, map => map.Condition(source => !string.IsNullOrEmpty(source.CurrentVirtualId)))
                    .ForMember(x => x.VirtualId, map => map.Condition(source => !string.IsNullOrEmpty(source.VirtualId)))
                    .ForMember(x => (object)x.TypeMenu, map => map.MapFrom(vm => vm.TypeMenu))
-                   .ForMember(x => (object)x.Position, map => map.MapFrom(vm => vm.Position))
                    .ForMember(x => (object)x.TemplateType, map => map.MapFrom(vm => vm.TemplateType))
                    .ForMember(x => (object)x.DisplayOnMenu, map => map.MapFrom(vm => vm.DisplayOnMenu))
                    .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
@@ -172,33 +171,31 @@ namespace App.Framework.Mappings
                    .ForMember(x => x.ImageBigSize, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageBigSize)))
                    .ForMember(x => x.ImageMediumSize, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageMediumSize)))
                    .ForMember(x => x.ImageSmallSize, map => map.Condition(source => !string.IsNullOrEmpty(source.ImageSmallSize)))
-                    .ForMember(x => x.ColorHex, map => map.Condition(source => !string.IsNullOrEmpty(source.ColorHex)))
+                   .ForMember(x => x.ColorHex, map => map.Condition(source => !string.IsNullOrEmpty(source.ColorHex)))
                    .ForMember(x => x.DisplayOnHomePage, map => map.MapFrom(vm => vm.DisplayOnHomePage))
                    .ForMember(x => x.ParentMenu, map => map.Ignore())
-                   .ForMember(x => x.GenericControls, map => map.Condition(source => source.GenericControls.Any()));
+                   .ForMember(x => x.GenericControls, map => map.Condition(source => source.GenericControls.Any()))
+                   .ForMember(x => x.PositionMenuLinks, map => map.Ignore());
+            //.ForMember(x => x.PositionMenuLinks, map => map.Condition(source => source.PositionMenuLinks.Any()));
 
             CreateMap<PositionMenuLinkViewModel, Domain.Menu.PositionMenuLink>()
                 .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
-                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
+                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))
+                 .ForMember(x => x.MenuLinks, map => map.Ignore());
 
             CreateMap<ProvinceViewModel, Province>()
                 .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
-                .ForMember(x => (object)x.OrderDisplay,
-                    map => map.MapFrom(vm => vm.OrderDisplay)).ForMember(
-                    x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
+                .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+                .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
             CreateMap<AttributeViewModel, Attribute>()
                 .ForMember(x => x.AttributeName, map => map.MapFrom(vm => vm.AttributeName))
-                .ForMember(x => (object)x.Id, map
-                => map.MapFrom(vm => vm.Id))
-                .ForMember(x => (object)x.OrderDisplay, map
-                => map.MapFrom(vm => vm.OrderDisplay))
-                .ForMember(x => x.Description, map
-                => map.MapFrom(vm => vm.Description))
-                .ForMember(x => (object)x.Status, map
-                => map.MapFrom(vm => vm.Status))
+                .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
+                .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+                .ForMember(x => x.Description, map => map.MapFrom(vm => vm.Description))
+                .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))
                 .ForMember(x => x.AttributeValues, map => map.Ignore());
 
             CreateMap<AttributeValueViewModel, AttributeValue>()
@@ -446,8 +443,8 @@ namespace App.Framework.Mappings
             CreateMap<GenericControlViewModel, GenericControl>()
                  .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
                  .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
-                 .ForMember(x => (object)x.OrderDisplay , map => map.MapFrom(vm => vm.OrderDisplay))
-                 .ForMember(x => x.Description , map => map.MapFrom(vm => vm.Description))
+                 .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
+                 .ForMember(x => x.Description, map => map.MapFrom(vm => vm.Description))
                  .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))
                  .ForMember(x => (object)x.MenuId, map => map.MapFrom(vm => vm.MenuId))
                  .ForMember(x => (object)x.ControlTypeId, map => map.MapFrom<int?>(vm => vm.ControlTypeId))

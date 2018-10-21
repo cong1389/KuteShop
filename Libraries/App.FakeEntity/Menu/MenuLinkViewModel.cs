@@ -136,14 +136,9 @@ namespace App.FakeEntity.Menu
 			set;
 		}
 
-		[Display(Name="Position", ResourceType=typeof(FormUI))]
-		public int Position
-		{
-			get;
-			set;
-		}
+       
 
-		[Display(Name="SeoUrl", ResourceType=typeof(FormUI))]
+        [Display(Name="SeoUrl", ResourceType=typeof(FormUI))]
 		public string SeoUrl
 		{
 			get;
@@ -200,21 +195,23 @@ namespace App.FakeEntity.Menu
             get;
             set;
         }
+        
+        public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
 
-        [Display(Name = "Position", ResourceType = typeof(FormUI))]
-        public int PositionId
+        [Display(Name = "PositionMenu", ResourceType = typeof(FormUI))]
+        public ICollection<App.Domain.Menu.PositionMenuLink> PositionMenuLinks
         {
             get;
             set;
         }
 
-        public ICollection<Domain.Entities.GenericControl.GenericControl> GenericControls { get; set; }
         public IList<MenuLinkLocalesViewModel> Locales { get; set; }
 
         public MenuLinkViewModel()
 		{
             Locales = new List<MenuLinkLocalesViewModel>();
             GenericControls = new List<Domain.Entities.GenericControl.GenericControl>();
+            PositionMenuLinks = new List<Domain.Menu.PositionMenuLink>();
         }
 	}
 
@@ -345,14 +342,7 @@ namespace App.FakeEntity.Menu
             get;
             set;
         }
-
-        [Display(Name = "Position", ResourceType = typeof(FormUI))]
-        public int Position
-        {
-            get;
-            set;
-        }
-
+        
         [Display(Name = "SeoUrl", ResourceType = typeof(FormUI))]
         public string SeoUrl
         {
@@ -408,9 +398,8 @@ namespace App.FakeEntity.Menu
             get;
             set;
         }
-
-        [Display(Name = "Position", ResourceType = typeof(FormUI))]
-        public int PositionId
+             
+        public ICollection<App.Domain.Menu.PositionMenuLink> PositionMenus
         {
             get;
             set;

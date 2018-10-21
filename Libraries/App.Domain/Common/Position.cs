@@ -1,16 +1,16 @@
 namespace App.Domain.Common
 {
-	public enum Position
-	{
-		Top = 1,
-		Footer = 2,
-		Left = 3,
-		Right = 4,
-		SiderBar = 5,
-		Middle = 6,
-		TopHead = 7,
-		OnMenu = 8,
-		Bottom = 9,
-		HomeProduct = 10
-	}
+    public enum Position
+    {
+        Top = 3,
+        Footer = 7,
+        Left = 8,
+        Right = 9,
+        SiderBar = 10,
+        Middle = 11,
+        TopHead = 12,
+        OnMenu = 13,
+        Bottom = 15,
+        HomeProduct = 19
+    }
 }

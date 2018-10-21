@@ -16,7 +16,7 @@ namespace App.Infra.Data.Mapping
             HasRequired(x => x.GenericControlValue)
                            .WithMany(x => x.GenericControlValueItems)
                            .HasForeignKey(x => x.GenericControlValueId)
-                            .WillCascadeOnDelete(true); ;
+                            .WillCascadeOnDelete(true); 
 
         }
     }

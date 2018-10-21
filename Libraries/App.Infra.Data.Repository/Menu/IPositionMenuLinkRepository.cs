@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Interfaces.Repository;
 
-namespace App.Infra.Data.Repository.PositionMenuLink
+namespace App.Infra.Data.Repository.Menu
 {
     public interface IPositionMenuLinkRepository : IRepositoryBase<Domain.Menu.PositionMenuLink>
 	{

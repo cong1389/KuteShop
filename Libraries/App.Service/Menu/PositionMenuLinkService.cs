@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Text;
 using App.Core.Caching;
-using App.Core.Utilities;
 using App.Infra.Data.Common;
-using App.Infra.Data.Repository.PositionMenuLink;
+using App.Infra.Data.Repository.Menu;
 using App.Infra.Data.UOW.Interfaces;
+using System.Text;
 
-namespace App.Service.PositionMenuLink
+namespace App.Service.Menu
 {
     public class PositionMenuLinkService : BaseService<Domain.Menu.PositionMenuLink>, IPositionMenuLinkService
     {

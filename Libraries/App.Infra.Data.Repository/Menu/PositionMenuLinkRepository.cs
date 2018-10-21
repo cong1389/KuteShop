@@ -4,7 +4,7 @@ using App.Infra.Data.DbFactory;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace App.Infra.Data.Repository.PositionMenuLink
+namespace App.Infra.Data.Repository.Menu
 {
     public class PositionMenuLinkRepository : RepositoryBase<Domain.Menu.PositionMenuLink>, IPositionMenuLinkRepository
     {

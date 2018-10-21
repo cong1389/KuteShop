@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using App.Core.Utilities;
 using App.Domain.Interfaces.Services;
 
-namespace App.Service.PositionMenuLink
+namespace App.Service.Menu
 {
     public interface IPositionMenuLinkService : IBaseService<App.Domain.Menu.PositionMenuLink>
     {
