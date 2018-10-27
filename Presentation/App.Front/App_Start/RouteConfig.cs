@@ -26,7 +26,7 @@ namespace App.Front
 
             routes.MapRoute(null, "thanh-vien/dang-ky.html", new { controller = "User", action = "Registration" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/dang-tin-rao.html", new { controller = "Account", action = "CreatePost" }, new[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "thanh-vien/thay-doi-thong-tin-ca-nhan.html", new { controller = "Account", action = "ChangeInfo" }, new[] { "App.Front.Controllers" });
+            //routes.MapRoute(null, "thanh-vien/thay-doi-thong-tin-ca-nhan.html", new { controller = "Account", action = "ChangeInfoUser" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/sua-tin-rao/{Id}.html", new { controller = "Account", action = "EditPost", Id = 1 }, new[] { "App.Front.Controllers" });
 
             routes.MapRoute(null, "filter.html", new { controller = "Post", action = "FillterProduct" }, new[] { "App.Front.Controllers" });
@@ -34,7 +34,7 @@ namespace App.Front
             routes.MapRoute(null, "thanh-vien/quan-ly-tin-rao/trang-{page}.html", new { controller = "Account", action = "PostManagement", page = UrlParameter.Optional }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/tim-tin-rao.html", new { controller = "Account", action = "SearchPost" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/thoat.html", new { controller = "Account", action = "LogOff" }, new[] { "App.Front.Controllers" });
-            routes.MapRoute(null, "thanh-vien/doi-mat-khau.html", new { controller = "User", action = "ChangePassword" }, new[] { "App.Front.Controllers" });
+            //routes.MapRoute(null, "thanh-vien/doi-mat-khau.html", new { controller = "User", action = "ChangePassword" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "thanh-vien/xoa-anh.html", new { controller = "User", action = "DeleteGallery" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "callmeback.html", new { controller = "Home", action = "SendSMS" }, new[] { "App.Front.Controllers" });
             routes.MapRoute(null, "404.html", new { controller = "Home", action = "Error" }, new[] { "App.Front.Controllers" });

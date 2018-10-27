@@ -2048,6 +2048,10 @@
     <Content Include="Scripts\jquery-2.2.4.min.map" />
     <Content Include="Views\ExternalAuthentication\ExternalMethods.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Shared\_MyAccount.cshtml" />
+    <Content Include="Views\User\Orders.cshtml" />
+    <Content Include="Views\User\ChangeInfoUser.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>

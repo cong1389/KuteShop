@@ -35,18 +35,17 @@
 
     @{Html.RenderPartial("_Scripts"); }
 
-    <script>
+    @*<script>
 
         var app = angular.module('kuteshop', []);
         app.controller('demoCtrl', ['$scope', function ($scope) {
             $scope.name = "123123";
         }]);
 
-    </script>
+    </script>*@
 
 </head>
-<body class="home option2" ng-app="kuteshop" >
-    
+<body class="home option2" >
    
     <!-- HEADER -->
     @{ Html.RenderAction("Header", "MenuNav", new { area = "" });}

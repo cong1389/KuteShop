@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="columns-container">
+    <div class="container login-shop" id="columns">
+        <div class="row">
+            <div class="column col-xs-12 col-sm-3" id="left_column">
+                <div class="block left-module">
+                    <p class="title_block">Tài khoản của @User.Identity.GetUserName()</p>
+                    <div class="block_content">
+                        <div class="layered layered-category">
+                            <div class="layered-content">
+                                <ul class="tree-menu">
+                                    <li><span></span><a href="@Url.Action("ChangeInfoUser", "User", new { area = "" })">Thông tin tài khoản </a></li>
+                                    <li><span></span><a href="@Url.Action("Orders", "User", new { area = "" })">Đơn hàng của tôi</a></li>
+                                    <li><span></span><a href="@Url.Action("ChangePassword", "User", new{area=""})">Thay đổi mật khẩu</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center_column col-xs-12 col-sm-9" id="center_column">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+@RenderSection("renderJQuery", false)
+@RenderSection("renderScripts", false)
+@RenderSection("google", false)
+@RenderSection("facebook", false)

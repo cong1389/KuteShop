@@ -1,0 +1,44 @@
+﻿<!---_Account.Order-->
+@using App.Aplication
+@model IEnumerable<App.FakeEntity.Orders.OrderViewModel>
+
+@{
+    Layout = "~/Views/Shared/_MyAccount.cshtml";
+    ViewBag.Title = "User order";
+}
+
+@if (Model.IsAny())
+{
+    <h1 class="page-heading"><span class="page-heading-title2">@ViewBag.Title</span></h1>
+
+    <div class="box-wishlist">
+        <div class="table-responsive">
+            <table class="table table-bordered cart cart_summary">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th>Vận chuyển</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Details", "Order", new { id = item.Id })" title="">@item.Id</a></td>
+                        <td>@string.Format("{0: dd/MM/yyyy hh:mm:ss}", item.CreatedOnUtc)</td>
+                        <td>@item.PaymentStatus</td>
+
+                        <td>@item.ShippingStatus</td>
+
+                        <td>@item.OrderTotal.FormatPrice()</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+}
+
+<!---/_Account.Order-->
