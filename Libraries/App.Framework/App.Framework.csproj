@@ -39,10 +39,6 @@
     <Reference Include="App.Aplication">
       <HintPath>..\App.Aplication\bin\Debug\App.Aplication.dll</HintPath>
     </Reference>
-    <Reference Include="App.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\App.Domain\bin\Debug\App.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="App.Infra.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data\bin\Debug\App.Infra.Data.dll</HintPath>
@@ -293,6 +289,10 @@
     <ProjectReference Include="..\App.Core\App.Core.csproj">
       <Project>{22ebd28a-55c0-4d91-ab94-3b75a40584de}</Project>
       <Name>App.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj">
+      <Project>{396ff6df-0f55-4c8f-9b2f-233f439da8f6}</Project>
+      <Name>App.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\App.FakeEntity\App.FakeEntity.csproj">
       <Project>{2205e10f-f6de-43c5-a39d-e9458639d0d5}</Project>

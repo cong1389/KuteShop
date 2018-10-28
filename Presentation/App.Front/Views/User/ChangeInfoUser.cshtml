@@ -1,4 +1,5 @@
-﻿
+﻿<!--ChangeInfoUser-->
+
 @using App.Aplication.Extensions
 @model App.FakeEntity.User.RegisterFormViewModel
 
@@ -17,42 +18,54 @@
         {
             @Html.ValidationSummary(true, "", new { @class = "text-danger col-md-offset-3" })
             @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.Password)
+            @Html.HiddenFor(x => x.ConfirmPassword)
             <ul>
                 <li>
-                    @if (Model.UserName != null)
-                    {
-                        @Html.LabelFor(mode => mode.UserName)
-                        @Html.TextBoxFor(mode => mode.UserName, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.UserName) })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "required require_symbol" })
-                    }
+                    @Html.LabelFor(mode => mode.FirstName)
+                    @Html.TextBoxFor(mode => mode.FirstName, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.FirstName) })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "required require_symbol" })
                 </li>
                 <li>
-                    @if (Model.Email != null)
-                    {
-                        @Html.LabelFor(mode => mode.Email)
-                        @Html.TextBoxFor(mode => mode.Email, new { type = "email", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "required require_symbol" })
-                    }
+                    @Html.LabelFor(mode => mode.LastName)
+                    @Html.TextBoxFor(mode => mode.LastName, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.LastName) })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "required require_symbol" })
                 </li>
                 <li>
-                    @if (Model.Address != null)
-                    {
-                        @Html.LabelFor(mode => mode.Address)
-                        @Html.TextBoxFor(mode => mode.Address, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Address) })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "required require_symbol" })
-                    }
+                    @Html.LabelFor(mode => mode.UserName)
+                    @Html.TextBoxFor(mode => mode.UserName, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.UserName) })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "required require_symbol" })
+
                 </li>
                 <li>
-                    @if (Model.Phone != null)
-                    {
-                        @Html.LabelFor(mode => mode.Phone)
-                        @Html.TextBoxFor(mode => mode.Phone, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Phone) })
-                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "required require_symbol" })
-                    }
+                    @Html.LabelFor(mode => mode.Email)
+                    @Html.TextBoxFor(mode => mode.Email, new { required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Email) })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "required require_symbol" })
+
                 </li>
+                @*<li>
+                        @Html.LabelFor(mode => mode.Password)
+                        @Html.TextBoxFor(mode => mode.Password, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Password) })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "required require_symbol" })
+                    </li>*@
+                <li>
+
+                    @Html.LabelFor(mode => mode.Address)
+                    @Html.TextBoxFor(mode => mode.Address, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Address) })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "required require_symbol" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(mode => mode.Phone)
+                    @Html.TextBoxFor(mode => mode.Phone, new { type = "text", required = true, @class = "form-control", placeholder = Html.DisplayPlaceHolderFor(m => m.Phone) })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "required require_symbol" })
+                </li>
+
                 <li> <button class="button" type="submit"><i class="fa fa-lock"></i>Lưu</button></li>
             </ul>
 
         }
     </div>
 }
+<!--/ChangeInfoUser-->

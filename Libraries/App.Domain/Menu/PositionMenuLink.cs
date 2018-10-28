@@ -25,7 +25,7 @@ namespace App.Domain.Menu
 
         public PositionMenuLink()
         {
-
+            MenuLinks = new List<MenuLink>();
         }
     }
 }

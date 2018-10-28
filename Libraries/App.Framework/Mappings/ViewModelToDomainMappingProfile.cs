@@ -1,3 +1,4 @@
+using App.Core.Plugins;
 using App.Domain.Common;
 using App.Domain.Entities.Ads;
 using App.Domain.Entities.Attribute;
@@ -31,6 +32,7 @@ using App.FakeEntity.News;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Other;
 using App.FakeEntity.Payments;
+using App.FakeEntity.Plugins;
 using App.FakeEntity.Post;
 using App.FakeEntity.Repairs;
 using App.FakeEntity.SeoGlobal;
@@ -43,8 +45,6 @@ using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
 using System.Linq;
-using App.Core.Plugins;
-using App.FakeEntity.Plugins;
 
 namespace App.Framework.Mappings
 {
@@ -54,32 +54,23 @@ namespace App.Framework.Mappings
 
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<RegisterFormViewModel, IdentityUser>().ForAllMembers(_ => _.Ignore());
+            CreateMap<RegisterFormViewModel, IdentityUser>()
+                .ForMember(x => x.PasswordHash, map => map.MapFrom(vm => vm.Password));
 
             CreateMap<LanguageFormViewModel, Language>()
                 .ForMember(x => x.LanguageName, map => map.MapFrom(vm => vm.LanguageName))
-                .ForMember(x => (object)x.Id, map
-                => map.MapFrom(vm => vm.Id))
-                .ForMember(x => x.LanguageCode, map
-                => map.MapFrom(vm => vm.LanguageCode))
-                .ForMember(x => (object)x.Status, map
-                => map.MapFrom(vm => vm.Status))
-                .ForMember(x => x.Flag, map
-                => map.Condition(source => !string.IsNullOrEmpty(source.Flag)));
+                .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
+                .ForMember(x => x.LanguageCode, map => map.MapFrom(vm => vm.LanguageCode))
+                .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))
+                .ForMember(x => x.Flag, map => map.Condition(source => !string.IsNullOrEmpty(source.Flag)));
 
             CreateMap<LocalizedPropertyViewModel, LocalizedProperty>()
-            .ForMember(x => x.Id, map
-            => map.MapFrom(vm => vm.Id))
-            .ForMember(x => x.EntityId, map
-            => map.MapFrom(vm => vm.EntityId))
-            .ForMember(x => (object)x.LanguageId, map
-            => map.MapFrom(vm => vm.LanguageId))
-            .ForMember(x => x.LocaleKeyGroup, map
-            => map.MapFrom(vm => vm.LocaleKeyGroup))
-            .ForMember(x => (object)x.LocaleKey, map
-            => map.MapFrom(vm => vm.LocaleKey))
-            .ForMember(x => (object)x.LocaleValue, map
-            => map.MapFrom(vm => vm.LocaleValue));
+            .ForMember(x => x.Id, map => map.MapFrom(vm => vm.Id))
+            .ForMember(x => x.EntityId, map => map.MapFrom(vm => vm.EntityId))
+            .ForMember(x => (object)x.LanguageId, map => map.MapFrom(vm => vm.LanguageId))
+            .ForMember(x => x.LocaleKeyGroup, map => map.MapFrom(vm => vm.LocaleKeyGroup))
+            .ForMember(x => (object)x.LocaleKey, map => map.MapFrom(vm => vm.LocaleKey))
+            .ForMember(x => (object)x.LocaleValue, map => map.MapFrom(vm => vm.LocaleValue));
 
             CreateMap<ServerMailSettingViewModel, ServerMailSetting>()
                 .ForMember(x => x.FromAddress,
@@ -247,8 +238,6 @@ namespace App.Framework.Mappings
                     .ForMember(dest => dest.PostGallerys, opt => opt.Ignore())
                     .ForMember(dest => dest.MenuLink, opt => opt.Ignore())
                     .ForMember(dest => dest.Manufacturer, opt => opt.Ignore());
-
-
 
             CreateMap<PostGalleryViewModel, PostGallery>()
                 .ForMember(x => x.Title, map => map.MapFrom(vm => vm.Title))

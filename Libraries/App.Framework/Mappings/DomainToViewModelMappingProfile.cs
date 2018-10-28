@@ -12,6 +12,7 @@ using App.Domain.Entities.Menu;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
+using App.Domain.Menu;
 using App.Domain.Orders;
 using App.Domain.Shippings;
 using App.FakeEntity.Ads;
@@ -52,7 +53,7 @@ namespace App.Framework.Mappings
             CreateMap<ContactInformation, ContactInformationViewModel>();
             CreateMap<SystemSetting, SystemSettingViewModel>();
             CreateMap<MenuLink, MenuLinkViewModel>();
-            CreateMap<Domain.Menu.PositionMenuLink, PositionMenuLinkViewModel>();
+            CreateMap<PositionMenuLink, PositionMenuLinkViewModel>();
             CreateMap<Province, ProvinceViewModel>();
             CreateMap<District, DistrictViewModel>();
 

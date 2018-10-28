@@ -39,20 +39,8 @@ namespace App.Domain.Entities.Identity
 
 		public Guid Id
 		{
-			get => JustDecompileGenerated_get_Id();
-		    set => JustDecompileGenerated_set_Id(value);
-		}
-
-		private Guid _justDecompileGeneratedIdKBackingField;
-
-		public Guid JustDecompileGenerated_get_Id()
-		{
-			return _justDecompileGeneratedIdKBackingField;
-		}
-
-		public void JustDecompileGenerated_set_Id(Guid value)
-		{
-			_justDecompileGeneratedIdKBackingField = value;
+			get;
+		    set;
 		}
 
 		public bool IsLockedOut
@@ -115,7 +103,7 @@ namespace App.Domain.Entities.Identity
 		}
 
 		public IdentityUser(string userName, string email, string firstName, string lastName, string middleName, string phone,
-		    string addess, string city, string state, bool superAdmin, bool isLockedOut, DateTime createdDate) : this()
+		    string addess, string city, string state, bool superAdmin, bool isLockedOut, DateTime createdDate, string passwordHash) : this()
 		{
 			UserName = userName;
 			Email = email;
@@ -129,6 +117,8 @@ namespace App.Domain.Entities.Identity
 			IsSuperAdmin = superAdmin;
 			Created = createdDate;
 			IsLockedOut = isLockedOut;
+		    PasswordHash = passwordHash;
+
 		}
 	}
 }

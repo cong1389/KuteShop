@@ -513,10 +513,13 @@ namespace App.Front.Controllers
 
         #region Information account of customer
 
-        [HttpGet]
         public ActionResult ChangeInfoUser()
         {
-            var registerFormViewModel = Mapper.Map<RegisterFormViewModel>(UserManager.FindByName(HttpContext.User.Identity.Name));
+            var user = UserManager.FindByName(HttpContext.User.Identity.Name);
+
+            var registerFormViewModel = Mapper.Map<RegisterFormViewModel>(user);
+            registerFormViewModel.Password = user.PasswordHash;
+            registerFormViewModel.ConfirmPassword = user.PasswordHash;
 
             return View(registerFormViewModel);
         }
@@ -527,12 +530,18 @@ namespace App.Front.Controllers
         {
             if (!ModelState.IsValid)
             {
+                string msg = string.Join(Environment.NewLine
+                    , ModelState.Values.SelectMany(v => v.Errors).Select(v => v.ErrorMessage + " " + v.Exception));
+
+                ModelState.AddModelError("", msg);
+
                 return View(model);
             }
 
             var identityUser = UserManager.FindById(model.Id);
 
             identityUser = Mapper.Map(model, identityUser);
+            identityUser.Created = DateTime.UtcNow;
 
             var result = await UserManager.UpdateAsync(identityUser);
             if (result.Succeeded)

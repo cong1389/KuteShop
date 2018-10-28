@@ -23,15 +23,6 @@ namespace App.FakeEntity.User
             set;
         }
 
-        [Compare("Password", ErrorMessage = "Mật khẩu xác nhận không chính xác.")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Xác nhận mật khẩu")]
-        public string ConfirmPassword
-        {
-            get;
-            set;
-        }
-
         public DateTime? Created
         {
             get;
@@ -78,6 +69,7 @@ namespace App.FakeEntity.User
 
         [Display(Name = "Họ")]
         [MaxLength(150)]
+        [Required(ErrorMessage = "Vui lòng nhập họ.")]
         public string LastName
         {
             get;
@@ -97,6 +89,15 @@ namespace App.FakeEntity.User
         [Required(ErrorMessage = "Vui lòng nhập mật khẩu.")]
         [StringLength(100, ErrorMessage = "{0} phải có ít nhất {2} ký tự.", MinimumLength = 6)]
         public string Password
+        {
+            get;
+            set;
+        }
+
+        [Compare("Password", ErrorMessage = "Mật khẩu xác nhận không chính xác.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Xác nhận mật khẩu")]
+        public string ConfirmPassword
         {
             get;
             set;

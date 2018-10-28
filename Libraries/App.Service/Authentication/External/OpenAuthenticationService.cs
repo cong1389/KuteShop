@@ -8,7 +8,7 @@ namespace App.Service.Authentication.External
     {
         private readonly IProviderManager _providerManager;
 
-        private readonly ExternalAuthenticationSettings _externalAuthenticationSettings;
+        //private readonly ExternalAuthenticationSettings _externalAuthenticationSettings;
 
         public OpenAuthenticationService(IProviderManager providerManager)
         {

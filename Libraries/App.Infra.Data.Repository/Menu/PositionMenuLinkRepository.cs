@@ -1,4 +1,5 @@
-using App.Core.Utilities;
+﻿using App.Core.Utilities;
+using App.Domain.Menu;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 using System.Collections.Generic;
@@ -6,39 +7,42 @@ using System.Linq;
 
 namespace App.Infra.Data.Repository.Menu
 {
-    public class PositionMenuLinkRepository : RepositoryBase<Domain.Menu.PositionMenuLink>, IPositionMenuLinkRepository
+    public class PositionMenuLinkRepository : RepositoryBase<PositionMenuLink>, IPositionMenuLinkRepository
     {
         public PositionMenuLinkRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
 
-        public Domain.Menu.PositionMenuLink GetById(int id)
+        public PositionMenuLink GetById(int id)
         {
             var positionMenuLink = FindBy(x => x.Id == id).FirstOrDefault();
+
             return positionMenuLink;
         }
 
-        protected override IOrderedQueryable<Domain.Menu.PositionMenuLink> GetDefaultOrder(IQueryable<Domain.Menu.PositionMenuLink> query)
+        protected override IOrderedQueryable<PositionMenuLink> GetDefaultOrder(IQueryable<PositionMenuLink> query)
         {
-            var PositionMenuLinks =
+            var positionMenuLinks =
                 from p in query
                 orderby p.Id
                 select p;
-            return PositionMenuLinks;
+
+            return positionMenuLinks;
         }
 
-        public IEnumerable<Domain.Menu.PositionMenuLink> PagedList(Paging page)
+        public IEnumerable<PositionMenuLink> PagedList(Paging page)
         {
             return GetAllPagedList(page).ToList();
         }
 
-        public IEnumerable<Domain.Menu.PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+        public IEnumerable<PositionMenuLink> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
         {
-            var expression = PredicateBuilder.True<Domain.Menu.PositionMenuLink>();
+            var expression = PredicateBuilder.True<PositionMenuLink>();
             if (!string.IsNullOrEmpty(sortBuider.Keywords))
             {
                 expression = expression.And(x => x.Name.ToLower().Contains(sortBuider.Keywords.ToLower()));
             }
+
             return FindAndSort(expression, sortBuider.Sorts, page);
         }
     }
