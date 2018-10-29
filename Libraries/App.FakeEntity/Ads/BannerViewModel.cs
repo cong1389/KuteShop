@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using Resources;
 
 namespace App.FakeEntity.Ads

@@ -14,7 +14,7 @@ using App.Service.Common;
 using App.Service.Gallery;
 using App.Service.Locations;
 using App.Service.Media;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Orders;
 using App.Service.Post;
 using AutoMapper;

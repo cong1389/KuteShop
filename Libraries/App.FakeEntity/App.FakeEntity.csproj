@@ -69,16 +69,16 @@
   <ItemGroup>
     <Compile Include="Common\AddressViewModel.cs" />
     <Compile Include="Customers\CutomerViewModel.cs" />
-    <Compile Include="GenericControl\GenericControlValueItemViewModel.cs" />
-    <Compile Include="GenericControl\GenericControlValueResponse.cs" />
-    <Compile Include="GenericControl\GenericControlValueViewModel.cs" />
-    <Compile Include="GenericControl\GenericControlViewModel.cs" />
+    <Compile Include="GenericControls\GenericControlValueItemViewModel.cs" />
+    <Compile Include="GenericControls\GenericControlValueResponse.cs" />
+    <Compile Include="GenericControls\GenericControlValueViewModel.cs" />
+    <Compile Include="GenericControls\GenericControlViewModel.cs" />
     <Compile Include="Brandes\BrandViewModel.cs" />
     <Compile Include="GenericAttribute\GenericAttributeViewModel.cs" />
     <Compile Include="Language\LocaleStringResourceViewModel.cs" />
     <Compile Include="Language\LanguageFormViewModel.cs" />
-    <Compile Include="Menu\PositionMenuLinkViewModel.cs" />
-    <Compile Include="Menu\MenuNavViewModel.cs" />
+    <Compile Include="Menus\PositionMenuLinkViewModel.cs" />
+    <Compile Include="Menus\MenuNavViewModel.cs" />
     <Compile Include="Orders\OrderItemViewModel.cs" />
     <Compile Include="Orders\OrderViewModel.cs" />
     <Compile Include="Plugins\PluginModel.cs" />
@@ -141,7 +141,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Menu\MenuLinkViewModel.cs">
+    <Compile Include="Menus\MenuLinkViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

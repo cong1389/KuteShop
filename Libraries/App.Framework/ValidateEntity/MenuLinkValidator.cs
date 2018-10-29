@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 
 namespace App.Front.Extensions
 {

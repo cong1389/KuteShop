@@ -1,13 +1,13 @@
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
-using App.Domain.Entities.Menu;
-using App.FakeEntity.Menu;
+using App.Domain.Menus;
+using App.FakeEntity.Menus;
 using App.Framework.Utilities;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
 using App.Service.Media;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;
@@ -305,7 +305,7 @@ namespace App.Admin.Controllers
                 }
 
                 //Get PositionMenuLink selected
-                var positionMenuLinks = new List<Domain.Menu.PositionMenuLink>();
+                var positionMenuLinks = new List<Domain.Menus.PositionMenuLink>();
                 var positionIds = new List<int>();
 
                 var position = Request["Position"];

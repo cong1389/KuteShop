@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using App.Domain.Entities.Data;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Gallery;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using App.Service.Language;
 using Resources;
 

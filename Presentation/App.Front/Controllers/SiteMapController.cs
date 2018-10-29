@@ -7,7 +7,7 @@ using App.Aplication;
 using App.SeoSitemap;
 using App.SeoSitemap.Enum;
 using App.SeoSitemap.Images;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.News;
 using App.Service.Post;
 

@@ -3,7 +3,7 @@
 @using App.Domain.Common
 @using Resources
 @using App.Service.Language
-@model  App.FakeEntity.Menu.MenuLinkViewModel
+@model  App.FakeEntity.Menus.MenuLinkViewModel
 
 <div class="form-horizontal">
     <div class="form-body">
@@ -40,7 +40,7 @@
                         <option></option>
                         @if (ViewBag.PositionMenu != null)
                         {
-                            foreach (var position in (IEnumerable<App.FakeEntity.Menu.PositionMenuLinkViewModel>)ViewBag.PositionMenu)
+                            foreach (var position in (IEnumerable<App.FakeEntity.Menus.PositionMenuLinkViewModel>)ViewBag.PositionMenu)
                             {
                                 <option selected="@position.Selected" value="@position.Id">@position.Name</option>
                             }

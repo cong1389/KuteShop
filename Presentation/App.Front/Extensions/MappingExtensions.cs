@@ -2,12 +2,12 @@
 using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
 using App.Domain.Orders;
 using App.FakeEntity.Common;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Payments;
 using App.Service.Addresses;

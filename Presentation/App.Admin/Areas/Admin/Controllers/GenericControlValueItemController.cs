@@ -1,18 +1,18 @@
 ﻿using App.Aplication;
+using App.Aplication.Extensions;
 using App.Core.Caching;
-using App.Domain.Entities.GenericControl;
-using App.FakeEntity.GenericControl;
+using App.Domain.GenericControls;
+using App.FakeEntity.GenericControls;
 using App.Framework.Utilities;
-using App.Service.GenericControl;
-using App.Service.Menu;
+using App.Service.GenericControls;
+using App.Service.Menus;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
-using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {
-	public class GenericControlValueItemController : BaseAdminController
+    public class GenericControlValueItemController : BaseAdminController
     {
         private const string CacheGenericcontrolvalueitemKey = "db.GenericControlValueItem";
 

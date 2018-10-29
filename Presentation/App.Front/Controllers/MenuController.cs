@@ -8,11 +8,11 @@ using System.Web.UI;
 using App.Aplication;
 using App.Aplication.Extensions;
 using App.Domain.Common;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Language;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Static;
 using Newtonsoft.Json;
 

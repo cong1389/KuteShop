@@ -122,9 +122,9 @@
     <Compile Include="Common\ICommonServicesExtensions.cs" />
     <Compile Include="Media\IImageService.cs" />
     <Compile Include="Media\ImageService.cs" />
-    <Compile Include="Menu\IPositionMenuLinkService.cs" />
-    <Compile Include="Menu\PositionMenuLinkExtensions.cs" />
-    <Compile Include="Menu\PositionMenuLinkService.cs" />
+    <Compile Include="Menus\IPositionMenuLinkService.cs" />
+    <Compile Include="Menus\PositionMenuLinkExtensions.cs" />
+    <Compile Include="Menus\PositionMenuLinkService.cs" />
     <Compile Include="Messages\Events.cs" />
     <Compile Include="Messages\IMessageModelProvider.cs" />
     <Compile Include="Messages\IMessageService.cs" />
@@ -142,10 +142,10 @@
     <Compile Include="Addresses\AddressExtensions.cs" />
     <Compile Include="Addresses\AddressService.cs" />
     <Compile Include="Addresses\IAddressService.cs" />
-    <Compile Include="GenericControl\GenericControlValueItemService.cs" />
-    <Compile Include="GenericControl\GenericControlValueExtension.cs" />
-    <Compile Include="GenericControl\IGenericControlValueItemService.cs" />
-    <Compile Include="Menu\MenuLinkExtensions.cs" />
+    <Compile Include="GenericControls\GenericControlValueItemService.cs" />
+    <Compile Include="GenericControls\GenericControlValueExtension.cs" />
+    <Compile Include="GenericControls\IGenericControlValueItemService.cs" />
+    <Compile Include="Menus\MenuLinkExtensions.cs" />
     <Compile Include="Messages\TemplateModel.cs" />
     <Compile Include="Orders\OrderItemService.cs" />
     <Compile Include="Orders\IOrderItemService.cs" />
@@ -166,10 +166,10 @@
     <Compile Include="Customers\CustomerExtensions.cs" />
     <Compile Include="Customers\CustomerService.cs" />
     <Compile Include="Customers\ICustomerService.cs" />
-    <Compile Include="GenericControl\GenericControlService.cs" />
-    <Compile Include="GenericControl\GenericControlValueService.cs" />
-    <Compile Include="GenericControl\IGenericControlService.cs" />
-    <Compile Include="GenericControl\IGenericControlValueService.cs" />
+    <Compile Include="GenericControls\GenericControlService.cs" />
+    <Compile Include="GenericControls\GenericControlValueService.cs" />
+    <Compile Include="GenericControls\IGenericControlService.cs" />
+    <Compile Include="GenericControls\IGenericControlValueService.cs" />
     <Compile Include="Common\CommonServices.cs" />
     <Compile Include="Common\ICommonServices.cs" />
     <Compile Include="Common\IWorkContext.cs" />
@@ -308,7 +308,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Menu\IMenuLinkService.cs">
+    <Compile Include="Menus\IMenuLinkService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -324,7 +324,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Menu\MenuLinkService.cs">
+    <Compile Include="Menus\MenuLinkService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

@@ -9,7 +9,7 @@ using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.ContactInformation;
 using App.Service.MailSetting;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Messages;
 using App.Service.SystemApp;
 

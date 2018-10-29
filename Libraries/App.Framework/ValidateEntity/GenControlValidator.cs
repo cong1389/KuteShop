@@ -1,4 +1,4 @@
-using App.FakeEntity.GenericControl;
+using App.FakeEntity.GenericControls;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity

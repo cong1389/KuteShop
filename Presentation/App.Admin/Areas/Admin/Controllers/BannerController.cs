@@ -8,7 +8,7 @@ using App.FakeEntity.Ads;
 using App.Framework.Utilities;
 using App.Service.Ads;
 using App.Service.Media;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;

@@ -57,10 +57,10 @@
     <Compile Include="Caching\DbCacheEntry.cs" />
     <Compile Include="Caching\EfDbCache.cs" />
     <Compile Include="Caching\IDbCache.cs" />
-    <Compile Include="GenericControl\GenericControlValueItemRepository.cs" />
-    <Compile Include="GenericControl\IGenericControlValueItemRepository.cs" />
-    <Compile Include="Menu\IPositionMenuLinkRepository.cs" />
-    <Compile Include="Menu\PositionMenuLinkRepository.cs" />
+    <Compile Include="GenericControls\GenericControlValueItemRepository.cs" />
+    <Compile Include="GenericControls\IGenericControlValueItemRepository.cs" />
+    <Compile Include="Menus\IPositionMenuLinkRepository.cs" />
+    <Compile Include="Menus\PositionMenuLinkRepository.cs" />
     <Compile Include="Orders\OrderItemRepository.cs" />
     <Compile Include="Orders\IOrderItemRepository.cs" />
     <Compile Include="Orders\OrderRepository.cs" />
@@ -71,10 +71,10 @@
     <Compile Include="PaymentMethod\IPaymentMethodRepository.cs" />
     <Compile Include="Customers\CustomerRepository.cs" />
     <Compile Include="Customers\ICustomerRepository.cs" />
-    <Compile Include="GenericControl\GenericControlRepository.cs" />
-    <Compile Include="GenericControl\GenericControlValueRepository.cs" />
-    <Compile Include="GenericControl\IGenericControlRepository.cs" />
-    <Compile Include="GenericControl\IGenericControlValueRepository.cs" />
+    <Compile Include="GenericControls\GenericControlRepository.cs" />
+    <Compile Include="GenericControls\GenericControlValueRepository.cs" />
+    <Compile Include="GenericControls\IGenericControlRepository.cs" />
+    <Compile Include="GenericControls\IGenericControlValueRepository.cs" />
     <Compile Include="LocaleStringResource\LocaleStringResourceRepository.cs" />
     <Compile Include="LocaleStringResource\ILocaleStringResourceRepository.cs" />
     <Compile Include="GenericAttribute\GenericAttributeRepository.cs" />
@@ -215,7 +215,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Menu\IMenuLinkRepository.cs">
+    <Compile Include="Menus\IMenuLinkRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -223,7 +223,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Menu\MenuLinkRepository.cs">
+    <Compile Include="Menus\MenuLinkRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

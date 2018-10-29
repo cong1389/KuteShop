@@ -2,15 +2,14 @@ using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
-using App.Domain.Entities.GenericControl;
-using App.Domain.Entities.Menu;
-using App.FakeEntity.GenericControl;
-using App.FakeEntity.Menu;
+using App.Domain.GenericControls;
+using App.Domain.Menus;
+using App.FakeEntity.GenericControls;
+using App.FakeEntity.Menus;
 using App.Framework.Utilities;
-using App.Service.GenericControl;
 using App.Service.Language;
 using App.Service.LocalizedProperty;
-using App.Service.Menu;
+using App.Service.Menus;
 using AutoMapper;
 using Resources;
 using System;
@@ -18,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Service.GenericControls;
 
 namespace App.Admin.Controllers
 {

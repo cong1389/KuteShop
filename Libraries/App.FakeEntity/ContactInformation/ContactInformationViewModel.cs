@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using App.Domain.GenericControls;
 using App.FakeEntity.Location;
 using App.Service.Language;
 using Resources;
@@ -117,7 +118,7 @@ namespace App.FakeEntity.ContactInformation
 			set;
 		}
 
-        public List<Domain.Entities.GenericControl.GenericControl> GenericControls
+        public List<GenericControl> GenericControls
         {
             get;
             set;
@@ -127,7 +128,7 @@ namespace App.FakeEntity.ContactInformation
 
         public ContactInformationViewModel()
 		{
-            GenericControls = new List<Domain.Entities.GenericControl.GenericControl>();
+            GenericControls = new List<GenericControl>();
             Locales = new List<ContactInformationLocalesViewModel>();
         }
 	}
@@ -247,7 +248,7 @@ namespace App.FakeEntity.ContactInformation
             set;
         }
 
-        public List<Domain.Entities.GenericControl.GenericControl> GenericControls
+        public List<GenericControl> GenericControls
         {
             get;
             set;

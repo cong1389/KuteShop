@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace App.Infra.Data.Mapping
 {
-    public class PositionMenuLinkConfiguration : EntityTypeConfiguration<Domain.Menu.PositionMenuLink>
+    public class PositionMenuLinkConfiguration : EntityTypeConfiguration<Domain.Menus.PositionMenuLink>
     {
         public PositionMenuLinkConfiguration()
         {

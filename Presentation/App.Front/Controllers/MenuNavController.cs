@@ -1,9 +1,9 @@
 ﻿using App.Aplication;
 using App.Domain.Common;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using App.Front.Extensions;
 using App.Front.Models;
-using App.Service.Menu;
+using App.Service.Menus;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;

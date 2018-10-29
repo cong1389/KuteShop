@@ -40,7 +40,7 @@ namespace App.Domain.Entities.Ads
 		}
 
 		[ForeignKey("MenuId")]
-		public virtual Menu.MenuLink MenuLink
+		public virtual Menus.MenuLink MenuLink
 		{
 			get;
 			set;

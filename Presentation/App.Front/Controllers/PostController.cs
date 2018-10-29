@@ -4,7 +4,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
-using App.FakeEntity.GenericControl;
+using App.FakeEntity.GenericControls;
 using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -12,9 +12,9 @@ using App.Front.Models.Posts;
 using App.Service.Common;
 using App.Service.ContactInformation;
 using App.Service.Gallery;
-using App.Service.GenericControl;
+using App.Service.GenericControls;
 using App.Service.Language;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.Post;
 using Newtonsoft.Json;
 using System;
@@ -31,7 +31,6 @@ namespace App.Front.Controllers
         private readonly IMenuLinkService _menuLinkService;
 
         private readonly IGalleryService _galleryService;
-        private readonly IContactInfoService _contactInfoService;
 
         public PostController(
             IPostService postService
@@ -44,7 +43,6 @@ namespace App.Front.Controllers
             _postService = postService;
             _menuLinkService = menuLinkService;
             _galleryService = galleryService;
-            _contactInfoService = contactInfoService;
         }
 
         [PartialCache("Short","*")]

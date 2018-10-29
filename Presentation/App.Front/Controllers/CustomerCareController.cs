@@ -2,7 +2,7 @@ using App.Aplication;
 using App.Core.Utilities;
 using App.Framework.Utilities;
 using App.Front.Models;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.News;
 using System.Web.Mvc;
 

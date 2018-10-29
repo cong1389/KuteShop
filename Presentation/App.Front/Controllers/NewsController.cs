@@ -2,13 +2,13 @@
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
 using App.Service.Language;
-using App.Service.Menu;
+using App.Service.Menus;
 using App.Service.News;
 using System.Collections.Generic;
 using System.Linq;

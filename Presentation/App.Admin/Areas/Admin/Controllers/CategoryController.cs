@@ -3,8 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
-using App.Domain.Entities.Menu;
-using App.Service.Menu;
+using App.Domain.Menus;
+using App.Service.Menus;
 
 namespace App.Admin.Controllers
 {

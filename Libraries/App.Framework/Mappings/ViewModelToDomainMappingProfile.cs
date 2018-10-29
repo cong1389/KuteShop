@@ -4,12 +4,12 @@ using App.Domain.Entities.Ads;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Brandes;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.GenericControl;
+using App.Domain.GenericControls;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Identity;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Location;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
@@ -23,11 +23,11 @@ using App.FakeEntity.Brandes;
 using App.FakeEntity.Common;
 using App.FakeEntity.ContactInformation;
 using App.FakeEntity.Gallery;
-using App.FakeEntity.GenericControl;
+using App.FakeEntity.GenericControls;
 using App.FakeEntity.Language;
 using App.FakeEntity.Location;
 using App.FakeEntity.Manufacturers;
-using App.FakeEntity.Menu;
+using App.FakeEntity.Menus;
 using App.FakeEntity.News;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Other;
@@ -169,7 +169,7 @@ namespace App.Framework.Mappings
                    .ForMember(x => x.PositionMenuLinks, map => map.Ignore());
             //.ForMember(x => x.PositionMenuLinks, map => map.Condition(source => source.PositionMenuLinks.Any()));
 
-            CreateMap<PositionMenuLinkViewModel, Domain.Menu.PositionMenuLink>()
+            CreateMap<PositionMenuLinkViewModel, Domain.Menus.PositionMenuLink>()
                 .ForMember(x => x.Name, map => map.MapFrom(vm => vm.Name))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
                  .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))

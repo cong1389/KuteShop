@@ -14,11 +14,11 @@ using App.Domain.Entities.Ads;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Brandes;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.GenericControl;
+using App.Domain.GenericControls;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Location;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
@@ -93,7 +93,7 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public virtual IDbSet<Domain.Menu.PositionMenuLink> PositionMenuLinks
+        public virtual IDbSet<Domain.Menus.PositionMenuLink> PositionMenuLinks
         {
             get;
             set;

@@ -1,6 +1,6 @@
 using App.Core.Common;
 using App.Domain.Entities.Attribute;
-using App.Domain.Entities.Menu;
+using App.Domain.Menus;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
