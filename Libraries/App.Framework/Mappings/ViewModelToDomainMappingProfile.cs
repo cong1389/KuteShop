@@ -1,20 +1,19 @@
 using App.Core.Plugins;
-using App.Domain.Common;
 using App.Domain.Ads;
-using App.Domain.Attributes;
 using App.Domain.Brandes;
+using App.Domain.Common;
 using App.Domain.Entities.Data;
-using App.Domain.GenericControls;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Identity;
 using App.Domain.Entities.Language;
 using App.Domain.Entities.Location;
-using App.Domain.Menus;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Setting;
 using App.Domain.Entities.Slide;
+using App.Domain.GenericControls;
+using App.Domain.Menus;
 using App.Domain.Orders;
 using App.Domain.Shippings;
 using App.FakeEntity.Ads;
@@ -181,7 +180,7 @@ namespace App.Framework.Mappings
                 .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status));
 
-            CreateMap<AttributeViewModel, Attribute>()
+            CreateMap<AttributeViewModel, App.Domain.Entities.Attribute.Attribute>()
                 .ForMember(x => x.AttributeName, map => map.MapFrom(vm => vm.AttributeName))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
                 .ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
@@ -189,7 +188,7 @@ namespace App.Framework.Mappings
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))
                 .ForMember(x => x.AttributeValues, map => map.Ignore());
 
-            CreateMap<AttributeValueViewModel, AttributeValue>()
+            CreateMap<AttributeValueViewModel, App.Domain.Entities.Attribute.AttributeValue>()
                 .ForMember(x => x.ValueName, map => map.MapFrom(vm => vm.ValueName))
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id)).ForMember(x => (object)x.OrderDisplay, map => map.MapFrom(vm => vm.OrderDisplay))
                 .ForMember(x => x.ColorHex, map => map.MapFrom(vm => vm.ColorHex))

@@ -3,6 +3,7 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
+using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.Domain.Orders;
 using App.FakeEntity.Gallery;
