@@ -1,6 +1,7 @@
 using App.Core.Common;
 using App.Domain.Entities.Attribute;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Domain.Posts;
 
 namespace App.Domain.Entities.Data
 {

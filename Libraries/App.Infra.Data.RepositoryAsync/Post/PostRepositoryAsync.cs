@@ -4,13 +4,13 @@ using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.RepositoryAsync.Post
 {
-    public class PostRepositoryAsync : RepositoryBaseAsync<Domain.Entities.Data.Post>, IPostRepositoryAsync
+    public class PostRepositoryAsync : RepositoryBaseAsync<App.Domain.Posts.Post>, IPostRepositoryAsync
 	{
 		public PostRepositoryAsync(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		protected override IOrderedQueryable<Domain.Entities.Data.Post> GetDefaultOrder(IQueryable<Domain.Entities.Data.Post> query)
+		protected override IOrderedQueryable<App.Domain.Posts.Post> GetDefaultOrder(IQueryable<App.Domain.Posts.Post> query)
 		{
 			return 
 				from p in query

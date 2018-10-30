@@ -29,6 +29,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using App.Domain.Posts;
 using static System.IO.File;
 
 namespace App.Admin.Controllers

@@ -4,33 +4,12 @@ using App.Domain.Menus;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Domain.Entities.Data;
 
-namespace App.Domain.Entities.Data
+namespace App.Domain.Posts
 {
     public class Post : AuditableEntity<int>
     {
-        //private ICollection<AttributeValue> _attributeValues;
-
-        //public virtual ICollection<AttributeValue> AttributeValues
-        //{
-        //	get
-        //	{
-        //		ICollection<AttributeValue> attributeValues = this._attributeValues;
-        //		if (attributeValues == null)
-        //		{
-        //			List<AttributeValue> attributeValues1 = new List<AttributeValue>();
-        //			ICollection<AttributeValue> attributeValues2 = attributeValues1;
-        //			this._attributeValues = attributeValues1;
-        //			attributeValues = attributeValues2;
-        //		}
-        //		return attributeValues;
-        //	}
-        //	set
-        //	{
-        //		this._attributeValues = value;
-        //	}
-        //}
-
         public virtual ICollection<AttributeValue> AttributeValues
         {
             get;

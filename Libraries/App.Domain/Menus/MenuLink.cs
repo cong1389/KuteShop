@@ -4,6 +4,7 @@ using App.Domain.Entities.Data;
 using App.Domain.GenericControls;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using App.Domain.Posts;
 
 namespace App.Domain.Menus
 {

@@ -6,21 +6,21 @@ using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.Post
 {
-    public class PostRepository : RepositoryBase<Domain.Entities.Data.Post>, IPostRepository
+    public class PostRepository : RepositoryBase<App.Domain.Posts.Post>, IPostRepository
 	{
 
         public PostRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
         }
 
-	    public Domain.Entities.Data.Post GetById(int id)
+	    public App.Domain.Posts.Post GetById(int id)
         {
             var post = FindBy(x => x.Id == id).FirstOrDefault();
             
             return post;
 		}
 
-		protected override IOrderedQueryable<Domain.Entities.Data.Post> GetDefaultOrder(IQueryable<Domain.Entities.Data.Post> query)
+		protected override IOrderedQueryable<App.Domain.Posts.Post> GetDefaultOrder(IQueryable<App.Domain.Posts.Post> query)
 		{
 			var posts = 
 				from p in query
@@ -29,14 +29,14 @@ namespace App.Infra.Data.Repository.Post
 			return posts;
 		}
 
-		public IEnumerable<Domain.Entities.Data.Post> PagedList(Paging page)
+		public IEnumerable<App.Domain.Posts.Post> PagedList(Paging page)
 		{
 			return GetAllPagedList(page).ToList();
 		}
 
-		public IEnumerable<Domain.Entities.Data.Post> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+		public IEnumerable<App.Domain.Posts.Post> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			var expression = PredicateBuilder.True<Domain.Entities.Data.Post>();
+			var expression = PredicateBuilder.True<App.Domain.Posts.Post>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x =>
@@ -46,9 +46,9 @@ namespace App.Infra.Data.Repository.Post
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 
-		public IEnumerable<Domain.Entities.Data.Post> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page)
+		public IEnumerable<App.Domain.Posts.Post> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page)
 		{
-			var expression = PredicateBuilder.True<Domain.Entities.Data.Post>();
+			var expression = PredicateBuilder.True<App.Domain.Posts.Post>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.VirtualCategoryId.Contains(sortBuider.Keywords) && x.Status == 1);

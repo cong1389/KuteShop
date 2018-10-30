@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using App.Domain.Entities.Data;
 using App.Domain.Menus;
+using App.Domain.Posts;
 
 namespace App.Front.Models.Posts
 {

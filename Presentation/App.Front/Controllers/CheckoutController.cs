@@ -8,6 +8,7 @@ using App.Aplication.Filters;
 using App.Core.Extensions;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
+using App.Domain.Posts;
 using App.FakeEntity.Common;
 using App.Front.Extensions;
 using App.Front.Models.Checkout;

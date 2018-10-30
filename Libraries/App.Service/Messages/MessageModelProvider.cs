@@ -64,7 +64,7 @@ namespace App.Service.Messages
                 case Order x:
                     modelPart = CreateModelPart(x, messageContext);
                     break;
-	            case Domain.Entities.Data.Post x:
+	            case App.Domain.Posts.Post x:
 		            modelPart = CreateModelPart(x, messageContext);
 		            break;
 			}
@@ -232,7 +232,7 @@ namespace App.Service.Messages
             return m;
         }
 
-        protected virtual object CreateModelPart(Domain.Entities.Data.Post part, MessageContext messageContext, string attributesXml = null)
+        protected virtual object CreateModelPart(App.Domain.Posts.Post part, MessageContext messageContext, string attributesXml = null)
         {
             var name = part.Title;
 

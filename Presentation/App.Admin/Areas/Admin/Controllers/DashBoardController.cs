@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using App.Aplication.Extensions;
 using App.Domain.Entities.Data;
+using App.Domain.Posts;
 using App.Service.News;
 using App.Service.Post;
 

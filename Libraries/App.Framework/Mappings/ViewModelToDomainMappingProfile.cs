@@ -15,6 +15,7 @@ using App.Domain.Entities.Slide;
 using App.Domain.GenericControls;
 using App.Domain.Menus;
 using App.Domain.Orders;
+using App.Domain.Posts;
 using App.Domain.Shippings;
 using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;

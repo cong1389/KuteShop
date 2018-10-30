@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using App.Core.Common;
+using App.Domain.Posts;
 
 namespace App.Domain.Entities.Data
 {

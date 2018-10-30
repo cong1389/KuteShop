@@ -5,33 +5,33 @@
     string templateSuffix = null;
     switch (Model.ControlTypeId)
     {
-        case (int)GenericControlType.DropdownList:
+        case (int)Contains.GenericControlType.DropdownList:
             {
                 @Html.Label("DropdownList");
                 break;
             }
-        case (int)GenericControlType.RadioList:
-        case (int)GenericControlType.Checkboxes:
+        case (int)Contains.GenericControlType.RadioList:
+        case (int)Contains.GenericControlType.Checkboxes:
             {
                 templateSuffix = "CheckRadio";
                 break;
             }
-        case (int)GenericControlType.TextBox:
+        case (int)Contains.GenericControlType.TextBox:
             {
                 @Html.Label("TextBox");
                 break;
             }
-        case (int)GenericControlType.MultilineTextbox:
+        case (int)Contains.GenericControlType.MultilineTextbox:
             {
                 @Html.Label("MultilineTextbox");
                 break;
             }
-        case (int)GenericControlType.Datepicker:
+        case (int)Contains.GenericControlType.Datepicker:
             {
                 @Html.Label("Datepicker");
                 break;
             }
-        case (int)GenericControlType.Boxes:
+        case (int)Contains.GenericControlType.Boxes:
             {
                 @Html.Label("Boxes");
                 break;

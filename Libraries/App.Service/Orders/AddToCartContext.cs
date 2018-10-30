@@ -6,7 +6,7 @@ namespace App.Service.Orders
 {
     public class AddToCartContext
     {
-        public Domain.Entities.Data.Post Post { get; set; }
+        public App.Domain.Posts.Post Post { get; set; }
 
         public Customer Customers { get; set; }
 

@@ -4,14 +4,14 @@ using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Post
 {
-	public interface IPostRepository : IRepositoryBase<Domain.Entities.Data.Post>
+	public interface IPostRepository : IRepositoryBase<App.Domain.Posts.Post>
 	{
-		Domain.Entities.Data.Post GetById(int id);
+		App.Domain.Posts.Post GetById(int id);
 
-		IEnumerable<Domain.Entities.Data.Post> PagedList(Paging page);
+		IEnumerable<App.Domain.Posts.Post> PagedList(Paging page);
 
-		IEnumerable<Domain.Entities.Data.Post> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<App.Domain.Posts.Post> PagedSearchList(SortingPagingBuilder sortBuider, Paging page);
 
-		IEnumerable<Domain.Entities.Data.Post> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page);
+		IEnumerable<App.Domain.Posts.Post> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page);
 	}
 }

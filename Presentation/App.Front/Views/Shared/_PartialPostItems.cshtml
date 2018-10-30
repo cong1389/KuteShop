@@ -1,6 +1,6 @@
 ﻿<!---_PartialPostItems--->
 @using App.Aplication
-@model IEnumerable<App.Domain.Entities.Data.Post>
+@model IEnumerable<App.Domain.Posts.Post>
 @if (Model.IsAny())
 {
     var post1 = Model.Where(m => m.Id % 2 == 0 && (m.ProductHot || (m.ProductNew && m.ProductHot))).Take(15);

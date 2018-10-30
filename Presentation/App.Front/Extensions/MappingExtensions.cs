@@ -6,6 +6,7 @@ using App.Domain.Menus;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Slide;
 using App.Domain.Orders;
+using App.Domain.Posts;
 using App.FakeEntity.Common;
 using App.FakeEntity.Menus;
 using App.FakeEntity.Orders;
