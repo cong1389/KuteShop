@@ -148,7 +148,7 @@ namespace App.Service.Orders
 
                     _customerService.ResetCheckoutData(customer, 1, false, true);
 
-                    #region Notifications, notes and attributes
+                    #region Notifications, notes and attribute
 
                     //send email notifications
                     var msg = _messageFactory.SendOrderPlacedStoreOwnerNotification(order, 1);

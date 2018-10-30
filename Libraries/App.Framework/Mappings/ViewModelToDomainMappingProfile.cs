@@ -1,8 +1,8 @@
 using App.Core.Plugins;
 using App.Domain.Common;
-using App.Domain.Entities.Ads;
-using App.Domain.Entities.Attribute;
-using App.Domain.Entities.Brandes;
+using App.Domain.Ads;
+using App.Domain.Attributes;
+using App.Domain.Brandes;
 using App.Domain.Entities.Data;
 using App.Domain.GenericControls;
 using App.Domain.Entities.GlobalSetting;

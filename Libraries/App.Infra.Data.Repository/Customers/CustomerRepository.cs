@@ -3,7 +3,7 @@ using System.Linq;
 using App.Core.Utilities;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Infra.Data.Repository.Customers
 {

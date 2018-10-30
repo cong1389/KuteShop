@@ -18,7 +18,7 @@ using App.Service.Menus;
 using App.Service.Orders;
 using App.Service.Post;
 using AutoMapper;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using Microsoft.AspNet.Identity;
 using Resources;
 using System;

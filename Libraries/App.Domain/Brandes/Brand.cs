@@ -2,7 +2,7 @@ using App.Core.Common;
 using App.Domain.Entities.Data;
 using System.Collections.Generic;
 
-namespace App.Domain.Entities.Brandes
+namespace App.Domain.Brandes
 {
 	public class Brand : AuditableEntity<int>
 	{

@@ -11,7 +11,7 @@ using App.Service.Language;
 using App.Service.MailSetting;
 using App.Service.Post;
 using App.Service.SystemApp;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using System;
 using System.IO;
 using System.Linq;

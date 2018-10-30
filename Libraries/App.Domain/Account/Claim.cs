@@ -1,7 +1,7 @@
 using System;
 using App.Core.Common;
 
-namespace App.Domain.Entities.Account
+namespace App.Domain.Account
 {
 	public class Claim : Entity<int>
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 using App.Domain.Entities.Orders;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Service.Orders
 {

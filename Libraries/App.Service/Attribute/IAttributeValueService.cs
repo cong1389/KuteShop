@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Attribute;
+using App.Domain.Attributes;
 using App.Domain.Interfaces.Services;
 
 namespace App.Service.Attribute

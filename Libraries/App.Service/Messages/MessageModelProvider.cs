@@ -10,7 +10,7 @@ using App.Domain.Common;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Orders;
 using App.Service.Addresses;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Service.Messages
 {

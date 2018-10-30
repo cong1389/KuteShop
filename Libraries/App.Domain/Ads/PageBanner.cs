@@ -2,7 +2,7 @@ using App.Core.Common;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace App.Domain.Entities.Ads
+namespace App.Domain.Ads
 {
 	public class PageBanner : AuditableEntity<int>
 	{

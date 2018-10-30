@@ -1,5 +1,5 @@
 ﻿using App.Core.Common;
-using App.Domain.Entities.Ads;
+using App.Domain.Ads;
 using App.Domain.Entities.Data;
 using App.Domain.GenericControls;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Infra.Data.Mapping
 {

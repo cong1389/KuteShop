@@ -3,7 +3,7 @@ using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
-using App.Domain.Entities.Ads;
+using App.Domain.Ads;
 using App.FakeEntity.Ads;
 using App.Framework.Utilities;
 using App.Service.Ads;

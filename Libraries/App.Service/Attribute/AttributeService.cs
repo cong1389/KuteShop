@@ -8,7 +8,7 @@ using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Attribute
 {
-    public class AttributeService : BaseService<Domain.Entities.Attribute.Attribute>, IAttributeService
+    public class AttributeService : BaseService<Domain.Attributes.Attribute>, IAttributeService
     {
         private const string CacheAttributeKey = "db.Attribute.{0}";
         private readonly ICacheManager _cacheManager;
@@ -22,9 +22,9 @@ namespace App.Service.Attribute
             _cacheManager = cacheManager;
         }
 
-        public Domain.Entities.Attribute.Attribute GetById(int id, bool isCache = true)
+        public Domain.Attributes.Attribute GetById(int id, bool isCache = true)
         {
-            Domain.Entities.Attribute.Attribute attribute;
+            Domain.Attributes.Attribute attribute;
 
             if (isCache)
             {
@@ -33,7 +33,7 @@ namespace App.Service.Attribute
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();
-                attribute = _cacheManager.Get<Domain.Entities.Attribute.Attribute>(key);
+                attribute = _cacheManager.Get<Domain.Attributes.Attribute>(key);
                 if (attribute == null)
                 {
                     attribute = _attributeRepository.GetById(id);
@@ -48,7 +48,7 @@ namespace App.Service.Attribute
             return attribute;
         }
 
-        public IEnumerable<Domain.Entities.Attribute.Attribute> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+        public IEnumerable<Domain.Attributes.Attribute> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _attributeRepository.PagedSearchList(sortbuBuilder, page);
         }

@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
 using App.Core.Utilities;
-using App.Domain.Entities.Brandes;
+using App.Domain.Brandes;
 using App.FakeEntity.Brandes;
 using App.Framework.Utilities;
 using App.Service.Brandes;

@@ -1,5 +1,5 @@
 ﻿using App.Core.Common;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Entities.Orders

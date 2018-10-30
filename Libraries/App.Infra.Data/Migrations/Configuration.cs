@@ -1,6 +1,6 @@
 using App.Core.Extensions;
 using App.Domain.Common;
-using App.Domain.Entities.Account;
+using App.Domain.Account;
 using System;
 using System.Data.Entity.Migrations;
 using System.Linq;

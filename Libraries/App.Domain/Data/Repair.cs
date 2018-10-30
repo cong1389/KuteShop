@@ -1,5 +1,5 @@
 ﻿using App.Core.Common;
-using App.Domain.Entities.Brandes;
+using App.Domain.Brandes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

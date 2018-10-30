@@ -6,7 +6,7 @@ using App.Core.Utilities;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Customers;
 using App.Infra.Data.UOW.Interfaces;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Service.Customers
 {

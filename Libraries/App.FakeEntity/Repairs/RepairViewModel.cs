@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using App.Domain.Entities.Brandes;
+using App.Domain.Brandes;
 
 namespace App.FakeEntity.Repairs
 {

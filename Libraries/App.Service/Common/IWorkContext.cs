@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Customers;
+﻿using App.Domain.Customers;
 
 namespace App.Service.Common
 {

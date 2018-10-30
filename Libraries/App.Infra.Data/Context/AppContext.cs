@@ -9,10 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using App.Core.Common;
 using App.Domain.Common;
-using App.Domain.Entities.Account;
-using App.Domain.Entities.Ads;
-using App.Domain.Entities.Attribute;
-using App.Domain.Entities.Brandes;
+using App.Domain.Account;
+using App.Domain.Ads;
+using App.Domain.Attributes;
+using App.Domain.Brandes;
 using App.Domain.Entities.Data;
 using App.Domain.GenericControls;
 using App.Domain.Entities.GlobalSetting;
@@ -27,13 +27,14 @@ using App.Domain.Entities.Slide;
 using App.Domain.Orders;
 using App.Domain.Shippings;
 using App.Infra.Data.Mapping;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
+using App.Domain.Entities.Attribute;
 
 namespace App.Infra.Data.Context
 {
     public class AppContext : DbContext
     {
-        public virtual IDbSet<Domain.Entities.Attribute.Attribute> Attributes
+        public virtual IDbSet<App.Domain.Entities.Attribute.Attribute> Attributes
         {
             get;
             set;
@@ -93,7 +94,7 @@ namespace App.Infra.Data.Context
             set;
         }
 
-        public virtual IDbSet<Domain.Menus.PositionMenuLink> PositionMenuLinks
+        public virtual IDbSet<PositionMenuLink> PositionMenuLinks
         {
             get;
             set;

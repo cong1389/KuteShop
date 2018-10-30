@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Domain.Entities.Account;
+using App.Domain.Account;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 

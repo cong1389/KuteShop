@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using App.Core.Utilities;
-using App.Domain.Entities.Account;
+using App.Domain.Account;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Account;
 

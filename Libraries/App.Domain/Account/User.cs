@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using App.Core.Common;
 
-namespace App.Domain.Entities.Account
+namespace App.Domain.Account
 {
 	public class User : Entity<Guid>
 	{

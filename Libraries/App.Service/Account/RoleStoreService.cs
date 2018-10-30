@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using App.Domain.Entities.Account;
+using App.Domain.Account;
 using App.Domain.Entities.Identity;
 using App.Infra.Data.Repository.Account;
 using App.Infra.Data.UOW.Interfaces;

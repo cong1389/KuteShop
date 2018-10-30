@@ -7,7 +7,7 @@ using App.Front.Models;
 using App.Service.Common;
 using App.Service.Orders;
 using AutoMapper;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;

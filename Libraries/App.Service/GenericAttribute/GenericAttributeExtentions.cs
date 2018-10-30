@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using Domain.Entities.Customers;
+﻿using App.Domain.Customers;
+using System.Web.Mvc;
 
 namespace App.Service.GenericAttribute
 {

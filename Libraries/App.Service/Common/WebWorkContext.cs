@@ -7,7 +7,7 @@ using App.Domain.Entities.Identity;
 using App.Service.Customers;
 using App.Service.GenericAttribute;
 using App.Service.Language;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using Microsoft.AspNet.Identity;
 
 namespace App.Service.Common

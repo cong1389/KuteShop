@@ -1,6 +1,6 @@
 ﻿using App.Core.Localization;
 using App.Domain.Entities.GlobalSetting;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using System;
 using System.Globalization;
 using App.Core.Messages;

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Domain.Entities.Customers
+namespace App.Domain.Customers
 {
     public class Customer : AuditableEntity<int>
     {

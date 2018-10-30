@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Interfaces.Services;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 
 namespace App.Service.Customers
 {

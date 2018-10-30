@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Ads;
+using App.Domain.Ads;
 using App.Domain.Interfaces.Repository;
 
 namespace App.Infra.Data.Repository.Ads

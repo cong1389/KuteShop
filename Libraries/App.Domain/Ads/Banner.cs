@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App.Domain.Entities.Ads
+namespace App.Domain.Ads
 {
 	public class Banner : AuditableEntity<int>
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using App.Domain.Entities.Account;
+using App.Domain.Account;
 using App.Domain.Entities.Identity;
 using App.Infra.Data.Repository.Account;
 using App.Infra.Data.UOW.Interfaces;
@@ -15,7 +15,8 @@ namespace App.Service.Account
 {
     public class UserStoreService : IUserLoginStore<IdentityUser, Guid>, IUserClaimStore<IdentityUser, Guid>,
         IUserRoleStore<IdentityUser, Guid>, IUserPasswordStore<IdentityUser, Guid>,
-        IUserSecurityStampStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>, IUserTokenProvider<IdentityUser, Guid>, IIdentityMessageService, IUserStoreService
+        IUserSecurityStampStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>,
+        IUserTokenProvider<IdentityUser, Guid>, IIdentityMessageService, IUserStoreService
 
     {
         private readonly IExternalLoginRepository _externalLoginRepository;
@@ -26,7 +27,8 @@ namespace App.Service.Account
 
         private readonly IUserRepository _userRepository;
 
-        public UserStoreService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository, IExternalLoginRepository externalLoginRepository, IRoleRepository roleRepository)
+        public UserStoreService(IUnitOfWorkAsync unitOfWork, IUserRepository userRepository,
+            IExternalLoginRepository externalLoginRepository, IRoleRepository roleRepository)
         {
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
@@ -49,7 +51,7 @@ namespace App.Service.Account
             {
                 throw new ArgumentException("IdentityUser does not correspond to a User entity.", "user");
             }
-            var claim1 = new Domain.Entities.Account.Claim
+            var claim1 = new Domain.Account.Claim
             {
                 ClaimType = claim.Type,
                 ClaimValue = claim.Value,

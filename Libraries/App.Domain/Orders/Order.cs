@@ -1,6 +1,6 @@
 ﻿using App.Core.Common;
 using App.Domain.Common;
-using Domain.Entities.Customers;
+using App.Domain.Customers;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
