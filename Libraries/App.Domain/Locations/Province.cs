@@ -1,11 +1,10 @@
 using App.Core.Common;
-using App.Domain.Entities.GlobalSetting;
-using System.Collections.Generic;
 using App.Domain.ContactInfors;
+using System.Collections.Generic;
 
 namespace App.Domain.Locations
 {
-	public class Province : AuditableEntity<int>
+    public class Province : AuditableEntity<int>
 	{
 		public virtual ICollection<ContactInformation> ContactInformations
 		{

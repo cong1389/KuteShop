@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Resources;
 
-namespace App.FakeEntity.ServerMail
+namespace App.FakeEntity.ServerMails
 {
 	public class ServerMailSettingViewModel
 	{

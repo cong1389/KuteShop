@@ -1,17 +1,16 @@
-using System.Collections.Generic;
-using System.Text;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.SettingSeoes;
 using App.Infra.Data.Common;
-using App.Infra.Data.Repository.SeoSetting;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
+using System.Text;
+using App.Infra.Data.Repository.SettingSeoes;
 
-namespace App.Service.SeoSetting
+namespace App.Service.SettingSeoes
 {
-	public class SettingSeoGlobalService : BaseService<SettingSeoGlobal>, ISettingSeoGlobalService
+    public class SettingSeoGlobalService : BaseService<SettingSeoGlobal>, ISettingSeoGlobalService
 	{
         private const string CacheKey = "db.SettingSeoGlobal.{0}";
         private readonly ICacheManager _cacheManager;

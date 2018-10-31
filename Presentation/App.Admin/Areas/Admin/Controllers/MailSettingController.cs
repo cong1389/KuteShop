@@ -1,8 +1,7 @@
 using App.Admin.Helpers;
 using App.Core.Caching;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
-using App.FakeEntity.ServerMail;
+using App.Domain.ServerMails;
 using App.Framework.Utilities;
 using App.Service.MailSetting;
 using AutoMapper;
@@ -11,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.FakeEntity.ServerMails;
 
 namespace App.Admin.Controllers
 {

@@ -51,7 +51,7 @@
     <Compile Include="Common\ShippingStatus.cs" />
     <Compile Include="Customers\Customer.cs" />
     <Compile Include="Posts\PostGallery.cs" />
-    <Compile Include="Email\EmailAddress.cs" />
+    <Compile Include="ServerMails\EmailAddress.cs" />
     <Compile Include="GenericControls\GenericControlValueItem.cs" />
     <Compile Include="GenericControls\GenericControl.cs" />
     <Compile Include="GenericControls\GenericControlValue.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="Repairs\Repair.cs" />
     <Compile Include="Repairs\RepairGallery.cs" />
     <Compile Include="Repairs\RepairItem.cs" />
-    <Compile Include="GlobalSetting\SendMail.cs" />
+    <Compile Include="ServerMails\SendMail.cs" />
     <Compile Include="Languages\LocaleStringResource.cs" />
     <Compile Include="Languages\LocalizedProperty.cs" />
     <Compile Include="Menus\PositionMenuLink.cs" />
@@ -167,10 +167,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="GlobalSetting\Popup.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Common\TypePost.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -179,7 +175,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="GlobalSetting\ServerMailSetting.cs">
+    <Compile Include="ServerMails\ServerMailSetting.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

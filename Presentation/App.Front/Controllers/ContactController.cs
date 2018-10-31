@@ -1,6 +1,6 @@
 ﻿using App.Aplication;
 using App.Domain.Common;
-using App.Domain.GlobalSetting;
+using App.Domain.ServerMails;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.ContactInfors;

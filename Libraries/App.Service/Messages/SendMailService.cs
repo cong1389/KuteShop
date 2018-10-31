@@ -1,15 +1,15 @@
-﻿using System;
+﻿using App.Domain.ServerMails;
+using App.Service.MailSetting;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Domain.GlobalSetting;
-using App.Service.MailSetting;
-using Microsoft.AspNet.Identity;
 
 namespace App.Service.Messages
 {
-	public class SendMailService : IIdentityMessageService, ISendMailService
+    public class SendMailService : IIdentityMessageService, ISendMailService
     {
         private readonly IMailSettingService _mailSettingService;
 

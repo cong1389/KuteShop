@@ -5,7 +5,7 @@ using App.Infra.Data.DbFactory;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace App.Infra.Data.Repository.SeoSetting
+namespace App.Infra.Data.Repository.SettingSeoes
 {
     public class SettingSeoGlobalRepository : RepositoryBase<SettingSeoGlobal>, ISettingSeoGlobalRepository
 	{

@@ -1,7 +1,7 @@
 using App.Core.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace App.Domain.Entities.GlobalSetting
+namespace App.Domain.ServerMails
 {
 	public class ServerMailSetting : AuditableEntity<int>
 	{

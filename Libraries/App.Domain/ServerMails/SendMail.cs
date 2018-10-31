@@ -1,4 +1,4 @@
-﻿namespace App.Domain.GlobalSetting
+﻿namespace App.Domain.ServerMails
 {
 	public class SendMail
     {

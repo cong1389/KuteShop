@@ -7,7 +7,6 @@ using App.Domain.ContactInfors;
 using App.Domain.Customers;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
@@ -22,6 +21,8 @@ using App.Domain.News;
 using App.Domain.Orders;
 using App.Domain.Posts;
 using App.Domain.Repairs;
+using App.Domain.ServerMails;
+using App.Domain.SettingSeoes;
 using App.Domain.Shippings;
 using App.Domain.StaticContents;
 using App.Domain.Systems;
@@ -33,7 +34,6 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Domain.SettingSeoes;
 
 namespace App.Infra.Data.Context
 {

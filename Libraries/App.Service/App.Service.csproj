@@ -312,7 +312,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeoSetting\ISettingSeoGlobalService.cs">
+    <Compile Include="SettingSeoes\ISettingSeoGlobalService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -332,7 +332,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeoSetting\SettingSeoGlobalService.cs">
+    <Compile Include="SettingSeoes\SettingSeoGlobalService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

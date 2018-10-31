@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace App.Domain.Email
+namespace App.Domain.ServerMails
 {
     public class EmailAddress
     {

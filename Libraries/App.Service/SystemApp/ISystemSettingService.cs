@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
+﻿using App.Core.Utilities;
 using App.Domain.Interfaces.Services;
 using App.Domain.Systems;
+using System.Collections.Generic;
 
 namespace App.Service.SystemApp
 {

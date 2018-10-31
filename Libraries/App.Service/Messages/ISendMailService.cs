@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using App.Domain.GlobalSetting;
+﻿using App.Domain.ServerMails;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace App.Service.Messages
 {

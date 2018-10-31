@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using App.Core.Common;
+﻿using App.Core.Common;
 using App.Core.ComponentModel;
 using App.Core.Extensions;
 using App.Core.IO.VirtualPath;
 using App.Core.Templating;
 using App.Domain.Common;
-using App.Domain.Entities.GlobalSetting;
-using App.Domain.Orders;
-using App.Service.Addresses;
 using App.Domain.Customers;
+using App.Domain.Orders;
 using App.Domain.Systems;
+using App.Service.Addresses;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace App.Service.Messages
 {
-	public partial class MessageModelProvider : IMessageModelProvider
+    public partial class MessageModelProvider : IMessageModelProvider
     {
         private readonly IVirtualPathProvider _vpp;
 

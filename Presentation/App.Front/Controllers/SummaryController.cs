@@ -2,7 +2,8 @@ using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Domain.Common;
 using App.Domain.ContactInfors;
-using App.Domain.Entities.GlobalSetting;
+using App.Domain.SettingSeoes;
+using App.Domain.Systems;
 using App.FakeEntity.Menus;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -11,15 +12,13 @@ using App.Service.ContactInfors;
 using App.Service.Locations;
 using App.Service.Menus;
 using App.Service.Post;
-using App.Service.SeoSetting;
 using App.Service.Static;
 using App.Service.SystemApp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using App.Domain.SettingSeoes;
-using App.Domain.Systems;
+using App.Service.SettingSeoes;
 
 namespace App.Front.Controllers
 {
@@ -40,7 +39,8 @@ namespace App.Front.Controllers
         private readonly IStaticContentService _staticContentService;
 
         public SummaryController(IMenuLinkService menuLinkService
-            , IProvinceService provinceService, IDistrictService districtService, ISystemSettingService systemSettingService
+            , IProvinceService provinceService, IDistrictService districtService,
+            ISystemSettingService systemSettingService
             , IContactInfoService contactInfoService
             , ISettingSeoGlobalService settingSeoGlobal
             , IWorkContext workContext

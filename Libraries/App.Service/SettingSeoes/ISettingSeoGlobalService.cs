@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
 using App.Domain.SettingSeoes;
+using System.Collections.Generic;
 
-namespace App.Service.SeoSetting
+namespace App.Service.SettingSeoes
 {
-	public interface ISettingSeoGlobalService : IBaseService<SettingSeoGlobal>
+    public interface ISettingSeoGlobalService : IBaseService<SettingSeoGlobal>
 	{
 		SettingSeoGlobal GetById(int id);
 

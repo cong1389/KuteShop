@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using App.Core.Caching;
+﻿using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Systems;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.System;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
+using System.Text;
 
 namespace App.Service.SystemApp
 {

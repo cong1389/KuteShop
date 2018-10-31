@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Repository;
+using App.Domain.ServerMails;
+using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.MailSetting
 {
-	public interface IMailSettingRepository : IRepositoryBase<ServerMailSetting>
+    public interface IMailSettingRepository : IRepositoryBase<ServerMailSetting>
 	{
 		ServerMailSetting GetById(int id);
 

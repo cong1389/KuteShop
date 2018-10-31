@@ -125,7 +125,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ServerMail\ServerMailSettingViewModel.cs">
+    <Compile Include="ServerMails\ServerMailSettingViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -133,7 +133,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeoGlobal\SettingSeoGlobalViewModel.cs">
+    <Compile Include="SettingSeoes\SettingSeoGlobalViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

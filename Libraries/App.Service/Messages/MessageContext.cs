@@ -1,15 +1,15 @@
 ﻿using App.Core.Localization;
-using App.Domain.Entities.GlobalSetting;
+using App.Core.Messages;
 using App.Domain.Customers;
+using App.Domain.Languages;
+using App.Domain.ServerMails;
+using App.Domain.Systems;
 using System;
 using System.Globalization;
-using App.Core.Messages;
-using App.Domain.Languages;
-using App.Domain.Systems;
 
 namespace App.Service.Messages
 {
-	public class MessageContext
+    public class MessageContext
     {
 	    private IFormatProvider _formatProvider;
 

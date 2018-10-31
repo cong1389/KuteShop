@@ -1,9 +1,9 @@
-using App.FakeEntity.ServerMail;
+using App.FakeEntity.ServerMails;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class MailSettingValidator : AbstractValidator<ServerMailSettingViewModel>
+    public class MailSettingValidator : AbstractValidator<ServerMailSettingViewModel>
 	{
 		public MailSettingValidator()
 		{

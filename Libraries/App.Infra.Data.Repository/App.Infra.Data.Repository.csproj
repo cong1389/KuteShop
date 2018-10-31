@@ -203,7 +203,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeoSetting\ISettingSeoGlobalRepository.cs">
+    <Compile Include="SettingSeoes\ISettingSeoGlobalRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -227,7 +227,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SeoSetting\SettingSeoGlobalRepository.cs">
+    <Compile Include="SettingSeoes\SettingSeoGlobalRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

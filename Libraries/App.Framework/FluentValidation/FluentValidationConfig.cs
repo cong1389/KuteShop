@@ -14,7 +14,6 @@ using App.FakeEntity.Other;
 using App.FakeEntity.Payments;
 using App.FakeEntity.Post;
 using App.FakeEntity.Repairs;
-using App.FakeEntity.ServerMail;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
 using App.FakeEntity.Systems;
@@ -23,6 +22,7 @@ using App.Framework.ValidateEntity;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using App.FakeEntity.ServerMails;
 
 namespace App.Framework.FluentValidation
 {

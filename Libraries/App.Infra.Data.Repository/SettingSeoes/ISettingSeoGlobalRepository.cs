@@ -3,7 +3,7 @@ using App.Domain.Interfaces.Repository;
 using App.Domain.SettingSeoes;
 using System.Collections.Generic;
 
-namespace App.Infra.Data.Repository.SeoSetting
+namespace App.Infra.Data.Repository.SettingSeoes
 {
     public interface ISettingSeoGlobalRepository : IRepositoryBase<SettingSeoGlobal>
 	{

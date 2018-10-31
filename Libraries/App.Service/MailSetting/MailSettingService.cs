@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
+using App.Domain.ServerMails;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.MailSetting;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace App.Service.MailSetting
 {
-	public class MailSettingService : BaseService<ServerMailSetting>, IMailSettingService
+    public class MailSettingService : BaseService<ServerMailSetting>, IMailSettingService
 	{
 		private readonly IMailSettingRepository _mailSettingRepository;
 

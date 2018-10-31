@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Resources;
 
-namespace App.FakeEntity.SeoGlobal
+namespace App.FakeEntity.SettingSeoes
 {
 	public class SettingSeoGlobalViewModel
 	{
