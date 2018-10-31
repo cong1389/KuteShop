@@ -1,6 +1,6 @@
 using App.Core.Common;
 
-namespace App.Domain.Entities.Location
+namespace App.Domain.Locations
 {
 	public class District : AuditableEntity<int>
 	{

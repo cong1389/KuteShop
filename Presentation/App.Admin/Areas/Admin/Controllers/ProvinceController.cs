@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
 using App.Core.Utilities;
-using App.Domain.Entities.Location;
+using App.Domain.Locations;
 using App.FakeEntity.Location;
 using App.Framework.Utilities;
 using App.Service.Locations;

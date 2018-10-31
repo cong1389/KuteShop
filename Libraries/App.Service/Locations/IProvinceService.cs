@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Location;
 using App.Domain.Interfaces.Services;
+using App.Domain.Locations;
+using System.Collections.Generic;
 
 namespace App.Service.Locations
 {
-	public interface IProvinceService : IBaseService<Province>
+    public interface IProvinceService : IBaseService<Province>
 	{
 		Province GetById(int id);
 

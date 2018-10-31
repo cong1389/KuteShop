@@ -1,15 +1,15 @@
-﻿using App.Core.Caching;
+﻿using App.Aplication.Extensions;
+using App.Core.Caching;
 using App.Domain.Entities.Setting;
-using App.FakeEntity.Setting;
 using App.Service.Settings;
 using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
-using App.Aplication.Extensions;
+using App.FakeEntity.Settings;
 
 namespace App.Admin.Controllers
 {
-	public class SettingController : BaseAdminController
+    public class SettingController : BaseAdminController
 	{
 		private const string Cache = "db.Setting";
 

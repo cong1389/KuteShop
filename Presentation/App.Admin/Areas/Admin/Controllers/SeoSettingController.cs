@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Domain.SettingSeoes;
 
 namespace App.Admin.Controllers
 {

@@ -1,4 +1,4 @@
-namespace App.FakeEntity.Setting
+namespace App.FakeEntity.Settings
 {
 	public class SettingViewModel
 	{

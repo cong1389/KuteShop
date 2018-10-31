@@ -6,7 +6,6 @@ using App.Domain.ContactInfors;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Entities.Identity;
-using App.Domain.Entities.Location;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
@@ -14,6 +13,7 @@ using App.Domain.Entities.Setting;
 using App.Domain.Entities.Slide;
 using App.Domain.GenericControls;
 using App.Domain.Languages;
+using App.Domain.Locations;
 using App.Domain.Manufacturers;
 using App.Domain.Menus;
 using App.Domain.News;
@@ -43,7 +43,7 @@ using App.FakeEntity.Post;
 using App.FakeEntity.Repairs;
 using App.FakeEntity.SeoGlobal;
 using App.FakeEntity.ServerMail;
-using App.FakeEntity.Setting;
+using App.FakeEntity.Settings;
 using App.FakeEntity.Shippings;
 using App.FakeEntity.Slide;
 using App.FakeEntity.Static;
@@ -51,6 +51,7 @@ using App.FakeEntity.Systems;
 using App.FakeEntity.User;
 using AutoMapper;
 using System.Linq;
+using App.Domain.SettingSeoes;
 
 namespace App.Framework.Mappings
 {

@@ -4,6 +4,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.GlobalSetting;
+using App.Domain.SettingSeoes;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.SeoSetting;
 using App.Infra.Data.UOW.Interfaces;

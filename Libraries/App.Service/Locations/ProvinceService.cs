@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Location;
+using App.Domain.Locations;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Locations;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
 
 namespace App.Service.Locations
 {

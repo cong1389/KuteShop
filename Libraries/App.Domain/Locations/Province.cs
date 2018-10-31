@@ -3,7 +3,7 @@ using App.Domain.Entities.GlobalSetting;
 using System.Collections.Generic;
 using App.Domain.ContactInfors;
 
-namespace App.Domain.Entities.Location
+namespace App.Domain.Locations
 {
 	public class Province : AuditableEntity<int>
 	{

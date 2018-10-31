@@ -1,11 +1,11 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Repository;
+using App.Domain.SettingSeoes;
+using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.SeoSetting
 {
-	public interface ISettingSeoGlobalRepository : IRepositoryBase<SettingSeoGlobal>
+    public interface ISettingSeoGlobalRepository : IRepositoryBase<SettingSeoGlobal>
 	{
 		SettingSeoGlobal GetById(int id);
 

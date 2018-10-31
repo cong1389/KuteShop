@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Services;
+using App.Domain.SettingSeoes;
 
 namespace App.Service.SeoSetting
 {

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
 using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
+using App.Domain.SettingSeoes;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace App.Infra.Data.Repository.SeoSetting
 {

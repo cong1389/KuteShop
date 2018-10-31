@@ -1,6 +1,6 @@
 using App.Core.Common;
 
-namespace App.Domain.Entities.GlobalSetting
+namespace App.Domain.SettingSeoes
 {
 	public class SettingSeoGlobal : AuditableEntity<int>
 	{

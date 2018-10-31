@@ -1,9 +1,9 @@
 using App.Core.Common;
-using App.Domain.Entities.Location;
 using App.Domain.Entities.Other;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Domain.Locations;
 
 namespace App.Domain.ContactInfors
 {
