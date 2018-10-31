@@ -97,7 +97,7 @@ namespace App.Domain.Menus
 			set;
 		}
 
-		public ICollection<News> News
+		public ICollection<News.News> News
 		{
 			get;
 			set;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
+using App.Domain.Manufacturers;
 
 namespace App.Service.Manufacturers
 {

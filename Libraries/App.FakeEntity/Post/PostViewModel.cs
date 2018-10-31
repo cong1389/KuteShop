@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Mvc;
 using App.Domain.Entities.Data;
+using App.Domain.Manufacturers;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.Menus;

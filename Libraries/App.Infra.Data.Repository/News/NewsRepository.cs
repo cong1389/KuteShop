@@ -6,19 +6,19 @@ using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.Repository.News
 {
-    public class NewsRepository : RepositoryBase<Domain.Entities.Data.News>, INewsRepository
+    public class NewsRepository : RepositoryBase<Domain.News.News>, INewsRepository
 	{
 		public NewsRepository(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		public Domain.Entities.Data.News GetById(int id)
+		public Domain.News.News GetById(int id)
 		{
 			var news = FindBy(x => x.Id == id).FirstOrDefault();
 			return news;
 		}
 
-		protected override IOrderedQueryable<Domain.Entities.Data.News> GetDefaultOrder(IQueryable<Domain.Entities.Data.News> query)
+		protected override IOrderedQueryable<Domain.News.News> GetDefaultOrder(IQueryable<Domain.News.News> query)
 		{
 			var news = 
 				from p in query
@@ -27,14 +27,14 @@ namespace App.Infra.Data.Repository.News
 			return news;
 		}
 
-		public IEnumerable<Domain.Entities.Data.News> PagedList(Paging page)
+		public IEnumerable<Domain.News.News> PagedList(Paging page)
 		{
 			return GetAllPagedList(page).ToList();
 		}
 
-		public IEnumerable<Domain.Entities.Data.News> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+		public IEnumerable<Domain.News.News> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
 		{
-			var expression = PredicateBuilder.True<Domain.Entities.Data.News>();
+			var expression = PredicateBuilder.True<Domain.News.News>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.Title.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.Description.ToLower().Contains(sortBuider.Keywords.ToLower()));
@@ -42,9 +42,9 @@ namespace App.Infra.Data.Repository.News
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}
 
-		public IEnumerable<Domain.Entities.Data.News> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page)
+		public IEnumerable<Domain.News.News> PagedSearchListByMenu(SortingPagingBuilder sortBuider, Paging page)
 		{
-			var expression = PredicateBuilder.True<Domain.Entities.Data.News>();
+			var expression = PredicateBuilder.True<Domain.News.News>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
 				expression = expression.And(x => x.VirtualCategoryId.Contains(sortBuider.Keywords) && x.Status == 1);

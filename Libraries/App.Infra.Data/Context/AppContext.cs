@@ -26,6 +26,8 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Domain.Manufacturers;
+using App.Domain.News;
 using App.Domain.Posts;
 
 namespace App.Infra.Data.Context

@@ -1,13 +1,8 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
-using App.Domain.Entities.Data;
+using App.Domain.Manufacturers;
 using App.FakeEntity.Manufacturers;
 using App.Framework.Utilities;
 using App.Service.Manufacturers;
@@ -15,6 +10,11 @@ using App.Service.Media;
 using App.Service.Settings;
 using AutoMapper;
 using Resources;
+using System;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

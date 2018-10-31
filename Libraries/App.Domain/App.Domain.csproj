@@ -50,7 +50,7 @@
     <Compile Include="Common\PaymentStatus.cs" />
     <Compile Include="Common\ShippingStatus.cs" />
     <Compile Include="Customers\Customer.cs" />
-    <Compile Include="Data\PostGallery.cs" />
+    <Compile Include="Posts\PostGallery.cs" />
     <Compile Include="Email\EmailAddress.cs" />
     <Compile Include="GenericControls\GenericControlValueItem.cs" />
     <Compile Include="GenericControls\GenericControl.cs" />
@@ -175,7 +175,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Data\Manufacturer.cs">
+    <Compile Include="Manufacturers\Manufacturer.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -219,7 +219,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Data\News.cs">
+    <Compile Include="News\News.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

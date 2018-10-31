@@ -1,13 +1,13 @@
+using App.Aplication.Extensions;
+using App.Domain.News;
+using App.Domain.Posts;
+using App.Service.News;
+using App.Service.Post;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using App.Aplication.Extensions;
-using App.Domain.Entities.Data;
-using App.Domain.Posts;
-using App.Service.News;
-using App.Service.Post;
 
 namespace App.Admin.Controllers
 {

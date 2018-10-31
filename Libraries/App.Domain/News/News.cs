@@ -2,7 +2,7 @@ using App.Core.Common;
 using App.Domain.Menus;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App.Domain.Entities.Data
+namespace App.Domain.News
 {
 	public class News : AuditableEntity<int>
 	{

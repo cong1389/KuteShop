@@ -1,6 +1,6 @@
 ﻿using App.Core.Common;
 
-namespace App.Domain.Entities.Data
+namespace App.Domain.Posts
 {
     public class PostGallery : Entity<int>
     {

@@ -2,8 +2,8 @@
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
-using App.Domain.Entities.Data;
 using App.Domain.Menus;
+using App.Domain.News;
 using App.FakeEntity.Menus;
 using App.FakeEntity.News;
 using App.Framework.Utilities;

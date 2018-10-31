@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
+using App.Domain.Posts;
 
 namespace App.Service.Post
 {

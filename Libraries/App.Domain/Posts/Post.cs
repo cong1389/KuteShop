@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using App.Domain.Entities.Data;
+using App.Domain.Manufacturers;
 
 namespace App.Domain.Posts
 {

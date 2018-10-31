@@ -45,6 +45,8 @@ using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
 using System.Linq;
+using App.Domain.Manufacturers;
+using App.Domain.News;
 
 namespace App.Framework.Mappings
 {
