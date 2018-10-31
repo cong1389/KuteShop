@@ -1,5 +1,5 @@
+using App.Service.Languages;
 using System.Collections.Generic;
-using App.Service.Language;
 
 namespace App.FakeEntity.Menus
 {

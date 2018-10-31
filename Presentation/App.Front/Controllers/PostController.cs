@@ -13,7 +13,7 @@ using App.Service.Common;
 using App.Service.ContactInfors;
 using App.Service.Gallery;
 using App.Service.GenericControls;
-using App.Service.Language;
+using App.Service.Languages;
 using App.Service.Menus;
 using App.Service.Post;
 using Newtonsoft.Json;

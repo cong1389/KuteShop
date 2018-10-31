@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using App.Service.Language;
+﻿using App.Service.Languages;
+using System.Web.Mvc;
 
 namespace App.Framework.Theme
 {

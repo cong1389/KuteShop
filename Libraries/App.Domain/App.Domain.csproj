@@ -58,12 +58,12 @@
     <Compile Include="Data\GenericAttribute.cs" />
     <Compile Include="Common\RepairStatus.cs" />
     <Compile Include="Brandes\Brand.cs" />
-    <Compile Include="Data\Repair.cs" />
-    <Compile Include="Data\RepairGallery.cs" />
-    <Compile Include="Data\RepairItem.cs" />
+    <Compile Include="Repairs\Repair.cs" />
+    <Compile Include="Repairs\RepairGallery.cs" />
+    <Compile Include="Repairs\RepairItem.cs" />
     <Compile Include="GlobalSetting\SendMail.cs" />
-    <Compile Include="Language\LocaleStringResource.cs" />
-    <Compile Include="Language\LocalizedProperty.cs" />
+    <Compile Include="Languages\LocaleStringResource.cs" />
+    <Compile Include="Languages\LocalizedProperty.cs" />
     <Compile Include="Menus\PositionMenuLink.cs" />
     <Compile Include="Orders\Order.cs" />
     <Compile Include="Orders\OrderItem.cs" />
@@ -73,7 +73,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Language\Language.cs">
+    <Compile Include="Languages\Language.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -199,7 +199,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="GlobalSetting\SystemSetting.cs">
+    <Compile Include="Systems\SystemSetting.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

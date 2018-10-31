@@ -1,7 +1,7 @@
+using App.Service.Languages;
+using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using App.Service.Language;
-using Resources;
 
 namespace App.FakeEntity.GenericControls
 {

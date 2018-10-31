@@ -1,6 +1,6 @@
 ﻿using App.Core;
 using App.Core.Caching;
-using App.Service.LocaleStringResource;
+using App.Service.Languages;
 using App.Service.Settings;
 using System;
 

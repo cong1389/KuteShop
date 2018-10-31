@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using App.Domain.Entities.Data;
+using App.Domain.Repairs;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 

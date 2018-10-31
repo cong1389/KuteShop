@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using App.Domain.Common;
+﻿using App.Domain.Common;
 using App.Front.Models;
 using App.Service.Common;
-using App.Service.Language;
+using App.Service.Languages;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {

@@ -1,9 +1,9 @@
+using App.Service.Languages;
+using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
-using App.Service.Language;
-using Resources;
 
 namespace App.FakeEntity.Payments
 {

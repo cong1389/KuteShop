@@ -1,14 +1,15 @@
-﻿using System;
-using System.Net;
-using System.Web;
-using App.Core.Extensions;
+﻿using App.Core.Extensions;
 using App.Domain.Common;
+using App.Domain.Customers;
 using App.Domain.Entities.Identity;
 using App.Service.Customers;
 using App.Service.GenericAttribute;
-using App.Service.Language;
-using App.Domain.Customers;
+using App.Service.Languages;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Net;
+using System.Web;
+using App.Domain.Languages;
 
 namespace App.Service.Common
 {
@@ -24,7 +25,7 @@ namespace App.Service.Common
 
         private readonly ICustomerService _customerService;
 
-        private Domain.Entities.Language.Language _cachedLanguage;
+        private Language _cachedLanguage;
 
         private Customer _cachedCustomer;
 
@@ -41,7 +42,7 @@ namespace App.Service.Common
             UserManager = userManager;
         }
 
-        public Domain.Entities.Language.Language WorkingLanguage
+        public Language WorkingLanguage
         {
             get
             {

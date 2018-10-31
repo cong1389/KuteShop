@@ -4,6 +4,8 @@ using App.Domain.Customers;
 using System;
 using System.Globalization;
 using App.Core.Messages;
+using App.Domain.Languages;
+using App.Domain.Systems;
 
 namespace App.Service.Messages
 {
@@ -35,7 +37,7 @@ namespace App.Service.Messages
 		/// </summary>
 		public int? StoreId { get; set; }
 
-		internal Domain.Entities.Language.Language Language { get; set; }
+		internal Language Language { get; set; }
         //internal Store Store { get; set; }
         public ServerMailSetting EmailAccount { get; internal set; }
 

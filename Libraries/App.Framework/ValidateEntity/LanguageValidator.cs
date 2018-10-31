@@ -1,13 +1,13 @@
+using App.FakeEntity.Languages;
+using FluentValidation;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
-using App.FakeEntity.Language;
-using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class LanguageValidator : AbstractValidator<LanguageFormViewModel>
+    public class LanguageValidator : AbstractValidator<LanguageFormViewModel>
 	{
 		public LanguageValidator()
 		{

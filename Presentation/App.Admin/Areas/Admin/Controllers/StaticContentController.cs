@@ -1,26 +1,24 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Aplication;
 using App.Core.Caching;
 using App.Core.Utilities;
-using App.Domain.Entities.Data;
 using App.Domain.Menus;
 using App.Domain.StaticContents;
 using App.FakeEntity.Menus;
 using App.FakeEntity.Static;
 using App.Framework.Utilities;
-using App.Service.Language;
-using App.Service.LocalizedProperty;
+using App.Service.Languages;
 using App.Service.Media;
 using App.Service.Menus;
 using App.Service.Settings;
 using App.Service.Static;
 using AutoMapper;
 using Resources;
+using System;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using static System.String;
 
 namespace App.Admin.Controllers

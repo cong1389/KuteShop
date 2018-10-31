@@ -1,9 +1,9 @@
-using App.FakeEntity.Language;
+using App.FakeEntity.Languages;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class LocalizedPropertyValidator : AbstractValidator<LocalizedPropertyViewModel>
+    public class LocalizedPropertyValidator : AbstractValidator<LocalizedPropertyViewModel>
 	{
 		public LocalizedPropertyValidator()
 		{

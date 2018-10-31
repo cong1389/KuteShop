@@ -75,8 +75,8 @@
     <Compile Include="GenericControls\GenericControlViewModel.cs" />
     <Compile Include="Brandes\BrandViewModel.cs" />
     <Compile Include="GenericAttribute\GenericAttributeViewModel.cs" />
-    <Compile Include="Language\LocaleStringResourceViewModel.cs" />
-    <Compile Include="Language\LanguageFormViewModel.cs" />
+    <Compile Include="Languages\LocaleStringResourceViewModel.cs" />
+    <Compile Include="Languages\LanguageFormViewModel.cs" />
     <Compile Include="Menus\PositionMenuLinkViewModel.cs" />
     <Compile Include="Menus\MenuNavViewModel.cs" />
     <Compile Include="Orders\OrderItemViewModel.cs" />
@@ -101,7 +101,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Language\LocalizedPropertyViewModel.cs">
+    <Compile Include="Languages\LocalizedPropertyViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -137,7 +137,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="System\SystemSettingViewModel.cs">
+    <Compile Include="Systems\SystemSettingViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

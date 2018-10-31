@@ -1,4 +1,4 @@
-using App.Service.Language;
+using App.Service.Languages;
 using System.Collections.Generic;
 
 namespace App.FakeEntity.Menus

@@ -4,8 +4,8 @@ using App.Core.Utilities;
 using App.Domain.ContactInfors;
 using App.FakeEntity.ContactInformations;
 using App.Framework.Utilities;
-using App.Service.Language;
-using App.Service.LocalizedProperty;
+using App.Service.ContactInfors;
+using App.Service.Languages;
 using App.Service.Locations;
 using AutoMapper;
 using Resources;
@@ -13,7 +13,6 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App.Service.ContactInfors;
 
 namespace App.Admin.Controllers
 {

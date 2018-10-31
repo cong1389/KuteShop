@@ -1,13 +1,12 @@
-﻿using App.Core.Caching;
-using App.Domain.Entities.Language;
-using App.FakeEntity.Language;
+﻿using App.Aplication.Extensions;
+using App.Core.Caching;
+using App.Domain.Languages;
+using App.FakeEntity.Languages;
 using App.Service.Common;
-using App.Service.Language;
-using App.Service.LocaleStringResource;
+using App.Service.Languages;
 using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
-using App.Aplication.Extensions;
 
 namespace App.Admin.Controllers
 {

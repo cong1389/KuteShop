@@ -1,5 +1,5 @@
 using App.Domain.Common;
-using App.Service.Language;
+using App.Service.Languages;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {
-	public class BaseAdminController : Controller
+    public class BaseAdminController : Controller
 	{
         protected virtual void AddLocales<TLocalizedPropertyViewModelLocal>(ILanguageService languageService,
 	        IList<TLocalizedPropertyViewModelLocal> locales) where TLocalizedPropertyViewModelLocal : ILocalizedModelLocal

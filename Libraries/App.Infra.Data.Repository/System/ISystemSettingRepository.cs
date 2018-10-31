@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Interfaces.Repository;
+using App.Domain.Systems;
 
 namespace App.Infra.Data.Repository.System
 {

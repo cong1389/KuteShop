@@ -1,14 +1,14 @@
+using App.FakeEntity.Menus;
+using App.Service.Languages;
+using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
-using App.FakeEntity.Menus;
-using App.Service.Language;
-using Resources;
 
 namespace App.FakeEntity.Static
 {
-	public class StaticContentViewModel : ILocalizedModel<StaticContentLocalesViewModel>
+    public class StaticContentViewModel : ILocalizedModel<StaticContentLocalesViewModel>
     {
 		[AllowHtml]
 		[Display(Name="Description", ResourceType=typeof(FormUI))]

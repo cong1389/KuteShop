@@ -4,8 +4,8 @@ using App.Domain.Interfaces.Services;
 
 namespace App.Service.Repairs
 {
-    public interface IRepairService : IBaseService<Domain.Entities.Data.Repair>
+    public interface IRepairService : IBaseService<Domain.Repairs.Repair>
     {
-        IEnumerable<Domain.Entities.Data.Repair> PagedList(SortingPagingBuilder sortBuider, Paging page);
+        IEnumerable<Domain.Repairs.Repair> PagedList(SortingPagingBuilder sortBuider, Paging page);
     }
 }

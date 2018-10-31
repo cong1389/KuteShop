@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using App.Service.Language;
+﻿using System.Web.Mvc;
 
 namespace App.FakeEntity.Plugins
 {

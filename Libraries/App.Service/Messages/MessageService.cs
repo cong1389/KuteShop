@@ -1,25 +1,25 @@
 ﻿using App.Aplication;
 using App.Core.Extensions;
+using App.Core.Messages;
 using App.Core.Templating;
 using App.Core.Utilities;
+using App.Domain.Customers;
 using App.Domain.Email;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.GlobalSetting;
 using App.Domain.Orders;
 using App.Service.Common;
-using App.Service.Language;
+using App.Service.Languages;
 using App.Service.MailSetting;
 using App.Service.Post;
 using App.Service.SystemApp;
-using App.Domain.Customers;
 using System;
 using System.IO;
 using System.Linq;
-using App.Core.Messages;
 
 namespace App.Service.Messages
 {
-	public class MessageService : IMessageService
+    public class MessageService : IMessageService
     {
         private readonly ICommonServices _services;
         private readonly ILanguageService _languageService;

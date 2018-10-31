@@ -6,14 +6,14 @@ using App.Domain.Common;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.Domain.Orders;
+using App.Domain.Posts;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.Post;
 using App.Framework.Utilities;
 using App.Service.Attribute;
 using App.Service.Gallery;
 using App.Service.GenericControls;
-using App.Service.Language;
-using App.Service.LocalizedProperty;
+using App.Service.Languages;
 using App.Service.Manufacturers;
 using App.Service.Media;
 using App.Service.Menus;
@@ -29,7 +29,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using App.Domain.Posts;
+using App.Domain.Languages;
 using static System.IO.File;
 
 namespace App.Admin.Controllers
@@ -294,7 +294,7 @@ namespace App.Admin.Controllers
 					var posts = new List<Post>();
 					var galleryImages = new List<GalleryImage>();
 					var orderItems = new List<OrderItem>();
-					IEnumerable<Domain.Entities.Language.LocalizedProperty> localizedProperties = null;
+					IEnumerable<LocalizedProperty> localizedProperties = null;
 
 					for (var i = 0; i < ids.Length; i++)
 					{

@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Repairs;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
 
 namespace App.Service.Repairs
 {
-    public class RepairService : BaseService<Domain.Entities.Data.Repair>, IRepairService
+    public class RepairService : BaseService<Domain.Repairs.Repair>, IRepairService
     {
         private readonly IRepairRepository _orderRepository;
 
@@ -15,7 +15,7 @@ namespace App.Service.Repairs
             _orderRepository = orderRepository;
         }
 
-        public IEnumerable<Domain.Entities.Data.Repair> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+        public IEnumerable<Domain.Repairs.Repair> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _orderRepository.PagedSearchList(sortbuBuilder, page);
         }

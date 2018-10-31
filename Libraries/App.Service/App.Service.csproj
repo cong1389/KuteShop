@@ -183,16 +183,16 @@
     <Compile Include="Brandes\BrandService.cs" />
     <Compile Include="Common\WebWorkContext.cs" />
     <Compile Include="GenericAttribute\IGenericAttributeService.cs" />
-    <Compile Include="Language\ILocalizedModel.cs" />
-    <Compile Include="Language\ILocalizedModelLocal.cs" />
-    <Compile Include="Language\ILocaleStringResourceService.cs" />
-    <Compile Include="Language\ILocalizedPropertyService.cs" />
+    <Compile Include="Languages\ILocalizedModel.cs" />
+    <Compile Include="Languages\ILocalizedModelLocal.cs" />
+    <Compile Include="Languages\ILocaleStringResourceService.cs" />
+    <Compile Include="Languages\ILocalizedPropertyService.cs" />
     <Compile Include="GenericAttribute\GenericAttributeService.cs" />
-    <Compile Include="Language\ITextService.cs" />
-    <Compile Include="Language\LocalizationExtentions.cs" />
-    <Compile Include="Language\LocaleStringResourceService.cs" />
-    <Compile Include="Language\LocalizedPropertyService.cs" />
-    <Compile Include="Language\TextService.cs" />
+    <Compile Include="Languages\ITextService.cs" />
+    <Compile Include="Languages\LocalizationExtentions.cs" />
+    <Compile Include="Languages\LocaleStringResourceService.cs" />
+    <Compile Include="Languages\LocalizedPropertyService.cs" />
+    <Compile Include="Languages\TextService.cs" />
     <Compile Include="Locations\DistrictService.cs" />
     <Compile Include="Locations\IDistrictService.cs" />
     <Compile Include="Attribute\AttributeService.cs">
@@ -222,7 +222,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Language\ILanguageService.cs">
+    <Compile Include="Languages\ILanguageService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -230,7 +230,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Language\LanguageService.cs">
+    <Compile Include="Languages\LanguageService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

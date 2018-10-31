@@ -1,6 +1,6 @@
+using App.Domain.Languages;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using App.Domain.Entities.Language;
 
 namespace App.Infra.Data.Mapping
 {
@@ -13,10 +13,6 @@ namespace App.Infra.Data.Mapping
                 .Property(x => x.Id)
                 .HasColumnName("Id").HasColumnType("int")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
-
-            //this.HasRequired(lp => lp.Language)
-            // .WithMany()
-            // .HasForeignKey(lp => lp.LanguageId);
         }
 	}
 }

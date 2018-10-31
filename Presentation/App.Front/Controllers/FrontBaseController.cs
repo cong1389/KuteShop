@@ -1,9 +1,9 @@
+using App.Core.Localization;
+using App.Front.Models;
+using App.Service.Languages;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using App.Core.Localization;
-using App.Front.Models;
-using App.Service.Language;
 
 namespace App.Front.Controllers
 {

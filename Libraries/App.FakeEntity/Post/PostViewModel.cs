@@ -1,16 +1,15 @@
+using App.Domain.Manufacturers;
+using App.FakeEntity.Attribute;
+using App.FakeEntity.Gallery;
+using App.FakeEntity.Menus;
+using App.Service.Languages;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Mvc;
-using App.Domain.Entities.Data;
-using App.Domain.Manufacturers;
-using App.FakeEntity.Attribute;
-using App.FakeEntity.Gallery;
-using App.FakeEntity.Menus;
-using App.Service.Language;
-using Resources;
 
 namespace App.FakeEntity.Post
 {

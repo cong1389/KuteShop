@@ -1,4 +1,5 @@
 ﻿using App.Domain.Customers;
+using App.Domain.Languages;
 
 namespace App.Service.Common
 {
@@ -6,6 +7,6 @@ namespace App.Service.Common
     {
         Customer CurrentCustomer { get; set; }
 
-        Domain.Entities.Language.Language WorkingLanguage { get; set; }
+        Language WorkingLanguage { get; set; }
     }
 }

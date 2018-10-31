@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using App.Domain.GenericControls;
 using App.FakeEntity.Location;
-using App.Service.Language;
+using App.Service.Languages;
 using Resources;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.FakeEntity.ContactInformations
 {
-	public class ContactInforViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
+    public class ContactInforViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
     {
 		[Display(Name="Address", ResourceType=typeof(FormUI))]
 		public string Address

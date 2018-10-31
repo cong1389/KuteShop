@@ -1,20 +1,19 @@
+using App.Admin.Helpers;
+using App.Aplication;
+using App.Core.Caching;
+using App.Core.Utilities;
+using App.Domain.Systems;
+using App.FakeEntity.Systems;
+using App.Framework.Utilities;
+using App.Service.Languages;
+using App.Service.SystemApp;
+using AutoMapper;
+using Resources;
 using System;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App.Admin.Helpers;
-using App.Aplication;
-using App.Core.Caching;
-using App.Core.Utilities;
-using App.Domain.Entities.GlobalSetting;
-using App.FakeEntity.System;
-using App.Framework.Utilities;
-using App.Service.Language;
-using App.Service.LocalizedProperty;
-using App.Service.SystemApp;
-using AutoMapper;
-using Resources;
 using static System.String;
 
 namespace App.Admin.Controllers

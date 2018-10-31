@@ -1,7 +1,6 @@
 ﻿using App.Core;
 using App.Core.Caching;
-using App.Service.Customers;
-using App.Service.LocaleStringResource;
+using App.Service.Languages;
 using App.Service.Settings;
 
 namespace App.Service.Common

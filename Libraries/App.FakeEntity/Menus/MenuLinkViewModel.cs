@@ -1,5 +1,5 @@
 using App.Domain.GenericControls;
-using App.Service.Language;
+using App.Service.Languages;
 using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

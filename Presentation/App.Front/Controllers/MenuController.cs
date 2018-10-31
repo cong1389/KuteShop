@@ -4,7 +4,7 @@ using App.Domain.Menus;
 using App.Domain.StaticContents;
 using App.Front.Extensions;
 using App.Front.Models;
-using App.Service.Language;
+using App.Service.Languages;
 using App.Service.Menus;
 using App.Service.Static;
 using Newtonsoft.Json;

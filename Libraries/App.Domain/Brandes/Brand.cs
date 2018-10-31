@@ -1,6 +1,7 @@
 using App.Core.Common;
 using App.Domain.Entities.Data;
 using System.Collections.Generic;
+using App.Domain.Repairs;
 
 namespace App.Domain.Brandes
 {
