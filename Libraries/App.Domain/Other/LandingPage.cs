@@ -1,6 +1,7 @@
 using App.Core.Common;
 using App.Domain.Entities.GlobalSetting;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Domain.ContactInfors;
 
 namespace App.Domain.Entities.Other
 {

@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using App.Core.Utilities;
+using App.Domain.ContactInfors;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
-namespace App.Infra.Data.Repository.ContactInformation
+namespace App.Infra.Data.Repository.ContactInfors
 {
-    public class ContactInfoRepository : RepositoryBase<Domain.Entities.GlobalSetting.ContactInformation>, IContactInfoRepository
+    public class ContactInfoRepository : RepositoryBase<ContactInformation>, IContactInfoRepository
     {
         public ContactInfoRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
 
-        public Domain.Entities.GlobalSetting.ContactInformation GetById(int id)
+        public ContactInformation GetById(int id)
         {
             var contactInformation =
                 FindBy(x
@@ -21,8 +22,8 @@ namespace App.Infra.Data.Repository.ContactInformation
             return contactInformation;
         }
 
-        protected override IOrderedQueryable<Domain.Entities.GlobalSetting.ContactInformation> GetDefaultOrder(
-            IQueryable<Domain.Entities.GlobalSetting.ContactInformation> query)
+        protected override IOrderedQueryable<ContactInformation> GetDefaultOrder(
+            IQueryable<ContactInformation> query)
         {
             var contactInformations =
                 from p in query
@@ -32,14 +33,14 @@ namespace App.Infra.Data.Repository.ContactInformation
             return contactInformations;
         }
 
-        public IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> PagedList(Paging page)
+        public IEnumerable<ContactInformation> PagedList(Paging page)
         {
             return GetAllPagedList(page).ToList();
         }
 
-        public IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
+        public IEnumerable<ContactInformation> PagedSearchList(SortingPagingBuilder sortBuider, Paging page)
         {
-            var expression = PredicateBuilder.True<Domain.Entities.GlobalSetting.ContactInformation>();
+            var expression = PredicateBuilder.True<ContactInformation>();
             if (!string.IsNullOrEmpty(sortBuider.Keywords))
             {
                 expression = expression.And(x =>

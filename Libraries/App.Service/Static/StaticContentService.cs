@@ -5,6 +5,7 @@ using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
+using App.Domain.StaticContents;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Static;
 using App.Infra.Data.UOW.Interfaces;

@@ -1,6 +1,7 @@
 using App.Domain.Ads;
 using App.Domain.Brandes;
 using App.Domain.Common;
+using App.Domain.ContactInfors;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
@@ -17,11 +18,12 @@ using App.Domain.News;
 using App.Domain.Orders;
 using App.Domain.Posts;
 using App.Domain.Shippings;
+using App.Domain.StaticContents;
 using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Brandes;
 using App.FakeEntity.Common;
-using App.FakeEntity.ContactInformation;
+using App.FakeEntity.ContactInformations;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.GenericControls;
 using App.FakeEntity.Language;
@@ -52,7 +54,7 @@ namespace App.Framework.Mappings
         {
             CreateMap<Language, LanguageFormViewModel>();
             CreateMap<ServerMailSetting, ServerMailSettingViewModel>();
-            CreateMap<ContactInformation, ContactInformationViewModel>();
+            CreateMap<ContactInformation, ContactInforViewModel>();
             CreateMap<SystemSetting, SystemSettingViewModel>();
             CreateMap<MenuLink, MenuLinkViewModel>();
             CreateMap<PositionMenuLink, PositionMenuLinkViewModel>();

@@ -3,14 +3,14 @@ using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
-using App.Domain.Entities.Data;
+using App.Domain.Posts;
 using App.FakeEntity.GenericControls;
 using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Front.Models.Posts;
 using App.Service.Common;
-using App.Service.ContactInformation;
+using App.Service.ContactInfors;
 using App.Service.Gallery;
 using App.Service.GenericControls;
 using App.Service.Language;
@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using App.Domain.Posts;
 
 namespace App.Front.Controllers
 {

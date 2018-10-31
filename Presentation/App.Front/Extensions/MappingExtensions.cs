@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Domain.Common;
+using App.Domain.ContactInfors;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.GlobalSetting;
 using App.Domain.Menus;
@@ -9,6 +10,7 @@ using App.Domain.Manufacturers;
 using App.Domain.News;
 using App.Domain.Orders;
 using App.Domain.Posts;
+using App.Domain.StaticContents;
 using App.FakeEntity.Common;
 using App.FakeEntity.Menus;
 using App.FakeEntity.Orders;

@@ -6,7 +6,7 @@ using App.Infra.Data.Repository.Addresses;
 using App.Infra.Data.Repository.Ads;
 using App.Infra.Data.Repository.Attribute;
 using App.Infra.Data.Repository.Brandes;
-using App.Infra.Data.Repository.ContactInformation;
+using App.Infra.Data.Repository.ContactInfors;
 using App.Infra.Data.Repository.Customers;
 using App.Infra.Data.Repository.Gallery;
 using App.Infra.Data.Repository.GenericAttribute;

@@ -1,5 +1,5 @@
+using App.Service.ContactInfors;
 using System.Web.Mvc;
-using App.Service.ContactInformation;
 
 namespace App.Front.Controllers
 {

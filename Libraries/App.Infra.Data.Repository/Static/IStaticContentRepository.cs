@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Repository;
+using App.Domain.StaticContents;
 
 namespace App.Infra.Data.Repository.Static
 {

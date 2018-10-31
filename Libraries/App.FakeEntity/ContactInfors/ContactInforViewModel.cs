@@ -5,9 +5,9 @@ using App.FakeEntity.Location;
 using App.Service.Language;
 using Resources;
 
-namespace App.FakeEntity.ContactInformation
+namespace App.FakeEntity.ContactInformations
 {
-	public class ContactInformationViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
+	public class ContactInforViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
     {
 		[Display(Name="Address", ResourceType=typeof(FormUI))]
 		public string Address
@@ -126,7 +126,7 @@ namespace App.FakeEntity.ContactInformation
 
         public IList<ContactInformationLocalesViewModel> Locales { get; set; }
 
-        public ContactInformationViewModel()
+        public ContactInforViewModel()
 		{
             GenericControls = new List<GenericControl>();
             Locales = new List<ContactInformationLocalesViewModel>();

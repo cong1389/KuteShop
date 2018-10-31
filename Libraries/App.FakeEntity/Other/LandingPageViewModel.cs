@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-using App.FakeEntity.ContactInformation;
+using App.FakeEntity.ContactInformations;
 using Resources;
 
 namespace App.FakeEntity.Other
 {
 	public class LandingPageViewModel
 	{
-		public ContactInformationViewModel ContactInformation
+		public ContactInforViewModel ContactInfor
 		{
 			get;
 			set;

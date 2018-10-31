@@ -1,20 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
 using App.Aplication;
-using App.Aplication.Extensions;
 using App.Domain.Common;
 using App.Domain.Menus;
+using App.Domain.StaticContents;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Language;
 using App.Service.Menus;
 using App.Service.Static;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {
@@ -99,7 +97,7 @@ namespace App.Front.Controllers
             return PartialView(staticContent);
         }
 
-        private App.Domain.Entities.Data.StaticContent PrepareStaticContent(int menuId, string virtualId, string title)
+        private StaticContent PrepareStaticContent(int menuId, string virtualId, string title)
         {
             var breadCrumbs = new List<BreadCrumb>();
             var virtualIds = virtualId.Split('/');
@@ -169,9 +167,8 @@ namespace App.Front.Controllers
                 ViewBag.ListItems = menuLinks;
             }
 
-            for (var i = 0; i < virtualIds.Length; i++)
+            foreach (var viruId in virtualIds)
             {
-                var viruId = virtualIds[i];
                 var menuLink = _menuLinkService.GetByMenuName(viruId, title);
                 if (menuLink != null)
                 {

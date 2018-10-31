@@ -4,7 +4,7 @@ using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Brandes;
 using App.FakeEntity.Common;
-using App.FakeEntity.ContactInformation;
+using App.FakeEntity.ContactInformations;
 using App.FakeEntity.GenericControls;
 using App.FakeEntity.Language;
 using App.FakeEntity.Location;
@@ -40,7 +40,7 @@ namespace App.Framework.FluentValidation
 		{
 			_validators.Add(typeof(IValidator<LanguageFormViewModel>), new LanguageValidator());
 			_validators.Add(typeof(IValidator<ServerMailSettingViewModel>), new MailSettingValidator());
-			_validators.Add(typeof(IValidator<ContactInformationViewModel>), new ContactInformationValidator());
+			_validators.Add(typeof(IValidator<ContactInforViewModel>), new ContactInformationValidator());
 			_validators.Add(typeof(IValidator<SystemSettingViewModel>), new SystemSettingValidator());
 			_validators.Add(typeof(IValidator<MenuLinkViewModel>), new MenuLinkValidator());
 			_validators.Add(typeof(IValidator<ProvinceViewModel>), new ProvinceValidator());

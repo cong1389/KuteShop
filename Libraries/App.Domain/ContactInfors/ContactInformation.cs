@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App.Domain.Entities.GlobalSetting
+namespace App.Domain.ContactInfors
 {
     public class ContactInformation : AuditableEntity<int>
     {

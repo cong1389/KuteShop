@@ -17,7 +17,7 @@ using App.Service.Attribute;
 using App.Service.Authentication.External;
 using App.Service.Brandes;
 using App.Service.Common;
-using App.Service.ContactInformation;
+using App.Service.ContactInfors;
 using App.Service.Customers;
 using App.Service.Gallery;
 using App.Service.GenericAttribute;

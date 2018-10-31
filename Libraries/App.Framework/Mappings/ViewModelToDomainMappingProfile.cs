@@ -21,7 +21,7 @@ using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Brandes;
 using App.FakeEntity.Common;
-using App.FakeEntity.ContactInformation;
+using App.FakeEntity.ContactInformations;
 using App.FakeEntity.Gallery;
 using App.FakeEntity.GenericControls;
 using App.FakeEntity.Language;
@@ -45,8 +45,10 @@ using App.FakeEntity.System;
 using App.FakeEntity.User;
 using AutoMapper;
 using System.Linq;
+using App.Domain.ContactInfors;
 using App.Domain.Manufacturers;
 using App.Domain.News;
+using App.Domain.StaticContents;
 
 namespace App.Framework.Mappings
 {
@@ -107,7 +109,7 @@ namespace App.Framework.Mappings
                     map => map.MapFrom(vm => vm.PhoneNumber)).ForMember(
                     x => x.Email, map => map.MapFrom(vm => vm.Email));
 
-            CreateMap<ContactInformationViewModel, ContactInformation>()
+            CreateMap<ContactInforViewModel, ContactInformation>()
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
                 .ForMember(x => x.Language, map => map.MapFrom(vm => vm.Language))
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
+using App.Domain.StaticContents;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 

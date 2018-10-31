@@ -3,6 +3,7 @@ using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
+using App.Domain.StaticContents;
 
 namespace App.Service.Static
 {

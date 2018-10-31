@@ -5,6 +5,7 @@ using App.Domain.GenericControls;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using App.Domain.Posts;
+using App.Domain.StaticContents;
 
 namespace App.Domain.Menus
 {

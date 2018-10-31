@@ -1,12 +1,13 @@
 using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Domain.Common;
+using App.Domain.ContactInfors;
 using App.Domain.Entities.GlobalSetting;
 using App.FakeEntity.Menus;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
-using App.Service.ContactInformation;
+using App.Service.ContactInfors;
 using App.Service.Locations;
 using App.Service.Menus;
 using App.Service.Post;

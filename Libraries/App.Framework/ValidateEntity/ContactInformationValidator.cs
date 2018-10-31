@@ -1,10 +1,10 @@
 using System.Text.RegularExpressions;
-using App.FakeEntity.ContactInformation;
+using App.FakeEntity.ContactInformations;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-    public class ContactInformationValidator : AbstractValidator<ContactInformationViewModel>
+    public class ContactInformationValidator : AbstractValidator<ContactInforViewModel>
 	{
 		public ContactInformationValidator()
 		{

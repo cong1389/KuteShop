@@ -1,15 +1,16 @@
-using System.Collections.Generic;
-using System.Text;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Common;
+using App.Domain.ContactInfors;
 using App.Infra.Data.Common;
-using App.Infra.Data.Repository.ContactInformation;
+using App.Infra.Data.Repository.ContactInfors;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
+using System.Text;
 
-namespace App.Service.ContactInformation
+namespace App.Service.ContactInfors
 {
-    public class ContactInfoService : BaseService<Domain.Entities.GlobalSetting.ContactInformation>, IContactInfoService
+    public class ContactInfoService : BaseService<ContactInformation>, IContactInfoService
     {
         private const string CacheKey = "db.ContactInfo.{0}";
         private readonly ICacheManager _cacheManager;
@@ -26,9 +27,9 @@ namespace App.Service.ContactInformation
             _cacheManager = cacheManager;
         }
 
-        public Domain.Entities.GlobalSetting.ContactInformation GetById(int id, bool isCache = true)
+        public ContactInformation GetById(int id, bool isCache = true)
         {
-            Domain.Entities.GlobalSetting.ContactInformation contactInformation;
+            ContactInformation contactInformation;
 
             if (isCache)
             {
@@ -37,7 +38,7 @@ namespace App.Service.ContactInformation
                 sbKey.Append(id);
 
                 var key = sbKey.ToString();
-                contactInformation = _cacheManager.Get<Domain.Entities.GlobalSetting.ContactInformation>(key);
+                contactInformation = _cacheManager.Get<ContactInformation>(key);
                 if (contactInformation == null)
                 {
                     contactInformation = _contactInfoRepository.GetById(id);
@@ -53,7 +54,7 @@ namespace App.Service.ContactInformation
             return contactInformation;
         }
 
-        public IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+        public IEnumerable<ContactInformation> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _contactInfoRepository.PagedSearchList(sortbuBuilder, page);
         }
@@ -63,9 +64,9 @@ namespace App.Service.ContactInformation
             return _unitOfWork.Commit();
         }
 
-        public Domain.Entities.GlobalSetting.ContactInformation GetTypeAddress(int typeAddress, bool isCache = true)
+        public ContactInformation GetTypeAddress(int typeAddress, bool isCache = true)
         {
-            Domain.Entities.GlobalSetting.ContactInformation contactInformation;
+            ContactInformation contactInformation;
 
             if (isCache)
             {
@@ -74,7 +75,7 @@ namespace App.Service.ContactInformation
                 sbKey.Append(typeAddress);
 
                 var key = sbKey.ToString();
-                contactInformation = _cacheManager.Get<Domain.Entities.GlobalSetting.ContactInformation>(key);
+                contactInformation = _cacheManager.Get<ContactInformation>(key);
                 if (contactInformation == null)
                 {
                     contactInformation = _contactInfoRepository.Get(x => x.Status == 1 && x.Type == typeAddress, true);
@@ -90,7 +91,7 @@ namespace App.Service.ContactInformation
             return contactInformation;
         }
 
-        public IEnumerable<Domain.Entities.GlobalSetting.ContactInformation> GetEnableOrDisables(bool enable = true, bool isCache = true)
+        public IEnumerable<ContactInformation> GetEnableOrDisables(bool enable = true, bool isCache = true)
         {
             if (!isCache)
             {
@@ -103,7 +104,7 @@ namespace App.Service.ContactInformation
 
             var key = sbKey.ToString();
 
-            var slideShows = _cacheManager.GetCollection<Domain.Entities.GlobalSetting.ContactInformation>(key);
+            var slideShows = _cacheManager.GetCollection<ContactInformation>(key);
             if (slideShows == null)
             {
                 slideShows = _contactInfoRepository.FindBy(x => x.Status == (enable ? (int)Status.Enable : (int)Status.Disable), true);

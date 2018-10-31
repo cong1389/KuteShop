@@ -9,6 +9,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
 using App.Domain.Menus;
+using App.Domain.StaticContents;
 using App.FakeEntity.Menus;
 using App.FakeEntity.Static;
 using App.Framework.Utilities;
