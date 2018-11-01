@@ -77,8 +77,8 @@
     <Compile Include="GenericControls\IGenericControlValueRepository.cs" />
     <Compile Include="LocaleStringResources\LocaleStringResourceRepository.cs" />
     <Compile Include="LocaleStringResources\ILocaleStringResourceRepository.cs" />
-    <Compile Include="GenericAttribute\GenericAttributeRepository.cs" />
-    <Compile Include="GenericAttribute\IGenericAttributeRepository.cs" />
+    <Compile Include="GenericAttributes\GenericAttributeRepository.cs" />
+    <Compile Include="GenericAttributes\IGenericAttributeRepository.cs" />
     <Compile Include="Brandes\BrandRepository.cs" />
     <Compile Include="Brandes\IBrandRepository.cs" />
     <Compile Include="Languages\ILocalizedPropertyRepository.cs" />
@@ -91,23 +91,23 @@
     <Compile Include="Repairs\RepairItemRepository.cs" />
     <Compile Include="Orders\ShoppingCartItemRepository.cs" />
     <Compile Include="Repairs\RepairRepository.cs" />
-    <Compile Include="Post\IPostGalleryRepository.cs" />
-    <Compile Include="Post\PostGalleryRepository.cs" />
+    <Compile Include="Posts\IPostGalleryRepository.cs" />
+    <Compile Include="Posts\PostGalleryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings\ISettingRepository.cs" />
     <Compile Include="Settings\SettingRepository.cs" />
-    <Compile Include="System\ISystemSettingRepository.cs">
+    <Compile Include="Systems\ISystemSettingRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="System\SystemSettingRepository.cs">
+    <Compile Include="Systems\SystemSettingRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\AttributeRepository.cs">
+    <Compile Include="Attributes\AttributeRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -119,7 +119,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\PostRepository.cs">
+    <Compile Include="Posts\PostRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -139,7 +139,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\LandingPageRepository.cs">
+    <Compile Include="LandingPages\LandingPageRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -151,11 +151,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Static\IStaticContentRepository.cs">
+    <Compile Include="StaticContents\IStaticContentRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\ILandingPageRepository.cs">
+    <Compile Include="LandingPages\ILandingPageRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -167,7 +167,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Static\StaticContentRepository.cs">
+    <Compile Include="StaticContents\StaticContentRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -175,7 +175,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Gallery\IGalleryRepository.cs">
+    <Compile Include="Galleries\IGalleryRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -187,7 +187,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Slide\SlideShowRepository.cs">
+    <Compile Include="Slides\SlideShowRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -195,7 +195,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Slide\ISlideShowRepository.cs">
+    <Compile Include="Slides\ISlideShowRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -207,7 +207,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Gallery\GalleryRepository.cs">
+    <Compile Include="Galleries\GalleryRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -235,7 +235,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\IPostRepository.cs">
+    <Compile Include="Posts\IPostRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -251,7 +251,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\AttributeValueRepository.cs">
+    <Compile Include="Attributes\AttributeValueRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -259,7 +259,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\IAttributeValueRepository.cs">
+    <Compile Include="Attributes\IAttributeValueRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -267,7 +267,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\IAttributeRepository.cs">
+    <Compile Include="Attributes\IAttributeRepository.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -276,8 +276,6 @@
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@ using App.Core.Utilities;
 using App.Domain.Entities.Attribute;
 using App.FakeEntity.Attribute;
 using App.Framework.Utilities;
-using App.Service.Attribute;
+using App.Service.Attributes;
 using AutoMapper;
 using Resources;
 using System;

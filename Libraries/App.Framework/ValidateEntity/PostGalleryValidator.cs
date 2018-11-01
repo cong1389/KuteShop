@@ -1,4 +1,4 @@
-﻿using App.FakeEntity.Post;
+﻿using App.FakeEntity.Posts;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity

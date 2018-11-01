@@ -8,7 +8,7 @@ using App.Aplication;
 using App.Aplication.FileUtil;
 using App.Core.Utilities;
 using App.Framework.Utilities;
-using App.Service.Other;
+using App.Service.LandingPages;
 using Resources;
 
 namespace App.Admin.Controllers

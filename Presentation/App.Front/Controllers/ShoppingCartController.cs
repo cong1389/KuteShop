@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using App.Aplication;
+﻿using App.Aplication;
 using App.Aplication.Extensions;
 using App.Aplication.Filters;
-using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.Domain.Posts;
 using App.FakeEntity.Address;
 using App.Front.Models.ShoppingCart;
 using App.Service.Common;
 using App.Service.Customers;
-using App.Service.GenericAttribute;
+using App.Service.GenericAttributes;
 using App.Service.Orders;
 using App.Service.PaymentMethodes;
-using App.Service.Post;
+using App.Service.Posts;
 using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {

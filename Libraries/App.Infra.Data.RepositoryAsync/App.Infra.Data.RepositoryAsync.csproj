@@ -52,11 +52,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\PostRepositoryAsync.cs">
+    <Compile Include="Posts\PostRepositoryAsync.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\IPostRepositoryAsync.cs">
+    <Compile Include="Posts\IPostRepositoryAsync.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

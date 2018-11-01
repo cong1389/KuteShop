@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Services;
 using App.Domain.Manufacturers;
+using System.Collections.Generic;
 
 namespace App.Service.Manufacturers
 {
-	public interface IManufacturerService : IBaseService<Manufacturer>
+    public interface IManufacturerService : IBaseService<Manufacturer>
 	{
 		IEnumerable<Manufacturer> PagedList(SortingPagingBuilder sortBuider, Paging page);
 

@@ -74,7 +74,7 @@
     <Compile Include="GenericControls\GenericControlValueViewModel.cs" />
     <Compile Include="GenericControls\GenericControlViewModel.cs" />
     <Compile Include="Brandes\BrandViewModel.cs" />
-    <Compile Include="GenericAttribute\GenericAttributeViewModel.cs" />
+    <Compile Include="GenericAttributes\GenericAttributeViewModel.cs" />
     <Compile Include="Languages\LocaleStringResourceViewModel.cs" />
     <Compile Include="Languages\LanguageFormViewModel.cs" />
     <Compile Include="Menus\PositionMenuLinkViewModel.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Repairs\RepairViewModel.cs" />
     <Compile Include="Orders\ShoppingCartItemViewModel.cs" />
     <Compile Include="Payments\PaymentMethodViewModel.cs" />
-    <Compile Include="Post\PostGalleryViewModel.cs" />
+    <Compile Include="Posts\PostGalleryViewModel.cs" />
     <Compile Include="Settings\SettingViewModel.cs" />
     <Compile Include="Shippings\ShippingMethodViewModel.cs" />
     <Compile Include="User\ChangePasswordViewModel.cs" />
@@ -105,7 +105,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Static\StaticContentViewModel.cs">
+    <Compile Include="StaticContents\StaticContentViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -149,7 +149,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Location\ProvinceViewModel.cs">
+    <Compile Include="Locations\ProvinceViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -157,7 +157,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Location\DistrictViewModel.cs">
+    <Compile Include="Locations\DistrictViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -169,7 +169,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\PostViewModel.cs">
+    <Compile Include="Posts\PostViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

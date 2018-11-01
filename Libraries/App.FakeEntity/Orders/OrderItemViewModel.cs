@@ -1,5 +1,5 @@
 ﻿using System;
-using App.FakeEntity.Post;
+using App.FakeEntity.Posts;
 
 namespace App.FakeEntity.Orders
 {

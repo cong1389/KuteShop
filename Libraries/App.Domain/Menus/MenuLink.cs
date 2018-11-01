@@ -1,11 +1,10 @@
 ﻿using App.Core.Common;
 using App.Domain.Ads;
-using App.Domain.Entities.Data;
 using App.Domain.GenericControls;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using App.Domain.Posts;
 using App.Domain.StaticContents;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Domain.Menus
 {

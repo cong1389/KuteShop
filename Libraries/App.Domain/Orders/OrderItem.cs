@@ -1,8 +1,7 @@
 ﻿using App.Core.Common;
-using App.Domain.Entities.Data;
+using App.Domain.Posts;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using App.Domain.Posts;
 
 namespace App.Domain.Orders
 {

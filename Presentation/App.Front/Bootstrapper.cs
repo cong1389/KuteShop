@@ -1,15 +1,6 @@
-using App.Framework.FluentValidation;
-using App.Framework.Ioc;
-using App.Framework.Mappings;
 using Autofac;
-using Autofac.Builder;
 using Autofac.Integration.Mvc;
-using FluentValidation.Mvc;
 using System;
-using System.Linq;
-using System.Reflection;
-using System.Web.Compilation;
-using System.Web.Mvc;
 
 public class Bootstrapper
 {

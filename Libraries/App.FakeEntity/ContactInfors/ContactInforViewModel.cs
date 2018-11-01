@@ -1,5 +1,5 @@
 using App.Domain.GenericControls;
-using App.FakeEntity.Location;
+using App.FakeEntity.Locations;
 using App.Service.Languages;
 using Resources;
 using System.Collections.Generic;

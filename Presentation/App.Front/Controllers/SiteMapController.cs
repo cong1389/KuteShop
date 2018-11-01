@@ -9,7 +9,7 @@ using App.SeoSitemap.Enum;
 using App.SeoSitemap.Images;
 using App.Service.Menus;
 using App.Service.News;
-using App.Service.Post;
+using App.Service.Posts;
 
 namespace App.Front.Controllers
 {

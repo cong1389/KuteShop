@@ -155,12 +155,12 @@
     <Compile Include="Orders\IOrderService.cs" />
     <Compile Include="Orders\PlaceOrderResult.cs" />
     <Compile Include="Orders\ProcessPaymentRequest.cs" />
-    <Compile Include="Post\IPriceCalculationService.cs" />
-    <Compile Include="Post\PriceCalculationService.cs" />
+    <Compile Include="Posts\IPriceCalculationService.cs" />
+    <Compile Include="Posts\PriceCalculationService.cs" />
     <Compile Include="ShippingMethods\IShippingRateComputationMethod.cs" />
     <Compile Include="ShippingMethods\ShippingMethodService.cs" />
     <Compile Include="ShippingMethods\IShippingMethodService.cs" />
-    <Compile Include="GenericAttribute\GenericAttributeExtentions.cs" />
+    <Compile Include="GenericAttributes\GenericAttributeExtentions.cs" />
     <Compile Include="PaymentMethod\PaymentMethodService.cs" />
     <Compile Include="PaymentMethod\IPaymentMethodService.cs" />
     <Compile Include="Customers\CustomerExtensions.cs" />
@@ -182,12 +182,12 @@
     <Compile Include="Brandes\IBrandService.cs" />
     <Compile Include="Brandes\BrandService.cs" />
     <Compile Include="Common\WebWorkContext.cs" />
-    <Compile Include="GenericAttribute\IGenericAttributeService.cs" />
+    <Compile Include="GenericAttributes\IGenericAttributeService.cs" />
     <Compile Include="Languages\ILocalizedModel.cs" />
     <Compile Include="Languages\ILocalizedModelLocal.cs" />
     <Compile Include="Languages\ILocaleStringResourceService.cs" />
     <Compile Include="Languages\ILocalizedPropertyService.cs" />
-    <Compile Include="GenericAttribute\GenericAttributeService.cs" />
+    <Compile Include="GenericAttributes\GenericAttributeService.cs" />
     <Compile Include="Languages\ITextService.cs" />
     <Compile Include="Languages\LocalizationExtentions.cs" />
     <Compile Include="Languages\LocaleStringResourceService.cs" />
@@ -195,7 +195,7 @@
     <Compile Include="Languages\TextService.cs" />
     <Compile Include="Locations\DistrictService.cs" />
     <Compile Include="Locations\IDistrictService.cs" />
-    <Compile Include="Attribute\AttributeService.cs">
+    <Compile Include="Attributes\AttributeService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -212,9 +212,9 @@
     <Compile Include="Repairs\RepairItemService.cs" />
     <Compile Include="Orders\ShoppingCartItemService.cs" />
     <Compile Include="Repairs\RepairService.cs" />
-    <Compile Include="Post\IPostGalleryService.cs" />
-    <Compile Include="Post\PostGalleryService.cs" />
-    <Compile Include="Post\PostService.cs">
+    <Compile Include="Posts\IPostGalleryService.cs" />
+    <Compile Include="Posts\PostGalleryService.cs" />
+    <Compile Include="Posts\PostService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -234,7 +234,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\LandingPageService.cs">
+    <Compile Include="LandingPages\LandingPageService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -246,11 +246,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\ILandingPageService.cs">
+    <Compile Include="LandingPages\ILandingPageService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Gallery\IGalleryService.cs">
+    <Compile Include="Galleries\IGalleryService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -260,7 +260,7 @@
     </Compile>
     <Compile Include="Settings\ISettingService.cs" />
     <Compile Include="Settings\SettingService.cs" />
-    <Compile Include="Static\IStaticContentService.cs">
+    <Compile Include="StaticContents\IStaticContentService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -268,7 +268,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Gallery\GalleryService.cs">
+    <Compile Include="Galleries\GalleryService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -280,7 +280,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Static\StaticContentService.cs">
+    <Compile Include="StaticContents\StaticContentService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -292,7 +292,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Slide\SlideShowService.cs">
+    <Compile Include="Slides\SlideShowService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -300,7 +300,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Slide\ISlideShowService.cs">
+    <Compile Include="Slides\ISlideShowService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -316,11 +316,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\AttributeValueService.cs">
+    <Compile Include="Attributes\AttributeValueService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\IAttributeValueService.cs">
+    <Compile Include="Attributes\IAttributeValueService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -328,7 +328,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Attribute\IAttributeService.cs">
+    <Compile Include="Attributes\IAttributeService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -340,7 +340,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Post\IPostService.cs">
+    <Compile Include="Posts\IPostService.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

@@ -1,5 +1,5 @@
 ﻿using App.Core.Common;
-using App.FakeEntity.Post;
+using App.FakeEntity.Posts;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;

@@ -9,7 +9,7 @@ using App.Domain.ServerMails;
 using App.Service.Common;
 using App.Service.Languages;
 using App.Service.MailSetting;
-using App.Service.Post;
+using App.Service.Posts;
 using App.Service.SystemApp;
 using System;
 using System.IO;

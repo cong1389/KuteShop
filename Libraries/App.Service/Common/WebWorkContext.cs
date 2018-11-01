@@ -1,16 +1,16 @@
 ﻿using App.Core.Extensions;
-using App.Domain.Common;
+using App.Domain.Addresses;
 using App.Domain.Customers;
 using App.Domain.Entities.Identity;
+using App.Domain.GenericAttributes;
+using App.Domain.Languages;
 using App.Service.Customers;
-using App.Service.GenericAttribute;
+using App.Service.GenericAttributes;
 using App.Service.Languages;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Net;
 using System.Web;
-using App.Domain.Addresses;
-using App.Domain.Languages;
 
 namespace App.Service.Common
 {
@@ -75,7 +75,7 @@ namespace App.Service.Common
 
         private void SetCustomerLanguage(int languageId, int storeId)
         {
-            var objAttribute = new Domain.Entities.Data.GenericAttribute
+            var objAttribute = new GenericAttribute
             {
                 EntityId = CurrentCustomer.Id,
                 KeyGroup = "Customer",

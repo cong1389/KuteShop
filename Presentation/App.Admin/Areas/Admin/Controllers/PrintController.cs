@@ -1,6 +1,5 @@
-﻿using System.Web.Mvc;
-using App.Domain.Entities.Data;
-using App.Service.Repairs;
+﻿using App.Service.Repairs;
+using System.Web.Mvc;
 
 namespace App.Admin.Controllers
 {

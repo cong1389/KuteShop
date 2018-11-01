@@ -1,13 +1,12 @@
 using App.Core.Common;
-using App.Domain.Entities.Data;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using App.Domain.Galleries;
 using App.Domain.Posts;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Domain.Entities.Attribute
 {
-	public class AttributeValue : AuditableEntity<int>
+    public class AttributeValue : AuditableEntity<int>
 	{
 		private ICollection<Post> _posts;
 

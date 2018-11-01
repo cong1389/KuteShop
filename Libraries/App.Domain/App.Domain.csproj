@@ -55,7 +55,7 @@
     <Compile Include="GenericControls\GenericControlValueItem.cs" />
     <Compile Include="GenericControls\GenericControl.cs" />
     <Compile Include="GenericControls\GenericControlValue.cs" />
-    <Compile Include="Data\GenericAttribute.cs" />
+    <Compile Include="GenericAttributes\GenericAttribute.cs" />
     <Compile Include="Common\RepairStatus.cs" />
     <Compile Include="Brandes\Brand.cs" />
     <Compile Include="Repairs\Repair.cs" />

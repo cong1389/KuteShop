@@ -5,9 +5,9 @@ using App.Aplication;
 using App.Domain.Common;
 using App.Domain.Orders;
 using App.Service.Customers;
-using App.Service.GenericAttribute;
+using App.Service.GenericAttributes;
 using App.Service.Messages;
-using App.Service.Post;
+using App.Service.Posts;
 
 namespace App.Service.Orders
 {

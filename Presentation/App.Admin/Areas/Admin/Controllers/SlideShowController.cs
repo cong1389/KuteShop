@@ -8,7 +8,7 @@ using App.Framework.Utilities;
 using App.Service.Languages;
 using App.Service.Media;
 using App.Service.Settings;
-using App.Service.Slide;
+using App.Service.Slides;
 using AutoMapper;
 using Resources;
 using System;

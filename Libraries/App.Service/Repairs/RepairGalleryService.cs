@@ -1,4 +1,3 @@
-using App.Domain.Entities.Data;
 using App.Domain.Repairs;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Repairs;
@@ -9,7 +8,8 @@ namespace App.Service.Repairs
 {
     public class RepairGalleryService : BaseService<RepairGallery>, IRepairGalleryService
 	{
-	    public RepairGalleryService(IUnitOfWork unitOfWork, IRepairGalleryRepository galleryRepository) : base(unitOfWork, galleryRepository)
+	    public RepairGalleryService(IUnitOfWork unitOfWork, IRepairGalleryRepository galleryRepository) : base(
+	        unitOfWork, galleryRepository)
 		{
 		}
 	}

@@ -10,7 +10,8 @@ namespace App.Infra.Data.Mapping
 		{
 			ToTable("AttribureValue");
 
-            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("Id").HasColumnType("int")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             HasRequired(x => x.Attribute)
                 .WithMany(x => x.AttributeValues)

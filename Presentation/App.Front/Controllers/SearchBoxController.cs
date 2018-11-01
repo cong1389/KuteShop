@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using App.Domain.Common;
 using App.Front.Models;
-using App.Service.Attribute;
+using App.Service.Attributes;
 
 namespace App.Front.Controllers
 {

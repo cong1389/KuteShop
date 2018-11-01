@@ -1,11 +1,10 @@
+using App.Domain.StaticContents;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using App.Domain.Entities.Data;
-using App.Domain.StaticContents;
 
 namespace App.Infra.Data.Mapping
 {
-	public class StaticContentConfiguration : EntityTypeConfiguration<StaticContent>
+    public class StaticContentConfiguration : EntityTypeConfiguration<StaticContent>
 	{
 		public StaticContentConfiguration()
 		{

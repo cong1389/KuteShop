@@ -1,16 +1,16 @@
 using App.Core.Common;
 using App.Domain.Account;
+using App.Domain.Addresses;
 using App.Domain.Ads;
 using App.Domain.Brandes;
-using App.Domain.Common;
 using App.Domain.ContactInfors;
 using App.Domain.Customers;
 using App.Domain.Entities.Attribute;
-using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Setting;
 using App.Domain.Galleries;
+using App.Domain.GenericAttributes;
 using App.Domain.GenericControls;
 using App.Domain.LandingPages;
 using App.Domain.Languages;
@@ -35,7 +35,6 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Domain.Addresses;
 
 namespace App.Infra.Data.Context
 {

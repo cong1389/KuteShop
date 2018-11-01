@@ -2,7 +2,7 @@ using App.Aplication.Extensions;
 using App.Domain.News;
 using App.Domain.Posts;
 using App.Service.News;
-using App.Service.Post;
+using App.Service.Posts;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

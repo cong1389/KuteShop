@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using App.Aplication;
 using App.Front.Extensions;
 using App.Front.Models;
-using App.Service.Slide;
+using App.Service.Slides;
 
 namespace App.Front.Controllers
 {

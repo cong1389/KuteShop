@@ -6,7 +6,7 @@ using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Languages;
 using App.Service.Menus;
-using App.Service.Static;
+using App.Service.StaticContents;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

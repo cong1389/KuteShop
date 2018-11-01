@@ -2,7 +2,7 @@
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Menus;
-using App.Service.Static;
+using App.Service.StaticContents;
 using System.Linq;
 using System.Web.Mvc;
 

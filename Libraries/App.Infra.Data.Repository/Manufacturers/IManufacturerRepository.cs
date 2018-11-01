@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Data;
 using App.Domain.Interfaces.Repository;
 using App.Domain.Manufacturers;
+using System.Collections.Generic;
 
 namespace App.Infra.Data.Repository.Manufacturers
 {

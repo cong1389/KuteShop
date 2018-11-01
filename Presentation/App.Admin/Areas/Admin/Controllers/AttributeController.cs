@@ -3,7 +3,7 @@ using App.Core.Caching;
 using App.Core.Utilities;
 using App.FakeEntity.Attribute;
 using App.Framework.Utilities;
-using App.Service.Attribute;
+using App.Service.Attributes;
 using AutoMapper;
 using Resources;
 using System;

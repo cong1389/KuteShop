@@ -1,7 +1,6 @@
-﻿using System.Text;
-using App.Core.Extensions;
+﻿using App.Core.Extensions;
 using App.Domain.Addresses;
-using App.Domain.Common;
+using System.Text;
 
 namespace App.Service.Addresses
 {

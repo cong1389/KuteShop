@@ -1,4 +1,4 @@
-using App.FakeEntity.Location;
+using App.FakeEntity.Locations;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity

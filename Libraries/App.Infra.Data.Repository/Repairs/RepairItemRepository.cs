@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using App.Domain.Entities.Data;
-using App.Domain.Repairs;
+﻿using App.Domain.Repairs;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
+using System.Linq;
 
 namespace App.Infra.Data.Repository.Repairs
 {

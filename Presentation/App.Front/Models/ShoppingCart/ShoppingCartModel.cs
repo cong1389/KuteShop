@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using App.Domain.Entities.Data;
-using App.Domain.Entities.Orders;
+﻿using App.Domain.Entities.Orders;
 using App.Domain.Posts;
 using App.FakeEntity.Address;
+using System.Collections.Generic;
 
 namespace App.Front.Models.ShoppingCart
 {

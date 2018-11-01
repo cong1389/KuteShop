@@ -1,7 +1,7 @@
 using App.Admin.Helpers;
 using App.Core.Utilities;
 using App.Domain.Locations;
-using App.FakeEntity.Location;
+using App.FakeEntity.Locations;
 using App.Framework.Utilities;
 using App.Service.Locations;
 using AutoMapper;

@@ -2,23 +2,23 @@
 using App.Aplication.Extensions;
 using App.Core.Utilities;
 using App.Domain.Customers;
-using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
+using App.Domain.Galleries;
 using App.Domain.Posts;
 using App.FakeEntity.Galleries;
 using App.FakeEntity.Orders;
-using App.FakeEntity.Post;
+using App.FakeEntity.Posts;
 using App.FakeEntity.User;
 using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
-using App.Service.Gallery;
+using App.Service.Galleries;
 using App.Service.Locations;
 using App.Service.Media;
 using App.Service.Menus;
 using App.Service.Orders;
-using App.Service.Post;
+using App.Service.Posts;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Resources;
@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using App.Domain.Galleries;
 
 namespace App.Front.Controllers
 {

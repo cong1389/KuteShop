@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using App.Domain.Posts;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using App.Domain.Entities.Data;
-using App.Domain.Posts;
 
 namespace App.Infra.Data.Mapping
 {
