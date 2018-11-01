@@ -5,9 +5,10 @@ using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
+using App.Domain.Languages;
 using App.Domain.Orders;
 using App.Domain.Posts;
-using App.FakeEntity.Gallery;
+using App.FakeEntity.Galleries;
 using App.FakeEntity.Post;
 using App.Framework.Utilities;
 using App.Service.Attribute;
@@ -29,7 +30,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using App.Domain.Languages;
+using App.Domain.Galleries;
 using static System.IO.File;
 
 namespace App.Admin.Controllers

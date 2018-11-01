@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using App.FakeEntity.Common;
+using App.FakeEntity.Address;
 using App.Front.Models.Customer;
 using App.Front.Models.ShoppingCart;
 

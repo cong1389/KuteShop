@@ -8,11 +8,11 @@ using App.Domain.Customers;
 using App.Domain.Entities.Attribute;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
-using App.Domain.Entities.Other;
 using App.Domain.Entities.Payments;
 using App.Domain.Entities.Setting;
-using App.Domain.Entities.Slide;
+using App.Domain.Galleries;
 using App.Domain.GenericControls;
+using App.Domain.LandingPages;
 using App.Domain.Languages;
 using App.Domain.Locations;
 using App.Domain.Manufacturers;
@@ -24,6 +24,7 @@ using App.Domain.Repairs;
 using App.Domain.ServerMails;
 using App.Domain.SettingSeoes;
 using App.Domain.Shippings;
+using App.Domain.Slides;
 using App.Domain.StaticContents;
 using App.Domain.Systems;
 using App.Infra.Data.Mapping;
@@ -34,6 +35,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using App.Domain.Addresses;
 
 namespace App.Infra.Data.Context
 {

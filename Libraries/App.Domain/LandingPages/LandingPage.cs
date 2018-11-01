@@ -2,7 +2,7 @@ using App.Core.Common;
 using App.Domain.ContactInfors;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace App.Domain.Entities.Other
+namespace App.Domain.LandingPages
 {
     public class LandingPage : AuditableEntity<int>
 	{

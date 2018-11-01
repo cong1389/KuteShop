@@ -45,7 +45,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Address.cs" />
+    <Compile Include="Addresses\Address.cs" />
     <Compile Include="Common\OrderStatus.cs" />
     <Compile Include="Common\PaymentStatus.cs" />
     <Compile Include="Common\ShippingStatus.cs" />
@@ -135,7 +135,7 @@
     </Compile>
     <Compile Include="Settings\Setting.cs" />
     <Compile Include="Shippings\ShippingMethod.cs" />
-    <Compile Include="Slide\SlideShow.cs">
+    <Compile Include="Slides\SlideShow.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -143,7 +143,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\LandingPage.cs">
+    <Compile Include="LandingPages\LandingPage.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -187,7 +187,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Data\GalleryImage.cs">
+    <Compile Include="Galleries\GalleryImage.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

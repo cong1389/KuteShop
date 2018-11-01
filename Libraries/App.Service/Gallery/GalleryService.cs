@@ -3,6 +3,7 @@ using System.Text;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Entities.Data;
+using App.Domain.Galleries;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Gallery;
 using App.Infra.Data.UOW.Interfaces;

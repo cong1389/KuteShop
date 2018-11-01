@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Resources;
 
-namespace App.FakeEntity.Common
+namespace App.FakeEntity.Address
 {
     public class AddressViewModel
     {

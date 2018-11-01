@@ -9,7 +9,7 @@ using App.Aplication.Filters;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.Domain.Posts;
-using App.FakeEntity.Common;
+using App.FakeEntity.Address;
 using App.Front.Models.ShoppingCart;
 using App.Service.Common;
 using App.Service.Customers;

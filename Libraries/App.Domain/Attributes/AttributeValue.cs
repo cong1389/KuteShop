@@ -2,6 +2,7 @@ using App.Core.Common;
 using App.Domain.Entities.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using App.Domain.Galleries;
 using App.Domain.Posts;
 
 namespace App.Domain.Entities.Attribute

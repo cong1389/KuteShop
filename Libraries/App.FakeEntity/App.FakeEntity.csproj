@@ -67,7 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AddressViewModel.cs" />
+    <Compile Include="Address\AddressViewModel.cs" />
     <Compile Include="Customers\CutomerViewModel.cs" />
     <Compile Include="GenericControls\GenericControlValueItemViewModel.cs" />
     <Compile Include="GenericControls\GenericControlValueResponse.cs" />
@@ -97,7 +97,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Other\LandingPageViewModel.cs">
+    <Compile Include="LandingPages\LandingPageViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -109,11 +109,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Gallery\GalleryImageViewModel.cs">
+    <Compile Include="Galleries\GalleryImageViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Slide\SlideShowViewModel.cs">
+    <Compile Include="Slides\SlideShowViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

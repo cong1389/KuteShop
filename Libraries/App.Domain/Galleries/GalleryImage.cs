@@ -3,7 +3,7 @@ using App.Domain.Entities.Attribute;
 using System.ComponentModel.DataAnnotations.Schema;
 using App.Domain.Posts;
 
-namespace App.Domain.Entities.Data
+namespace App.Domain.Galleries
 {
     public class GalleryImage : AuditableEntity<int>
     {

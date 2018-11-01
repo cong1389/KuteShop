@@ -11,6 +11,7 @@ using App.Service.Addresses;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using App.Domain.Addresses;
 
 namespace App.Service.Messages
 {

@@ -2,7 +2,7 @@
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Orders;
 using App.Domain.Posts;
-using App.FakeEntity.Common;
+using App.FakeEntity.Address;
 
 namespace App.Front.Models.ShoppingCart
 {

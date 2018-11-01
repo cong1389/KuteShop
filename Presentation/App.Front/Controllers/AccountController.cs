@@ -1,9 +1,11 @@
 ﻿using App.Aplication;
 using App.Aplication.Extensions;
 using App.Core.Utilities;
+using App.Domain.Customers;
 using App.Domain.Entities.Data;
 using App.Domain.Entities.Identity;
-using App.FakeEntity.Gallery;
+using App.Domain.Posts;
+using App.FakeEntity.Galleries;
 using App.FakeEntity.Orders;
 using App.FakeEntity.Post;
 using App.FakeEntity.User;
@@ -18,14 +20,13 @@ using App.Service.Menus;
 using App.Service.Orders;
 using App.Service.Post;
 using AutoMapper;
-using App.Domain.Customers;
 using Microsoft.AspNet.Identity;
 using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using App.Domain.Posts;
+using App.Domain.Galleries;
 
 namespace App.Front.Controllers
 {

@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using App.FakeEntity.Other;
+using App.FakeEntity.LandingPages;
 using FluentValidation;
 
 namespace App.Framework.ValidateEntity

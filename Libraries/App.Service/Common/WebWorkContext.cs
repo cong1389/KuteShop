@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Net;
 using System.Web;
+using App.Domain.Addresses;
 using App.Domain.Languages;
 
 namespace App.Service.Common

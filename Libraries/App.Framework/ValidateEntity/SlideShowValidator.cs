@@ -1,12 +1,12 @@
+using App.FakeEntity.Slides;
+using FluentValidation;
 using System.IO;
 using System.Linq;
 using System.Web;
-using App.FakeEntity.Slide;
-using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-	public class SlideShowValidator : AbstractValidator<SlideShowViewModel>
+    public class SlideShowValidator : AbstractValidator<SlideShowViewModel>
 	{
 		public SlideShowValidator()
 		{

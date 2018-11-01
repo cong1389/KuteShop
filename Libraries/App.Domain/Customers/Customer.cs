@@ -5,6 +5,7 @@ using App.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using App.Domain.Addresses;
 
 namespace App.Domain.Customers
 {

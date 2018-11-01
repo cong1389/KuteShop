@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using App.Core.Utilities;
+using App.Domain.Addresses;
 using App.Domain.Common;
 using App.Domain.Interfaces.Repository;
 

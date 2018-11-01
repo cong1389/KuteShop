@@ -2,7 +2,7 @@ using App.Core.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace App.Domain.Entities.Slide
+namespace App.Domain.Slides
 {
 	public class SlideShow : AuditableEntity<int>
 	{

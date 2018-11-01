@@ -1,10 +1,10 @@
+using App.Domain.LandingPages;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using App.Domain.Entities.Other;
 
 namespace App.Infra.Data.Mapping
 {
-	public class LandingPageConfiguration : EntityTypeConfiguration<LandingPage>
+    public class LandingPageConfiguration : EntityTypeConfiguration<LandingPage>
 	{
 		public LandingPageConfiguration()
 		{

@@ -1,10 +1,10 @@
+using App.Domain.Galleries;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using App.Domain.Entities.Data;
 
 namespace App.Infra.Data.Mapping
 {
-	public class GalleryImageConfiguration : EntityTypeConfiguration<GalleryImage>
+    public class GalleryImageConfiguration : EntityTypeConfiguration<GalleryImage>
 	{
 		public GalleryImageConfiguration()
 		{

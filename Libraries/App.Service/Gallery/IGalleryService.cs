@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using App.Domain.Entities.Data;
+using App.Domain.Galleries;
 using App.Domain.Interfaces.Services;
 
 namespace App.Service.Gallery

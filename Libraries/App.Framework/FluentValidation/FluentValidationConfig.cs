@@ -1,20 +1,21 @@
+using App.FakeEntity.Address;
 using App.FakeEntity.Ads;
 using App.FakeEntity.Attribute;
 using App.FakeEntity.Brandes;
-using App.FakeEntity.Common;
 using App.FakeEntity.ContactInformations;
 using App.FakeEntity.GenericControls;
+using App.FakeEntity.LandingPages;
 using App.FakeEntity.Languages;
 using App.FakeEntity.Location;
 using App.FakeEntity.Manufacturers;
 using App.FakeEntity.Menus;
 using App.FakeEntity.News;
 using App.FakeEntity.Orders;
-using App.FakeEntity.Other;
 using App.FakeEntity.Payments;
 using App.FakeEntity.Post;
 using App.FakeEntity.Repairs;
-using App.FakeEntity.Slide;
+using App.FakeEntity.ServerMails;
+using App.FakeEntity.Slides;
 using App.FakeEntity.Static;
 using App.FakeEntity.Systems;
 using App.FakeEntity.User;
@@ -22,7 +23,6 @@ using App.Framework.ValidateEntity;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
-using App.FakeEntity.ServerMails;
 
 namespace App.Framework.FluentValidation
 {

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using App.Core.Utilities;
-using App.Domain.Entities.Other;
+using App.Domain.LandingPages;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Other;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
 
 namespace App.Service.Other
 {

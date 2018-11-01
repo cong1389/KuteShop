@@ -1,6 +1,6 @@
 ﻿using App.Core.Common;
 
-namespace App.Domain.Common
+namespace App.Domain.Addresses
 {
     public class Address: AuditableEntity<int>
     {       

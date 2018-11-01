@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 
-namespace App.FakeEntity.Slide
+namespace App.FakeEntity.Slides
 {
     public class SlideShowViewModel:  ILocalizedModel<SlideShowLocalizesViewModel>
     {

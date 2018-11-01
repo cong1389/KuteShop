@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using App.FakeEntity.ContactInformations;
 using Resources;
 
-namespace App.FakeEntity.Other
+namespace App.FakeEntity.LandingPages
 {
 	public class LandingPageViewModel
 	{

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using App.Core.Common;
+using App.FakeEntity.Post;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using App.Core.Common;
-using App.Domain.Common;
-using App.FakeEntity.Post;
 
 namespace App.FakeEntity.Orders
 {
@@ -39,10 +38,10 @@ namespace App.FakeEntity.Orders
         }
 
         [DataMember]
-        public virtual Address BillingAddress { get; set; }
+        public virtual Domain.Addresses.Address BillingAddress { get; set; }
 
         [DataMember]
-        public virtual Address ShippingAddress { get; set; }
+        public virtual Domain.Addresses.Address ShippingAddress { get; set; }
 
         public int OrderStatusId
         {

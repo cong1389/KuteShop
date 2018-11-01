@@ -1,4 +1,4 @@
-namespace App.FakeEntity.Gallery
+namespace App.FakeEntity.Galleries
 {
     public class GalleryImageViewModel
     {
