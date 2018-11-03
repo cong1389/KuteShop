@@ -64,10 +64,10 @@ namespace App.Admin.Controllers
                     var fileName = fileNameOriginal.FileNameFormat(fileExtension);
 
                     //var fileName = Path.GetFileNameWithoutExtension(model.File.FileName);
-                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Constant.FolderLanguage)), fileName);
 
                     model.File.SaveAs(path);
-                    model.Flag = string.Concat(Contains.FolderLanguage, fileName);
+                    model.Flag = string.Concat(Constant.FolderLanguage, fileName);
                 }
 
                 var modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);
@@ -122,10 +122,10 @@ namespace App.Admin.Controllers
 
                     //var fileName = Path.GetFileNameWithoutExtension(model.File.FileName);
                 
-                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Contains.FolderLanguage)), fileName);
+                    var path = Path.Combine(Server.MapPath(string.Concat("~/", Constant.FolderLanguage)), fileName);
 
                     model.File.SaveAs(path);
-                    model.Flag = string.Concat(Contains.FolderLanguage, fileName);
+                    model.Flag = string.Concat(Constant.FolderLanguage, fileName);
                 }
 
                 var modelMap = Mapper.Map<LanguageFormViewModel, Language>(model);

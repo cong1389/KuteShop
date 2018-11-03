@@ -157,9 +157,9 @@ namespace App.Admin.Controllers
                 var sizeHeighthBg = _settingService.GetSetting("Menu.HeightBigSize", ImageSize.HeightDefaultSize);
 
 
-                _imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
+                _imageService.CropAndResizeImage(model.ImageBigSizeFile, $"{Constant.MenuFolder}{folderName}/", fileNameFormat,
                     sizeWidthBg, sizeHeighthBg, isPng != 0);
-                model.ImageBigSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
+                model.ImageBigSize = $"{Constant.MenuFolder}{folderName}/{fileNameFormat}";
             }
 
             if (model.ImageMediumSizeFile != null && model.ImageMediumSizeFile.ContentLength > 0)
@@ -171,8 +171,8 @@ namespace App.Admin.Controllers
                 var sizeWidthMd = _settingService.GetSetting("Menu.WidthMediumSize", ImageSize.WidthDefaultSize);
                 var sizeHeighthMd = _settingService.GetSetting("Menu.HeightMediumSize", ImageSize.HeightDefaultSize);
 
-                _imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat, sizeWidthMd, sizeHeighthMd, isPng != 0);
-                model.ImageMediumSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
+                _imageService.CropAndResizeImage(model.ImageMediumSizeFile, $"{Constant.MenuFolder}{folderName}/", fileNameFormat, sizeWidthMd, sizeHeighthMd, isPng != 0);
+                model.ImageMediumSize = $"{Constant.MenuFolder}{folderName}/{fileNameFormat}";
             }
 
             if (model.ImageSmallSizeFile != null && model.ImageSmallSizeFile.ContentLength > 0)
@@ -184,9 +184,9 @@ namespace App.Admin.Controllers
                 var sizeWidthSm = _settingService.GetSetting("Menu.WidthSmallSize", ImageSize.WidthDefaultSize);
                 var sizeHeighthSm = _settingService.GetSetting("Menu.HeightSmallSize", ImageSize.HeightDefaultSize);
 
-                _imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Contains.MenuFolder}{folderName}/", fileNameFormat,
+                _imageService.CropAndResizeImage(model.ImageSmallSizeFile, $"{Constant.MenuFolder}{folderName}/", fileNameFormat,
                     sizeWidthSm, sizeHeighthSm, isPng != 0);
-                model.ImageSmallSize = $"{Contains.MenuFolder}{folderName}/{fileNameFormat}";
+                model.ImageSmallSize = $"{Constant.MenuFolder}{folderName}/{fileNameFormat}";
             }
         }
 

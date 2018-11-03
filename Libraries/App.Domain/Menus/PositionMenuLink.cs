@@ -1,5 +1,4 @@
 ﻿using App.Core.Common;
-using App.Domain.Menus;
 using System.Collections.Generic;
 
 namespace App.Domain.Menus

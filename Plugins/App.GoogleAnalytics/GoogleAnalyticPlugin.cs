@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Web.Routing;
 using SmartStore.Core.Plugins;
-using SmartStore.Services.Cms;
 using SmartStore.Services.Configuration;
 using SmartStore.Services.Localization;
 

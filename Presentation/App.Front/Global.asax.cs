@@ -19,11 +19,12 @@ namespace App.Front
         {
             bool installed = DataSettings.DatabaseIsInstalled();
 
-            //if (installed)
-            //{
-            //    //Remove all view engines
+            if (installed)
+            {
+                //Remove all view engines
                 ViewEngines.Engines.Clear();
-            //}
+            }
+
             // Initialize engine context
             EngineContext.Initialize(false);
 

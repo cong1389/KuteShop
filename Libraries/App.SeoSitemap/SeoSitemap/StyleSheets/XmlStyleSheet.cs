@@ -1,6 +1,4 @@
 using App.SeoSitemap.Enum;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace App.SeoSitemap.StyleSheets
 {

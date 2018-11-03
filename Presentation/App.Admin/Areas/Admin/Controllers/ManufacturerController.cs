@@ -105,10 +105,10 @@ namespace App.Admin.Controllers
 			    var sizeWidthBg = _settingService.GetSetting("Manufacture.WidthBigSize", ImageSize.WidthDefaultSize);
 			    var sizeHeighthBg = _settingService.GetSetting("Manufacture.HeightBigSize", ImageSize.HeightDefaultSize);
 
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.ManufactureFolder}{folderName}/", fileName,
+				_imageService.CropAndResizeImage(model.Image, $"{Constant.ManufactureFolder}{folderName}/", fileName,
 					sizeWidthBg, sizeHeighthBg);
 
-			    model.ImageUrl = $"{Contains.ManufactureFolder}{folderName}/{fileName}";
+			    model.ImageUrl = $"{Constant.ManufactureFolder}{folderName}/{fileName}";
 		    }
 	    }
 

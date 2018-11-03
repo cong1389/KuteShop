@@ -1,7 +1,5 @@
 ﻿using App.GoogleAnalytics.Models;
-using SmartStore.ComponentModel;
 using SmartStore.Core;
-using SmartStore.Core.Logging;
 using SmartStore.Services.Catalog;
 using SmartStore.Services.Configuration;
 using SmartStore.Services.Orders;

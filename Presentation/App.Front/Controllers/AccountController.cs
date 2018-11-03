@@ -112,12 +112,12 @@ namespace App.Front.Controllers
                         var str1 = $"{str}-{CommonHelper.GetTime()}";
                         var str2 = $"{str}-{CommonHelper.GetTime()}";
                         var str3 = $"{str}-{CommonHelper.GetTime()}";
-                        _imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                        _imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                        _imageService.CropAndResizeImage(post.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
-                        post.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
-                        post.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
-                        post.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
+                        _imageService.CropAndResizeImage(post.Image, $"{Constant.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imageService.CropAndResizeImage(post.Image, $"{Constant.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imageService.CropAndResizeImage(post.Image, $"{Constant.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                        post.ImageBigSize = $"{Constant.PostFolder}/{str}/{str1}";
+                        post.ImageMediumSize = $"{Constant.PostFolder}/{str}/{str2}";
+                        post.ImageSmallSize = $"{Constant.PostFolder}/{str}/{str3}";
                     }
                     var menuId = post.MenuId;
                     var i = 0;
@@ -153,10 +153,10 @@ namespace App.Front.Controllers
                                         };
                                         var str5 = $"{str}-{CommonHelper.GetTime()}";
                                         var str6 = $"{str}-{CommonHelper.GetTime()}";
-                                        _imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-                                        _imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
-                                        galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
-                                        galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
+                                        _imageService.CropAndResizeImage(item, $"{Constant.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imageService.CropAndResizeImage(item, $"{Constant.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                        galleryImageViewModel.ImageThumbnail = $"{Constant.PostFolder}/{str}/{str6}";
+                                        galleryImageViewModel.ImageBig = $"{Constant.PostFolder}/{str}/{str5}";
                                         galleryImageViewModel.OrderDisplay = num;
                                         galleryImageViewModel.Status = 1;
                                         galleryImageViewModel.Title = post.Title;
@@ -248,12 +248,12 @@ namespace App.Front.Controllers
                         var str1 = $"{str}-{CommonHelper.GetTime()}";
                         var str2 = $"{str}-{CommonHelper.GetTime()}";
                         var str3 = $"{str}-{CommonHelper.GetTime()}";
-                        _imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
-                        _imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
-                        _imageService.CropAndResizeImage(postView.Image, $"{Contains.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
-                        postView.ImageBigSize = $"{Contains.PostFolder}/{str}/{str1}";
-                        postView.ImageMediumSize = $"{Contains.PostFolder}/{str}/{str2}";
-                        postView.ImageSmallSize = $"{Contains.PostFolder}/{str}/{str3}";
+                        _imageService.CropAndResizeImage(postView.Image, $"{Constant.PostFolder}/{str}/", str1, ImageSize.WithBigSize, ImageSize.HeightBigSize);
+                        _imageService.CropAndResizeImage(postView.Image, $"{Constant.PostFolder}/{str}/", str2, ImageSize.WithMediumSize, ImageSize.HeightMediumSize);
+                        _imageService.CropAndResizeImage(postView.Image, $"{Constant.PostFolder}/{str}/", str3, ImageSize.WithSmallSize, ImageSize.HeightSmallSize);
+                        postView.ImageBigSize = $"{Constant.PostFolder}/{str}/{str1}";
+                        postView.ImageMediumSize = $"{Constant.PostFolder}/{str}/{str2}";
+                        postView.ImageSmallSize = $"{Constant.PostFolder}/{str}/{str3}";
                     }
                     var menuId = postView.MenuId;
                     var i = 0;
@@ -287,10 +287,10 @@ namespace App.Front.Controllers
                                         };
                                         var str5 = $"{str}-{CommonHelper.GetTime()}";
                                         var str6 = $"{str}-{CommonHelper.GetTime()}";
-                                        _imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
-                                        _imageService.CropAndResizeImage(item, $"{Contains.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
-                                        galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}/{str}/{str6}";
-                                        galleryImageViewModel.ImageBig = $"{Contains.PostFolder}/{str}/{str5}";
+                                        _imageService.CropAndResizeImage(item, $"{Constant.PostFolder}/{str}/", str5, ImageSize.WithOrignalSize, ImageSize.HeighthOrignalSize);
+                                        _imageService.CropAndResizeImage(item, $"{Constant.PostFolder}/{str}/", str6, ImageSize.WithThumbnailSize, ImageSize.HeightThumbnailSize);
+                                        galleryImageViewModel.ImageThumbnail = $"{Constant.PostFolder}/{str}/{str6}";
+                                        galleryImageViewModel.ImageBig = $"{Constant.PostFolder}/{str}/{str5}";
                                         galleryImageViewModel.OrderDisplay = num;
                                         galleryImageViewModel.Status = 1;
                                         galleryImageViewModel.Title = postView.Title;

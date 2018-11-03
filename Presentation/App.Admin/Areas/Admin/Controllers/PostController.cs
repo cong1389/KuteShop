@@ -713,13 +713,13 @@ namespace App.Admin.Controllers
 								var sizeWidthSm = _settingService.GetSetting("Post.GalleryWidthSmallSize", ImageSize.WidthDefaultSize);
 								var sizeHeightSm = _settingService.GetSetting("Post.GalleryHeightSmallSize", ImageSize.HeightDefaultSize);
 
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+								_imageService.CropAndResizeImage(item, $"{Constant.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+								_imageService.CropAndResizeImage(item, $"{Constant.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+								_imageService.CropAndResizeImage(item, $"{Constant.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
 
-								postGallery.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
-								postGallery.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
-								postGallery.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
+								postGallery.ImageBigSize = $"{Constant.PostFolder}{folderName}/{fileNameBg}";
+								postGallery.ImageMediumSize = $"{Constant.PostFolder}{folderName}/{fileNameMd}";
+								postGallery.ImageSmallSize = $"{Constant.PostFolder}{folderName}/{fileNameSm}";
 
 								_postGalleryService.Create(postGallery);
 							}
@@ -930,13 +930,13 @@ namespace App.Admin.Controllers
 				var sizeWidthSm = _settingService.GetSetting("Post.WidthSmallSize", ImageSize.WidthDefaultSize);
 				var sizeHeightSm = _settingService.GetSetting("Post.HeightSmallSize", ImageSize.HeightDefaultSize);
 
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
+				_imageService.CropAndResizeImage(model.Image, $"{Constant.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeightBg);
+				_imageService.CropAndResizeImage(model.Image, $"{Constant.PostFolder}{folderName}/", fileNameMd, sizeWidthMd, sizeHeightMd);
+				_imageService.CropAndResizeImage(model.Image, $"{Constant.PostFolder}{folderName}/", fileNameSm, sizeWidthSm, sizeHeightSm);
 
-				model.ImageBigSize = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
-				model.ImageMediumSize = $"{Contains.PostFolder}{folderName}/{fileNameMd}";
-				model.ImageSmallSize = $"{Contains.PostFolder}{folderName}/{fileNameSm}";
+				model.ImageBigSize = $"{Constant.PostFolder}{folderName}/{fileNameBg}";
+				model.ImageMediumSize = $"{Constant.PostFolder}{folderName}/{fileNameMd}";
+				model.ImageSmallSize = $"{Constant.PostFolder}{folderName}/{fileNameSm}";
 			}
 		}
 
@@ -982,11 +982,11 @@ namespace App.Admin.Controllers
 								var sizeWidthThum = _settingService.GetSetting("Post.AttributeWidthThumSize", ImageSize.WidthDefaultSize);
 								var sizeHeightThum = _settingService.GetSetting("Post.AttributeHeightThumSize", ImageSize.HeightDefaultSize);
 
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeighthBg);
-								_imageService.CropAndResizeImage(item, $"{Contains.PostFolder}{folderName}/", fileNameThum, sizeWidthThum, sizeHeightThum);
+								_imageService.CropAndResizeImage(item, $"{Constant.PostFolder}{folderName}/", fileNameBg, sizeWidthBg, sizeHeighthBg);
+								_imageService.CropAndResizeImage(item, $"{Constant.PostFolder}{folderName}/", fileNameThum, sizeWidthThum, sizeHeightThum);
 
-								galleryImageViewModel.ImageBig = $"{Contains.PostFolder}{folderName}/{fileNameBg}";
-								galleryImageViewModel.ImageThumbnail = $"{Contains.PostFolder}{folderName}/{fileNameThum}";
+								galleryImageViewModel.ImageBig = $"{Constant.PostFolder}{folderName}/{fileNameBg}";
+								galleryImageViewModel.ImageThumbnail = $"{Constant.PostFolder}{folderName}/{fileNameThum}";
 
 								galleryImageViewModel.OrderDisplay = num;
 								galleryImageViewModel.Status = 1;

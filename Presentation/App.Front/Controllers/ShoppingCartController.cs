@@ -4,7 +4,6 @@ using App.Domain.Posts;
 using App.FakeEntity.Address;
 using App.Framework.Filters;
 using App.Framework.UI.Extensions;
-using App.Framework.Utilities;
 using App.Front.Models.ShoppingCart;
 using App.Service.Common;
 using App.Service.Customers;

@@ -1,5 +1,4 @@
-﻿using App.Core.Configuration;
-using App.Core.Plugins.Providers;
+﻿using App.Core.Plugins.Providers;
 using System.Collections.Generic;
 
 namespace App.Service.Authentication.External

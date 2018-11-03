@@ -4,7 +4,7 @@ using System.Web;
 
 namespace App.Framework.Utilities
 {
-    public static class Contains
+    public static class Constant
     {
         public static string AdsFolder
         {

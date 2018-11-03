@@ -1,6 +1,8 @@
 ﻿<!--SlideShowHome -->
-@using App.Aplication
-@model IEnumerable<App.Domain.Entities.Slide.SlideShow>
+@using App.Core.Extensions
+@using App.Framework.Utilities
+@model IEnumerable<App.Domain.Slides.SlideShow>
+
 @if (Model.IsAny())
 {
     <div id="home-slider" class="gw-slide">

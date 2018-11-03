@@ -32,9 +32,9 @@ namespace App.Admin.Controllers
 
             var str1 = string.Concat(guid.ToString(), ".jpg");
 
-            _imageService.CropAndResizeImage(item, $"{Contains.PostFolder}", str1, ImageSize.WidthDefaultSize, ImageSize.HeightDefaultSize);
+            _imageService.CropAndResizeImage(item, $"{Constant.PostFolder}", str1, ImageSize.WidthDefaultSize, ImageSize.HeightDefaultSize);
 
-            var str2 = string.Concat("http://", HttpContext.Request.Url.Authority, "/", Contains.PostFolder, str1);
+            var str2 = string.Concat("http://", HttpContext.Request.Url.Authority, "/", Constant.PostFolder, str1);
             HttpContext.Response.Write(string.Concat("<script>window.parent.CKEDITOR.tools.callFunction(", str, ", \"", str2, "\");</script>"));
 
             return new EmptyResult();

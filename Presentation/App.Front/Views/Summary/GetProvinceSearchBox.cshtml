@@ -1,5 +1,6 @@
-﻿@using App.Aplication
-@model IEnumerable<App.Domain.Entities.Location.Province>
+﻿@using App.Core.Extensions
+@model IEnumerable<App.Domain.Locations.Province>
+
 <select id="Province" class="search-options">
     <option value="">Quận/huyện </option>
     @if (Model.IsAny())

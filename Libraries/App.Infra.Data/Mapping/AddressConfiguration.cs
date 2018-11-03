@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using App.Domain.Addresses;
-using App.Domain.Common;
 
 namespace App.Infra.Data.Mapping
 {

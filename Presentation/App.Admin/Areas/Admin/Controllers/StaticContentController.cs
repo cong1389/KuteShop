@@ -155,10 +155,10 @@ namespace App.Admin.Controllers
                 var sizeHeighthBg = _settingService.GetSetting("StaticContent.HeightBigSize", ImageSize.HeightDefaultSize);
                 var isPng = _settingService.GetSetting("StaticContent.pngFormat", 0);
 
-                _imageService.CropAndResizeImage(model.Image, $"{Contains.StaticContentFolder}{folderName}/", fileName,
+                _imageService.CropAndResizeImage(model.Image, $"{Constant.StaticContentFolder}{folderName}/", fileName,
                     sizeWidthBg, sizeHeighthBg, isPng != 0);
 
-                model.ImagePath = $"{Contains.StaticContentFolder}{folderName}/{fileName}";
+                model.ImagePath = $"{Constant.StaticContentFolder}{folderName}/{fileName}";
             }
         }
 

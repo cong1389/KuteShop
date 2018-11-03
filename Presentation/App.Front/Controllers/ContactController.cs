@@ -67,7 +67,7 @@ namespace App.Front.Controllers
                     });
                 }
 
-                string serverPathEmail = string.Concat(Server.MapPath("\\"), Contains.TemplateMailBasicContact);
+                string serverPathEmail = string.Concat(Server.MapPath("\\"), Constant.TemplateMailBasicContact);
                 if (System.IO.File.Exists(serverPathEmail))
                 {
                     const string messageId = "Email";

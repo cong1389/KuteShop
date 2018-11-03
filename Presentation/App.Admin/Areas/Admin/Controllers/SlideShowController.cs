@@ -124,9 +124,9 @@ namespace App.Admin.Controllers
 			    var sizeWidthBg = _settingService.GetSetting("SlideShow.WidthBigSize", ImageSize.WidthDefaultSize);
 			    var sizeHeighthBg = _settingService.GetSetting("SlideShow.HeightBigSize", ImageSize.HeightDefaultSize);
 
-				_imageService.CropAndResizeImage(model.Image, $"{Contains.SlideShowFolder}{folderName}/", fileName,sizeWidthBg, sizeHeighthBg);
+				_imageService.CropAndResizeImage(model.Image, $"{Constant.SlideShowFolder}{folderName}/", fileName,sizeWidthBg, sizeHeighthBg);
 
-			    model.ImgPath = $"{Contains.SlideShowFolder}{folderName}/{fileName}";
+			    model.ImgPath = $"{Constant.SlideShowFolder}{folderName}/{fileName}";
 		    }
 	    }
 

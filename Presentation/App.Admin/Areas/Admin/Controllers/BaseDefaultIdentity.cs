@@ -13,7 +13,7 @@ namespace App.Admin.Controllers
     {
         protected readonly UserManager<IdentityUser, Guid> UserManager;
 
-        protected string XsrfKey = Contains.XsrfKey;
+        protected string XsrfKey = Constant.XsrfKey;
 
         protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 

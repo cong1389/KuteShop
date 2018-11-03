@@ -3,7 +3,6 @@ using System.Text;
 using App.Core.Caching;
 using App.Core.Utilities;
 using App.Domain.Addresses;
-using App.Domain.Common;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Addresses;
 using App.Infra.Data.UOW.Interfaces;

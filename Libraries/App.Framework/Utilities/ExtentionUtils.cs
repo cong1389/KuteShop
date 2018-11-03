@@ -1,17 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.Hosting;
-using System.Web.Security;
 using App.Core.Extensions;
-using App.Core.Infrastructure;
 using App.Service.Media;
 
 namespace App.Framework.Utilities
@@ -28,11 +19,11 @@ namespace App.Framework.Utilities
 	            {
 	                src = HttpContext.Current.Server.MapPath(String.Concat("~/", imagePath));
 
-	                url = File.Exists(src) ? PictureService.BuildUrlCore(imagePath, query, null) : PictureService.BuildUrlCore(Contains.ImageNoExsits, query, null);
+	                url = File.Exists(src) ? PictureService.BuildUrlCore(imagePath, query, null) : PictureService.BuildUrlCore(Constant.ImageNoExsits, query, null);
 	            }
 	            else
 	            {
-	                url = PictureService.BuildUrlCore(Contains.ImageNoExsits, query, null);
+	                url = PictureService.BuildUrlCore(Constant.ImageNoExsits, query, null);
 	            }
 	        }
 	        catch (Exception ex)
@@ -59,5 +50,16 @@ namespace App.Framework.Utilities
 
 	        return $"{amount?.ToString("G29")}%";
 	    }
+
+        public static string CurrentHost => string.Concat("http://", HttpContext.Current.Request.Url.Authority);
+
+	    public static bool IsHomePage()
+	    {
+	        var routeData = HttpContext.Current.Request.RequestContext.RouteData;
+
+	        return routeData.GetRequiredString("controller").IsCaseInsensitiveEqual("Home") &&
+	               routeData.GetRequiredString("action").IsCaseInsensitiveEqual("Index");
+	    }
+
     }
 }

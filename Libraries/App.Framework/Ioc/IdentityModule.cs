@@ -1,7 +1,6 @@
 using System;
 using App.Domain.Entities.Identity;
 using App.Service.Account;
-using App.Service.MailSetting;
 using App.Service.Messages;
 using Autofac;
 using Microsoft.AspNet.Identity;

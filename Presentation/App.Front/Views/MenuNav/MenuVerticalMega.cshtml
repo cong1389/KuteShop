@@ -1,5 +1,6 @@
 ﻿<!---MenuVerticalMega--->
-@using App.Aplication
+@using App.Core.Extensions
+@using App.Framework.Utilities
 @model IEnumerable<App.FakeEntity.Menus.MenuNavViewModel>
 
 @if (Model != null)
@@ -10,7 +11,7 @@
 				<span class="title-menu">Danh mục sản phẩm</span>
 				<span class="btn-open-mobile pull-right home-page"><i class="fa fa-bars"></i></span>
 			</h4>
-			<div class="vertical-menu-content is-home" style="display: @(Utils.IsHomePage() ? "block" : "none")">
+			<div class="vertical-menu-content is-home" style="display: @(ExtentionUtils.IsHomePage() ? "block" : "none")">
 				@{
 					var i = 0;
 					<ul class="vertical-menu-list">

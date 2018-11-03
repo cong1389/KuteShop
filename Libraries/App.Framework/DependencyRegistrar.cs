@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Core.Data;
 using App.Core.Extensions;
 using App.Core.Infrastructure;
 using App.Core.Infrastructure.DependencyManagement;

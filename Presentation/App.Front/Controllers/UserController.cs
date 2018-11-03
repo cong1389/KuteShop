@@ -483,7 +483,7 @@ namespace App.Front.Controllers
 
         private class ChallengeResult : HttpUnauthorizedResult
         {
-            private readonly string _xsrfKey = Contains.XsrfKey;
+            private readonly string _xsrfKey = Constant.XsrfKey;
 
             public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
