@@ -1,10 +1,10 @@
-using App.Aplication;
 using App.Core.Utilities;
 using App.Framework.Utilities;
 using App.Front.Models;
 using App.Service.Menus;
 using App.Service.News;
 using System.Web.Mvc;
+using App.Core.Extensions;
 
 namespace App.Front.Controllers
 {
@@ -29,13 +29,13 @@ namespace App.Front.Controllers
 			var paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = PageSize,
+				PageSize = CommonHelper.PageSize,
 				TotalRecord = 0
 			};
 			var news = _newsService.FindAndSort(x => !x.Video && x.Status == 1 && x.VirtualCategoryId.Contains(virtualCategoryId), sortBuilder, paging);
 			if (news.IsAny())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
 				ViewBag.PageInfo = pageInfo;
 				ViewBag.CountItem = pageInfo.TotalItems;
 			}

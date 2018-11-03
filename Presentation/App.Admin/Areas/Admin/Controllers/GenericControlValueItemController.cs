@@ -1,14 +1,14 @@
-﻿using App.Aplication;
-using App.Aplication.Extensions;
-using App.Core.Caching;
+﻿using App.Core.Caching;
+using App.Core.Extensions;
 using App.Domain.GenericControls;
 using App.FakeEntity.GenericControls;
-using App.Framework.Utilities;
+using App.Framework.UI.Extensions;
 using App.Service.GenericControls;
 using App.Service.Menus;
 using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -87,8 +87,9 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("District.Edit: ", ex.Message));
+                LogText.Log(string.Concat("District.Edit: ", ex.Message));
             }
+
             var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
@@ -118,7 +119,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception exception)
             {
-                ExtentionUtils.Log(string.Concat("District.Edit: ", exception.Message));
+                LogText.Log(string.Concat("District.Edit: ", exception.Message));
             }
             var jsonResult = Json(new { success = true }, JsonRequestBehavior.AllowGet);
 

@@ -5,13 +5,14 @@ using System.Text;
 using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utilities;
+using App.Domain.Posts;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Posts;
 using App.Infra.Data.UOW.Interfaces;
 
 namespace App.Service.Posts
 {
-    public class PostService : BaseService<App.Domain.Posts.Post>, IPostService
+    public class PostService : BaseService<Post>, IPostService
     {
         private const string CacheKey = "db.Post.{0}";
         private readonly ICacheManager _cacheManager;
@@ -24,17 +25,17 @@ namespace App.Service.Posts
             _cacheManager = cacheManager;
         }
 
-        public App.Domain.Posts.Post GetById(int id, bool isCache = true)
+        public Post GetById(int id, bool isCache = true)
         {
             var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheKey, "GetById");
             sbKey.Append(id);
 
             var key = sbKey.ToString();
-            App.Domain.Posts.Post post;
+            Post post;
             if (isCache)
             {
-                post = _cacheManager.Get<App.Domain.Posts.Post>(key);
+                post = _cacheManager.Get<Post>(key);
                 if (post == null)
                 {
                     post = _postRepository.GetById(id);
@@ -49,9 +50,9 @@ namespace App.Service.Posts
             return post;
         }
 
-        public IEnumerable<App.Domain.Posts.Post> GetListSeoUrl(string seoUrl, bool isCache = true)
+        public IEnumerable<Post> GetListSeoUrl(string seoUrl, bool isCache = true)
         {
-            IEnumerable<App.Domain.Posts.Post> posts;
+            IEnumerable<Post> posts;
 
             if (isCache)
             {
@@ -64,7 +65,7 @@ namespace App.Service.Posts
                 }
 
                 var key = sbKey.ToString();
-                posts = _cacheManager.GetCollection<App.Domain.Posts.Post>(key);
+                posts = _cacheManager.GetCollection<Post>(key);
                 if (posts == null)
                 {
                     posts = _postRepository.FindBy(x => x.SeoUrl.Equals(seoUrl));
@@ -79,7 +80,7 @@ namespace App.Service.Posts
             return posts;
         }
 
-        public App.Domain.Posts.Post GetBySeoUrl(string seoUrl, bool @readonly = false)
+        public Post GetBySeoUrl(string seoUrl, bool @readonly = false)
         {
             var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheKey, "GetBySeoUrls");
@@ -90,7 +91,7 @@ namespace App.Service.Posts
             }
 
             var key = sbKey.ToString();
-            var post = _cacheManager.Get<App.Domain.Posts.Post>(key);
+            var post = _cacheManager.Get<Post>(key);
             if (post == null)
             {
                 post = _postRepository.Get(x => x.SeoUrl.Equals(seoUrl), @readonly);
@@ -100,33 +101,33 @@ namespace App.Service.Posts
             return post;
         }
 
-        public IEnumerable<App.Domain.Posts.Post> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
+        public IEnumerable<Post> PagedList(SortingPagingBuilder sortbuBuilder, Paging page)
         {
             return _postRepository.PagedSearchList(sortbuBuilder, page);
         }
 
-        public IEnumerable<App.Domain.Posts.Post> PagedListByMenu(SortingPagingBuilder sortBuider, Paging page)
+        public IEnumerable<Post> PagedListByMenu(SortingPagingBuilder sortBuider, Paging page)
         {
             return _postRepository.PagedSearchListByMenu(sortBuider, page);
         }
 
-        public IEnumerable<App.Domain.Posts.Post> GetBySort(
-            Expression<Func<App.Domain.Posts.Post, bool>> expression, SortBuilder sortBuilder, Paging paging)
+        public IEnumerable<Post> GetBySort(
+            Expression<Func<Post, bool>> expression, SortBuilder sortBuilder, Paging paging)
         {
             return FindAndSort(expression, sortBuilder, paging);
         }
 
-        public IEnumerable<App.Domain.Posts.Post> GetByOption(string virtualCategoryId = null
+        public IEnumerable<Post> GetByOption(string virtualCategoryId = null
             , bool? isDisplayHomePage = null
             , bool? isDiscount = null
             , int status = 1
             , bool isCache = true)
         {
-            IEnumerable<App.Domain.Posts.Post> posts;
+            IEnumerable<Post> posts;
             var sbKey = new StringBuilder();
             sbKey.AppendFormat(CacheKey, "GetByOption");
 
-            var expression = PredicateBuilder.True<App.Domain.Posts.Post>();
+            var expression = PredicateBuilder.True<Post>();
             sbKey.AppendFormat("-{0}", status);
             expression = expression.And(x => x.Status == status);
 
@@ -153,7 +154,7 @@ namespace App.Service.Posts
             if (isCache)
             {
                 var key = sbKey.ToString();
-                posts = _cacheManager.GetCollection<App.Domain.Posts.Post>(key);
+                posts = _cacheManager.GetCollection<Post>(key);
                 if (posts == null)
                 {
                     posts = FindBy(expression);

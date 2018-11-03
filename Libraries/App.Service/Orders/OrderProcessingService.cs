@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using App.Aplication;
-using App.Domain.Common;
+﻿using App.Domain.Common;
 using App.Domain.Orders;
 using App.Service.Customers;
 using App.Service.GenericAttributes;
 using App.Service.Messages;
 using App.Service.Posts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using App.Domain.Customers;
 
 namespace App.Service.Orders
 {
-	public class OrderProcessingService : IOrderProcessingService
+    public class OrderProcessingService : IOrderProcessingService
     {
         private readonly IOrderService _orderService;
         private readonly IShoppingCartItemService _shoppingCartItemService;
@@ -74,7 +74,7 @@ namespace App.Service.Orders
                 var billingAddress = customer.BillingAddress;
 
                 //Shiping method
-                var shippingMethod = customer.GetAttribute("Customer", Contains.SelectedShippingOption, _genericAttributeService);
+                var shippingMethod = customer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedShippingOption, _genericAttributeService);
 
                 var order = new Order
                 {

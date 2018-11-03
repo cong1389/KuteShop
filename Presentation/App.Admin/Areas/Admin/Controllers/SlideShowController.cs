@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Slides;
 using App.FakeEntity.Slides;
@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -102,7 +103,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("SlideShow.Edit: ", ex.Message));
+                LogText.Log(string.Concat("SlideShow.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -114,7 +115,7 @@ namespace App.Admin.Controllers
 	    {
 		    if (model.Image != null && model.Image.ContentLength > 0)
 		    {
-			    var folderName = Utils.FolderName(model.Title);
+			    var folderName = CommonHelper.FolderName(model.Title);
 			    var fileExtension = Path.GetExtension(model.Image.FileName);
 			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
@@ -152,7 +153,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("SlideShow.Delete: ", ex.Message));
+                LogText.Log(string.Concat("SlideShow.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -195,7 +196,7 @@ namespace App.Admin.Controllers
 
 				//if (model.Image != null && model.Image.ContentLength > 0)
 				//{
-				//    var folderName = Utils.FolderName(model.Title);
+				//    var folderName = CommonHelper.FolderName(model.Title);
 				//    var fileExtension = Path.GetExtension(model.Image.FileName);
 				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
@@ -239,7 +240,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("SlideShow.Edit: ", ex.Message));
+                LogText.Log(string.Concat("SlideShow.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -269,7 +270,7 @@ namespace App.Admin.Controllers
             var slideShows = _slideShowService.PagedList(sortingPagingBuilder, paging);
             if (slideShows != null && slideShows.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord,
                     i => Url.Action("Index", new { page = i, keywords }));
 
                 ViewBag.PageInfo = pageInfo;

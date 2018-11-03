@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using App.Core.Infrastructure;
 
 namespace App.Core.Extensions
 {
@@ -236,5 +237,37 @@ namespace App.Core.Extensions
 		    return Regex.IsMatch(input, pattern, options);
 	    }
 
-	}
+        public static string FileNameFormat(this string fileName, string fileExtension)
+        {
+            if (fileName.Length > 250)
+            {
+                fileName = SplitWords(250, fileName);
+            }
+            var rndNext = Guid.NewGuid();
+            var numberTick = rndNext.ToString().Split('-')[0];
+
+            return $"{fileName.NonAccent()}.{numberTick}{fileExtension}";
+            //var rnd = new Random(DateTime.Now.Millisecond);
+
+            //lock (rnd) // synchronize
+            //{
+            //    var rndNext = rnd.Next(1, 9999);
+            //    return $"{fileName.NonAccent()}.{rndNext}{fileExtension}";
+            //}
+        }
+
+        public static string SplitWords(int length, string words)
+        {
+            if (string.IsNullOrEmpty(words))
+            {
+                return string.Empty;
+            }
+            if (words.Length < length)
+            {
+                return words;
+            }
+            return string.Concat(words.Substring(0, length), "...");
+        }
+
+    }
 }

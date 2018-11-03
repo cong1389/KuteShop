@@ -1,4 +1,4 @@
-﻿using App.Aplication;
+﻿using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Menus;
@@ -68,7 +68,7 @@ namespace App.Front.Controllers
             var paging = new Paging
             {
                 PageNumber = page,
-                PageSize = PageSize,
+                PageSize = CommonHelper.PageSize,
                 TotalRecord = 0
             };
 
@@ -103,7 +103,7 @@ namespace App.Front.Controllers
                     ViewBag.BannerId = menuCategoryFilter.FirstOrDefault(x => x.VirtualId == virtualCategoryId).Id;
                 }
 
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
 

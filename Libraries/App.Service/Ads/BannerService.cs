@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Text;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Ads;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Ads;
 using App.Infra.Data.UOW.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Text;
 
 namespace App.Service.Ads
 {

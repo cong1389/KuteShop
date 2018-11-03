@@ -1,6 +1,7 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
+using App.Core.Infrastructure;
 using App.Domain.Menus;
 using App.FakeEntity.Menus;
 using App.Framework.Utilities;
@@ -16,6 +17,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
+using App.Core.Utilities;
 
 namespace App.Admin.Controllers
 {
@@ -133,7 +136,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("MenuLink.Create: ", ex.Message));
+                LogText.Log(string.Concat("MenuLink.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -143,7 +146,7 @@ namespace App.Admin.Controllers
         private void ImageHandler(MenuLinkViewModel model)
         {
             var isPng = _settingService.GetSetting("Menu.pngFormat", 0);
-            var folderName = Utils.FolderName(model.MenuName);
+            var folderName = CommonHelper.FolderName(model.MenuName);
             if (model.ImageBigSizeFile != null && model.ImageBigSizeFile.ContentLength > 0)
             {
                 var fileName = Path.GetFileNameWithoutExtension(model.ImageBigSizeFile.FileName);
@@ -211,7 +214,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("MenuLink.Delete: ", ex.Message));
+                LogText.Log(string.Concat("MenuLink.Delete: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
 
             }
@@ -230,7 +233,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("MenuLink.DeleteById: ", ex.Message));
+                LogText.Log(string.Concat("MenuLink.DeleteById: ", ex.Message));
 
                 Response.Cookies.Add(new HttpCookie("system_message", string.Format(MessageUI.ErrorMessageWithFormat, ex.Message)));
 
@@ -357,7 +360,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("MenuLink.Create: ", ex.Message));
+                LogText.Log(string.Concat("MenuLink.Create: ", ex.Message));
 
                 return View(model);
             }

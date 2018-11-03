@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace App.Aplication
+namespace App.Framework.Modelling
 {
 	public class ModelHelper<T>
 	{

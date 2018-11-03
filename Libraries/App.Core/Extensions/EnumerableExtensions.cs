@@ -215,5 +215,11 @@ namespace App.Core.Extensions
                 select fi.GetRawConstantValue() as T;
             return constants;
         }
+
+        public static bool IsAny<T>(this IEnumerable<T> data)
+        {
+            return data != null && data.Any();
+        }
+
     }
 }

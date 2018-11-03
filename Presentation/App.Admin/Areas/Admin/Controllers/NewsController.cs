@@ -1,6 +1,7 @@
 ﻿using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
+using App.Core.Infrastructure;
 using App.Core.Utilities;
 using App.Domain.Menus;
 using App.Domain.News;
@@ -19,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -131,7 +133,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("News.Create: ", ex.Message));
+                LogText.Log(string.Concat("News.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
 
                 return View(model);
@@ -142,7 +144,7 @@ namespace App.Admin.Controllers
 
 	    private void ImageHandler(NewsViewModel model)
 	    {
-		    var folderName = Utils.FolderName(model.Title);
+		    var folderName = CommonHelper.FolderName(model.Title);
 		    if (model.Image != null && model.Image.ContentLength > 0)
 		    {
 			    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
@@ -198,7 +200,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Post.Delete: ", exception.Message));
+                LogText.Log(string.Concat("Post.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
         }
@@ -254,7 +256,7 @@ namespace App.Admin.Controllers
 
 	            ImageHandler(model);
 
-				//var folderName = Utils.FolderName(model.Title);
+				//var folderName = CommonHelper.FolderName(model.Title);
 				//if (model.Image != null && model.Image.ContentLength > 0)
 				//{
 				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
@@ -309,7 +311,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(string.Concat("News.Edit: ", ex.Message));
+                LogText.Log(string.Concat("News.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -340,7 +342,7 @@ namespace App.Admin.Controllers
             var news = _newsService.PagedList(sortingPagingBuilder, paging);
             if (news != null && news.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(news);

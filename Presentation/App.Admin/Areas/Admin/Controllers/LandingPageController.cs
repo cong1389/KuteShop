@@ -1,15 +1,16 @@
+using App.Admin.Helpers;
+using App.Core.Extensions;
+using App.Core.Utilities;
+using App.Framework.Utilities;
+using App.Service.LandingPages;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App.Admin.Helpers;
-using App.Aplication;
-using App.Aplication.FileUtil;
-using App.Core.Utilities;
-using App.Framework.Utilities;
-using App.Service.LandingPages;
-using Resources;
+using App.Core.Logging;
+using App.Framework.Excel;
 
 namespace App.Admin.Controllers
 {
@@ -44,7 +45,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
-				ExtentionUtils.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -68,7 +69,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteFail));
-				ExtentionUtils.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -93,7 +94,9 @@ namespace App.Admin.Controllers
 					landingPageExports.Add(landingPageExport);
 				}
 			}
-			ExcelUtil.ListToExcel(landingPageExports);
+
+		    ExportToExcel.ListToExcel(landingPageExports);
+
 			return new EmptyResult();
 		}
 
@@ -119,7 +122,7 @@ namespace App.Admin.Controllers
 			var landingPages = _landingPageService.PagedList(sortingPagingBuilder, paging);
 			if (landingPages != null && landingPages.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(landingPages);
@@ -147,7 +150,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
-				ExtentionUtils.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}

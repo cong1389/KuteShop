@@ -1,7 +1,6 @@
 using App.Domain.Entities.Identity;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;

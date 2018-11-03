@@ -39,7 +39,9 @@ namespace App.Infra.Data.Repository.Languages
 			var expression = PredicateBuilder.True<LocalizedProperty>();
 			if (!string.IsNullOrEmpty(sortBuider.Keywords))
 			{
-				expression = expression.And(x => x.LocaleKey.ToLower().Contains(sortBuider.Keywords.ToLower()) || x.LocaleKey.ToLower().Contains(sortBuider.Keywords.ToLower()));
+				expression = expression.And(x =>
+				    x.LocaleKey.ToLower().Contains(sortBuider.Keywords.ToLower()) ||
+				    x.LocaleKey.ToLower().Contains(sortBuider.Keywords.ToLower()));
 			}
 			return FindAndSort(expression, sortBuider.Sorts, page);
 		}

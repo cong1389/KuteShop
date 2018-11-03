@@ -42,7 +42,7 @@ namespace App.Admin.Controllers
 			var roles = await _roleService.PagedList(sortingPagingBuilder1, paging1);
 			if (roles != null && roles.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(roles);

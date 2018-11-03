@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.GenericControls;
 using App.Domain.Menus;
@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -100,7 +101,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", ex.Message));
+                LogText.Log(string.Concat("GenericControl.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -136,7 +137,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControl --> Delete: ", ex.Message));
+                LogText.Log(string.Concat("GenericControl --> Delete: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
             }
 
@@ -226,7 +227,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControl.Create: ", ex.Message));
+                LogText.Log(string.Concat("GenericControl.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -258,7 +259,7 @@ namespace App.Admin.Controllers
 
             if (genericControls != null && genericControls.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

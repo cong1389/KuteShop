@@ -1,9 +1,9 @@
-using System.Linq;
-using System.Web.Mvc;
-using App.Aplication;
+using App.Core.Extensions;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Slides;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace App.Front.Controllers
 {

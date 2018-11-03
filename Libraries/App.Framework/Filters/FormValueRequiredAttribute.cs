@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using App.Core.Extensions;
 
-namespace App.Aplication.Filters
+namespace App.Framework.Filters
 {
     public class FormValueRequiredAttribute : ActionMethodSelectorAttribute
     {

@@ -8,7 +8,7 @@
     }
     var total = pi.ItemsPerPage > 0 ? (int)Math.Ceiling((decimal)pi.TotalItems / pi.ItemsPerPage) : 0;
 }
-@*@if (total > ExtentionUtils.PageSize)
+@*@if (total > CommonHelper.PageSize)
     {*@
 <div class="row">
     <div class="col-md-3 col-sm-4">

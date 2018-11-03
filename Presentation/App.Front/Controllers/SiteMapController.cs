@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
-using App.Aplication;
+using App.Core.Extensions;
 using App.SeoSitemap;
 using App.SeoSitemap.Enum;
 using App.SeoSitemap.Images;

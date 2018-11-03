@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 using App.FakeEntity.ServerMails;
 
 namespace App.Admin.Controllers
@@ -65,7 +66,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
+				LogText.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(serverMail);
 			}
 			return action;
@@ -87,7 +88,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("ServerMailSetting.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ServerMailSetting.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -129,7 +130,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("MailSetting.Create: ", exception.Message));
+				LogText.Log(string.Concat("MailSetting.Create: ", exception.Message));
 				return View(serverMail);
 			}
 
@@ -158,7 +159,7 @@ namespace App.Admin.Controllers
 			var serverMailSettings = _mailSettingService.PagedList(sortingPagingBuilder, paging);
 			if (serverMailSettings != null && serverMailSettings.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 

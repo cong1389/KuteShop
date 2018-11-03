@@ -1,6 +1,6 @@
-using App.Aplication.Extensions;
 using App.Domain.News;
 using App.Domain.Posts;
+using App.Framework.UI.Extensions;
 using App.Service.News;
 using App.Service.Posts;
 using System;

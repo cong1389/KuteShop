@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Shippings;
 using App.FakeEntity.Shippings;
@@ -14,6 +14,7 @@ using Resources;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -95,7 +96,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("ShippingMethod.Edit: ", ex.Message));
+				LogText.Log(string.Concat("ShippingMethod.Edit: ", ex.Message));
 				return View(model);
 			}
 
@@ -126,7 +127,7 @@ namespace App.Admin.Controllers
             var manufacturers = _paymentMethodService.PagedList(sortingPagingBuilder, paging);
             if (manufacturers.IsAny())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

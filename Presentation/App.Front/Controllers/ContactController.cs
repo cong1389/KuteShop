@@ -1,5 +1,4 @@
-﻿using App.Aplication;
-using App.Domain.Common;
+﻿using App.Domain.Common;
 using App.Domain.ServerMails;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -12,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Xml;
+using App.Framework.Utilities;
 
 namespace App.Front.Controllers
 {

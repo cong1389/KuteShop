@@ -1,16 +1,17 @@
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.SettingSeoes;
 using App.FakeEntity.SettingSeoes;
 using App.Framework.Utilities;
+using App.Service.SettingSeoes;
 using AutoMapper;
 using Resources;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using App.Service.SettingSeoes;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -74,7 +75,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("SeoGlobal.Create: ", exception.Message));
+				LogText.Log(string.Concat("SeoGlobal.Create: ", exception.Message));
 				ModelState.AddModelError("", exception.Message);
 				return View(seoSetting);
 			}
@@ -96,7 +97,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("SeoGlobal.Delete: ", exception.Message));
+				LogText.Log(string.Concat("SeoGlobal.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -150,7 +151,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				ModelState.AddModelError("", exception.Message);
-				ExtentionUtils.Log(string.Concat("SeoGlobal.Edit: ", exception.Message));
+				LogText.Log(string.Concat("SeoGlobal.Edit: ", exception.Message));
 				return View(seoSetting);
 			}
 			return action;
@@ -177,7 +178,7 @@ namespace App.Admin.Controllers
 			var settingSeoGlobals = _settingSeoGlobal.PagedList(sortingPagingBuilder, paging);
 			if (settingSeoGlobals != null && settingSeoGlobals.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(settingSeoGlobals);

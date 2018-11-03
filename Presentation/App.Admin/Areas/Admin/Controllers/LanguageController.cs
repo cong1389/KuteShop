@@ -1,5 +1,5 @@
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Languages;
 using App.FakeEntity.Languages;
@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -88,7 +89,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Language.Create: ", ex.Message));
+                LogText.Log(string.Concat("Language.Create: ", ex.Message));
                 return View(model);
             }
         }
@@ -142,7 +143,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Language.Edit: ", ex.Message));
+                LogText.Log(string.Concat("Language.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -164,7 +165,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Language.Delete: ", ex.Message));
+                LogText.Log(string.Concat("Language.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -192,7 +193,7 @@ namespace App.Admin.Controllers
             var languages = _langService.PagedList(sortingPagingBuilder, paging);
             if (languages.IsAny())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

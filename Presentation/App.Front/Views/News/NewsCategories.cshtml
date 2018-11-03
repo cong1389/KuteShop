@@ -1,6 +1,6 @@
 ﻿<!--NewsCategories---->
-@using App.Aplication
-@model IEnumerable<App.Domain.Entities.Data.News>
+@using App.Core.Extensions
+@model IEnumerable<App.Domain.News>
 @if (Model.IsAny())
 {
 	Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title });

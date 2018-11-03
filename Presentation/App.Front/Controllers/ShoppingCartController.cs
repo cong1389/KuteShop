@@ -1,9 +1,10 @@
-﻿using App.Aplication;
-using App.Aplication.Extensions;
-using App.Aplication.Filters;
+﻿using App.Core.Extensions;
 using App.Domain.Entities.Orders;
 using App.Domain.Posts;
 using App.FakeEntity.Address;
+using App.Framework.Filters;
+using App.Framework.UI.Extensions;
+using App.Framework.Utilities;
 using App.Front.Models.ShoppingCart;
 using App.Service.Common;
 using App.Service.Customers;
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App.Domain.Customers;
 
 namespace App.Front.Controllers
 {
@@ -275,12 +277,12 @@ namespace App.Front.Controllers
             }
 
             //Shipping method
-            var selectedShippingMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedShippingOption
+            var selectedShippingMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedShippingOption
                 , _genericAttributeService);
             model.OrderReviewData.ShippingMethod = selectedShippingMethodSystemName;
 
             //Payment method
-            var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedPaymentMethod
+            var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedPaymentMethod
                 , _genericAttributeService);
             model.OrderReviewData.PaymentMethod = selectedPaymentMethodSystemName;
         }

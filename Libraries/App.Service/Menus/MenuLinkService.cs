@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using App.Aplication;
-using App.Core.Caching;
+﻿using App.Core.Caching;
 using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Menus;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Menus;
 using App.Infra.Data.UOW.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace App.Service.Menus
 {

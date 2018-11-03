@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Entities.Payments;
 using App.FakeEntity.Payments;
@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -99,7 +100,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("PaymentMethod.Create: ", ex.Message));
+				LogText.Log(string.Concat("PaymentMethod.Create: ", ex.Message));
 				ModelState.AddModelError("", ex.Message);
 
 				return View(model);
@@ -112,7 +113,7 @@ namespace App.Admin.Controllers
 		{
 			if (model.Image != null && model.Image.ContentLength > 0)
 			{
-				var folderName = Utils.FolderName(model.PaymentMethodSystemName);
+				var folderName = CommonHelper.FolderName(model.PaymentMethodSystemName);
 				var fileExtension = Path.GetExtension(model.Image.FileName);
 				var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
@@ -142,7 +143,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("PaymentMethod.Delete: ", ex.Message));
+				LogText.Log(string.Concat("PaymentMethod.Delete: ", ex.Message));
 			}
 
 			return RedirectToAction("Index");
@@ -220,7 +221,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("PaymentMethod.Edit: ", ex.Message));
+				LogText.Log(string.Concat("PaymentMethod.Edit: ", ex.Message));
 				return View(model);
 			}
 
@@ -251,7 +252,7 @@ namespace App.Admin.Controllers
 			var manufacturers = _paymentMethodService.PagedList(sortingPagingBuilder, paging);
 			if (manufacturers.IsAny())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 

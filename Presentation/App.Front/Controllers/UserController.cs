@@ -1,13 +1,14 @@
-using App.Aplication;
+using App.Core.Extensions;
+using App.Domain.Customers;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.Orders;
 using App.FakeEntity.User;
+using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
 using App.Service.Orders;
 using AutoMapper;
-using App.Domain.Customers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;

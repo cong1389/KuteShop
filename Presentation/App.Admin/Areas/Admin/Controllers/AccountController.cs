@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using App.Admin.Helpers;
+using App.Core.Logging;
 using App.Core.Utilities;
 using App.Domain.Entities.Identity;
 using App.FakeEntity.User;
@@ -151,7 +152,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Account.Update: ", exception.Message));
+                LogText.Log(string.Concat("Account.Update: ", exception.Message));
             }
             action = View();
             return action;
@@ -181,7 +182,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Post.Delete: ", ex.Message));
+                LogText.Log(string.Concat("Post.Delete: ", ex.Message));
             }
             return RedirectToAction("Index");
         }
@@ -211,7 +212,7 @@ namespace App.Admin.Controllers
             var users = await _userService.PagedList(sortingPagingBuilder1, paging1);
             if (users != null && users.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging1.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(users);

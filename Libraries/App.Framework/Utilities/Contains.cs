@@ -2,7 +2,7 @@ using System.Configuration;
 using System.IO;
 using System.Web;
 
-namespace App.Aplication
+namespace App.Framework.Utilities
 {
     public static class Contains
     {
@@ -182,10 +182,7 @@ namespace App.Aplication
                 return ConfigurationManager.AppSettings["RepairFolder"] ?? "images/repair/";
             }
         }
-
-        //SystemCustomerAttributeNames
-        public static string SelectedPaymentMethod => "SelectedPaymentMethod";
-        public static string SelectedShippingOption => "SelectedShippingOption";
+      
 
         //Template mail
         public static string TemplateMailBasicContact => "Themes/Basic/TemplateMails/Contact.xml";

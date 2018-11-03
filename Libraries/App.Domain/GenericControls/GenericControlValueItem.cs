@@ -36,13 +36,6 @@ namespace App.Domain.GenericControls
             set;
         }
 
-        //[ForeignKey("PostId")]
-        //public virtual App.Domain.Entities.Data.Post Post
-        //{
-        //    get;
-        //    set;
-        //}
-
         public int EntityId
         {
             get;

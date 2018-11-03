@@ -1,6 +1,5 @@
 ﻿<!---GetStaticContent---->
-@using App.Domain.Common
-@model App.Domain.Entities.Data.StaticContent
+@model App.Domain.StaticContents
 @if (Model != null)
 {
 	Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.MenuId, title = ViewBag.Title });

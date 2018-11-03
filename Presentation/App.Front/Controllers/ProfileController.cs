@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Web.Mvc;
-using App.Aplication;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Framework.Utilities;
 using App.Service.News;
@@ -30,13 +30,13 @@ namespace App.Front.Controllers
 			var paging = new Paging
 			{
 				PageNumber = page,
-				PageSize = PageSize,
+				PageSize = CommonHelper.PageSize,
 				TotalRecord = 0
 			};
 			var news = _newsService.PagedListByMenu(sortingPagingBuilder, paging);
 			if (news.IsAny())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("GetContent", "Menu", new { page = i }));
 				ViewBag.PageInfo = pageInfo;
 				ViewBag.CountItem = pageInfo.TotalItems;
 			}

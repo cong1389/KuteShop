@@ -50,6 +50,7 @@
     <Compile Include="Common\PaymentStatus.cs" />
     <Compile Include="Common\ShippingStatus.cs" />
     <Compile Include="Customers\Customer.cs" />
+    <Compile Include="Customers\SystemCustomerAttributeNames.cs" />
     <Compile Include="Posts\PostGallery.cs" />
     <Compile Include="ServerMails\EmailAddress.cs" />
     <Compile Include="GenericControls\GenericControlValueItem.cs" />

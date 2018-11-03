@@ -122,6 +122,7 @@
     <Compile Include="Common\ICommonServicesExtensions.cs" />
     <Compile Include="Media\IImageService.cs" />
     <Compile Include="Media\ImageService.cs" />
+    <Compile Include="Media\PictureService.cs" />
     <Compile Include="Menus\IPositionMenuLinkService.cs" />
     <Compile Include="Menus\PositionMenuLinkExtensions.cs" />
     <Compile Include="Menus\PositionMenuLinkService.cs" />
@@ -377,10 +378,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App.Aplication\App.Aplication.csproj">
-      <Project>{4145f94e-d953-47db-a33e-102b26692790}</Project>
-      <Name>App.Aplication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\App.Domain\App.Domain.csproj">
       <Project>{396ff6df-0f55-4c8f-9b2f-233f439da8f6}</Project>
       <Name>App.Domain</Name>

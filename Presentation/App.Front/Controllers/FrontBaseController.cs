@@ -31,7 +31,7 @@ namespace App.Front.Controllers
             }
         }
 
-	    protected int PageSize => 20;
+	    //protected int PageSize => 20;
 
 	    public FrontBaseController()
 		{

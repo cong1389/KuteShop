@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -65,7 +66,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("District.Create: ", exception.Message));
+				LogText.Log(string.Concat("District.Create: ", exception.Message));
 				return View(attributeValue);
 			}
 			return action;
@@ -87,7 +88,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("District.Delete: ", exception.Message));
+				LogText.Log(string.Concat("District.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -128,7 +129,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("District.Edit: ", exception.Message));
+				LogText.Log(string.Concat("District.Edit: ", exception.Message));
 				return View(attributeValue);
 			}
 			return action;
@@ -157,7 +158,7 @@ namespace App.Admin.Controllers
 			list.ForEach(item => item.Attribute = _attributeService.GetById(item.AttributeId));
 			if (list != null && list.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(list);

@@ -1,16 +1,17 @@
 using System.Linq;
+using App.Domain.Posts;
 using App.Infra.Data.Common;
 using App.Infra.Data.DbFactory;
 
 namespace App.Infra.Data.RepositoryAsync.Posts
 {
-    public class PostRepositoryAsync : RepositoryBaseAsync<App.Domain.Posts.Post>, IPostRepositoryAsync
+    public class PostRepositoryAsync : RepositoryBaseAsync<Post>, IPostRepositoryAsync
 	{
 		public PostRepositoryAsync(IDbFactory dbFactory) : base(dbFactory)
 		{
 		}
 
-		protected override IOrderedQueryable<App.Domain.Posts.Post> GetDefaultOrder(IQueryable<App.Domain.Posts.Post> query)
+		protected override IOrderedQueryable<Post> GetDefaultOrder(IQueryable<Post> query)
 		{
 			return 
 				from p in query

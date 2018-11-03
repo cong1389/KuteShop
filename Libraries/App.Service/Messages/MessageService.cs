@@ -1,5 +1,4 @@
-﻿using App.Aplication;
-using App.Core.Extensions;
+﻿using App.Core.Extensions;
 using App.Core.Messages;
 using App.Core.Templating;
 using App.Core.Utilities;
@@ -132,7 +131,7 @@ namespace App.Service.Messages
 
             if (ctx.BaseUri == null)
             {
-                ctx.BaseUri = new Uri(Aplication.Utils.GetBaseUrl);
+                ctx.BaseUri = new Uri(CommonHelper.GetBaseUrl);
             }
 
             if (ctx.LanguageId.GetValueOrDefault() == 0)
@@ -234,7 +233,7 @@ namespace App.Service.Messages
             try
             {
                 // 'Store' is a global model part, so we pretty can be sure it exists
-                baseUri = new Uri(Utils.GetBaseUrl);
+                baseUri = new Uri(CommonHelper.GetBaseUrl);
             }
             catch { }
 

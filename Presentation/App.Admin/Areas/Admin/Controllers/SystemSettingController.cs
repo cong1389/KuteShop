@@ -1,6 +1,6 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Systems;
 using App.FakeEntity.Systems;
@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 using static System.String;
 
 namespace App.Admin.Controllers
@@ -159,7 +160,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(Concat("SystemSetting.Create: ", ex.Message));
+                LogText.Log(Concat("SystemSetting.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
 
                 return View(model);
@@ -181,7 +182,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(Concat("SystemSetting.Delete: ", ex.Message));
+                LogText.Log(Concat("SystemSetting.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -323,7 +324,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(Concat("SystemSetting.Edit: ", ex.Message));
+                LogText.Log(Concat("SystemSetting.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -352,7 +353,7 @@ namespace App.Admin.Controllers
             var systemSettings = _systemSettingService.PagedList(sortingPagingBuilder, paging);
             if (systemSettings != null && systemSettings.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

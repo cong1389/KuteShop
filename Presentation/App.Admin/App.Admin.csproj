@@ -284,10 +284,6 @@
     <None Include="Properties\PublishProfiles\Admin_Front.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\App.Aplication\App.Aplication.csproj">
-      <Project>{4145f94e-d953-47db-a33e-102b26692790}</Project>
-      <Name>App.Aplication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\App.Core\App.Core.csproj">
       <Project>{22ebd28a-55c0-4d91-ab94-3b75a40584de}</Project>
       <Name>App.Core</Name>

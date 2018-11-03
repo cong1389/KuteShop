@@ -1,11 +1,11 @@
-﻿using App.Aplication.Extensions;
-using App.Core.Caching;
+﻿using App.Core.Caching;
 using App.Domain.Entities.Setting;
+using App.FakeEntity.Settings;
+using App.Framework.UI.Extensions;
 using App.Service.Settings;
 using AutoMapper;
 using System.Linq;
 using System.Web.Mvc;
-using App.FakeEntity.Settings;
 
 namespace App.Admin.Controllers
 {

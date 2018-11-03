@@ -37,6 +37,8 @@
   <PropertyGroup>
     <RootNamespace>App.Core</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
@@ -108,6 +110,7 @@
     <Compile Include="Caching\RequestCache.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="Collections\Multimap.cs" />
+    <Compile Include="Collections\QueryString.cs" />
     <Compile Include="ComponentModel\FastActivator.cs" />
     <Compile Include="ComponentModel\FastProperty.cs" />
     <Compile Include="ComponentModel\HybridExpando.cs" />
@@ -127,6 +130,7 @@
     <Compile Include="Extensions\ConversionExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\HttpExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
@@ -145,6 +149,7 @@
     <Compile Include="Infrastructure\IEngine.cs" />
     <Compile Include="Infrastructure\IStartupTask.cs" />
     <Compile Include="Infrastructure\ITypeFinder.cs" />
+    <Compile Include="Infrastructure\RegularExpressions.cs" />
     <Compile Include="Infrastructure\Singleton.cs" />
     <Compile Include="Infrastructure\WebAppTypeFinder.cs" />
     <Compile Include="IO\VirtualPath\DefaultVirtualPathProvider.cs" />
@@ -155,12 +160,20 @@
     <Compile Include="Localization\LocalizedString.cs" />
     <Compile Include="Localization\Localizer.cs" />
     <Compile Include="Localization\NullLocalizer.cs" />
+    <Compile Include="Logging\LogText.cs" />
     <Compile Include="Messages\MessageTemplate.cs" />
     <Compile Include="Messages\MessageTemplateNames.cs" />
     <Compile Include="Packaging\AppUpdater.cs" />
     <Compile Include="Packaging\ExtensionDescriptor.cs" />
     <Compile Include="Packaging\FolderUpdater.cs" />
     <Compile Include="Packaging\PackageInfo.cs" />
+    <Compile Include="PagedSort\IPagedInfo.cs" />
+    <Compile Include="PagedSort\PagedInfo.cs" />
+    <Compile Include="PagedSort\SortUtils\SortDirection.cs" />
+    <Compile Include="PagedSort\SortUtils\SortExpression.cs" />
+    <Compile Include="PagedSort\SortUtils\SortExpressionCollection.cs" />
+    <Compile Include="PagedSort\SortUtils\SortExpressionCollectionConverter.cs" />
+    <Compile Include="PagedSort\SortUtils\SortExpressionConverter.cs" />
     <Compile Include="Plugins\BasePlugin.cs" />
     <Compile Include="Plugins\DependentWidgetsAttribute.cs" />
     <Compile Include="Plugins\DisplayOrderAttribute.cs" />
@@ -257,6 +270,7 @@
     <None Include="packages.config" />
     <Compile Include="Plugins\PluginManager.Cache.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

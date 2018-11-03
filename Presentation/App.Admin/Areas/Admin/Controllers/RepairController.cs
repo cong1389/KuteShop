@@ -1,6 +1,6 @@
 ﻿using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Repairs;
 using App.FakeEntity.Repairs;
@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -142,7 +143,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Repair.Create: ", exception.Message));
+                LogText.Log(string.Concat("Repair.Create: ", exception.Message));
                 ModelState.AddModelError("", exception.Message);
                 return View(repair);
             }
@@ -173,7 +174,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                ExtentionUtils.Log(string.Concat("Repair.Delete: ", exception.Message));
+                LogText.Log(string.Concat("Repair.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
         }
@@ -307,7 +308,7 @@ namespace App.Admin.Controllers
             {
                 var exception = exception1;
                 ModelState.AddModelError("", exception.Message);
-                ExtentionUtils.Log(string.Concat("Repair.Edit: ", exception.Message));
+                LogText.Log(string.Concat("Repair.Edit: ", exception.Message));
                 return View(repairView);
             }
             return action;
@@ -335,7 +336,7 @@ namespace App.Admin.Controllers
             var repairs = _repairService.PagedList(sortingPagingBuilder, paging);
             if (repairs != null && repairs.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(repairs);

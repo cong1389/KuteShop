@@ -36,9 +36,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.Aplication">
-      <HintPath>..\App.Aplication\bin\Debug\App.Aplication.dll</HintPath>
-    </Reference>
     <Reference Include="App.Infra.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\App.Infra.Data\bin\Debug\App.Infra.Data.dll</HintPath>
@@ -63,6 +60,9 @@
     <Reference Include="DotLiquid, Version=2.0.254.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\DotLiquid.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentValidation.7.6.0\lib\net45\FluentValidation.dll</HintPath>
@@ -111,14 +111,25 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyRegistrar.cs" />
+    <Compile Include="Excel\ExportToExcel.cs" />
+    <Compile Include="Extensions\HttpExtension.cs" />
+    <Compile Include="Filters\FormValueRequiredAttribute.cs" />
+    <Compile Include="Modelling\DateTimeModelBinder.cs" />
+    <Compile Include="Modelling\DoubleModelBinder.cs" />
+    <Compile Include="Modelling\ModelHelper_T_.cs" />
     <Compile Include="Plugins\PluginMediator.cs" />
     <Compile Include="Plugins\ProviderManager.cs" />
     <Compile Include="Routing\IRouteProvider.cs" />
     <Compile Include="Routing\IRoutePublisher.cs" />
     <Compile Include="Routing\RoutePublisher.cs" />
+    <Compile Include="Seo\ImageSiteMap.cs" />
+    <Compile Include="Seo\Location.cs" />
+    <Compile Include="Seo\Sitemap.cs" />
+    <Compile Include="Seo\SiteMapImage.cs" />
     <Compile Include="Templating\Filters\AdditionalFilters.cs" />
     <Compile Include="Templating\Liquid\Drops\DictionaryDrop.cs" />
     <Compile Include="Templating\Liquid\Drops\EnumerableWrapper.cs" />
@@ -130,6 +141,13 @@
     <Compile Include="Templating\Liquid\LiquidUtil.cs" />
     <Compile Include="Theme\WebViewPage.cs" />
     <Compile Include="Theme\WebViewPageHelper.cs" />
+    <Compile Include="UI\Extensions\FormRenderCollection.cs" />
+    <Compile Include="UI\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="UI\Extensions\HtmlRenderExtensions.cs" />
+    <Compile Include="UI\Extensions\RenderRazorViewHelper.cs" />
+    <Compile Include="UI\WebGrid\WebGridHelpers.cs" />
+    <Compile Include="Utilities\Contains.cs" />
+    <Compile Include="Utilities\ExtentionUtils.cs" />
     <Compile Include="ValidateEntity\AddressValidator.cs" />
     <Compile Include="ValidateEntity\PaymentMethodValidator.cs" />
     <Compile Include="ValidateEntity\GenControlValueValidator.cs" />
@@ -216,10 +234,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utilities\ExtentionUtils.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="ValidateEntity\DistrictValidator.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -302,6 +316,11 @@
       <Project>{66967df3-d493-4c60-ade9-b3f616f83b8d}</Project>
       <Name>App.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{17A1E462-F7A9-4729-82E0-D0674F125863}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

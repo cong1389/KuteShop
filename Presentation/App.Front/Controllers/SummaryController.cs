@@ -1,10 +1,10 @@
-using App.Aplication.Extensions;
 using App.Core.Caching;
 using App.Domain.Common;
 using App.Domain.ContactInfors;
 using App.Domain.SettingSeoes;
 using App.Domain.Systems;
 using App.FakeEntity.Menus;
+using App.Framework.UI.Extensions;
 using App.Front.Extensions;
 using App.Front.Models;
 using App.Service.Common;
@@ -12,13 +12,13 @@ using App.Service.ContactInfors;
 using App.Service.Locations;
 using App.Service.Menus;
 using App.Service.Posts;
+using App.Service.SettingSeoes;
 using App.Service.StaticContents;
 using App.Service.SystemApp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using App.Service.SettingSeoes;
 
 namespace App.Front.Controllers
 {

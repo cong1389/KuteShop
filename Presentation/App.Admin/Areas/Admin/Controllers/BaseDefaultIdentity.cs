@@ -1,11 +1,11 @@
+using App.Domain.Entities.Identity;
+using App.Framework.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using App.Aplication;
-using App.Domain.Entities.Identity;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 
 namespace App.Admin.Controllers
 {

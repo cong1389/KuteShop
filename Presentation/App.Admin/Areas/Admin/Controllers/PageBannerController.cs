@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -64,7 +65,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("PageBanner.Create: ", exception.Message));
+				LogText.Log(string.Concat("PageBanner.Create: ", exception.Message));
 				ModelState.AddModelError("", exception.Message);
 				return View(pageBannerModel);
 			}
@@ -87,7 +88,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("PageBanner.Delete: ", exception.Message));
+				LogText.Log(string.Concat("PageBanner.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -129,7 +130,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				ModelState.AddModelError("", exception.Message);
-				ExtentionUtils.Log(string.Concat("PageBanner.Edit: ", exception.Message));
+				LogText.Log(string.Concat("PageBanner.Edit: ", exception.Message));
 				return View(pageBannerModel);
 			}
 			return action;
@@ -157,7 +158,7 @@ namespace App.Admin.Controllers
 			var pageBanners = _pageBannerService.PagedList(sortingPagingBuilder, paging);
 			if (pageBanners != null && pageBanners.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(pageBanners);

@@ -1,9 +1,9 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
-using App.Domain.Common;
 using App.Domain.Ads;
+using App.Domain.Common;
 using App.FakeEntity.Ads;
 using App.Framework.Utilities;
 using App.Service.Ads;
@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -91,7 +92,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("Banner.Create: ", ex.Message));
+				LogText.Log(string.Concat("Banner.Create: ", ex.Message));
 				ModelState.AddModelError("", ex.Message);
 
 				return View(model);
@@ -104,7 +105,7 @@ namespace App.Admin.Controllers
 		{
 			if (model.Image != null && model.Image.ContentLength > 0)
 			{
-				var folderName = Utils.FolderName(model.Title);
+				var folderName = CommonHelper.FolderName(model.Title);
 				var fileExtension = Path.GetExtension(model.Image.FileName);
 				var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
@@ -135,7 +136,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("Banner.Delete: ", exception.Message));
+				LogText.Log(string.Concat("Banner.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -166,7 +167,7 @@ namespace App.Admin.Controllers
 				ImageHandler(model);
 				//if (model.Image != null && model.Image.ContentLength > 0)
 				//{
-				//    var folderName = Utils.FolderName(model.Title);
+				//    var folderName = CommonHelper.FolderName(model.Title);
 				//    var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 				//    var fileExtension = Path.GetExtension(model.Image.FileName);
 
@@ -199,7 +200,7 @@ namespace App.Admin.Controllers
 			catch (Exception ex)
 			{
 				ModelState.AddModelError("", ex.Message);
-				ExtentionUtils.Log(string.Concat("Banner.Edit: ", ex.Message));
+				LogText.Log(string.Concat("Banner.Edit: ", ex.Message));
 
 				return View(model);
 			}
@@ -228,7 +229,7 @@ namespace App.Admin.Controllers
 			var banners = _bannerService.PagedList(sortingPagingBuilder, paging);
 			if (banners.IsAny())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 

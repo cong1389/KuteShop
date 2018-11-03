@@ -1,11 +1,11 @@
 ﻿using App.Admin.Helpers;
-using App.Aplication;
-using App.Aplication.Extensions;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.GenericControls;
 using App.FakeEntity.GenericControls;
+using App.Framework.UI.Extensions;
 using App.Framework.Utilities;
 using App.Service.GenericControls;
 using App.Service.Menus;
@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -80,7 +81,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Create: ", ex.Message));
+                LogText.Log(string.Concat("GenericControlValue.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -104,7 +105,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Delete: ", ex.Message));
+                LogText.Log(string.Concat("GenericControlValue.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -148,7 +149,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("GenericControlValue.Edit: ", ex.Message));
+                LogText.Log(string.Concat("GenericControlValue.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -179,7 +180,7 @@ namespace App.Admin.Controllers
             list.ForEach(item => item.GenericControl = _genericControlService.GetById(item.GenericControlId));
             if (list.IsAny())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(list);

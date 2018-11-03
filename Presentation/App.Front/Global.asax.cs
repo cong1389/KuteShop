@@ -1,15 +1,15 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using App.Aplication;
-using App.Core.Data;
+﻿using App.Core.Data;
 using App.Core.Infrastructure;
 using App.Framework.FluentValidation;
 using App.Framework.Mappings;
+using App.Framework.Modelling;
 using App.Framework.Routing;
 using App.Framework.Theme;
 using FluentValidation.Mvc;
+using System;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace App.Front
 {
@@ -19,11 +19,11 @@ namespace App.Front
         {
             bool installed = DataSettings.DatabaseIsInstalled();
 
-            if (installed)
-            {
-                //Remove all view engines
+            //if (installed)
+            //{
+            //    //Remove all view engines
                 ViewEngines.Engines.Clear();
-            }
+            //}
             // Initialize engine context
             EngineContext.Initialize(false);
 

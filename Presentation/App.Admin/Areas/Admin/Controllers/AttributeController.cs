@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 using Attribute = App.Domain.Entities.Attribute.Attribute;
 
 namespace App.Admin.Controllers
@@ -63,7 +64,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
+				LogText.Log(string.Concat("Attribute.Create: ", exception.Message));
 				return View(attributeView);
 			}
 			return action;
@@ -85,7 +86,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("ServerAttribute.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ServerAttribute.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -125,7 +126,7 @@ namespace App.Admin.Controllers
 			catch (Exception exception1)
 			{
 				var exception = exception1;
-				ExtentionUtils.Log(string.Concat("Attribute.Create: ", exception.Message));
+				LogText.Log(string.Concat("Attribute.Create: ", exception.Message));
 				return View(attributeView);
 			}
 			return action;
@@ -153,7 +154,7 @@ namespace App.Admin.Controllers
 			var attributes = _attributeService.PagedList(sortingPagingBuilder, paging);
 			if (attributes != null && attributes.Any())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
 				ViewBag.PageInfo = pageInfo;
 			}
 			return View(attributes);

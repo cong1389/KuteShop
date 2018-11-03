@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 
 namespace App.Admin.Controllers
 {
@@ -53,7 +54,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Brand.Create: ", ex.Message));
+                LogText.Log(string.Concat("Brand.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -74,7 +75,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Brand.Delete: ", ex.Message));
+                LogText.Log(string.Concat("Brand.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -112,7 +113,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(string.Concat("Brand.Create: ", ex.Message));
+                LogText.Log(string.Concat("Brand.Create: ", ex.Message));
 
                 return View(model);
             }
@@ -140,7 +141,7 @@ namespace App.Admin.Controllers
             var brands = _brandService.PagedList(sortingPagingBuilder, paging);
             if (brands != null && brands.Any())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
 

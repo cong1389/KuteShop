@@ -1,15 +1,18 @@
 ﻿using App.Core.Extensions;
+using App.Core.Infrastructure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Hosting;
+using System.Web.Security;
 
 namespace App.Core.Utilities
 {
-    public class CommonHelper
+    public static class CommonHelper
 	{
 		public static bool IsTruthy(object value)
 		{
@@ -71,5 +74,41 @@ namespace App.Core.Utilities
 
 	        return setting.Convert<T>();
 	    }
+
+	    public static string GetBaseUrl => HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+
+        public static string ApplicationName => Membership.ApplicationName.ToLower();
+
+        public static int PageSize => int.Parse(ConfigurationManager.AppSettings["ItemsPerPage"]);
+
+      
+        
+        public static long GetTime()
+        {
+            DateTime dateTime = new DateTime(1970, 1, 1);
+            TimeSpan universalTime = DateTime.Now.ToUniversalTime() - dateTime;
+
+            return (long)(universalTime.TotalMilliseconds + 0.5);
+        }
+
+        public static string FolderName(string fileName = null)
+        {
+            string result = $"{DateTime.UtcNow:yyyyMMdd}";
+
+            if (fileName != null)
+            {
+                var firstCharsa = fileName.Where((ch, index) => ch != ' ' && (index == 0 || fileName[index - 1] == ' '));
+                var firstLeter = string.Join("", firstCharsa.ToArray()).NonAccent().ToUpper();
+
+                result = $"{DateTime.UtcNow.Year}.{firstLeter}";
+            }
+
+            return result;
+        }
+
+
+      
+
+        
     }
 }

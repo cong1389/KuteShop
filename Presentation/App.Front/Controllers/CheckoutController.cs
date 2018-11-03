@@ -1,10 +1,10 @@
-﻿using App.Aplication;
-using App.Aplication.Extensions;
-using App.Aplication.Filters;
-using App.Core.Extensions;
+﻿using App.Core.Extensions;
 using App.Domain.Entities.Orders;
 using App.Domain.Posts;
 using App.FakeEntity.Address;
+using App.Framework.Filters;
+using App.Framework.UI.Extensions;
+using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models.Checkout;
 using App.Front.Models.ShoppingCart;
@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using App.Domain.Customers;
 
 namespace App.Front.Controllers
 {
@@ -233,7 +234,7 @@ namespace App.Front.Controllers
 
             }
 
-            var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedPaymentMethod, _genericAttributeService);
+            var selectedPaymentMethodSystemName = _workContext.CurrentCustomer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedPaymentMethod, _genericAttributeService);
 
             var selected = false;
             if (selectedPaymentMethodSystemName.HasValue())
@@ -276,7 +277,7 @@ namespace App.Front.Controllers
             if (paymentMethodKey.HasValue())
             {
                 var paymentMethodName = form[paymentMethodKey];
-                _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", Contains.SelectedPaymentMethod, paymentMethodName);
+                _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", SystemCustomerAttributeNames.SelectedPaymentMethod, paymentMethodName);
             }
 
             //Save shipping method
@@ -284,7 +285,7 @@ namespace App.Front.Controllers
             if (shippingMethodKey.HasValue())
             {
                 var shippingMethodName = form[shippingMethodKey];
-                _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", Contains.SelectedShippingOption, shippingMethodName);
+                _genericAttributeService.SaveGenericAttribute(customer.Id, "Customer", SystemCustomerAttributeNames.SelectedShippingOption, shippingMethodName);
             }
 
             return RedirectToAction("Confirm");
@@ -328,7 +329,7 @@ namespace App.Front.Controllers
 
             }
 
-            var selectedShippingOption = _workContext.CurrentCustomer.GetAttribute("Customer", Contains.SelectedShippingOption, _genericAttributeService);
+            var selectedShippingOption = _workContext.CurrentCustomer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedShippingOption, _genericAttributeService);
 
             var selected = false;
             if (selectedShippingOption.HasValue())
@@ -449,7 +450,7 @@ namespace App.Front.Controllers
                 StoreId = storeId,
                 CustomerId = customer.Id,
                 PaymentMethodSystemName =
-                    customer.GetAttribute("Customer", Contains.SelectedPaymentMethod, _genericAttributeService)
+                    customer.GetAttribute("Customer", SystemCustomerAttributeNames.SelectedPaymentMethod, _genericAttributeService)
             };
 
             var placeOrderExtraData = new Dictionary<string, string>();

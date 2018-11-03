@@ -1,10 +1,11 @@
-using App.Aplication;
-using App.Aplication.Extensions;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Posts;
 using App.FakeEntity.GenericControls;
+using App.Framework.Extensions;
+using App.Framework.UI.Extensions;
 using App.Framework.Utilities;
 using App.Front.Extensions;
 using App.Front.Models;
@@ -60,7 +61,7 @@ namespace App.Front.Controllers
             var paging = new Paging
             {
                 PageNumber = page,
-                PageSize = PageSize,
+                PageSize = CommonHelper.PageSize,
                 TotalRecord = 0
             };
             //if (page == 1)
@@ -130,7 +131,7 @@ namespace App.Front.Controllers
             {
                 postLocalized = posts.Select(x => x.ToModel());
 
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord,
                     i => Url.Action("GetContent", "Menu", new { page = i }));
 
                 ViewBag.PageInfo = pageInfo;
@@ -469,7 +470,7 @@ namespace App.Front.Controllers
             var paging = new Paging
             {
                 PageNumber = page,
-                PageSize = PageSize,
+                PageSize = CommonHelper.PageSize,
                 TotalRecord = 0
             };
 
@@ -485,7 +486,7 @@ namespace App.Front.Controllers
             var posts = _postService.FindAndSort(expression, sortBuilder, paging);
             if (posts.IsAny())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord,
                     i => Url.Action("GetContent", "Menu", new { page = i }));
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;

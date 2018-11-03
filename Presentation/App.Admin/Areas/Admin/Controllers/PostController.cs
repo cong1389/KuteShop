@@ -1,6 +1,7 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
+using App.Core.Infrastructure;
 using App.Core.Utilities;
 using App.Domain.Common;
 using App.Domain.Entities.Attribute;
@@ -30,6 +31,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 using static System.IO.File;
 
 namespace App.Admin.Controllers
@@ -276,7 +278,7 @@ namespace App.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ExtentionUtils.Log(string.Concat("Post.Create: ", ex.Message));
+				LogText.Log(string.Concat("Post.Create: ", ex.Message));
 				ModelState.AddModelError("", ex.Message);
 
 				return View(model);
@@ -327,7 +329,7 @@ namespace App.Admin.Controllers
 			catch (Exception ex)
 			{
 				ModelState.AddModelError("", ex.Message);
-				ExtentionUtils.Log(string.Concat("Post.Delete: ", ex.Message));
+				LogText.Log(string.Concat("Post.Delete: ", ex.Message));
 			}
 
 			return RedirectToAction("Index");
@@ -429,7 +431,7 @@ namespace App.Admin.Controllers
 
 					PostImageHandler(model);
 
-					//var folderName = Utils.FolderName(model.Title);
+					//var folderName = CommonHelper.FolderName(model.Title);
 					//if (model.Image != null && model.Image.ContentLength > 0)
 					//{
 					//	var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
@@ -607,7 +609,7 @@ namespace App.Admin.Controllers
 			catch (Exception ex)
 			{
 				ModelState.AddModelError("", ex.Message);
-				ExtentionUtils.Log(string.Concat("Post.Edit: ", ex.Message));
+				LogText.Log(string.Concat("Post.Edit: ", ex.Message));
 
 				return View(model);
 			}
@@ -638,7 +640,7 @@ namespace App.Admin.Controllers
 			var posts = _postService.PagedList(sortingPagingBuilder, paging);
 			if (posts.IsAny())
 			{
-				var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord,
+				var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord,
 					i => Url.Action("Index", new { page = i, keywords }));
 
 				ViewBag.PageInfo = pageInfo;
@@ -697,7 +699,7 @@ namespace App.Admin.Controllers
 									Status = (int)Status.Enable
 								};
 
-								var folderName = Utils.FolderName(titleOriginal);
+								var folderName = CommonHelper.FolderName(titleOriginal);
 								var fileExtension = Path.GetExtension(item.FileName);
 
 								var fileNameBg = $"slide.{ titleOriginal}".FileNameFormat(fileExtension);
@@ -911,7 +913,7 @@ namespace App.Admin.Controllers
 
 		private void PostImageHandler(PostViewModel model)
 		{
-			var folderName = Utils.FolderName(model.Title);
+			var folderName = CommonHelper.FolderName(model.Title);
 			if (model.Image != null && model.Image.ContentLength > 0)
 			{
 				var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
@@ -940,7 +942,7 @@ namespace App.Admin.Controllers
 
 		private List<GalleryImage> PostImageAttributeHandler(PostViewModel model)
 		{
-			var folderName = Utils.FolderName(model.Title);
+			var folderName = CommonHelper.FolderName(model.Title);
 
 			var files = Request.Files;
 			var lstGalleryImages = new List<GalleryImage>();

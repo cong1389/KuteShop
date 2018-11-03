@@ -1,6 +1,7 @@
 using App.Admin.Helpers;
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
+using App.Core.Infrastructure;
 using App.Core.Utilities;
 using App.Domain.Menus;
 using App.Domain.StaticContents;
@@ -19,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using App.Core.Logging;
 using static System.String;
 
 namespace App.Admin.Controllers
@@ -131,7 +133,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(Concat("StaticContent.Create: ", ex.Message));
+                LogText.Log(Concat("StaticContent.Create: ", ex.Message));
                 ModelState.AddModelError("", ex.Message);
 
                 return View(model);
@@ -143,7 +145,7 @@ namespace App.Admin.Controllers
         {
             if (model.Image != null && model.Image.ContentLength > 0)
             {
-                var folderName = Utils.FolderName(model.Title);
+                var folderName = CommonHelper.FolderName(model.Title);
                 var fileExtension = Path.GetExtension(model.Image.FileName);
                 var fileNameOriginal = Path.GetFileNameWithoutExtension(model.Image.FileName);
 
@@ -188,7 +190,7 @@ namespace App.Admin.Controllers
             }
             catch (Exception ex)
             {
-                ExtentionUtils.Log(Concat("StaticContent.Delete: ", ex.Message));
+                LogText.Log(Concat("StaticContent.Delete: ", ex.Message));
             }
 
             return RedirectToAction("Index");
@@ -278,7 +280,7 @@ namespace App.Admin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                ExtentionUtils.Log(Concat("StaticContent.Edit: ", ex.Message));
+                LogText.Log(Concat("StaticContent.Edit: ", ex.Message));
 
                 return View(model);
             }
@@ -308,7 +310,7 @@ namespace App.Admin.Controllers
             var staticContents = _staticContentService.PagedList(sortingPagingBuilder, paging);
             if (staticContents.IsAny())
             {
-                var pageInfo = new Helper.PageInfo(ExtentionUtils.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
+                var pageInfo = new Helper.PageInfo(CommonHelper.PageSize, page, paging.TotalRecord, i => Url.Action("Index", new { page = i, keywords }));
                 ViewBag.PageInfo = pageInfo;
             }
             return View(staticContents);

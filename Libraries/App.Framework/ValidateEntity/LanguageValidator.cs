@@ -21,8 +21,11 @@ namespace App.Framework.ValidateEntity
             if (file == null || file.ContentLength <= 0) return true;
 
             ImageFormat[] jpeg =
-                {ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff};
-            using (Image image = Image.FromStream(file.InputStream))
+                {
+                ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Jpeg, ImageFormat.Tiff
+            };
+
+            using (var image = Image.FromStream(file.InputStream))
             {
                 if (!jpeg.Contains(image.RawFormat))
                 {

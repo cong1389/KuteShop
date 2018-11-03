@@ -1,5 +1,5 @@
-using App.Aplication;
 using App.Core.Caching;
+using App.Core.Extensions;
 using App.Domain.Posts;
 using App.Infra.Data.Common;
 using App.Infra.Data.Repository.Posts;

@@ -1,6 +1,5 @@
 using App.Domain.Common;
 using Resources;
-using System;
 
 namespace App.Admin.Helpers
 {

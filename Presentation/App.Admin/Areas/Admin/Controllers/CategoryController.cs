@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using App.Admin.Helpers;
 using App.Core.Caching;
-using App.Domain.Menus;
 using App.Service.Menus;
 
 namespace App.Admin.Controllers
