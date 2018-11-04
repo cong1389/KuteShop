@@ -1,6 +1,8 @@
-﻿@using App.Domain.Common
+﻿@using App.Core.Extensions
+@using App.Domain.Common
+@using App.Framework.Utilities
 @using Resources
-@model IEnumerable<App.Domain.Entities.GlobalSetting.SystemSetting>
+@model IEnumerable<App.Domain.Systems.SystemSetting>
 @{
     ViewBag.Title = FormUI.SystemSetting;
     ViewBag.Toolbar = new[] { "Create", "Edit", "Delete", "Divider", "Reset" };

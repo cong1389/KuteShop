@@ -1,9 +1,10 @@
 ﻿<!---_CreateOrUpdate--->
+@using App.Core.Extensions
 @using App.Domain.Common
 @using App.Framework.Utilities
 @using Resources
 @using App.Service.Languages
-@using Attribute = App.Domain.Attributes.Attribute
+@using Attribute = App.Domain.Entities.Attribute.Attribute
 @model  App.FakeEntity.Posts.PostViewModel
 
 <div class="form-horizontal">
@@ -165,7 +166,7 @@
 							@{
 								for (int i = 0; i < Model.Locales.Count; i++)
 								{
-									App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
+									App.Domain.Languages.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
 
 									<li class="@(i == 0 ? "active" : "")">
 										<a href="#tab_paneSub@(i + 1)" data-toggle="tab"><img src="@language.Flag.ValidateImage()" /> @language.LanguageName</a>

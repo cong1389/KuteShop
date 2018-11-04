@@ -1,8 +1,9 @@
 ﻿<!---_CreateOrUpdate--->
 @using App.Domain.Common
+@using App.Framework.Utilities
 @using Resources
 @using App.Service.Languages
-@model App.FakeEntity.System.SystemSettingViewModel
+@model App.FakeEntity.Systems.SystemSettingViewModel
 
 <div class="form-horizontal">
     <div class="form-body">
@@ -123,7 +124,7 @@
                 @{
                     for (int i = 0; i < Model.Locales.Count; i++)
                     {
-                        App.Domain.Entities.Language.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
+                        App.Domain.Languages.Language language = DependencyResolver.Current.GetService<ILanguageService>().GetById(Model.Locales[i].LanguageId);
 
                         <li class="@(i == 0 ? "active" : "")">
                             <a href="#tab_@(i + 1)" data-toggle="tab"><img src="@language.Flag.ValidateImage()" /> @language.LanguageName</a>
