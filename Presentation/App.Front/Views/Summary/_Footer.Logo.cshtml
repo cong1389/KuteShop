@@ -1,10 +1,20 @@
 ﻿ <!---_Footer.Logo--->
-@model App.Domain.Systems
+@using App.Framework.Utilities
+@model App.Domain.Systems.SystemSetting
 
 @if (Model != null)
 {
-    <a href='@Url.Action("Index", "Home", new { area = "" })'>
-        <img src="@Model.LogoFooterImage.ValidateImage()" alt="@Model.Title" />
-    </a>
+    <div id="bunch_about_us-2" class="col-md-3 col-sm-6 col-xs-12 column footer_widget widget_bunch_about_us">
+        <div class="footer-widget about-widget">
+            <div class="logo"><img src="@Model.LogoFooterImage.ValidateImage()" alt="@Model.Title"></div>
+            <div class="text">
+                <p>
+                   @Model.Slogan
+                </p>
+            </div>
+
+        </div>
+
+    </div>
 }
 <!---/_Footer.Logo--->

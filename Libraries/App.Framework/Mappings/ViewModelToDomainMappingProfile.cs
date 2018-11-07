@@ -112,7 +112,7 @@ namespace App.Framework.Mappings
                     map => map.MapFrom(vm => vm.PhoneNumber)).ForMember(
                     x => x.Email, map => map.MapFrom(vm => vm.Email));
 
-            CreateMap<ContactInforViewModel, ContactInformation>()
+            CreateMap<ContactInformationViewModel, ContactInformation>()
                 .ForMember(x => (object)x.Id, map => map.MapFrom(vm => vm.Id))
                 .ForMember(x => x.Language, map => map.MapFrom(vm => vm.Language))
                 .ForMember(x => (object)x.Status, map => map.MapFrom(vm => vm.Status))

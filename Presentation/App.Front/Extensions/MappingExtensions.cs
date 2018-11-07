@@ -250,6 +250,7 @@ namespace App.Front.Extensions
                 TimeWork = entity.TimeWork,
 
                 Title = entity.GetLocalized(x => x.Title, entity.Id),
+                Slogan = entity.GetLocalized(x => x.Slogan, entity.Id),
                 FooterContent = entity.GetLocalized(x => x.FooterContent, entity.Id),
                 MetaTitle = entity.GetLocalized(x => x.MetaTitle, entity.Id),
                 MetaDescription = entity.GetLocalized(x => x.MetaDescription, entity.Id),

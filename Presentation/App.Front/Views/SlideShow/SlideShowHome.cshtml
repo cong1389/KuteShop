@@ -5,131 +5,72 @@
 
 @if (Model.IsAny())
 {
-   <div class="vc_row wpb_row vc_row-fluid">
-    <div class="main-slider style-one wpb_column vc_column_container vc_col-sm-12">
-        <div class="vc_column-inner ">
-            <div class="wpb_wrapper">
-                <div class="wpb_revslider_element wpb_content_element">
-                    <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
-                        <!-- START REVOLUTION SLIDER 5.1.5 fullwidth mode -->
-                        <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.1.5">
-                            <ul>
-                                <!-- SLIDE  -->
-                                <li data-index="rs-1" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-easein="default"
-                                    data-easeout="default" data-masterspeed="300" data-thumb="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-100x50.jpg"
-                                    data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3=""
-                                    data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
-                                    data-description="">
-                                    <!-- MAIN IMAGE -->
-                                    <img src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1.jpg" alt="" width="1400" height="579" data-bgposition="center center"
-                                         data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                                    <!-- LAYERS -->
-                                    <!-- LAYER NR. 1 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-1-layer-1" data-x="80" data-y="180" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:Power3.easeInOut;"
-                                         data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
-                                         data-responsive_offset="on" style="z-index: 5; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <h3 class="grey-color">WE build your</h3>
-                                        </div>
-                                    </div>
-
-                                    <!-- LAYER NR. 2 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-1-layer-2" data-x="80" data-y="220" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:1500;e:Power3.easeInOut;"
-                                         data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
-                                         data-responsive_offset="on" style="z-index: 6; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <h1>dream house</h1>
-                                        </div>
-                                    </div>
-
-                                    <!-- LAYER NR. 3 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-1-layer-3" data-x="80" data-y="315" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:Power3.easeOut;"
-                                         data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
-                                         data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <div class="text">
-                                                Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie <br>consequat
-                                                vel illum dolore eu feugiat nulla facilisis at vero eros.
+    <div class="vc_row wpb_row vc_row-fluid">
+        <div class="main-slider style-one wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner ">
+                <div class="wpb_wrapper">
+                    <div class="wpb_revslider_element wpb_content_element">
+                        <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
+                            <!-- START REVOLUTION SLIDER 5.1.5 fullwidth mode -->
+                            <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.1.5">
+                                <ul>
+                                    @foreach (var item in Model)
+                                    {
+                                        <!-- SLIDE  -->
+                                        <li data-index="rs-1" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-easein="default"
+                                            data-easeout="default" data-masterspeed="300" data-thumb="@item.Title"
+                                            data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3=""
+                                            data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                                            data-description="">
+                                            <!-- MAIN IMAGE -->
+                                            <img src="@item.ImgPath.ValidateImage()" alt="@item.Title" width="1400" height="579" data-bgposition="center center"
+                                                 data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                            <!-- LAYERS -->
+                                            <!-- LAYER NR. 1 -->
+                                            <div class="tp-caption   tp-resizeme" id="slide-1-layer-1" data-x="80" data-y="180" data-width="['auto']"
+                                                 data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:Power3.easeInOut;"
+                                                 data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
+                                                 data-responsive_offset="on" style="z-index: 5; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
+                                               
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- LAYER NR. 4 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-1-layer-4" data-x="80" data-y="390" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                         data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
-                                         data-responsive_offset="on" style="z-index: 8; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div><a href="#" class="theme-btn btn-style-one">read more <span class="icon icon-right flaticon-arrows-10"></span></a></div>
-                                    </div>
-                                </li>
-                                <!-- SLIDE  -->
-                                <li data-index="rs-2" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-easein="default"
-                                    data-easeout="default" data-masterspeed="300" data-thumb="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/2-100x50.jpg"
-                                    data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3=""
-                                    data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
-                                    data-description="">
-                                    <!-- MAIN IMAGE -->
-                                    <img src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/2.jpg" alt="" width="1400" height="700" data-bgposition="center center"
-                                         data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                                    <!-- LAYERS -->
-                                    <!-- LAYER NR. 1 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-2-layer-1" data-x="80" data-y="180" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:easeOutExpo;"
-                                         data-transform_out="opacity:0;s:1200;e:Power4.easeIn;s:1200;e:Power4.easeIn;" data-start="500" data-splitin="none"
-                                         data-splitout="none" data-responsive_offset="on" data-end="8100" style="z-index: 5; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <h3>WE build your</h3>
-                                        </div>
-                                    </div>
-
-                                    <!-- LAYER NR. 2 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-2-layer-2" data-x="80" data-y="220" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:1000;e:easeOutExpo;"
-                                         data-transform_out="opacity:0;s:1200;e:Power4.easeIn;s:1200;e:Power4.easeIn;" data-start="500" data-splitin="none"
-                                         data-splitout="none" data-responsive_offset="on" data-end="8100" style="z-index: 6; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <h1>dream <span class="theme_color">house</span></h1>
-                                        </div>
-                                    </div>
-
-                                    <!-- LAYER NR. 3 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-2-layer-3" data-x="80" data-y="315" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:easeOutExpo;"
-                                         data-transform_out="opacity:0;s:1200;e:Power4.easeIn;s:1200;e:Power4.easeIn;" data-start="500" data-splitin="none"
-                                         data-splitout="none" data-responsive_offset="on" data-end="8100" style="z-index: 7; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <div class="text">
-                                                Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie <br>consequat
-                                                vel illum dolore eu feugiat nulla facilisis at vero eros.
+                                            <!-- LAYER NR. 2 -->
+                                            <div class="tp-caption   tp-resizeme" id="slide-1-layer-2" data-x="80" data-y="220" data-width="['auto']"
+                                                 data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:1500;e:Power3.easeInOut;"
+                                                 data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
+                                                 data-responsive_offset="on" style="z-index: 6; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
+                                                <div>
+                                                    <h1>@item.Title</h1>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- LAYER NR. 4 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-2-layer-4" data-x="80" data-y="390" data-width="['auto']"
-                                         data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:2000;e:easeOutExpo;"
-                                         data-transform_out="opacity:0;s:1200;e:Power4.easeIn;s:1200;e:Power4.easeIn;" data-start="500" data-splitin="none"
-                                         data-splitout="none" data-responsive_offset="on" data-end="8100" style="z-index: 8; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div><a href="#" class="theme-btn btn-style-two">read more <span class="icon icon-right flaticon-arrows-10"></span></a></div>
-                                    </div>
+                                            <!-- LAYER NR. 3 -->
+                                            <div class="tp-caption   tp-resizeme" id="slide-1-layer-3" data-x="80" data-y="315" data-width="['auto']"
+                                                 data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:-50px;opacity:0;s:1500;e:Power3.easeOut;"
+                                                 data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
+                                                 data-responsive_offset="on" style="z-index: 7; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
+                                                <div>
+                                                    <div class="text">
+                                                        @item.Description
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <!-- LAYER NR. 5 -->
-                                    <div class="tp-caption   tp-resizeme" id="slide-2-layer-5" data-x="right" data-hoffset="10" data-y="center"
-                                         data-voffset="" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power2.easeInOut;"
-                                         data-transform_out="opacity:0;s:300;e:Power4.easeIn;s:300;e:Power4.easeIn;" data-mask_in="x:0px;y:[100%];"
-                                         data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 9; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
-                                        <div>
-                                            <div class="image"><img src="wp-content/themes/constructorone/images/main-slider/content-image.png" alt=""></div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
-                        </div>
-                        <script>
+                                            <!-- LAYER NR. 4 -->
+                                            <div class="tp-caption   tp-resizeme" id="slide-1-layer-4" data-x="80" data-y="390" data-width="['auto']"
+                                                 data-height="['auto']" data-transform_idle="o:1;" data-transform_in="x:50px;opacity:0;s:2000;e:Power2.easeInOut;"
+                                                 data-transform_out="opacity:0;s:300;s:300;" data-start="500" data-splitin="none" data-splitout="none"
+                                                 data-responsive_offset="on" style="z-index: 8; white-space: nowrap; font-size: 20px; line-height: 22px; font-weight: 400; color: rgba(255, 255, 255, 1.00);">
+                                                <div><a href="@item.WebsiteLink" target="@item.Target"  class="theme-btn btn-style-one">read more <span class="icon icon-right flaticon-arrows-10"></span></a></div>
+                                            </div>
+                                        </li>
+                                        <!-- SLIDE  -->
+                                    }
+                                    
+                                </ul>
+                                <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+                            </div>
+                            <script>
 var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var htmlDivCss = "";
 									if (htmlDiv) {
 										htmlDiv.innerHTML = htmlDiv.innerHTML + htmlDivCss;
@@ -138,8 +79,8 @@ var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var html
 										htmlDiv.innerHTML = "<style>" + htmlDivCss + "</style>";
 										document.getElementsByTagName("head")[0].appendChild(htmlDiv.childNodes[0]);
 									}
-                        </script>
-                        <script type="text/javascript">
+                            </script>
+                            <script type="text/javascript">
 									/******************************************
 							-	PREPARE PLACEHOLDER FOR SLIDER	-
 						******************************************/
@@ -230,8 +171,8 @@ var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var html
 											});
 										}
 									});	/*ready*/
-                        </script>
-                        <script>
+                            </script>
+                            <script>
 									var htmlDivCss = unescape(".hermes.tparrows%20%7B%0A%09cursor%3Apointer%3B%0A%09background%3A%23000%3B%0A%09background%3Argba%280%2C0%2C0%2C0.5%29%3B%0A%09width%3A30px%3B%0A%09height%3A110px%3B%0A%09position%3Aabsolute%3B%0A%09display%3Ablock%3B%0A%09z-index%3A100%3B%0A%7D%0A%0A.hermes.tparrows%3Abefore%20%7B%0A%09font-family%3A%20%22revicons%22%3B%0A%09font-size%3A15px%3B%0A%09color%3A%23fff%3B%0A%09display%3Ablock%3B%0A%09line-height%3A%20110px%3B%0A%09text-align%3A%20center%3B%0A%20%20%20%20transform%3AtranslateX%280px%29%3B%0A%20%20%20%20-webkit-transform%3AtranslateX%280px%29%3B%0A%20%20%20%20transition%3Aall%200.3s%3B%0A%20%20%20%20-webkit-transition%3Aall%200.3s%3B%0A%7D%0A.hermes.tparrows.tp-leftarrow%3Abefore%20%7B%0A%09content%3A%20%22%5Ce824%22%3B%0A%7D%0A.hermes.tparrows.tp-rightarrow%3Abefore%20%7B%0A%09content%3A%20%22%5Ce825%22%3B%0A%7D%0A.hermes.tparrows.tp-leftarrow%3Ahover%3Abefore%20%7B%0A%20%20%20%20transform%3AtranslateX%28-20px%29%3B%0A%20%20%20%20-webkit-transform%3AtranslateX%28-20px%29%3B%0A%20%20%20%20%20opacity%3A0%3B%0A%7D%0A.hermes.tparrows.tp-rightarrow%3Ahover%3Abefore%20%7B%0A%20%20%20%20transform%3AtranslateX%2820px%29%3B%0A%20%20%20%20-webkit-transform%3AtranslateX%2820px%29%3B%0A%20%20%20%20%20opacity%3A0%3B%0A%7D%0A%0A.hermes%20.tp-arr-allwrapper%20%7B%0A%20%20%20%20overflow%3Ahidden%3B%0A%20%20%20%20position%3Aabsolute%3B%0A%09width%3A180px%3B%0A%20%20%20%20height%3A140px%3B%0A%20%20%20%20top%3A0px%3B%0A%20%20%20%20left%3A0px%3B%0A%20%20%20%20visibility%3Ahidden%3B%0A%20%20%20%20%20%20-webkit-transition%3A%20-webkit-transform%200.3s%200.3s%3B%0A%20%20transition%3A%20transform%200.3s%200.3s%3B%0A%20%20-webkit-perspective%3A%201000px%3B%0A%20%20perspective%3A%201000px%3B%0A%20%20%20%20%7D%0A.hermes.tp-rightarrow%20.tp-arr-allwrapper%20%7B%0A%20%20%20right%3A0px%3Bleft%3Aauto%3B%0A%20%20%20%20%20%20%7D%0A.hermes.tparrows%3Ahover%20.tp-arr-allwrapper%20%7B%0A%20%20%20visibility%3Avisible%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%0A.hermes%20.tp-arr-imgholder%20%7B%0A%20%20width%3A180px%3Bposition%3Aabsolute%3B%0A%20%20left%3A0px%3Btop%3A0px%3Bheight%3A110px%3B%0A%20%20transform%3AtranslateX%28-180px%29%3B%0A%20%20-webkit-transform%3AtranslateX%28-180px%29%3B%0A%20%20transition%3Aall%200.3s%3B%0A%20%20transition-delay%3A0.3s%3B%0A%7D%0A.hermes.tp-rightarrow%20.tp-arr-imgholder%7B%0A%20%20%20%20transform%3AtranslateX%28180px%29%3B%0A%20%20-webkit-transform%3AtranslateX%28180px%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%0A.hermes.tparrows%3Ahover%20.tp-arr-imgholder%20%7B%0A%20%20%20transform%3AtranslateX%280px%29%3B%0A%20%20%20-webkit-transform%3AtranslateX%280px%29%3B%20%20%20%20%20%20%20%20%20%20%20%20%0A%7D%0A.hermes%20.tp-arr-titleholder%20%7B%0A%20%20top%3A110px%3B%0A%20%20width%3A180px%3B%0A%20%20text-align%3Aleft%3B%20%0A%20%20display%3Ablock%3B%0A%20%20padding%3A0px%2010px%3B%0A%20%20line-height%3A30px%3B%20background%3A%23000%3B%0A%20%20background%3Argba%280%2C0%2C0%2C0.75%29%3Bcolor%3A%23fff%3B%0A%20%20font-weight%3A600%3B%20position%3Aabsolute%3B%0A%20%20font-size%3A12px%3B%0A%20%20white-space%3Anowrap%3B%0A%20%20letter-spacing%3A1px%3B%0A%20%20-webkit-transition%3A%20all%200.3s%3B%0A%20%20transition%3A%20all%200.3s%3B%0A%20%20-webkit-transform%3A%20rotateX%28-90deg%29%3B%0A%20%20transform%3A%20rotateX%28-90deg%29%3B%0A%20%20-webkit-transform-origin%3A%2050%25%200%3B%0A%20%20transform-origin%3A%2050%25%200%3B%0A%20%20box-sizing%3Aborder-box%3B%0A%0A%7D%0A.hermes.tparrows%3Ahover%20.tp-arr-titleholder%20%7B%0A%20%20%20%20-webkit-transition-delay%3A%200.6s%3B%0A%20%20transition-delay%3A%200.6s%3B%0A%20%20-webkit-transform%3A%20rotateX%280deg%29%3B%0A%20%20transform%3A%20rotateX%280deg%29%3B%0A%7D%0A%0A");
 									var htmlDiv = document.getElementById('rs-plugin-settings-inline-css');
 									if (htmlDiv) {
@@ -242,13 +183,13 @@ var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var html
 										htmlDiv.innerHTML = '<style>' + htmlDivCss + '</style>';
 										document.getElementsByTagName('head')[0].appendChild(htmlDiv.childNodes[0]);
 									}
-                        </script>
-                    </div><!-- END REVOLUTION SLIDER -->
+                            </script>
+                        </div><!-- END REVOLUTION SLIDER -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     @*<div id="home-slider" class="gw-slide">
             <div class="container">

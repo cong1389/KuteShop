@@ -57,7 +57,7 @@ namespace App.Framework.Mappings
         {
             CreateMap<Language, LanguageFormViewModel>();
             CreateMap<ServerMailSetting, ServerMailSettingViewModel>();
-            CreateMap<ContactInformation, ContactInforViewModel>();
+            CreateMap<ContactInformation, ContactInformationViewModel>();
             CreateMap<SystemSetting, SystemSettingViewModel>();
             CreateMap<MenuLink, MenuLinkViewModel>();
             CreateMap<PositionMenuLink, PositionMenuLinkViewModel>();

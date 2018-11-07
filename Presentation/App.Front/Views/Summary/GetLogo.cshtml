@@ -9,13 +9,8 @@
         <div class="auto-container">
 
             <div class="clearfix">
-
-
-
                 <div class="pull-left logo-outer">
-
                     <div class="logo">
-
 
                         <a href="@Url.Action("Index", "Home", new { area = "" })" title='@Model.Title'><img src="@Model.LogoImage.ValidateImage()" alt="@Model.Title"></a>
 
@@ -26,71 +21,9 @@
 
 
 
-                <div class="pull-right upper-right clearfix">
-
-
-
-                    <!--Info Box-->
-
-
-                    <div class="upper-column info-box">
-
-                        <div class="icon-box"><span class="flaticon-location"></span></div>
-
-                        <ul>
-
-                            <li><span class="small-title">Find us</span></li>
-
-                            <li><a href="http://22b, london/"><strong>22b, London</strong></a></li>
-
-                        </ul>
-
-                    </div>
-
-
-
-
-                    <!--Info Box-->
-
-
-                    <div class="upper-column info-box">
-
-                        <div class="icon-box"><span class="flaticon-technology"></span></div>
-
-                        <ul>
-
-                            <li><span class="small-title">Call us today</span></li>
-
-                            <li><a href="tel:+000-2415-145"><strong>+000-2415-145</strong></a></li>
-
-                        </ul>
-
-                    </div>
-
-
-
-
-                    <!--Info Box-->
-
-
-                    <div class="upper-column info-box">
-
-                        <div class="icon-box"><span class="flaticon-letter-1"></span></div>
-
-                        <ul>
-
-                            <li><span class="small-title">Email us now</span></li>
-
-                            <li><a href="mailto:sitename@email.com"><strong>sitename@email.com</strong></a></li>
-
-                        </ul>
-
-                    </div>
-
-
-
-
-                </div>
+                @{
+                    Html.RenderAction("GetContactHeader","Summary");
+                }
 
 
 

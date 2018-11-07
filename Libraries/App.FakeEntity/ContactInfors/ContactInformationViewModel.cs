@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.FakeEntity.ContactInformations
 {
-    public class ContactInforViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
+    public class ContactInformationViewModel : ILocalizedModel<ContactInformationLocalesViewModel>
     {
 		[Display(Name="Address", ResourceType=typeof(FormUI))]
 		public string Address
@@ -126,7 +126,7 @@ namespace App.FakeEntity.ContactInformations
 
         public IList<ContactInformationLocalesViewModel> Locales { get; set; }
 
-        public ContactInforViewModel()
+        public ContactInformationViewModel()
 		{
             GenericControls = new List<GenericControl>();
             Locales = new List<ContactInformationLocalesViewModel>();

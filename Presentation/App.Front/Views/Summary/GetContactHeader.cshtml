@@ -1,16 +1,73 @@
-﻿
-<!---GetContactHeader-->
+﻿<!---GetContactHeader-->
 
-@model App.Domain.Systems.SystemSetting
+@model App.Domain.ContactInfors.ContactInformation
 @if (Model != null)
 {
-    @*<div class="col-sm-6 col-xs-6">*@
-        <div class="hotine pull-right">
-            <span>HOTLINE: </span>
-            <a href="tel:1800 1401" rel="nofollow">@Model.Hotline</a>
+    <div class="pull-right upper-right clearfix">
+
+
+
+        <!--Info Box-->
+
+
+        <div class="upper-column info-box">
+
+            <div class="icon-box"><span class="flaticon-location"></span></div>
+
+            <ul>
+
+                <li><span class="small-title">Địa chỉ</span></li>
+
+                <li><a href="http://22b, london/"><strong>@Model.Address</strong></a></li>
+
+            </ul>
+
         </div>
-    @*</div>*@ 
+
+
+
+
+        <!--Info Box-->
+
+
+        <div class="upper-column info-box">
+
+            <div class="icon-box"><span class="flaticon-technology"></span></div>
+
+            <ul>
+
+                <li><span class="small-title">Điện thoại</span></li>
+
+                <li><a href="tel:@Model.MobilePhone"><strong>@Model.MobilePhone</strong></a></li>
+
+            </ul>
+
+        </div>
+
+
+
+
+        <!--Info Box-->
+
+
+        <div class="upper-column info-box">
+
+            <div class="icon-box"><span class="flaticon-letter-1"></span></div>
+
+            <ul>
+
+                <li><span class="small-title">Email</span></li>
+
+                <li><a href="mailto:sitename@email.com"><strong>@Model.Email</strong></a></li>
+
+            </ul>
+
+        </div>
+
+
+
+
+    </div>
 }
 
 <!---/GetContactHeader-->
-

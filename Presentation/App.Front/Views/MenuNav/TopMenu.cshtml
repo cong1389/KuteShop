@@ -5,9 +5,11 @@
 
 @if (Model != null)
 {
-    
+
 
     <div class="header-lower">
+
+
 
         <div class="auto-container">
 
@@ -39,66 +41,38 @@
 
                         <ul class="navigation clearfix">
 
-                            <li id="menu-item-22" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home current-menu-ancestor current-menu-parent menu-item-has-children menu-item-22 dropdown active">
-                                <a title="Home" href="index.html" data-toggle="dropdown1" class="hvr-underline-from-left1" aria-expanded="false"
-                                   data-scroll data-options="easing: easeOutQuart">Home</a>
-                                <ul role="menu" class="submenu">
-                                    <li id="menu-item-25" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-14 current_page_item menu-item-25 active">
-                                        <a title="Homepage One" href="index.html">Homepage One</a>
-                                    </li>
-                                    <li id="menu-item-268" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-268">
-                                        <a title="Homepage Two" href="homepage-two/indexf537.html?header_style=header_v2">Homepage Two</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23">
-                                <a title="About"
-                                   href="about/index.html" class="hvr-underline-from-left1" data-scroll data-options="easing: easeOutQuart">About</a>
-                            </li>
-                            <li id="menu-item-29" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-29">
-                                <a title="Services"
-                                   href="services/index.html" class="hvr-underline-from-left1" data-scroll data-options="easing: easeOutQuart">Services</a>
-                            </li>
-                            <li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-30 dropdown">
-                                <a title="Projects" href="projects-style-one/index.html" data-toggle="dropdown1" class="hvr-underline-from-left1"
-                                   aria-expanded="false" data-scroll data-options="easing: easeOutQuart">Projects</a>
-                                <ul role="menu" class="submenu">
-                                    <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
-                                        <a title="Projects Style One"
-                                           href="projects-style-one/index.html">Projects Style One</a>
-                                    </li>
-                                    <li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28">
-                                        <a title="Projects Style Two"
-                                           href="projects-style-two/index.html">Projects Style Two</a>
-                                    </li>
-                                    <li id="menu-item-242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-242">
-                                        <a title="Single Projects" href="index508a.html?bunch_projects=roofing-works-7">Single Projects</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-32" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-32 dropdown">
-                                <a title="Blog" href="#" data-toggle="dropdown1" class="hvr-underline-from-left1" aria-expanded="false"
-                                   data-scroll data-options="easing: easeOutQuart">Blog</a>
-                                <ul role="menu" class="submenu">
-                                    <li id="menu-item-199" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-199">
-                                        <a title="Blog CLassic" href="indexff70.html?m=201605">Blog CLassic</a>
-                                    </li>
-                                    <li id="menu-item-231" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-231">
-                                        <a title="Blog Two Column" href="blog-two-column/index.html">Blog Two Column</a>
-                                    </li>
-                                    <li id="menu-item-198" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-198">
-                                        <a title="Blog Single" href="indexf45e.html?p=196">Blog Single</a>
-                                    </li>
-                                    <li id="menu-item-254" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-254">
-                                        <a title="404 Page" href="indexe548.html?p=123456789">404 Page</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24">
-                                <a title="Contact"
-                                   href="contact/index.html" class="hvr-underline-from-left1" data-scroll data-options="easing: easeOutQuart">Contact</a>
-                            </li>
+                            @{
+                                var i = 0;
+                                foreach (var lv1 in Model)
+                                {
+                                    <li id="menu-item-@lv1.MenuId" class="menu-item menu-item-type-custom menu-item-object-custom @(i == 0 ? " current-menu-item current_page_item current-menu-ancestor current-menu-parent" : "") menu-item-has-children menu-item-22 dropdown active">
+                                        <a title="@lv1.MenuName"
+                                           href="@(lv1.OtherLink = lv1.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""}))"
+                                           data-toggle="dropdown1" class="hvr-underline-from-left1"
+                                           aria-expanded="false" data-scroll data-options="easing: easeOutQuart">@lv1.MenuName</a>
+                                        @if (lv1.ChildNavMenu.IsAny())
+                                        {
+                                            <ul role="menu" class="submenu">
+                                                @foreach (var lv2 in lv1.ChildNavMenu)
+                                                {
+                                                    <li id="menu-item-@lv2.MenuId" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-@lv2.MenuId">
+                                                        <a title="@lv2.MenuName"
+                                                           href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))">@lv2.MenuName</a>
+                                                    </li>
+                                                }
 
+                                                <li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28">
+                                                    <a title="Projects Style Two"
+                                                       href="projects-style-two/index.html">Projects Style Two</a>
+                                                </li>
+
+                                            </ul>
+                                        }
+
+                                    </li>
+                                    i++;
+                                }
+                            }
 
                         </ul>
 
@@ -106,78 +80,10 @@
 
                 </nav><!-- Main Menu End-->
 
-
-
-                <div class="btn-outer"><a href="contact/index.html" class="theme-btn inq-btn"><span class="txt">inquery today</span></a></div>
-
-
-
             </div>
 
         </div>
 
     </div>
-
-    @*<div id="main-menu" class="col-md-9 main-menu">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#new-menu" aria-expanded="false" aria-controls="navbar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <a class="navbar-brand" href="#">MENU</a>
-                    </div>
-                    <div id="new-menu" class="navbar-collapse collapse">
-                        <ul class="navbar-nav nav">
-
-                            @{
-                                var i = 0;
-                                foreach (var lv1 in Model)
-                                {
-                                    <li class="@(i == 0 ? "active" : "") @(lv1.ChildNavMenu.IsAny() ? "dropdown" : "")">
-                                        <a class="" data-toggle="dropdown" href="@(lv1.OtherLink = lv1.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""}))" title="@lv1.MenuName" target="_self">
-                                            @lv1.MenuName
-                                        </a>
-                                        @if (lv1.ChildNavMenu.IsAny())
-                                        {
-                                            <ul class="dropdown-menu container-fluid">
-                                                <li class="block-container">
-                                                    <ul class="block">
-                                                        @foreach (var lv2 in lv1.ChildNavMenu)
-                                                        {
-                                                            <li class="link_container">
-                                                                <a href="@(lv2.OtherLink = lv2.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv2.SeoUrl, area = ""}))" title="@lv2.MenuName">@lv2.MenuName</a>
-                                                                @if (lv2.ChildNavMenu.IsAny())
-                                                                {
-                                                                    <ul class="dropdown-menu container-fluid">
-                                                                        <li class="block-container">
-                                                                            <ul class="block">
-                                                                                @foreach (var lv3 in lv1.ChildNavMenu)
-                                                                                {
-                                                                                    <li class="link_container">
-                                                                                        <a href="@(lv3.OtherLink = lv3.OtherLink ?? Url.Action("GetContent", "Menu", new {menu = lv3.SeoUrl, area = ""}))" title="@lv3.MenuName">@lv3.MenuName</a>
-                                                                                    </li>
-                                                                                }
-                                                                            </ul>
-                                                                        </li>
-                                                                    </ul>
-                                                                }
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        }
-
-                                    </li>
-
-                                    i++;
-                                }
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>*@
 }
 <!----/TopMenu ---->

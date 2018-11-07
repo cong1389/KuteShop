@@ -45,7 +45,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
-				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -69,7 +69,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", FormUI.DeleteFail));
-				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}
@@ -150,7 +150,7 @@ namespace App.Admin.Controllers
 			{
 				var exception = exception1;
 				Response.Cookies.Add(new HttpCookie("system_message", "Cập nhật không thành công."));
-				LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+				LogText.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
 			}
 			return RedirectToAction("Index");
 		}

@@ -6,7 +6,7 @@ namespace App.FakeEntity.LandingPages
 {
 	public class LandingPageViewModel
 	{
-		public ContactInforViewModel ContactInfor
+		public ContactInformationViewModel ContactInformation
 		{
 			get;
 			set;

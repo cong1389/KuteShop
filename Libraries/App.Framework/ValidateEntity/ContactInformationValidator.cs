@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace App.Framework.ValidateEntity
 {
-    public class ContactInformationValidator : AbstractValidator<ContactInforViewModel>
+    public class ContactInformationValidator : AbstractValidator<ContactInformationViewModel>
 	{
 		public ContactInformationValidator()
 		{

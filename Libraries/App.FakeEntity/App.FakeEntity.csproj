@@ -121,7 +121,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ContactInfors\ContactInforViewModel.cs">
+    <Compile Include="ContactInfors\ContactInformationViewModel.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

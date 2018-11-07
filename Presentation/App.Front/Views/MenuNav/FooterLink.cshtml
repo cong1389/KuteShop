@@ -4,27 +4,39 @@
 @model IEnumerable<MenuNavViewModel>
 @if (Model.IsAny())
 {
-	foreach (MenuNavViewModel lv1 in Model)
-	{
-		<div class="col-sm-4">
-			<div class="gw-footer__introduce-box--introduce-title">
-				<a href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})"> @lv1.MenuName</a>
-			</div>
-			<ul id="introduce-Account" class="gw-footer__introduce-box--introduce-list">
-				@foreach (var lv2 in lv1.ChildNavMenu)
-				{
-					if (!string.IsNullOrEmpty(lv2.OtherLink))
-					{
-						<li><a href="@lv2.OtherLink">@lv2.MenuName</a></li>
-					}
-					else
-					{
-						<li><a href="@Url.Action("GetContent", "Menu", new { menu = lv2.SeoUrl, area = "" })">@lv2.MenuName</a></li>
-					}
-				}
-			</ul>
-		</div>
-	}
+    foreach (MenuNavViewModel lv1 in Model)
+    {
+        <div id="@lv1.MenuId" class="col-md-3 col-sm-6 col-xs-12 column footer_widget widget_text">
+            <h3> @lv1.MenuName</h3>
+            <div class="textwidget">
+                <ul>
+                    @foreach (var lv2 in lv1.ChildNavMenu)
+                    {
+                        <li><a href="@lv2.OtherLink">@lv2.MenuName</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        @*<div class="col-sm-4">
+                <div class="gw-footer__introduce-box--introduce-title">
+                    <a href="@Url.Action("GetContent", "Menu", new {menu = lv1.SeoUrl, area = ""})"> @lv1.MenuName</a>
+                </div>
+                <ul id="introduce-Account" class="gw-footer__introduce-box--introduce-list">
+                    @foreach (var lv2 in lv1.ChildNavMenu)
+                    {
+                        if (!string.IsNullOrEmpty(lv2.OtherLink))
+                        {
+                            <li><a href="@lv2.OtherLink">@lv2.MenuName</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("GetContent", "Menu", new { menu = lv2.SeoUrl, area = "" })">@lv2.MenuName</a></li>
+                        }
+                    }
+                </ul>
+            </div>*@
+    }
 }
 
 <!----/FooterLink-->

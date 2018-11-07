@@ -1,6 +1,8 @@
-﻿@using App.Domain.Common
+﻿@using App.Core.Extensions
+@using App.Domain.Common
+@using App.Framework.Utilities
 @using Resources
-@model IEnumerable<App.Domain.Entities.Languages.Language>
+@model IEnumerable<App.Domain.Languages.Language>
 @{
     ViewBag.Title = FormUI.LanguageManagement;
     ViewBag.Toolbar = new[] { "Create", "Edit", "Delete", "Divider", "Reset" };

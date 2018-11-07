@@ -126,11 +126,11 @@ namespace App.Front.Controllers
         [PartialCache("Short")]
         public ActionResult GetContactHeader()
         {
-            var systemSetting = _systemSettingService.GetEnableOrDisable();
+            var contactInformation = _contactInfoService.GetTypeAddress((int)TypeAdress.Current);
 
-            var systemSettingLocalized = systemSetting.ToModel();
+            var contactInformationLocalize = contactInformation.ToModel();
 
-            return PartialView(systemSettingLocalized);
+            return PartialView(contactInformationLocalize);
         }
 
         [ChildActionOnly]
@@ -144,18 +144,19 @@ namespace App.Front.Controllers
             return PartialView(contactInformationLocalized);
         }
 
-        [ChildActionOnly]
-        [PartialCache("Short")]
-        public ContentResult GetContentFooter()
+        [PartialCache("Long")]
+        public JsonResult GetFooterCopyRight()
         {
             var systemSetting = _systemSettingService.GetEnableOrDisable();
 
-            if (systemSetting == null)
-            {
-                return Content(string.Empty);
-            }
+            var systemSettingLocalize = systemSetting.ToModel();
 
-            return Content(systemSetting.FooterContent);
+            return Json(
+                    new
+                    {
+                        success = true,
+                        list = this.RenderRazorViewToString("_Footer.CopyRight", systemSettingLocalize)
+                    }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -296,7 +297,7 @@ namespace App.Front.Controllers
             var systemSettingLocalize = GetSystemSettingEnableOrDisableBase();
 
             var jsonResult =
-                Json(new {success = true, list = this.RenderRazorViewToString("_Footer.Logo", systemSettingLocalize)},
+                Json(new { success = true, list = this.RenderRazorViewToString("_Footer.Logo", systemSettingLocalize) },
                     JsonRequestBehavior.AllowGet);
 
             return jsonResult;
@@ -307,7 +308,7 @@ namespace App.Front.Controllers
         public JsonResult GetSystemSetting()
         {
             var systemSettingLocalize = GetSystemSettingEnableOrDisableBase();// _systemSettingService.Get(x => x.Status == 1);
-            
+
             var jsonResult = Json(new { success = true, list = systemSettingLocalize }, JsonRequestBehavior.AllowGet);
 
             return jsonResult;
@@ -361,7 +362,7 @@ namespace App.Front.Controllers
 
         private SettingSeoGlobal GetSettingSeoData()
         {
-            return _settingSeoGlobal.GetEnableOrDisable(); 
+            return _settingSeoGlobal.GetEnableOrDisable();
         }
 
         #endregion

@@ -49,7 +49,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditContactInformation")]
         public ActionResult Create()
         {
-            var model = new ContactInforViewModel();
+            var model = new ContactInformationViewModel();
 
             //Add locales to model
             AddLocales(_languageService, model.Locales);
@@ -59,7 +59,7 @@ namespace App.Admin.Controllers
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditContactInformation")]
-        public ActionResult Create(ContactInforViewModel model, string returnUrl)
+        public ActionResult Create(ContactInformationViewModel model, string returnUrl)
         {
             ActionResult action;
             try
@@ -72,7 +72,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                var modelMap = Mapper.Map<ContactInforViewModel, ContactInformation>(model);
+                var modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
                 _contactInfoService.Create(modelMap);
 
                 //Update Localized   
@@ -125,7 +125,7 @@ namespace App.Admin.Controllers
             catch (Exception exception1)
             {
                 var exception = exception1;
-                LogText.Log(string.Concat("ContactInfor.Delete: ", exception.Message));
+                LogText.Log(string.Concat("ContactInformation.Delete: ", exception.Message));
             }
             return RedirectToAction("Index");
         }
@@ -133,7 +133,7 @@ namespace App.Admin.Controllers
         [RequiredPermisson(Roles = "CreateEditContactInformation")]
         public ActionResult Edit(int id)
         {
-            var modelMap = Mapper.Map<ContactInformation, ContactInforViewModel>(_contactInfoService.GetById(id));
+            var modelMap = Mapper.Map<ContactInformation, ContactInformationViewModel>(_contactInfoService.GetById(id));
 
             //Add Locales to model
             AddLocales(_languageService, modelMap.Locales, (locale, languageId) =>
@@ -160,7 +160,7 @@ namespace App.Admin.Controllers
 
         [HttpPost]
         [RequiredPermisson(Roles = "CreateEditContactInformation")]
-        public ActionResult Edit(ContactInforViewModel model, string returnUrl)
+        public ActionResult Edit(ContactInformationViewModel model, string returnUrl)
         {
             ActionResult action;
             try
@@ -173,7 +173,7 @@ namespace App.Admin.Controllers
                     return View(model);
                 }
 
-                var modelMap = Mapper.Map<ContactInforViewModel, ContactInformation>(model);
+                var modelMap = Mapper.Map<ContactInformationViewModel, ContactInformation>(model);
                 _contactInfoService.Update(modelMap);
 
                 //Update Localized   
