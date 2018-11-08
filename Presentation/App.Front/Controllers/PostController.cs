@@ -46,7 +46,7 @@ namespace App.Front.Controllers
             _galleryService = galleryService;
         }
 
-        [PartialCache("Short","*")]
+        [PartialCache("Short", "*")]
         public ActionResult PostCategories(string virtualCategoryId, int page, string title, string attrs,
             string prices, string proattrs, string keywords
             , int? productOld, int? productNew)
@@ -186,7 +186,7 @@ namespace App.Front.Controllers
             return PartialView(postLocalized);
         }
 
-        [PartialCache("Medium","*")]
+        [PartialCache("Medium", "*")]
         public ActionResult PostDetail(string seoUrl)
         {
             var post = _postService.GetBySeoUrl(seoUrl);
@@ -259,17 +259,42 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short","*")]
-        public ActionResult PostSameMenu(int menuId, int postId)
+        [PartialCache("Short", "*")]
+        public ActionResult PostServices()
         {
-            var posts = new List<Post>();
-            var tops = _postService.GetTop(6, x => x.Status == (int)Status.Enable && x.MenuId == menuId && x.Id != postId, x => x.CreatedDate);
-            if (tops.IsAny())
+            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.Middle }, isDisplayHomePage: true);
+
+            if (!menuLinks.IsAny())
             {
-                posts.AddRange(tops);
+                return HttpNotFound();
             }
 
-            return PartialView(posts);
+            //Convert to localized
+            //var menuLocalize = menuLinks.Select(x => x.ToModel());
+
+            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
+
+            var lstPost = new List<Post>();
+            foreach (var item in menuLinks)
+            {
+                var posts = _postService.GetByOption(item.CurrentVirtualId, true);
+
+                if (posts.IsAny())
+                {
+                    posts = posts.Select(x => x.ToModel());
+
+                    lstPost.AddRange(posts);
+                }
+            }
+
+            var categoryPost = new CategoryPostModel
+            {
+                NumberMenu = menuLinks.Count(),
+                MenuLinks = menuLinks,
+                Posts = from x in lstPost orderby x.OrderDisplay descending select x
+            };
+
+            return PartialView(categoryPost);
         }
 
         [PartialCache("Medium")]
@@ -297,7 +322,7 @@ namespace App.Front.Controllers
             return PartialView(tops);
         }
 
-        [PartialCache("Long","*")]
+        [PartialCache("Long", "*")]
         public ActionResult PostHomeNew(int page, string id)
         {
             var expression = PredicateBuilder.True<Post>();
@@ -369,7 +394,7 @@ namespace App.Front.Controllers
             return PartialView(categoryPost);
         }
 
-        [PartialCache("Medium","*")]
+        [PartialCache("Medium", "*")]
         public ActionResult PostHomeSearch(bool productHot, bool productNew, bool productOld)
         {
             var posts = _postService.GetTop(9999, x => x.Status == (int)Status.Enable && x.ProductHot);
@@ -377,7 +402,7 @@ namespace App.Front.Controllers
             return PartialView(posts);
 
         }
-        
+
         public ActionResult GetGallery(int postId, int typeId)
         {
             var galleryImages = _galleryService.GetByOption(typeId, postId);
@@ -392,7 +417,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short","*")]
+        [PartialCache("Short", "*")]
         public ActionResult PostRelativePrice(decimal? price, int productId)
         {
             decimal nullable1 = decimal.Zero;
@@ -436,7 +461,7 @@ namespace App.Front.Controllers
         }
 
         [ChildActionOnly]
-        [PartialCache("Short","*")]
+        [PartialCache("Short", "*")]
         public ActionResult PostRelative(string virtualId, int productId)
         {
             var posts = _postService.GetTop(10,

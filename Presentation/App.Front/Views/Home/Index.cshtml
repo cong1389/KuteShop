@@ -1,7 +1,8 @@
 ﻿@{
     Html.RenderAction("SlideShowHome", "SlideShow");
-    Html.RenderAction("PostHome", "Post");
-    Html.RenderAction("PostCategories","Post");
+    Html.RenderAction("PostServices", "Post");
+  
+    Html.RenderAction("PostHome", "Post", new { MenuId = 15, area = "" });
 }
 
 

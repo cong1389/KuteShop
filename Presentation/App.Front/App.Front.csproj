@@ -1391,7 +1391,7 @@
     <Content Include="Views\Post\PostRelativePrice.cshtml" />
     <Content Include="Views\Post\PostRelative.cshtml" />
     <Content Include="Views\Post\PostCategories.cshtml" />
-    <Content Include="Views\Post\PostSameMenu.cshtml" />
+    <Content Include="Views\Post\PostServices.cshtml" />
     <Content Include="Views\Post\PostHome.cshtml" />
     <Content Include="Views\Post\PostHot.cshtml" />
     <Content Include="Views\Post\PostTimeLine.cshtml" />

@@ -1,0 +1,178 @@
+﻿@using App.Core.Extensions
+@using App.Framework.Utilities
+@model App.Front.Models.Posts.CategoryPostModel
+
+@if (Model != null)
+{
+    <div class="vc_row wpb_row vc_row-fluid">
+        <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner ">
+                <div class="wpb_wrapper">
+
+
+                    <!--Services Section-->
+                    <section class="services-style-one padd-top-50  ">
+                        <div class="auto-container">
+                            <!--Section Title-->
+                            <div class="sec-title text-center">
+                                <h2>Our <span class="theme_color">Services</span></h2>
+                                <div class="text">
+                                    Claritas est etiam processus dynamicus, qui sequitur<br />
+                                    mutationem consuetudium lectorum.
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <!--Default Service Column-->
+
+                                @foreach (var menuLink in Model.MenuLinks)
+                                {
+                                    <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
+                                        <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                            <div class="inner-most">
+                                                <figure class="image-box">
+                                                    <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
+                                                        <img width="370" height="270" src="@menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage()"
+                                                             class="img-responsive wp-post-image"
+                                                             alt=" @menuLink.MenuName"
+                                                             srcset="@menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage() 370w
+                                                             , @menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage() 300w"
+                                                             sizes="(max-width: 370px) 100vw, 370px" />
+                                                    </a>
+                                                </figure>
+                                                <div class="lower-part">
+                                                    <div class="left-curve"></div>
+                                                    <div class="right-curve"></div>
+
+                                                    <div class="content">
+                                                        <h3> @menuLink.MenuName</h3>
+                                                        <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
+                                                        <div class="more-link"><a href="#" class="read-more">Read more</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                                <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                        <div class="inner-most">
+                                            <figure class="image-box">
+                                                <a href="#">
+                                                    <img width="370" height="270" src="wp-content/uploads/2016/04/featured-image-2.jpg"
+                                                         class="img-responsive wp-post-image" alt="featured-image-2" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-2.jpg 370w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-2-300x219.jpg 300w"
+                                                         sizes="(max-width: 370px) 100vw, 370px" />
+                                                </a>
+                                            </figure>
+                                            <div class="lower-part">
+                                                <div class="left-curve"></div>
+                                                <div class="right-curve"></div>
+
+                                                <div class="content">
+                                                    <h3>Best renovation</h3>
+                                                    <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
+                                                    <div class="more-link"><a href="#" class="read-more">Read more</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
+                                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                        <div class="inner-most">
+                                            <figure class="image-box">
+                                                <a href="#">
+                                                    <img width="370" height="270" src="wp-content/uploads/2016/04/featured-image-3.jpg"
+                                                         class="img-responsive wp-post-image" alt="featured-image-3" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-3.jpg 370w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-3-300x219.jpg 300w"
+                                                         sizes="(max-width: 370px) 100vw, 370px" />
+                                                </a>
+                                            </figure>
+                                            <div class="lower-part">
+                                                <div class="left-curve"></div>
+                                                <div class="right-curve"></div>
+
+                                                <div class="content">
+                                                    <h3>Best renovation</h3>
+                                                    <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
+                                                    <div class="more-link"><a href="#" class="read-more">Read more</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*int i = 1;
+        foreach (var item in Model)
+        {
+            if (i % 2 == 0)
+            {
+                <div class="pd-other-unit pd-other-r">
+                    <div class="unittitle">
+                        <a title="@item.Title" href="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})">@item.Title</a>
+                    </div>
+                    <div class="unitimg">
+                        <a href="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})" title="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})">
+                            <img src="@item.ImageSmallSize.ValidateImage()" alt="@item.Title">
+                        </a>
+                    </div>
+                    <div class="divtext">
+                        <div>
+                            <label>Địa điểm:</label>
+                            <span>
+                                @item.District.Name - @item.District.Province.Name
+                            </span>
+                        </div>
+                        <div>
+                            <label>Ngày đăng:</label>
+                            @string.Format("{0:dd/MM/yyyy}", item.CreatedDate)
+                        </div>
+                        <div>
+                            <label>Loại tin:</label><a href="@Url.Action("GetContent", "Menu", new { menu = item.MenuLink.SeoUrl, area = "" })">@item.MenuLink.MenuName</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="pd-other-unit ">
+                    <div class="unittitle">
+                        <a title="@item.Title" href="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})">@item.Title</a>
+                    </div>
+                    <div class="unitimg">
+                        <a href="@Url.Action("PostDetail","Post",new {seoUrl =item.SeoUrl, area=""})" title="@item.Title">
+                            <img src="@Url.Content("~/"+item.ImageSmallSize)" alt="@item.Title">
+                        </a>
+                    </div>
+                    <div class="divtext">
+                        <div>
+                            <label>Địa điểm:</label>
+                            <span>
+                                @item.District.Name - @item.District.Province.Name
+                            </span>
+                        </div>
+                        <div>
+                            <label>Ngày đăng:</label>
+                            @string.Format("{0:dd/MM/yyyy}", item.CreatedDate)
+                        </div>
+                        <div>
+                            <label>Loại tin:</label><a href="@Url.Action("GetContent", "Menu", new { menu = item.MenuLink.SeoUrl, area = "" })">@item.MenuLink.MenuName</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            i++;
+        }*@
+
+}
