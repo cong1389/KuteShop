@@ -16,3 +16,7 @@ img.emoji {
     padding: 0 !important;
     margin: 0 !important;
 }
+
+.wpb_animate_when_almost_visible {
+    opacity: 1;
+}

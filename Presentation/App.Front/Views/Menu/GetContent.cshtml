@@ -13,7 +13,7 @@ else
 {
 	if (ViewBag.TemplateType != null && ViewBag.TemplateType == (int)TemplateContent.Product)
 	{
-		@section renderJQuery{
+		@*@section renderJQuery{
 			<script src="~/Scripts/pricerange/bootstrap-slider.js"></script>
 		}
 		@section renderScripts{
@@ -21,7 +21,7 @@ else
 		}
 		@section renderStyles{
 			<link href="~/Content/pricerange/slider.css" rel="stylesheet" />
-		}
+		}*@
 
 		@Html.Action("PostCategories", "Post", new { virtualCategoryId = ViewBag.VirtualId, page = ViewBag.PageNumber, title = ViewBag.Title, attrs = ViewBag.Attrs, proattrs = ViewBag.ProAttrs, prices = ViewBag.Prices, keywords = ViewBag.Keywords, area = "" })
 	}

@@ -33,32 +33,12 @@
 
     @RenderSection("renderStyles", false)
 
-    @{Html.RenderPartial("_Scripts"); }
+    <script type='text/javascript' src='/assets/wp-includes/js/jquery/jqueryb8ff.js?ver=1.12.4'></script>
+    <script type='text/javascript' src='/assets/wp-includes/js/jquery/jquery-migrate.min330a.js?ver=1.4.1'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/revslider/public/assets/js/jquery.themepunch.tools.minc6ac.js?ver=5.1.5'></script>
+    <script type='text/javascript' src='/assets/wp-content/plugins/revslider/public/assets/js/jquery.themepunch.revolution.minc6ac.js?ver=5.1.5'></script>
+    <script type='text/javascript' src='http://maps.google.com/maps/api/js?key=AIzaSyBJZ78Ya3t6d7_WkNGz8OMb5uPCba1XpgU&amp;ver=4.5.9'></script>
 
-    @*<script type="text/javascript">
-		window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/72x72\/", "ext": ".png", "source": { "concatemoji": "http:\/\/themexriver.net\/wp\/constructorone\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.5.9" } };
-		!function (a, b, c) { function d(a) { var c, d, e, f = b.createElement("canvas"), g = f.getContext && f.getContext("2d"), h = String.fromCharCode; if (!g || !g.fillText) return !1; switch (g.textBaseline = "top", g.font = "600 32px Arial", a) { case "flag": return g.fillText(h(55356, 56806, 55356, 56826), 0, 0), f.toDataURL().length > 3e3; case "diversity": return g.fillText(h(55356, 57221), 0, 0), c = g.getImageData(16, 16, 1, 1).data, d = c[0] + "," + c[1] + "," + c[2] + "," + c[3], g.fillText(h(55356, 57221, 55356, 57343), 0, 0), c = g.getImageData(16, 16, 1, 1).data, e = c[0] + "," + c[1] + "," + c[2] + "," + c[3], d !== e; case "simple": return g.fillText(h(55357, 56835), 0, 0), 0 !== g.getImageData(16, 16, 1, 1).data[0]; case "unicode8": return g.fillText(h(55356, 57135), 0, 0), 0 !== g.getImageData(16, 16, 1, 1).data[0] }return !1 } function e(a) { var c = b.createElement("script"); c.src = a, c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var f, g, h, i; for (i = Array("simple", "flag", "unicode8", "diversity"), c.supports = { everything: !0, everythingExceptFlag: !0 }, h = 0; h < i.length; h++)c.supports[i[h]] = d(i[h]), c.supports.everything = c.supports.everything && c.supports[i[h]], "flag" !== i[h] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[i[h]]); c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.everything || (g = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", g, !1), a.addEventListener("load", g, !1)) : (a.attachEvent("onload", g), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), f = c.source || {}, f.concatemoji ? e(f.concatemoji) : f.wpemoji && f.twemoji && (e(f.twemoji), e(f.wpemoji))) }(window, document, window._wpemojiSettings);
-    </script>*@
-    
-   
-  
-   
-
-
-    <style type="text/css">
-       
-    </style>
-    <meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress." />
-    <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://themexriver.net/wp/constructorone//assets/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]-->
-    <!--[if IE  8]><link rel="stylesheet" type="text/css" href="http://themexriver.net/wp/constructorone//assets/wp-content/plugins/js_composer/assets/css/vc-ie8.min.css" media="screen"><![endif]-->
-    <meta name="generator" content="Powered by Slider Revolution 5.1.5 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
-    <noscript>
-        <style type="text/css">
-            .wpb_animate_when_almost_visible {
-                opacity: 1;
-            }
-        </style>
-    </noscript>
 
 </head>
 <body class="home page page-id-14 page-template page-template-tpl-visual_composer page-template-tpl-visual_composer-php wpb-js-composer js-comp-ver-4.11.2.1 vc_responsive">
@@ -75,8 +55,8 @@
     <!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target=".main-header"><span class="icon flaticon-tool-3"></span></div>
 
-   
 
+    @{Html.RenderPartial("_Scripts"); }
 
     <div id="fb-root"></div>
     <script>
@@ -89,8 +69,8 @@
         }(document, 'script', 'facebook-jssdk'));</script>
 
 
-    @RenderSection("renderJQuery", false)
-    @RenderSection("renderScripts", false)
+    @*@RenderSection("renderJQuery", false)
+        @RenderSection("renderScripts", false)*@
     @RenderSection("google", false)
     @RenderSection("facebook", false)
 

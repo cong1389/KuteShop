@@ -1,7 +1,7 @@
 ﻿@{
     Html.RenderAction("SlideShowHome", "SlideShow");
     Html.RenderAction("PostServices", "Post");
-  
+
     Html.RenderAction("PostHome", "Post", new { MenuId = 15, area = "" });
 }
 
@@ -46,7 +46,10 @@
 
 
 
+@{
+    Html.RenderAction("NewsHome", "News", new { area = "" });
 
+}
 
 
 

@@ -272,7 +272,7 @@ namespace App.Front.Controllers
             //Convert to localized
             //var menuLocalize = menuLinks.Select(x => x.ToModel());
 
-            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
+            //var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
 
             var lstPost = new List<Post>();
             foreach (var item in menuLinks)
@@ -359,7 +359,7 @@ namespace App.Front.Controllers
         [PartialCache("Long")]
         public ActionResult PostHome()
         {
-            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.SiderBar }, isDisplayHomePage: true);
+            var menuLinks = _menuLinkService.GetByOptions(new List<int> { (int)Position.HomeProduct }, isDisplayHomePage: true);
 
             if (!menuLinks.IsAny())
             {
@@ -367,12 +367,12 @@ namespace App.Front.Controllers
             }
 
             //Convert to localized
-            menuLinks = menuLinks.Select(x => x.ToModel());
+            //menuLinks = menuLinks.Select(x => x.ToModel());
 
-            var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
+            //var menuParent = menuLinks.Where(x => x.ParentId == null).OrderByDescending(x => x.OrderDisplay);
 
             var lstPost = new List<Post>();
-            foreach (var item in menuParent)
+            foreach (var item in menuLinks)
             {
                 var iePost = _postService.GetByOption(item.CurrentVirtualId, true);
 
@@ -386,8 +386,8 @@ namespace App.Front.Controllers
 
             var categoryPost = new CategoryPostModel
             {
-                NumberMenu = menuParent.Count(),
-                MenuLinks = menuParent,
+                NumberMenu = menuLinks.Count(),
+                MenuLinks = menuLinks,
                 Posts = from x in lstPost orderby x.OrderDisplay descending select x
             };
 

@@ -8,7 +8,7 @@
 
 @if (Model != null)
 {
-	int mnuIndex = 0;
+    int mnuIndex = 0;
 
     <div class="vc_row wpb_row vc_row-fluid">
         <div class="wpb_column vc_column_container vc_col-sm-12">
@@ -33,146 +33,55 @@
                                 <!--Filter-->
                                 <div class="filters text-center">
                                     <ul class="filter-tabs filter-btns clearfix anim-3-all">
-
                                         <li class="active filter" data-role="button" data-filter=".all"><span class="txt">All</span></li>
-                                        <li class="filter" data-role="button" data-filter=".building">
-                                            <span class="txt">Building</span>
-                                        </li>
-                                        <li class="filter" data-role="button" data-filter=".wooding">
-                                            <span class="txt">Wooding</span>
-                                        </li>
-                                        <li class="filter" data-role="button" data-filter=".school">
-                                            <span class="txt">School</span>
-                                        </li>
-                                        <li class="filter" data-role="button" data-filter=".other">
-                                            <span class="txt">Other</span>
-                                        </li>
 
+                                        @foreach (var mnu in Model.MenuLinks)
+                                        {
+                                            <li class="filter" data-role="button" data-filter=".@mnu.Id">
+                                                <span class="txt">@mnu.MenuName</span>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
 
                                 <div class="items-container row clearfix">
 
-
-
-                                    <!--Column-->
-                                    <div class="column all small-block wooding ">
-                                        <!--Default Portfolio Item-->
-                                        <div class="default-work-column">
-                                            <div class="inner-box">
-                                                <figure class="image-box"><img width="350" height="322" src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg" class="img-responsive wp-post-image" alt="1" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg 350w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1-300x276.jpg 300w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1-271x249.jpg 271w" sizes="(max-width: 350px) 100vw, 350px"></figure>
-                                                <a href="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg" class="lightbox-image overlay-link"><span class="icon flaticon-cross"></span></a>
-                                                <div class="caption-layer">
-                                                    <div class="upper">
-                                                        <h3><a href="http://themexriver.net/wp/constructorone/projects/construction/">Construction</a></h3>
-                                                        <div class="category"><a href="http://themexriver.net/wp/constructorone/projects/construction/">Pre Work</a></div>
-                                                    </div>
-                                              
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="column all small-block wooding ">
-                                        <!--Default Portfolio Item-->
-                                        <div class="default-work-column">
-                                            <div class="inner-box">
-                                                <figure class="image-box"><img width="350" height="322" src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg" class="img-responsive wp-post-image" alt="1" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg 350w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1-300x276.jpg 300w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1-271x249.jpg 271w" sizes="(max-width: 350px) 100vw, 350px"></figure>
-                                                <a href="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/1-1.jpg" class="lightbox-image overlay-link"><span class="icon flaticon-cross"></span></a>
-                                                <div class="caption-layer">
-                                                    <div class="upper">
-                                                        <h3><a href="http://themexriver.net/wp/constructorone/projects/construction/">Construction</a></h3>
-                                                        <div class="category"><a href="http://themexriver.net/wp/constructorone/projects/construction/">Pre Work</a></div>
-                                                    </div>
-                                              
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <!--Column-->
-                                    <div class="column all small-block school ">
-                                        <!--Default Portfolio Item-->
-                                        <div class="default-portfolio-item">
-                                            <div class="inner-box">
-                                                <figure class="image-box">
-                                                    <img width="271" height="249" src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/7.jpg" class="attachment-constructone_img_seven size-constructone_img_seven wp-post-image"
-                                                         alt="7" />
-                                                </figure>
-                                                <a href="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/7.jpg" class="lightbox-image overlay-link" title="Image Caption Here">
-                                                    <span class="icon flaticon-cross"></span>
-                                                </a>
-                                                <div class="caption-layer">
-                                                    <div class="upper">
-                                                        <h3><a href="http://themexriver.net/wp/constructorone/projects/roofing-works-4/index.html">Roofing works</a></h3>
-                                                        <div class="category">
-                                                            School
+                                    @foreach (var post in Model.Posts)
+                                    {
+                                        <!--Column-->
+                                        <div class="column all small-block @post.MenuLink.Id">
+                                            <!--Default Portfolio Item-->
+                                            <div class="default-work-column">
+                                                <div class="inner-box">
+                                                    <figure class="image-box">
+                                                        <img width="350" height="322"
+                                                             src="@post.ImageMediumSize.ValidateImage()"
+                                                             class="img-responsive wp-post-image"
+                                                             alt="@post.Title"
+                                                             srcset="@post.ImageMediumSize.ValidateImage() 350w,
+                                                         @post.ImageMediumSize.ValidateImage() 300w,
+                                                         @post.ImageMediumSize.ValidateImage() 271w"
+                                                             sizes="(max-width: 350px) 100vw, 350px">
+                                                    </figure>
+                                                    <a href="@post.ImageMediumSize.ValidateImage()"
+                                                       class="lightbox-image overlay-link">
+                                                        <span class="icon flaticon-cross"></span>
+                                                    </a>
+                                                    <div class="caption-layer">
+                                                        <div class="upper">
+                                                            <h3><a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a></h3>
+                                                            <div class="category">
+                                                                <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                                                    @T("Continus.Lable")
+                                                                </a>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-
-
-                                    <!--Column-->
-                                    <div class="column all small-block other ">
-                                        <!--Default Portfolio Item-->
-                                        <div class="default-portfolio-item">
-                                            <div class="inner-box">
-                                                <figure class="image-box">
-                                                    <img width="271" height="249" src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/8.jpg" class="attachment-constructone_img_seven size-constructone_img_seven wp-post-image"
-                                                         alt="8" />
-                                                </figure>
-                                                <a href="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/8.jpg" class="lightbox-image overlay-link" title="Image Caption Here">
-                                                    <span class="icon flaticon-cross"></span>
-                                                </a>
-                                                <div class="caption-layer">
-                                                    <div class="upper">
-                                                        <h3><a href="http://themexriver.net/wp/constructorone/projects/wood-making-3/index.html">wood making</a></h3>
-                                                        <div class="category">
-                                                            Other
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                    <!--Column-->
-                                    <div class="column all small-block building other school wooding ">
-                                        <!--Default Portfolio Item-->
-                                        <div class="default-portfolio-item">
-                                            <div class="inner-box">
-                                                <figure class="image-box">
-                                                    <img width="271" height="249" src="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/9.jpg" class="attachment-constructone_img_seven size-constructone_img_seven wp-post-image"
-                                                         alt="9" />
-                                                </figure>
-                                                <a href="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/05/9.jpg" class="lightbox-image overlay-link" title="Image Caption Here">
-                                                    <span class="icon flaticon-cross"></span>
-                                                </a>
-                                                <div class="caption-layer">
-                                                    <div class="upper">
-                                                        <h3><a href="http://themexriver.net/wp/constructorone/projects/roofing-works-5/index.html">Roofing works</a></h3>
-                                                        <div class="category">
-                                                            Building, Other, School, Wooding
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                    }
 
                                 </div>
 
@@ -181,7 +90,7 @@
 
                         </div>
                         <div class="text-center padd-top-50">
-                            <a href="index.html" class="more-link">See more works</a>
+                            <a href="index.html" class="more-link">@T("Continus.Lable")</a>
                         </div>
                     </section>
 
@@ -189,160 +98,11 @@
             </div>
         </div>
     </div>
-
-    
-
-	@*foreach (MenuLink menuLink in Model.MenuLinks)
-	{
-		mnuIndex++;
-		var postCurrents = Model.Posts.Where(x => x.VirtualCategoryId.Contains(menuLink.CurrentVirtualId));
-
-		var postRights = postCurrents.Take(3);
-		var postFullBoxs = postCurrents.Skip(3).Take(5);
-		var manufactorers = postCurrents.Select(x => x.Manufacturer).Distinct();
-
-		<div class="category-featured jewelry">
-			<nav class="navbar nav-menu show-brand">
-				<div class="container">
-					<div class="navbar-brand" style="background: @(menuLink.ColorHex)">
-						<a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
-							<img alt="@menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage()" /> @menuLink.MenuName
-						</a>
-					</div>
-					<span class="toggle-menu"></span>
-					<div class="collapse navbar-collapse" style="border-bottom: 2px solid @(menuLink.ColorHex)">
-						@RenderManufacturer(mnuIndex, manufactorers)
-					</div>
-				</div>
-
-				<div id="elevator-@mnuIndex" class="floor-elevator">
-					<a href="#elevator-@(mnuIndex - 1)" class="btn-elevator up fa fa-angle-up @(mnuIndex == 1 ? " disabled" : "" )"></a>
-					<a href="#elevator-@(mnuIndex + 1)" class="btn-elevator down fa fa-angle-down @(mnuIndex == Model.NumberMenu ? " disabled" : "" )"></a>
-				</div>
-			</nav>
-			<div class="product-featured clearfix">
-				<div class="row">
-					<div class="col-sm-2 sub-category-wapper">
-						@Html.Action("MenuNavLeft", "MenuNav", new { virtualId = menuLink.VirtualId, area = "" })
-					</div>
-					<div class="col-sm-10 col-right-tab">
-						<div class="product-featured-tab-content">
-							<div class="tab-container">
-								@{
-									int mfIndex = 0;
-									foreach (var manufacturer in manufactorers)
-									{
-										mfIndex++;
-										<div class="tab-panel @(mfIndex==1?"active":"")" id="tab-@string.Format("{0}_{1}", mnuIndex, mfIndex)">
-											<div class="box-left">
-												@{
-													Html.RenderAction("MenuHomeSlide", "MenuNav", new { virtualId = menuLink.VirtualId, area = "" });
-												}
-											</div>
-											<div class="box-right">
-												<ul class="product-list row">
-													@foreach (var post in postRights.Where(x => x.ManufacturerId == manufacturer.Id))
-													{
-														Html.Raw(post.ManufacturerId);
-														<li class="col-sm-4">@RenderPostBlock(post)</li>
-													}
-												</ul>
-											</div>
-											<div class="box-full clearfix">
-												<ul class="product-list">
-													@foreach (var post in postFullBoxs.Where(x => x.ManufacturerId == manufacturer.Id))
-													{
-														<li>@RenderPostBlock(post)</li>
-													}
-												</ul>
-											</div>
-										</div>
-									}
-								}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	}
-
-	@helper RenderPostBlock(Post post)
-		{
-			<div class="left-block">
-				<a href="@Url.Action("PostDetail", "Post" , new {seoUrl=post.SeoUrl, area="" })">
-					<img class="img-responsive" alt="@post.Title" src="@post.ImageMediumSize.ValidateImage()" />
-				</a>
-				@if (post.Discount.HasValue && !post.OutOfStock)
-				{
-					<span class="price-percent">
-						Sale
-						<br>
-						- @Html.Raw(post.Discount.FormatPersent())
-					</span>
-				}
-			</div>
-			<div class="right-block">
-				<h5 class="product-name">
-					<a href="@Url.Action("PostDetail", "Post" , new {seoUrl=post.SeoUrl, area="" })" title="@post.Title">
-						@post.Title
-					</a>
-				</h5>
-				<div class="content_price">
-					@if (!post.OutOfStock)
-					{
-						<span class="price product-price">
-							@if (post.Price.HasValue && post.Discount.HasValue)
-							{
-								@Html.Raw((post.Price - post.Price * post.Discount / 100).FormatPrice())
-							}
-							else if (post.Price.HasValue && !post.Discount.HasValue)
-							{
-								@Html.Raw(post.Price.FormatPrice())
-							}
-							else
-							{
-								@Html.Raw("LienHeDatHang.Lable")
-							}
-						</span>
-						if (post.Discount.HasValue)
-						{
-							<span class="price old-price">@Html.Raw(post.Price.FormatPrice()) </span>
-						}
-					}
-					else
-					{
-						<h5 class="product-name">
-							<span class="label label-danger">Hết hàng</span>
-						</h5>
-					}
-				</div>
-			</div>
-
-}
-
-	@helper RenderManufacturer(int mnuIndex, IEnumerable<Manufacturer> manufacturers)
-		{
-			if (manufacturers.IsAny())
-			{
-				int mfIndex = 0;
-				<ul class="nav navbar-nav">
-					@foreach (var manufacturer in manufacturers)
-					{
-						mfIndex++;
-
-						<li class="@(mfIndex==1?"active":"")">
-							<a data-toggle="tab" href="#tab-@(string.Format("{0}_{1}", mnuIndex, mfIndex))">@manufacturer.Title</a>
-						</li>
-					}
-				</ul>
-			}
-    }*@
 }
 else
 {
-	<p class="text-danger">
-		Nội dung đang cập nhật
-	</p>
+    <p class="text-danger">
+        Nội dung đang cập nhật
+    </p>
 }
 <!----/PostHome-->

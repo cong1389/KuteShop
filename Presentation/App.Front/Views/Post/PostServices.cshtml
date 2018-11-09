@@ -32,12 +32,12 @@
                                             <div class="inner-most">
                                                 <figure class="image-box">
                                                     <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
-                                                        <img width="370" height="270" src="@menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage()"
-                                                             class="img-responsive wp-post-image"
-                                                             alt=" @menuLink.MenuName"
-                                                             srcset="@menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage() 370w
-                                                             , @menuLink.MenuName" src="@menuLink.ImageSmallSize.ValidateImage() 300w"
-                                                             sizes="(max-width: 370px) 100vw, 370px" />
+                                                        <img width="370" height="270"
+                                                             src="@menuLink.ImageBigSize.ValidateImage()"
+                                                             class="img-responsive wp-post-image" alt="@menuLink.MenuName"
+                                                             srcset="@menuLink.ImageBigSize.ValidateImage() 370w,
+                                                             @menuLink.ImageBigSize.ValidateImage() 300w"
+                                                             sizes="(max-width: 370px) 100vw, 370px">
                                                     </a>
                                                 </figure>
                                                 <div class="lower-part">
@@ -46,63 +46,16 @@
 
                                                     <div class="content">
                                                         <h3> @menuLink.MenuName</h3>
-                                                        <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
-                                                        <div class="more-link"><a href="#" class="read-more">Read more</a></div>
+                                                        <div class="more-link">
+                                                            <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })"
+                                                               class="read-more">Read more</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 }
-
-
-
-                                <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
-                                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                        <div class="inner-most">
-                                            <figure class="image-box">
-                                                <a href="#">
-                                                    <img width="370" height="270" src="wp-content/uploads/2016/04/featured-image-2.jpg"
-                                                         class="img-responsive wp-post-image" alt="featured-image-2" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-2.jpg 370w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-2-300x219.jpg 300w"
-                                                         sizes="(max-width: 370px) 100vw, 370px" />
-                                                </a>
-                                            </figure>
-                                            <div class="lower-part">
-                                                <div class="left-curve"></div>
-                                                <div class="right-curve"></div>
-
-                                                <div class="content">
-                                                    <h3>Best renovation</h3>
-                                                    <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
-                                                    <div class="more-link"><a href="#" class="read-more">Read more</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
-                                    <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                        <div class="inner-most">
-                                            <figure class="image-box">
-                                                <a href="#">
-                                                    <img width="370" height="270" src="wp-content/uploads/2016/04/featured-image-3.jpg"
-                                                         class="img-responsive wp-post-image" alt="featured-image-3" srcset="http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-3.jpg 370w, http://themexriver.net/wp/constructorone/wp-content/uploads/2016/04/featured-image-3-300x219.jpg 300w"
-                                                         sizes="(max-width: 370px) 100vw, 370px" />
-                                                </a>
-                                            </figure>
-                                            <div class="lower-part">
-                                                <div class="left-curve"></div>
-                                                <div class="right-curve"></div>
-
-                                                <div class="content">
-                                                    <h3>Best renovation</h3>
-                                                    <div class="text">Claritas est etiam processus dynamicus, qui sequitur mutationem.</div>
-                                                    <div class="more-link"><a href="#" class="read-more">Read more</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
