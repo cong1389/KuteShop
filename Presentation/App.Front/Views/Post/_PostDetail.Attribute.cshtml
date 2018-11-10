@@ -4,28 +4,15 @@
 
 @if (Model.IsAny())
 {
-    int i = 0;
-
-    <h2>THÔNG TIN CHI TIẾT</h2>
-
-    <table id="chi-tiet" cellspacing="0" class="table table-bordered table-detail table-striped">
-        <colgroup>
-            <col style="width: 25%;">
-            <col>
-        </colgroup>
-        <tbody>
-            @foreach (var controlValueItemResponse in Model)
-            {
-                i++;
-                <tr>
-                    <td rel="sku">@controlValueItemResponse.Name:</td>
-                    <td class="last">
-                        @controlValueItemResponse.ValueName
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <ul>
+        @foreach (var controlValueItemResponse in Model)
+        {
+            <li class="clearfix">
+                <strong>@controlValueItemResponse.Name:</strong>
+                <div class="data"> @controlValueItemResponse.ValueName</div>
+            </li>
+        }
+    </ul>
 }
 
 <!--/_PostDetail.Attribute-->

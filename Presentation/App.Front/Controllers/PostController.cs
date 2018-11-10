@@ -136,7 +136,7 @@ namespace App.Front.Controllers
 
                 ViewBag.PageInfo = pageInfo;
                 ViewBag.CountItem = pageInfo.TotalItems;
-                ViewBag.MenuId = postLocalized.ElementAt(0).MenuId;
+                //ViewBag.MenuId = postLocalized.ElementAt(0).MenuId;
             }
 
             //Get menu category filter
@@ -148,7 +148,7 @@ namespace App.Front.Controllers
                 ViewBag.MenuCategoryFilter = menuCategoryFilter;
 
                 //Lấy bannerId từ post để hiển thị banner trên post
-                ViewBag.BannerId = menuCategoryFilter.FirstOrDefault(x => x.VirtualId == virtualCategoryId).Id;
+                ViewBag.MenuId = menuCategoryFilter.FirstOrDefault(x => x.VirtualId == virtualCategoryId).Id;
 
                 var categories = virtualCategoryId.Split('/');
                 for (var i = 0; i < categories.Length; i++)
@@ -200,9 +200,9 @@ namespace App.Front.Controllers
             {
                 postLocalized = post.ToModel();
 
-                var viewCount = post;
-                viewCount.ViewCount = viewCount.ViewCount + 1;
-                _postService.Update(post);
+                //var viewCount = post;
+                //viewCount.ViewCount = viewCount.ViewCount + 1;
+                //_postService.Update(post);
 
                 var categories = post.VirtualCategoryId.Split('/');
                 var breadCrumbs = new List<BreadCrumb>();

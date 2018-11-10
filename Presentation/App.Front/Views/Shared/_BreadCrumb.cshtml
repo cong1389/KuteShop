@@ -5,18 +5,19 @@
 @{
     List<BreadCrumb> breadCrumbs = Model is List<BreadCrumb> ? Model : ViewBag.BreadCrumb as List<BreadCrumb>;
 
-    <div class="gw-breadcrumb clearfix">
-        <div class="col-md-12 ">
-            <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
-                <li><a href="@Url.Action("Index", "Home", new {area = ""})" target="_self">@T("TrangChu")</a></li>
+    <div class="theme-breadcrumb blog-page-body">
+        <div class="auto-container">
+            <ul class="breadcrumb">
+                <li><a href="#">@T("TrangChu")</a></li>
                 @if (breadCrumbs.IsAny())
                 {
                     foreach (var item in breadCrumbs)
                     {
-                        <li><a class="@(item.Current?"active":"")" href='@item.Url' target="_self">@item.Title</a></li>
+                        <li><a class="@(item.Current?"active":"")" href="@item.Url">@item.Title</a></li>
                     }
                 }
-            </ol>
+               
+            </ul>
         </div>
     </div>
 }

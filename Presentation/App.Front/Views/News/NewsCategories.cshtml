@@ -1,74 +1,134 @@
 ﻿<!--NewsCategories---->
 @using App.Core.Extensions
-@model IEnumerable<App.Domain.News>
+@using App.Framework.Utilities
+@model IEnumerable<App.Domain.News.News>
 @if (Model.IsAny())
 {
-	Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title });
+    Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.BannerId, title = ViewBag.Title });
+    Html.RenderPartial("_BreadCrumb");
 
-    <div class="columns-container">
-        <div class="container" id="columns">
-            @Html.Partial("_BreadCrumb")
+    <div class="vc_row wpb_row vc_row-fluid sidebar-page-container clearfix mrg-top">
+        <div class="container">
+            <div class="wpb_column vc_column_container vc_col-sm-8">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
 
-            <!-- row -->
-            <div class="row">
-                <!-- Left colunm -->
-                <div class="column col-xs-12 col-sm-3" id="left_column">
-                    @{Html.RenderAction("MenuNavNews", "MenuNav", new { virtualId = ViewBag.VirtualId, area = "" });}
 
+                        <!--Content Side-->
+                        <div class="content-side">
+                            <div class="blog-posts-container two-column">
+                                <div class="row clearfix">
+                                    @foreach (var item in Model)
+                                    {
+                                        <!--Default Blog Post-->
+                                        <article class="default-blog-post col-lg-6 col-sm-6 col-xs-12">
+                                            <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+
+                                                <div class="inner-most">
+                                                    <figure class="image-box">
+                                                        <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
+                                                            <img width="369" height="236"
+                                                                 src="@item.ImageMediumSize.ValidateImage()"
+                                                                 class="img-responsive wp-post-image" alt="@item.Title"
+                                                                 srcset="@item.Title 369w,
+                                                             @item.Title 300w"
+                                                                 sizes="(max-width: 369px) 100vw, 369px" />
+                                                        </a>
+                                                    </figure>
+                                                    <div class="lower-part">
+                                                        <div class="left-curve"></div>
+                                                        <div class="right-curve"></div>
+                                                        <div class="date-box"><span class="day"> @item.CreatedDate.ToString("dd/MM/yyyy")></span></div>
+
+                                                        <div class="content">
+                                                            <h3>
+                                                                <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})">
+                                                                    @item.Title
+                                                                </a>
+                                                            </h3>
+
+                                                            <div class="text">
+                                                                @Html.Raw(item.ShortDesc)
+                                                            </div>
+                                                            <div class="more-link">
+                                                                <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})"
+                                                                   class="read-more theme-btn">
+                                                                    @T("Continus.Lable")<span class="icon icon-right fa fa-long-arrow-right"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    }
+
+                                </div>
+
+                                <!-- Styled Pagination -->
+                                @{Html.RenderPartial("_PagedLinks");}
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <!-- ./left colunm -->
-                <!-- Center colunm-->
-                <div class="center_column col-xs-12 col-sm-9" id="center_column">
-                    <h2 class="page-heading">
-                        <span class="page-heading-title2">@ViewBag.Title</span>
-                    </h2>
+            </div>
+            <div class="sidebar wpb_column vc_column_container vc_col-sm-4">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
+                        <div class="wpb_widgetised_column wpb_content_element">
+                            <div class="wpb_wrapper">
+                                @{Html.RenderAction("MenuNavNews", "MenuNav", new { virtualId = ViewBag.VirtualId, area = "" });}
 
-                    <ul class="blog-posts">
-                        @foreach (var item in Model)
-                        {
-                            <li class="post-item">
-                                <article class="entry">
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="entry-thumb image-hover2">
-                                                <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
-                                                    <img src="@item.ImageMediumSize.ValidateImage()" alt="@item.Title">
-                                                </a>
-                                            </div>
+                                <div id="bunch_recent_post_with_image-2" class="widget sidebar-widget widget_bunch_recent_post_with_image">
+                                    <!--News Widget-->
+                                    <div class="sidebar-widget news-widget">
+                                        <div class="sidebar-title">
+                                            <h3>Recent News</h3>
                                         </div>
-                                        <div class="col-sm-7">
-                                            <div class="entry-ci">
-                                                <h3 class="entry-title">
-                                                    <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">
-                                                        @item.Title
-                                                    </a>
-                                                </h3>
-                                                <div class="entry-meta-data">
-                                                   
-                                                    <span class="date"><i class="fa fa-calendar"></i>  @item.CreatedDate.ToString("dd/MM/yyyy")</span>
-                                                </div>
-                                                
-                                                <div class="entry-excerpt">
-                                                    @Html.Raw(item.ShortDesc)                                                </div>
-                                                <div class="entry-more">
-                                                    <a href="@Url.Action("NewsDetail", "News", new {seoUrl = item.SeoUrl, area = ""})" title="@item.Title">@T("XemChiTiet")</a>
-                                                </div>
-                                            </div>
+                                        <div class="widget-inner">
+                                            <!--News Item-->
+                                            <!-- Title -->
+
+                                            @{
+                                                var newSpecials = Model.Where(x => x.SpecialDisplay);
+
+                                                foreach (var news in newSpecials)
+                                                {
+                                                    <div class="news-item">
+                                                        <figure class="post-thumb">
+                                                            <a href="@Url.Action("NewsDetail", "News", new {seoUrl = news.SeoUrl, area = ""})">
+                                                                <img width="67" height="57" src="@news.ImageMediumSize.ValidateImage()"
+                                                                     class="attachment-constructone_img_nine size-constructone_img_nine wp-post-image"
+                                                                     alt=" @news.Title" srcset="@news.ImageMediumSize.ValidateImage() 67w,
+                                                                     @news.ImageMediumSize.ValidateImage() 570w"
+                                                                     sizes="(max-width: 67px) 100vw, 67px" />
+                                                            </a>
+                                                        </figure>
+                                                        <h4>
+                                                            <a href="@Url.Action("NewsDetail", "News", new {seoUrl = news.SeoUrl, area = ""})">
+                                                               @news.Title
+                                                            </a>
+                                                        </h4>
+                                                        <div class="time">@news.CreatedDate.ToString("dd/MM/yyyy")</div>
+                                                    </div>
+                                                }
+                                            }
                                         </div>
                                     </div>
-                                </article>
-                            </li>
-                        }
 
-                       
-                    </ul>
-                    @{Html.RenderPartial("_PagedLinks");}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- ./ Center colunm -->
             </div>
-            <!-- ./row-->
         </div>
     </div>
+
 
 }
 <!--/NewsCategories---->

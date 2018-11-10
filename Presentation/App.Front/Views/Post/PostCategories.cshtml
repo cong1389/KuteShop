@@ -1,37 +1,98 @@
 ﻿<!---PostCategories-->
+@using App.Framework.Utilities
 @model IEnumerable<App.Domain.Posts.Post>
 
-<div id="collection">
-    
-    <div class="columns-container">
-        <div class="container" id="columns">
+@{
+    var menuLinks = ViewBag.MenuCategoryFilter;
 
-            @Html.Partial("_BreadCrumb")
+    Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.MenuId, title = ViewBag.Title });
+    Html.RenderPartial("_BreadCrumb");
+}
 
-            <!-- row -->
-            <div class="row">
-                <div class="column col-xs-12 col-sm-3" id="left_column">
-	                @{Html.RenderAction("SearchSideBar", "SearchBox", new
-	                  {
-		                  area = "",
-		                  productOld = ViewBag.ProductOld,
-		                  productNew = ViewBag.ProductNew,
-		                  attributes = ViewBag.Attributes,
-		                  prices = ViewBag.Prices,
-		                  proAttrs = ViewBag.ProAttributes,
-		                  virtualId = ViewBag.VirtualId
-	                  });}
-                </div>
 
-                <div class="center_column col-xs-12 col-sm-9 product-col" id="center_column">
-                    <div id="view-product-list" class="view-product-list">
-                        @Html.Partial("_PostCategory.Post", Model)
-                    </div>
+<div class="vc_row wpb_row vc_row-fluid">
+        <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner ">
+                <div class="wpb_wrapper">
+
+
+                    <!--Latest Work-->
+                    <section class="gallery-section latest-work ">
+                        <div class="auto-container">
+                            <!--Section Title-->
+                            <div class="sec-title text-center">
+                                <h2><span class="theme_color">@ViewBag.Title</span></h2>
+                            </div>
+                            <!--Sortable Masonry-->
+                            <div class="sortable-masonry mixed-gallery-section clearfix">
+
+                                <!--Filter-->
+                                <div class="filters text-center">
+                                    <ul class="filter-tabs filter-btns clearfix anim-3-all">
+                                        <li class="active filter" data-role="button" data-filter=".all"><span class="txt">All</span></li>
+
+                                        @foreach (var mnu in menuLinks)
+                                        {
+                                            <li class="filter" data-role="button" data-filter=".@mnu.Id">
+                                                <span class="txt">@mnu.MenuName</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                                <div class="items-container row clearfix">
+
+                                    @foreach (var post in Model)
+                                    {
+                                        <!--Column-->
+                                        <div class="column all small-block @post.MenuLink.Id">
+                                            <!--Default Portfolio Item-->
+                                            <div class="default-work-column">
+                                                <div class="inner-box">
+                                                    <figure class="image-box">
+                                                        <img width="350" height="322"
+                                                             src="@post.ImageMediumSize.ValidateImage()"
+                                                             class="img-responsive wp-post-image"
+                                                             alt="@post.Title"
+                                                             srcset="@post.ImageMediumSize.ValidateImage() 350w,
+                                                         @post.ImageMediumSize.ValidateImage() 300w,
+                                                         @post.ImageMediumSize.ValidateImage() 271w"
+                                                             sizes="(max-width: 350px) 100vw, 350px">
+                                                    </figure>
+                                                    <a href="@post.ImageMediumSize.ValidateImage()"
+                                                       class="lightbox-image overlay-link">
+                                                        <span class="icon flaticon-cross"></span>
+                                                    </a>
+                                                    <div class="caption-layer">
+                                                        <div class="upper">
+                                                            <h3><a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">@post.Title</a></h3>
+                                                            <div class="category">
+                                                                <a href="@Url.Action("PostDetail", "Post", new {seoUrl = post.SeoUrl, area = ""})">
+                                                                    @T("Continus.Lable")
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                            <!--Sortable Masonry-->
+
+                        </div>
+                        <div class="text-center padd-top-50">
+                            <a href="index.html" class="more-link">@T("Continus.Lable")</a>
+                        </div>
+                    </section>
+
                 </div>
             </div>
-            <!-- ./row-->
         </div>
     </div>
-</div>
 
 <!---/PostCategories-->

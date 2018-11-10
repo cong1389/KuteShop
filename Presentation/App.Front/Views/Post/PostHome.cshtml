@@ -1,15 +1,9 @@
 ﻿<!----PostHome-->
-@using App.Core.Extensions
-@using App.Domain.Manufacturers
-@using App.Domain.Menus
-@using App.Domain.Posts
 @using App.Framework.Utilities
 @model App.Front.Models.Posts.CategoryPostModel
 
 @if (Model != null)
 {
-    int mnuIndex = 0;
-
     <div class="vc_row wpb_row vc_row-fluid">
         <div class="wpb_column vc_column_container vc_col-sm-12">
             <div class="vc_column-inner ">
@@ -21,11 +15,7 @@
                         <div class="auto-container">
                             <!--Section Title-->
                             <div class="sec-title text-center">
-                                <h2>Latest <span class="theme_color">Works</span></h2>
-                                <div class="text">
-                                    Claritas est etiam processus dynamicus, qui sequitur<br />
-                                    mutationem consuetudium lectorum.
-                                </div>
+                                <h2>Ngành <span class="theme_color">công nghiệp nổi bật của chúng tôi</span></h2>
                             </div>
                             <!--Sortable Masonry-->
                             <div class="sortable-masonry mixed-gallery-section clearfix">

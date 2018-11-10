@@ -4,13 +4,12 @@
 @model IEnumerable<App.Domain.Ads.Banner>
 @if (Model.IsAny())
 {
-    <ul class="gw-banner-top owl-carousel">
-        @foreach (var item in Model)
-        {
-            <li>
-                <img src="@(Url.Content(item.ImgPath.ValidateImage()))" alt="category-slider">
-            </li>
-        }
-    </ul>
+    var item = Model.FirstOrDefault();
+    <section class="page-title" style="background-image: url(@(Url.Content(item.ImgPath.ValidateImage()))) !important;">
+        <div class="auto-container">
+            <h1>@item.Title</h1>
+           
+        </div>
+    </section>
 }
 <!----/BannerTop-->

@@ -1,6 +1,5 @@
 ﻿<!---TopHead-->
 @using App.Framework.Utilities
-@using Microsoft.AspNet.Identity
 @model IEnumerable<App.FakeEntity.Menus.MenuNavViewModel>
 
 <!-- Header Top -->
@@ -11,7 +10,10 @@
 
         <!-- Top Left -->
 
-        <div class="top-left">
+
+
+        <!-- Top Right -->
+        <div class="top-right">
 
             <ul class="clearfix">
                 @if (Model != null)
@@ -19,28 +21,17 @@
                     var i = 0;
                     foreach (var lv1 in Model)
                     {
-                        <a href="@Url.Action("GetContent", "Menu", new { menu = lv1.SeoUrl, area = "" })">
-                            <img alt="@lv1.MenuName" src="@lv1.ImageSmallSize.ValidateImage()" />@lv1.MenuName
-                        </a>
+                        <li id="menu-item-270" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-270">
+                            <a title="@lv1.MenuName" href="@Url.Action("GetContent", "Menu", new { menu = lv1.SeoUrl, area = "" })" 
+                               class="hvr-underline-from-left1" data-scroll="" data-options="easing: easeOutQuart">@lv1.MenuName</a>
+                        </li>
                         i++;
                     }
                 }
 
-                <li><a href="index.html">We have more than 25 years of experiences</a></li>
-
-
             </ul>
 
         </div>
-
-
-
-        <!-- Top Right -->
-
-
-
-
-
     </div>
 
 </div>

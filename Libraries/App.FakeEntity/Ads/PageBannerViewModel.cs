@@ -31,7 +31,7 @@ namespace App.FakeEntity.Ads
 			set;
 		}
 
-		[Display(Name="Position", ResourceType=typeof(FormUI))]
+		[Display(Name="PositionMenu", ResourceType=typeof(FormUI))]
 		public int Position
 		{
 			get;
