@@ -6,7 +6,7 @@
 @{
     Html.RenderAction("BannerTop", "Banner", new { menuId = ViewBag.MenuId, title = ViewBag.Title });
     Html.RenderPartial("_BreadCrumb");
-    var contactInfo = (IEnumerable<ContactInformation>) ViewBag.Contact;
+    var contactInfo = (IEnumerable<ContactInformation>)ViewBag.Contact;
 
     <div class="vc_row wpb_row vc_row-fluid blog-page-body">
         <div class="wpb_column vc_column_container vc_col-sm-12">
@@ -18,8 +18,8 @@
                         <div class="map-container">
                             <!--Map Canvas-->
                             <div class="map-canvas" data-zoom="12" data-lat="10.8678316" data-lng="106.6441058"
-                                 data-type="roadmap" data-hue="#ffc400" data-title="Envato" data-content="Melbourne VIC 3000, Australia<br>
-    <a href='mailto:http://info@youremail.com'>info@youremail.com</a>"
+                                 data-type="roadmap" data-hue="#ffc400" data-title="Envato" data-content="@contactInfo.FirstOrDefault().Title<br>
+    <a href='mailto:@contactInfo.FirstOrDefault().Email'>@contactInfo.FirstOrDefault().Email</a>"
                                  style="height: 100%;">
                             </div>
 
@@ -29,7 +29,7 @@
                             <!--Comment Form-->
                             <div class="contact-form-outer">
                                 <div class="sidebar-title">
-                                    <h3>Send Us a Message</h3>
+                                    <h3>Thông tin liên hệ</h3>
                                 </div>
 
                                 <div class="inner-box">
@@ -85,8 +85,8 @@
                                     <div class="column info-box">
                                         <div class="icon-box"><span class="flaticon-location"></span></div>
                                         <ul>
-                                            <li><span class="small-title">Find us</span></li>
-                                            <li><a href="Address:22b, London"><strong>@contactInfo.FirstOrDefault().Address</strong></a></li>
+                                            <li><span class="small-title">@T("Address.Lable")</span></li>
+                                            <li><a href="Address:@contactInfo.FirstOrDefault().Address"><strong>@contactInfo.FirstOrDefault().Address</strong></a></li>
                                         </ul>
                                     </div>
 
@@ -94,8 +94,8 @@
                                     <div class="column info-box">
                                         <div class="icon-box"><span class="flaticon-technology"></span></div>
                                         <ul>
-                                            <li><span class="small-title">Call us today</span></li>
-                                            <li><a href="Tel:http://+000-2415-145"><strong>+000-2415-145</strong></a></li>
+                                            <li><span class="small-title">@T("DienThoai.Lable")</span></li>
+                                            <li><a href="Tel:Model.MobilePhone"><strong>@contactInfo.FirstOrDefault().MobilePhone</strong></a></li>
                                         </ul>
                                     </div>
 
@@ -103,8 +103,8 @@
                                     <div class="column info-box">
                                         <div class="icon-box"><span class="flaticon-note"></span></div>
                                         <ul>
-                                            <li><span class="small-title">Email us now</span></li>
-                                            <li><a href="mailto:sitename@email.com"><strong>sitename@email.com</strong></a></li>
+                                            <li><span class="small-title">Email</span></li>
+                                            <li><a href="@contactInfo.FirstOrDefault().Email"><strong>@contactInfo.FirstOrDefault().Email</strong></a></li>
                                         </ul>
                                     </div>
                                 </div>

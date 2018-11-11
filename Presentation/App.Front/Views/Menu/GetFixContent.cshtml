@@ -1,5 +1,5 @@
 ﻿<!--GetFixContent-->
-@model App.Domain.StaticContents
+@model App.Domain.StaticContents.StaticContent
 
 @if (Model != null)
 {
@@ -13,7 +13,7 @@
                 @if (Model.MenuLink.ParentId != null)
                 {
                     <div class="row">
-                       <div class="center_column col-xs-12 col-sm-9" id="center_column">
+                       <div class="center_column col-xs-12 col-sm-12" id="center_column">
                             <!-- page heading-->
                             <h2 class="page-heading">
                                 <span class="page-heading-title2">@Model.Title</span>

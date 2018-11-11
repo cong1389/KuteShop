@@ -1,0 +1,45 @@
+﻿<!---_Slogan--->
+@using App.Framework.Utilities
+@model App.Domain.Systems.SystemSetting
+
+@if (Model != null)
+{
+    <div class="vc_row wpb_row vc_row-fluid">
+        <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner ">
+                <div class="wpb_wrapper">
+                    <!--Default Intro Section-->
+                    <section class="default-intro-section" style="background-image:url('wp-content/uploads/2016/04/image-1.jpg');">
+                        <div class="auto-container">
+                            <div class="row clearfix">
+                                <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
+                                    <!--Content Box-->
+                                    <div class="content-box">
+                                        <div class="row clearfix">
+                                            <div class="col-md-7 col-sm-12">
+                                                <h3>@Model.Title</h3>
+                                                <div class="text">
+                                                    @Model.Slogan
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-sm-12 pull-right">
+                                                <div class="text-right padd-top-20">
+                                                    <a href="/lien-he.html" class="theme-btn btn-style-three">
+                                                        Liên hệ chúng tôi<span class="icon icon-right flaticon-arrows-10"></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!---/_Slogan--->

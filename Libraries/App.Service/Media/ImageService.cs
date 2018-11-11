@@ -14,8 +14,8 @@ namespace App.Service.Media
             try
             {
                 var image = Image.FromStream(imageFile.InputStream);
-                var kalikoImage = new KalikoImage(image);
-                var imgCrop = kalikoImage.Scale(new FitScaling(width, height));
+                var originalImage = new KalikoImage(image) { BackgroundColor = Color.White };
+                var imgCrop = originalImage .Scale(new PadScaling(width, height));
 
                 if (!Directory.Exists(HttpContext.Current.Server.MapPath(string.Concat("~/", outPutFilePath))))
                 {
@@ -31,7 +31,7 @@ namespace App.Service.Media
                     imgCrop.SavePng(path);
                 }
 
-                kalikoImage.Dispose();
+                originalImage .Dispose();
             }
             catch (Exception ex)
             {

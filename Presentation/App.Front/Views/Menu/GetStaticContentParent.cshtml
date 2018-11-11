@@ -1,49 +1,97 @@
 ﻿<!--GetStaticContentParent---->
 @using Resources
-@model App.Domain.StaticContents
+@model App.Domain.StaticContents.StaticContent
 @using App.Domain.Menus
 @using App.Framework.Utilities
 
 @if (Model != null)
 {
-    <h2 class="page-heading">
-        <span class="page-heading-title2">@ViewBag.Title</span>
-    </h2>
-    if (Model != null)
+    @*if (Model != null)
     {
-        <article class="entry-detail">
-            <div class="entry-meta-data">
-                @Html.Raw(Model.ShortDesc)
-            </div>
-        </article>
-    }
+        <section class="single-project no-padd-top">
+            <div class="auto-container">
 
+                <!--Default Two Column-->
+                <div class="default-two-column">
+                    <div class="row clearfix">
+
+                        <!--Text Column-->
+                        <div class="text-column col-md-12 col-sm-12 col-xs-12">
+                            
+                            <div class="text">
+                                @Html.Raw(Model.ShortDesc)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    }*@
 
     if (ViewBag.ListItems != null)
     {
-        <ul class="row product-list grid filter">
-            @foreach (var item in (IEnumerable<MenuLink>)ViewBag.ListItems)
-            {
-                <li class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="product-container">
-                        <div class="left-block">
-                            <a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})" title="@item.MenuName">
-                                <img class="img-responsive" alt="@item.MenuName" src="@item.ImageMediumSize.ValidateImage()" />
-                            </a>
-
-                        </div>
-                        <div class="right-block">
-                            <h5 class="product-name">
-                                <a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})">@item.MenuName</a>
-                            </h5>
+        <div class="vc_row wpb_row vc_row-fluid">
+            <div class="wpb_column vc_column_container vc_col-sm-12">
+                <div class="vc_column-inner ">
+                    <div class="wpb_wrapper">
 
 
-                        </div>
+                        <!--Services Section-->
+                        <section class="services-style-one padd-top-50 no-padd-ser ">
+                            <div class="auto-container">
+                                <!--Section Title-->
+
+                                <div class="row clearfix">
+                                    <!--Default Service Column-->
+                                    @foreach (var item in (IEnumerable<MenuLink>)ViewBag.ListItems)
+                                    {
+                                        <div class="default-service-column col-md-4 col-sm-6 col-xs-12">
+                                            <div class="inner-box wow fadeInUp animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInUp;">
+                                                <div class="inner-most">
+                                                    <figure class="image-box">
+                                                        <a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})">
+                                                            <img width="370" height="270" src="@item.ImageMediumSize.ValidateImage()"
+                                                                 class="img-responsive wp-post-image"
+                                                                 alt="@item.MenuName"
+                                                                 srcset="@item.ImageMediumSize.ValidateImage() 370w,
+                                                                 @item.ImageMediumSize.ValidateImage() 300w"
+                                                                 sizes="(max-width: 370px) 100vw, 370px">
+                                                        </a>
+                                                    </figure>
+                                                    <div class="lower-part">
+                                                        <div class="left-curve"></div>
+                                                        <div class="right-curve"></div>
+
+                                                        <div class="content">
+                                                            <h3>@item.MenuName</h3>
+                                                            <div class="more-link"> 
+                                                                <a href="@Url.Action("GetContent", "Menu", new {menu = item.SeoUrl, area = ""})"
+                                                                   class="read-more">@T("Continus.Lable")</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                   
+
+                                </div>
+                            </div>
+                        </section>
+
                     </div>
-                </li>
-            }
-        </ul>
+                </div>
+            </div>
+        </div>
     }
+
+    
 }
 else
 {

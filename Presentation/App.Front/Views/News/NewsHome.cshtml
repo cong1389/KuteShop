@@ -57,7 +57,7 @@
                             </ul>
                         </div>
 
-                        <div class="text-center"><a href="#" class="more-link">See more works</a></div>
+                        <div class="text-center"><a href="@Url.Action("GetContent", "Menu" , new {menu=Model.FirstOrDefault().MenuLink.SeoUrl, area="" })" class="more-link"> @T("Continus.Lable")</a></div>
 
                     </section>
 

@@ -305,6 +305,19 @@ namespace App.Front.Controllers
         }
 
         [PartialCache("Long")]
+        public JsonResult GetSlogan()
+        {
+            var systemSettingLocalize = GetSystemSettingEnableOrDisableBase();
+
+            var jsonResult =
+                Json(new { success = true, list = this.RenderRazorViewToString("_Slogan", systemSettingLocalize) },
+                    JsonRequestBehavior.AllowGet);
+
+            return jsonResult;
+
+        }
+
+        [PartialCache("Long")]
         public JsonResult GetSystemSetting()
         {
             var systemSettingLocalize = GetSystemSettingEnableOrDisableBase();// _systemSettingService.Get(x => x.Status == 1);

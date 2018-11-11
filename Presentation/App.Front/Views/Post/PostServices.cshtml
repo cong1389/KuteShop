@@ -30,10 +30,10 @@
                                                 <figure class="image-box">
                                                     <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })">
                                                         <img width="370" height="270"
-                                                             src="@menuLink.ImageBigSize.ValidateImage()"
+                                                             src="@menuLink.ImageMediumSize.ValidateImage()"
                                                              class="img-responsive wp-post-image" alt="@menuLink.MenuName"
-                                                             srcset="@menuLink.ImageBigSize.ValidateImage() 370w,
-                                                             @menuLink.ImageBigSize.ValidateImage() 300w"
+                                                             srcset="@menuLink.ImageMediumSize.ValidateImage() 370w,
+                                                             @menuLink.ImageMediumSize.ValidateImage() 300w"
                                                              sizes="(max-width: 370px) 100vw, 370px">
                                                     </a>
                                                 </figure>
@@ -45,7 +45,7 @@
                                                         <h3> @menuLink.MenuName</h3>
                                                         <div class="more-link">
                                                             <a href="@Url.Action("GetContent", "Menu" , new {menu=menuLink.SeoUrl, area="" })"
-                                                               class="read-more">Read more</a>
+                                                               class="read-more"> @T("Continus.Lable")</a>
                                                         </div>
                                                     </div>
                                                 </div>

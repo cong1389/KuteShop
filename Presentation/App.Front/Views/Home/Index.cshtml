@@ -3,80 +3,20 @@
     Html.RenderAction("PostServices", "Post");
 
     Html.RenderAction("PostHome", "Post", new { MenuId = 15, area = "" });
-}
 
+    <div id="divSlogan"></div>
 
-
-<div class="vc_row wpb_row vc_row-fluid">
-    <div class="wpb_column vc_column_container vc_col-sm-12">
-        <div class="vc_column-inner ">
-            <div class="wpb_wrapper">
-                <!--Default Intro Section-->
-                <section class="default-intro-section" style="background-image:url('wp-content/uploads/2016/04/image-1.jpg');">
-                    <div class="auto-container">
-                        <div class="row clearfix">
-                            <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                                <!--Content Box-->
-                                <div class="content-box">
-                                    <div class="row clearfix">
-                                        <div class="col-md-7 col-sm-12">
-                                            <h3>Get your free consultant</h3>
-                                            <div class="text">
-                                                We are a company that offers design and build services for you from initial sketches to
-                                                the final construction.
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 col-sm-12 pull-right">
-                                            <div class="text-right padd-top-20"><a href="#" class="theme-btn btn-style-three">Contact Us<span class="icon icon-right flaticon-arrows-10"></span></a></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-@{
     Html.RenderAction("NewsHome", "News", new { area = "" });
-
 }
 
 
+<script>
+    jQuery(function () {
 
+        jQuery.post('@Url.Action("GetSlogan", "Summary")')
+            .done(function (data) {
+                jQuery("#divSlogan").html(data.list);
+            });
+    })
 
-
-
-
-@*<!-- Home slideder-->
-    @{Html.RenderAction("SlideShowHome", "SlideShow"); }
-    <!-- END Home slideder-->
-
-    @{ Html.RenderAction("PostDiscountSlide", "Post", new { area = "" });}
-
-    <div class="content-page">
-        <div class="container">
-            @{
-                Html.RenderAction("PostHome", "Post", new { MenuId = 15, area = "" });
-            }
-        </div>
-    </div>
-
-    <div id="content-wrap">
-        <div class="container">
-            @{
-                Html.RenderAction("BannerProductHome", "Banner", new { area = "" });
-                Html.RenderAction("NewsHome", "News", new { area = "" });
-                Html.RenderAction("Services", "MenuNav", new { virtualId = "310f945c-a560-4eb0-b4d5-4aa1ef36dd18", area = "" });
-            }
-        </div>
-    </div>*@
+</script>
